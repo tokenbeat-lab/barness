@@ -74,17 +74,23 @@
     },
     {
       "name": "text-jev",
-      "exitCode": 1,
       "detail": "evaluation execution source is stale or incomplete",
       "credentialsRead": false,
-      "vendorCalls": 0
+      "vendorCalls": 0,
+      "process": "verify-text-current",
+      "processExitCode": 1,
+      "evidenceStatus": "FAIL",
+      "sharedProcessResult": true
     },
     {
       "name": "text-luna",
-      "exitCode": 1,
       "detail": "evaluation execution source is stale or incomplete",
       "credentialsRead": false,
-      "vendorCalls": 0
+      "vendorCalls": 0,
+      "process": "verify-text-current",
+      "processExitCode": 1,
+      "evidenceStatus": "FAIL",
+      "sharedProcessResult": true
     }
   ],
   "textCheckMethod": "read-only standalone entrypoint invokes unchanged public release.ChineseEffectsEvidence via go entrypoint overlay; production source files unchanged",
@@ -102,5 +108,7 @@
   "nominalFreshHTTPAttempts": 186,
   "proposedMaxAdditionalCalls": 216,
   "proposedMaxAdditionalHTTPAttempts": 252,
-  "newBudgetApproved": false
+  "newBudgetApproved": false,
+  "publicVerifierCommandCount": 10,
+  "currentQualificationResults": 11
 }

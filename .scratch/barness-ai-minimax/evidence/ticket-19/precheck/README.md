@@ -1,6 +1,6 @@
 # 当前源码十一组旧输入复核（无 Key）
 
-2026-10-19，测量来源751ad94；AI代码与6a24ba3相同，未合入后续续期实现。当前正式资格0/11；全部实际数字退出1，0 Key读取、0厂商请求。该结果不声称旧场景重新执行失败，也不改写旧报告历史。
+2026-10-19，测量来源751ad94；AI代码与6a24ba3相同，未合入后续续期实现。当前正式资格0/11；实际执行9个逐组公开verifier命令，加1个同时返回两份文本当前资格结果的公开API探针，共10个验证进程，数字退出均为1；0 Key读取、0厂商请求。该结果不声称旧场景重新执行失败，也不改写旧报告历史。
 
 M3三项调用当前`minimaxverify -formal`；GLM三项调用`supportmatrix -matrix <独立临时矩阵副本>`；视觉两项调用`visualeval -verify ... -require-live`；protocol调用`jevformal -protocol ... -effects ... -out <新诊断输出> -require-live`。退出分别为来源集合变化、GLM执行来源漂移或缺旧Messages live-report、视觉source set drift、protocol formal source set drift。
 
