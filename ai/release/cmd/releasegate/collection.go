@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 	"os"
 	"path/filepath"
 )
@@ -29,8 +30,7 @@ func externalInputs(o options) (release.Inputs, error) {
 	if in.Ledger, err = release.LoadLedger(o.Ledger); err != nil {
 		return in, fmt.Errorf("ledger input unavailable or invalid")
 	}
-	matrix, err := readRegular(o.Matrix, checkpointLimit)
-	if err != nil || json.Unmarshal(matrix, &in.Matrix) != nil {
+	if in.Matrix, err = loadMatrixInput(o.Matrix); err != nil {
 		return in, fmt.Errorf("matrix input unavailable or invalid")
 	}
 	if in.Modules, err = release.GoModules("."); err != nil {
@@ -47,6 +47,27 @@ func externalInputs(o options) (release.Inputs, error) {
 	in.Evidence = append(release.ChineseEffectsEvidence(o.Jev, o.Luna), release.VisualEffectsEvidence(o.VisualJev, o.VisualDecisions)...)
 	return in, nil
 }
+
+// The native matrix consumer owns strict JSON rules and exposes a file API.
+// Give it a private snapshot of safely read bytes so replacing the external
+// path cannot block its open. Keep its parser and source identity unchanged.
+func loadMatrixInput(path string) (supportmatrix.Matrix, error) {
+	raw, err := readRegular(path, checkpointLimit)
+	if err != nil {
+		return supportmatrix.Matrix{}, err
+	}
+	dir, err := os.MkdirTemp("", "releasegate-matrix-*")
+	if err != nil {
+		return supportmatrix.Matrix{}, err
+	}
+	defer os.RemoveAll(dir)
+	snapshot := filepath.Join(dir, "matrix.json")
+	if err := os.WriteFile(snapshot, raw, 0600); err != nil {
+		return supportmatrix.Matrix{}, err
+	}
+	return supportmatrix.LoadMatrix(snapshot)
+}
+
 func loadOrdinary(in *release.Inputs, bundle string) error {
 	b, err := release.LoadBundle(bundle)
 	if err != nil {

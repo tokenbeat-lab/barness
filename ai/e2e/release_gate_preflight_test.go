@@ -22,7 +22,7 @@ func TestReleaseGatePreflightStopsCommands(t *testing.T) {
 	if output, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("build: %v %s", err, output)
 	}
-	for _, mode := range []string{"default", "preflight", "fifo-trace", "fifo-trace-bundle", "missing-trace", "bad-snapshot", "pending-ledger", "collect-all", "conflicting-mode", "race-without-from"} {
+	for _, mode := range []string{"default", "preflight", "fifo-trace", "fifo-trace-bundle", "missing-trace", "duplicate-matrix", "miscased-matrix", "unknown-matrix", "bad-snapshot", "pending-ledger", "collect-all", "conflicting-mode", "race-without-from"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "OD57-release-preflight-"+mode)
 			work := t.TempDir()
@@ -40,6 +40,18 @@ func TestReleaseGatePreflightStopsCommands(t *testing.T) {
 				args = append(args, "-collect-all")
 			case "missing-trace":
 				args = append(args, "-trace", filepath.Join(work, "missing.json"))
+			case "duplicate-matrix", "miscased-matrix", "unknown-matrix":
+				raw, err := os.ReadFile("../live/support-matrix.json")
+				if err != nil {
+					t.Fatal(err)
+				}
+				field := map[string]string{"duplicate-matrix": `"schema": 1,`, "miscased-matrix": `"Schema": 1,`, "unknown-matrix": `"unexpected": 1,`}[mode]
+				raw = []byte(strings.Replace(string(raw), "{", "{"+field, 1))
+				p := filepath.Join(work, "matrix.json")
+				if err := os.WriteFile(p, raw, 0600); err != nil {
+					t.Fatal(err)
+				}
+				args = append(args, "-matrix", p)
 			case "fifo-trace", "fifo-trace-bundle":
 				p := filepath.Join(work, "trace.json")
 				if err := syscall.Mkfifo(p, 0600); err != nil {
@@ -111,6 +123,13 @@ func TestReleaseGatePreflightStopsCommands(t *testing.T) {
 			raw, err := os.ReadFile(filepath.Join(out, "preflight-report.json"))
 			decoded := err == nil && json.Unmarshal(raw, &preflight) == nil
 			ev.Check("preflight rejection remains reviewable", decoded && preflight.Scope == "preflight" && !preflight.Ready && len(preflight.Checks) > 0, "report available=%t", decoded)
+			if strings.HasSuffix(mode, "-matrix") {
+				found := false
+				for _, c := range preflight.Checks {
+					found = found || c.ID == "input-loading" && !c.Pass
+				}
+				ev.Check("matrix retains strict native JSON contract", found, "invalid matrix crossed input boundary")
+			}
 			if mode == "pending-ledger" {
 				found := false
 				for _, c := range preflight.Checks {

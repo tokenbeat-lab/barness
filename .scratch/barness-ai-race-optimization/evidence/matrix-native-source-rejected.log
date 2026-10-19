@@ -1,0 +1,12 @@
+--- FAIL: TestGLMFormalReports (0.19s)
+    --- FAIL: TestGLMFormalReports/chat (0.06s)
+        glm_formal_reports_test.go:52: [GLM12-formal-import-chat] own full current-hash report accepted: supportmatrix: invalid report: GLM consumer/importer source drift
+    --- FAIL: TestGLMFormalReports/responses (0.06s)
+        glm_formal_reports_test.go:52: [GLM12-formal-import-responses] own full current-hash report accepted: supportmatrix: invalid report: GLM consumer/importer source drift
+    --- FAIL: TestGLMFormalReports/messages (0.06s)
+        glm_formal_reports_test.go:52: [GLM12-formal-import-messages] own full current-hash report accepted: supportmatrix: invalid report: GLM consumer/importer source drift
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261019T221204.557163000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	13.988s
+ok  	github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix	0.537s
+FAIL

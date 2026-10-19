@@ -1,0 +1,11 @@
+--- FAIL: TestReleaseGatePreflightStopsCommands (2.51s)
+    --- FAIL: TestReleaseGatePreflightStopsCommands/duplicate-matrix (1.01s)
+        release_gate_preflight_test.go:131: [OD57-release-preflight-duplicate-matrix] matrix retains strict native JSON contract: invalid matrix crossed input boundary
+    --- FAIL: TestReleaseGatePreflightStopsCommands/miscased-matrix (0.39s)
+        release_gate_preflight_test.go:131: [OD57-release-preflight-miscased-matrix] matrix retains strict native JSON contract: invalid matrix crossed input boundary
+    --- FAIL: TestReleaseGatePreflightStopsCommands/unknown-matrix (0.39s)
+        release_gate_preflight_test.go:131: [OD57-release-preflight-unknown-matrix] matrix retains strict native JSON contract: invalid matrix crossed input boundary
+FAIL
+barness-ai evidence bundle: /Users/cyber/RestoX/barness/.evidence/barness-ai/20261019T221149.646687000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	3.773s
+FAIL

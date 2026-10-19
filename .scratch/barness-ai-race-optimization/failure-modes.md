@@ -3,6 +3,7 @@
 依据 plan.md 的 B、D 先行场景。公共 CLI 进程是前置拒绝、参数冲突、只读消费与状态报告的边界；生产工具不提供跳过前置的测试开关。由于正式17身份及四效果不能由合成证明替代，完整顺序、停止、等待人工、续接及事件错误在 CLI 私有执行入口以真实子进程作隔离验证；合成结果只验证编排，不作为发布证明。
 
 - 输入缺失、来源陈旧、mapping/snapshot错误、inventory损坏：长测不启动，报告可读。
+- 支持矩阵重复字段、非规范大小写或未知字段：保持原生严格解析拒绝，不能先进入资格判断；读取仍有界且不跟随符号链接。
 - preflight成功也不执行命令；preflight/collect-all/stage/from/bundle冲突拒绝。
 - vet/live-vet/ordinary失败：默认停止；collect-all只继续check，不触发race。
 - ordinary退出0但bundle缺失、损坏或审计失败：拒绝READY；保留数字退出和原因。
