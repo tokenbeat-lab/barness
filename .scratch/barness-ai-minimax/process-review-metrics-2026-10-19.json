@@ -1,0 +1,145 @@
+{
+  "scope": {
+    "baseCommit": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+    "head": "c8ff7ef935eab109c3b3763348e2477ab3adef3f",
+    "timezone": "Asia/Shanghai",
+    "note": "Elapsed intervals are not exclusive work time; historical command overlap must not be summed.",
+    "start": "2026-10-17T22:02:53.367000+00:00",
+    "closed": "2026-10-19T20:10:02+08:00",
+    "calendarElapsedSeconds": 137228.633,
+    "oldAnalysisEnds": "2026-10-18T06:44:33.215Z"
+  },
+  "gates": [
+    {
+      "directory": ".evidence/minimax-current-eleven-gate-2",
+      "source": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "outerExit": 1,
+      "releasePass": false,
+      "startedAt": "2026-10-19T06:48:39.907696+00:00",
+      "totalSeconds": 3770.7171571250074,
+      "commands": {
+        "ordinary": {
+          "seconds": 647.8028602916747,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T06:48:42.671293+00:00",
+          "finishedAt": "2026-10-19T06:59:30.474711+00:00"
+        },
+        "vet-live": {
+          "seconds": 0.32508054189383984,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T06:48:42.322730+00:00",
+          "finishedAt": "2026-10-19T06:48:42.648100+00:00"
+        },
+        "race": {
+          "seconds": 2932.2393203331158,
+          "exitCode": 1,
+          "startedAt": "2026-10-19T06:59:30.504441+00:00",
+          "finishedAt": "2026-10-19T07:48:22.839770+00:00"
+        },
+        "vet": {
+          "seconds": 0.5229802499525249,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T06:48:41.775967+00:00",
+          "finishedAt": "2026-10-19T06:48:42.299345+00:00"
+        }
+      },
+      "metadataSHA256": {
+        "full-gate-result.json": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1",
+        "full-releasegate-command.json": "d107ed04ed5fc0addef2b0b60a22117b86b4959a354c59dc785f6276c9c543a4"
+      }
+    },
+    {
+      "directory": ".evidence/minimax-current-visual-gate-1",
+      "source": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+      "outerExit": 0,
+      "releasePass": true,
+      "startedAt": "2026-10-19T09:51:12.088315+00:00",
+      "totalSeconds": 3763.3536828751676,
+      "commands": {
+        "vet": {
+          "seconds": 0.4391249157488346,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T09:51:13.924140+00:00",
+          "finishedAt": "2026-10-19T09:51:14.363662+00:00"
+        },
+        "vet-live": {
+          "seconds": 0.3161628330126405,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T09:51:14.386877+00:00",
+          "finishedAt": "2026-10-19T09:51:14.703297+00:00"
+        },
+        "ordinary": {
+          "seconds": 667.8250656249002,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T09:51:14.726749+00:00",
+          "finishedAt": "2026-10-19T10:02:22.559649+00:00"
+        },
+        "race": {
+          "seconds": 2912.514872457832,
+          "exitCode": 0,
+          "startedAt": "2026-10-19T10:02:22.593395+00:00",
+          "finishedAt": "2026-10-19T10:50:54.981501+00:00"
+        }
+      },
+      "metadataSHA256": {
+        "full-gate-result.json": "454b0f928e3d6b2cfbb87019ad3dbbd371326b4655110278c0869a37b72fc211",
+        "full-releasegate-command.json": "f37ecc39aa553f30ce019715fb16c359bd7bb12b44e9c7f67f49ffd179cba175"
+      }
+    }
+  ],
+  "postFinalGateToClosingCommitSeconds": 4566.558002,
+  "finalRaceShareOfGate": 0.7739147361330911,
+  "retainedFinalGateScopes": {
+    "regularFiles": 285274,
+    "payloadBytes": 2743744377
+  },
+  "diffGroups": {
+    "other": {
+      "files": 65,
+      "addedLines": 3787,
+      "deletedLines": 215
+    },
+    "featureEvidence": {
+      "files": 2354,
+      "addedLines": 302385,
+      "deletedLines": 0
+    },
+    "featureTools": {
+      "files": 34,
+      "addedLines": 4640,
+      "deletedLines": 0
+    },
+    "aiProductionRoot": {
+      "files": 51,
+      "addedLines": 2351,
+      "deletedLines": 232
+    },
+    "aiE2EAndLive": {
+      "files": 164,
+      "addedLines": 19071,
+      "deletedLines": 457
+    },
+    "aiTestkit": {
+      "files": 64,
+      "addedLines": 5336,
+      "deletedLines": 136
+    }
+  },
+  "commitCount": 211,
+  "mergeSubjectCount": 40,
+  "reviewVerification": {
+    "command": "BARNESS_AI_EVIDENCE_DIR=/tmp/barness-minimax-process-review-20261019 go test ./ai/e2e -run '^(TestMiniMaxChatText|TestMiniMaxResponsesNativeRoundTrip|TestMiniMaxMessagesNativeReplay)$' -count=1 -timeout=2m",
+    "packageSeconds": 1.492,
+    "cases": {
+      "PASS": 42
+    },
+    "auditFindings": 0,
+    "manifest": "/tmp/barness-minimax-process-review-20261019/20261019T123439.909035000Z/manifest.json",
+    "manifestSHA256": "6799f9640a4e91775757eb28772dc2f526d5f9a8df30389fba863fa91dca001d",
+    "vendorCalls": 0
+  },
+  "finalGateOriginalScopes": {
+    "regularFiles": 285150,
+    "payloadBytes": 2732518298
+  }
+}

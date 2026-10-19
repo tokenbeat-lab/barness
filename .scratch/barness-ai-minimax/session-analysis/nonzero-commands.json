@@ -1,0 +1,421 @@
+{
+  "scope": "本实施主线程命令非零退出。包含rg无匹配、预期拒绝、TDD RED与真实错误；不能等同FAIL用例或新增缺陷。未导出命令文本或私有推理。",
+  "commands": [
+    {
+      "id": "exec-c8a7aab8-14b0-40b2-bc85-4c3cfff1a7f3",
+      "at": "2026-10-17T22:04:32.536Z",
+      "exit": 1,
+      "failure_lines": [
+        "\t\tmsg = glmErrorMessage(res.StatusCode, glmCode)",
+        "\te := newError(code, PhaseRequest, f.redact(msg))",
+        "func (f httpFailures) unread(res *http.Response, e *Error) attemptOutcome {",
+        "func (f httpFailures) upstream(msg string) *Error {",
+        "\t\treturn newError(CodeUpstreamError, PhaseStream, \"GLM stream error\")",
+        "\treturn newError(CodeUpstreamError, PhaseStream, f.redact(msg))",
+        "func bodyReadFailure(err error, lost string) *Error {",
+        "\treturn newError(CodeTransport, PhaseStream, lost)"
+      ]
+    },
+    {
+      "id": "exec-2ef95e54-6d43-4a55-8f03-38196ba00b8f",
+      "at": "2026-10-17T22:06:06.753Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-0a7b4309-34f4-478a-b8e4-e5455b2419c9",
+      "at": "2026-10-17T22:07:29.702Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-945b080a-a247-4817-b9a1-a91ce4f9c756",
+      "at": "2026-10-17T22:10:25.935Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-58a96063-ff88-4825-b354-5e06196ab442",
+      "at": "2026-10-17T22:10:28.585Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-5f5e64ab-c245-478d-8a50-1aeb1ea3a82e",
+      "at": "2026-10-17T22:10:39.923Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-4626c6b6-4908-48d5-b412-2711e1727e65",
+      "at": "2026-10-17T22:26:19.282Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-49c7e37d-fd90-4b29-bc25-2aa7b78a4054",
+      "at": "2026-10-17T22:28:18.368Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-7cc52247-45a7-4880-a634-1a159cc0d8cb",
+      "at": "2026-10-17T22:31:13.530Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-eab21356-bb4f-493c-b312-6bcecd158fda",
+      "at": "2026-10-17T23:02:16.348Z",
+      "exit": 2,
+      "failure_lines": [
+        "ai/internal/testkit/supportmatrix/minimax.go:13:// process. Candidate/controlled/replay processes cannot construct this proof.",
+        "ai/internal/testkit/supportmatrix/minimax.go:34:\t\treturn Report{}, fmt.Errorf(\"MiniMax formal evidence: %w\", e)",
+        "ai/internal/testkit/supportmatrix/minimax.go:70:\t\treturn refuse(\"MiniMax formal report invalid: %v\", e)",
+        "ai/internal/testkit/minimaxlive/source.go:74:\t\t\treturn \"\", fmt.Errorf(\"source root missing\")",
+        "ai/internal/testkit/minimaxlive/source.go:97:\t\treturn nil, fmt.Errorf(\"fixed MiniMax source manifest missing or changed\")",
+        "ai/internal/testkit/minimaxlive/source.go:106:\t\treturn nil, fmt.Errorf(\"unexpected fixed source set\")",
+        "ai/internal/testkit/minimaxlive/source.go:110:\t\t\treturn nil, fmt.Errorf(\"unsafe fixed source path\")"
+      ]
+    },
+    {
+      "id": "exec-26068c0a-3b69-4a5b-8b9a-e9571aca129f",
+      "at": "2026-10-17T23:15:30.815Z",
+      "exit": 128,
+      "failure_lines": [
+        "\t\t\t\t\treturn fmt.Errorf(\"artifact entry count exceeded\")",
+        "\t\t\t\t\treturn fmt.Errorf(\"symlink artifact forbidden\")",
+        "\t\t\t\t\treturn fmt.Errorf(\"artifact file count exceeded\")",
+        "\t\t\t\t\treturn fmt.Errorf(\"unsafe artifact entry\")",
+        "\t\t\t\t\treturn fmt.Errorf(\"artifact aggregate bytes exceeded\")",
+        "// retained but cannot become a successful zero-cost estimate. Synthetic Host",
+        "func miniMaxUnpricedWriteFailure(model Model, attempts []Attempt) *Error {",
+        "\t\t\treturn newError(CodeProtocol, PhaseStream, \"MiniMax automatic cache-write pricing is unverified\")"
+      ]
+    },
+    {
+      "id": "exec-6e98d3eb-39be-42b5-b543-257708cf522d",
+      "at": "2026-10-17T23:15:38.398Z",
+      "exit": 128,
+      "failure_lines": [
+        "\t// downgraded, never refused.",
+        "\t\t// Copied so a resolver that reuses its slice cannot change the"
+      ]
+    },
+    {
+      "id": "exec-20b4f597-99a1-4142-83ee-f281312c2427",
+      "at": "2026-10-17T23:15:41.284Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-c859805b-64e8-45c6-a1c2-0ffc3dfc4904",
+      "at": "2026-10-17T23:27:44.071Z",
+      "exit": 128,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-e0816deb-7fb0-4e57-8d7b-8bce102e19c0",
+      "at": "2026-10-17T23:55:24.209Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-41311415-0ee5-4882-9d8b-cac6cec9ec41",
+      "at": "2026-10-17T23:55:33.433Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-af0e6f1f-64fc-4574-a4fa-98abba2246cc",
+      "at": "2026-10-18T00:11:00.202Z",
+      "exit": 2,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-bac31b7c-fb1c-4299-b4da-8b2b3b7366d3",
+      "at": "2026-10-18T00:35:01.730Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-2c017e01-4423-4593-bd67-3f02f97bd70b",
+      "at": "2026-10-18T00:46:25.125Z",
+      "exit": 2,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-90e93625-11de-48f9-9670-24a705b98119",
+      "at": "2026-10-18T00:55:32.494Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-636e6ae1-769e-4205-891f-a4db0780d072",
+      "at": "2026-10-18T01:00:55.430Z",
+      "exit": 1,
+      "failure_lines": [
+        "75. As a maintainer, I want source and catalog applicability checked, so that stale captures cannot certify changed execution code.",
+        "76. As a maintainer, I want additive release requirements, so that MiniMax cannot weaken existing providers' release gates.",
+        "80. As a maintainer, I want all six formal or candidate identities accounted for at delivery, so that missing access cannot be hidden by narrowing the report.",
+        "沿用稳定 Error Code/Phase、HTTPStatus、RawStopReason 和可验证的 ProviderRequestID。分别解释各兼容协议的 HTTP/body/SSE error，不按 MiniMax 自有 base_resp 反推三种错误格式。已知参数错误、鉴权/权限、余额/套餐耗尽/权益不足不可恢复；可重试限流/过载仅按 Binding 显式有界策略在流开始前重试。未知错误保留已有通用分类，不仅凭消息含词猜业务码。",
+        "候选阶段含所有 SDK/HTTP 探索，当前六个国际站身份与此前中国区历史消费共同受最多 120 个 Logical Call/144 个 Attempt 限制；中国区已消费的2次调用/2次Attempt保留，地区切换不刷新阶段余额；正式阶段首期三个 M3 身份合计最多 60 个 Logical Call/72 个 Attempt。M3.1 线上候选依合法配置执行，缺资格可 NOT_RUN，但其三协议离线约束仍为必交，不影响 M3 正式门槛。不得循环启动新进程绕开同阶段上限。场景重跑至多一次且占同一预算，预算不足为 FAIL。固定 inventory 或预算需变更时先更新规范和证据计划，不运行中放宽。candidate/controlled/capture replay 不发布正式 PASS；正式报告绑定实际 SDK、执行源码完整集合/依赖、目录/价格 Hash、型号、endpoint、区域与账户用途别名及捕获来源。执行源码或目录改变令不适用证据过期，允许的文档变更不得篡改已测身份。",
+        "PASS/FAIL/NOT_RUN/UNSUPPORTED 含义保持；缺 Key/权益不是平台不支持，真实故障不是跳过。文本、工具往返、思考开启与合法续接、隔离、终态和资源约束均为必交，不能 UNSUPPORTED 放行。新增三组合与六型号追溯是增量合同；全部既有十三组合、十四自身支持身份、分类/图像/业务效果、差分、压力、普通/race、两种 vet、脱敏与回滚要求继续有效。不得删除旧映射、降低预算负载或减少能力选择器以通过。",
+        "用户已于 2026-10-18 确认采用现有公共 Client E2E。经 Stream、Complete、StreamSimple、CompleteSimple 和 WithHooks 观察最终请求、流事件、Result、Error、Attempt/Usage、Call Attribution 与释放结果。目录/配置校验沿现有公共入口；离线受控 TLS Provider 与真实服务均从同一个 Client 发起，不为 MiniMax 再建低层业务接口。",
+        "自动缓存可用重复合成前缀进行有界对照；未命中不伪造命中，报告原始count/presence。厂商不保证缓存命中，额外“命中能力”仅凭自身证据声明；必交的是正确读已返回用量和合法继续调用。服务真实永久拒绝保留 error 捕获，临时网络故障保留 FAIL；回放这些捕获只能证明解析，不产生新 live。"
+      ]
+    },
+    {
+      "id": "exec-84728eae-1c7f-4583-b31e-f1f1a46c25e9",
+      "at": "2026-10-18T01:01:04.704Z",
+      "exit": 1,
+      "failure_lines": [
+        "- 三协议真实推理续接形状与正式支持，按 R25–R27、票10独立验收。用户已确认 MINIMAX_KEY 中国区标准按量；实际M3 Chat研究的两次调用、两次Attempt均返回HTTP401认证失败，研究为FAIL/incomplete，依赖工具续接为NOT_RUN。其余M3实际验收等待该已授权凭据修复，不能用受控或重放报告替代。M3.1未获M Plan资格，三个线上候选保持NOT_RUN。",
+        "- 官方价格、汇率与schema已复核；正式价格目录与证据仍待票10生成。MiniMax自身完整普通/race离线验证（含压力/pi/完整回滚）已通过；46个本地可修复旧case已定向重验通过。原完整ordinary记录为12304 PASS/52 FAIL且进程中断，六个GLM当前来源适用性检查仍需实际续期。旧十四身份和四业务效果更新、完整发布门禁与最终交付判定尚未完成，不能以局部通过推断整体PASS。"
+      ]
+    },
+    {
+      "id": "exec-ac0c016e-b959-48aa-b28a-15c6dcf132c6",
+      "at": "2026-10-18T01:01:20.504Z",
+      "exit": 1,
+      "failure_lines": [
+        "失败方式先行，公开Client和辅助可信证据边界E2E red→green；校验篡改/多报/漏Attempt/预算/旧源码/旧目录，逐包脱敏。真实厂商问题保留FAIL，不以UNSUPPORTED豁免必交。完成后在Answer记录提交、命令、三份M3正式来源与M3.1状态，09汇合最终全套审查和交付。",
+        "1205300固定Go/工具源码加已审查的三行矩阵规范省略数据：MiniMax普通/race各1307/1307 PASS，历史证据修复家族普通/race各46/46 PASS，均exit0/audit0；完整四包、命令、来源与全文件校验均已归档。原整套9481a6a仍为12304 PASS/52 FAIL/exit-15，后续独立audit0不改变原结果；完整110349400字节原包保留于主仓库.evidence/minimax-retained，有限索引和全文件校验表在证据目录。349项fixture原始输入与脱敏artifact差异已独立解释，98236个artifact引用均一致，无篡改。",
+        "当前为[PARTIAL交付](../delivery-status.md)。完整MiniMax自身离线普通/race验证与部分旧case定向重验可独立通过，但不替代三M3自身正式报告、旧十四身份/四效果续期、完整发布门禁与最终整体验收。不得关闭本票或将原ordinary的52个FAIL和中断退出重写为PASS。"
+      ]
+    },
+    {
+      "id": "exec-0e24f838-00ec-4267-8711-8728f2184129",
+      "at": "2026-10-18T01:01:26.356Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-c98057c8-2bcd-40cd-a1fa-f9e09d9278c6",
+      "at": "2026-10-18T01:17:47.801Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-56b03bd3-ada5-4d63-aaea-a29b4687613b",
+      "at": "2026-10-18T01:34:09.496Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-e941f410-d8e6-4ca4-a919-1141f11445ec",
+      "at": "2026-10-18T01:49:42.467Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-dad66c93-0182-4734-9226-c5569c3b46af",
+      "at": "2026-10-18T01:51:22.398Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-a6070bad-8216-4777-92d9-bdbb4ae5979b",
+      "at": "2026-10-18T01:52:07.707Z",
+      "exit": 1,
+      "failure_lines": [
+        "func validateMiniMaxChatOptions(m Model, options Options) *Error {",
+        "\t\treturn newError(CodeInvalidRequest, PhaseCapability, \"MiniMax Chat supports only the default or auto tool choice\")",
+        "\t\treturn newError(CodeInvalidRequest, PhaseCapability, \"reasoning effort is not supported by this model\")",
+        "func validateMiniMaxChatFinalBody(m Model, raw []byte, authorize func(map[string]any) string) *Error {",
+        "\t\treturn newError(CodeInvalidRequest, PhaseRequest, \"request could not be encoded\")",
+        "\t\treturn newError(CodeTenantDenied, PhaseRequest, problem)",
+        "\t\t\treturn newError(CodeInvalidRequest, PhaseRequest, problem)",
+        "// A turn cannot alternate between independently integrated representations:"
+      ]
+    },
+    {
+      "id": "exec-8734883f-b52a-4a5c-8cb8-e4ada00373ba",
+      "at": "2026-10-18T02:11:01.896Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-c22d0bf7-bbfc-480e-b36f-8b3cf64a74e3",
+      "at": "2026-10-18T02:11:48.496Z",
+      "exit": 1,
+      "failure_lines": [
+        "\t\tglmConfigError = \"fixed candidate snapshot unavailable or changed\"",
+        "\t\tglmConfigError = \"fixed scenario plan unavailable or changed\"",
+        "\t\tglmConfigError = \"fixed six-candidate/22-call identity set required\"",
+        "\t\t\tglmConfigError = err.Error()",
+        "func glmFail(t interface{ Errorf(string, ...any) }, why string) {",
+        "\tglmReportState.Outcome = \"FAIL\"",
+        "\tt.Errorf(\"GLM candidate: %s\", why)",
+        "\t\treturn fmt.Errorf(\"fixed cumulative reservation exhausted\")"
+      ]
+    },
+    {
+      "id": "exec-801d3152-1268-48fb-aed2-e9fdc330b949",
+      "at": "2026-10-18T02:12:51.568Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-ce319229-eaeb-4f10-a9c1-ebddc296f56b",
+      "at": "2026-10-18T02:13:16.541Z",
+      "exit": 1,
+      "failure_lines": [
+        "- `.scratch/barness-ai-minimax/tools/paid.py:56–66` requires both vets and the **complete** credential-free `go test -tags live -count=1 -timeout=20m ./ai/live` PASS. `paid_core.py:101–110` refuses every paid route without that check.",
+        "Give this source correction to the sole implementer before paid candidate freeze, with failure-first isolated executable/public-process evidence: unrelated catalog activation changes current hash; authenticated old capture still replays exactly with original catalog metadata and zero HTTP; current importer rejects that old actual report; missing/tampered catalog, wrong source/hash/version and existing replay tamper cases refuse. This is a correction to historical replay semantics, not a new paid-check exemption. No sanctioned existing wrapper option presently resolves the circle.",
+        "   The receipt is exclusive and outside all three own session directories. Activation changes only `ai/catalog_minimax.json`, requires its exact inactive hash and three independently verified actual candidates, and cannot be rerun over an active target.",
+        "   Before final collection ends, `renewal.py m31-not-run <L>` may record three current zero-key/zero-call/zero-attempt missing-entitlement outcomes. It creates no paid intent or stage reservation. M3.1 remains absent from formal catalog/matrix.",
+        "Existing `paid.py keyless-plan` cannot assemble this schedule: `paid_plan.live_inputs(out)` assumes GLM and M3 formal evidence are both under the same collection as legacy/effects, and its `guard(out)` rejects a stale earlier source. This is a planner limitation, not a public gate limitation. Do not rerun paid producers, relabel captures, or copy/rewrite manifests to satisfy it. Direct public commands accept independent paths. Build exactly this ordered list:",
+        "Execute keyless `go run ./ai/live/cmd/supportmatrix <all17-directories>` **once** after every independent validator passes. The CLI stages all input validation and writes atomically; remerging identical timestamps correctly refuses. Matrix mutation is excluded from paid source manifests, but committing it changes HEAD: finish any L paid/NOT_RUN jobs before that commit, or defer the commit until after gate.",
+        "Local public origin validation prefers a present canonical receipt and requires the captured stage ledger to be an exact canonical prefix. A broken existing receipt cannot fall back to origins.json. In a portable checkout **without** those canonical receipts, only the curated repository index supplies authority; a bundle-supplied receipt/index never does. Verify portability in a separate checkout/common Git root, not a worktree sharing canonical receipts. Research failures and historical CN captures are retained accounting/provenance, never current actual PASS."
+      ]
+    },
+    {
+      "id": "exec-165de189-5d7c-497e-b392-4493984eea92",
+      "at": "2026-10-18T02:13:34.260Z",
+      "exit": 1,
+      "failure_lines": [
+        "- 11完成后按新已提交来源prepare、无Key检查和精确审查，再执行国际站研究。旧十四身份与四效果须在最终目录/源码下实际续期；完整ordinary/race与最终双轴审查仍必交。历史12304 PASS/52 FAIL/exit-15与已通过CN局部验证保持原状态，不能转作国际站完整门禁。"
+      ]
+    },
+    {
+      "id": "exec-b1027c5c-630e-4c5e-a884-7ab4dd59a1ee",
+      "at": "2026-10-18T02:15:00.567Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-62b1e93d-8ce1-4cdd-bb79-391321f29c5a",
+      "at": "2026-10-18T02:56:56.199Z",
+      "exit": 1,
+      "failure_lines": [
+        "            raise RuntimeError('canonical reviewed source/binary/plan pins missing')",
+        "        if u.file_bytes(receipt_path,2<<20)!=raw:raise RuntimeError('canonical receipt changed during public verification')",
+        "        if key in index['entries'] and index['entries'][key]!=entry:raise RuntimeError('trusted origin collision')",
+        "    if len((json.dumps(index,ensure_ascii=False,indent=2)+'\\n').encode())>1<<20:raise RuntimeError('trusted origin index exceeds verifier import budget')",
+        "        if base.exists():raise RuntimeError('fresh NOT_RUN output required')",
+        "            raise RuntimeError('M3.1 keyless process must preserve own exact global zero-consumption NOT_RUN')",
+        "    if before!=after:raise RuntimeError('NOT_RUN modified canonical paid stage ledger')",
+        "    except Exception as error:"
+      ]
+    },
+    {
+      "id": "exec-b608953c-1f80-4329-b79a-60efde44f154",
+      "at": "2026-10-18T03:08:48.188Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-0537fcbc-e058-4ad8-b946-7e65bc63194d",
+      "at": "2026-10-18T03:12:50.998Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-d1a185a9-de1c-4818-9e3f-4cb88c3623b1",
+      "at": "2026-10-18T03:53:53.968Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-e18d901f-a979-4351-8e4e-f642d644d3bf",
+      "at": "2026-10-18T04:10:54.537Z",
+      "exit": 1,
+      "failure_lines": [
+        "Traceback (most recent call last):",
+        "RuntimeError: missing finalized curator output index.json"
+      ]
+    },
+    {
+      "id": "exec-d96dd75e-fd88-49fc-a314-a7643a1aef1a",
+      "at": "2026-10-18T04:23:38.468Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-baa1b027-5db3-454e-a1c9-74a7cdae9bcc",
+      "at": "2026-10-18T04:34:01.079Z",
+      "exit": 1,
+      "failure_lines": [
+        "    except (OSError,RuntimeError,ValueError,KeyError,TypeError):",
+        "        raise RuntimeError('actual origin requires successful reviewed own live report and seal')",
+        "        raise RuntimeError('GLM exact capture pins require successful reviewed own fixed live child')",
+        "        raise RuntimeError('selected route output already exists; stale evidence cannot be reused')",
+        "                raise RuntimeError('prior stage outcome unknown or research order invalid; full cap consumed')",
+        "        if verified!=0:raise RuntimeError('actual origin verification/publication failed; preserve all evidence')",
+        "    if code!=0:raise RuntimeError('selected process failed; inspect redacted command receipt')",
+        "    if actual['state']=='UNKNOWN':raise RuntimeError('selected process produced no usable current report')"
+      ]
+    },
+    {
+      "id": "exec-c00ee483-1013-4b90-93d4-675363c5f23c",
+      "at": "2026-10-18T04:40:18.871Z",
+      "exit": 1,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-c42463a7-fa2a-4f8d-b481-d20dc0be0211",
+      "at": "2026-10-18T05:07:59.648Z",
+      "exit": 1,
+      "failure_lines": [
+        "Traceback (most recent call last):",
+        "KeyError: slice(None, 2, None)"
+      ]
+    },
+    {
+      "id": "exec-77e53188-8a7b-4325-850d-1119f4c2335f",
+      "at": "2026-10-18T05:43:47.391Z",
+      "exit": 1,
+      "failure_lines": [
+        "outcomes [('openai-responses', 'FAIL'), ('openai-chat', 'FAIL'), ('anthropic-messages', 'FAIL'), ('google-gemini', 'FAIL'), ('deepseek-responses', 'PASS'), ('deepseek-chat', 'PASS'), ('openai-images', 'FAIL'), ('google-interactions-image', 'FAIL'), ('openai-decisions', 'FAIL'), ('typesafe-classifier', 'FAIL'), ('protocol114', 'FAIL'), ('text-jev', 'FAIL'), ('text-luna', 'FAIL'), ('visual-jev', 'FAIL'), ('visual-decisions', 'FAIL')]",
+        "  \"releaseReportReadError\": \"FileNotFoundError\",",
+        "  \"note\": \"Authentic Q Responses FAIL and stale historical GLM selectors remain visible; no renewal or waiver.\""
+      ]
+    },
+    {
+      "id": "exec-c72776b3-982a-4cd2-808b-85275b115d15",
+      "at": "2026-10-18T06:02:17.133Z",
+      "exit": 1,
+      "failure_lines": [
+        "沿用稳定 Error Code/Phase、HTTPStatus、RawStopReason 和可验证的 ProviderRequestID。分别解释各兼容协议的 HTTP/body/SSE error，不按 MiniMax 自有 base_resp 反推三种错误格式。已知参数错误、鉴权/权限、余额/套餐耗尽/权益不足不可恢复；可重试限流/过载仅按 Binding 显式有界策略在流开始前重试。未知错误保留已有通用分类，不仅凭消息含词猜业务码。",
+        "候选阶段含所有 SDK/HTTP 探索，当前六个国际站身份与此前中国区历史消费共同受最多 120 个 Logical Call/144 个 Attempt 限制；中国区已消费的2次调用/2次Attempt保留，地区切换不刷新阶段余额或route/model/purpose预算槽；该Chat/M3/standard槽仍受20/24限制，历史计数与当前精确Provider/endpoint证明身份分别校验；正式阶段首期三个 M3 身份合计最多 60 个 Logical Call/72 个 Attempt。M3.1 线上候选依合法配置执行，缺资格可 NOT_RUN，但其三协议离线约束仍为必交，不影响 M3 正式门槛。不得循环启动新进程绕开同阶段上限。场景重跑至多一次且占同一预算，预算不足为 FAIL。固定 inventory 或预算需变更时先更新规范和证据计划，不运行中放宽。candidate/controlled/capture replay 不发布正式 PASS；正式报告绑定实际 SDK、执行源码完整集合/依赖、目录/价格 Hash、型号、endpoint、区域与账户用途别名及捕获来源。执行源码或目录改变令不适用证据过期，允许的文档变更不得篡改已测身份。",
+        "PASS/FAIL/NOT_RUN/UNSUPPORTED 含义保持；缺 Key/权益不是平台不支持，真实故障不是跳过。文本、工具往返、思考开启与合法续接、隔离、终态和资源约束均为必交，不能 UNSUPPORTED 放行。新增三组合与六型号追溯是增量合同；全部既有十三组合、十四自身支持身份、分类/图像/业务效果、差分、压力、普通/race、两种 vet、脱敏与回滚要求继续有效。不得删除旧映射、降低预算负载或减少能力选择器以通过。",
+        "用户已于 2026-10-18 确认采用现有公共 Client E2E。经 Stream、Complete、StreamSimple、CompleteSimple 和 WithHooks 观察最终请求、流事件、Result、Error、Attempt/Usage、Call Attribution 与释放结果。目录/配置校验沿现有公共入口；离线受控 TLS Provider 与真实服务均从同一个 Client 发起，不为 MiniMax 再建低层业务接口。",
+        "自动缓存可用重复合成前缀进行有界对照；未命中不伪造命中，报告原始count/presence。厂商不保证缓存命中，额外“命中能力”仅凭自身证据声明；必交的是正确读已返回用量和合法继续调用。服务真实永久拒绝保留 error 捕获，临时网络故障保留 FAIL；回放这些捕获只能证明解析，不产生新 live。",
+        "- 11完成后按新已提交来源prepare、无Key检查和精确审查，再执行国际站研究。旧十四身份与四效果须在最终目录/源码下实际续期；完整ordinary/race与最终双轴审查仍必交。历史12304 PASS/52 FAIL/exit-15与已通过CN局部验证保持原状态，不能转作国际站完整门禁。",
+        "- 8900034国际站M3三份自身正式报告均PASS（39calls/36实际Attempts），完整候选49/45及历史消费、原始失败均封存。GLM初轮Chat/Messages PASS、Responses FAIL，66/66如实保留；[正式证据](evidence/ticket-10/international-formal-glm/README.md)。票10/09未关闭，随后用户批准唯一72/96补正，实际结果见票12。",
+        "- [12 GLM捕获修正与唯一补正轮次](issues/12-glm-corrective-1.md)：离线实现、普通/race、双vet、两轴审查及M3源保持均完成；[证据](evidence/ticket-12/README.md)。额外72/96已明确批准且唯一R1完成66/66；连原66/66共132/132。Chat/Messages各22/22 PASS，Responses21 PASS/1 FAIL，完整上游SSE缺正文。当前raw/views续期拒绝，旧四selector不变；无R2。见[实际证据](evidence/ticket-12/actual-corrective-1/README.md)。10/09仍开放，其余15项原授权验证和完整门禁继续。"
+      ]
+    },
+    {
+      "id": "exec-e82167b9-50e7-4b12-a9b3-5265dcbe215a",
+      "at": "2026-10-18T06:14:38.405Z",
+      "exit": 2,
+      "failure_lines": []
+    },
+    {
+      "id": "exec-5fe33176-ee87-48e8-af3a-95a5f4504d37",
+      "at": "2026-10-18T06:15:55.878Z",
+      "exit": 2,
+      "failure_lines": [
+        "\t\treturn nil, nil, fmt.Errorf(\"release: evidence bundle unavailable\")",
+        "\t\treturn nil, nil, fmt.Errorf(\"release: evidence bundle unavailable\")",
+        "\t\treturn nil, nil, fmt.Errorf(\"release: evidence bundle changed\")",
+        "\t\treturn fmt.Errorf(\"release: manifest missing or invalid\")",
+        "\t\treturn nil, fmt.Errorf(\"release: evidence bundle identity changed\")",
+        "\t\treturn nil, fmt.Errorf(\"release: artifact is not verified\")",
+        "\t\treturn fmt.Errorf(\"%s: required authenticated JSON missing or invalid\", name)",
+        "// cannot satisfy a parent's root-level capture, result or differential proof."
+      ]
+    },
+    {
+      "id": "exec-0b33c29a-c8d6-4117-8318-c0d26d532ba0",
+      "at": "2026-10-18T06:42:33.151Z",
+      "exit": 1,
+      "failure_lines": [
+        "Traceback (most recent call last):",
+        "AssertionError: ('.scratch/barness-ai-minimax/issues/06-pi-differential.md', '../../../../ai/e2e/testdata/minimax-pidiff/README.md')"
+      ]
+    }
+  ]
+}

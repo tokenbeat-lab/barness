@@ -1,0 +1,876 @@
+{
+  "archives": [
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/green-accepted.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/green-candidate.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/green-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 12,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/green-metadata.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/green-sampling.tar.gz",
+      "manifests": 1,
+      "fail_cases": 12,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/red-metadata.tar.gz",
+      "manifests": 1,
+      "fail_cases": 4,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-01/red-sampling.tar.gz",
+      "manifests": 1,
+      "fail_cases": 20,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/green-committed.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/observer-assembly-failure.tar.gz",
+      "manifests": 1,
+      "fail_cases": 8,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/observer-attribution-failure.tar.gz",
+      "manifests": 1,
+      "fail_cases": 8,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/race-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-containers.tar.gz",
+      "manifests": 1,
+      "fail_cases": 6,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-guard.tar.gz",
+      "manifests": 1,
+      "fail_cases": 240,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-history.tar.gz",
+      "manifests": 1,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-options.tar.gz",
+      "manifests": 1,
+      "fail_cases": 18,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-reasoning.tar.gz",
+      "manifests": 1,
+      "fail_cases": 5,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-sampling.tar.gz",
+      "manifests": 1,
+      "fail_cases": 4,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-stream.tar.gz",
+      "manifests": 1,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-text.tar.gz",
+      "manifests": 1,
+      "fail_cases": 8,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-tool-identity.tar.gz",
+      "manifests": 1,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/red-usage.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-02/regression.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-03/historical-controlled-captures.tar.gz",
+      "manifests": 33,
+      "fail_cases": 47,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/green-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/race-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-01.tar.gz",
+      "manifests": 1,
+      "fail_cases": 12,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-02.tar.gz",
+      "manifests": 1,
+      "fail_cases": 10,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-03.tar.gz",
+      "manifests": 1,
+      "fail_cases": 21,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-04.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-05.tar.gz",
+      "manifests": 1,
+      "fail_cases": 12,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-06.tar.gz",
+      "manifests": 1,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-07.tar.gz",
+      "manifests": 1,
+      "fail_cases": 6,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-08.tar.gz",
+      "manifests": 1,
+      "fail_cases": 7,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-09.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-10.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-11.tar.gz",
+      "manifests": 1,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-12.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/red-13.tar.gz",
+      "manifests": 1,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-04/regression.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/green-committed.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/preflight-expectation-failure.tar.gz",
+      "manifests": 1,
+      "fail_cases": 3,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/race.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/red-errors.tar.gz",
+      "manifests": 1,
+      "fail_cases": 15,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/red-panic.tar.gz",
+      "manifests": 1,
+      "fail_cases": 9,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/red-permanent.tar.gz",
+      "manifests": 1,
+      "fail_cases": 5,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/red-status.tar.gz",
+      "manifests": 1,
+      "fail_cases": 9,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/red-stream-type.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/red-thinking.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/regression-metadata.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-05/resource-assembly-failure.tar.gz",
+      "manifests": 1,
+      "fail_cases": 12,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/final-focused.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/green-accepted.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/green-catalog.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/green-complete.tar.gz",
+      "manifests": 1,
+      "fail_cases": 6,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/green-inference.tar.gz",
+      "manifests": 1,
+      "fail_cases": 6,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/race.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/red-catalog.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/red-extensions.tar.gz",
+      "manifests": 1,
+      "fail_cases": 16,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/red-inference-complete.tar.gz",
+      "manifests": 1,
+      "fail_cases": 7,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/red-inference.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-06/red-reviewed-bounds.tar.gz",
+      "manifests": 1,
+      "fail_cases": 7,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-07/controlled-captures.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/green-bindings.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/green-full-rollback.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/green-local-catalog.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/green-rollback-receipt.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/host-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/host-race-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/native-host-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/native-host-race-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/red-full-rollback.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/red-rollback-receipt.tar.gz",
+      "manifests": 1,
+      "fail_cases": 1,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/rollback-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-08/rollback-race-final.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-09/international-final-actual/A-final-keyless-3d3-metadata.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-09/release-consumer/release-consumer-ad20469.tar.gz",
+      "manifests": 22,
+      "fail_cases": 18,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/actual-auth-failure-9481a6a.tar.gz",
+      "manifests": 4,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/historical-handoff-707b153.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/curation-tools.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.tar.gz",
+      "manifests": 7,
+      "fail_cases": 5,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-convergence/international-convergence-red-green-8d56410.tar.gz",
+      "manifests": 8,
+      "fail_cases": 11,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-convergence/minimax-ordinary-8d56410.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-convergence/minimax-race-8d56410.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/curation-tools.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.tar.gz",
+      "manifests": 6,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-legacy-final/legacy-paid-3d3.tar.gz",
+      "manifests": 16,
+      "fail_cases": 52,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-legacy-final/legacy-preflight-3d3.tar.gz",
+      "manifests": 191,
+      "fail_cases": 379,
+      "audits_with_findings": [
+        {
+          "member": "20261018T043457.035375000Z/MM11-process-decisions-audit/audit.json",
+          "findings": [
+            {
+              "file": "MM11-configuration/observations-invalid.json",
+              "rule": "observation-field",
+              "detail": "$.imageData is not an Observer metadata field"
+            }
+          ]
+        },
+        {
+          "member": "20261018T043457.035375000Z/MM11-process-jev-audit/audit.json",
+          "findings": [
+            {
+              "file": "MM11-configuration/observations-invalid.json",
+              "rule": "observation-field",
+              "detail": "$.imageData is not an Observer metadata field"
+            }
+          ]
+        },
+        {
+          "member": "20261018T043457.035375000Z/P10-OD54-formal-process-audit-failed/audit.json",
+          "findings": [
+            {
+              "file": "unredacted.txt",
+              "rule": "environment",
+              "detail": "environment variable BARNESS_AI_LIVE_KEY_OPENAI_DECISIONS appears 1 time(s)"
+            },
+            {
+              "file": "unredacted.txt",
+              "rule": "secret",
+              "detail": "the secret aliased [LIVE-KEY:openai-decisions] appears 1 time(s)"
+            }
+          ]
+        },
+        {
+          "member": "20261018T043457.035375000Z/formal-corrupt-audit/audit.json",
+          "findings": [
+            {
+              "rule": "synthetic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-postactivation/preactivation-business-active-df342b9.tar.gz",
+      "manifests": 2,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-postactivation/preactivation-business-inactive-df342b9.tar.gz",
+      "manifests": 2,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-postactivation/preactivation-business-red-df342b9.tar.gz",
+      "manifests": 1,
+      "fail_cases": 4,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-postactivation/preactivation-ordinary-de05193.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-postactivation/preactivation-race-de05193.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/international-research-38b7098.tar.gz",
+      "manifests": 3,
+      "fail_cases": 3,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/live-tools.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/minimax-ordinary-1205300.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/minimax-race-1205300.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/offline-runtime.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/postauth-keyless-1205300.tar.gz",
+      "manifests": 6,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/race-runtime.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/repaired-ordinary-1205300.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-10/repaired-race-1205300.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-11/international-official-sources-20261018.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-11/international-red-green.tar.gz",
+      "manifests": 14,
+      "fail_cases": 29,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-11/minimax-ordinary-e9731a4.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-11/minimax-race-e9731a4.tar.gz",
+      "manifests": 1,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/curation-tools.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.tar.gz",
+      "manifests": 3,
+      "fail_cases": 2,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-6ff-focused.tar.gz",
+      "manifests": 12,
+      "fail_cases": 16,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-followup.tar.gz",
+      "manifests": 16,
+      "fail_cases": 93,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-home-ecce867.tar.gz",
+      "manifests": 22,
+      "fail_cases": 17,
+      "audits_with_findings": [
+        {
+          "member": "failure-first/evidence/20261018T035657.836484000Z/GLM-corrective-1-diagnostic-home/home-child/audit.json",
+          "findings": [
+            {
+              "file": "GLM-corrective-home-child/assertions.json",
+              "rule": "environment",
+              "detail": "the home directory appears 1 time(s)"
+            },
+            {
+              "file": "GLM-corrective-home-child/new-capture-replay-exit.json",
+              "rule": "environment",
+              "detail": "the home directory appears 1 time(s)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-initial-stages.tar.gz",
+      "manifests": 52,
+      "fail_cases": 207,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/retention-bounds/historical-verifier-metadata.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".scratch/barness-ai-minimax/evidence/ticket-12/retention-bounds/portable-retention-bounds-red-green.tar.gz",
+      "manifests": 0,
+      "fail_cases": 0,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".evidence/minimax-retained/whole-ordinary-failed-9481a6a.tar.gz",
+      "manifests": 1,
+      "fail_cases": 52,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".evidence/minimax-retained/preactivation-activated-whole-de05193.tar.gz",
+      "manifests": 1,
+      "fail_cases": 11,
+      "audits_with_findings": []
+    },
+    {
+      "archive": ".evidence/minimax-retained/glm-corrective-q-9dc-audit-failure.tar.gz",
+      "manifests": 189,
+      "fail_cases": 379,
+      "audits_with_findings": [
+        {
+          "member": "original-Q/no-key-live/20261018T035159.936295000Z/MM11-process-decisions-audit/audit.json",
+          "findings": [
+            {
+              "file": "MM11-configuration/observations-invalid.json",
+              "rule": "observation-field",
+              "detail": "$.imageData is not an Observer metadata field"
+            }
+          ]
+        },
+        {
+          "member": "original-Q/no-key-live/20261018T035159.936295000Z/MM11-process-jev-audit/audit.json",
+          "findings": [
+            {
+              "file": "MM11-configuration/observations-invalid.json",
+              "rule": "observation-field",
+              "detail": "$.imageData is not an Observer metadata field"
+            }
+          ]
+        },
+        {
+          "member": "original-Q/no-key-live/20261018T035159.936295000Z/P10-OD54-formal-process-audit-failed/audit.json",
+          "findings": [
+            {
+              "file": "unredacted.txt",
+              "rule": "environment",
+              "detail": "environment variable BARNESS_AI_LIVE_KEY_OPENAI_DECISIONS appears 1 time(s)"
+            },
+            {
+              "file": "unredacted.txt",
+              "rule": "secret",
+              "detail": "the secret aliased [LIVE-KEY:openai-decisions] appears 1 time(s)"
+            }
+          ]
+        },
+        {
+          "member": "original-Q/no-key-live/20261018T035159.936295000Z/audit.json",
+          "findings": [
+            {
+              "file": "GLM-corrective-1-capture-large/assertions.json",
+              "rule": "environment",
+              "detail": "the home directory appears 1 time(s)"
+            },
+            {
+              "file": "GLM-corrective-1-capture-large/new-capture-replay-exit.json",
+              "rule": "environment",
+              "detail": "the home directory appears 1 time(s)"
+            }
+          ]
+        },
+        {
+          "member": "original-Q/no-key-live/20261018T035159.936295000Z/formal-corrupt-audit/audit.json",
+          "findings": [
+            {
+              "rule": "synthetic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": ".evidence/minimax-retained/corrective-approved-prepay-5bf2c16.tar.gz",
+      "manifests": 191,
+      "fail_cases": 379,
+      "audits_with_findings": [
+        {
+          "member": "no-key-live/20261018T040756.452807000Z/MM11-process-decisions-audit/audit.json",
+          "findings": [
+            {
+              "file": "MM11-configuration/observations-invalid.json",
+              "rule": "observation-field",
+              "detail": "$.imageData is not an Observer metadata field"
+            }
+          ]
+        },
+        {
+          "member": "no-key-live/20261018T040756.452807000Z/MM11-process-jev-audit/audit.json",
+          "findings": [
+            {
+              "file": "MM11-configuration/observations-invalid.json",
+              "rule": "observation-field",
+              "detail": "$.imageData is not an Observer metadata field"
+            }
+          ]
+        },
+        {
+          "member": "no-key-live/20261018T040756.452807000Z/P10-OD54-formal-process-audit-failed/audit.json",
+          "findings": [
+            {
+              "file": "unredacted.txt",
+              "rule": "environment",
+              "detail": "environment variable BARNESS_AI_LIVE_KEY_OPENAI_DECISIONS appears 1 time(s)"
+            },
+            {
+              "file": "unredacted.txt",
+              "rule": "secret",
+              "detail": "the secret aliased [LIVE-KEY:openai-decisions] appears 1 time(s)"
+            }
+          ]
+        },
+        {
+          "member": "no-key-live/20261018T040756.452807000Z/formal-corrupt-audit/audit.json",
+          "findings": [
+            {
+              "rule": "synthetic"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unique_failure_occurrences": 2234
+}
