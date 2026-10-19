@@ -3,7 +3,7 @@
 Status: ready-for-human
 Type: task
 Updated: 2026-10-18
-Blocked by: latest GLM Messages actual failure (ticket15); strict current-source applicability; original one-round contract closed
+Blocked by: final current-source release certification and evidence/document review (ticket19 eleven groups now PASS)
 
 ## Context
 
@@ -42,3 +42,5 @@ Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66
 2026-10-18 最新固定六项真实验收已按人类新增108calls/132HTTPAttempts批准完成：中国区GLM直连，国际protocol114及两项视觉经127.0.0.1:7890。Chat、Responses及三项效果collection通过，Messages21PASS/1FAIL，新增102/102，连原545/545累计647/647。该固定合同全部关闭，未用6calls/30Attempts不转移，无自动下一轮或新增付费授权。严格GLM续期和新四报告装配拒绝，原selector与17身份矩阵SHA保持；原矩阵16PASS/1FAIL为旧Responses记录，最新Messages原始失败未导入。
 
 最新Messages cancel在可观察内容前到达120秒期限，duration120001ms、usage未报告；不证明成功取消或厂商原因。原R1缺正文、区域轮Responses失败与本轮分开保留。本票保持ready-for-human。见[当前交付](../delivery-status.md)、[六项原件](../evidence/ticket-15/new-actual/glm/README.md)、[全量门禁](../evidence/ticket-15/new-actual/final-gate/README.md)及[最终审查](../evidence/ticket-09/final-closure/README.md)。
+
+2026-10-19 当前补充结论：本票原有限轮次的失败、预算与旧拒绝保持历史。票19按新的直接批准执行十一组当前来源复验，GLM三路完整各22/22 PASS（Messages cancel1146ms），严格raw/known-usage/views发布及17份支持输入装配均exit0，默认矩阵17PASS/0FAIL。此前Messages/来源资格阻断已由新独立证据补足；完整发布门禁与最终审查另待完成。见[票19原件](../evidence/ticket-19/actual/remaining/README.md)。
