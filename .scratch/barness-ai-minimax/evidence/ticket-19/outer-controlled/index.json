@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "kind": "outer-controlled-implementation-only",
+  "sourceCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "boundedHelperSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+  "capsule": {
+    "id": "ticket19-outer-controlled",
+    "sourceCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-19-outer-eleven/raw.tar.gz",
+      "prefix": "outer-eleven",
+      "bytes": 10711447,
+      "sha256": "9b366f0574a79a6dbdd4c953000d416f418ec6606b9f1ebc84ad61d7566a8464"
+    },
+    "inventory": {
+      "file": "inventory.json.gz",
+      "compressedSHA256": "0dc43cc96c468703ca3c88fca299935335ae1a9e8c45ac1f371f21ee0faa2aed",
+      "decodedBytes": 1101164,
+      "decodedSHA256": "0b98e082312212be02323c82aacac84242ed5de5d4e9ca1e87cf3904786287ec",
+      "files": 4148
+    },
+    "sourceSnapshot": {
+      "file": "source-snapshot.json.gz",
+      "compressedSHA256": "402d39a830a671c55001f6e2da0bacd6f0a1d3c994d8f598aa8593c6d1fb4c28",
+      "decodedBytes": 119452,
+      "decodedSHA256": "9040bb0097871f6fb16bf0457dd5ea44bd2bb7f66742a92fde44f8ccc78b9853",
+      "archiveMember": "raw/final-complete/source-before.json"
+    },
+    "observe": [
+      "summary.json",
+      "raw/final-complete/all-tools-command.json",
+      "raw/final-complete/all-tools.log",
+      "raw/final-complete/source-before.json",
+      "raw/final-complete/source-after.json",
+      "raw/interrupted/all-tools-command.json",
+      "raw/tdd/equal-last-run/result.json",
+      "raw/tdd/equal-last-run/existing-default-red-command.json",
+      "raw/tdd/equal-last-run/independent-identity-audit-green-command.json",
+      "raw/tdd/red-10.log",
+      "raw/tdd/green-10.log"
+    ]
+  },
+  "limits": {
+    "compressedBytes": 33554432,
+    "decodedTarBytes": 201326592,
+    "files": 32768,
+    "inventoryBytes": 8388608
+  },
+  "realVendorCalls": 0,
+  "formalVendorQualification": false,
+  "sourceEquivalence": "source-equivalence.json",
+  "custodyCommand": "retention-command.json",
+  "claims": {
+    "controlledSyntheticCredentialsOnly": true,
+    "earlierLogOnlyStagesAreNotNumericReceipts": true,
+    "historicalRootPreflight": "../preflight-first/README.md",
+    "rootPreflightAllPassed": false,
+    "budgetDecision": "PENDING",
+    "entitlesVendorCalls": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "readback",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "/private/tmp/barness-ticket19-readback.py"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 120,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T05:37:53.463805+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.1961551671847701,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}
