@@ -1,0 +1,86 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "220c77c0be23adf7f04a665871452769e874e8488c4a7c03495280a3b64e46dd",
+  "privateRawMember": "smoke-result.json",
+  "nativeInput": false,
+  "observed": {
+    "allThreeInstalledReadersPass": true,
+    "classification": "INSTALLED_READER_PORTABILITY_SMOKE_ONLY",
+    "commands": [
+      {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py",
+          "--common-root",
+          "$REPO"
+        ],
+        "exitCode": 0,
+        "finishedAt": "2026-10-19T11:51:06.633718+00:00",
+        "readerSHA256": "85ee06e783293ab35b6cbaa06081a7163f4e08adfd9ed8fa5d5083dde72926a0",
+        "seconds": 1.1669614999555051,
+        "startedAt": "2026-10-19T11:51:05.466770+00:00",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 1431,
+          "sha256": "ca24bc339f7bacf115ee377038363d0cc54e277820b20ad62d820aab146fd803"
+        }
+      },
+      {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/final-gate/verify.py",
+          "--common-root",
+          "$REPO"
+        ],
+        "exitCode": 0,
+        "finishedAt": "2026-10-19T11:51:15.689163+00:00",
+        "readerSHA256": "c8822bb073117b87b15ef026e5a5b9055a8f415f9a66a0a382e1123a015b3c67",
+        "seconds": 9.054860333446413,
+        "startedAt": "2026-10-19T11:51:06.634282+00:00",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 8843,
+          "sha256": "4a58bb9eeea3b8b344a2ed8c50f3d2129863940b9aee12b71bb024e326cd56f2"
+        }
+      },
+      {
+        "argv": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/final-gate/supplement/verify.py",
+          "--common-root",
+          "$REPO"
+        ],
+        "exitCode": 0,
+        "finishedAt": "2026-10-19T11:51:15.762692+00:00",
+        "readerSHA256": "de9550f1e4458310ead810d6154a4b1e3929077fb642cdba140d50d1a88f825c",
+        "seconds": 0.07281624991446733,
+        "startedAt": "2026-10-19T11:51:15.689898+00:00",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 2101,
+          "sha256": "161257e74e374befe2680f8e34e7a06628c682ced62cef0cf00a98936bb8644d"
+        }
+      }
+    ],
+    "credentialsRead": false,
+    "finishedAt": "2026-10-19T11:51:15.858390+00:00",
+    "newGoOrGateRun": false,
+    "originalGatePinsUnchanged": 7,
+    "ownedWorktreeAbsent": true,
+    "paidCalls": 0,
+    "publishedDefaultSHA256": "5913236998b006a14f3e611e71f584e3c6c6c17859d8bf319d51655dce5fc899",
+    "recordedExecutionSource": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "selectedSourcesUnchanged": 1078,
+    "startedAt": "2026-10-19T11:51:05.388722+00:00",
+    "state": "CLOSED_PASS"
+  }
+}

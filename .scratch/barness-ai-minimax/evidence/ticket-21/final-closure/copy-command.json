@@ -1,0 +1,27 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "328eb7c938ade2ad903bb35b2f094770d0a3a3b02af3ec5cc4b9245378b4eb5e",
+  "privateRawFile": ".evidence/minimax-retained/ticket-21-final-closure-command.json",
+  "nativeInput": false,
+  "observed": {
+    "classification": "CLOSED_FINAL_REVIEW_DATA_COPY_ONLY",
+    "startedAt": "2026-10-19T12:09:01.109553+00:00",
+    "finishedAt": "2026-10-19T12:09:01.161438+00:00",
+    "seconds": 0.051756459288299084,
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "$TMP/barness-ticket21-final-closure-copy.py",
+      "$TMP/barness-ticket21-final-closure-input-map.json"
+    ],
+    "cwd": "$REPO",
+    "exitCode": 0,
+    "stdout": "{\"exitCode\": 0, \"inventorySHA256\": \"69a3261372b2bbe0a8b3a20afac20c76978fedbbbffe3ccfc9ddfc54671c653d\", \"payloadFiles\": 66, \"payloadBytes\": 747086, \"classification\": \"CLOSED_REVIEW_DATA_ONLY\"}\n",
+    "stderr": "",
+    "copierSHA256": "82defb65afb58314d288f69ac104f3bba6e9481cc11c4ef18d3235bfc794ccec",
+    "inputMapSHA256": "a33e2214ee518778b05c81e998bf6b4ee941b8a1daae918e88adb8fda3c640f9",
+    "sourceRecords": 64,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "newGoOrGateRun": false
+  }
+}

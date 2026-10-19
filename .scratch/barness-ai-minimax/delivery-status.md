@@ -1,8 +1,18 @@
 # MiniMax 交付状态
 
-Delivery: PARTIAL
+Delivery: COMPLETE
 Updated: 2026-10-19
 Integration branch: `codex/minimax-global`
+
+当前源码要求的验收缺口已全部关闭，交付通过。来源78843的新完整发布门禁四项实际命令0/0/0/0、CLI0、报告true；普通/race主包各12495PASS、0FAIL、0NOT_RUN、audit0，17份自身支持与4项业务效果PASS。严格当前来源11/11；五份归档、公开读回及固定证据两轴复核均通过，精确e2cf证据已合入8a1163b。默认591323候选实际发布，只更新Jev、保留其他16行对象和时间。自建工作树已移除、分支和中央原件保留，主仓三个安装入口均exit0，1078来源及七项原门禁hash保持。
+
+中国区GLM直连，国际站经127.0.0.1:7890。最新三组各12/12 PASS、36/36关闭；续期累计873calls/870HTTPAttempts。GLM Messages cancel在完整22场景新报告中1146ms PASS，原120秒失败与861ms单场景复测保留。M3.1线上三候选仍NOT_RUN0/0、无MPlan资格，离线403项PASS，不授予正式支持。
+
+[机器上下文](evidence/ticket-09/international-delivery-status.json) · [三组实际结果](evidence/ticket-21/actual/README.md) · [最终审查与可重复证明](evidence/ticket-21/final-closure/README.md)。全部工单resolved，最终源码Standards/Spec及实际证据审查均0发现。后续文档/证据提交保持1078份测量字节，不声称重新运行Go。用户原有session-analysis和human-review目录保留。
+
+## 历史检查点
+
+以下完整保留过去的PARTIAL、FAIL和待验收描述，不能作为当前状态。
 
 最新检查点：**来源78843的完整发布门禁已通过**，四项实际命令退出0/0/0/0、公开CLI0、报告pass=true，1078份来源与21输入树前后保持。当前严格资格11/11；完整门禁的两轴实际审查均0发现，默认矩阵已以实际exit0发布精确591323候选，只更新Jev、保护其余16行。普通/race各12495PASS、audit0；最终归档/文档及集成仍在收尾，因此Delivery暂保留PARTIAL。下方01341等FAIL均为原历史，不替代本次新结果。
 

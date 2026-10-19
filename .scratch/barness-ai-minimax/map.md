@@ -1,11 +1,11 @@
 # MiniMax 实施任务图
 
-Status: claimed
+Status: resolved
 Integration branch: `codex/minimax-global`
 Historical CN checkpoint: `codex/minimax-cn` at `4295ee8`
 Base: `ecfd4b4`
 
-[当前交付：PARTIAL](delivery-status.md)。10、09和spec保持未关闭；自身离线验证通过不替代实际正式报告与完整门禁。
+[当前交付：COMPLETE](delivery-status.md)。全部工单resolved；当前来源11/11、新完整门禁、矩阵发布、证据复核和自建工作树清理均完成。
 
 ## Notes
 
@@ -13,26 +13,7 @@ Base: `ecfd4b4`
 
 ## Frontier
 
-[19 resolved](issues/19-current-source-eleven-renewal.md#answer)：原十一组复验及公开消费者11/11 PASS，新增189/186；17支持输入审计0、新7行导入0、generic10对象/时间不变，原来源矩阵17PASS。固定216/252关闭，原始结果与完整门禁FAIL已独立留存。
-
-[20 视觉取消证据修复](issues/20-visual-unsent-cancellation.md)代码d02已合入、两轴0发现，23个确定性普通/race回归及双vet0；原始TDD留存两轴0，按离线修复范围resolved。[21 修复后的三组来源补证](issues/21-visual-source-renewal.md)已按直接人类新增36/36批准完成三项各12/12 PASS，经国际代理、零重试、本轮关闭；保留M3/GLM/文本八组完整原生来源，当前资格11/11。公开消费者及17支持输入审计全部0，候选仅更新Jev一行、保护其余16行。新完整门禁已实际0/0/0/0、CLI0/报告true，两轴实际审查均0；精确591323候选已发布，其他16行不变。最终归档公开读回、文档审查和关闭工单继续，旧未用额度不转移。
-
-当前01–08、11、13、14、16、17、18、19、20按既定范围resolved；12/15的有限轮次与历史失败保持。剩余链为21新三组来源证明/完整发布门禁/最终审查→10→09→spec。所有付费进程已关闭。
-- [01 Provider 身份、六个候选型号与思考元数据](issues/01-provider-model-contract.md)；Blocked by: None。
-- [02 MiniMax Chat 文本、推理、工具历史与边界](issues/02-chat-protocol.md)；Blocked by: 01。
-- [03 MiniMax Responses 无状态流、工具与可信续接](issues/03-responses-protocol.md)；Blocked by: 01。
-- [04 MiniMax Messages adaptive 思考、工具和签名续接](issues/04-messages-protocol.md)；Blocked by: 01。
-- [05 三协议隔离、失败重试、回调和资源释放](issues/05-isolation-failure-resources.md)；Blocked by: 02, 03, 04。
-- [06 固定 MiniMax pi 差分和扩展证据](issues/06-pi-differential.md)；Blocked by: 02, 03, 04。
-- [07 独立 Live Harness、预算与可信证据工具](issues/07-live-catalog-release.md)；Blocked by: 02, 03, 04。
-- [08 Host 文档、ADR 和回滚实现](issues/08-host-docs-final-acceptance.md)；Blocked by: 06。
-- [09 完整验收、双轴审查与交付判定](issues/09-integrated-acceptance-review.md)；Blocked by: 08, 10。
-
-- [10 M3自身真实证据、价格目录与增量发布合同](issues/10-formal-catalog-support.md)；Blocked by: 05, 06, 07, 11。
-
-- [11 国际站身份、美元价格与地区证据切换](issues/11-international-target.md)；Blocked by: 01–08（均已resolved）。
-
-- [13 按区域固定路由的缺口验证](issues/13-routed-validation.md)；固定18进程及证据已完成，当前 resolved；本轮合同和无 Key [连通性诊断](evidence/ticket-13/network/README.md)独立保留。
+无开放工单。21→12/15→10→09→spec已按各票[Answer](issues/21-visual-source-renewal.md#answer)关闭；原有限合同的历史失败和额度仍独立保留。最终依据见[当前交付](delivery-status.md)与[最终闭合](evidence/ticket-21/final-closure/README.md)。
 
 ## Decisions so far
 
@@ -65,7 +46,7 @@ Base: `ecfd4b4`
 
 - 17 resolved（离线源码、文档与证据留存范围）：[Answer](issues/17-final-payload-review-gaps.md#answer)和[最终审查](evidence/ticket-09/final-closure/README.md)闭合最终payload/文档及留存工具问题；完整验收、真实失败和严格当前来源缺口不随本票关闭。
 
-## Fog
+## Historical Fog
 
 - 国际站38b7098三路研究已证明认证与实际M3；Messages三场景通过，Chat等值双推理镜像误拒、Responses本地native编码失败已由10作离线收敛，完整普通/race各1340 PASS、双轴0发现；后续目录预验循环及业务配置边界已修复，来源7605332三路完整实际候选各13/12通过并完成数据目录激活；正式三报告、GLM/旧证据续期和最终门禁继续由10/09完成。原始148文件归档/2个失败状态保留；完整候选/正式仍须R25–R27自身验收。M3.1没有M Plan资格与价格确认，线上三候选保持NOT_RUN，离线仍必交。
 - 官方国际站价格512k未定义精确整数；当前512000为明示保守估算策略。正独立缓存写缺价继续失败。三协议结构比较相同不授予线上支持。
@@ -113,3 +94,14 @@ Base: `ecfd4b4`
 - 2026-10-19：20源码d02精确合入，两轴复审各0；23普通/race与双vet通过，真实WIP源码与提交相等。当前资格8/11，21只准备protocol114/visual-jev/visual-decisions新36/36；未授权、未读Key、未建新付费intent，原预算与门禁失败保持。
 
 - 20 resolved：[Answer](issues/20-visual-unsent-cancellation.md#answer)关闭视觉取消证据离线修复及完整留存；原始RED/失败GREEN与45数字命令保留，203335成员两轴流式核验0，23确定性普通/race和双vet通过。21承接当前三组补证及全量门禁，预算仍未授权。
+
+
+## 最终闭合上下文
+
+以下旧Fog和检查点描述其当时状态；当前完整交付以本节和顶部COMPLETE为准。来源78843的新完整发布门禁四项实际命令0/0/0/0、CLI0、报告true；普通/race主包各12495PASS、0FAIL、0NOT_RUN、audit0，17份自身支持与4项业务效果PASS。严格当前来源11/11；五份归档、公开读回及固定证据两轴复核均通过，精确e2cf证据已合入8a1163b。默认591323候选实际发布，只更新Jev、保留其他16行对象和时间。自建工作树已移除、分支和中央原件保留，主仓三个安装入口均exit0，1078来源及七项原门禁hash保持。
+
+- [21 resolved](issues/21-visual-source-renewal.md#answer)：直接人类批准的36/36已闭合：protocol114、visual-jev、visual-decisions各12/12 PASS，经127.0.0.1:7890、零重试；M3/GLM/文本八组完整原生来源不变，未重跑。
+- [12 resolved](issues/12-glm-corrective-1.md#answer)：本票原R1的66/66及缺正文FAIL保持原始事实，没有自动R2。
+- [15 resolved](issues/15-source-scoped-revalidation.md#answer)：原固定六项102/102、Messages120001ms失败及未用6/30保留，不转移旧授权。
+- [10 resolved](issues/10-formal-catalog-support.md#answer)：M3国际站三协议均有自身真实候选、正式报告与目录/价格证据；当前三正式PASS39calls/36Attempts，原候选49/45和原正式39/36各自历史不变。
+- [09 resolved](issues/09-integrated-acceptance-review.md#answer)：28个R、20个A、80个US均有非空映射，394行追溯与1348个唯一MiniMax必交case保持；全部868个真实PIDIFF、29个命名pressure（固定规则15个）、8个rollback通过。

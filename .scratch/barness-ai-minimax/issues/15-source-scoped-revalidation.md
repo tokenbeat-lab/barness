@@ -1,9 +1,11 @@
 # 15 — 离线修复后的最小来源重验
 
 Type: task
-Status: claimed
+Status: resolved
 Updated: 2026-10-19
 Blocked by: 21
+
+当前结论：本票已关闭；以下记录保留其形成时的状态，最终依据见文末[Answer](#answer)。
 
 ## Context
 
@@ -55,3 +57,10 @@ Blocked by: 21
 2026-10-19 当前补充结论：本票原有限轮次的失败、预算与旧拒绝保持历史。票19按新的直接批准执行十一组当前来源复验，GLM三路完整各22/22 PASS（Messages cancel1146ms），严格raw/known-usage/views发布及17份支持输入装配均exit0，默认矩阵17PASS/0FAIL。此前Messages/来源资格阻断已由新独立证据补足；完整发布门禁与最终审查另待完成。见[票19原件](../evidence/ticket-19/actual/remaining/README.md)。
 
 2026-10-19 当前收尾检查点：票21新增36/36已闭合，三项各12/12 PASS；M3/GLM/文本八组完整原生来源集合不变，当前严格资格11/11。来源78843新完整门禁四命令0/0/0/0、CLI0、报告true；普通/race各12495PASS/audit0，最终源码及实际结果两轴均0发现。精确591323候选已实际exit0原子发布，仅Jev一行改变、其余16行对象与时间不变。原01341门禁FAIL及所有原有限授权轮次的失败、消费和未用额度保持；当前仅完整有界归档公开读回、最终文档审查及工单关闭收尾。见[当前交付](../delivery-status.md)及[当前实际结果](../evidence/ticket-21/actual/README.md)。
+
+
+## Answer
+
+原固定六项102/102、Messages120001ms失败及未用6/30保留，不转移旧授权。票18单场景861ms PASS及票19完整三路各22/22 PASS分别保留；票19十一组与票21三组独立新增批准完成当前来源补证。来源78843的新完整发布门禁四项实际命令0/0/0/0、CLI0、报告true；普通/race主包各12495PASS、0FAIL、0NOT_RUN、audit0，17份自身支持与4项业务效果PASS。严格当前来源11/11；五份归档、公开读回及固定证据两轴复核均通过，精确e2cf证据已合入8a1163b。默认591323候选实际发布，只更新Jev、保留其他16行对象和时间。自建工作树已移除、分支和中央原件保留，主仓三个安装入口均exit0，1078来源及七项原门禁hash保持。
+
+续期累计873calls/870HTTPAttempts；原阶段、原失败、预算和未用额度不改写，所有付费进程关闭。中国区GLM直连，国际站经127.0.0.1:7890。见[最终闭合](../evidence/ticket-21/final-closure/README.md)及[当前交付](../delivery-status.md)。

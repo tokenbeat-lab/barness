@@ -2,9 +2,9 @@
   "schema": 3,
   "updated": "2026-10-19",
   "integrationBranch": "codex/minimax-global",
-  "delivery": "PARTIAL",
+  "delivery": "COMPLETE",
   "releaseCertified": true,
-  "specClosed": false,
+  "specClosed": true,
   "latestPaidActualSource": "78843eb99905e95c8fa534a75897e0dc8787b1da",
   "currentCodeSource": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
   "allAuthorizedPaidProcessesClosed": true,
@@ -172,7 +172,8 @@
       "Spec": "7345e06866513c39e5f714f916c81d98f462008805e1a219a787f80ed41d6a5a",
       "Standards": "2816449602056c73427f1b1eeb4b95f605993e34bdc2b2bddd95db947f16e4a0"
     },
-    "custodyState": "READBACK_PASS_FINAL_REVIEW_PENDING"
+    "custodyState": "CLOSED_PASS",
+    "retainedEvidence": "evidence/ticket-21/final-gate/README.md"
   },
   "m3Formal": {
     "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
@@ -232,17 +233,8 @@
     "pendingRenewedGroups": [],
     "evaluatedExecutionCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da"
   },
-  "openTickets": [
-    "09",
-    "10",
-    "12",
-    "15",
-    "21"
-  ],
-  "blockers": [
-    "Final complete gate/publication custody and independent evidence/document review remain pending",
-    "Final integration/ticket closure and owned worktree cleanup remain pending"
-  ],
+  "openTickets": [],
+  "blockers": [],
   "historical": {
     "preFixedSixStatus": "evidence/ticket-15/pre-fixed6-delivery-status.json",
     "routedValidation1": {
@@ -530,7 +522,7 @@
     }
   },
   "ownedWorker": "/tmp/barness-ticket21-actual-retained",
-  "ownedWorkerRemoved": false,
+  "ownedWorkerRemoved": true,
   "userUntrackedDirectoriesPreserved": true,
   "finalStaticCodeReview": {
     "fixedBase": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
@@ -550,7 +542,7 @@
       "Standards": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f",
       "Spec": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46"
     },
-    "mandatoryActualAcceptanceGapsRemain": true,
+    "mandatoryActualAcceptanceGapsRemain": false,
     "evidence": "evidence/ticket-09/final-closure/README.md",
     "openRetentionFindings": 0,
     "finalRetentionReviewSHA256": {
@@ -569,7 +561,7 @@
         "Standards": "7e02066eed914b57bb97668bf48bd36876658db9515198c20dd55019fd1816cd",
         "Spec": "e43bca00216144f3e0d00f19aa629c6af1467fd4a0e8d4874c31338e1227a0a3"
       },
-      "actualAcceptancePending": true
+      "actualAcceptancePending": false
     }
   },
   "offlineTicket17": {
@@ -641,9 +633,9 @@
     "normalPrivateNegativeConstructorExit": 0,
     "normalPrivateCounterfeitConsumerExpectedExit": 1
   },
-  "currentIntegrationSourceTip": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+  "currentIntegrationSourceTip": "8a1163b13f684183e0409d05d64ae13dfe456861",
   "currentCodeSourceScope": "Example-only visual fix d02; all eleven native source groups now qualified by retained eight exact selected sets plus three newly executed reports and current public consumers",
-  "ownedWorkerCleanupEvidence": "evidence/ticket-21/final-closure/README.md",
+  "ownedWorkerCleanupEvidence": "evidence/ticket-21/final-closure/owned-worktree-cleanup.json",
   "singleCaseMessagesCancelRerun": {
     "schema": 1,
     "updated": "2026-10-19",
@@ -990,7 +982,8 @@
     "fullGatePass": false,
     "allElevenQualifiedAtCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
     "ticketStatus": "resolved",
-    "resolutionScope": "Fixed eleven revalidation and truthful complete-gate retention; full specification remains open"
+    "resolutionScope": "Fixed eleven revalidation and truthful complete-gate retention; full specification remains open",
+    "supersededByCurrentSourceClosure": "evidence/ticket-21/final-closure/README.md"
   },
   "pendingVisualUnsentFix": {
     "state": "CLOSED_OFFLINE_REPAIR_AND_CUSTODY",
@@ -1098,7 +1091,7 @@
     }
   },
   "currentSourceReleaseGate": {
-    "state": "CLOSED_PASS_PUBLISHED_PENDING_FINAL_CUSTODY",
+    "state": "CLOSED_PASS_PUBLISHED_RETAINED",
     "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
     "credentialsRead": false,
     "paidCalls": 0,
@@ -1152,8 +1145,84 @@
       "FAIL": 0,
       "NOT_RUN": 0,
       "auditFindings": 0
+    },
+    "custody": {
+      "evidenceCommit": "e2cf2a7859777363d9a0d529714778405dc57a9f",
+      "integrationMerge": "8a1163b13f684183e0409d05d64ae13dfe456861",
+      "findings": {
+        "Spec": 0,
+        "Standards": 0
+      },
+      "reviewSHA256": {
+        "Spec": "be252875ec0c32c4c5b1b27d71a9e0513cd68e97cb97918fa00563164500e047",
+        "Standards": "430efc463011570fdde1b8fc9d545be8de184a59d39b6169d8229d852d8f725e"
+      },
+      "originalRegularFiles": 285150,
+      "originalPayloadBytes": 2732518298,
+      "operationsPayloadFiles": 86,
+      "operationsPayloadBytes": 663941,
+      "publicReadersExitCodes": [
+        0,
+        0
+      ],
+      "privateValidExitCodes": [
+        0,
+        0
+      ],
+      "preciseNegativeRefusals": 12,
+      "capsules": 5
     }
   },
   "legacyBaselineBeforeElevenCalls": 648,
-  "legacyBaselineBeforeElevenAttempts": 648
+  "legacyBaselineBeforeElevenAttempts": 648,
+  "installedReaderPortabilitySmoke": {
+    "state": "CLOSED_PASS",
+    "exitCodes": [
+      0,
+      0,
+      0
+    ],
+    "ownedWorktreeAbsent": true,
+    "sourceFilesUnchanged": 1078,
+    "originalGatePinsUnchanged": 7,
+    "newGoOrGateRun": false,
+    "evidence": "evidence/ticket-21/final-closure/installed-readers-smoke.json",
+    "rawResultSHA256": "220c77c0be23adf7f04a665871452769e874e8488c4a7c03495280a3b64e46dd"
+  },
+  "deliveryClosure": {
+    "tickets": [
+      "09",
+      "10",
+      "12",
+      "15",
+      "21"
+    ],
+    "selectedExecutionCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "laterMetadataIsNotTestRerun": true,
+    "historyPreserved": true,
+    "evidence": "evidence/ticket-21/final-closure/README.md"
+  },
+  "finalDocumentationReview": {
+    "candidateBase": "8a1163b13f684183e0409d05d64ae13dfe456861",
+    "candidateFiles": 14,
+    "contractBodyBytesUnchanged": 58825,
+    "findings": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "docsSHA256": {
+      "Standards": "d25d636ea1242f0675a22bfb2b05ba345e38786711b6d8601ddf7002c686f8b1",
+      "Spec": "c1d56cdd28a2ec422cb55df669f645ba0ee3f611e0304e2e3a30e903c743722c"
+    },
+    "copierClosureSHA256": {
+      "Standards": "32608717c4342f19f2a09492dc69c5fba209fbe3dabf2166e2166ddf43bed86e",
+      "Spec": "6677118f4e8bec83bbddd6d3c1122082a34515c06df79b1406e6183b7018be34"
+    },
+    "originalCopierFindingPreserved": true,
+    "actualFinalCopyExit": 0,
+    "reviewPayloadFiles": 66,
+    "reviewPayloadBytes": 747086,
+    "inventorySHA256": "69a3261372b2bbe0a8b3a20afac20c76978fedbbbffe3ccfc9ddfc54671c653d",
+    "evidence": "evidence/ticket-21/final-closure/README.md"
+  }
 }

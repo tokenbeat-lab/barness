@@ -1,9 +1,11 @@
 # 10 — M3 自身真实证据、价格目录与增量发布合同
 
-Status: claimed
+Status: resolved
 Type: task
 Updated: 2026-10-19
 Blocked by: 05, 06, 07, 11
+
+当前结论：本票已关闭；以下记录保留其形成时的状态，最终依据见文末[Answer](#answer)。
 
 ## Context
 
@@ -68,3 +70,10 @@ M3三候选与三自身正式PASS，候选历史49/45、正式39/36。唯一获�
 2026-10-19 本轮最新检查点：十一组真实复验及当前来源公开消费者全部PASS，新增189/186、固定216/252关闭。来源01341完整门禁已实际结束，双vet/ordinary/race=0/0/0/1，CLI1、报告false；ordinary12495PASS/audit0，race12494PASS/1FAIL/audit1。唯一VQ12-failure-decisions-plain-deadline及其零字节request.json审计失败正在独立工作树离线修复，原17支持与四效果均PASS、测量前后来源/输入未变。当前root源码尚未修改，十一组证明保留；完整交付不宣称通过。见[交付状态](../delivery-status.md)。
 
 2026-10-19 当前收尾检查点：票21新增36/36已闭合，三项各12/12 PASS；M3/GLM/文本八组完整原生来源集合不变，当前严格资格11/11。来源78843新完整门禁四命令0/0/0/0、CLI0、报告true；普通/race各12495PASS/audit0，最终源码及实际结果两轴均0发现。精确591323候选已实际exit0原子发布，仅Jev一行改变、其余16行对象与时间不变。原01341门禁FAIL及所有原有限授权轮次的失败、消费和未用额度保持；当前仅完整有界归档公开读回、最终文档审查及工单关闭收尾。见[当前交付](../delivery-status.md)及[当前实际结果](../evidence/ticket-21/actual/README.md)。
+
+
+## Answer
+
+M3国际站三协议均有自身真实候选、正式报告与目录/价格证据；当前三正式PASS39calls/36Attempts，原候选49/45和原正式39/36各自历史不变。M3.1三个线上候选保持NOT_RUN0/0，无MPlan资格；403项离线约束通过，不授予正式目录。来源78843的新完整发布门禁四项实际命令0/0/0/0、CLI0、报告true；普通/race主包各12495PASS、0FAIL、0NOT_RUN、audit0，17份自身支持与4项业务效果PASS。严格当前来源11/11；五份归档、公开读回及固定证据两轴复核均通过，精确e2cf证据已合入8a1163b。默认591323候选实际发布，只更新Jev、保留其他16行对象和时间。自建工作树已移除、分支和中央原件保留，主仓三个安装入口均exit0，1078来源及七项原门禁hash保持。
+
+续期累计873calls/870HTTPAttempts；原阶段、原失败、预算和未用额度不改写，所有付费进程关闭。中国区GLM直连，国际站经127.0.0.1:7890。见[最终闭合](../evidence/ticket-21/final-closure/README.md)及[当前交付](../delivery-status.md)。

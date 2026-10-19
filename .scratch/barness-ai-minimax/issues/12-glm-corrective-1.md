@@ -1,9 +1,11 @@
 # 12 — GLM 捕获修正与唯一 prospective corrective-1
 
-Status: claimed
+Status: resolved
 Type: task
 Updated: 2026-10-19
 Blocked by: 21
+
+当前结论：本票已关闭；以下记录保留其形成时的状态，最终依据见文末[Answer](#answer)。
 
 ## Context
 
@@ -19,7 +21,7 @@ Blocked by: 21
 
 辅助CLI先失败再实现：缺审批/错scope/source/binary/plan/checks、原消费缺失/未知/变动、并发/跨目录/工作树重启、第二round、错canonical pins/混旧新来源均拒绝。正路径必须携带原66/66、固定额外预算、独占intent与原始成功pins。归档只能显式 `--round corrective-1`，仍经当前未放宽Go importer，再生成无付费用量视图。共享/M3-selected Go及三份263文件实际source maps须逐字不变。
 
-## Answer
+## Historical offline answer
 
 离线实现完成，生产捕获/审批修正为 `4ff6dca`、`5abc1a5`，受控 fault 单次注入为 `6ff05b8`。仅 GLM 自身 Go 来源及 Python 计划/归档边界改变；共享/M3-selected Go、正式导入、来源选择器、目录和已有真实证据/intent 均未修改。原始三份 M3 formal 公开 verifier 全部 PASS，三个263文件map及报告字节不变。
 
@@ -46,3 +48,10 @@ Accounting scope: all `lifetimeGLM*` fields mean this current renewal original66
 2026-10-19 当前补充结论：本票原有限轮次的失败、预算与旧拒绝保持历史。票19按新的直接批准执行十一组当前来源复验，GLM三路完整各22/22 PASS（Messages cancel1146ms），严格raw/known-usage/views发布及17份支持输入装配均exit0，默认矩阵17PASS/0FAIL。此前Messages/来源资格阻断已由新独立证据补足；完整发布门禁与最终审查另待完成。见[票19原件](../evidence/ticket-19/actual/remaining/README.md)。
 
 2026-10-19 当前收尾检查点：票21新增36/36已闭合，三项各12/12 PASS；M3/GLM/文本八组完整原生来源集合不变，当前严格资格11/11。来源78843新完整门禁四命令0/0/0/0、CLI0、报告true；普通/race各12495PASS/audit0，最终源码及实际结果两轴均0发现。精确591323候选已实际exit0原子发布，仅Jev一行改变、其余16行对象与时间不变。原01341门禁FAIL及所有原有限授权轮次的失败、消费和未用额度保持；当前仅完整有界归档公开读回、最终文档审查及工单关闭收尾。见[当前交付](../delivery-status.md)及[当前实际结果](../evidence/ticket-21/actual/README.md)。
+
+
+## Answer
+
+本票原R1的66/66及缺正文FAIL保持原始事实，没有自动R2。新独立获批票19的GLM三协议完整各22/22 PASS，Messages cancel1146ms、partial usage；严格raw/known-usage/views发布及当前支持通过，历史外部阻断已由新证据闭合。来源78843的新完整发布门禁四项实际命令0/0/0/0、CLI0、报告true；普通/race主包各12495PASS、0FAIL、0NOT_RUN、audit0，17份自身支持与4项业务效果PASS。严格当前来源11/11；五份归档、公开读回及固定证据两轴复核均通过，精确e2cf证据已合入8a1163b。默认591323候选实际发布，只更新Jev、保留其他16行对象和时间。自建工作树已移除、分支和中央原件保留，主仓三个安装入口均exit0，1078来源及七项原门禁hash保持。
+
+续期累计873calls/870HTTPAttempts；原阶段、原失败、预算和未用额度不改写，所有付费进程关闭。中国区GLM直连，国际站经127.0.0.1:7890。见[最终闭合](../evidence/ticket-21/final-closure/README.md)及[当前交付](../delivery-status.md)。

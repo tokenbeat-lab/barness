@@ -1,0 +1,84 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "d25d636ea1242f0675a22bfb2b05ba345e38786711b6d8601ddf7002c686f8b1",
+  "privateRawMember": "barness-ticket21-final-docs-standards-review.json",
+  "nativeInput": false,
+  "observed": {
+    "axis": "Standards",
+    "status": "CHANGES_REQUESTED_LATE_COPY_SOURCE_ONLY",
+    "baseCommit": "8a1163b13f684183e0409d05d64ae13dfe456861",
+    "candidateManifestSHA256": "617e139e2205e6ebf5bfff5673f4c0b75e9f6c928c8b5e67b170f50d7c456a97",
+    "candidateDiffSHA256": "0a0d9bdad2c114f25719ef6d598330019252169777f79aa942106a5ca5dcf80e",
+    "reviewedCandidateFiles": 14,
+    "standardsSources": [
+      "AGENTS.md principles3,4,5,8,9",
+      "docs/agents/issue-tracker.md Resolve convention",
+      "docs/adr/0047-current-source-formal-renewal.md",
+      "$HOME/.agents/skills/code-review/SKILL.md full twelve smells; judgment only, repository override, tooling-enforced excluded",
+      "$TMP/barness-ticket21-final-closure-copy-failures.md"
+    ],
+    "hardViolations": [
+      {
+        "id": "T21-FINAL-CLOSURE-STANDARDS-01",
+        "priority": "P2",
+        "file": "$TMP/barness-ticket21-final-closure-copy.py",
+        "reviewedSourceSHA256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+        "line": 56,
+        "endLine": 84,
+        "rule": "AGENTS.md principles3/4 require validation at the boundary and least-privilege treatment of all external input. The prior failure inventory requires every record validated before any selected-source read and forbids env/credential selection.",
+        "quote": "if any(p in ('', '.', '..') or p.lower() == '.env' for p in parts): ... raw = scope['read'](row['root'], row['relative'], CAP)",
+        "problem": "Root permits any ROOT or $TMP relative source except exact .env components. Metadata can select .env.production or credentials.json, opened before its digest is checked; source hashes do not prevent this initial read. The output-name regex also admits dot/dot-dot, while NUL components and failureInventorySHA256 are not rejected during whole-map validation.",
+        "requestedChange": "Replace broad owner/path acceptance with a finite exact reviewed source/destination allowlist; reject unknown, dot, NUL, hidden/env/credential selections and validate failure-inventory pin before selected reads. Any future late source must be an explicit separately reviewed literal extension.",
+        "evidenceType": "STATIC_CONTROL_FLOW_ONLY; original copier not executed; no real env/credential path read"
+      }
+    ],
+    "judgmentSmells": [],
+    "narrative": "One P2 remains in the unexecuted late metadata copier: its external map admits arbitrary ROOT$TMP source paths before digest checking, including credential-shaped files. Whole-map rejection also misses dot output names, NUL and the failure-inventory pin. Bind exact allowed records before target reads. No other documented violation or actionable judgment smell was found in the frozen14-file delivery candidate. All hashes match; COMPLETE/resolved/current11/11 and gate/publication/custody statements agree with prior independent proofs. The contract body, historical machine object and original failures remain; old checkpoints are identified as historical. Cleanup and installed-reader projections are literal aliases of pinned originals, and all three numeric exits/log hashes match. Final review data remains a prospective copy: do not treat this source review or pending sidecar as executed custody. Re-review the corrected copier and actual late copy before setting CLOSED_PASS. No Go, vendor, archive, captured-program or paid execution occurred.",
+    "docsOnlyFindings": 0,
+    "lateCopySourceFindings": 1,
+    "frozenDocumentationCandidateUnchanged": true,
+    "candidatePrivacyLiteralMatches": 0,
+    "specContractBodyUnchanged": true,
+    "machineHistoricalObjectUnchanged": true,
+    "cleanupAndSmokeAliasProjectionsExact": true,
+    "installedReadersActualExitCodes": [
+      0,
+      0,
+      0
+    ],
+    "proof": {
+      "path": "$TMP/barness-ticket21-final-docs-standards-proof.json",
+      "bytes": 13937,
+      "sha256": "87c97cde44db62c256ce2cb94107d26f0247711857df542ca0a1108784f64255",
+      "classification": "REVIEWER_ONLY_METADATA_ANALYSIS_AS_DATA"
+    },
+    "reviewerFilesExcludingThisReport": [
+      {
+        "path": "$TMP/barness-ticket21-final-closure-copy-source-reviewed-original.py.txt",
+        "bytes": 5030,
+        "sha256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+        "classification": "REVIEWER_ONLY_METADATA_ANALYSIS_AS_DATA"
+      },
+      {
+        "path": "$TMP/barness-ticket21-final-docs-standards-check.py",
+        "bytes": 6583,
+        "sha256": "37836f9183a1dcc1081e256a89bf5ccf14536b5ac3edf3b96259534d7f0a8891",
+        "classification": "REVIEWER_ONLY_METADATA_ANALYSIS_AS_DATA"
+      },
+      {
+        "path": "$TMP/barness-ticket21-final-docs-standards-proof.json",
+        "bytes": 13937,
+        "sha256": "87c97cde44db62c256ce2cb94107d26f0247711857df542ca0a1108784f64255",
+        "classification": "REVIEWER_ONLY_METADATA_ANALYSIS_AS_DATA"
+      }
+    ],
+    "reviewerSetupExecutionFailuresThisTask": [],
+    "originalCopySourceExecuted": false,
+    "newNativeOrPaidAuthority": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "archiveBodiesOpened": false,
+    "rootEdits": false,
+    "followupScope": "Narrow corrected-copy source and supplied private metadata-rejection proof, then actual late custody/index; final14 docs remain frozen. Preserve this original finding report unchanged."
+  }
+}
