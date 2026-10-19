@@ -11,13 +11,13 @@ Status: claimed
 
 1. 现有 writer 将空 wire.Request 写成零字节 request.json，导致独立审计拒绝。
 2. 调用前取消/到期在 jev/decisions × plain/hooked 中必须全部可复现；不得依赖调度或 sleep。
-3. 零 credential 读取不能被一律判断为缺失 snapshot；只允许公共 runtime 的严格 scope 终止形态。
+3. 历史 scope-only 阶段：零 credential 读取不能被一律判断为缺失 snapshot。当时仅接纳 scope 终止，后续真实 post-pin RED 证明此方案不完整；当前合同采用 Scope 节的有限七行状态表。
 4. verifier 不能一律要求已解析身份、一个 Attempt 和四条事件；也不能因此放宽已发送分支。
 5. 未发送分支的伪造 wire、credential、Attempt、已解析归属或缺失/额外 Observer 记录必须拒绝，即使私有副本已重新密封。
 6. honest FAIL 的完整 12 样本分母、一个逻辑调用及其余未执行状态必须可回放；require-live 必须拒绝。
 7. 现有已发送成功/失败及 deadline 回放不回归；资源和零重试上限保持。
 8. scope 不是唯一合法未发送状态：公共 TransformHeaders 取消必须产生 resolved + credential1 + PhaseRequest + 0 Attempt，而起始事件仍未解析、终态事件完整已解析。先取得真实 RED，再扩展此形态。
-9. 阶段必须约束实测 credential 读取：scope/binding 为 0；credential 可为 0（前置检查）或 1（resolver 后检查）；request/admission 必须已解析且读取 1。未发送 wire 仍完全为空，不得靠 resolved 一位推断访问次数。
+9. 历史第二阶段：scope/binding 为 0、credential 可为 0或1，而 request/admission 当时一律要求已解析/read1。此规则遗漏 Jev pin 前 Request；已由第12项和 Scope 的有限七行状态表取代。未发送 wire 始终完全为空，访问次数必须实测。
 10. 不得把 admission/request 的 aborted 终态改成 scope 的 error，也不得以一律相等的起始/终态 metadata 拒绝合法已解析调用。
 11. 未发送访问记录必须明确提供唯一的整数 credentialReads；缺失字段不能借 int 零值冒充实测 0，伪造次数必须拒绝。
 12. Jev 在 pin 前图片检查可能返回 Capability 或 Request 取消：两者都未解析/read0，Request 仍为 aborted。消费者应接受这些由源码证明的有限形态；Decisions 不允许这两个未解析分支。对应派生包仅是私有消费者 fixture，不是假称在公共执行中观察到该精确阶段。
@@ -34,3 +34,9 @@ H1（发送前 deadline）由原始 v08 的 scope terminal、0 Attempt、2 Obser
 ## Test plan
 
 先写公共 Client → 原 production writer → bundle.finish → verify 的八组合回归。仅抽取现有逐样本 block，接受外层 precheck 之后的真实 context，先保留行为 RED，再修复。受控使用真实已取消/已过期 context；transport 无网络能力。package-specific evidence 与 offline E2E package 分开，不干扰 release.FindBundle。
+
+## Answer
+
+离线修复源码 `d02b5adb862e98d73672b47bfd1e3142a2d6082d` 已通过 Standards / Spec 精确复核。最终受控场景普通与 race 各23 PASS、audit0，双 vet exit0；测量时是 a203 HEAD 加 WIP，1,040 项编译/JSON/module 字节与 d02 提交完全一致，不能写成提交后测试。
+
+[证据入口](../evidence/ticket-20/README.md) 保留原始行为 RED、setup 失败、失败 GREEN、finite lifecycle 扩展、已发送取消 null/unset RED、访问计数 null 接纳 RED及最终 GREEN。三个独占创建的有界归档已整包流式核验0，原始输入前后哈希一致；没有读取 Key 或新增付费调用。此票仍待原始留存的独立双轴复核后关闭；不表示协议114与两个 visual 的当前正式资格已建立。
