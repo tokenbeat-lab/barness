@@ -1,0 +1,33 @@
+{
+  "state": "COMPLETED",
+  "name": "glm-messages",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-glm-2/live.test",
+    "-test.run=^TestGLMFormal$",
+    "-test.timeout=1800s",
+    "-test.v"
+  ],
+  "cwd": "$REPO/ai/live",
+  "timeoutSeconds": 1800,
+  "credentialsInherited": false,
+  "sourceVariable": "GLM_KEY",
+  "injectedCredential": "BARNESS_GLM_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:09:29.021633+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE",
+    "BARNESS_GLM_FORMAL",
+    "BARNESS_GLM_KEY",
+    "BARNESS_GLM_ROUTE",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 122.41965091740713,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

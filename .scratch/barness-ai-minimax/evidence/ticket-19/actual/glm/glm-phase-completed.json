@@ -1,0 +1,181 @@
+{
+  "state": "CLOSED",
+  "routes": {
+    "chat": {
+      "report": ".evidence/minimax-current-eleven-glm-2/glm-chat/20261019T060512.942349000Z/formal-glm-report.json",
+      "outcome": "PASS",
+      "complete": true,
+      "auditPassed": true,
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 22,
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 1800,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 22,
+        "attemptsReserved": 22,
+        "httpAttempts": 22,
+        "retries": 0
+      },
+      "cancel": {
+        "replayAttempts": 0,
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "outcome": "PASS",
+        "failure": "",
+        "calls": 1,
+        "httpAttempts": 1,
+        "durationMs": 1711,
+        "providerRequestIds": [
+          ""
+        ],
+        "requestIdSources": [
+          "unreported"
+        ],
+        "requestId": "req-20f07943e8c957b3d42382998c3cbf96",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": [
+          "unreported"
+        ],
+        "rawUsagePresence": null,
+        "truncated": false
+      }
+    },
+    "responses": {
+      "report": ".evidence/minimax-current-eleven-glm-2/glm-responses/20261019T060724.271931000Z/formal-glm-report.json",
+      "outcome": "PASS",
+      "complete": true,
+      "auditPassed": true,
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 22,
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 1800,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 22,
+        "attemptsReserved": 22,
+        "httpAttempts": 22,
+        "retries": 0
+      },
+      "cancel": {
+        "replayAttempts": 0,
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "outcome": "PASS",
+        "failure": "",
+        "calls": 1,
+        "httpAttempts": 1,
+        "durationMs": 667,
+        "providerRequestIds": [
+          "resp_20261019140750159589b8f7a14294"
+        ],
+        "requestIdSources": [
+          "response header:x-request-id"
+        ],
+        "requestId": "req-ed798e87146fd0c6ab45f2e6ae5541b8",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": [
+          "unreported"
+        ],
+        "rawUsagePresence": null,
+        "truncated": false
+      }
+    },
+    "messages": {
+      "report": ".evidence/minimax-current-eleven-glm-2/glm-messages/20261019T060929.035688000Z/formal-glm-report.json",
+      "outcome": "PASS",
+      "complete": true,
+      "auditPassed": true,
+      "budget": {
+        "replayAttempts": 0,
+        "plannedCalls": 22,
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "maxOutputTokens": 4096,
+        "callSeconds": 120,
+        "processSeconds": 1800,
+        "finalizationReserveSeconds": 20,
+        "callsUsed": 22,
+        "attemptsReserved": 22,
+        "httpAttempts": 22,
+        "retries": 0
+      },
+      "cancel": {
+        "replayAttempts": 0,
+        "id": "glm-5.3/cancel",
+        "model": "glm-5.3",
+        "outcome": "PASS",
+        "failure": "",
+        "calls": 1,
+        "httpAttempts": 1,
+        "durationMs": 1146,
+        "providerRequestIds": [
+          "6534d028-95c8-47f0-bb86-f0c7cecada93"
+        ],
+        "requestIdSources": [
+          "response header:x-request-id"
+        ],
+        "requestId": "req-fd199d79c6f6f5a0f78e41e02d4e7525",
+        "usage": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 0,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "usageReporting": [
+          "partial"
+        ],
+        "rawUsagePresence": [
+          {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        ],
+        "truncated": false
+      }
+    }
+  },
+  "calls": 66,
+  "attempts": 66,
+  "sourceCommit": "d2354144570da8aeda56862bbcaffe323061f986"
+}

@@ -1,0 +1,327 @@
+{
+  "schema": 3,
+  "combo": "zhipu-chat",
+  "operation": "chat",
+  "provider": "zhipu",
+  "api": "openai-completions",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+  "model": "glm-5.3",
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "accountAlias": "local-glm@cn-standard-endpoint",
+  "gitCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+  "catalogVersion": "2026-10-18.1-minimax",
+  "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+  "startedAt": "2026-10-19T06:05:12.942253Z",
+  "finishedAt": "2026-10-19T06:06:52.303996Z",
+  "budget": {
+    "maxAttempts": 32,
+    "attemptsReserved": 22,
+    "processSeconds": 1800,
+    "callSeconds": 120,
+    "finalizationReserveSeconds": 20,
+    "maxCalls": 24,
+    "httpAttempts": 22,
+    "maxRetriesPerScenario": 0,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 22,
+    "outputTokensUsed": 6814,
+    "inputTokensUsed": 1733,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "glm-5.3/full-stream",
+    "glm-5.3/full-complete",
+    "glm-5.3/simple-stream",
+    "glm-5.3/simple-complete",
+    "glm-5.3/tool-call",
+    "glm-5.3/tool-result",
+    "glm-5.3/native-history",
+    "glm-5.3/cancel",
+    "glm-5.3/recovery",
+    "glm-5.3/control-temperature",
+    "glm-5.3/control-usage",
+    "glm-5.2/full-stream",
+    "glm-5.2/full-complete",
+    "glm-5.2/simple-stream",
+    "glm-5.2/simple-complete",
+    "glm-5.2/tool-call",
+    "glm-5.2/tool-result",
+    "glm-5.2/native-history",
+    "glm-5.2/cancel",
+    "glm-5.2/recovery",
+    "glm-5.2/control-temperature",
+    "glm-5.2/control-usage"
+  ],
+  "scenarios": [
+    {
+      "id": "glm-5.3/full-stream",
+      "caseId": "GLM11-glm-5.3-full-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4967,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/full-complete",
+      "caseId": "GLM11-glm-5.3-full-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 3188,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/simple-stream",
+      "caseId": "GLM11-glm-5.3-simple-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 6711,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/simple-complete",
+      "caseId": "GLM11-glm-5.3-simple-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 6524,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/tool-call",
+      "caseId": "GLM11-glm-5.3-tool-call",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4063,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/tool-result",
+      "caseId": "GLM11-glm-5.3-tool-result",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 5193,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/native-history",
+      "caseId": "GLM11-glm-5.3-native-history",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 2762,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/cancel",
+      "caseId": "GLM11-glm-5.3-cancel",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 1711,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/recovery",
+      "caseId": "GLM11-glm-5.3-recovery",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 6311,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/control-temperature",
+      "caseId": "GLM11-glm-5.3-control-temperature",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4550,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.3/control-usage",
+      "caseId": "GLM11-glm-5.3-control-usage",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 3649,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/full-stream",
+      "caseId": "GLM11-glm-5.2-full-stream",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5612,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/full-complete",
+      "caseId": "GLM11-glm-5.2-full-complete",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 4631,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/simple-stream",
+      "caseId": "GLM11-glm-5.2-simple-stream",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 7986,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/simple-complete",
+      "caseId": "GLM11-glm-5.2-simple-complete",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5247,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/tool-call",
+      "caseId": "GLM11-glm-5.2-tool-call",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 1061,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/tool-result",
+      "caseId": "GLM11-glm-5.2-tool-result",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 830,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/native-history",
+      "caseId": "GLM11-glm-5.2-native-history",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 3041,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/cancel",
+      "caseId": "GLM11-glm-5.2-cancel",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 568,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/recovery",
+      "caseId": "GLM11-glm-5.2-recovery",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 6341,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/control-temperature",
+      "caseId": "GLM11-glm-5.2-control-temperature",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5279,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    },
+    {
+      "id": "glm-5.2/control-usage",
+      "caseId": "GLM11-glm-5.2-control-usage",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 8931,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        ""
+      ]
+    }
+  ],
+  "glm": {
+    "mode": "live",
+    "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+    "usageBasis": "reported-known-lower-bound",
+    "unknownUsageAttempts": 2
+  }
+}

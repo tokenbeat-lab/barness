@@ -5,10 +5,10 @@
   "delivery": "PARTIAL",
   "releaseCertified": false,
   "specClosed": false,
-  "latestPaidActualSource": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "latestPaidActualSource": "d2354144570da8aeda56862bbcaffe323061f986",
   "currentCodeSource": "a808e0ef49f60832b0d5f49aa4c6d4e7cf752c57",
-  "allAuthorizedPaidProcessesClosed": true,
-  "additionalPaidRoundAuthorized": false,
+  "allAuthorizedPaidProcessesClosed": false,
+  "additionalPaidRoundAuthorized": true,
   "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
   "legacyCalls": 648,
   "legacyAttempts": 648,
@@ -485,14 +485,14 @@
     "evidence": "evidence/ticket-18/cleanup.json"
   },
   "currentSourceElevenRevalidation": {
-    "state": "SOURCE_REVIEWED_NEW_PREFLIGHT_PENDING",
+    "state": "GLM3_PASS_REMAINING8_PREPARING",
     "sourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
     "precheckCurrentQualified": 0,
     "strictGroups": 11,
     "publicVerificationCompleted": true,
     "credentialsRead": false,
     "paidCalls": 0,
-    "newBudgetApproved": false,
+    "newBudgetApproved": true,
     "proposedAdditionalMaxCalls": 216,
     "proposedAdditionalMaxHTTPAttempts": 252,
     "evidence": "evidence/ticket-19/precheck/README.md",
@@ -502,9 +502,9 @@
       "Spec": 0,
       "evidence": "evidence/ticket-19/reviews/README.md"
     },
-    "sixCurrentKeylessChecksCompleted": false,
+    "sixCurrentKeylessChecksCompleted": true,
     "newActualFormalQualification": false,
-    "sixCurrentKeylessChecksPassed": false,
+    "sixCurrentKeylessChecksPassed": true,
     "firstPreflight": {
       "PASS": 5,
       "FAIL": 1,
@@ -534,6 +534,75 @@
         0,
         0
       ]
-    }
+    },
+    "preparedSourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+    "selectedExecutionFiles": 1074,
+    "keylessCheckResult": {
+      "PASS": 6,
+      "FAIL": 0,
+      "commands": {
+        "vet": 0,
+        "vet-live": 0,
+        "no-key-live": 0,
+        "no-key-visual-proxy": 0,
+        "no-key-release-contracts": 0,
+        "no-key-release-package": 0
+      },
+      "evidence": "evidence/ticket-19/preflight-final/README.md"
+    },
+    "sourceReviewApproved": true,
+    "sourceReviewSHA256": "61f561575c4c1eac37f5351b88bb8b73e092703e52262b8b0b0e7b682a4574fc",
+    "budgetQuestionAsked": true,
+    "executionAuthorizationPresent": true,
+    "realRenewalGrantPresent": false,
+    "ownedWorkerWorktreesRemoved": true,
+    "approvedAdditionalMaxCalls": 216,
+    "approvedAdditionalMaxHTTPAttempts": 252,
+    "humanApprovalReference": "request_user_input_async/call_11ea21ff6def436e987cceda274c6cab/0",
+    "latestCollection": ".evidence/minimax-current-eleven-glm-2",
+    "glm": {
+      "routes": {
+        "chat": {
+          "PASS": 22,
+          "FAIL": 0,
+          "calls": 22,
+          "attempts": 22,
+          "cancelDurationMillis": 1711,
+          "cancelUsage": [
+            "unreported"
+          ]
+        },
+        "responses": {
+          "PASS": 22,
+          "FAIL": 0,
+          "calls": 22,
+          "attempts": 22,
+          "cancelDurationMillis": 667,
+          "cancelUsage": [
+            "unreported"
+          ]
+        },
+        "messages": {
+          "PASS": 22,
+          "FAIL": 0,
+          "calls": 22,
+          "attempts": 22,
+          "cancelDurationMillis": 1146,
+          "cancelUsage": [
+            "partial"
+          ]
+        }
+      },
+      "calls": 66,
+      "attempts": 66,
+      "currentFormalReports": 3,
+      "evidence": "evidence/ticket-19/actual/glm/README.md"
+    },
+    "currentRoundCalls": 66,
+    "currentRoundHTTPAttempts": 66,
+    "combinedWithPrior648Calls": 714,
+    "combinedWithPrior648Attempts": 714,
+    "currentQualifiedFreshGroups": 3,
+    "remainingGroups": 8
   }
 }

@@ -4,7 +4,7 @@ Delivery: PARTIAL
 Updated: 2026-10-19
 Integration branch: `codex/minimax-global`
 
-2026-10-19 十一组当前来源复核已实际执行：旧输入当前正式资格0/11；逐组来源拒绝及缺失报告见[无Key复核](evidence/ticket-19/precheck/README.md)。原场景历史结果及票18单场景PASS不改写。独立、有界的续期工具与M3持久授权已集成，源码fbbdea4经Standards/Spec独立复审各0发现；矩阵历史报告重导缺陷已失败先行修复。来源0bb的六项无Key前置检查已关闭：5通过、live测试因新受控场景的子进程输出含本机路径触发脱敏审计而失败；[原失败](evidence/ticket-19/preflight-first/README.md)保留。HOME诊断修复a257已合入且双轴复审各0发现，80项Python工具回归PASS，HOME及外层原件有限读回均0；接下来以新提交重新冻结六项检查。本阶段0Key读取、0收费请求，新预算216/252尚未批准；[源码审查](evidence/ticket-19/reviews/README.md)不授予正式资格。
+2026-10-19 十一组当前来源复核已实际执行：旧输入当前正式资格0/11；逐组来源拒绝及缺失报告见[无Key复核](evidence/ticket-19/precheck/README.md)。原场景历史结果及票18单场景PASS不改写。独立、有界的续期工具与M3持久授权已集成，源码fbbdea4经Standards/Spec独立复审各0发现；矩阵历史报告重导缺陷已失败先行修复。来源0bb的六项无Key前置检查已关闭：5通过、live测试因新受控场景的子进程输出含本机路径触发脱敏审计而失败；[原失败](evidence/ticket-19/preflight-first/README.md)保留。HOME诊断修复a257已合入且双轴复审各0发现，80项Python工具回归PASS，HOME及外层原件有限读回均0；最终来源d235的[新冻结六项无Key检查](evidence/ticket-19/preflight-final/README.md)全部通过，新216/252已由直接回复批准，GLM三路各22/22正式PASS，共66/66；Messages取消场景1146ms通过，新增原始证据见[本轮GLM](evidence/ticket-19/actual/glm/README.md)，其余八项仍待执行。本阶段0Key读取、0收费请求，新预算216/252已批准且开始执行；[源码审查](evidence/ticket-19/reviews/README.md)不授予正式资格。
 
 2026-10-19 最新单场景复测：**Messages `glm-5.3/cancel` PASS**，来源 `6a24ba3`。中国区直连，861ms 收到非空 ThinkingDelta 后主动取消，返回 `canceled/stream`、HTTP200、`aborted`；1call/1HTTPAttempt、零重试，usage为partial、不记免费。当前用户指令单独授权的1/1已执行关闭，旧续期连历史647/647累计648/648。已立即更新[机器状态](evidence/ticket-09/international-delivery-status.json)与[本次证据](evidence/ticket-18/README.md)。原120001ms失败保留，原始wire request相同，四selector与默认矩阵未变。此PASS只关闭该场景的最新复测观察；全22场景正式Messages报告、严格来源资格、GLM续期/矩阵装配与完整发布门禁仍未通过。以下固定六项是原历史检查点。
 

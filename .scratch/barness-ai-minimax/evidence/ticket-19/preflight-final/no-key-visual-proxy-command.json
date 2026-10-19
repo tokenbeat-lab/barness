@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "no-key-visual-proxy",
+  "argv": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-run",
+    "^TestVisualEvaluationProxyProcess$",
+    "-count=1",
+    "-timeout=5m"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 360,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T05:45:31.864914+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 6.3420395837165415,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

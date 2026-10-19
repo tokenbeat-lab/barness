@@ -1,0 +1,566 @@
+{
+  "receipts": {
+    "openai-responses": {
+      "receiptSHA256": "e3755521bc23ee2f069bd49d3b78eb8eb38751a6dd9bb735d1a487653acad010",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "30d39efad13f08d246385818499c4e0cb1f6c3cc120f8aee0444156c3940310b",
+      "calls": 15,
+      "attempts": 15,
+      "status": "FAIL"
+    },
+    "openai-chat": {
+      "receiptSHA256": "e0fd0aac03133ed9206519d4ca2ef58b6fbf287b442755b5741f225bccb56383",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "49727d3771b50725b00b79bb2bef692a030989cc8490046142a2b1a82bf508ab",
+      "calls": 17,
+      "attempts": 17,
+      "status": "FAIL"
+    },
+    "anthropic-messages": {
+      "receiptSHA256": "cd5e6cafd594ef8c4a231d2fc3e5cd68ccf998843a8f5bad99b909a3b1a4d69c",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "94f8effe29ec3b806f6b82d70afddf3056f5836eaa824c751443b5f002a45ec4",
+      "calls": 11,
+      "attempts": 11,
+      "status": "FAIL"
+    },
+    "google-gemini": {
+      "receiptSHA256": "9a7765c1cfe97a845e9930afd6dda85e033b88d4bbbaa609c6038d6df34a98e2",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "d398905c700a30ad1a2f050ddb1c8b7e8cfd961072c057656d932f57453d7340",
+      "calls": 11,
+      "attempts": 11,
+      "status": "FAIL"
+    },
+    "deepseek-responses": {
+      "receiptSHA256": "2aa801dd0c37d4a4b740b68ea1b318902802af31c73cbd21d67b40116b64e3a5",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "7d47954bdca1d0eaa25ba63f4ce7032e65f0c570526002d2e4eeab18cee62a4f",
+      "calls": 10,
+      "attempts": 10,
+      "status": "PASS"
+    },
+    "deepseek-chat": {
+      "receiptSHA256": "74bd94624cfdd097f24b6b271bfe9a92c9e4fb367b7c23c0a464f36659f7aca2",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "3700ac26f940ef4d2b1c4de7d7885e975605637917d140090b20a2d7a569bfa1",
+      "calls": 13,
+      "attempts": 13,
+      "status": "PASS"
+    },
+    "openai-images": {
+      "receiptSHA256": "f5f534e7e4ed3f02e167b309e44124af53fe8de178e26522fe8c99f5789d9fde",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "a97b8e991447dbf2dc0ccd1ebcddfde010c8b3d7e0efb30995e045aa5cab6c5d",
+      "calls": 2,
+      "attempts": 2,
+      "status": "FAIL"
+    },
+    "google-interactions-image": {
+      "receiptSHA256": "958b6ec90a062d42faaa9ec08482be0e3c577ca65fdbbd1737df2627b68197de",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "4102a634a0401e41c2e99644830b4ef1b00e18eab83db8a7562924c1fc4551cb",
+      "calls": 4,
+      "attempts": 4,
+      "status": "FAIL"
+    },
+    "openai-decisions": {
+      "receiptSHA256": "64a0689299878955778e61fbcdab8cd63c2b1fa1933773a9f359ff55b8db4f29",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "2acd11eaec4de8eeada2bf608ce132181507089832a9616f96f7dd6fc3f422f8",
+      "calls": 9,
+      "attempts": 9,
+      "status": "FAIL"
+    },
+    "typesafe-classifier": {
+      "receiptSHA256": "e39a36d9aaac057a82176817b4c249f1edba1f041e7f646cedbbf8caea63984c",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "d7cbbbde93fd4a8872a0dc6372596a7753f55b63b608940b38b780abe1d9dc77",
+      "calls": 3,
+      "attempts": 3,
+      "status": "FAIL"
+    },
+    "protocol114": {
+      "receiptSHA256": "8732ef2a54a4e6972e2eacae53236ca5f38fd060cd2e0188519c7d90bf8264f1",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "d217054b1fff9f5c69e30f4c5da453ba574b474dc711937f1ea8c30b223ccf64",
+      "calls": 1,
+      "attempts": 1,
+      "status": "FAIL"
+    },
+    "text-jev": {
+      "receiptSHA256": "0979a91e9f9fce3ae46aa196c894570399a8ab991ff2b1917f4c22a79843969d",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "b9011257b944b6dec0519c4af4b503b8c997d7b2f6866494003b46aba61c8d54",
+      "calls": 24,
+      "attempts": 24,
+      "status": "FAIL"
+    },
+    "text-luna": {
+      "receiptSHA256": "a148117114a561766f51336a70f057a45ab10b4f03e3e64248721ce7c28fe897",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "734623d0912038f13aa43370b8989debab7f7250aaa3ebcf22999b9f51c94c8d",
+      "calls": 24,
+      "attempts": 24,
+      "status": "FAIL"
+    },
+    "visual-jev": {
+      "receiptSHA256": "ff573975723a71c4d5df31aba5b4c2a2cc801a54d70b5259d99e176808bb6430",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "0a63cd4288a576dc4a72ad007476370438796ecbb987618c7ffd195663aeabcc",
+      "calls": 12,
+      "attempts": 12,
+      "status": "FAIL"
+    },
+    "visual-decisions": {
+      "receiptSHA256": "40a4e264b969fd884f57b9901404f63842065145a4e4edee752fb15a7cc6b473",
+      "sourceCommit": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+      "reportSHA256": "6f407ed3cebf5c81c53dc7792fc256fe4f2e500a732bd9562f372bc8cc24371e",
+      "calls": 12,
+      "attempts": 12,
+      "status": "FAIL"
+    },
+    "glm-chat": {
+      "receiptSHA256": "1f50933ed97db33d21c4df46c5adeb4112d6dc6a080ac54a910782e402cb19bc",
+      "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "b6eae1e8d65be603bdce079d44e930d1514e904ad4e148649acb553507a6d619",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS"
+    },
+    "glm-responses": {
+      "receiptSHA256": "13ccf3916853ab93d7e52a06353f4ced5cda0fb34c6f2f3303b310ddbb00d0d5",
+      "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "80ef74877de644227ab72a80ba07a9d7e385a1979cd8cde240c6c35cf655609b",
+      "calls": 22,
+      "attempts": 22,
+      "status": "FAIL"
+    },
+    "glm-messages": {
+      "receiptSHA256": "d4dad5b68303b07f3c07cb0001841fa1a5147c74b65698c85e5a08882cf255ca",
+      "sourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "652727389bfaf1addb49d41714070bf70f9f5ebf53d0313990c290b36565b8fe",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS"
+    },
+    "glm-corrective-1-chat": {
+      "receiptSHA256": "c9727b722853062cd1b92dee6d0b3adf27d2936920e8c5b8c7f9dcb5fb6293d8",
+      "sourceCommit": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+      "reportSHA256": "3eb8f5e28fc98e93244fbf4428e452d2fd6a61e92de07ab45b0581dd537d9689",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS"
+    },
+    "glm-corrective-1-responses": {
+      "receiptSHA256": "0b08756a43be17eeff4d003c4f414d7d66567457ef741f0fbebb43042dc18788",
+      "sourceCommit": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+      "reportSHA256": "a42b5b12fa6b37bacf1f1efba5e4c9ae58eb373f67b5d9c5e684d5c45bc2b1e2",
+      "calls": 22,
+      "attempts": 22,
+      "status": "FAIL"
+    },
+    "glm-corrective-1-messages": {
+      "receiptSHA256": "af1e29040d12e5cb610f9c2703f7c7caa17ac38f8f59d5c5659c67dc0dfd83fb",
+      "sourceCommit": "5bf2c16f2207a127723e4b19bfa0b59d23825cd4",
+      "reportSHA256": "f4c1811bc483fd8422b34cfa1f4ea90a328086f72b7ccf1251f91637cc642f78",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS"
+    },
+    "routed-validation-1-glm-chat": {
+      "receiptSHA256": "83e408719393755001a7459fd3a3204e97e4b4beed637857705233ff3c738373",
+      "sourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+      "reportSHA256": "fa22c0e33fbc8943953195e91f0723b26ab24e582b3d095f368ebf6a3813e439",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-glm-1/source-at-start.json": "dc5f1a1eddd990a885345e428614e9ac3dc91349ebca1db7765079f3a2d6b906",
+        ".evidence/minimax-routed-glm-1/binaries.json": "831ca7186bc14cbcb8959022aa89e32913ab9aa3de65327a03730bd3c6e166d3",
+        ".evidence/minimax-routed-glm-1/plan.json": "05441e0b4d6c9b33298eee511d7ed64c3dfa30b9f17e58954bec1fda2923da70",
+        ".evidence/minimax-routed-glm-1/prerelease-source-review.json": "a7cdc417b8084b3db3f02bfa0ffbc14ccd23aa0868c58f0ee64818a07d3a3a8c",
+        ".evidence/minimax-routed-glm-1/execution-authorization.json": "c38950cc65b9bfd8722f4b086296a7e080df55dfea025265701c2b7bda50572a",
+        ".evidence/minimax-routed-glm-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-glm-1/glm-chat-command.json": "d94962b45eeb4252b2a445be673f271412510f1a36b6b26b710dcf63705bc59c"
+      }
+    },
+    "routed-validation-1-glm-responses": {
+      "receiptSHA256": "c073f0843a953f1a29307a77ba5c8a2bf954be1b498cfc57a98e0b801392fad1",
+      "sourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+      "reportSHA256": "eded639928cbb15b535b95892a79d717899dffb0faba15454241b6ef501f71f0",
+      "calls": 21,
+      "attempts": 21,
+      "status": "FAIL",
+      "metadata": {
+        ".evidence/minimax-routed-glm-1/source-at-start.json": "dc5f1a1eddd990a885345e428614e9ac3dc91349ebca1db7765079f3a2d6b906",
+        ".evidence/minimax-routed-glm-1/binaries.json": "831ca7186bc14cbcb8959022aa89e32913ab9aa3de65327a03730bd3c6e166d3",
+        ".evidence/minimax-routed-glm-1/plan.json": "05441e0b4d6c9b33298eee511d7ed64c3dfa30b9f17e58954bec1fda2923da70",
+        ".evidence/minimax-routed-glm-1/prerelease-source-review.json": "a7cdc417b8084b3db3f02bfa0ffbc14ccd23aa0868c58f0ee64818a07d3a3a8c",
+        ".evidence/minimax-routed-glm-1/execution-authorization.json": "c38950cc65b9bfd8722f4b086296a7e080df55dfea025265701c2b7bda50572a",
+        ".evidence/minimax-routed-glm-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-glm-1/glm-responses-command.json": "9e7c0a04a17e7d7959507e588214ed302da6670adcd4b87c613bbf4c4656ac1b"
+      }
+    },
+    "routed-validation-1-glm-messages": {
+      "receiptSHA256": "26cef9e096019ae203dd674c2f4f18f3a8e70082fd8f5f55c57b6b9e6ed1e4b7",
+      "sourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+      "reportSHA256": "0f33be2a047b30e9c8e7c442d11d7e30dcdb0e95755b0bb4f5257c3578c6da49",
+      "calls": 22,
+      "attempts": 22,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-glm-1/source-at-start.json": "dc5f1a1eddd990a885345e428614e9ac3dc91349ebca1db7765079f3a2d6b906",
+        ".evidence/minimax-routed-glm-1/binaries.json": "831ca7186bc14cbcb8959022aa89e32913ab9aa3de65327a03730bd3c6e166d3",
+        ".evidence/minimax-routed-glm-1/plan.json": "05441e0b4d6c9b33298eee511d7ed64c3dfa30b9f17e58954bec1fda2923da70",
+        ".evidence/minimax-routed-glm-1/prerelease-source-review.json": "a7cdc417b8084b3db3f02bfa0ffbc14ccd23aa0868c58f0ee64818a07d3a3a8c",
+        ".evidence/minimax-routed-glm-1/execution-authorization.json": "c38950cc65b9bfd8722f4b086296a7e080df55dfea025265701c2b7bda50572a",
+        ".evidence/minimax-routed-glm-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-glm-1/glm-messages-command.json": "0b980b68249efbe803f28a534acb8bd183b6abcbe7f0f66648a683227ab7fbf6"
+      }
+    },
+    "routed-validation-1-openai-responses": {
+      "receiptSHA256": "bbe306540bd129dbe3702794e08a01efeda127fa52c8219fcbe62a7cd2c6be33",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "d60839f2f9561d837fa822dbd69577e8e84948083b3ccd84e913d2ee31f56c43",
+      "calls": 14,
+      "attempts": 14,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/openai-responses-command.json": "d9b2cb40788ebcdd02dc32a1dba98435aa75b096b70c29c72134d4f46cc2797f"
+      }
+    },
+    "routed-validation-1-openai-chat": {
+      "receiptSHA256": "c17605e620306f589754f09fba2400de97d3566049183725c4634b61d82386d0",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "9639a1f1186c5261d605b0e6b7d7852414a2600f1e0c7b7befa990f758295c5b",
+      "calls": 14,
+      "attempts": 14,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/openai-chat-command.json": "704c8e7570f1bbaff498d882675b6cba66e4277bcacd176fc84526b1d4f95467"
+      }
+    },
+    "routed-validation-1-anthropic-messages": {
+      "receiptSHA256": "74649477b571724a00319d978619cb46538f67f8333946af76ecf3a82a9a3e3f",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "3de558312237206ebf07264ca60f3c9ce058385dd96b74bc5da306a7fce8b214",
+      "calls": 20,
+      "attempts": 20,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/anthropic-messages-command.json": "68716cab8f798433df5c37aea78520ac2d0fe3af4965bfae9653c24668681713"
+      }
+    },
+    "routed-validation-1-google-gemini": {
+      "receiptSHA256": "2b56f417a29b0a74c221b2099c783afc427444233fae8cfce0f029e8f85b4f62",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "630ef3ef5774e6197c6ae8abcedeb9de7926d95b2972d5df205662b7c4c68ea1",
+      "calls": 8,
+      "attempts": 8,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/google-gemini-command.json": "30c6beacc015023765ed84fe7e960fc762da3a1e87847122b6c872eb7d9dc796"
+      }
+    },
+    "routed-validation-1-deepseek-responses": {
+      "receiptSHA256": "783632359e7861029e19cc9fe4794bf5ce650235329810597aec501172dbf402",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "227f61ff7cbd23d34cddf10a4f63f6919fe850a550dd2fbf128ef5ad1b6524a8",
+      "calls": 10,
+      "attempts": 10,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/deepseek-responses-command.json": "e52e2d3b4b4f5f14ea81a38e406d79f6d21b6754793c6dec7639bd5ec462cda6"
+      }
+    },
+    "routed-validation-1-deepseek-chat": {
+      "receiptSHA256": "47ab97cf33084e2ad108407b7931ebb5bdc7a5b575c976389bcd59c136007b60",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "9f1dd332cde1895c20b1aa59a0447c78b6c1938f502aa5380be6adb00be9399e",
+      "calls": 13,
+      "attempts": 13,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/deepseek-chat-command.json": "57425db556169b88ac2f45da27de1c52b37147c48fb3ccddc9c656f93c0dc217"
+      }
+    },
+    "routed-validation-1-openai-images": {
+      "receiptSHA256": "8c632b1ae18304f80e03d717d2594739cb1f173a500b3f0019ca387e54dc6519",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "1dcb77d06f1025ff6ca397599f56c093a142da272ba89ccc06e18b29fa1257ed",
+      "calls": 3,
+      "attempts": 3,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/openai-images-command.json": "b14b7b332278b06a38836c4630a0d58679bc1d46d792f4d97023d67e215a84d6"
+      }
+    },
+    "routed-validation-1-google-interactions-image": {
+      "receiptSHA256": "ad0dc43fc099eba66e65ebb9ffd3594e689638797cebc3f885b74523d8b72654",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "31e81c996a2bbd3be666f369b8d542807fbd730daac0da2d978f3b985b830dba",
+      "calls": 2,
+      "attempts": 2,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/google-interactions-image-command.json": "dca47f90bb1d9c6bb491e96ebfd91b3d1964ae2e6417a836276853fc3fb00401"
+      }
+    },
+    "routed-validation-1-openai-decisions": {
+      "receiptSHA256": "021b83941f78c9a0759571f4156ba27c31867e6f88932fa036e4ea7959d881e1",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "e132afe1b54b94481e3ac57421a9a3af1d1da6e5a7cda8cdfb6c27f077aacae7",
+      "calls": 9,
+      "attempts": 9,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/openai-decisions-command.json": "3ce0543c3241f1a08ea2453d9815643e53f4ef14732830b6f68283e31d6d3893"
+      }
+    },
+    "routed-validation-1-typesafe-classifier": {
+      "receiptSHA256": "a85956b71242e62ad688172e479ef7ca8f828a36e04be6a6ae6b6ffcec1fa9a2",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "673cad94278a0cbdc73bc0155d5ecf4fec9a95d6bda5aa4511dae538eb9e1e31",
+      "calls": 3,
+      "attempts": 3,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/typesafe-classifier-command.json": "197530caec7bd58fbb0f63670281a602558a1b58441c1dcd7b521093a2708bdf"
+      }
+    },
+    "routed-validation-1-protocol114": {
+      "receiptSHA256": "2a8f12d3670a7489e9db40e40a5963d20be2a652f425e922d7133753da80943b",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "21d10f15bc031d341086e1ff359f29ee114cccdaa7616ac0fa618c21ad3f02dc",
+      "calls": 12,
+      "attempts": 12,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/protocol114-command.json": "534a286e22a233b3375f7b0f561691e2d0fdf11ed5a1004547ceef058bb016e3"
+      }
+    },
+    "routed-validation-1-text-jev": {
+      "receiptSHA256": "ab044b5f10d020a36f5632e6eaf0c9cc317e78f760f43a25c506215a4cb071aa",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "46e2d6d34b4e8e759723ce21e922fc372840ba3a30d6af055a337133276975c6",
+      "calls": 24,
+      "attempts": 24,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/text-jev-command.json": "f6705827c6c651124fee8b824296fb8b5e5a89927683a152f2344f8a3696d832"
+      }
+    },
+    "routed-validation-1-text-luna": {
+      "receiptSHA256": "d2db89ff0339b6b7187a4e1af2c9e7ba1e20fb72d5f382406a11cf4e48326ac9",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "64dc5b7ae0ae4cfcbe823cb6f9af3284c10f6649467cc428bf6e749d7a691a38",
+      "calls": 24,
+      "attempts": 24,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/text-luna-command.json": "a6ebfb3ed97edaf4cf46cef20631b85a2ce691b0e0ab70e1fdef0c4f4e320726"
+      }
+    },
+    "routed-validation-1-visual-jev": {
+      "receiptSHA256": "0fc80854bb115dac5c44b2e39c289110ffa7cd40057f7bf0ea75ee1819b0bf2f",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "5d9b2edbe1a9b07a91f2105fad024f39626aa46e6eb50f380fb7e6cf6215fac8",
+      "calls": 12,
+      "attempts": 12,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/visual-jev-command.json": "f87ef78a6356c4e57c3e03f17be678626cdcdb45447f1107601957db6364ce11"
+      }
+    },
+    "routed-validation-1-visual-decisions": {
+      "receiptSHA256": "e7bb8c3d418ea79474f3a39b214fbe650e60d28f0921d8b07b1e762883030fee",
+      "sourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "reportSHA256": "e29db6b61e416f7c8af2785f6d74656ee57c3f622dac97abaa2072139aafcb7f",
+      "calls": 12,
+      "attempts": 12,
+      "status": "PASS",
+      "metadata": {
+        ".evidence/minimax-routed-legacy-1/source-at-start.json": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+        ".evidence/minimax-routed-legacy-1/binaries.json": "a39ee01b093c63f289cdc7a66d5d72d8e31b0bbf0980f1a6c4a8641a5d8f1c37",
+        ".evidence/minimax-routed-legacy-1/plan.json": "3ee7812fb14dc8140bb3aa2e2ff74774d3ce385ea943e39fb38a95aaa47895b9",
+        ".evidence/minimax-routed-legacy-1/prerelease-source-review.json": "a09a440fd23e3bcecab57cef020985355aca8ec701a67e856a250a785afcd5e1",
+        ".evidence/minimax-routed-legacy-1/execution-authorization.json": "07af0fee62ced6a109e3ab9632e0ed41013e1a178ebcff852cd8c229244ea579",
+        ".evidence/minimax-routed-legacy-1/checks.json": "aac07eb1dcd3673a9864c3befa0af095af271b0fb90f1a40c769694a9d23d4d6",
+        ".evidence/minimax-routed-legacy-1/visual-decisions-command.json": "3e43c230bee561ad394154379bfbe7e029bb10b0b1cf3a4cfa0df1fd499c3d76"
+      }
+    },
+    "release-repair-validation-1-glm-chat": {
+      "receiptSHA256": "06e59ac3f16e315e22fa31bde2b19ce6431f6741416132aac1fb2e7bdf6860c2",
+      "state": "REPORTED",
+      "status": "PASS",
+      "calls": 22,
+      "attempts": 22,
+      "currentReportBudget": {
+        "callsUsed": 22,
+        "attemptsReserved": 22,
+        "httpAttempts": 22
+      }
+    },
+    "release-repair-validation-1-glm-responses": {
+      "receiptSHA256": "cb31e629693a71f54c9e80128c7990085587a85d2a7fe651e5e64a92908a8cab",
+      "state": "REPORTED",
+      "status": "PASS",
+      "calls": 22,
+      "attempts": 22,
+      "currentReportBudget": {
+        "callsUsed": 22,
+        "attemptsReserved": 22,
+        "httpAttempts": 22
+      }
+    },
+    "release-repair-validation-1-glm-messages": {
+      "receiptSHA256": "1904b9417eacaadfac17bcb3a7c3f5c4c6643daa6db5a84dfc99d01f257229a3",
+      "state": "REPORTED",
+      "status": "FAIL",
+      "calls": 22,
+      "attempts": 22,
+      "currentReportBudget": {
+        "callsUsed": 22,
+        "attemptsReserved": 22,
+        "httpAttempts": 22
+      }
+    },
+    "release-repair-validation-1-protocol114": {
+      "receiptSHA256": "035058b4d47396903c0d9324833b99159217c765059f4d9ba9d3d3e7acb069be",
+      "state": "REPORTED",
+      "status": "PASS",
+      "calls": 12,
+      "attempts": 12,
+      "currentReportBudget": {
+        "calls": 12,
+        "attempts": 12
+      }
+    },
+    "release-repair-validation-1-visual-jev": {
+      "receiptSHA256": "8f6f2b831e83e5b171279e84412c233b22f8de9c684791658a84928a19d31578",
+      "state": "REPORTED",
+      "status": "PASS",
+      "calls": 12,
+      "attempts": 12,
+      "currentReportBudget": {
+        "calls": 12,
+        "attempts": 12
+      }
+    },
+    "release-repair-validation-1-visual-decisions": {
+      "receiptSHA256": "b812952144db1098820d2d0bf7f3016856e93b59c219b0126da94ef7b0e7cfbd",
+      "state": "REPORTED",
+      "status": "PASS",
+      "calls": 12,
+      "attempts": 12,
+      "currentReportBudget": {
+        "calls": 12,
+        "attempts": 12
+      }
+    }
+  },
+  "diagnostic": {
+    "root": ".evidence/glm-messages-cancel-20261019-1/",
+    "pins": {
+      "paid-intent.json": "85ad80d8b3bbee3b7b4a782b0ee49044e2507219f99f81039ed7165314bfec51",
+      "actual-command.json": "a23936d88decb4575959b18811a963f725c8d2ac2fe2b9d0da05c3e08c826129",
+      "actual/20261018T230218.566865000Z/diagnostic-glm-messages-cancel-report.json": "78395266585b5c632bced498789d2135d57c214860e59cba48b1c317d483267c"
+    },
+    "calls": 1,
+    "attempts": 1
+  },
+  "known": {
+    "calls": 648,
+    "attempts": 648
+  },
+  "separateM3Formal": {
+    "calls": 39,
+    "attempts": 36
+  },
+  "originalFormalLedgerSHA256": "18da13b55406c7d4a1754ad26984c617185cae3dbef270e68dff95db9cd2e4ef"
+}

@@ -1,0 +1,327 @@
+{
+  "schema": 3,
+  "combo": "zhipu-responses",
+  "operation": "chat",
+  "provider": "zhipu",
+  "api": "openai-responses",
+  "endpoint": "https://open.bigmodel.cn/api/v1",
+  "model": "glm-5.3",
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "accountAlias": "local-glm@cn-standard-endpoint",
+  "gitCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+  "catalogVersion": "2026-10-18.1-minimax",
+  "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+  "startedAt": "2026-10-19T06:07:24.271841Z",
+  "finishedAt": "2026-10-19T06:08:54.730362Z",
+  "budget": {
+    "maxAttempts": 32,
+    "attemptsReserved": 22,
+    "processSeconds": 1800,
+    "callSeconds": 120,
+    "finalizationReserveSeconds": 20,
+    "maxCalls": 24,
+    "httpAttempts": 22,
+    "maxRetriesPerScenario": 0,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 22,
+    "outputTokensUsed": 5899,
+    "inputTokensUsed": 1648,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "glm-5.3/full-stream",
+    "glm-5.3/full-complete",
+    "glm-5.3/simple-stream",
+    "glm-5.3/simple-complete",
+    "glm-5.3/tool-call",
+    "glm-5.3/tool-result",
+    "glm-5.3/native-history",
+    "glm-5.3/cancel",
+    "glm-5.3/recovery",
+    "glm-5.3/control-low",
+    "glm-5.3/control-max",
+    "glm-5.2/full-stream",
+    "glm-5.2/full-complete",
+    "glm-5.2/simple-stream",
+    "glm-5.2/simple-complete",
+    "glm-5.2/tool-call",
+    "glm-5.2/tool-result",
+    "glm-5.2/native-history",
+    "glm-5.2/cancel",
+    "glm-5.2/recovery",
+    "glm-5.2/control-low",
+    "glm-5.2/control-max"
+  ],
+  "scenarios": [
+    {
+      "id": "glm-5.3/full-stream",
+      "caseId": "GLM11-glm-5.3-full-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 3794,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_202610191407242e478483aa4c481a"
+      ]
+    },
+    {
+      "id": "glm-5.3/full-complete",
+      "caseId": "GLM11-glm-5.3-full-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4141,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140728d3e4552a14514b58"
+      ]
+    },
+    {
+      "id": "glm-5.3/simple-stream",
+      "caseId": "GLM11-glm-5.3-simple-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4309,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140732b49e49e234bb4bc5"
+      ]
+    },
+    {
+      "id": "glm-5.3/simple-complete",
+      "caseId": "GLM11-glm-5.3-simple-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4453,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914073679c5936f3df447f0"
+      ]
+    },
+    {
+      "id": "glm-5.3/tool-call",
+      "caseId": "GLM11-glm-5.3-tool-call",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4553,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140741cddb4b5af0be4280"
+      ]
+    },
+    {
+      "id": "glm-5.3/tool-result",
+      "caseId": "GLM11-glm-5.3-tool-result",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 3561,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140745d6ff079aaeaa45fc"
+      ]
+    },
+    {
+      "id": "glm-5.3/native-history",
+      "caseId": "GLM11-glm-5.3-native-history",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 1514,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_202610191407492d557d0b3063454b"
+      ]
+    },
+    {
+      "id": "glm-5.3/cancel",
+      "caseId": "GLM11-glm-5.3-cancel",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 667,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140750159589b8f7a14294"
+      ]
+    },
+    {
+      "id": "glm-5.3/recovery",
+      "caseId": "GLM11-glm-5.3-recovery",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4168,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140751bafad20b70c9482b"
+      ]
+    },
+    {
+      "id": "glm-5.3/control-low",
+      "caseId": "GLM11-glm-5.3-control-low",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 2635,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140755b55d0696e1ee4206"
+      ]
+    },
+    {
+      "id": "glm-5.3/control-max",
+      "caseId": "GLM11-glm-5.3-control-max",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4760,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914075815489b058bf54760"
+      ]
+    },
+    {
+      "id": "glm-5.2/full-stream",
+      "caseId": "GLM11-glm-5.2-full-stream",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5349,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_202610191408030cfd238e402440f2"
+      ]
+    },
+    {
+      "id": "glm-5.2/full-complete",
+      "caseId": "GLM11-glm-5.2-full-complete",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 6251,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_202610191408087f3cdae9f38945f3"
+      ]
+    },
+    {
+      "id": "glm-5.2/simple-stream",
+      "caseId": "GLM11-glm-5.2-simple-stream",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5768,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914081432a99056075746f6"
+      ]
+    },
+    {
+      "id": "glm-5.2/simple-complete",
+      "caseId": "GLM11-glm-5.2-simple-complete",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 9347,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914082093b2a33c07f54ced"
+      ]
+    },
+    {
+      "id": "glm-5.2/tool-call",
+      "caseId": "GLM11-glm-5.2-tool-call",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 917,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914082923d6315a527745ef"
+      ]
+    },
+    {
+      "id": "glm-5.2/tool-result",
+      "caseId": "GLM11-glm-5.2-tool-result",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 966,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914083014cc3914ff0242b5"
+      ]
+    },
+    {
+      "id": "glm-5.2/native-history",
+      "caseId": "GLM11-glm-5.2-native-history",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 1307,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_202610191408319f7048eabfc142c7"
+      ]
+    },
+    {
+      "id": "glm-5.2/cancel",
+      "caseId": "GLM11-glm-5.2-cancel",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 740,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914083361256bbd116446f5"
+      ]
+    },
+    {
+      "id": "glm-5.2/recovery",
+      "caseId": "GLM11-glm-5.2-recovery",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 6640,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_202610191408333a905d51f0ce40e7"
+      ]
+    },
+    {
+      "id": "glm-5.2/control-low",
+      "caseId": "GLM11-glm-5.2-control-low",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 9091,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_2026101914084033a2cc71efc14c26"
+      ]
+    },
+    {
+      "id": "glm-5.2/control-max",
+      "caseId": "GLM11-glm-5.2-control-max",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5343,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "resp_20261019140849c532af1c93b84f02"
+      ]
+    }
+  ],
+  "glm": {
+    "mode": "live",
+    "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+    "usageBasis": "reported-known-lower-bound",
+    "unknownUsageAttempts": 2
+  }
+}

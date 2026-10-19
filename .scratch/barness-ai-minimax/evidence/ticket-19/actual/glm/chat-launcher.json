@@ -1,0 +1,52 @@
+{
+  "state": "COMPLETED",
+  "route": "current-source-eleven-renewal-1-glm-chat",
+  "baseName": "glm-chat",
+  "validationRound": "current-source-eleven-renewal-1",
+  "phase": "glm",
+  "sourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+  "sourceVariable": "GLM_KEY",
+  "credentialsRead": true,
+  "maxCalls": 24,
+  "maxAttempts": 32,
+  "networkRoute": "china-direct",
+  "collectionRoot": "$REPO/.evidence/minimax-current-eleven-glm-2",
+  "collectionOwnerSHA256": "bf574a3ed52ff02819aa91b7a137d9abac7c4ba7333701e584cde352ac83aa72",
+  "automaticReruns": false,
+  "accountingScope": "prior current-release renewal648/648; original M3 formal39/36 remains separate; this fixed eleven renewal adds at most216/252",
+  "sourceManifestSha256": "d3b8d8d2f2c4b1802ef8c0b8392363784c85d7af98bf9a2a330df897c44ec391",
+  "binariesManifestSha256": "26344c05cf0e9d8defbe6bfc056ddad331685f1439229da999f0293b05e79529",
+  "planSha256": "6535fa46a6b3bd61166a29ed6d461435851e0ad9fe24a14223e70546578a664c",
+  "sourceReviewSha256": "61f561575c4c1eac37f5351b88bb8b73e092703e52262b8b0b0e7b682a4574fc",
+  "authorizationSha256": "d3984eba99061adb194b8ee7680f19f8754b0cd6e6a61403723cd67b2c763035",
+  "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+  "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+  "transitionSHA256": "0b853fe5845c1d79d50536353fbc224a2c7c554e0ccf1abd7c102fa5d6010d22",
+  "nativeRenewalFactsSHA256": "0cd9cee0eb7363ecf646bd34dd74b54662bc4e34357eb0736799276a1dc097c3",
+  "exitCode": 0,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  },
+  "finishedAt": "2026-10-19T06:06:53.417083+00:00",
+  "commandReceiptSha256": "732ee2052fcb910d507227921baaf0b794680dfe8296338be3fc2368670761fa",
+  "budget": {
+    "state": "REPORTED",
+    "status": "PASS",
+    "calls": 22,
+    "attempts": 22,
+    "currentReportBudget": {
+      "callsUsed": 22,
+      "attemptsReserved": 22,
+      "httpAttempts": 22
+    }
+  },
+  "reportedFileSha256": "3eed5dd92d27332357dd965dba5b8c2d8401a8a43f12d9e2a9367a451af4e2ef",
+  "capturePins": {
+    "schema": 1,
+    "formalReportSha256": "3eed5dd92d27332357dd965dba5b8c2d8401a8a43f12d9e2a9367a451af4e2ef",
+    "integritySha256": "a541699063227cd4603dc66f241dc15b72c30ab1f184f85ca91cf594dab0d678",
+    "supportReportSha256": "e9e62841e0307186de7fd0f6a08ae80614815e00a271d9fc0b68c013cba90cb0",
+    "executionSourceSha256": "1cc3cf81a0acdff36fdcfd09b20a05f290f99ff8e43c59c14bf801e4e3dbbcc8"
+  }
+}
