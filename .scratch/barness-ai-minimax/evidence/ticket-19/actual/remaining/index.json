@@ -402,8 +402,8 @@
       "sha256": "73177bf96d32695ca6cb8ad828a217f89c8d8281cd628c2a08e1528a22a16dea"
     },
     "current-textcheck-overlay.json": {
-      "bytes": 193,
-      "sha256": "b1570cbb83c4fd6eae3b4d6120bcde8a6511b3db7493b0e7c8211e9def6c5b44"
+      "bytes": 780,
+      "sha256": "2ba507880fcb1bd14706e9b9f8bbd7a7b03e2de6a6addedb7147cd491d4fea59"
     },
     "visual-decisions-report.json": {
       "bytes": 45854,
@@ -622,5 +622,15 @@
       "sha256": "0f56dc4be144691dcce354d2ce7f4718548104f718017a2258a1c657d63fe11c"
     }
   },
-  "rawRoot": ".evidence/minimax-current-eleven-remaining-1"
+  "rawRoot": ".evidence/minimax-current-eleven-remaining-1",
+  "derivedFiles": {
+    "current-textcheck-overlay.json": {
+      "kind": "derived-display-only-path-aliases",
+      "usableAsGoOverlay": false,
+      "originalRepositoryRelativePath": ".evidence/minimax-current-eleven-gate-1/current-textcheck-overlay.json",
+      "originalBytes": 193,
+      "originalSHA256": "b1570cbb83c4fd6eae3b4d6120bcde8a6511b3db7493b0e7c8211e9def6c5b44",
+      "derivation": "Evidence-directory and repository prefixes are replaced with $EVIDENCE and $REPO for display. The tracked file is not the raw executable overlay."
+    }
+  }
 }

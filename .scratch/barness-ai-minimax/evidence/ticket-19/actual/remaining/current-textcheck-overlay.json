@@ -1,5 +1,20 @@
 {
-  "Replace": {
-    "/Users/cyber/RestoX/barness/ai/release/cmd/releasegate/main.go": "/Users/cyber/RestoX/barness/.evidence/minimax-current-eleven-gate-1/current-textcheck-main.go.txt"
+  "schema": 1,
+  "kind": "derived-display-only-path-aliases",
+  "usableAsGoOverlay": false,
+  "original": {
+    "repositoryRelativePath": ".evidence/minimax-current-eleven-gate-1/current-textcheck-overlay.json",
+    "bytes": 193,
+    "sha256": "b1570cbb83c4fd6eae3b4d6120bcde8a6511b3db7493b0e7c8211e9def6c5b44"
+  },
+  "derivation": {
+    "operation": "Replace the original evidence-directory prefix first, then the repository prefix, in mapping keys and values. Preserve all remaining path bytes.",
+    "aliases": {
+      "$REPO": "repository root used for the original execution",
+      "$EVIDENCE": "$REPO/.evidence/minimax-current-eleven-gate-1"
+    }
+  },
+  "displayMapping": {
+    "$REPO/ai/release/cmd/releasegate/main.go": "$EVIDENCE/current-textcheck-main.go.txt"
   }
 }
