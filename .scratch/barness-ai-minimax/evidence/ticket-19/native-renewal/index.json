@@ -1,0 +1,64 @@
+{
+  "capsule": {
+    "archive": {
+      "bytes": 28258717,
+      "file": ".evidence/minimax-retained/ticket-19-native-renewal/raw.tar.gz",
+      "prefix": "native-renewal",
+      "sha256": "cd38a57550f4f765722d586e059c4e4b598255f655face8ab3f8cc07617c8acd"
+    },
+    "id": "ticket19-native-renewal",
+    "inventory": {
+      "compressedSHA256": "199c8ce9833e7a2c6b1d23b8f360dbe98a9eaaab2c547772fb6e1a400930de3c",
+      "decodedBytes": 129454,
+      "decodedSHA256": "bbbe5fd10f0c748339ea39134ea88524f1b9e29387b1779e9204bc07f26487f3",
+      "file": "inventory.json.gz",
+      "files": 636
+    },
+    "observe": [
+      "raw/01-missing-approval-red.json",
+      "raw/02-missing-approval-green.json",
+      "raw/03-approved-authority-red.json",
+      "raw/04-authority-green.json",
+      "raw/05-source-cli-red.json",
+      "raw/06-authority-corrected-green.json",
+      "raw/07-harness-refusal-red.json",
+      "raw/08-inactive-commit-option-red.json",
+      "raw/09-public-consumer-renewal-red.json",
+      "raw/10-consumer-inactive-green.json",
+      "raw/11-harness-refusal-green.json",
+      "raw/12-source-cli-green.json",
+      "raw/13-native-regression.json",
+      "raw/14-harness-regression.json",
+      "raw/15-harness-green.json",
+      "raw/15-harness-green/20261019T050252.515313000Z/audit.json",
+      "raw/15-harness-green/20261019T050252.515313000Z/manifest.json",
+      "raw/16-final-native-ordinary.json",
+      "raw/17-final-native-race.json",
+      "raw/18-final-harness-race.json",
+      "raw/18-final-harness-race/20261019T050535.699691000Z/audit.json",
+      "raw/18-final-harness-race/20261019T050535.699691000Z/manifest.json",
+      "raw/19-vet.json",
+      "raw/20-vet-live.json",
+      "raw/21-build-private-boundary.json",
+      "raw/22-private-three-identity.json",
+      "raw/23-frontdoor-missing-red.json",
+      "raw/committed-byte-equality.json",
+      "raw/final-source-measured-v2.json",
+      "raw/final-source-measured-v3.json",
+      "raw/positive-api-fixture/.evidence/minimax-renewals/current-source-eleven-renewal-1/formal.jsonl",
+      "raw/positive-api-fixture/.evidence/minimax-stages/formal.jsonl"
+    ],
+    "sourceCommit": "f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e",
+    "sourceSnapshot": {
+      "archiveMember": "source-snapshot.json",
+      "compressedSHA256": "0ad280370406e4b4c3d3c6e06c5eb385aa48f1e12ae26bee16c231a87636defa",
+      "decodedBytes": 94981,
+      "decodedSHA256": "04a7da8972a1388f29623a92c99f97c705f9f2a436c6058abe29345fc4505236",
+      "file": "source-snapshot.json.gz"
+    }
+  },
+  "kind": "keyless-native-formal-renewal-implementation-only",
+  "schema": 1,
+  "sourceCommit": "f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e",
+  "sourceMeasuredHEAD": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e"
+}

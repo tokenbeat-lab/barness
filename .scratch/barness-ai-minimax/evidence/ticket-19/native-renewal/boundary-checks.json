@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "archiveSHA256": "cd38a57550f4f765722d586e059c4e4b598255f655face8ab3f8cc07617c8acd",
+  "originalUnchanged": true,
+  "results": [
+    {
+      "kind": "missing",
+      "exitCode": 1,
+      "seconds": 0.036313772201538086,
+      "output": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 71, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 37, in main\n    summary,items=b.verify_archive(a.common_root,cap)\n                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 98, in verify_archive\n    with opened(common,archive['file']) as stream:\n         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 31, in opened\n    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child\nFileNotFoundError: [Errno 2] No such file or directory: 'raw.tar.gz'\n",
+      "mutation": "private archive path only; original unchanged"
+    },
+    {
+      "kind": "symlink",
+      "exitCode": 1,
+      "seconds": 0.0373990535736084,
+      "output": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 71, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 37, in main\n    summary,items=b.verify_archive(a.common_root,cap)\n                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 98, in verify_archive\n    with opened(common,archive['file']) as stream:\n         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 31, in opened\n    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child\nOSError: [Errno 62] Too many levels of symbolic links: 'raw.tar.gz'\n",
+      "mutation": "private archive path only; original unchanged"
+    },
+    {
+      "kind": "fifo",
+      "exitCode": 1,
+      "seconds": 0.03694796562194824,
+      "output": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 71, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 37, in main\n    summary,items=b.verify_archive(a.common_root,cap)\n                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 98, in verify_archive\n    with opened(common,archive['file']) as stream:\n         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 33, in opened\n    if not stat.S_ISREG(info.st_mode):raise ValueError('regular artifact required')\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: regular artifact required\n",
+      "mutation": "private archive path only; original unchanged"
+    },
+    {
+      "kind": "truncated",
+      "exitCode": 1,
+      "seconds": 0.037687063217163086,
+      "output": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 71, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-19/native-renewal/verify.py\", line 37, in main\n    summary,items=b.verify_archive(a.common_root,cap)\n                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-formal-source-renewal/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 100, in verify_archive\n    if info.st_size!=archive['bytes'] or info.st_size>CAP:raise ValueError('compressed archive size')\n                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: compressed archive size\n",
+      "mutation": "private archive path only; original unchanged"
+    }
+  ]
+}
