@@ -26,8 +26,8 @@ type ResponsesOptions struct {
 	// empty is "short".
 	CacheRetention CacheRetention `json:"cacheRetention,omitempty"`
 	// SessionID, unless retention is none, sends the provider's supported
-	// cache key and session affinity headers, derived from it, the tenant
-	// and the vendor account rather than the raw value. Cache routing does
+	// cache key and session affinity headers, derived from it, the tenant,
+	// actual Provider and vendor account rather than the raw value. Cache routing does
 	// not imply retention or affinity support.
 	SessionID string `json:"sessionId,omitempty"`
 	// ReasoningEffort is sent as reasoning.effort through the model's level

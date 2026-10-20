@@ -39,8 +39,12 @@ func TestRegionalProviderToolsAndNativeHistory(t *testing.T) {
 	for _, p := range []ai.ProviderID{ai.ProviderZAI, ai.ProviderMiniMaxCN} {
 		for _, api := range regionalAPIs {
 			for _, model := range regionalModels(p) {
-				for _, origin := range []string{"same", "sibling", "untrusted", "rotated"} {
+				for _, origin := range []string{"same", "sibling", "untrusted", "rotated", "unsigned-same", "unsigned-sibling", "unsigned-untrusted"} {
+					if strings.HasPrefix(origin, "unsigned-") && (api != ai.APIAnthropicMessages || p != ai.ProviderZAI) {
+						continue
+					}
 					t.Run(string(p)+"/"+string(api)+"/"+model+"/"+origin, func(t *testing.T) {
+						mode := strings.TrimPrefix(origin, "unsigned-")
 						ev := run.Case(t, "RP07-native-"+t.Name())
 						w, target := regionalWorld(t, p, api)
 						target.ModelID = model
@@ -52,14 +56,19 @@ func TestRegionalProviderToolsAndNativeHistory(t *testing.T) {
 							return
 						}
 						m := first.result.Message
-						if origin == "rotated" {
+						if strings.HasPrefix(origin, "unsigned-") {
+							b := m.Content[0].(ai.Thinking)
+							b.Signature = ""
+							m.Content[0] = b
+						}
+						if mode == "rotated" {
 							b := w.host.Binding(tenantA.tenant, target.BindingID)
 							w.host.PutCredential(ai.Credential{OwnerTenantID: tenantA.tenant, CredentialID: b.CredentialRef, Version: "v2", BindingVersion: b.Version, AccountScopeID: b.AccountScopeID, Active: true, APIKey: ai.NewSecret(tenantA2.secret)})
 						}
-						if origin == "untrusted" {
+						if mode == "untrusted" {
 							m, _, _ = restore(t, persist(t, m))
 						}
-						if origin == "sibling" {
+						if mode == "sibling" {
 							source := ai.ProviderZhipu
 							if p == ai.ProviderMiniMaxCN {
 								source = ai.ProviderMiniMax
@@ -90,22 +99,22 @@ func TestRegionalProviderToolsAndNativeHistory(t *testing.T) {
 							return
 						}
 						want := ai.NativeStateDowngrades{}
-						if origin == "untrusted" {
+						if mode == "untrusted" {
 							want.NoEnvelope = 1
 						}
-						if origin == "sibling" {
+						if mode == "sibling" {
 							want.CrossModel = 1
 						}
 						ev.Check("exact service provenance enforced", second.result.Metadata.NativeStateDowngrades == want, "%+v", second.result.Metadata.NativeStateDowngrades)
 						body := string(w.provider.Requests()[1].Body)
-						if origin == "same" || origin == "rotated" {
+						if mode == "same" || mode == "rotated" {
 							switch api {
 							case ai.APIOpenAICompletions:
 								ev.Check("native reasoning replayed", strings.Contains(body, `"reasoning_content":"Regional reasoning."`), "%s", body)
 							case ai.APIOpenAIResponses:
 								ev.Check("native reasoning projected", strings.Contains(body, `"type":"reasoning"`) && !strings.Contains(body, `opaque-item`), "%s", body)
 							default:
-								ev.Check("native signature retained", strings.Contains(body, `"signature":"sig-part1-part2"`), "%s", body)
+								ev.Check("native signature retained", (strings.HasPrefix(origin, "unsigned-") && strings.Contains(body, `"type":"thinking"`) && !strings.Contains(body, `"signature"`) || !strings.HasPrefix(origin, "unsigned-") && strings.Contains(body, `"signature":"sig-part1-part2"`)), "%s", body)
 							}
 						} else {
 							ev.Check("opaque native state removed", !strings.Contains(body, `"type":"reasoning"`) && !strings.Contains(body, `"signature"`) && !strings.Contains(body, `"reasoning_details"`), "%s", body)
