@@ -38,6 +38,7 @@ def run(out,job,argv,env,intent):
     record=dict(state='STARTING',name=job['name'],argv=list(map(str,argv)),cwd=job['cwd'],
         timeoutSeconds=job['timeoutSeconds'],credentialsInherited=False,sourceVariable=job['sourceVariable'],
         injectedCredential=job['injectedCredential'],credentialsRead=False,startedAt=dt.datetime.now(dt.timezone.utc).isoformat(),exitCode=None)
+    record.update(job.get('executionProvenance',{}))
     c.dump(path,c.redact(record),exclusive=True)
     key='';child=None;code=1;began=time.monotonic();childenv=c.ENV|env
     with tempfile.TemporaryFile() as captured:

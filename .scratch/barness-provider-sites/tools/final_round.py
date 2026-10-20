@@ -18,6 +18,8 @@ def main():
     parser.add_argument('--inputs')
     parser.add_argument('--execution-root')
     a = parser.parse_args()
+    if a.mode not in ('inventory','summarize') and (c.common_root()/'.evidence/provider-sites/final-acceptance-20261020/closed-cohort-2/seal.json').exists():
+        raise RuntimeError('round2 is permanently closed; fixed recovery3 requires its own new human approval')
     if a.mode == 'inventory':
         result = r.inventory(c.ROOT / '.evidence/provider-sites/final-acceptance-20261020/unprepared')
     elif a.mode == 'summarize':
