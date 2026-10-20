@@ -67,27 +67,15 @@ func secondCohortClosed() bool {
 	return !os.IsNotExist(e)
 }
 func approvedRecoveryRenewal(active bool) (RenewalGrant, string, error) {
-	var g RenewalGrant
-	base, e := renewalBase(RecoveryRenewalID)
+	g, pin, base, e := loadCanonicalRenewalGrant(RecoveryRenewalID)
 	if e != nil {
-		return g, "", e
-	}
-	if e = ownedRenewalDirectory(base); e != nil {
-		return g, "", e
-	}
-	raw, e := ReadFile(filepath.Join(base, "grant.json"), 1<<20)
-	if e != nil {
-		return g, "", fmt.Errorf("canonical recovery grant unavailable")
-	}
-	pin := Hash(raw)
-	if e = StrictJSON(raw, &g); e != nil {
 		return g, "", e
 	}
 	f, e := RecoveryFacts()
 	if e != nil {
 		return g, "", e
 	}
-	if g.Schema != 4 || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
+	if g.ThirdCohort != nil || g.Schema != 4 || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
 		return g, "", fmt.Errorf("fixed recovery source/history/caps differ")
 	}
 	if e = renewalCommittedSource(g.SourceCommit); e != nil {

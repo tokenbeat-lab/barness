@@ -21,6 +21,10 @@ func RecoveryPreflight(route string) (RenewalGrant, string, error) {
 	return renewalPreflight(RecoveryRenewalID, route)
 }
 
+func Recovery4Preflight(route string) (RenewalGrant, string, error) {
+	return renewalPreflight(Recovery4RenewalID, route)
+}
+
 func renewalPreflight(renewal, route string) (RenewalGrant, string, error) {
 	g, pin, e := approvedRenewal(renewal, true)
 	if e != nil {
@@ -83,7 +87,7 @@ func unclaimedRenewalRoute(path string, id Identity, pin string) ([]Receipt, err
 // consumed; only this process may write the first reservation into its ledger.
 func (l Ledger) BeginRenewal() error {
 	renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL")
-	if renewal != FinalAcceptanceRenewalID && renewal != RecoveryRenewalID {
+	if renewal != FinalAcceptanceRenewalID && renewal != RecoveryRenewalID && renewal != Recovery4RenewalID {
 		return fmt.Errorf("only current fixed final renewal can begin")
 	}
 	id, e := Select(l.Identity.Route, M3, "standard")

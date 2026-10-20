@@ -32,3 +32,13 @@ ID2 的国际 M3 Chat 已真实执行13 Calls／12 Attempts并语义失败，单
 新固定24进程为三M3、六formal、十generic、Jev协议及四效果，最多506／518；前序456／492领取和303／302实际不退款，外层962／1010。US$10.70整笔保持，未来US$19.20，合计US$29.90≤原30；Anthropic1.80是硬停止额度，Images保持3.50，其余原额度不变，不能保证长签名、历史和有界重试全部分支完成或成为厂商账单上界。原生M3自身60／72及每身份20／24、4096、40000／120000不变。先完整验证已知阻断的M3 Chat，再按固定顺序逐进程推进；每个前项须成功并完成原生消费；唯一延期例外为已成功的protocol114等待自身独立visual-jev，最终由jevformal配对验证通过才授予Jev支持资格，不能以pending状态发布。任何FAIL/UNKNOWN均停止，没有自动整进程重跑。最终33有效角色来自6历史candidate＋3保留GLM＋24新进程，而41份R2/R3实际记录及首cohort全部保留。
 
 新schema4 human/review先以既有StrictJSON校验整个JSON envelope，再独立投影所需字段；允许描述性扩展字段，授权字段只认可规范大小写；任何层次的重复字段及大小写别名均不能靠Hash固定或last-value解析消除歧义。此实现和独立审查不授予新的付费范围：实际新回复仍由根任务在具体源码、预算、binary、计划及无Key检查可审阅后取得，PENDING模板不能生成有效grant或读取Key。原九服务standard资格及新READY后一次完整race的选择继续只引用既有明确批准；实际状态仍以[唯一规格](../../.scratch/barness-provider-sites/spec.md)及[固定恢复工单15](../../.scratch/barness-provider-sites/issues/15-fixed-recovery-authority.md)为准。
+
+## 已消费 ID3 关闭后的固定恢复 4
+
+ID3 三个 M3 进程39/36及地区 Chat18/18已完成，ZAI Responses18/18中的固定原生来源断言真实失败；父UNKNOWN与整笔额度保留。新的固定 `provider-sites-final-acceptance-4` 使用schema5，保留schema4的 `recovery` 闭合第二批事实，另加独立 `thirdCohort`21字段。它绑定第三批seal、1012项停止原件、原生九份authority（含三nonce和75行账本）、五份父claim及真实4PASS/1FAIL；旧ID3选中或隐式canonical活动入口永久拒绝，旧nonce/grant/账本不重写，不复活剩余额度。
+
+历史消费与当前资格必须分开：第三批旧grant、原生报告、完整source-at-start manifest与原commit的Git archive相互核验，其来源已因验收源契约修复过期，不能与当前执行来源比较来决定能否封存。封存通过只证明旧事实未被改写，不恢复旧PASS的当前正式资格。旧schema1/3/4显式拒绝新增thirdCohort字段；新schema5依然要求完整当前执行来源和冻结HEAD。共同接缝仅为canonical grant加载、固定caps和稳定有界文件读取，固定历史语义分别验证，不提供任意ID、轮次或配额注册表。
+
+新增24各一次，最多506/518，累计领取1070/1130；旧实际378/374、领取564/612、整笔12.60USD和三UNKNOWN原样保留。未来17.30USD加旧12.60为29.90≤30，仅Google interactions图片由4.50改为2.60，其余恢复3分配不动。正常固定两次发送的保守界2.592832，但第三次已发送尝试固定项至少3.052032；2.60是可能让有界重试分支提前停止的硬cap，不是完整分支或厂商账单保证。原生三M3仍60/72、每身份20/24、4096、40000/120000；USD-policy2的Go guard及GLM245不改变。
+
+先执行预先固定的ZAI Responses完整18场景并完成原生消费，成功后才发放同一新批准覆盖的native4grant；其余23保留恢复3相对顺序。每项FAIL/UNKNOWN或额度耗尽即停，无自动完整进程重跑。新human/review额外绑定第三批seal及历史摘要，nativehuman还绑定canonical新实际回复；PENDING、重复或大小写别名均不能领取nonce或读Key。最终33角色只选六历史candidate、三保留GLM及新24，46份R2/R3/R4实际记录及更早关闭事实完整保留。实现、合成测试和审查均不授予新增付费权限；实际状态仍见[唯一规格](../../.scratch/barness-provider-sites/spec.md)及[工单17](../../.scratch/barness-provider-sites/issues/17-fixed-fourth-recovery.md)。

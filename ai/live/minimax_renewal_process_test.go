@@ -21,7 +21,7 @@ func TestMiniMaxFormalRenewalControlledRefusal(t *testing.T) {
 	// Normalize only this case's diagnostics; keep the original argv for exec
 	// and leave the shared environment audit/redactor unchanged.
 	aliases := strings.NewReplacer(run.Dir(), "$MINIMAX_RENEWAL_ROOT", exe, "$MINIMAX_RENEWAL_TEST_BINARY")
-	for _, mode := range []string{"controlled-candidate", "controlled-formal", "unknown-renewal", "final-controlled-candidate", "final-controlled-formal", "recovery-controlled-candidate", "recovery-controlled-formal"} {
+	for _, mode := range []string{"controlled-candidate", "controlled-formal", "unknown-renewal", "final-controlled-candidate", "final-controlled-formal", "recovery-controlled-candidate", "recovery-controlled-formal", "recovery4-controlled-candidate", "recovery4-controlled-formal"} {
 		out := filepath.Join(run.Dir(), "renewal-"+mode)
 		id := "current-source-eleven-renewal-1"
 		if mode == "unknown-renewal" {
@@ -29,6 +29,9 @@ func TestMiniMaxFormalRenewalControlledRefusal(t *testing.T) {
 		}
 		if strings.HasPrefix(mode, "recovery-") {
 			id = "provider-sites-final-acceptance-3"
+		}
+		if strings.HasPrefix(mode, "recovery4-") {
+			id = "provider-sites-final-acceptance-4"
 		}
 		if strings.HasPrefix(mode, "final-") {
 			id = "provider-sites-final-acceptance-1"

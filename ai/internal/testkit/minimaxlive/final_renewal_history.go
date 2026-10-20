@@ -122,7 +122,7 @@ func closedRenewalHistory(f RenewalSourceFacts) (map[string]string, []Receipt, e
 }
 
 func closedGrantOnly(g RenewalGrant) bool {
-	return g.Recovery == nil && g.PreviousRenewalID == "" && g.PreviousLedgerSHA256 == "" && g.PreviousLedgerTailSHA256 == "" && g.PreviousCalls == 0 && g.PreviousAttempts == 0 && g.ClosedHistorySHA256 == "" && g.FirstCohortSealSHA256 == "" && g.FirstCohortActualCalls == 0 && g.FirstCohortActualAttempts == 0 && g.FirstCohortClaimedCalls == 0 && g.FirstCohortClaimedAttempts == 0 && g.FirstCohortReservedMicrousd == 0 && !g.NativeRound1NeverIssued
+	return g.ThirdCohort == nil && g.Recovery == nil && g.PreviousRenewalID == "" && g.PreviousLedgerSHA256 == "" && g.PreviousLedgerTailSHA256 == "" && g.PreviousCalls == 0 && g.PreviousAttempts == 0 && g.ClosedHistorySHA256 == "" && g.FirstCohortSealSHA256 == "" && g.FirstCohortActualCalls == 0 && g.FirstCohortActualAttempts == 0 && g.FirstCohortClaimedCalls == 0 && g.FirstCohortClaimedAttempts == 0 && g.FirstCohortReservedMicrousd == 0 && !g.NativeRound1NeverIssued
 }
 
 func closedFormalSessions(rows []Receipt, renewal, pin string) (map[string]string, error) {
