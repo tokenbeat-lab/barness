@@ -8,7 +8,9 @@
 
 合并集成分支 `1413408` 后，authority 普通包 66 PASS / 4 私有 child SKIP，MiniMax controlled / replay / research / 原件消费者进程 70 PASS，supportmatrix / release 相关消费者 60 PASS。最后两项边界修复后，新轮次进程集合 45 PASS；并入仅文档的 `3e7f9ad` 后，4 个子场景及 2 个父测试再次 PASS，普通 live vet PASS。每项都保留实际 argv、数字退出、起止时间及源码 SHA；没有把并行包时间相加。一次后并入复核选错 `-run`，实际为 0 tests，明确排除，不计验证；更正的 6 PASS 原件另存。
 
-三份本轮原生普通 bundle 连同子 capture 原样留存，18 份直接 `audit.json` 及 45 份子原件归档内审计均 0 发现；原目录与保留副本逐文件 SHA 相等。原 15 份 canonical 前序在三次实际只读 `-renewal-source` 之间均保持相同摘要 `0aa629db8674437316645295f4000237c958c85d81df9c337cc2a4be5935448e`。未复制、重封、刷新或改写这些历史证明。
+三份本轮原生普通 bundle 连同子 capture 原样留存，18 份直接 `audit.json` 及 45 份子原件归档内审计均 0 发现；原目录与保留副本逐文件 SHA 相等。原 15 份 canonical 前序在四次实际只读 `-renewal-source` 之间均保持相同摘要 `0aa629db8674437316645295f4000237c958c85d81df9c337cc2a4be5935448e`。未复制、重封、刷新或改写这些历史证明。
+
+随后合并仅文档的 `8cf95b2`，在已提交的 `af1eb56` 分支运行原生来源导出和 2 项普通父子测试，均 exit 0；执行来源摘要仍为 `61197b0e5b224515316b47b79fce26a5f87574a3d66b35932faf9806f4581a4f`。这是本工单的实现来源记录，最终整合 08 / 10 / 11 后须重新冻结，不是最终发布来源。
 
 [全部本轮命令、原件与索引](/Users/cyber/RestoX/barness/.evidence/provider-sites/final-authority-20261020/index.json)、[文件 SHA 清单](/Users/cyber/RestoX/barness/.evidence/provider-sites/final-authority-20261020/files.json)。完整来源审查、实际人类预算、资格采集和正式发布判定仍由[工单 07](../../issues/07-final-acceptance.md)承接。
 
