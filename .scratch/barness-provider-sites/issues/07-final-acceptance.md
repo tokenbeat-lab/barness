@@ -2,7 +2,7 @@
 
 Status: claimed
 Type: task
-Blocked by: 05, 08, 09, 10, 11, 12, 13
+Blocked by: 05, 08, 09, 10, 11, 12, 14, 15
 
 ## Context
 
@@ -17,6 +17,8 @@ Blocked by: 05, 08, 09, 10, 11, 12, 13
 先重核完整普通事实、源码与工具；差分 / 压力开启的完整 `go test -json -race ./... -count=1 -timeout=75m` 写入新目录；保留实际数字退出、UTC、墙钟、原生 manifest / audit、来源前后清单与全部失败。不得将开发 race 冒充未取得的正式 `READY_FOR_RACE` checkpoint。当前真实资格、目录晋升、新 formal、23 份自身支持与四份效果必须全部符合现有原生消费者，才可宣称完整发布通过。
 
 ## Comments
+
+2026-10-20：13的新完整重验22 PASS，Messages22 PASS及三路新raw/views发布通过；六新增formal81 PASS。随后国际MiniMax Chat实际13/12、thinking-on无reasoning导致真实FAIL，转14；17进程未启动，ID2 nonce已消费不可完整重启。15只准备固定恢复机制和具体新付费计划，尚无新授权。用户最新明确所有国际站使用本地127.0.0.1:7890，后续ZAI也按此执行；本次失败国际MiniMax已走该代理。实际状态只见spec。
 
 2026-10-20：原完整轮次及固定续验2均已收到明确批准，九服务资格及新READY后一次完整正式race选择保留。续验2实际六candidate81/81、六原生资格通过，九身份已原生晋升；中国GLM Chat完整22通过，Responses为21 PASS/1 FAIL，交[13](13-zhipu-responses-glm52-final-text.md)保留原生续接缺少最终可见文本的真实上游输出。余25进程未启动，没有GLM新raw/selectors发布、formal或新READY/race。实际预算和来源见[停止索引](../../../.evidence/provider-sites/final-acceptance-20261020/round2-stopped/index.json)，当前状态只在spec维护。
 
