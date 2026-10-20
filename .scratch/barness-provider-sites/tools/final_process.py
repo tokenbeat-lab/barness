@@ -18,14 +18,14 @@ def selected(variable):
     if variable not in allowed:
         raise RuntimeError('fixed selected credential variable required')
     values=[]
-    with (c.common_root()/'.env').open() as stream:
-        for line in stream:
-            name,sep,value=line.strip().removeprefix('export ').partition('=')
-            if sep and name.strip()==variable:
-                parts=shlex.split(value,comments=True)
-                if len(parts)!=1 or not parts[0].strip():
-                    raise RuntimeError('selected credential configuration invalid: '+variable)
-                values.append(parts[0].strip())
+    from recovery_flow_source import SourceFreeze
+    for line in SourceFreeze(c).read(c.common_root()/'.env',2<<20).decode().splitlines():
+        name,sep,value=line.strip().removeprefix('export ').partition('=')
+        if sep and name.strip()==variable:
+            parts=shlex.split(value,comments=True)
+            if len(parts)!=1 or not parts[0].strip():
+                raise RuntimeError('selected credential configuration invalid: '+variable)
+            values.append(parts[0].strip())
     if len(values)!=1:
         raise RuntimeError('exactly one selected credential definition required: '+variable)
     return values[0]
@@ -62,14 +62,15 @@ def run(out,job,argv,env,intent):
             (out/(job['name']+'.log')).write_text(c.redact(raw.decode(errors='replace'),key))
             findings=[]
             if key:
-                from renewal_common import file_bytes
+                from recovery_flow_files import Artifacts
                 for base in (out/job['name'],out/'live'/job['name']):
                     if not base.is_dir():continue
-                    for file in base.rglob('*'):
-                        if not file.is_file():continue
-                        try:
-                            if key.encode() in file_bytes(file):findings.append(str(file.relative_to(out)))
-                        except (OSError,RuntimeError):findings.append(str(file.relative_to(out)))
+                    try:
+                        # The launch root adds one session directory above the
+                        # native bundle. Native finalization retains depth3.
+                        for name,raw in Artifacts(c).tree(base,depth_limit=4).items():
+                            if key.encode() in raw:findings.append(str((base/name).relative_to(out)))
+                    except (OSError,RuntimeError):findings.append(str(base.relative_to(out)))
             if findings:code=1
             record.update(exitCode=code,seconds=time.monotonic()-began,finishedAt=dt.datetime.now(dt.timezone.utc).isoformat(),
                 launcherAudit=dict(passed=not findings,findings=findings))

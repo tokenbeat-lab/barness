@@ -52,3 +52,4 @@ PHASE='recovery5'
 
 RETAINED_INPUT_FILE='retained-generic.json'
 RETAINED_INPUT_FIELD='retainedGenericSHA256'
+LEDGER_BASIS='Corrected operation-specific guard under funding selector2'

@@ -127,6 +127,8 @@ class Recovery5Round(RecoveryRound):
         base=self.ready();approve(self,base)
         self.runcli('run-selected','.evidence/provider-sites/recovery5','formal-zai-responses',ok=False)
         p=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-5-formal-zai-responses.json';raw=p.read_bytes();v=json.loads(raw);self.assertEqual(v['reservedMicrousd'],650000);self.assertEqual(v['budget']['state'],'UNKNOWN')
+        ledger=json.loads((base/'formal-zai-responses-usd.json').read_text());self.assertIn('Corrected operation-specific guard',ledger['basis']);self.assertIn('executionAuthority=provider-sites-final-acceptance-5',ledger['basis'])
+        for sha in json.loads((base/'prepared.json').read_text())['spendingGuardSourceSHA256'].values():self.assertIn(sha,ledger['basis'])
         self.runcli('run-selected','.evidence/provider-sites/recovery5','mm-global-formal-m3-chat',ok=False);self.runcli('native-grant','.evidence/provider-sites/recovery5',ok=False);self.runcli('run-selected','.evidence/provider-sites/recovery5','formal-zai-responses',ok=False);self.assertEqual(p.read_bytes(),raw)
         self.assertFalse((self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-5/grant.json').exists())
 

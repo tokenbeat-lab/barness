@@ -1,6 +1,7 @@
 """Shared private fixed recovery execute mechanics; authority values come only from compiled contexts."""
 from contextlib import contextmanager
 import fcntl
+import json
 import os
 from pathlib import Path
 import stat
@@ -104,8 +105,17 @@ class Execution:
             self.sync_dir(self.marker(job['name']).parent)
             return self.marker(job['name'])
 
+    def settle(self,out,job):
+        import final_execute,paid
+        try:
+            report=self.flow.s.doc(final_execute.report_path(out,job));budget=report['budget']
+            if job['name']=='protocol114':budget=budget['actual']
+            calls,attempts=(budget['callsUsed'],budget['httpAttempts']) if 'callsUsed' in budget else (budget['calls'],budget['attempts'])
+            if type(calls) is not int or type(attempts) is not int or not 0<=calls<=job['maxCalls'] or not 0<=attempts<=job['maxAttempts'] or paid.report_status(report,job)!='PASS':raise RuntimeError('own complete native process counters required')
+            return dict(state='REPORTED',status='PASS',calls=calls,attempts=attempts)
+        except (OSError,ValueError,KeyError,RuntimeError,TypeError):return UNKNOWN.copy()
+
     def run_selected(self, out, job):
-        import final_execute as old
         import final_process
         prepared, auth, scope, reserve = self.flow.s.approved(out, job)
         self.require_checks(out)
@@ -118,7 +128,7 @@ class Execution:
         self.flow.r.c.dump(intent, record)
         usd = out / (job['name'] + '-usd.json')
         env = job['environment'] | dict(BARNESS_FINAL_ROUND=self.flow.r.SPENDING_GUARD_POLICY_SELECTOR, BARNESS_FINAL_BUDGET=str(usd))
-        self.flow.r.c.dump(usd, dict(schema=1, round=self.flow.r.SPENDING_GUARD_POLICY_SELECTOR, maxMicrousd=reserve, reservedMicrousd=0, attempts=0, basis='Bound campaign2 spending policy; execution authority is explicitly bound, no refund, not invoice.'), exclusive=True)
+        self.flow.r.c.dump(usd, dict(schema=1, round=self.flow.r.SPENDING_GUARD_POLICY_SELECTOR, maxMicrousd=reserve, reservedMicrousd=0, attempts=0, basis=self.flow.r.LEDGER_BASIS+'; executionAuthority='+self.flow.r.ROUND+'; spendingGuardSourceSHA256='+json.dumps(self.flow.r.policy()['spendingGuardSourceSHA256'],sort_keys=True)+'; no refund; operational estimate, not invoice.'), exclusive=True)
         argv = job['argv']
         proxy = job['networkRoute']
         if proxy != 'direct':
@@ -132,7 +142,7 @@ class Execution:
         self.flow.s.guard(out)
         code = final_process.run(out, job, argv, env, intent)
         record = self.flow.s.doc(intent)
-        record.update(commandReceiptSha256=self.flow.s.pin(out / (job['name'] + '-command.json')), budget=old.settle(out, job) if code == 0 else UNKNOWN.copy())
+        record.update(commandReceiptSha256=self.flow.s.pin(out / (job['name'] + '-command.json')), budget=self.settle(out, job) if code == 0 else UNKNOWN.copy())
         if code == 0 and record['budget']['status'] == 'PASS':
             value = self.flow.s.doc(usd)
             if value.get('round') != self.flow.r.SPENDING_GUARD_POLICY_SELECTOR or value.get('maxMicrousd') != reserve or type(value.get('attempts')) is not int or (value['attempts'] < record['budget']['attempts']) or (type(value.get('reservedMicrousd')) is not int) or (not 0 < value['reservedMicrousd'] <= reserve):

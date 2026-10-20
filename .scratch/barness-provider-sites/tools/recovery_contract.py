@@ -50,3 +50,4 @@ BASE_ROLE_COUNT=9
 RETAINED_INPUT_FILE='preserved-glm.json'
 RETAINED_INPUT_FIELD='preservedGLMSHA256'
 RETAINED_GENERIC=()
+LEDGER_BASIS='Bound fixed campaign2 spending policy'

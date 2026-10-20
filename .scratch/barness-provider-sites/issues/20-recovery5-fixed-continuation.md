@@ -21,3 +21,7 @@ Blocked by: 18, 19
 公共CLI进程先RED后实现，固定19→33有效角色（六历史candidate＋八严格保留generic＋19新进程）、59实际记录（17＋5＋18＋19）、23 live＋四effects输入。Jev只允许protocol与自身新visual配对后派生。最终消费者/审计和27树前后相等后，私有all23 importer通过才原子发布tracked matrix。新模板保持PENDING，离线开发不创建实际human/grant/paidclaim，不读真实Key或请求厂商，不执行race。
 
 开发原件与实际命令、UTC、数字退出码见[控制器开发索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-controller-dev/index.json)。该索引记录离线范围，不代替真实资格、完整普通检查或最终race。唯一功能当前状态见[规格](../spec.md)。
+
+## Offline progress
+
+固定5与旧3/4/shared公共组合在927b800通过45/45、320.496s、exit0；完整19→33/59→27流程及GLM21拒绝均实际通过。随后三个公共CLI有界读取缺口先真实RED（20s截止TIMEOUT、child exit-9），再以SourceFreeze与共享有界tree集中修复，三项实际GREEN（26.143s、exit0）。新5初始ledger明确修正的operation-specific guard、实际5及两SHA；旧4原件不改。最终整合/复审与更完整当前结果由开发索引关联；这些均是无厂商socket的受控进程事实。原生19票、实际新paid/US36批准、最终资格和完整门禁仍独立开放。

@@ -32,7 +32,8 @@ class Artifacts:
         value=json.loads(self.read(path,2<<20),object_pairs_hook=pairs)
         if not isinstance(value,dict):raise RuntimeError('artifact JSON object required')
         return value
-    def tree(self,base):
+    def tree(self,base,depth_limit=3):
+        if depth_limit not in (3,4):raise RuntimeError('fixed capture depth bound required')
         if base.is_symlink() or not base.is_dir():raise RuntimeError('regular capture directory required')
         pending=[(base,0)];paths=[];entries=0
         while pending:
@@ -40,7 +41,7 @@ class Artifacts:
             with os.scandir(directory) as scanned:
                 for entry in scanned:
                     entries+=1
-                    if entries>1024 or depth+1>3 or entry.is_symlink():raise RuntimeError('capture entry/depth/link ceiling')
+                    if entries>1024 or depth+1>depth_limit or entry.is_symlink():raise RuntimeError('capture entry/depth/link ceiling')
                     path=Path(entry.path)
                     if entry.is_dir(follow_symlinks=False):pending.append((path,depth+1))
                     elif entry.is_file(follow_symlinks=False):
