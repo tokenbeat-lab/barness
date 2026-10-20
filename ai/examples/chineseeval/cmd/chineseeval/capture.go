@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/finalbudget"
 	"io"
 	"net/http"
 	"sync"
@@ -42,6 +43,9 @@ func (t *captureTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 	index := len(t.captures)
 	t.captures = append(t.captures, wireCapture{Source: t.kind, Path: req.URL.Path, Request: raw})
 	t.mu.Unlock()
+	if err := finalbudget.Reserve(req); err != nil {
+		return nil, err
+	}
 	res, err := t.inner.RoundTrip(req)
 	t.mu.Lock()
 	c := &t.captures[index]

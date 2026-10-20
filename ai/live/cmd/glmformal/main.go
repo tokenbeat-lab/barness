@@ -3,6 +3,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
@@ -10,9 +11,25 @@ import (
 )
 
 func main() {
+	source := flag.Bool("source", false, "print complete actual GLM execution-source files without credentials")
 	route := flag.String("route", "", "chat, responses or messages")
 	destination := flag.String("out", "", "new support view directory")
 	flag.Parse()
+	if *source {
+		if *route != "" || *destination != "" || flag.NArg() != 0 {
+			fmt.Fprintln(os.Stderr, "source is an exclusive read-only mode")
+			os.Exit(2)
+		}
+		files, err := supportmatrix.GLMExecutionSource()
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if json.NewEncoder(os.Stdout).Encode(map[string]any{"files": files}) != nil {
+			os.Exit(1)
+		}
+		return
+	}
 	if *destination == "" {
 		fmt.Fprintln(os.Stderr, "-out is required")
 		os.Exit(2)
