@@ -1,0 +1,50 @@
+{
+  "kind": "immutable own raw candidate captures; offline replay is not renewed qualification",
+  "source": "candidate-final/candidate-zai-chat/20261020T104434.930813000Z",
+  "cases": [
+    {
+      "model": "glm-5.3",
+      "kind": "full-stream",
+      "files": {
+        "glm-5.3-full-stream-request.json": "6af78ff1591e1e36608513bf344a2d9c0c0fbf6ad01313db669bb594a7bbe6fa",
+        "glm-5.3-full-stream-response.sse": "5deadb3b6a7390abb5eaf6a92c927251bb767941915e0858fa222b3d6768fee1"
+      },
+      "reasoningFrames": 16,
+      "reasoningChars": 70,
+      "reasoningSha256": "1f611c098f21c2c88cd528d2b207ca5dbb1c0ba2345eacbb80bdcdae51aca90b"
+    },
+    {
+      "model": "glm-5.3",
+      "kind": "tool-call",
+      "files": {
+        "glm-5.3-tool-call-request.json": "2def51c561eef1ed7dcf1952f4a483984c0194fb00ede4387cc4a36635fe61bb",
+        "glm-5.3-tool-call-response.sse": "d72ed312fe7b8c176544af28647865117a4ef401771e040ebf1233595a4473ac"
+      },
+      "reasoningFrames": 0,
+      "reasoningChars": 0,
+      "reasoningSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "model": "glm-5.2",
+      "kind": "full-stream",
+      "files": {
+        "glm-5.2-full-stream-request.json": "625261298287ffa76385fcff590b6c58044acaa149ff302cf0db892fbe22ced1",
+        "glm-5.2-full-stream-response.sse": "90045ba9aeff7959dedfdb0e81093ecaff3c8f1245896e01843468b9084d5f35"
+      },
+      "reasoningFrames": 175,
+      "reasoningChars": 728,
+      "reasoningSha256": "55ca0d07f0cf4a911829f050af826fec9d54834f681109efacbc0f5d3844a652"
+    },
+    {
+      "model": "glm-5.2",
+      "kind": "tool-call",
+      "files": {
+        "glm-5.2-tool-call-request.json": "e0f2508ec3fb450330a5c73aa15b8345a580bac2f527df86fa9e5d0cf55dddfb",
+        "glm-5.2-tool-call-response.sse": "6836b35a960703d5133f9e48c5c0ef659e1c320a1e2f9ba76d205ba532f84521"
+      },
+      "reasoningFrames": 24,
+      "reasoningChars": 97,
+      "reasoningSha256": "24103293d5341f60228b863042d4346c22d2438a45c01a6342bacdb2b5a18af1"
+    }
+  ]
+}

@@ -32,6 +32,7 @@ type regionalSession struct {
 	probe  *probe.Probe
 	ctx    context.Context
 	tools  map[string]ai.AssistantMessage
+	native map[string]ai.AssistantMessage
 }
 
 func driveRegional(t *testing.T) {
@@ -80,7 +81,7 @@ func driveRegional(t *testing.T) {
 	}
 	ctx, cancel := context.WithDeadline(context.Background(), p.report.StartedAt.Add(1780*time.Second))
 	defer cancel()
-	s := regionalSession{p: p, client: client, rec: rec, gate: gate, probe: gauges, ctx: ctx, tools: map[string]ai.AssistantMessage{}}
+	s := regionalSession{p: p, client: client, rec: rec, gate: gate, probe: gauges, ctx: ctx, tools: map[string]ai.AssistantMessage{}, native: map[string]ai.AssistantMessage{}}
 	for i := range p.report.Scenarios {
 		i := i
 		t.Run(p.report.Scenarios[i].ID, func(t *testing.T) { s.execute(t, i) })
@@ -123,6 +124,15 @@ func (s *regionalSession) request(model, kind string) (ai.Request, error) {
 			return ai.Request{}, fmt.Errorf("own model tool prerequisite absent")
 		}
 		req.Messages = []ai.Message{ai.UserText("Call inspect_regional with label alpha. You must use this tool before answering. Think through the request first."), m}
+		if kind == "native-history" && s.p.report.Combo == "zai-chat" {
+			first, ok := s.native[model]
+			if !ok {
+				return ai.Request{}, fmt.Errorf("fixed own native source prerequisite absent")
+			}
+			// Predeclared full-stream source, never a successful-turn search.
+			// Keep the complete tool/Host-result chain after that own turn.
+			req.Messages = append([]ai.Message{ai.UserText("Reply with the exact short text regional ready."), first}, req.Messages...)
+		}
 		for _, b := range m.Content {
 			if c, ok := b.(ai.ToolCall); ok {
 				req.Messages = append(req.Messages, ai.ToolResultText(c, "REGIONAL42", false))
@@ -242,7 +252,13 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 		cs.Check("Host validates complete own tool", valid, "tool validation")
 		if valid && err == nil {
 			s.tools[row.Model] = result.Message
+			if s.p.report.Combo != "zai-chat" {
+				s.native[row.Model] = result.Message
+			}
 		}
+	}
+	if kind == "full-stream" && s.p.report.Combo == "zai-chat" && err == nil {
+		s.native[row.Model] = result.Message
 	}
 	if kind == "tool-result" || kind == "native-history" {
 		text := ""
@@ -255,7 +271,7 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	}
 	if kind == "native-history" {
 		native := false
-		for _, b := range s.tools[row.Model].Content {
+		for _, b := range s.native[row.Model].Content {
 			if v, ok := b.(ai.Thinking); ok && v.Thinking != "" {
 				native = true
 			}

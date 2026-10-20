@@ -52,6 +52,26 @@ func RegionalExpected(combo string) []string {
 	return out
 }
 
+// RegionalNativeSourceCase is fixed before any request, never selected by
+// searching successful turns. Chat tool calls may omit reasoning even with
+// thinking enabled; its full-stream source must still contain actual native
+// reasoning. Tool-call/result remain independently required in the history.
+func RegionalNativeSourceCase(combo, model string) string {
+	kind := "tool-call"
+	if combo == "zai-chat" {
+		kind = "full-stream"
+	}
+	return RegionalCaseID(combo, model+"/"+kind)
+}
+
+func regionalNativeSources(combo string) map[string]string {
+	out := map[string]string{}
+	for _, model := range RegionalModels(combo) {
+		out[model] = RegionalNativeSourceCase(combo, model)
+	}
+	return out
+}
+
 // New namespace prevents an old brand/market authorization or remaining
 // budget from silently authorizing a new regional qualification process.
 func RegionalAuthorization(combo string) string { return "provider-sites/" + combo + "/standard/v1" }

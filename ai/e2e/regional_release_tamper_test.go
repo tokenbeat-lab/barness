@@ -29,6 +29,9 @@ func regionalCaptureRefusals(t *testing.T, original, combo string) {
 					kind = "tool-call"
 				}
 				caseID = supportmatrix.RegionalCaseID(combo, model+"/"+kind)
+				if mutation == "raw-thinking" {
+					caseID = supportmatrix.RegionalNativeSourceCase(combo, model)
+				}
 			}
 			path := caseID + "/exchanges.json"
 			if mutation == "inventory" {
