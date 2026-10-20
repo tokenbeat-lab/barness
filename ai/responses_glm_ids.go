@@ -25,7 +25,7 @@ func glmResponsesCallID(publicID string) string {
 // opaque ID becomes a new call component, keeping calls/results bijective
 // without interpreting that source's delimiter or account-bound item state.
 func glmResponsesHistoryToolID(id string, source AssistantMessage) string {
-	if source.Provider == ProviderZhipu && source.API == APIOpenAIResponses {
+	if responsesCapabilitiesOf(source.Provider).implementation == responsesGLM && source.API == APIOpenAIResponses {
 		return id
 	}
 	return glmResponsesToolID(id, "")

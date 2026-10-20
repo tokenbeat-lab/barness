@@ -28,8 +28,8 @@ type ChatOptions struct {
 	// CacheRetention decides when a prompt cache key is sent; "long" asks a
 	// model that supports it for a 24h retention. Empty is "short".
 	CacheRetention CacheRetention `json:"cacheRetention,omitempty"`
-	// SessionID sends a prompt cache key derived from it, the tenant and
-	// the vendor account rather than the raw value, when the endpoint is
+	// SessionID sends a prompt cache key derived from it, the tenant, actual
+	// Provider and vendor account rather than the raw value, when the endpoint is
 	// OpenAI's own or the retention is long.
 	SessionID string `json:"sessionId,omitempty"`
 	// ReasoningEffort is sent as reasoning_effort through the model's level

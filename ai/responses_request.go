@@ -132,7 +132,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 				text = m.promptText()
 			}
 			if text != "" {
-				if model.Provider == ProviderZhipu {
+				if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM {
 					body.Input = append(body.Input, glmResponsesMessage{Type: "message", Role: role, Content: text})
 				} else {
 					body.Input = append(body.Input, responsesInstruction{Role: role, Content: text})
@@ -153,7 +153,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 				}
 			}
 			if len(content) > 0 {
-				if model.Provider == ProviderZhipu {
+				if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM {
 					items = append(items, glmResponsesMessage{Type: "message", Role: "user", Content: content})
 				} else {
 					items = append(items, responsesUserMessage{Role: "user", Content: content})
@@ -166,14 +166,14 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 			}
 		case ToolResultMessage:
 			result := responsesToolResult(m, vision)
-			if model.Provider == ProviderMiniMax {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 				var err error
 				result.CallID, err = miniMaxResponsesCallID(m.ToolCallID)
 				if err != nil {
 					return nil, err
 				}
 			}
-			if model.Provider == ProviderZhipu {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM {
 				result.CallID = glmResponsesCallID(m.ToolCallID)
 			}
 			items = append(items, result)
@@ -202,10 +202,10 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 		level = ThinkingMedium
 	}
 	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
-	if err == nil && model.Provider == ProviderMiniMax {
+	if err == nil && responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 		return preserveMiniMaxResponsesSampling(out, model, level, opts.SamplingParams)
 	}
-	if err != nil || model.Provider != ProviderZhipu {
+	if err != nil || responsesCapabilitiesOf(model.Provider).implementation != responsesGLM {
 		return out, err
 	}
 	return preserveGLMResponsesBudget(out, model, level, opts.SamplingParams)

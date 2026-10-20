@@ -217,7 +217,7 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 	if v, ok := model.Compat.SupportsTemperature.Get(); ok {
 		supportsTemperature = v
 	}
-	if (!enabled && !managed && supportsTemperature) || model.Provider == ProviderMiniMax {
+	if (!enabled && !managed && supportsTemperature) || anthropicCapabilitiesOf(model.Provider).implementation == anthropicMiniMax {
 		body.Temperature = opts.Temperature
 	}
 
@@ -245,7 +245,7 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 		body.Thinking = &anthropicThinking{Type: "adaptive", Display: display,
 			BlockBinding: &anthropicBlockBinding{PrefixMismatchBehavior: "drop_block"}}
 		body.OutputConfig = &anthropicOutputConfig{Effort: AnthropicEffortHigh}
-	case model.Provider == ProviderMiniMax:
+	case anthropicCapabilitiesOf(model.Provider).implementation == anthropicMiniMax:
 		// Omission keeps the service default, including mandatory M3.1.
 		if enabled {
 			body.Thinking = &anthropicThinking{Type: "adaptive"}
@@ -394,7 +394,7 @@ func anthropicAssistantBlocks(m replayedAssistant) ([]any, error) {
 			case b.Redacted:
 				blocks = append(blocks, anthropicRedactedThinking{Type: "redacted_thinking", Data: b.Signature})
 			case isBlank(b.Thinking) && !signed:
-			case !signed && m.Provider == ProviderZhipu && m.API == APIAnthropicMessages && m.sameModel:
+			case !signed && anthropicCapabilitiesOf(m.Provider).implementation == anthropicGLM && m.API == APIAnthropicMessages && m.sameModel:
 				blocks = append(blocks, anthropicThinkingBlock{Type: "thinking", Thinking: b.Thinking, Signature: b.Signature})
 			case !signed:
 				blocks = append(blocks, anthropicText{Type: "text", Text: b.Thinking})
