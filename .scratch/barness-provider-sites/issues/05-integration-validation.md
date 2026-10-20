@@ -1,6 +1,6 @@
 # 05 整合验证与迁移交付
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Blocked by: 01, 02, 03, 04
 
@@ -19,3 +19,5 @@ Blocked by: 01, 02, 03, 04
 ## Comments
 
 2026-10-20：由 implement-spec 根据已提供规格建立；无 GitHub PR 关闭义务。各票完成后在 Answer 留实现/验证指针，整体状态唯一维护于 spec。
+
+2026-10-20：主代理已留存旧服务普通基线：`.evidence/provider-sites/baseline/receipt.json`（exit 0；3376 场景：3367 PASS / 9 NOT_RUN；未启用差分/压力）。此票待前置实现合并后完成最终整合，不以该基线代替新功能结果。
