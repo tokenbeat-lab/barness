@@ -1,0 +1,150 @@
+[
+  {
+    "provider": "zai",
+    "api": "openai-responses",
+    "models": [
+      "glm-5.3",
+      "glm-5.2"
+    ],
+    "source": "Independent synthetic regional protocol fixture; retained own-market source IDs: zai-chat,zai-glm-53,zai-glm-52. No live or differential qualification is claimed.",
+    "pidiffSkip": "Frozen pi1.1.0 lists zai only on openai-completions; this exact provider/API has no catalog route.",
+    "expectedText": "Own ZAI Responses fixture.",
+    "expectedInput": 3,
+    "expectedOutput": 2,
+    "events": [
+      {
+        "type": "response.completed",
+        "response": {
+          "id": "regional-extension-response",
+          "model": "MODEL",
+          "status": "completed",
+          "output": [
+            {
+              "type": "message",
+              "id": "regional-extension-message",
+              "role": "assistant",
+              "status": "completed",
+              "content": {
+                "type": "output_text",
+                "text": "Own ZAI Responses fixture."
+              }
+            }
+          ],
+          "usage": {
+            "input_tokens": 3,
+            "output_tokens": 2,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 5
+          }
+        }
+      }
+    ]
+  },
+  {
+    "provider": "zai",
+    "api": "anthropic-messages",
+    "models": [
+      "glm-5.3",
+      "glm-5.2"
+    ],
+    "source": "Independent synthetic regional protocol fixture; retained own-market source IDs: zai-chat,zai-glm-53,zai-glm-52. No live or differential qualification is claimed.",
+    "pidiffSkip": "Frozen pi1.1.0 lists zai only on openai-completions; this exact provider/API has no catalog route.",
+    "expectedText": "Own ZAI Messages fixture.",
+    "expectedInput": 3,
+    "expectedOutput": 2,
+    "fixture": "zai-messages-text.sse",
+    "events": []
+  },
+  {
+    "provider": "minimax-cn",
+    "api": "openai-completions",
+    "models": [
+      "MiniMax-M3"
+    ],
+    "source": "Independent synthetic regional protocol fixture; retained own-market source IDs: minimax-cn-chat,minimax-cn-responses. No live or differential qualification is claimed.",
+    "pidiffSkip": "Frozen pi1.1.0 lists minimax-cn only on anthropic-messages; this exact provider/API has no catalog route.",
+    "expectedText": "Own CN Chat fixture.",
+    "expectedInput": 3,
+    "expectedOutput": 2,
+    "events": [
+      {
+        "id": "regional-cn-chat",
+        "model": "MiniMax-M3",
+        "choices": [
+          {
+            "delta": {
+              "content": "Own CN Chat fixture."
+            }
+          }
+        ]
+      },
+      {
+        "choices": [
+          {
+            "delta": {},
+            "finish_reason": "stop"
+          }
+        ]
+      },
+      {
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 3,
+          "completion_tokens": 2,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      }
+    ]
+  },
+  {
+    "provider": "minimax-cn",
+    "api": "openai-responses",
+    "models": [
+      "MiniMax-M3"
+    ],
+    "source": "Independent synthetic regional protocol fixture; retained own-market source IDs: minimax-cn-chat,minimax-cn-responses. No live or differential qualification is claimed.",
+    "pidiffSkip": "Frozen pi1.1.0 lists minimax-cn only on anthropic-messages; this exact provider/API has no catalog route.",
+    "expectedText": "Own CN Responses fixture.",
+    "expectedInput": 3,
+    "expectedOutput": 2,
+    "events": [
+      {
+        "type": "response.completed",
+        "response": {
+          "id": "regional-extension-response",
+          "model": "MODEL",
+          "status": "completed",
+          "output": [
+            {
+              "type": "message",
+              "id": "regional-extension-message",
+              "role": "assistant",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "Own CN Responses fixture."
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 3,
+            "output_tokens": 2,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 5
+          }
+        }
+      }
+    ]
+  }
+]
