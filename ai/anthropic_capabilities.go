@@ -18,7 +18,10 @@ type anthropicCapabilities struct {
 	// optionsBeforeCredential preserves Zhipu's established late-option phase
 	// while the new Z.AI contract rejects unsupported options in preflight.
 	optionsBeforeCredential bool
-	promptCache             bool
+	// glmBudget1024 admits only the independently captured China Messages
+	// thinking.enabled/budget1024/max4096 subset. Host Compat cannot grant it.
+	glmBudget1024 bool
+	promptCache   bool
 	// Compatible services retain explicitly reported TTL usage for diagnosis;
 	// this grants neither native cache controls nor a native TTL price.
 	reportedCacheWriteTTL bool
@@ -39,7 +42,7 @@ func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
 	case ProviderMiniMaxCN:
 		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true, reportedCacheWriteTTL: true}
 	case ProviderZhipu:
-		return anthropicCapabilities{implementation: anthropicGLM}
+		return anthropicCapabilities{implementation: anthropicGLM, glmBudget1024: true}
 	case ProviderZAI:
 		return anthropicCapabilities{implementation: anthropicGLM, optionsBeforeCredential: true, reportedCacheWriteTTL: true}
 	default:
