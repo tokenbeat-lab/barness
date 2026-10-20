@@ -21,15 +21,15 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 		switch b := block.(type) {
 		case Thinking:
 			if b.Signature == "" {
-				if model.Provider == ProviderMiniMax && b.Thinking != "" {
+				if responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax && b.Thinking != "" {
 					items = append(items, responsesUserMessage{Role: "assistant", Content: []any{responsesInputText{Type: "output_text", Text: b.Thinking}}})
 				}
-				if model.Provider == ProviderZhipu && b.Thinking != "" {
+				if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM && b.Thinking != "" {
 					items = append(items, glmResponsesAssistantText(b.Thinking))
 				}
 				continue
 			}
-			if model.Provider == ProviderMiniMax {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 				item, err := miniMaxResponsesReasoning(b)
 				if err != nil {
 					return nil, err
@@ -37,7 +37,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 				items = append(items, item)
 				continue
 			}
-			if model.Provider == ProviderZhipu {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM {
 				item, err := glmResponsesReasoning(b)
 				if err != nil {
 					return nil, err
@@ -56,11 +56,11 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			}
 			items = append(items, json.RawMessage(stringifyJSON(item)))
 		case Text:
-			if model.Provider == ProviderMiniMax {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 				items = append(items, responsesUserMessage{Role: "assistant", Content: []any{responsesInputText{Type: "output_text", Text: b.Text}}})
 				continue
 			}
-			if model.Provider == ProviderZhipu {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM {
 				items = append(items, glmResponsesAssistantText(b.Text))
 				continue
 			}
@@ -79,14 +79,14 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 		case ToolCall:
 			parts := strings.Split(b.ID, "|")
 			callID := parts[0]
-			if model.Provider == ProviderMiniMax {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 				var err error
 				callID, err = miniMaxResponsesCallID(b.ID)
 				if err != nil {
 					return nil, err
 				}
 			}
-			if model.Provider == ProviderZhipu {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM {
 				callID = glmResponsesCallID(b.ID)
 			}
 			itemID := ""
@@ -95,7 +95,7 @@ func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]
 			}
 			// A different model's fc_ id would trip OpenAI's reasoning pairing
 			// check, and function_call item ids must start with fc_.
-			if model.Provider == ProviderZhipu || model.Provider == ProviderMiniMax || differentModel || !strings.HasPrefix(itemID, "fc_") {
+			if responsesCapabilitiesOf(model.Provider).implementation == responsesGLM || responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax || differentModel || !strings.HasPrefix(itemID, "fc_") {
 				itemID = ""
 			}
 			// Arguments that are not JSON (only a host-built call can have

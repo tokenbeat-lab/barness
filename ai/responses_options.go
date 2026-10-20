@@ -163,7 +163,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
 		body.MaxOutputTokens = n
-		if m.Provider != ProviderZhipu && m.Provider != ProviderMiniMax {
+		if responsesCapabilitiesOf(m.Provider).implementation != responsesGLM && responsesCapabilitiesOf(m.Provider).implementation != responsesMiniMax {
 			body.MaxOutputTokens = max(n, responsesMinOutputTokens)
 		}
 	}
@@ -190,7 +190,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 		if caps.encryptedReasoning {
 			body.Include = []string{"reasoning.encrypted_content"}
 		}
-	case m.Provider == ProviderZhipu || m.Provider == ProviderMiniMax:
+	case responsesCapabilitiesOf(m.Provider).implementation == responsesGLM || responsesCapabilitiesOf(m.Provider).implementation == responsesMiniMax:
 		// Omission keeps GLM's documented service default, including mandatory
 		// thinking on 5.3; never synthesize an off request.
 	case !m.ThinkingLevelMap.Off.IsNull():

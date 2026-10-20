@@ -36,7 +36,7 @@ const miniMaxMirrorSignatureType = "minimax.chat.reasoning-mirror"
 // Native detail entries stay intact inside it; no transport sees this wrapper.
 func (p *chatParser) reasoningSignature() string {
 	details := p.details.signature()
-	if p.model.Provider == ProviderMiniMax && p.miniMaxReasoningFormat == "mirror" {
+	if chatCompatOf(p.model.Provider).implementation == chatMiniMax && p.miniMaxReasoningFormat == "mirror" {
 		return `{"type":"` + miniMaxMirrorSignatureType + `","reasoning_details":` + details + `}`
 	}
 	return details

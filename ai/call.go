@@ -89,7 +89,7 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 		return failure
 	}
 
-	if failure := validateMiniMaxMessagesOptions(model, options); failure != nil {
+	if failure := validateAnthropicModelOptions(model, options); failure != nil {
 		return failure
 	}
 

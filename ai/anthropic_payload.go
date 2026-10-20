@@ -45,7 +45,7 @@ func authorizeAnthropicPayload(m Model, hostedTools []string) func(map[string]an
 		}
 		for _, field := range []string{"system", "messages"} {
 			findReference := anthropicFileReference
-			if m.Provider == ProviderMiniMax {
+			if anthropicCapabilitiesOf(m.Provider).implementation == anthropicMiniMax {
 				findReference = miniMaxMessagesFileReference
 			}
 			if ref := findReference(body[field]); ref != "" {

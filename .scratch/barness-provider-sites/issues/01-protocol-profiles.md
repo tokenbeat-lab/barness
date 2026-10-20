@@ -1,6 +1,6 @@
 # 01 协议配置与地区身份
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Blocked by: none
 

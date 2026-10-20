@@ -1,5 +1,14 @@
 package ai
 
+type chatImplementation uint8
+
+const (
+	chatStandard chatImplementation = iota
+	chatDeepSeek
+	chatGLM
+	chatMiniMax
+)
+
 // chatCompat is the part of pi's openai-completions compat that differs
 // between the vendors barness-ai serves over Chat Completions: what pi's
 // detectCompat derives from the provider (and base URL) before a model's own
@@ -13,6 +22,7 @@ package ai
 // detected values. A host catalog therefore cannot give a DeepSeek model
 // OpenAI's request shape or the reverse (ADR-0015).
 type chatCompat struct {
+	implementation chatImplementation
 	// streamUsage requests a final usage chunk through stream_options.
 	streamUsage bool
 	// promptCache enables the implemented prompt cache routing/retention fields.
@@ -51,14 +61,18 @@ type chatCompat struct {
 // thinking and has no automatic stream usage/cache fields. Existing other
 // providers retain the standard OpenAI compat (ADR-0013).
 func chatCompatOf(p ProviderID) chatCompat {
-	if p == ProviderMiniMax {
-		return chatCompat{streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
+	switch p {
+	case ProviderMiniMax:
+		return chatCompat{implementation: chatMiniMax, streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
+	case ProviderMiniMaxCN:
+		return chatCompat{implementation: chatMiniMax, streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
+	case ProviderZhipu:
+		return chatCompat{implementation: chatGLM, maxTokens: true, thinkingToggle: true, preserveThinkingDefault: true, toolStream: true}
+	case ProviderZAI:
+		return chatCompat{implementation: chatGLM, maxTokens: true, thinkingToggle: true, preserveThinkingDefault: true, toolStream: true}
+	case ProviderDeepSeek:
+		return chatCompat{implementation: chatDeepSeek, streamUsage: true, promptCache: true, maxTokens: true, thinkingToggle: true, reasoningContentOnAssistant: true}
+	default:
+		return chatCompat{implementation: chatStandard, streamUsage: true, promptCache: true, store: true, developerRole: true}
 	}
-	if p == ProviderDeepSeek {
-		return chatCompat{streamUsage: true, promptCache: true, maxTokens: true, thinkingToggle: true, reasoningContentOnAssistant: true}
-	}
-	if p == ProviderZhipu {
-		return chatCompat{maxTokens: true, thinkingToggle: true, preserveThinkingDefault: true, toolStream: true}
-	}
-	return chatCompat{streamUsage: true, promptCache: true, store: true, developerRole: true}
 }

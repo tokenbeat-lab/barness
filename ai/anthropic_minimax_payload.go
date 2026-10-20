@@ -10,7 +10,7 @@ import (
 // This boundary checks the actual bytes after hooks. UseNumber preserves
 // decimal precision: a near-integer output limit must not round into validity.
 func validateMiniMaxMessagesBody(m Model, raw []byte, header http.Header, beta string, authorize func(map[string]any) string) *Error {
-	if m.Provider != ProviderMiniMax {
+	if anthropicCapabilitiesOf(m.Provider).implementation != anthropicMiniMax {
 		return nil
 	}
 	invalid := func(problem string) *Error { return newError(CodeInvalidRequest, PhaseRequest, problem) }

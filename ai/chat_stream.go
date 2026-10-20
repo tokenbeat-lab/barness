@@ -123,7 +123,7 @@ func (p *chatParser) fail(failure *Error) *Error {
 // settle decides the terminal once the stream ended cleanly: an error
 // finish reason fails, a missing one is a protocol error.
 func (p *chatParser) settle() *Error {
-	if p.model.Provider == ProviderMiniMax && p.finished && ((len(p.calls) > 0 && p.stop == StopReasonStop) || (len(p.calls) == 0 && p.stop == StopReasonToolUse)) {
+	if chatCompatOf(p.model.Provider).implementation == chatMiniMax && p.finished && ((len(p.calls) > 0 && p.stop == StopReasonStop) || (len(p.calls) == 0 && p.stop == StopReasonToolUse)) {
 		return newError(CodeProtocol, PhaseStream, "MiniMax finish_reason conflicts with the returned tool calls")
 	}
 	switch {
@@ -227,7 +227,7 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 	if !rawTruthy(choice.Delta) || json.Unmarshal(choice.Delta, &delta) != nil {
 		return nil
 	}
-	if p.model.Provider == ProviderMiniMax {
+	if chatCompatOf(p.model.Provider).implementation == chatMiniMax {
 		if problem := p.validateMiniMaxReasoning(delta); problem != "" {
 			return newError(CodeProtocol, PhaseStream, problem)
 		}
@@ -305,7 +305,7 @@ func (p *chatParser) reasoningDetails(raw json.RawMessage) {
 		if p.details == nil {
 			p.details = chatDetails{}
 		}
-		p.details.add(d, p.model.Provider == ProviderMiniMax)
+		p.details.add(d, chatCompatOf(p.model.Provider).implementation == chatMiniMax)
 	}
 }
 
@@ -336,7 +336,7 @@ func (p *chatParser) toolCalls(raw json.RawMessage) *Error {
 		var index float64
 		indexed := len(tc.Index) > 0 && json.Unmarshal(tc.Index, &index) == nil
 		k := p.findCall(indexed, index, id)
-		if p.model.Provider == ProviderMiniMax && k >= 0 {
+		if chatCompatOf(p.model.Provider).implementation == chatMiniMax && k >= 0 {
 			previous := p.calls[k]
 			if (id != "" && previous.id != "" && id != previous.id) || (indexed && previous.indexed && index != previous.index) || (name != "" && previous.name != "" && name != previous.name) {
 				return newError(CodeProtocol, PhaseStream, "MiniMax tool call has conflicting index and id")
@@ -384,7 +384,7 @@ func (p *chatParser) findCall(indexed bool, index float64, id string) int {
 // thinking block takes the streamed details as its signature, a tool call
 // its final argument parse.
 func (p *chatParser) closeBlocks() *Error {
-	if p.model.Provider == ProviderMiniMax && p.stop == StopReasonToolUse {
+	if chatCompatOf(p.model.Provider).implementation == chatMiniMax && p.stop == StopReasonToolUse {
 		for _, c := range p.calls {
 			if c.id == "" || c.name == "" || !miniMaxToolArgumentsComplete(c.raw.String()) {
 				return newError(CodeProtocol, PhaseStream, "MiniMax tool call is incomplete or unpairable")
@@ -404,7 +404,7 @@ func (p *chatParser) closeBlocks() *Error {
 		default:
 			for _, c := range p.calls {
 				if c.block == i {
-					if p.model.Provider != ProviderMiniMax || miniMaxToolArgumentsComplete(c.raw.String()) {
+					if chatCompatOf(p.model.Provider).implementation != chatMiniMax || miniMaxToolArgumentsComplete(c.raw.String()) {
 						p.out.toolCallEnd(i, c.raw.String())
 					}
 				}

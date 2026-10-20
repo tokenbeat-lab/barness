@@ -134,7 +134,7 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 	if c, ok := o.ToolChoice.Get(); ok {
 		full.ToolChoice = Value(AnthropicToolChoice{Mode: string(c)})
 	}
-	if m.Provider == ProviderMiniMax {
+	if anthropicCapabilitiesOf(m.Provider).implementation == anthropicMiniMax {
 		if o.Reasoning != "" {
 			full.ThinkingEnabled = Value(true)
 			if miniMaxMessagesHasEffort(m) {
@@ -143,7 +143,7 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 		}
 		return full
 	}
-	if m.Provider == ProviderZhipu {
+	if anthropicCapabilitiesOf(m.Provider).implementation == anthropicGLM {
 		// GLM omission is its own provider default, never Claude disabled.
 		// An explicit canonical request has no verified budget/intensity map.
 		// Leave its budget unset so provider validation refuses it; do not

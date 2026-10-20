@@ -8,7 +8,7 @@ import (
 // native display, budget, beta and managed per-turn effort (spec R15).
 // Validation runs after authorization and before reading a credential.
 func validateMiniMaxMessagesOptions(m Model, options Options) *Error {
-	if m.Provider != ProviderMiniMax || m.API != APIAnthropicMessages {
+	if anthropicCapabilitiesOf(m.Provider).implementation != anthropicMiniMax || m.API != APIAnthropicMessages {
 		return nil
 	}
 	o, _ := options.(AnthropicOptions)
