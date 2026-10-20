@@ -28,7 +28,7 @@ var ErrAuthorization = errors.New("glmhost: explicit service, tenant, account, c
 // Bindings builds three independently revocable routes. Market data and purpose
 // policy intentionally remain separate from the MiniMax example.
 func Bindings(a Authorization) ([]ai.Binding, error) {
-	if (a.ProviderID != ai.ProviderZhipu && a.ProviderID != ai.ProviderID("zai")) || a.Purpose != Standard {
+	if (a.ProviderID != ai.ProviderZhipu && a.ProviderID != ai.ProviderZAI) || a.Purpose != Standard {
 		return nil, ErrAuthorization
 	}
 	for _, v := range []string{a.TenantID, a.AccountScopeID, a.CredentialRef, a.Version} {
@@ -38,7 +38,7 @@ func Bindings(a Authorization) ([]ai.Binding, error) {
 	}
 	host := "https://open.bigmodel.cn"
 	prefix := "glm"
-	if a.ProviderID == ai.ProviderID("zai") {
+	if a.ProviderID == ai.ProviderZAI {
 		host = "https://api.z.ai"
 		prefix = "zai"
 	}

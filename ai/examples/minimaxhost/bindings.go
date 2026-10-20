@@ -39,7 +39,7 @@ var ErrAuthorization = errors.New("minimaxhost: explicit service, tenant, accoun
 // This intentionally stays separate from the GLM example: allowed models,
 // service, credential purposes and entitlement evolve under different contracts.
 func Bindings(a Authorization) ([]ai.Binding, error) {
-	if a.ProviderID != ai.ProviderMiniMax && a.ProviderID != ai.ProviderID("minimax-cn") {
+	if a.ProviderID != ai.ProviderMiniMax && a.ProviderID != ai.ProviderMiniMaxCN {
 		return nil, ErrAuthorization
 	}
 	for _, value := range []string{a.TenantID, a.AccountScopeID, a.CredentialRef, a.Version} {
@@ -73,7 +73,7 @@ func Bindings(a Authorization) ([]ai.Binding, error) {
 	}
 	out := make([]ai.Binding, 0, len(routes))
 	for _, r := range routes {
-		if a.ProviderID == ai.ProviderID("minimax-cn") {
+		if a.ProviderID == ai.ProviderMiniMaxCN {
 			r.endpoint = strings.Replace(r.endpoint, "api.minimax.io", "api.minimax.cn", 1)
 		}
 		endpoint, err := hostconfig.Endpoint(r.endpoint, a.Endpoints[r.api], a.TrustedGateway)
