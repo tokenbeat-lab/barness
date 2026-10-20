@@ -14,18 +14,19 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | --- | --- |
 | 架构选择 | 已确定方案 2，记录于 ADR-0049 |
 | 本次交付 | 实现与普通验证已交付；工单 01–06 已解决，[07 最终验收](issues/07-final-acceptance.md) 进行中。分支 `codex/barness-provider-sites`，feature 保持 claimed |
-| 最终续验准备 | [09 独立续验授权](issues/09-final-round-minimax-authority.md) 已合并 `8072821`、[11 两阶段目录](issues/11-regional-catalog-promotion.md) 已合并 `9af1a17`，定向普通与适用差分通过，均待独立审查；[10 有限采集发布](issues/10-final-round-collection.md) 正在独立 worktree 收尾。人类已明确批准本轮 726 Calls / 762 HTTP、US$30、九服务 standard / 测试账户资格和最终 READY 后的一次正式完整 race。[授权](../../.evidence/provider-sites/final-acceptance-20261020/authorization.json) / [有限计划](../../.evidence/provider-sites/final-acceptance-20261020/plan/plan.md) / [冻结顺序](../../.evidence/provider-sites/final-acceptance-20261020/plan/promotion-map.md) |
+| 最终续验准备 | 首轮最终候选在 `285c2a5` 完成研究及两条实测后因 ZAI Chat 真实资格失败关闭；31 个其余原定进程未启动，未晋升、未 formal。原人类 US$30、九服务资格及最终 READY 后一次完整 race 授权保留；再次付费须完成 [12 固定原生来源](issues/12-zai-chat-native-source.md)、控制器永久修复及新有限计划审查后另行明确批准，不自动重跑。[关闭指纹](../../.evidence/provider-sites/final-acceptance-20261020/closed-cohort-1/seal.json) / [原授权](../../.evidence/provider-sites/final-acceptance-20261020/authorization.json) |
 | 本轮 ZAI 原生推理研究 | 四次自身真实对照实际完成，4 Calls / 4 HTTP、零重试、合法终态；GLM-5.2 omitted 为 thinking0，enabled/budget1024/max4096 为 thinking97 / signature24，GLM-5.3 两形状均有原生块。工具 source 前后相同，Key 扫描零发现；只证实窄请求形状，尚未认证 native-history / 新候选。[固定研究事实](evidence/zai-thinking-research.md) |
 | 文档核验 | 本轮收尾静态检查 exit 0，固定合同、格式 / 500 行及 334 处本地引用 PASS；执行源码集合保持不变 |
 | 生产实现与目录变更 | 四服务各三协议、12 路线 / 18 身份；缓存 v2、准入 Provider、Host 端点/用途与凭据隔离、独立候选及原生采集/消费已完成。新增九身份未晋升 BuiltinCatalog |
 | 上轮完整普通 E2E | 受测提交 `d4b63d9`；完整普通主包 13,244 原生场景全部 PASS，双 vet、差分、压力与原生审计通过；[该来源验证索引](evidence/verification.md) / [机器索引](evidence/index.json)。本轮新增源码尚未执行完整普通门禁 |
-| 双轴审查 | 上轮初始及后续发现均由同一 implementer 修复，Standards 与 Spec 独立复审及测试迁移补审无剩余可操作问题；[原始与最终报告](evidence/review.md)。本轮 09–11 新增代码待双轴审查，不沿用旧源码结论 |
+| 双轴审查 | 本轮 08–11 初审的中国站预算主机笔误经同一 implementer 修复，复审均零剩余。实际运行另发现父工具报告文件名交接错误：固定 keyless 补全工具两轴复审通过、5 个公共进程场景 PASS，保留原 UNKNOWN 和全额预算；永久控制器路径修复在独立分支已普通验证，待合入复审。12 的原生来源修复及续验 2 授权实现尚待审查。[源码审查](../../.evidence/provider-sites/final-acceptance-20261020/review/final/index.json) / [交接恢复审查](../../.evidence/provider-sites/final-acceptance-20261020/review/handoff/index.json) |
+| 本轮新身份自身真实验证 | ZAI Messages 首次新候选 18/18 PASS，GLM-5.2 native-history PASS，qualify exit0；父工具 UNKNOWN 已 keyless 补全，新增调用零。ZAI Chat 首次实测 17 PASS / 1 FAIL，GLM-5.3 工具 SSE 原生 reasoning 缺失，native-history FAIL；相同请求的上轮成功与本轮 full-stream 阳性不能改写该失败。其余四 candidate 未启动，同源六条未全部通过，禁止晋升。原始 36 Calls / 36 HTTP、零重试 / 零审计发现均保留。[关闭事实](../../.evidence/provider-sites/final-acceptance-20261020/closed-cohort-1/index.json) |
 | 上轮新身份自身真实验证 | 六条各一次 candidate 已完成：81 Calls / 81 HTTP、零重试，80 PASS / 1 FAIL，六份 audit 零发现。ZAI Chat / Responses 与中国 MiniMax 三协议的 qualify 通过；ZAI Messages 因 [`glm-5.2/native-history`](issues/08-zai-messages-glm52-native-qualification.md) 失败未通过。未晋升 / 未运行新 formal。[固定汇总](../../.evidence/provider-sites/acceptance-20261020/candidate-summary.json) |
 | 旧真实来源适用性 | 对原始 17 live / 四效果执行当前 keyless preflight：10 通用路线仍 PASS；Jev1.14、GLM×3、国际 MiniMax×3 因各自严格来源校验拒绝；四效果过期。21 树 / 3,539 份原件 Hash 保持。[实际审计](../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/report.md) |
 | 正式前置 | 上轮实际 BLOCKED / exit 1；七条旧严格来源路线 / 四效果过期，新六路线尚未晋升与 formal 合并，ZAI Messages 候选有实际失败。本轮新源码尚未重跑正式前置，没有 READY_FOR_RACE checkpoint |
 | race | 上轮 `470682d3…` 完整开发 race PASS：exit 0、墙钟 2589.635s、主包 13,244 原生 PASS、32 audit 零发现、无 race detector 警告；不是正式 check checkpoint。[固定报告](evidence/acceptance.md) / [机器索引](evidence/acceptance-index.json)。本轮新增源码 race NOT_RUN，最终正式一次范围已列审批 |
 | release.pass | false；完整正式验收继续开放 |
-| 实际厂商 / 付费调用 | 已结束旧轮次为 81 Calls / 81 HTTP，仅两服务六路线 candidate、US$5、零重试，余量不转用；其 Result 估价约 US$0.020954、有限 token 保守估价约 US$2.282610，均非账单。本轮 US$30 下目前只有研究 4 Calls / 4 HTTP，整笔预留 US$0.20；六 candidate / 六 formal、旧17与四效果尚未开始 |
+| 实际厂商 / 付费调用 | 已结束旧 US$5 六候选轮次为 81/81，余量不转用。首轮最终验收实际 40 Calls / 40 HTTP（研究4＋Messages18＋Chat18），保留 claimed 上限52/52与整笔 US$1.50 预留，不作为账单。31 个其余进程无 canonical claim，MiniMax 本轮原生 grant/ledger/nonce 未创建；后续付费已停止，没有自动重跑。拟续验2保持总预算US$30，须另有明确有限范围批准。 |
 | 上轮完整受测来源 | 完整 `ai/` 与 Go 依赖文件清单 Hash 为 `470682d37e2d1c839bf5609f6898f9a1e4dafbd3dbfcd2cb77f2048a530f3e05`，命令前后逐文件相等；事实与工具身份见固定索引。本轮执行来源将在全部代码、审查、目录与合法派生数据完成后重新冻结 |
 
 

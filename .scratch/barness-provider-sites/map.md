@@ -23,6 +23,8 @@
 
 - [10 有限采集与来源发布](issues/10-final-round-collection.md)：固定 33 完整进程＋原始研究 4/4，跨阶段一次 intent/美元保留、选中 Key 隔离、最终 wire guard、原生来源闭包、GLM 新原件及 23 行公共 importer 已实现并保留普通 RED→GREEN；待父任务独立审查和真实调度。实际批准/资格/最终验收见 spec。
 
+- [12 ZAI Chat 固定原生来源](issues/12-zai-chat-native-source.md)：本轮上游工具响应未返回 reasoning，预先固定同轮 full-stream 原生阳性消息并保留工具链；受控修复与新的有限重验准备由 spec 记录。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。
