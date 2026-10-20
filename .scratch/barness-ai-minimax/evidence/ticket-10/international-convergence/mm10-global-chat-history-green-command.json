@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "chat-history",
+  "argv": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-run",
+    "^TestMiniMaxChat(ObservedMirrorHistory|ToolHistory|ObservedMirror|MixedReasoningFrames|UnknownReasoningFormat|Containers)$",
+    "-count=1"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T01:55:21.636821+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 5.803183041978627,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

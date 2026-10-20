@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "originalReceiptUnchanged": true,
+  "originalOuterTimeoutSeconds": 360,
+  "originalSourceCommit": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "sourceStillIdentical": true,
+  "sourceFiles": 1048,
+  "observedControllerPID": 8884,
+  "observedReleaseTestPID": 9154,
+  "observedOwnedProcessesNoLongerPresent": true,
+  "failure": "Outer360s timeout, then existing stop helper killpg PermissionError twice; command did not complete successfully. Original STARTING/exit1 receipt and log retained.",
+  "baselineActualA2ReleasePackageRaceSeconds": 379.581,
+  "replacement": "same exact Go test argv, new separately retained command with900s outer limit; no paid calls or source edits",
+  "credentialsRead": false,
+  "paidCalls": 0
+}

@@ -68,6 +68,8 @@ type Report struct {
 	Expected  []string           `json:"expected"`
 	Scenarios []ScenarioResult   `json:"scenarios"`
 	Decisions *DecisionsEvidence `json:"decisions,omitempty"`
+	MiniMax   *MiniMaxEvidence   `json:"minimax,omitempty"`
+	GLM       *GLMEvidence       `json:"glm,omitempty"`
 	Jev       *JevEvidence       `json:"jev,omitempty"`
 	// File ownership is supplied by LoadReport, never accepted from JSON.
 	evidenceDir string
@@ -75,6 +77,10 @@ type Report struct {
 
 // Budget bounds one live process's spend.
 type Budget struct {
+	MaxRequestedOutputTokens   int `json:"maxRequestedOutputTokens,omitempty"`
+	RequestedOutputTokens      int `json:"requestedOutputTokens,omitempty"`
+	MaxReservedInputTokens     int `json:"maxReservedInputTokens,omitempty"`
+	ReservedInputTokens        int `json:"reservedInputTokens,omitempty"`
 	MaxAttempts                int `json:"maxAttempts,omitempty"`
 	AttemptsReserved           int `json:"attemptsReserved,omitempty"`
 	MaxStateBytesTotal         int `json:"maxStateBytesTotal,omitempty"`
@@ -295,6 +301,12 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, err
 	}
 	if err := checkDecisions(r); err != nil {
+		return 0, err
+	}
+	if err := checkGLM(r); err != nil {
+		return 0, err
+	}
+	if err := checkMiniMax(r); err != nil {
 		return 0, err
 	}
 	if err := checkJev(r); err != nil {

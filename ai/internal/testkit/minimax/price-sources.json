@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "retrievedAt": "2026-10-18",
+  "priceDate": "2026-10-18",
+  "currency": "USD per million tokens",
+  "catalogSha256": "ec2819c93857dad9268a87d4d9fa586e16e8673ab2a3fbd22d88c955c210a45c",
+  "sources": [
+    {
+      "file": "pricing-source.md",
+      "url": "https://platform.minimax.io/docs/pricing/overview.md",
+      "sha256": "92fde6068cfd911157e944bd7c2c16887abea7b1ab10be7b89dfe35695350400"
+    }
+  ],
+  "scope": {
+    "provider": "minimax",
+    "region": "international",
+    "model": "MiniMax-M3",
+    "routes": [
+      "chat",
+      "responses",
+      "messages"
+    ],
+    "serviceTier": "standard",
+    "inputSideThreshold": 512000,
+    "thresholdPolicy": "Official sources say512k without an exact integer.512000 is the conservative barness estimate policy, not an official integer assertion; revise only after reliable integer confirmation. No high-context paid probe.",
+    "lowUsdPerMillion": {
+      "input": "0.30",
+      "output": "1.20",
+      "cacheRead": "0.06"
+    },
+    "highUsdPerMillion": {
+      "input": "0.60",
+      "output": "2.40",
+      "cacheRead": "0.12"
+    },
+    "cacheWrite": "No M3-specific separate creation-token rate/accounting supplied. Active writes excluded; positive separately classified writes retain known usage and fail. Zero numeric placeholder is not a free-rate claim.",
+    "sourceConflict": "Passive-cache worked example retains old .60/2.40/.12 low-tier rates; current pricing overview permanent50percent discount is the dated rate source.",
+    "excluded": [
+      "priority multiplier",
+      "M Plan fees/entitlement",
+      "M3.1 prices"
+    ]
+  }
+}

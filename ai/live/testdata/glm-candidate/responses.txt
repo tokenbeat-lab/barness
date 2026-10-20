@@ -1,0 +1,1917 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "智谱 AI Response API",
+    "version": "1.0.0",
+    "description": "创建、查询与删除模型 Response。端点 `https://open.bigmodel.cn/api/v1`。概念见 [Response API](/cn/guide/develop/responses/introduction)。",
+    "contact": {
+      "name": "Z.AI 开发者",
+      "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+      "email": "user_feedback@z.ai"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://open.bigmodel.cn/api",
+      "description": "开放平台 Response API"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Response",
+      "description": "创建、查询、列举输入项与删除 Response。"
+    }
+  ],
+  "paths": {
+    "/v1/responses": {
+      "post": {
+        "tags": [
+          "Response"
+        ],
+        "summary": "创建 Response",
+        "operationId": "createResponse",
+        "description": "创建一次模型响应。`input` 支持文本、图片和文件，可选流式、工具与多轮。详见 [Response API](/cn/guide/develop/responses/introduction)。点击 **Try it** 可试用。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateResponseRequest"
+              },
+              "examples": {
+                "文本调用": {
+                  "value": {
+                    "model": "glm-5.3",
+                    "input": "用一句话介绍智谱 GLM。"
+                  }
+                },
+                "流式调用": {
+                  "value": {
+                    "model": "glm-5.3",
+                    "input": "写一首四句的春天七言诗。",
+                    "stream": true
+                  }
+                },
+                "多轮对话": {
+                  "value": {
+                    "model": "glm-5.3",
+                    "input": "我叫什么名字？",
+                    "previous_response_id": "resp_xxx",
+                    "store": true
+                  }
+                },
+                "图片理解": {
+                  "value": {
+                    "model": "glm-5.3",
+                    "input": [
+                      {
+                        "type": "message",
+                        "role": "user",
+                        "content": [
+                          {
+                            "type": "input_text",
+                            "text": "描述这张图片"
+                          },
+                          {
+                            "type": "input_image",
+                            "image_url": "https://cdn.bigmodel.cn/static/logo/register.png"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "函数调用": {
+                  "value": {
+                    "model": "glm-5.3",
+                    "input": "北京今天天气怎么样？",
+                    "tool_choice": "auto",
+                    "tools": [
+                      {
+                        "type": "function",
+                        "name": "get_weather",
+                        "description": "获取指定城市的天气",
+                        "parameters": {
+                          "type": "object",
+                          "properties": {
+                            "city": {
+                              "type": "string",
+                              "description": "城市名称"
+                            }
+                          },
+                          "required": [
+                            "city"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "同步返回 Response 对象；`stream=true` 时返回 SSE 事件流，不发送 `data: [DONE]`。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseStreamEvent"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。错误码见 Error 对象说明。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/responses/{response_id}": {
+      "get": {
+        "tags": [
+          "Response"
+        ],
+        "summary": "查询 Response",
+        "operationId": "getResponse",
+        "description": "按 `id` 检索已保存的 Response。创建时须 `store=true`。点击 **Try it** 可试用。",
+        "parameters": [
+          {
+            "name": "response_id",
+            "in": "path",
+            "required": true,
+            "description": "要检索的响应 ID，即创建响应时返回的 `id`。",
+            "schema": {
+              "type": "string",
+              "example": "resp_xxx"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Response"
+        ],
+        "summary": "删除 Response",
+        "operationId": "deleteResponse",
+        "description": "删除已保存的 Response。创建时须 `store=true`。点击 **Try it** 可试用。",
+        "parameters": [
+          {
+            "name": "response_id",
+            "in": "path",
+            "required": true,
+            "description": "要删除的响应 ID，即创建响应时返回的 `id`。",
+            "schema": {
+              "type": "string",
+              "example": "resp_xxx"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDeleted"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/responses/{response_id}/input_items": {
+      "get": {
+        "tags": [
+          "Response"
+        ],
+        "summary": "查询输入项列表",
+        "operationId": "listResponseInputItems",
+        "description": "分页列出某次 Response 的输入项。创建时须 `store=true`。点击 **Try it** 可试用。",
+        "parameters": [
+          {
+            "name": "response_id",
+            "in": "path",
+            "required": true,
+            "description": "要检索的响应 ID，即创建响应时返回的 `id`。",
+            "schema": {
+              "type": "string",
+              "example": "resp_xxx"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "排序方式：`desc`（默认）/ `asc`。",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "desc",
+                "asc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "单页返回条数，范围 1–100，默认 20。",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "分页游标，取上一页返回的 `last_id`；首页留空。",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InputItemList"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "标准 HTTP Bearer 认证。在 [API Keys](https://bigmodel.cn/usercenter/proj-mgmt/apikeys) 获取密钥。"
+      }
+    },
+    "schemas": {
+      "CreateResponseRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "input"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "模型编码。例如 `glm-5.3`。",
+            "example": "glm-5.3"
+          },
+          "input": {
+            "description": "用户文本，或输入项数组（`message` / `function_call` / `function_call_output` / `reasoning`）。",
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "用户文本输入。",
+                "title": "文本"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/InputItem"
+                },
+                "title": "输入项列表"
+              }
+            ]
+          },
+          "instructions": {
+            "type": "string",
+            "description": "系统指令。"
+          },
+          "stream": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否 SSE 流式返回，默认 `false`。结束时不发送 `data: [DONE]`。"
+          },
+          "temperature": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "采样温度 `[0.0, 1.0]`，限两位小数。GLM-5.3 默认 `1.0`。不要与 `top_p` 同时调节。"
+          },
+          "top_p": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0.01,
+            "maximum": 1,
+            "description": "核采样 `[0.01, 1.0]`，限两位小数。GLM-5.3 默认 `0.95`。不要与 `temperature` 同时调节。"
+          },
+          "max_output_tokens": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 131072,
+            "default": 65536,
+            "description": "模型输出最大 tokens（含回答与思维链）。最大 `131072`，默认 `65536`。"
+          },
+          "stop": {
+            "type": "array",
+            "description": "遇到其中任一字符串时停止生成。",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "stop_word1"
+            ]
+          },
+          "tools": {
+            "type": "array",
+            "description": "可调用工具：`function` / `namespace` / `custom` / `web_search`。",
+            "items": {
+              "$ref": "#/components/schemas/Tool"
+            }
+          },
+          "tool_choice": {
+            "type": "string",
+            "enum": [
+              "none",
+              "auto"
+            ],
+            "description": "`none` 不调用任何工具；`auto` 由模型判断。"
+          },
+          "reasoning": {
+            "$ref": "#/components/schemas/ReasoningConfig"
+          },
+          "text": {
+            "$ref": "#/components/schemas/TextConfig"
+          },
+          "prompt_cache_key": {
+            "type": "string",
+            "description": "用于集群路由，以提高缓存命中率。"
+          },
+          "previous_response_id": {
+            "type": "string",
+            "description": "上一轮 `id`，用于多轮。须 `store=true`，有效期 7 天。"
+          },
+          "store": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否保存本次响应，默认 `false`。为 `true` 时可用于查询、删除和多轮。"
+          }
+        }
+      },
+      "InputItem": {
+        "description": "一条输入项。",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InputMessage",
+            "title": "用户消息"
+          },
+          {
+            "$ref": "#/components/schemas/InputFunctionCall",
+            "title": "工具命中"
+          },
+          {
+            "$ref": "#/components/schemas/InputFunctionCallOutput",
+            "title": "工具返回"
+          },
+          {
+            "$ref": "#/components/schemas/InputReasoning",
+            "title": "思维链输入"
+          }
+        ]
+      },
+      "InputMessage": {
+        "type": "object",
+        "required": [
+          "type",
+          "role",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "message"
+            ],
+            "description": "消息输入的类型，此处应为 `message`。"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "system",
+              "assistant",
+              "developer"
+            ],
+            "description": "输入消息角色。回放助手文本时为 `assistant`。"
+          },
+          "content": {
+            "description": "文本、图片、文件，或助手的 `output_text`。",
+            "oneOf": [
+              {
+                "type": "string",
+                "title": "文本"
+              },
+              {
+                "$ref": "#/components/schemas/InputContentPart",
+                "title": "内容块"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/InputContentPart"
+                },
+                "title": "内容块列表"
+              }
+            ]
+          }
+        },
+        "title": "用户消息"
+      },
+      "InputContentPart": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "text"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "input_text"
+                ],
+                "description": "文本输入。"
+              },
+              "text": {
+                "type": "string",
+                "description": "输入模型的文本。"
+              }
+            },
+            "title": "文本输入"
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "image_url"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "input_image"
+                ],
+                "description": "图像输入。"
+              },
+              "image_url": {
+                "type": "string",
+                "description": "图片 URL 或 base64。"
+              }
+            },
+            "title": "图像输入"
+          },
+          {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "input_file"
+                ],
+                "description": "文件输入。"
+              },
+              "file_data": {
+                "type": "string",
+                "description": "文件 base64。"
+              },
+              "file_url": {
+                "type": "string",
+                "description": "文件 URL。"
+              }
+            },
+            "title": "文件输入"
+          },
+          {
+            "type": "object",
+            "required": [
+              "type",
+              "text"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "output_text"
+                ],
+                "description": "回放助手文本时使用。"
+              },
+              "text": {
+                "type": "string",
+                "description": "模型输出的文本。"
+              }
+            },
+            "title": "助手文本回放"
+          }
+        ],
+        "title": "内容块"
+      },
+      "InputFunctionCall": {
+        "type": "object",
+        "required": [
+          "type",
+          "name",
+          "call_id",
+          "arguments"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "function_call"
+            ],
+            "description": "工具调用，始终为 `function_call`。"
+          },
+          "name": {
+            "type": "string",
+            "description": "要运行的函数名称。"
+          },
+          "call_id": {
+            "type": "string",
+            "description": "模型生成的函数调用唯一 ID。"
+          },
+          "arguments": {
+            "type": "string",
+            "description": "传递给函数的参数 JSON 字符串。"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "函数所属命名空间。"
+          }
+        },
+        "title": "工具命中"
+      },
+      "InputFunctionCallOutput": {
+        "type": "object",
+        "required": [
+          "type",
+          "call_id",
+          "output"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "function_call_output"
+            ],
+            "description": "工具输出，始终为 `function_call_output`。"
+          },
+          "call_id": {
+            "type": "string",
+            "description": "对应函数调用的唯一 ID。"
+          },
+          "output": {
+            "type": "string",
+            "description": "工具执行结果。"
+          }
+        },
+        "title": "工具返回"
+      },
+      "InputReasoning": {
+        "type": "object",
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "reasoning"
+            ],
+            "description": "思维链，始终为 `reasoning`。"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ReasoningTextPart"
+          }
+        },
+        "title": "思维链输入"
+      },
+      "ReasoningTextPart": {
+        "type": "object",
+        "required": [
+          "type",
+          "text"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "reasoning_text"
+            ],
+            "description": "输出文本类型，此处为 `reasoning_text`。"
+          },
+          "text": {
+            "type": "string",
+            "description": "推理文本。"
+          }
+        }
+      },
+      "Tool": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FunctionTool",
+            "title": "函数工具"
+          },
+          {
+            "$ref": "#/components/schemas/NamespaceTool",
+            "title": "命名空间工具"
+          },
+          {
+            "$ref": "#/components/schemas/CustomTool",
+            "title": "自定义工具"
+          },
+          {
+            "$ref": "#/components/schemas/WebSearchTool",
+            "title": "联网搜索"
+          }
+        ]
+      },
+      "FunctionTool": {
+        "type": "object",
+        "required": [
+          "type",
+          "name"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "function"
+            ],
+            "description": "工具类型，此处为 `function`。"
+          },
+          "name": {
+            "type": "string",
+            "description": "函数名称。"
+          },
+          "description": {
+            "type": "string",
+            "description": "函数描述，模型用它判断是否调用。"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "函数请求参数，JSON Schema。",
+            "additionalProperties": true,
+            "example": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "description": "城市名称"
+                }
+              },
+              "required": [
+                "city"
+              ]
+            }
+          }
+        },
+        "title": "函数工具"
+      },
+      "NamespaceTool": {
+        "type": "object",
+        "required": [
+          "type",
+          "name"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "namespace"
+            ],
+            "description": "工具类型，此处为 `namespace`。"
+          },
+          "name": {
+            "type": "string",
+            "description": "命名空间名称。"
+          },
+          "description": {
+            "type": "string",
+            "description": "展示给模型的命名空间描述。"
+          },
+          "tools": {
+            "type": "array",
+            "description": "该命名空间内的函数工具。",
+            "items": {
+              "$ref": "#/components/schemas/FunctionTool"
+            }
+          }
+        },
+        "title": "命名空间工具"
+      },
+      "CustomTool": {
+        "type": "object",
+        "required": [
+          "type",
+          "name"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "custom"
+            ],
+            "description": "自定义工具类型，此处为 `custom`。"
+          },
+          "name": {
+            "type": "string",
+            "description": "自定义工具名称。"
+          },
+          "description": {
+            "type": "string",
+            "description": "可选描述，提供更多上下文。"
+          }
+        },
+        "title": "自定义工具"
+      },
+      "WebSearchTool": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "web_search"
+            ],
+            "description": "服务端网络搜索，类型为 `web_search`。"
+          }
+        },
+        "title": "联网搜索"
+      },
+      "ReasoningConfig": {
+        "type": "object",
+        "description": "限制深度思考的工作量。",
+        "properties": {
+          "effort": {
+            "type": "string",
+            "default": "max",
+            "description": "默认 `max`。`none` / `minimal` 放弃思考；`low` / `medium` 映射为 `high`；`xhigh` 映射为 `max`。",
+            "enum": [
+              "none",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ]
+          }
+        }
+      },
+      "TextConfig": {
+        "type": "object",
+        "description": "模型文本输出格式，可以是自然语言或结构化 JSON。",
+        "properties": {
+          "format": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "json_object"
+                ],
+                "description": "`text` 为自然语言，`json_object` 为 JSON 对象。"
+              }
+            }
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "description": "同步请求返回的 Response 对象。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "本次请求的唯一标识。"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "response"
+            ],
+            "description": "固定为 `response`。"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "请求创建时间，Unix 秒时间戳。"
+          },
+          "model": {
+            "type": "string",
+            "description": "模型名称。"
+          },
+          "instructions": {
+            "type": "string",
+            "description": "系统指令。"
+          },
+          "max_output_tokens": {
+            "type": "integer",
+            "format": "int64",
+            "description": "模型输出最大 token 数，包含回答和思维链。"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "failed",
+              "in_progress",
+              "incomplete"
+            ],
+            "description": "生成状态。"
+          },
+          "temperature": {
+            "type": "number",
+            "format": "float",
+            "description": "采样温度。"
+          },
+          "top_p": {
+            "type": "number",
+            "format": "float",
+            "description": "核采样概率阈值。"
+          },
+          "text": {
+            "$ref": "#/components/schemas/TextConfig"
+          },
+          "tools": {
+            "type": "array",
+            "description": "同入参 `tools`。",
+            "items": {
+              "$ref": "#/components/schemas/Tool"
+            }
+          },
+          "error": {
+            "nullable": true,
+            "description": "模型未能生成响应时的错误对象。",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseError"
+              }
+            ]
+          },
+          "incomplete_details": {
+            "nullable": true,
+            "description": "响应未能完成的细节。",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IncompleteDetails"
+              }
+            ]
+          },
+          "output": {
+            "type": "array",
+            "description": "本轮输出：回答、思维链、工具调用、联网搜索。",
+            "items": {
+              "$ref": "#/components/schemas/OutputItem"
+            }
+          },
+          "usage": {
+            "$ref": "#/components/schemas/Usage"
+          }
+        }
+      },
+      "ResponseError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "错误码，见 Error 说明。"
+          },
+          "message": {
+            "type": "string",
+            "description": "错误描述。"
+          }
+        }
+      },
+      "IncompleteDetails": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "description": "响应未能完成的原因。"
+          }
+        }
+      },
+      "OutputItem": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/OutputMessage",
+            "title": "助手回答"
+          },
+          {
+            "$ref": "#/components/schemas/OutputReasoning",
+            "title": "思维链输出"
+          },
+          {
+            "$ref": "#/components/schemas/OutputFunctionCall",
+            "title": "函数调用"
+          },
+          {
+            "$ref": "#/components/schemas/OutputWebSearchCall",
+            "title": "联网搜索调用"
+          }
+        ]
+      },
+      "OutputMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "message"
+            ],
+            "description": "输出消息类型，此处为 `message`。"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "assistant"
+            ],
+            "description": "固定为 `assistant`。"
+          },
+          "status": {
+            "type": "string",
+            "description": "输出消息状态。"
+          },
+          "id": {
+            "type": "string",
+            "description": "此回答的唯一标识。"
+          },
+          "content": {
+            "description": "模型回答内容。",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OutputTextPart",
+                "title": "输出文本"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OutputTextPart"
+                },
+                "title": "输出文本列表"
+              }
+            ]
+          }
+        },
+        "title": "助手回答"
+      },
+      "OutputTextPart": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "output_text"
+            ],
+            "description": "固定为 `output_text`。"
+          },
+          "text": {
+            "type": "string",
+            "description": "模型回答的文本内容。"
+          }
+        },
+        "title": "输出文本"
+      },
+      "OutputReasoning": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "reasoning"
+            ],
+            "description": "输出类型，此处为 `reasoning`。"
+          },
+          "status": {
+            "type": "string",
+            "description": "输出消息状态。"
+          },
+          "id": {
+            "type": "string",
+            "description": "此输出项的唯一标识。"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ReasoningTextPart"
+          }
+        },
+        "title": "思维链输出"
+      },
+      "OutputFunctionCall": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "function_call"
+            ],
+            "description": "工具调用类型，此处为 `function_call`。"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "待执行函数所属命名空间。"
+          },
+          "status": {
+            "type": "string",
+            "description": "输出消息状态。"
+          },
+          "id": {
+            "type": "string",
+            "description": "此输出项的唯一标识。"
+          },
+          "name": {
+            "type": "string",
+            "description": "要运行的函数名称。"
+          },
+          "call_id": {
+            "type": "string",
+            "description": "模型生成的函数调用唯一 ID。"
+          },
+          "arguments": {
+            "type": "string",
+            "description": "传递给函数的参数 JSON 字符串。"
+          }
+        },
+        "title": "函数调用"
+      },
+      "OutputWebSearchCall": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "web_search_call"
+            ],
+            "description": "网络搜索调用类型，此处为 `web_search_call`。"
+          },
+          "status": {
+            "type": "string",
+            "description": "输出消息状态。"
+          },
+          "id": {
+            "type": "string",
+            "description": "此输出项的唯一标识。"
+          },
+          "action": {
+            "type": "object",
+            "description": "此次搜索调用中执行的操作。",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "search"
+                ],
+                "description": "操作类型，此处为 `search`。"
+              },
+              "queries": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "本次搜索关键词。"
+              },
+              "source": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "联网搜索的附加内容源。"
+              }
+            }
+          },
+          "result": {
+            "type": "array",
+            "description": "搜索结果。",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "title": "联网搜索调用"
+      },
+      "Usage": {
+        "type": "object",
+        "properties": {
+          "input_tokens": {
+            "type": "integer",
+            "description": "输入 token 数量。"
+          },
+          "input_tokens_details": {
+            "type": "object",
+            "description": "输入 token 明细。",
+            "properties": {
+              "cached_tokens": {
+                "type": "integer",
+                "description": "缓存 tokens。"
+              }
+            }
+          },
+          "output_tokens": {
+            "type": "integer",
+            "description": "模型输出 tokens 数量。"
+          },
+          "output_tokens_details": {
+            "type": "object",
+            "description": "输出 tokens 明细。",
+            "properties": {
+              "reasoning_tokens": {
+                "type": "integer",
+                "description": "模型思考的 tokens 数量。"
+              }
+            }
+          }
+        }
+      },
+      "InputItemList": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "当前页的输入项，元素为 message / reasoning / function_call / function_call_output 等。",
+            "items": {
+              "$ref": "#/components/schemas/InputItem"
+            }
+          },
+          "first_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "当前页首条输入项的 id；空页为 null。"
+          },
+          "last_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "当前页末条输入项的 id，作为下一页 `after`；空页为 null。"
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "是否还有下一页。"
+          }
+        }
+      },
+      "ResponseDeleted": {
+        "type": "object",
+        "required": [
+          "id",
+          "object",
+          "deleted"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "被删除的响应 ID。"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "response"
+            ],
+            "description": "固定为 `response`。"
+          },
+          "deleted": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "description": "固定为 `true`，表示删除成功。"
+          }
+        }
+      },
+      "ResponseStreamEvent": {
+        "description": "SSE 事件。按 `type` 区分，均含 `sequence_number`。",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/EventResponseCreated",
+            "title": "response.created"
+          },
+          {
+            "$ref": "#/components/schemas/EventResponseInProgress",
+            "title": "response.in_progress"
+          },
+          {
+            "$ref": "#/components/schemas/EventResponseCompleted",
+            "title": "response.completed"
+          },
+          {
+            "$ref": "#/components/schemas/EventResponseFailed",
+            "title": "response.failed"
+          },
+          {
+            "$ref": "#/components/schemas/EventResponseIncomplete",
+            "title": "response.incomplete"
+          },
+          {
+            "$ref": "#/components/schemas/EventOutputItemAdded",
+            "title": "response.output_item.added"
+          },
+          {
+            "$ref": "#/components/schemas/EventOutputItemDone",
+            "title": "response.output_item.done"
+          },
+          {
+            "$ref": "#/components/schemas/EventContentPartAdded",
+            "title": "response.content_part.added"
+          },
+          {
+            "$ref": "#/components/schemas/EventContentPartDone",
+            "title": "response.content_part.done"
+          },
+          {
+            "$ref": "#/components/schemas/EventOutputTextDelta",
+            "title": "response.output_text.delta"
+          },
+          {
+            "$ref": "#/components/schemas/EventOutputTextDone",
+            "title": "response.output_text.done"
+          },
+          {
+            "$ref": "#/components/schemas/EventFunctionCallArgumentsDelta",
+            "title": "response.function_call_arguments.delta"
+          },
+          {
+            "$ref": "#/components/schemas/EventFunctionCallArgumentsDone",
+            "title": "response.function_call_arguments.done"
+          },
+          {
+            "$ref": "#/components/schemas/EventReasoningTextDelta",
+            "title": "response.reasoning_text.delta"
+          },
+          {
+            "$ref": "#/components/schemas/EventReasoningTextDone",
+            "title": "response.reasoning_text.done"
+          },
+          {
+            "$ref": "#/components/schemas/EventWebSearchInProgress",
+            "title": "response.web_search_call.in_progress"
+          },
+          {
+            "$ref": "#/components/schemas/EventWebSearchSearching",
+            "title": "response.web_search_call.searching"
+          },
+          {
+            "$ref": "#/components/schemas/EventWebSearchCompleted",
+            "title": "response.web_search_call.completed"
+          },
+          {
+            "$ref": "#/components/schemas/EventError",
+            "title": "error"
+          }
+        ]
+      },
+      "EventResponseCreated": {
+        "type": "object",
+        "description": "响应被创建时触发。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.created"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "response": {
+            "$ref": "#/components/schemas/Response"
+          }
+        },
+        "title": "response.created"
+      },
+      "EventResponseInProgress": {
+        "type": "object",
+        "description": "响应进行中时触发。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.in_progress"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "response": {
+            "$ref": "#/components/schemas/Response"
+          }
+        },
+        "title": "response.in_progress"
+      },
+      "EventResponseCompleted": {
+        "type": "object",
+        "description": "响应已完成时触发。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.completed"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "response": {
+            "$ref": "#/components/schemas/Response"
+          }
+        },
+        "title": "response.completed"
+      },
+      "EventResponseFailed": {
+        "type": "object",
+        "description": "响应失败时触发。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.failed"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "response": {
+            "$ref": "#/components/schemas/Response"
+          }
+        },
+        "title": "response.failed"
+      },
+      "EventResponseIncomplete": {
+        "type": "object",
+        "description": "响应以未完成状态结束时触发。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.incomplete"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "response": {
+            "$ref": "#/components/schemas/Response"
+          }
+        },
+        "title": "response.incomplete"
+      },
+      "EventOutputItemAdded": {
+        "type": "object",
+        "description": "添加了新的输出项。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.output_item.added"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "被添加的输出项索引。"
+          },
+          "item": {
+            "$ref": "#/components/schemas/OutputItem"
+          }
+        },
+        "title": "response.output_item.added"
+      },
+      "EventOutputItemDone": {
+        "type": "object",
+        "description": "输出项已完成。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.output_item.done"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item": {
+            "$ref": "#/components/schemas/OutputItem"
+          }
+        },
+        "title": "response.output_item.done"
+      },
+      "EventContentPartAdded": {
+        "type": "object",
+        "description": "有新的内容部分被添加。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.content_part.added"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "content_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "新增内容部分的索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "part": {
+            "$ref": "#/components/schemas/StreamContentPart"
+          }
+        },
+        "title": "response.content_part.added"
+      },
+      "EventContentPartDone": {
+        "type": "object",
+        "description": "内容部分添加完成。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.content_part.done"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "content_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "内容部分索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "part": {
+            "$ref": "#/components/schemas/StreamContentPart"
+          }
+        },
+        "title": "response.content_part.done"
+      },
+      "StreamContentPart": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "output_text",
+              "reasoning_text"
+            ],
+            "description": "`output_text` 或 `reasoning_text`。"
+          },
+          "text": {
+            "type": "string",
+            "description": "模型输出的文本内容。"
+          }
+        }
+      },
+      "EventOutputTextDelta": {
+        "type": "object",
+        "description": "有新增文本片段。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.output_text.delta"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "content_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "内容部分索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "delta": {
+            "type": "string",
+            "description": "新增的文本片段。"
+          }
+        },
+        "title": "response.output_text.delta"
+      },
+      "EventOutputTextDone": {
+        "type": "object",
+        "description": "文本内容完成。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.output_text.done"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "content_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "内容部分索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "text": {
+            "type": "string",
+            "description": "完成的文本内容。"
+          }
+        },
+        "title": "response.output_text.done"
+      },
+      "EventFunctionCallArgumentsDelta": {
+        "type": "object",
+        "description": "存在函数调用参数片段。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.function_call_arguments.delta"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "delta": {
+            "type": "string",
+            "description": "本次新增的函数调用参数增量。"
+          }
+        },
+        "title": "response.function_call_arguments.delta"
+      },
+      "EventFunctionCallArgumentsDone": {
+        "type": "object",
+        "description": "函数调用参数完成。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.function_call_arguments.done"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "arguments": {
+            "type": "string",
+            "description": "函数调用的完整参数 JSON 字符串。"
+          }
+        },
+        "title": "response.function_call_arguments.done"
+      },
+      "EventReasoningTextDelta": {
+        "type": "object",
+        "description": "思维链新增文本。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.reasoning_text.delta"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "delta": {
+            "type": "string",
+            "description": "新增的文本片段。"
+          }
+        },
+        "title": "response.reasoning_text.delta"
+      },
+      "EventReasoningTextDone": {
+        "type": "object",
+        "description": "思维链文本完成。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.reasoning_text.done"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "所属输出项的唯一 ID。"
+          },
+          "text": {
+            "type": "string",
+            "description": "完成的文本内容。"
+          }
+        },
+        "title": "response.reasoning_text.done"
+      },
+      "EventWebSearchInProgress": {
+        "type": "object",
+        "description": "搜索调用开始。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.web_search_call.in_progress"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "对应的 web_search_call 输出项 ID。"
+          }
+        },
+        "title": "response.web_search_call.in_progress"
+      },
+      "EventWebSearchSearching": {
+        "type": "object",
+        "description": "正在执行网页搜索。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.web_search_call.searching"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "对应的 web_search_call 输出项 ID。"
+          }
+        },
+        "title": "response.web_search_call.searching"
+      },
+      "EventWebSearchCompleted": {
+        "type": "object",
+        "description": "网页搜索动作已经完成。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "response.web_search_call.completed"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int64",
+            "description": "输出项索引。"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "对应的 web_search_call 输出项 ID。"
+          }
+        },
+        "title": "response.web_search_call.completed"
+      },
+      "EventError": {
+        "type": "object",
+        "description": "发生错误时触发。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "error"
+            ]
+          },
+          "sequence_number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "事件序列号。"
+          },
+          "code": {
+            "type": "string",
+            "description": "错误码。"
+          },
+          "message": {
+            "type": "string",
+            "description": "错误原因。"
+          }
+        },
+        "title": "error"
+      },
+      "Error": {
+        "type": "object",
+        "description": "Response API 错误。`error.code` 为字符串，与对话补全的数字业务码不是同一套。\n\n| code | 含义 |\n| --- | --- |\n| `invalid_request` | 请求参数或格式错误 |\n| `model_not_found` | 模型不存在 |\n| `not_implemented` | 接口或能力未实现 |\n| `request_too_large` | 请求体超过大小限制 |\n| `authentication_error` / `invalid_api_key` / `expired` | 认证失败 |\n| `permission_denied` | 权限不足 |\n| `context_length_exceeded` | 输入超过模型上下文窗口 |\n| `rate_limit_exceeded` | 请求频率超限 |\n| `insufficient_quota` / `quota_exceeded` / `usage_limit_reached` / `usage_not_included` | 额度或用量限制 |\n| `server_error` | 服务端内部错误 |\n| `server_is_overloaded` / `overloaded` / `slow_down` | 服务过载或要求降速 |\n| `content_filter` / `cyber_policy` | 内容或安全策略拦截 |",
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "错误码，例如 `invalid_request`。"
+              },
+              "message": {
+                "type": "string",
+                "description": "错误描述。"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

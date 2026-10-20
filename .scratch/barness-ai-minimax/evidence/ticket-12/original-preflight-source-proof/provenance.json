@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "createdAt": "2026-10-18T04:09:50.308987+00:00",
+  "sourceCommit": "9dcf896b9bea357fd6c784acbca1b027dc96a177",
+  "curator": "/root/candidate_capsule",
+  "inputs": {
+    "originalIndexSHA256": "331de1c11e1289abdf33aa2d6ccbfd2a11962d46eef1f431088c533e556f9640",
+    "originalFullInventorySHA256": "2f05a96713f94dfcc84f7923c60ffd60a7dc360fc2fff43dec849e4255149273",
+    "originalRawArchiveSHA256": "56e08cbf7105f4fe1a1751bae42ba83988bcdbb4d1b1d443dd9bcd9a2d62ae3c"
+  },
+  "scripts": {
+    "retain_source.py": {
+      "sha256": "21c69e0c3e4f99af7fa5e4bc0d1f121587022b0b0e64ead05964658bc372da33",
+      "bytes": 10420
+    },
+    "verify_q.py": {
+      "sha256": "5adb020f62629fe4002dd70378f749392c4ea00ec2a3004af6be08663d2e6788",
+      "bytes": 9556
+    }
+  },
+  "outputs": {
+    "q-9dc-committed-source-proof.tar.gz": {
+      "sha256": "7fe0d49506b8c31c445f5ebc9f8868e25dbbee4e875e62e43ea226356601bd86",
+      "bytes": 3325125
+    },
+    "q-9dc-committed-source-proof.json": {
+      "sha256": "cc42fb6fdea78bdd7c42cd01b06f970f5d2d2b2988fd76d1a6a23bf2f4909918",
+      "bytes": 171716
+    },
+    "audit.md": {
+      "sha256": "562fb277ba73742b65321747f98078de28800e5a5e8b27ad7d660a42315818f5",
+      "bytes": 2679
+    },
+    "verification-result.json": {
+      "sha256": "bceb92cdfd9e36e79afb56965366dcdfa8911b3f7b4b622e265d7fbfda7c7238",
+      "bytes": 533
+    }
+  },
+  "originalPreflight": "FAIL",
+  "sourceApproval": false,
+  "paidExecutionAuthorized": false,
+  "credentialsRead": false,
+  "networkUsed": false,
+  "testsRun": false,
+  "rootModified": false
+}

@@ -1,0 +1,354 @@
+{
+  "sourceBase": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "negativeCurrent": {
+    "cases": [
+      {
+        "case": "q-hash-before-decode",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "original full inventory identity",
+        "peakRSSBytes": 24952832,
+        "maxPeakRSSBytes": null
+      },
+      {
+        "case": "q-expanded-bomb",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "expanded inventory bound",
+        "peakRSSBytes": 92684288,
+        "maxPeakRSSBytes": 134217728
+      },
+      {
+        "case": "actual-expanded-bomb",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "passed prepay inventory expanded bound",
+        "peakRSSBytes": 141459456,
+        "maxPeakRSSBytes": 201326592
+      },
+      {
+        "case": "q-concatenated-bound",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "expanded inventory bound",
+        "peakRSSBytes": 92454912,
+        "maxPeakRSSBytes": null
+      },
+      {
+        "case": "q-compressed-overcap",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "bound",
+        "peakRSSBytes": 33669120,
+        "maxPeakRSSBytes": null
+      },
+      {
+        "case": "q-truncated",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "EOFError",
+        "peakRSSBytes": 25329664,
+        "maxPeakRSSBytes": null
+      }
+    ],
+    "pass": true,
+    "credentialsRead": false,
+    "networkUsed": false
+  },
+  "historical96": {
+    "cases": [
+      {
+        "case": "q-hash-before-decode",
+        "pass": false,
+        "exitCode": 1,
+        "expected": "original full inventory identity",
+        "peakRSSBytes": 25182208,
+        "maxPeakRSSBytes": null
+      },
+      {
+        "case": "q-expanded-bomb",
+        "pass": false,
+        "exitCode": 1,
+        "expected": "expanded inventory bound",
+        "peakRSSBytes": 226590720,
+        "maxPeakRSSBytes": 134217728
+      },
+      {
+        "case": "actual-expanded-bomb",
+        "pass": false,
+        "exitCode": 1,
+        "expected": "passed prepay inventory expanded bound",
+        "peakRSSBytes": 272924672,
+        "maxPeakRSSBytes": 201326592
+      },
+      {
+        "case": "q-concatenated-bound",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "expanded inventory bound",
+        "peakRSSBytes": 151044096,
+        "maxPeakRSSBytes": null
+      },
+      {
+        "case": "q-compressed-overcap",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "bound",
+        "peakRSSBytes": 25100288,
+        "maxPeakRSSBytes": null
+      },
+      {
+        "case": "q-truncated",
+        "pass": true,
+        "exitCode": 1,
+        "expected": "EOFError",
+        "peakRSSBytes": 25231360,
+        "maxPeakRSSBytes": null
+      }
+    ],
+    "pass": false,
+    "credentialsRead": false,
+    "networkUsed": false
+  },
+  "genuinePositive": {
+    "pass": true,
+    "cases": [
+      {
+        "name": "q",
+        "outputs": {
+          "historical": {
+            "integrity": "PASS",
+            "originalPreflight": "FAIL",
+            "sourceCommit": "9dcf896b9bea357fd6c784acbca1b027dc96a177",
+            "checks": 152447,
+            "regularFiles": 27417,
+            "negativeSymlinkFixtures": 1,
+            "regularExpandedBytes": 253350060,
+            "negativeSymlinkTextBytes": 141,
+            "mainArtifactReferences": 15261,
+            "cases": {
+              "PASS": 335,
+              "NOT_RUN": 62
+            },
+            "auditFindings": 2,
+            "auditFindingFiles": [
+              "GLM-corrective-1-capture-large/assertions.json",
+              "GLM-corrective-1-capture-large/new-capture-replay-exit.json"
+            ],
+            "vetExit": 0,
+            "vetLiveExit": 0,
+            "noKeyGoExit": 1,
+            "sourceReview": "PENDING",
+            "humanApproval": "PENDING",
+            "paidExecutionAuthorized": false,
+            "sourceFiles": 1033,
+            "sourceByteProofVerified": true,
+            "committedSourceFiles": 1033,
+            "sourceProofArchiveFiles": 1039,
+            "sourceProofExpandedBytes": 14642683
+          },
+          "current": {
+            "integrity": "PASS",
+            "originalPreflight": "FAIL",
+            "sourceCommit": "9dcf896b9bea357fd6c784acbca1b027dc96a177",
+            "checks": 152448,
+            "regularFiles": 27417,
+            "negativeSymlinkFixtures": 1,
+            "regularExpandedBytes": 253350060,
+            "negativeSymlinkTextBytes": 141,
+            "mainArtifactReferences": 15261,
+            "cases": {
+              "PASS": 335,
+              "NOT_RUN": 62
+            },
+            "auditFindings": 2,
+            "auditFindingFiles": [
+              "GLM-corrective-1-capture-large/assertions.json",
+              "GLM-corrective-1-capture-large/new-capture-replay-exit.json"
+            ],
+            "vetExit": 0,
+            "vetLiveExit": 0,
+            "noKeyGoExit": 1,
+            "sourceReview": "PENDING",
+            "humanApproval": "PENDING",
+            "paidExecutionAuthorized": false,
+            "sourceFiles": 1033,
+            "sourceByteProofVerified": true,
+            "committedSourceFiles": 1033,
+            "sourceProofArchiveFiles": 1039,
+            "sourceProofExpandedBytes": 14642683
+          }
+        },
+        "onlyDifference": {
+          "checks": [
+            152447,
+            152448
+          ]
+        },
+        "commands": [
+          {
+            "phase": "historical",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "$REPO/.evidence/portable-retention-bounds-96-red/verify_q.py",
+              "--raw-archive",
+              "$COMMON/glm-corrective-q-9dc-audit-failure.tar.gz",
+              "--raw-index",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-q-9dc-audit-failure.json",
+              "--raw-inventory",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-q-9dc-audit-failure-files.json.gz",
+              "--source-index",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "phase": "current",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/verify_q.py",
+              "--raw-archive",
+              "$COMMON/glm-corrective-q-9dc-audit-failure.tar.gz",
+              "--raw-index",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-q-9dc-audit-failure.json",
+              "--raw-inventory",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/glm-corrective-q-9dc-audit-failure-files.json.gz",
+              "--source-index",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.json"
+            ],
+            "exitCode": 0
+          }
+        ],
+        "credentialsRead": false,
+        "networkUsed": false
+      },
+      {
+        "name": "actual",
+        "outputs": {
+          "historical": {
+            "integrity": "PASS",
+            "actualQualification": "PARTIAL",
+            "checks": 109798,
+            "actualFiles": 2157,
+            "generationSourceFiles": 1034,
+            "prepayArchiveEntries": 27853,
+            "prepayMainArtifactReferences": 15693,
+            "currentRenewalCalls": 132,
+            "currentRenewalAttempts": 132,
+            "failedResponsesSupportEligible": false,
+            "verifiedExternalLineage": [
+              "international-candidates-7605332.tar.gz",
+              "international-formal-glm-8900034.tar.gz",
+              "glm-corrective-q-9dc-audit-failure.tar.gz",
+              "q-9dc-committed-source-proof.tar.gz",
+              "corrective-approved-prepay-5bf2c16.tar.gz"
+            ],
+            "credentialsRead": false,
+            "networkUsed": false,
+            "testsRun": false,
+            "capturedCommandsExecuted": false
+          },
+          "current": {
+            "integrity": "PASS",
+            "actualQualification": "PARTIAL",
+            "checks": 109799,
+            "actualFiles": 2157,
+            "generationSourceFiles": 1034,
+            "prepayArchiveEntries": 27853,
+            "prepayMainArtifactReferences": 15693,
+            "currentRenewalCalls": 132,
+            "currentRenewalAttempts": 132,
+            "failedResponsesSupportEligible": false,
+            "verifiedExternalLineage": [
+              "international-candidates-7605332.tar.gz",
+              "international-formal-glm-8900034.tar.gz",
+              "glm-corrective-q-9dc-audit-failure.tar.gz",
+              "q-9dc-committed-source-proof.tar.gz",
+              "corrective-approved-prepay-5bf2c16.tar.gz"
+            ],
+            "credentialsRead": false,
+            "networkUsed": false,
+            "testsRun": false,
+            "capturedCommandsExecuted": false
+          }
+        },
+        "onlyDifference": {
+          "checks": [
+            109798,
+            109799
+          ]
+        },
+        "commands": [
+          {
+            "phase": "historical",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "$REPO/.evidence/portable-retention-bounds-96-red/verify_actual.py",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.json",
+              "--prepay-index",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/corrective-approved-prepay-5bf2c16.json",
+              "--prepay-archive",
+              "$COMMON/corrective-approved-prepay-5bf2c16.tar.gz",
+              "--prepay-inventory",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/corrective-approved-prepay-5bf2c16-files.json.gz",
+              "--lineage-archive",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.tar.gz",
+              "--lineage-archive",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.tar.gz",
+              "--lineage-archive",
+              "$COMMON/glm-corrective-q-9dc-audit-failure.tar.gz",
+              "--lineage-archive",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.tar.gz",
+              "--lineage-archive",
+              "$COMMON/corrective-approved-prepay-5bf2c16.tar.gz"
+            ],
+            "exitCode": 0
+          },
+          {
+            "phase": "current",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/verify_actual.py",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/glm-corrective-actual-5bf2c16.json",
+              "--prepay-index",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/corrective-approved-prepay-5bf2c16.json",
+              "--prepay-archive",
+              "$COMMON/corrective-approved-prepay-5bf2c16.tar.gz",
+              "--prepay-inventory",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/actual-corrective-1/corrective-approved-prepay-5bf2c16-files.json.gz",
+              "--lineage-archive",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-10/international-complete-candidates/international-candidates-7605332.tar.gz",
+              "--lineage-archive",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-10/international-formal-glm/international-formal-glm-8900034.tar.gz",
+              "--lineage-archive",
+              "$COMMON/glm-corrective-q-9dc-audit-failure.tar.gz",
+              "--lineage-archive",
+              "$REPO/.scratch/barness-ai-minimax/evidence/ticket-12/original-preflight-source-proof/q-9dc-committed-source-proof.tar.gz",
+              "--lineage-archive",
+              "$COMMON/corrective-approved-prepay-5bf2c16.tar.gz"
+            ],
+            "exitCode": 0
+          }
+        ],
+        "credentialsRead": false,
+        "networkUsed": false
+      }
+    ]
+  },
+  "generationSourcesUnchanged": 1034,
+  "rawArchive": "portable-retention-bounds-red-green.tar.gz",
+  "rawArchiveSHA256": "ccec0c97dfdad12fc98f93933634908e6b54d43e9ed641600eacce103295c16c",
+  "diagnosticCorrections": [
+    "128MiB initial ceiling was test-only; actual verified-capsule baseline needed192MiB; all failing intermediate receipts retained; no production8/32MiB limit changed",
+    "Unused-map optimization tried and removed; final change is exactly two gzip decode sites",
+    "First positive Q CLI passed, but harness comparison incorrectly used a parent summary schema; reran historical+current publicCLIs and confirmed only check count differs by1"
+  ],
+  "paidEvidenceAltered": false,
+  "credentialsRead": false,
+  "networkUsed": false,
+  "GoTestsRun": false
+}

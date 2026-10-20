@@ -1,0 +1,52 @@
+{
+  "axis": "Spec",
+  "decision": "CHANGES_REQUESTED_DRAFT_ONLY",
+  "scope": "Initial unexecuted fixed-three operational drafts; not product-source or prepared-plan approval",
+  "reviewedDrafts": {
+    "/tmp/barness-ticket20-three-renewal.py": "260e4c87172c41f369d2e0dc9c4e82944d2b7c633b33d58519e381ba3fd5d122",
+    "/tmp/barness-ticket20-three-source-proof.py": "56e4aa5461db5bac6d65f94e2bc5aad44a19133c5091225f93de2502cbe68c02",
+    "/tmp/barness-ticket20-three-renewal-failure-inventory.md": "0a5e48d207d124d6a211e280a416ab8734849aceca356bf1d26a5d078303150a"
+  },
+  "findings": [
+    {
+      "id": "T20-CONTROLLER-SPEC-01",
+      "severity": "P2",
+      "category": "wrong implementation",
+      "file": "/tmp/barness-ticket20-three-renewal.py",
+      "symbol": "EXTRA_PINS / summarize",
+      "requirement": "failure inventory line8: Recorded report budget/status/producer receipt must settle from the native report with bounded readers.",
+      "detail": "Original EXTRA_PINS includes raw Python controller.py.txt. routed_evidence.settled.pinned parses every extra pinned member through document(), which requires a JSON object. Thus even a completed valid first native report becomes UNKNOWN; the next selected route is blocked. Pin a JSON binding of the raw controller instead.",
+      "evidence": ".scratch/barness-ai-minimax/tools/routed_evidence.py settled(): pinned() -> document(raw), loop over contract.EXTRA_PINS"
+    },
+    {
+      "id": "T20-CONTROLLER-SPEC-02",
+      "severity": "P2",
+      "category": "missing proof",
+      "file": "/tmp/barness-ticket20-three-source-proof.py",
+      "symbol": "main original authority collection",
+      "requirement": "failure inventory line4: The closed216/252 round, actual189/186, unused27/66, original M3 stages and all prior receipts must remain byte-identical. Spec R26 line296: 原candidate/formal账本、旧canonical收据及旧消费均保留，不得覆盖、清空或以新session绕过。",
+      "detail": "The initial generator trusts an unpinned /tmp impact proof, ignores its original recordSHA256 and freshly hashes old maps/accounting/authority into a new baseline. An altered prior native map, grant, canonical receipt or consumption file can therefore become the asserted immutable prerequisite. Validate against existing independently reviewed immutable authority hashes before freezing."
+    },
+    {
+      "id": "T20-CONTROLLER-SPEC-03",
+      "severity": "P2",
+      "category": "missing source guard",
+      "file": "/tmp/barness-ticket20-three-renewal.py",
+      "symbol": "guard (and source-proof result)",
+      "requirement": "failure inventory line6: complete selected set ... pinned before/after every command. Line9: original selectors including additions/deletions. Spec R26 line294: 正式报告绑定实际 SDK、执行源码完整集合/依赖。",
+      "detail": "Initial proof enumerates M3 native sources beyond paid_core.sources(), but freezes only counts and old-record hashes; guard never repeats complete native selector equality. Editing ai/internal/testkit/minimax/README.md or adding a selected non-Go file after review leaves HEAD, outer sources and all frozen files unchanged while invalidating retained M3 qualification. Freeze complete selected maps and recompute all current native path sets/bytes before and after commands; do not filter recorded M3/GLM maps."
+    }
+  ],
+  "report": "Three concrete P2 draft gaps were found: raw Python cannot settle through the JSON-only extra-pin reader; the initial proof refreshes rather than authenticates old authority; and complete native source sets outside the outer Go/JSON freeze are not guarded after preparation. Fixed jobs, explicit international proxy, one-shot common markers, 36/36 caps, fresh human approval and honest known-FAIL continuation otherwise match the proposed finite scope. No controller, native process, selected credential or paid request was executed. These findings apply to the original hashes above; subsequent parent edits require a separate exact rereview.",
+  "prospectiveFixesObserved": {
+    "currentHashes": {
+      "/tmp/barness-ticket20-three-renewal.py": "6d7e7bc5f3e699c939133f3650191b8acf07d6066153594471dcc3de5730197e",
+      "/tmp/barness-ticket20-three-source-proof.py": "b6b33c0e0b3a899a711a18f05f9b54778aad7f61d1a41a00ab46858e002cf2b3",
+      "/tmp/barness-ticket20-three-renewal-failure-inventory.md": "0a5e48d207d124d6a211e280a416ab8734849aceca356bf1d26a5d078303150a"
+    },
+    "rawControllerJSONBinding": "implemented in current controller, not executed",
+    "completeNativeSetRecheck": "implemented in current controller; M3/GLM whole-map and text projection implemented in current proof",
+    "priorAuthority": "impact/8records/matrix/human fixed hashes now checked, but several old authority/canonical/ledger files still only freshly hashed at the current snapshot; parent notified"
+  },
+  "reviewMethod": "Read-only source and existing metadata inspection. No project/captured code, controller, verifier, tests, Key or network execution."
+}

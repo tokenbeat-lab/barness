@@ -1,0 +1,73 @@
+{
+  "verified": true,
+  "negativeGuards": [
+    {
+      "case": "metadata",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: local metadata pin differs"
+    },
+    {
+      "case": "summary-pass",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: independent failed assembly summary differs"
+    },
+    {
+      "case": "wrong-source",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed assembly retention identity differs"
+    },
+    {
+      "case": "archive-pin",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: compressed archive pin"
+    },
+    {
+      "case": "archive-link",
+      "exitCode": 1,
+      "reason": "REFUSED: OSError: [Errno 62] Too many levels of symbolic links: 'assembly-failed-raw.tar.gz'"
+    },
+    {
+      "case": "archive-fifo",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: regular artifact required"
+    },
+    {
+      "case": "observations",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: observed metadata bound differs"
+    },
+    {
+      "case": "reference-root",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: fixed original native reference differs"
+    },
+    {
+      "case": "forge-exit",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: original keyless numeric command differs"
+    },
+    {
+      "case": "forge-matrix",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: original default/candidate matrix changed"
+    },
+    {
+      "case": "forge-completed",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: closed failed assembly must not acquire success markers"
+    },
+    {
+      "case": "forge-helper",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: original operational helper/Go/observer pins differ"
+    },
+    {
+      "case": "forge-report-path",
+      "exitCode": 1,
+      "reason": "REFUSED: ValueError: original six native actual references differ"
+    }
+  ],
+  "originalArchivesMutated": false,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

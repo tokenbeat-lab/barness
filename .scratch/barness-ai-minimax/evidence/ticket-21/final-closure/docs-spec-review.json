@@ -1,0 +1,42 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "c1d56cdd28a2ec422cb55df669f645ba0ee3f611e0304e2e3a30e903c743722c",
+  "privateRawMember": "barness-ticket21-final-docs-spec-review.json",
+  "nativeInput": false,
+  "observed": {
+    "axis": "Spec",
+    "decision": "PASS_EXACT_MAIN_DOCS_REVIEW_CANDIDATE",
+    "findings": [],
+    "base": "8a1163b13f684183e0409d05d64ae13dfe456861",
+    "candidateManifestSHA256": "617e139e2205e6ebf5bfff5673f4c0b75e9f6c928c8b5e67b170f50d7c456a97",
+    "candidateDiffSHA256": "0a0d9bdad2c114f25719ef6d598330019252169777f79aa942106a5ca5dcf80e",
+    "proof": {
+      "path": "$TMP/barness-ticket21-final-docs-spec-proof.json",
+      "sha256": "1fa51820607fb31623eeb766c2573c0746f231a1aa46d72cee49f618b76a7286"
+    },
+    "reviewerOnlySetupHistory": {
+      "classification": "REVIEWER_ONLY_PATH_ASSUMPTION; not cleanup/native/evidence failure",
+      "originalHelper": "$TMP/barness-ticket21-review-final-docs-v1-user-path-assumption.py.txt",
+      "originalHelperSHA256": "ca40cf5f7058c63ecda2d7c041b4d1edc3943b6ea98d6897482621da012aedc2",
+      "diagnosticTranscription": "$TMP/barness-ticket21-review-final-docs-v1-tool-error.txt",
+      "diagnosticTranscriptionSHA256": "0e9dc0a547146f05a1590b08cfec582fe1a5e2e9d0ef211b374a2c22a62a5736",
+      "originalToolChunk": "4a2264",
+      "originalExit": 1,
+      "readOnlyPathDiscoveryChunk": "5cba54",
+      "correctedToolChunk": "319a85",
+      "correctedExit": 0,
+      "rawStartFinishTimestampsCaptured": false,
+      "userDirectoryContentsRead": false
+    },
+    "separateProspectiveCopierReview": {
+      "originalSourceSHA256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+      "originalFindingReport": "$TMP/barness-ticket21-final-closure-copy-spec-source-review.json",
+      "originalFindingReportSHA256": "6b1470ea0e87a2cd6138a2523538cce2803d668ce77e067204b10b49a30d39e4",
+      "state": "PENDING_NARROW_SOURCE_CORRECTION_REVIEW; excluded from this14-file approval",
+      "copyExecutedByReviewer": false
+    },
+    "permittedPostReviewChanges": "Only clearly derived final review/index metadata and final-closure README status CLOSED_PASS; no contract/source/native changes. Finite sidecar copy must use its corrected separately approved source and exact literal input map.",
+    "lateFileManifest": "$TMP/barness-ticket21-final-docs-spec-late-files.json",
+    "report": "PASS: the exact 14-file candidate matches its pinned manifest and diff. The complete contract body (58,825 bytes) is byte-identical to baseline. All 28 R, 20 A and 80 user-story requirements remain; the prior complete source review and actual gate/custody proofs are composed without rescanning trace cases, selected sources or archives. All 22 issue files have resolved status and one canonical Answer.\n\nCOMPLETE/current 11-of-11 qualification is supported by source78843 gate0/0/0/0, outer0/reporttrue, 17 own reports, four effects, separate publication and five-capsule custody. Historical failed gates, old source maps and finite rounds remain unchanged. Cumulative873/870, old unused27/66 nontransferable, new36/36 closure, GLM Messages full-report cancel1146ms/partial usage, prior120001ms failure and861ms diagnostic remain distinct. M3.1 stays online NOT_RUN0/0 without MPlan promotion.\n\nCleanup is actual exit0, the owned worktree is absent, its branch remains, and both user directories remain present. Three installed-reader smoke receipts are exact-int0 and their stdout/stderr hashes match. New display JSONs are exact literal-path aliases of pinned raw results. Later metadata is explicitly not a Go rerun.\n\nThis approves the fixed primary documentation candidate. The unexecuted c0 late copier has a separately retained P2 and is excluded until its narrow source repair passes. The final finite sidecar copy and derived index remain closing operations; this review executes neither. After zero reviews, only the declared derived review/index additions and README CLOSED_PASS transition are allowed."
+  }
+}

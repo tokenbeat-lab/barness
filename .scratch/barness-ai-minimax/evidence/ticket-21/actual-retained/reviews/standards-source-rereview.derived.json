@@ -1,0 +1,77 @@
+{
+  "derivedDisplay": true,
+  "usableAsOriginalReport": false,
+  "originalSHA256": "f71fd90a9750954cbadbb682fae1de02d1b697d4c49a2471724d33f63c24eb37",
+  "originalPrivateSidecar": "operations-v1/operator/barness-ticket21-custody-standards-source-rereview.json.data",
+  "transform": [
+    "absolute repository prefix -> $REPO",
+    "absolute HOME prefix -> $HOME",
+    "absolute owned worktree prefix -> $WORKTREE"
+  ],
+  "document": {
+    "axis": "Standards",
+    "decision": "PASS_CORRECTED_SOURCE_ONLY",
+    "scope": "Cohesive source correction before public GREEN; immutable original archive preserved",
+    "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "reviewed_sources": {
+      "producer": {
+        "file": "/tmp/barness-ticket21-retain-actual.py",
+        "sha256": "b6ef9bc41c997525b21123aa53b2c8299077312ba0eda2aca3aec346062947b8",
+        "reviewed_copy": "/tmp/barness-ticket21-custody-reviewed-producer-b6ef9bc4.py.txt",
+        "lines": 230
+      },
+      "reader": {
+        "file": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py",
+        "sha256": "85ee06e783293ab35b6cbaa06081a7163f4e08adfd9ed8fa5d5083dde72926a0",
+        "reviewed_copy": "/tmp/barness-ticket21-custody-reviewed-reader-85ee06e7.py.txt",
+        "lines": 192
+      },
+      "public_guards": {
+        "file": "$WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/public-guards.py",
+        "sha256": "4f159f0d1100779789c2e89f08355ae43ad9a030bbde12e4668fd71cd30626f3",
+        "reviewed_copy": "/tmp/barness-ticket21-custody-reviewed-public_guards-4f159f0d.py.txt",
+        "lines": 74
+      }
+    },
+    "previous_report": "/tmp/barness-ticket21-custody-standards-source-review.json",
+    "previous_report_sha256": "24de0e51304168fe5bc353c3ec052c44b58b579d767f01f9ec91786d54501099",
+    "previous_report_preserved": true,
+    "finding_count": 0,
+    "findings": [],
+    "closed_findings": [
+      {
+        "id": "T21-CUSTODY-STANDARDS-01",
+        "status": "RESOLVED",
+        "reason": "Before stage-driven source reads, exact original29941 keys, owner/path relations and typed byte/SHA pins must match the immutable inventory. Cap source/prefix/limits/inventory/source proof and observation bounds are validated; original fixed payload fits the unchanged envelope."
+      },
+      {
+        "id": "T21-CUSTODY-STANDARDS-02",
+        "status": "RESOLVED",
+        "reason": "Pinned698f authority authenticates23 history members, including independent JSON-pointer seeds and two fixedGit planning files. Three remaining helpers are explicitly NONAUTHORITATIVE snapshots pinned to the unchanged a95 inventory; they provide no execution authority. Producer/reader validate all26 hashes."
+      },
+      {
+        "id": "T21-CUSTODY-STANDARDS-03",
+        "status": "RESOLVED",
+        "reason": "Producer adds candidate observation and refuses sealing without it. Current index72ef is exactly original19083 plus that observation, preserving archive/inventory/source proof. Original public KeyError is retained."
+      }
+    ],
+    "narrative": "No remaining Standards findings in producerb6ef, reader85ee and guards4f159. Independent metadata checks confirm all29941 original selection owners/paths/pins,23 authenticated history members,3 labelled snapshots and the candidate-only index correction. Controlled third-fixture evidence preserves all29941 keys and changes only READY.md relative path: old child attempted one canary open and was blocked before reading; corrected child rejected metadata with zero opens. It is synthetic, used no credentials and did not reseal the actual archive. The guard-driver delta adds valid control, exact refusal reasons, float-size rejection and authority copying. Initial failures, earlier harness attempts and original sources remain separate. Reader pins the original a95 SHA/size/inventory and reuses unchanged bounded readers, without extraction/captured execution. This is source approval only; actual new public readback and independent complete custody review remain separate.",
+    "pins": {
+      "archiveSHA256": "a95ffa0ca3aba1c816a2b956048037a9578af4602f69756fc1972bf650de537b",
+      "archiveBytes": 86782794,
+      "programAuthoritySHA256": "698f62d6fa943f901d57df454a3bd15381f542d891b512afcfca75f770b5d0c8",
+      "originalIndexSHA256": "19083ef6a0a23892490a8c48abf94d4b48f28f7e5c8052553244ef6b15fe6beb",
+      "correctedIndexSHA256": "72ef221535f9aa125e7c2f0122198c681ee2927e90a7aef34bc705d4aa30c085"
+    },
+    "checks": {
+      "path": "/tmp/barness-ticket21-custody-source-rereview-checks.json",
+      "sha256": "73132452dee52784412d56361ffeb3776aa8800c11daef34e42dfe05378507d2"
+    },
+    "no_controller_native_project_test_reader_archive_execution_by_reviewer": true,
+    "no_keys_network_or_root_head_default_mutation": true,
+    "limitations": [
+      "No archive member streaming or actual reader GREEN was performed/certified in this source review.",
+      "Actual sealed custody requires separate original-input/readback verification and exact source/commit binding."
+    ]
+  }
+}

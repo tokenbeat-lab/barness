@@ -1,0 +1,137 @@
+{
+  "baseCommit": "3274ba478ad52c8a0bffa4c4490a846a976cfe30",
+  "reviewedCommit": "eed4579691470c7cb822aeb07b888f308ce2540b",
+  "race": {
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-race-raw.tar.gz",
+      "bytes": 114046383,
+      "sha256": "d4d61315538ee4ae0d276fe54af46b11bdeedc8548be80b567d657f02d6ae473",
+      "prefix": "repair-incomplete-race"
+    },
+    "regularMembers": 133177,
+    "physicalHeaders": 243902,
+    "paxHeaders": 110725,
+    "payloadBytes": 1304291193,
+    "decodedTarBytes": 1523824640,
+    "links": 0,
+    "allMembersHashed": true,
+    "inventorySHA256": "b0e599d4aadc647b805a9ad6ba0a494aeb8aa1499e8eba811f71da00b10bf15a"
+  },
+  "outer": {
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-outer-raw.tar.gz",
+      "bytes": 13522586,
+      "sha256": "28a657eb1aecf02036af15ec47513c9f3100c0e6317e615a63429ff8a78fba3a",
+      "prefix": "repair-incomplete-outer"
+    },
+    "regularMembers": 64,
+    "physicalHeaders": 70,
+    "paxHeaders": 6,
+    "payloadBytes": 40387698,
+    "decodedTarBytes": 40448000,
+    "links": 0,
+    "allMembersHashed": true,
+    "inventorySHA256": "23ea795f1df7ab95a5742b42391ce514595e799c505fbad5cbf0c67ec386c257"
+  },
+  "ordinaryPriorProof": {
+    "path": "/tmp/barness-repair-ordinary-retention-independent-readhash.json",
+    "sha256": "a7345d4d172c95d5561f380ace73ef4297429af60b557a7477dae561ab7ec421",
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+      "bytes": 114797350,
+      "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+      "prefix": "repair-incomplete-ordinary"
+    },
+    "rescanned": false
+  },
+  "raceArtifactReferences": 98710,
+  "raceCases": 12451,
+  "raceStatuses": {
+    "PASS": 12445,
+    "FAIL": 6
+  },
+  "truePIDiff": 868,
+  "namedPressure": 29,
+  "fixedRegexPressure": 15,
+  "sourceFilesVerifiedAgainstGit7931": 1056,
+  "crossCapsuleSourcePlanAndNumericReceiptsEqual": true,
+  "numericExits": {
+    "vet": 0,
+    "vet-live": 0,
+    "ordinary": 1,
+    "race": 1
+  },
+  "inputVerifierExits": {
+    "verify-text-jev": 0,
+    "verify-text-luna": 0,
+    "verify-visual-jev": 0,
+    "verify-visual-decisions": 0,
+    "verify-current-jev": 0,
+    "verify-minimax-chat": 0,
+    "verify-minimax-responses": 0,
+    "verify-minimax-messages": 0
+  },
+  "outerExit": 1,
+  "reportPass": false,
+  "releaseCertified": false,
+  "newRowsImported": 0,
+  "originalMatrixSHA256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+  "stdoutBytes": 147627,
+  "stdoutSHA256": "9c22179e499de6d9320653dee6c6b777f74ef19be067a97198128f7bbb54b1d8",
+  "privateNegativeGuards": {
+    "race": 8,
+    "verdict": 8
+  },
+  "recordedCreators": {
+    "race": {
+      "file": "race-actual-creator.py.txt",
+      "sha256": "5420a822977d2ed6ec355bf99a5ab24ec071c6d73482f7005a13b4de850d934c",
+      "classification": "original actual creator bytes before prospective same-FD output hash bound fix; not executed during verification"
+    },
+    "verdict": {
+      "file": "verdict-actual-creator.py.txt",
+      "sha256": "f187278997fec91ca1fae65bb2165a4d5d4858e8a3362f656ca0b44a9a8eb90d",
+      "classification": "original actual creator bytes before prospective same-FD output hash bound fix; not executed during verification"
+    }
+  },
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/README.md": "f5e2b7d360e2526e879f0b58dc1225cf49a7d5a2de8597996ad512ab0f1dd075",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/README.md": "b10697147ad7b266d204acbd9f6f15082dafe97819e998e4a21a777e4fe50ead",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/SHA256SUMS": "dc42cd1b6175c04eb384fae16063a6c95cb1785b570f6da92951c158946dd00c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/check-boundaries.py": "47eac8ebf4b3d512c243112c997ae2a3043631bebf97fe1fa309a2b52930e185",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/failure-inventory.md": "7bc349c85677ba1de2d28994e98772a2b32e99ce3422ee3c293c56b31224363b",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/freeze.py": "5420a822977d2ed6ec355bf99a5ab24ec071c6d73482f7005a13b4de850d934c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/index.json": "e699eeef8c2cb64aea0a3add11864bf1e39e298890a89577dc9290376d8bba47",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/inventory.json.gz": "5969b068b7f83425486aaf10aad39babfa7553a5273000c79d0ed870c0172d7f",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/readers.py": "b3bec7f74b5378096bb735b0d515ffd1d64bc0063ffd2506d609de6f9e30dd4a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/source-at-start.json.gz": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/summary.json": "94336f35441e0a049dee2433cb93b984ad941089c7c60ba94f89336f7d4959a6",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/all8-public-negatives.json.gz": "aa238705e27969fffe5161a74336ca3d833f6cac57d94945edb8fd6bbcccd7af",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/exclusive-freeze.log.gz": "e2e13c0df413615b75f36da78b76fc3e624946be9069a2dafce786bf61adfe33",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/final-public-verifier.json.gz": "e9a41d4a636f4921c439e96de55408520b42ec0e79678016515ffa0da3c3dc4e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/initial-entrypoint-red.log.gz": "7b8e852d1120d70a9359cba9af198b67a346d12cd92527ea674ee3803e629893",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/initial-missing-compressed-pin-refusal.log.gz": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/tdd/raw-log-index.json": "4e616d7d53774efb6dc658159df6fd4df7404a5c01fc6c755b2f4efe89d1bbdc",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/verify.py": "24698beea29fce131a26a4c8ab6fa308709f185611210065744cf1f014feae4a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/README.md": "d0a276f20042b95d254b2b1b9cca15b4d5863659b083a859ece8a6ecfb2e0c8d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/SHA256SUMS": "603fa9ffddadbd27cb231186ae8ed07603d14a0a68f701c3ccf755888d713e1e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/actual-creator-index.json": "80ae4a129609f137791a0900895aded4a4106b80f1cb9de1edab9cb4d3ee35dd",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/check-boundaries.py": "f2819de4eaac0818ad702ff261bd8683eea1c32d8c1ccb24db493633520cedbd",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/failure-inventory.md": "6d68f24c9dcf10771ecd259ec417f5febe1f1738c2ac5f1d4b346e83bc00088e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/freeze.py": "f187278997fec91ca1fae65bb2165a4d5d4858e8a3362f656ca0b44a9a8eb90d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/index.json": "1ab52e0a0c9aa23f09024740ea06ff2f4566e23daa5ba791c2a0c9348eb80b4e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/inventory.json.gz": "d4066ae63cba5a32e0ff28d6a5904d0a68206c3060c60f81fb1591fc533e1512",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/race-actual-creator.py.txt": "5420a822977d2ed6ec355bf99a5ab24ec071c6d73482f7005a13b4de850d934c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/readers.py": "b3bec7f74b5378096bb735b0d515ffd1d64bc0063ffd2506d609de6f9e30dd4a",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/source-at-start.json.gz": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/summary.json": "59457c5a4cdd9dc39a315d9148e07a7b8c056bbc871846e889fc4159a550d0a1",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/all8-public-negatives.json.gz": "0853b12cfa541c25ef1be287ac9fd72aede10216d635dcb858f9a8ac8808d09d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/combined-public-verifier.json.gz": "6464e02c2c8d64742ca4ed9c6ad8a01847d4d6d7e621b8d9556a538cae099162",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/exclusive-outer-freeze.log.gz": "bd6f54d747120dca6f2a8e82d90333c08a4ed462fcab7d49c3fdd1497271ac30",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/initial-entrypoint-red.log.gz": "dff67dc320199227a3a2eddcc298098b4f00308859422d15e5b8232455ebcd15",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/tdd/raw-log-index.json": "27a8eb2da0deb5c532961e978c4de98bd76f4b256d2bcd72ddbf8937dadcbd74",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/verdict-actual-creator.py.txt": "f187278997fec91ca1fae65bb2165a4d5d4858e8a3362f656ca0b44a9a8eb90d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/verify.py": "0907fffddaff3bb209ebecdeb9550bad001ce89b1f4aa5273b14853145968d74"
+  },
+  "projectOrCapturedCodeExecuted": false
+}

@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "name": "preactivation-red-de05193",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "$COMMON/.evidence/minimax-retained/preactivation-red-de05193.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-red-de05193.tar.gz",
+  "archiveBytes": 67210369,
+  "archiveSha256": "5d03b12c9acc3e4bffe3f1f7fcce04252c7c4c9755159603fe0b79528c40ec2c",
+  "files": 39304,
+  "negativeSymlinkFixtures": 1,
+  "entries": 39305,
+  "expandedBytes": 377938287,
+  "inventory": "preactivation-red-de05193-files.json.gz",
+  "inventorySha256": "b426f7d441a523b12685d6a1a2e1c4a1c6da12b0964cb07020cf2f9228d2d842",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "initial-overlay",
+      "manifest": "initial-overlay/captures/20261018T021446.298747000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 246,
+        "FAIL": 59,
+        "NOT_RUN": 62
+      },
+      "artifactReferences": 13330,
+      "auditFindings": 0,
+      "executionGitCommit": "7c28174f8d51a4acdde73ac581815e5362b9862e"
+    },
+    {
+      "group": "complete-activation-live",
+      "manifest": "complete-activation-live/live/20261018T022031.892921000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 270,
+        "FAIL": 58,
+        "NOT_RUN": 62
+      },
+      "artifactReferences": 13378,
+      "auditFindings": 0,
+      "executionGitCommit": "1d36759b4e738027d04b1a9667917948f776f345"
+    },
+    {
+      "group": "activation-e2e",
+      "manifest": "activation-e2e/e2e/20261018T022033.295991000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 65,
+        "FAIL": 91
+      },
+      "artifactReferences": 622,
+      "auditFindings": 0,
+      "executionGitCommit": "1d36759b4e738027d04b1a9667917948f776f345"
+    },
+    {
+      "group": "snapshot-boundary",
+      "manifest": "snapshot-boundary/live/20261018T022200.029424000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 3,
+        "PASS": 1
+      },
+      "artifactReferences": 1287,
+      "auditFindings": 0,
+      "executionGitCommit": "7c28174f8d51a4acdde73ac581815e5362b9862e"
+    }
+  ],
+  "fixCheckpoint": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation"
+}

@@ -1,0 +1,34 @@
+{
+  "state": "COMPLETED",
+  "name": "actual",
+  "argv": [
+    "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-glm-cancel-wxppqpyz/live.test",
+    "-test.run=^TestGLMMessagesCancelDiagnostic$",
+    "-test.timeout=180s",
+    "-test.count=1",
+    "-test.v"
+  ],
+  "cwd": "$REPO/ai/live",
+  "timeoutSeconds": 210,
+  "credentialsInherited": false,
+  "sourceVariable": "GLM_KEY",
+  "injectedCredential": "BARNESS_GLM_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-18T23:02:18.528108+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_LIVE",
+    "BARNESS_GLM_DIAGNOSTIC",
+    "BARNESS_GLM_KEY",
+    "BARNESS_GLM_ROUTE",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.9927180409431458,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

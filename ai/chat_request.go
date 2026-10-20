@@ -15,12 +15,12 @@ import (
 // openai-completions.ts buildParams and convertMessages for the provider's
 // compat (ADR-0013, ADR-0015).
 type chatBody struct {
-	Model                string            `json:"model"`
-	Messages             []any             `json:"messages"`
-	Stream               bool              `json:"stream"`
-	PromptCacheKey       string            `json:"prompt_cache_key,omitempty"`
-	PromptCacheRetention string            `json:"prompt_cache_retention,omitempty"`
-	StreamOptions        chatStreamOptions `json:"stream_options"`
+	Model                string             `json:"model"`
+	Messages             []any              `json:"messages"`
+	Stream               bool               `json:"stream"`
+	PromptCacheKey       string             `json:"prompt_cache_key,omitempty"`
+	PromptCacheRetention string             `json:"prompt_cache_retention,omitempty"`
+	StreamOptions        *chatStreamOptions `json:"stream_options,omitempty"`
 	// Store is nil (omitted) for providers that take no store field.
 	Store               *bool             `json:"store,omitempty"`
 	MaxTokens           int               `json:"max_tokens,omitempty"`
@@ -28,12 +28,14 @@ type chatBody struct {
 	Temperature         Nullable[float64] `json:"temperature,omitzero"`
 	Tools               *[]chatTool       `json:"tools,omitempty"`
 	ToolChoice          *ChatToolChoice   `json:"tool_choice,omitempty"`
+	ToolStream          bool              `json:"tool_stream,omitempty"`
 	Thinking            *chatThinking     `json:"thinking,omitempty"`
 	ReasoningEffort     string            `json:"reasoning_effort,omitempty"`
+	ReasoningSplit      *bool             `json:"reasoning_split,omitempty"`
 }
 
-// chatThinking switches DeepSeek's thinking mode: type is "enabled" or
-// "disabled".
+// chatThinking switches a provider's thinking mode: type is "enabled" or
+// "disabled"; MiniMax uses "adaptive" for enabling.
 type chatThinking struct {
 	Type string `json:"type"`
 }
@@ -128,8 +130,14 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err != nil {
 		return nil, err
 	}
-	body := chatBody{Model: model.ID, Messages: messages, Stream: true,
-		StreamOptions: chatStreamOptions{IncludeUsage: true}}
+	body := chatBody{Model: model.ID, Messages: messages, Stream: true}
+	if compat.streamUsage {
+		body.StreamOptions = &chatStreamOptions{IncludeUsage: true}
+	}
+	if compat.adaptiveThinking {
+		split := true
+		body.ReasoningSplit = &split
+	}
 	if compat.store {
 		body.Store = new(bool)
 	}
@@ -138,11 +146,12 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		tools := make([]chatTool, len(history.tools))
 		for i, t := range history.tools {
 			tools[i] = chatTool{Type: "function", Function: chatToolFunction{Name: t.Name, Description: t.Description, Parameters: t.Parameters}}
-			if model.Compat.SupportsStrictMode {
+			if model.Compat.SupportsStrictMode && model.Provider != ProviderZhipu && model.Provider != ProviderMiniMax {
 				tools[i].Function.Strict = new(bool)
 			}
 		}
 		body.Tools = &tools
+		body.ToolStream = compat.toolStream
 	case history.toolHistory:
 		// pi declares an empty tool list for a history with tool calls or
 		// results, which some proxies require.
@@ -153,7 +162,14 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	if err != nil {
 		return nil, err
 	}
-	return applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
+	out, err = applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
+	if err == nil && model.Provider == ProviderZhipu {
+		out, err = preserveGLMChatSamplingBudget(out, model, opts)
+	}
+	if err == nil && model.Provider == ProviderMiniMax {
+		out, err = preserveMiniMaxChatSampling(out, model, opts)
+	}
+	return out, err
 }
 
 // chatMessages ports pi's convertMessages for the prepared history.
@@ -282,6 +298,14 @@ func chatAssistant(m replayedAssistant, model Model, compat chatCompat) (chatAss
 	}
 	var details json.RawMessage
 	for _, t := range thinking {
+		if model.Provider == ProviderMiniMax {
+			if d, ok := miniMaxMirroredDetails(t.Signature); ok {
+				details = d
+				mirror := t.Thinking
+				msg.ReasoningContent = &mirror
+				break
+			}
+		}
 		if d, ok := chatReasoningDetails(t.Signature); ok {
 			details = d
 			break

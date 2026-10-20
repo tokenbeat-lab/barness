@@ -1,0 +1,72 @@
+{
+  "axis": "standards",
+  "reviewedRootSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "snapshotKind": "Closed uncommitted retention data only",
+  "snapshotRootRetentionIndexSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-10/international-legacy-final": "fd8ce8e96c699247f21c2ef3e6e8b739276128528390fb50621653b8e2ca7c7e",
+    ".scratch/barness-ai-minimax/evidence/ticket-09/international-final-actual": "0eb04b85546854bb0258a4a54d62c51935d48224b6fc830145ea2427f477fdf6"
+  },
+  "verdict": "PASS",
+  "confidence": "high",
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "independentByteInspection": {
+    "handoffFiles": 27,
+    "handoffMismatches": [],
+    "readmeAndParentIndexBindingsMatch": true,
+    "smallCapsuleMembers": {
+      "L": 2563,
+      "A": 62
+    },
+    "smallCapsuleMismatches": [],
+    "largeRawExpansionRepeated": false
+  },
+  "retainedCompleteVerificationScope": {
+    "outerArtifactReferences": 197120,
+    "externalBoundaries": 8,
+    "originalGenerationSourceFiles": 1034
+  },
+  "retainedActualOutcomes": {
+    "L": {
+      "passed": 2,
+      "failed": 13,
+      "calls": 168,
+      "attempts": 168
+    },
+    "legacy": {
+      "calls": 300,
+      "attempts": 300,
+      "maxCalls": 440,
+      "maxAttempts": 464
+    },
+    "GLM": {
+      "calls": 132,
+      "attempts": 132
+    },
+    "M3Candidate": {
+      "calls": 49,
+      "attempts": 45
+    },
+    "M3Formal": {
+      "calls": 39,
+      "attempts": 36
+    },
+    "A": {
+      "eachSuitePass": 12385,
+      "eachSuiteFail": 6,
+      "auditFindings": 0,
+      "outerExitCode": 1,
+      "childLogExitStatus": 2,
+      "releasePass": null,
+      "releaseReportPresent": false,
+      "internalNumericExitsPersisted": false
+    }
+  },
+  "scope": "Original3d3 closed data only; e3b90a3 retention P2 fix already passed separately; new mutable release-consumer work excluded; no post-fix evidence applicability or release certification asserted.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0
+}

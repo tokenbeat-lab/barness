@@ -1,0 +1,31 @@
+{
+  "axis": "standards",
+  "base": "5abc1a541ed2ed09d588904bb7eb55f951f56f04",
+  "target": "6ff05b843750d062de012bd4f64da625a3caa189",
+  "verdict": "PASS",
+  "confidence": "high",
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "scope": "Read-only fixture-only source review; prior zero-finding production capture and approval/accounting verdict retained; no claim about running verification or paid authorization.",
+  "verifiedFollowups": [
+    {
+      "path": "ai/live/glm_controlled_test.go",
+      "startLine": 19,
+      "endLine": 19,
+      "observation": "Peer-local atomic state bounds overflow injection to one request."
+    },
+    {
+      "path": "ai/live/glm_controlled_test.go",
+      "startLine": 91,
+      "endLine": 93,
+      "observation": "CompareAndSwap prevents repeated expensive overflow generation."
+    },
+    {
+      "path": "ai/live/glm_corrective_event_budget_process_test.go",
+      "startLine": 29,
+      "endLine": 38,
+      "observation": "Missing final report still fails while partial child evidence is retained before cleanup."
+    }
+  ]
+}

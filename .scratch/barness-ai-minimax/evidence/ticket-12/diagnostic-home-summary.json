@@ -1,0 +1,123 @@
+{
+  "sourceCommit": "ecce8678dafb8dbf816539d4c958cc4dbcb7536c",
+  "executionSourceFiles": 1034,
+  "sourceStable": true,
+  "sourceScope": "GLM-owned diagnostic helper and regression process only",
+  "failureFirst": {
+    "baseCommit": "9dcf896b9bea357fd6c784acbca1b027dc96a177",
+    "uncommittedNewTestPatch": "failure-first/test-source.patch",
+    "patchSHA256": "c894ce7f7cf71ca19308ead2705dd0179882743730da1ce3f2126eead0d3075c",
+    "exitCode": 1,
+    "controlledChildEnvironmentFindings": 2,
+    "rootFailurePreserved": true
+  },
+  "checks": {
+    "ordinary": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "seconds": 10.965857374947518,
+      "argv": [
+        "go",
+        "test",
+        "-tags",
+        "live",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestGLMCorrective",
+        "./ai/live"
+      ]
+    },
+    "race": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "seconds": 156.70734112523496,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestGLMCorrective",
+        "./ai/live"
+      ]
+    },
+    "vet": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "seconds": 0.41594966733828187,
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ]
+    },
+    "vet-live": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false,
+      "seconds": 0.35145899979397655,
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ]
+    }
+  },
+  "ordinary": {
+    "cases": {
+      "GLM-corrective-1-capture-large": "PASS",
+      "GLM-corrective-1-capture-length": "PASS",
+      "GLM-corrective-1-capture-overcap": "PASS",
+      "GLM-corrective-1-diagnostic-home": "PASS",
+      "GLM-corrective-1-event-budget-known-usage": "PASS"
+    },
+    "auditFindings": 0
+  },
+  "race": {
+    "cases": {
+      "GLM-corrective-1-capture-large": "PASS",
+      "GLM-corrective-1-capture-length": "PASS",
+      "GLM-corrective-1-capture-overcap": "PASS",
+      "GLM-corrective-1-diagnostic-home": "PASS",
+      "GLM-corrective-1-event-budget-known-usage": "PASS"
+    },
+    "auditFindings": 0
+  },
+  "m3": {
+    "chat": {
+      "sources": 263,
+      "changed": [],
+      "originalReportSHA256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+      "reportUnchanged": true,
+      "formalVerifierExit": 0
+    },
+    "responses": {
+      "sources": 263,
+      "changed": [],
+      "originalReportSHA256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+      "reportUnchanged": true,
+      "formalVerifierExit": 0
+    },
+    "messages": {
+      "sources": 263,
+      "changed": [],
+      "originalReportSHA256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+      "reportUnchanged": true,
+      "formalVerifierExit": 0
+    }
+  },
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "canonicalCorrectiveIntentsCreated": 0,
+  "paidBudgetApproval": "PENDING HUMAN APPROVAL",
+  "actualRootNextCheck": "parent fresh full no-key check on final integrated HEAD required"
+}

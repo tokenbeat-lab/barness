@@ -1,0 +1,39 @@
+{
+  "state": "COMPLETED",
+  "name": "visual-decisions",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visualeval",
+    "-formal",
+    "-mode",
+    "live",
+    "-route",
+    "decisions",
+    "-entry",
+    "plain",
+    "-authorization",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visual-decisions-authorization.json",
+    "-out",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visual-decisions",
+    "-proxy",
+    "http://127.0.0.1:7890"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 270,
+  "credentialsInherited": false,
+  "sourceVariable": "OPENAI_KEY",
+  "injectedCredential": "BARNESS_VISUAL_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:28:22.488355+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_VISUAL_KEY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 7.194371917285025,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

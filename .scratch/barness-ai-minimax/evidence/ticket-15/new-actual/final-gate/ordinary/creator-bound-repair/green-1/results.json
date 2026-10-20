@@ -1,0 +1,100 @@
+{
+  "creatorSHA256": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed",
+  "cases": [
+    {
+      "case": "oversize",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+        "--common-root",
+        "/tmp/barness-ordinary-creator-bounds-green-1/oversize/common",
+        "--work-output",
+        "/tmp/barness-ordinary-creator-bounds-green-1/oversize/work",
+        "--mode",
+        "prepare",
+        "--kind",
+        "boolean"
+      ],
+      "actualPublicExit": 1,
+      "expectedEarlySizeRefusal": true,
+      "actualEarlySizeRefusal": true,
+      "guardPassed": true,
+      "seconds": 0.19416841631755233,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "230adde1ba6c495cb71b29b918a36dceaa9fa86d8a5280013c73bc53a3e32475"
+    },
+    {
+      "case": "wrong-size",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+        "--common-root",
+        "/tmp/barness-ordinary-creator-bounds-green-1/wrong-size/common",
+        "--work-output",
+        "/tmp/barness-ordinary-creator-bounds-green-1/wrong-size/work",
+        "--mode",
+        "prepare",
+        "--kind",
+        "boolean"
+      ],
+      "actualPublicExit": 1,
+      "expectedEarlySizeRefusal": true,
+      "actualEarlySizeRefusal": true,
+      "guardPassed": true,
+      "seconds": 0.18888395885005593,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "230adde1ba6c495cb71b29b918a36dceaa9fa86d8a5280013c73bc53a3e32475"
+    },
+    {
+      "case": "fifo",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+        "--common-root",
+        "/tmp/barness-ordinary-creator-bounds-green-1/fifo/common",
+        "--work-output",
+        "/tmp/barness-ordinary-creator-bounds-green-1/fifo/work",
+        "--mode",
+        "prepare",
+        "--kind",
+        "boolean"
+      ],
+      "actualPublicExit": 1,
+      "expectedEarlySizeRefusal": false,
+      "actualEarlySizeRefusal": false,
+      "guardPassed": true,
+      "seconds": 0.1853504586033523,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "cefc4b60a7f094b3597a51d7150bd5b501837f17f4bf969ee94cb491b2a076d0"
+    },
+    {
+      "case": "link",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+        "--common-root",
+        "/tmp/barness-ordinary-creator-bounds-green-1/link/common",
+        "--work-output",
+        "/tmp/barness-ordinary-creator-bounds-green-1/link/work",
+        "--mode",
+        "prepare",
+        "--kind",
+        "boolean"
+      ],
+      "actualPublicExit": 1,
+      "expectedEarlySizeRefusal": false,
+      "actualEarlySizeRefusal": false,
+      "guardPassed": true,
+      "seconds": 0.18090108362957835,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "030587edf36c2fbfab421a403e6de0a4d57cc12ea137d23bcddca2a4bb96d8f7"
+    }
+  ],
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "originalNativeTouched": false
+}

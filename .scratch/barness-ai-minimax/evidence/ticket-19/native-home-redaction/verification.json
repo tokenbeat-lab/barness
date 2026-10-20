@@ -1,0 +1,43 @@
+{
+  "verified": true,
+  "custody": {
+    "id": "ticket19-native-home-redaction",
+    "archiveSHA256": "c61b768bf5b0b36dd2b10415b24fc6ab5a34d00d47a9df2013c064704de453b4",
+    "files": 101,
+    "entries": 101,
+    "decodedTarBytes": 604160
+  },
+  "commands": {
+    "red": 1,
+    "red-assertions": 1,
+    "green": 0,
+    "race": 0,
+    "vet": 0,
+    "vet-live": 0
+  },
+  "publicManifests": [
+    {
+      "phase": "red",
+      "caseStatus": "PASS",
+      "auditFindings": 4
+    },
+    {
+      "phase": "red-assertions",
+      "caseStatus": "FAIL",
+      "auditFindings": 4
+    },
+    {
+      "phase": "green",
+      "caseStatus": "PASS",
+      "auditFindings": 0
+    },
+    {
+      "phase": "race",
+      "caseStatus": "PASS",
+      "auditFindings": 0
+    }
+  ],
+  "rawControlledChildReports": 12,
+  "paidCalls": 0,
+  "currentFormalQualification": false
+}

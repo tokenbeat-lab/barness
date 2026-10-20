@@ -1,0 +1,33 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "2a5e462b52ff7b9d4d9ede3f56ec0c877fb2ec5d1bad819e35796bcad6662a85",
+  "privateRawMember": "barness-ticket21-owned-worktree-cleanup.json",
+  "nativeInput": false,
+  "observed": {
+    "classification": "OWNED_WORKTREE_CLEANUP_ONLY",
+    "startedAt": "2026-10-19T11:50:59.723214+00:00",
+    "finishedAt": "2026-10-19T11:51:00.313054+00:00",
+    "argv": [
+      "git",
+      "worktree",
+      "remove",
+      "--force",
+      "$TMP/barness-ticket21-actual-retained"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "reviewedEvidenceTip": "e2cf2a7859777363d9a0d529714778405dc57a9f",
+    "integrationMerge": "8a1163b13f684183e0409d05d64ae13dfe456861",
+    "readinessSHA256": "a7f9256177137524aca5d038939759e581c3e208293b1cfbc4d64436c5fbc631",
+    "worktreeRemoved": true,
+    "branchRetained": true,
+    "userDirectoryIdentitiesUnchanged": true,
+    "remainingWorktrees": "worktree $REPO\nHEAD 8a1163b13f684183e0409d05d64ae13dfe456861\nbranch refs/heads/codex/minimax-global\n\n",
+    "newGoOrGateRun": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "testLinksUnlinkedWithoutFollowing": true,
+    "centralRetentionOutsideRemovedWorktree": true
+  }
+}

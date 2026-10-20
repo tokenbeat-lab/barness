@@ -1,0 +1,155 @@
+{
+  "schema": 1,
+  "action": "authorized exact certified fast-forward integration",
+  "branch": "codex/minimax-global",
+  "beforeHEAD": "4d83ca2b00b76f313c32d62f020a331a4cf3b88c",
+  "requestedTarget": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "afterHEAD": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "method": "git merge --ff-only 90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "reviewedCodeCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+  "codeTreeEqualReviewed": true,
+  "GoTreeEqualCertified4bf": true,
+  "trackedClean": true,
+  "indexClean": true,
+  "untrackedStatus": [
+    "?? .scratch/barness-ai-minimax/session-analysis/",
+    "?? .scratch/jev-1.14-multimodal-box/human-review/"
+  ],
+  "userDirectoriesPreserved": true,
+  "changedFileCount": 26,
+  "changedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/README.md": {
+      "sha256": "a285d8fa05e49c2edd14ff7ebe810d312e0a68cd19418252751761c67cff5f39",
+      "bytes": 4869
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/SHA256SUMS": {
+      "sha256": "7d9136f980edff9c4fdccfcb2567c651be15de42da23042e6b8f437e80044649",
+      "bytes": 1008
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/index.json": {
+      "sha256": "f87cb9239bce6352c61e89649008db1306ab3277631a6b1522e75b90049900cc",
+      "bytes": 26679
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/inventory.json.gz": {
+      "sha256": "4c99c94ed1af459e8143c5bf9306f305bbec4390dfd2386e077485a96004a0aa",
+      "bytes": 17867
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative-guards-command.json": {
+      "sha256": "be33456cdae60ce5e13ee66425a544c4b2c13d061412691fc12eb5b80a6797fc",
+      "bytes": 612
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative-results.json": {
+      "sha256": "11eaf9cc191cea350b57bf7f66c5214f94deca20fd7667f9d7894d6eb42ad56a",
+      "bytes": 2032
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/negative_guards.py": {
+      "sha256": "15a266adea8f8de44a919da3078870bb5e7a5572ad51768ab6ef7c2971b582c9",
+      "bytes": 4122
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/retention-build-history.json": {
+      "sha256": "72f873ccdae8c744a85bbf76db94d8704720800a4c79edde3275de0a77500d62",
+      "bytes": 344
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/source-at-start.json.gz": {
+      "sha256": "103705306f7b8b8dbe5527f86f2a9b786f49c04e1a032b582ba777e6fe493912",
+      "bytes": 49087
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/summary.json": {
+      "sha256": "ee003b9efce08991b3832cd8bb72b4f179cafd3f95f70f91cccb9669e1833dd6",
+      "bytes": 3455
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify-command.json": {
+      "sha256": "d30d67c533a0bcdc01b3cebf0f8899e56aed709973d755ab325171d623b6e5e2",
+      "bytes": 594
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.log": {
+      "sha256": "0d3505ac5070b26f07b251cc99aa80f4177f35fc6556580edc742586b0d1352d",
+      "bytes": 443
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/implementation/verify.py": {
+      "sha256": "ed5e84ba40309476371925e4f44c948caf513dfe36ced88f95e5bbb989500981",
+      "bytes": 8807
+    },
+    ".scratch/barness-ai-minimax/tools/paid_checks.py": {
+      "sha256": "fb43c9aded424d475892e1cb9c890299aca33b9e4bcb0822465f292059385034",
+      "bytes": 2599
+    },
+    ".scratch/barness-ai-minimax/tools/release_repair_validation.py": {
+      "sha256": "a5ed655967041360e79a0527c7c13aca685265d7f0994b7660b18ec8711b503f",
+      "bytes": 11248
+    },
+    ".scratch/barness-ai-minimax/tools/renewal.py": {
+      "sha256": "dd7176a56737f8df3e209c9ac71467d8ca676872fd2f084765e7fc1a35da4aac",
+      "bytes": 9663
+    },
+    ".scratch/barness-ai-minimax/tools/renewal_glm.py": {
+      "sha256": "75fa4f408e1b9a280fca6750b30913fc08233fe46429552aa1064d6cdf385281",
+      "bytes": 10424
+    },
+    ".scratch/barness-ai-minimax/tools/repair_anchors.py": {
+      "sha256": "33c279ccc32bdbbbb63c6dfd1fd0af82cf918d40111c9ef0ef224606130f6c42",
+      "bytes": 2862
+    },
+    ".scratch/barness-ai-minimax/tools/repair_contract.py": {
+      "sha256": "97ce3c09620d8beaef2f0d7ed530feb413ae6c51011bff775be8ec99eeb7cce3",
+      "bytes": 2615
+    },
+    ".scratch/barness-ai-minimax/tools/repair_inputs.py": {
+      "sha256": "d6e38602f14b1edbcf881b0a0262a904a87859b022a55344a5cb44b92577e047",
+      "bytes": 12485
+    },
+    ".scratch/barness-ai-minimax/tools/repair_publication.py": {
+      "sha256": "b976b09fa66378eced20a479a590663e5cc58a3a2ecd6bc3e0edb9529d37a1ec",
+      "bytes": 5502
+    },
+    ".scratch/barness-ai-minimax/tools/routed_evidence.py": {
+      "sha256": "fa3504ebc442506e4c1bb95f804b4f0a539b3662510427a1d0f6cb1296bb38d1",
+      "bytes": 9972
+    },
+    ".scratch/barness-ai-minimax/tools/routed_validation.py": {
+      "sha256": "d4218ae16c85a1e679a775d78f59870b374d530e65d7f3d7060d61cc95efe4ca",
+      "bytes": 11269
+    },
+    ".scratch/barness-ai-minimax/tools/test_release_repair.py": {
+      "sha256": "20ed2ab31668c85c4390e67e917c754a212bd2906e3259ec7824ded16232cb5e",
+      "bytes": 11472
+    },
+    ".scratch/barness-ai-minimax/tools/test_renewal.py": {
+      "sha256": "adbfe37776cc3cdb319c80aff316e5b309807ad858b82021a59127d912dce0f8",
+      "bytes": 33415
+    },
+    ".scratch/barness-ai-minimax/tools/test_repair_fixtures.py": {
+      "sha256": "e60d2d7107adf66f42a8880b203236e3bb665dfdd9e7b94931b7e0ecd914f9fb",
+      "bytes": 9707
+    }
+  },
+  "reviews": {
+    "barness-release-repair-source-standards-review.json": {
+      "sha256": "b3e64341376e4686fb705ebfdb68fd4a1173d1785698e46ea9dd79849d7a4212",
+      "reviewedCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+      "decision": "APPROVED_SOURCE_ONLY"
+    },
+    "barness-release-repair-source-spec-review.json": {
+      "sha256": "4ad4ea53aa080cc67e7048ef739b390b3a442bda4f8a28ea162237cfd47df137",
+      "reviewedCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+      "decision": "PASS_SOURCE_REVIEW"
+    },
+    "barness-release-repair-retention-standards-review.json": {
+      "sha256": "42b123c73948c983d15735444361f3319b20190b3fdcad63053fac5dd8e7f4cf",
+      "reviewedCommit": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+      "decision": "APPROVED_RETENTION_ONLY"
+    },
+    "barness-release-repair-retention-spec-review.json": {
+      "sha256": "73ec7b9e14eab32b7327b5dbff4a49a70d6da99f2cda4415eb876533a0572953",
+      "reviewedCommit": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+      "decision": "PASS_RETENTION_REVIEW"
+    }
+  },
+  "paidAuthority": "PENDING; integration is not additional-budget approval",
+  "noTestsRun": true,
+  "noVerifiersRun": true,
+  "noKeyRead": true,
+  "noNetwork": true,
+  "noSourceEdits": true,
+  "noOtherMetadataEdits": true
+}

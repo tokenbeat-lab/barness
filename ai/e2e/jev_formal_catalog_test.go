@@ -34,6 +34,9 @@ func TestJevFormalCatalog(t *testing.T) {
 			}
 			mustUnmarshal(t, raw, &before)
 			trimmed := cat
+			// GLM and MiniMax add independent identities after this historical Jev
+			// inclusion baseline; compare the exact unchanged prior model set.
+			trimmed.Models = slices.DeleteFunc(slices.Clone(cat.Models), func(m ai.Model) bool { return m.Provider == ai.ProviderZhipu || m.Provider == ai.ProviderMiniMax })
 			trimmed.ClassifierModels = slices.DeleteFunc(slices.Clone(cat.ClassifierModels), func(m ai.ClassifierModel) bool { return m.ID == "jev-1.14.0" })
 			trimmed.Version = before.Catalog.Version
 			ev.Check("old model content and hash preserved", reflect.DeepEqual(trimmed, before.Catalog) && catalogHash(t, trimmed) == before.Hash && cat.Version != before.Catalog.Version && catalogHash(t, cat) != before.Hash, "historical model changed")

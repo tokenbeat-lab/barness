@@ -1,0 +1,43 @@
+# Ticket13 final current-source release acceptance
+
+Status: complete actual public release CLI **PASS** at source `3d3cd0fac02a9470a382e825a5e2e114d9e45ee7`. Catalog Version2026-10-17.2 / Hash `sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942` preserves13 protocol combinations/14 own live identities, all old P0, seven native Pi differential identities, six Extension Routes and four independent effects.
+
+## Actual complete verdict and repeatable proof
+
+The actual `corrective.py gate .evidence/glm13-corrective-current-r1` ran real full normal20m/race75m suites, both vet modes, pressure and the unique frozen Pi oracle. No supplied offline bundle substituted for either suite. Normal 11,049 and race 11,049 cases, all10 gates, 861 applicable differential cases with zero pending,14 live identities, four effects and 20 clean audits passed. All preexisting trace mappings remain;22 requirements,15 acceptance groups and62 stories form99 exact GLM items, requiring643 distinct actual case IDs in BOTH full manifests.
+
+The [verified index](index.json) pins the complete report, both manifests and every required case artifact, canonical raw/derived/replay/effect copies, catalog/price/matrix, review receipts and complete rollback. [The finite trace](../../../../ai/release/traceability.json) and [story map](trace-summary.json) link each item to actual cases/evidence. Canonical ROOT copies remain usable after implementation worktree cleanup; original worker paths remain provenance only.
+
+```sh
+python3 .scratch/barness-ai-glm/evidence/ticket-13/seal.py --verify
+```
+
+This postpaid verification uses no keys or network. Readable [sealer](seal.py), [indexer](index.py) and [historical reconciliation](reconcile-rollback-history.py) and [remaining-history preservation](preserve-history.py) and [default-output preservation](preserve-default-history.py) are hash-pinned with their results. They verify regular payloads and preserve deliberate negative-fixture symlinks only as lstat/readlink metadata, never reading their targets; report importers retain their stricter rules.
+
+## Measured sources, consumption and source reuse
+
+Fresh GLM raw evidence measured source3485306,3×22 calls/HTTP, zero reruns. Support views were derived atadc694d and the complete16-file consumer set remains identical. Current strict consumers accept all3 routes, and exact formal no-key public Client replay66/0HTTP passes. Old12 raw/selectors remain byte-preserved in [history/](history/), including the false-zero budget rejection; fresh13 data independently pins correct reported-known totals and explicit false-zero mutations still reject.
+
+The original legacy/effect round measured dbc6c4e:180 calls/HTTP and all21 producer/verify commands succeeded. The subsequent full CLI FAILED, as described below. After failure-first test/mapping/wrapper corrections, an independently reserved36/36 corrective round at3d3cd0f measured newer Jev own support12 and two visual effects12+12; TypeSafe24/OpenAI12, all9 producer/verifier commands passed. The complete existing source selectors prove reuse of10 generic own reports,3 GLM reports and2 Chinese effects while preserving their original source IDs. No source guard was weakened. All868 frozen source/config/called-script bytes and three binary hashes remain intact through final documentation/artifact commits.
+
+Ticket13 actual consumption is282 HTTP (66GLM+180original+36corrective); cumulative planned maxima410 Calls/434 Attempts, zero automatic/unplanned reruns or provider fallback. Superseded60/84-call corrective assessments were never executed. All paid processes used one selected named root.env key, direct fixed endpoints and unchanged questions/images/output/deadline/retry limits. Account/region/permissions/billing remain UNKNOWN. GLM known input-side/output totals6205/17867 and known USD estimate0.0817512645052512 retain incomplete attempts; these are lower bounds, not invoices. Whole-feature GLM totals217LogicalCalls/215HTTP include exploration19/17, candidate66/66, formal12 66/66 and formal13 66/66.
+
+Current fixed-task effects are independent: both text routes24/24 correct; both visual routes8/8 common and4/4 own extension class/existence answers; new Jev consumes2 present Boxes with0 absent false positives, meanIoU0.6945207237110336. The original dbc visual meanIoU0.6632596776427366 remains historical. No quality threshold or production accuracy claim is added.
+
+## Public Host, disable and complete rollback
+
+[The Host example](../../../../ai/examples/glmhost/README.md) covers three bindings/two models, full/simple Stream/Complete/WithHooks, standard keys, formal catalog/price, versioned tenant/account attribution, Host tool responsibility and cleanup. Six disable/in-flight/other-route+tenant/restore cases preserve prior/active consumption while new calls have zero credential reads/Attempts and no fallback.
+
+[Whole-tree rollback](rollback.py) restores exact baselinef5cf5362610a8bdb8f3e170f408f3858c149e540/treee0e006866c606fdab3bf02be0322bde2eae02300 outside worktrees; all6682 tracked paths/blobs/modes match, all six absent GLM identities refuse before credentials/HTTP, old controlled behavior passes, root/user bytes match and the owned restoration is removed. Normal/race public E2E executes it. Separate one-time reconciliation verifies201887 selected historical payloads and600 measured Go/module files, retaining the old11-identity/four-effect/9098+9098 release at its original identity. Historical PASS is not current billing renewal.
+
+## Retained failures and exact corrections
+
+Preflight retained stale catalog/config/candidate duplication and09 global-panic behavior REDs. Panic recovery is now limited to immutable ProviderZhipu attribution; old OpenAI/DeepSeek Chat and original unary panic/cleanup contracts pass unchanged. Four prepaid two-axis findings have public RED→GREEN proofs in [prereview/](prereview/): bounded one-pass GLM errors, finite trusted view inventory before reads, explicit empty authoritative reasoning, and legacy forced-tool refusal. The48MiB ZIP proof preserves size/EOF/CRC semantics. Earlier5m race timeouts/stacks and concurrent2s FIFO failure remain historical; the unchanged FIFO passed serially, and the actual complete75m race now passes.
+
+The original dbc full CLI produced11,042PASS cases in each E2E package and zero audits, but overall Go commands failed an inherited Pi-price comparison for six China GLM extensions. The strict loader then refused four empty-effort directory labels, and the wrapper masked the missing report. Original CLI exit1, all payloads/manifests/audits and no-report state remain immutable in `historical-r3-preservation.json`/archive and `failed-full-gate-r1-index.json`. `remaining-history-preservation.json` separately inventories/archives every other superseded preflight, failed diagnostic, rollback and support tree before worktree cleanup; links/FIFOs retain metadata only. `default-e2e-history-preservation.json` also preserves34 original focused/default runs without touching ROOT’s shared output directory.
+
+Corrections retain all92 prior Pi-price identities and separate sourced six-GLM pricing E2E, give32 parent cases explicit plain/omitted leaves, preserve child ownership, and retain the real gate child exit when reports are absent/stale. The NONFINAL diagnostic projections preserve original source/payload bytes and exact maps; they show only expected stale Jev/visual inputs, absent7 newly added guards and commandNOT_RUN. They are never final suite evidence. Focused103 normal+103race public cases passed before collection. A temporary external preflight driver used macOS /tmp symlink aliases; strict Jev refusal, identical-input canonical-path success, overlay cleanup and the subsequent complete canonical no-key PASS are all retained. No repository source changed for that invocation correction.
+
+The frozen historical corrective launcher's inherited all14 merge command failed correctly on duplicate old timestamps and wrote nothing. The actual corrected transaction used the unchanged public supportmatrix CLI with ONLY the newer own Jev report; the other13 rows stayed byte-equivalent. Exact failed/successful argv, before/after hashes and `matrix-merge-resolution.json` are indexed separately. No merge-mode success is claimed for that first command.
+
+The [finite plan](plan.md) retains every prior cap and supersession. Deployment/PR creation was not performed. Mandatory parent final whole-branch review, any fixes and parent-spec closure remain pending after merge; they are separate from these prepay reviews and measured release artifacts.

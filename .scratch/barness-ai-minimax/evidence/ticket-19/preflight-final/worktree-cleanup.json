@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "status": "COMPLETE",
+  "rootBefore": {
+    "head": "d2354144570da8aeda56862bbcaffe323061f986",
+    "branch": "codex/minimax-global",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/",
+    "sourceFiles": 1162,
+    "sourceMapSHA256": "5dbc5f46d0b864b22e9cdca4e31540c236111fb1821cac86a15a0ef5caa55437"
+  },
+  "worktrees": [
+    {
+      "path": "/private/tmp/barness-minimax-formal-source-renewal",
+      "head": "f402607eb42422b15b17cff7622cda0151d15de2",
+      "branch": "codex/minimax-formal-source-renewal",
+      "nonIgnoredStatus": [],
+      "ignoredPaths": [
+        ".evidence/"
+      ],
+      "ignoredTopCounts": {
+        ".evidence": 1
+      },
+      "ignoredEvidenceTopEntries": [
+        {
+          "name": "native-renewal-tdd",
+          "directory": true,
+          "symlink": false
+        }
+      ],
+      "mergedIntoRoot": true
+    },
+    {
+      "path": "/private/tmp/barness-current-eleven-renewal",
+      "head": "6d04705c422077c9fd734aa890a640b1395d388d",
+      "branch": "codex/current-eleven-renewal-tools",
+      "nonIgnoredStatus": [],
+      "ignoredPaths": [
+        ".evidence/"
+      ],
+      "ignoredTopCounts": {
+        ".evidence": 1
+      },
+      "ignoredEvidenceTopEntries": [
+        {
+          "name": "minimax-ticket19-tools-tdd",
+          "directory": true,
+          "symlink": false
+        },
+        {
+          "name": "minimax-ticket19-tools-final-2",
+          "directory": true,
+          "symlink": false
+        },
+        {
+          "name": "minimax-ticket19-tools-final",
+          "directory": true,
+          "symlink": false
+        },
+        {
+          "name": "minimax-ticket19-outer-custody",
+          "directory": true,
+          "symlink": false
+        }
+      ],
+      "mergedIntoRoot": true
+    }
+  ],
+  "centralArchives": {
+    "ticket-19-native-renewal": {
+      "bytes": 28258717,
+      "sha256": "cd38a57550f4f765722d586e059c4e4b598255f655face8ab3f8cc07617c8acd"
+    },
+    "ticket-19-native-home-redaction": {
+      "bytes": 185032,
+      "sha256": "c61b768bf5b0b36dd2b10415b24fc6ab5a34d00d47a9df2013c064704de453b4"
+    },
+    "ticket-19-outer-eleven": {
+      "bytes": 10711447,
+      "sha256": "9b366f0574a79a6dbdd4c953000d416f418ec6606b9f1ebc84ad61d7566a8464"
+    }
+  },
+  "ownedProcessCheck": {
+    "method": "ps argv path match, excluding this inspector and its ancestors; authors additionally confirmed all owned windows closed",
+    "matches": []
+  },
+  "removalReceipts": [
+    {
+      "argv": [
+        "git",
+        "worktree",
+        "remove",
+        "/private/tmp/barness-minimax-formal-source-renewal"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "seconds": 0.572916999924928
+    },
+    {
+      "argv": [
+        "git",
+        "worktree",
+        "remove",
+        "/private/tmp/barness-current-eleven-renewal"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "seconds": 0.838064749725163
+    }
+  ],
+  "rootAfter": {
+    "head": "d2354144570da8aeda56862bbcaffe323061f986",
+    "branch": "codex/minimax-global",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/",
+    "sourceFiles": 1162,
+    "sourceMapSHA256": "5dbc5f46d0b864b22e9cdca4e31540c236111fb1821cac86a15a0ef5caa55437"
+  },
+  "rootHeadUnchanged": true,
+  "rootSourceBytesUnchanged": true,
+  "rootStatusUnchanged": true,
+  "branchesPreserved": {
+    "codex/minimax-formal-source-renewal": true,
+    "codex/current-eleven-renewal-tools": true
+  },
+  "centralArchivesUnchanged": {
+    "ticket-19-native-renewal": true,
+    "ticket-19-native-home-redaction": true,
+    "ticket-19-outer-eleven": true
+  },
+  "worktreeList": "worktree /Users/cyber/RestoX/barness\nHEAD d2354144570da8aeda56862bbcaffe323061f986\nbranch refs/heads/codex/minimax-global",
+  "forceUsed": false,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

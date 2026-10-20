@@ -1,0 +1,37 @@
+{
+  "suite": "ordinary",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "sourceFiles": 1074,
+  "mainManifest": ".evidence/minimax-current-eleven-gate-2/gate/offline/20261019T064845.243220000Z/manifest.json",
+  "mainManifestSHA256": "1a21bee8eb8a04c2e874a8a6e5e2b1aae63477a8ab2305d1ef45e57cd8c0534f",
+  "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+  "cases": 12495,
+  "statuses": {
+    "PASS": 12495,
+    "FAIL": 0,
+    "NOT_RUN": 0
+  },
+  "audit": {
+    "findings": []
+  },
+  "artifactReferences": 99113,
+  "artifactReferencePinFailures": [],
+  "truePIDiffCases": 868,
+  "truePIDiffAllPass": true,
+  "allNamedPressureCases": 29,
+  "fixedPressureRegexCases": 15,
+  "fixedPressureRegex": "^E08-(policy-pressure|admission-burst-pressure|mixed-pressure)-",
+  "namedPressureAllPass": true,
+  "failures": [],
+  "archive": {
+    "bytes": 114962711,
+    "file": ".evidence/minimax-retained/ticket-19-final-gate-ordinary/raw.tar.gz",
+    "prefix": "current-eleven-gate-ordinary",
+    "sha256": "0321a2c16adc5048d1d19e521d88ee2c56e389a95616ec0acb845954313c6d9a"
+  },
+  "sourceQualifiedOnlyAtRecordedMap": true,
+  "retentionPaidCalls": 0,
+  "retentionCredentialsRead": false,
+  "artifactReferencePathSemantics": "Native filepath.Join: empty separators and dot components collapse; parent/absolute references refuse; original hashes unchanged",
+  "normalizedArtifactReferencePaths": 420
+}

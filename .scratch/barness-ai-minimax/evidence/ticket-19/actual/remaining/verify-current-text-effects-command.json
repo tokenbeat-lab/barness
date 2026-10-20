@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-current-text-effects",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-gate-1/current-textcheck",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/text-jev/20261019T062419.461402000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/text-luna/20261019T062520.218732000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:26:21.591742+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 3.5595994577743113,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "schema": 1,
+  "ticket": "02",
+  "feature_commit": "2c291dd",
+  "committed_replay_source": "89069c811f0849403b5c8481717192c8134fa8f2",
+  "scope": "Offline Client/controlled transport only; no paid calls or formal support assertion",
+  "runs": [
+    {
+      "phase": "callback-authorization",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/callback-authorization/20261017T124610.384951000Z/manifest.json",
+      "sha256": "9c857e2e87cd208c6d61a2b2495f2c0e5e71619fb40aa8c9c0fcfef624ee3cf6",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 48,
+      "statuses": {
+        "PASS": 48
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "committed-glm",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/committed-glm/20261017T125045.058419000Z/manifest.json",
+      "sha256": "a6eef3e1c04ce63bbb731817e4f4223811360ce1f4c843fa4d8dd7a1e901a9f9",
+      "git_commit": "89069c811f0849403b5c8481717192c8134fa8f2",
+      "cases": 166,
+      "statuses": {
+        "PASS": 166
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "committed-live-assembly",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/committed-live-assembly/20261017T125045.570292000Z/manifest.json",
+      "sha256": "98a5f759b3b2e3c11fcff78550f6bccc9d20d091353bf49b408f3deadd1c0cc7",
+      "git_commit": "89069c811f0849403b5c8481717192c8134fa8f2",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "final-budgets",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/final-budgets/20261017T124953.956954000Z/manifest.json",
+      "sha256": "a48e23a4109282dafcef9589d17b4efec5567e85fae23bdfb1dd01bbddf7e7f3",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 166,
+      "statuses": {
+        "PASS": 166
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "final-glm",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/final-glm/20261017T124756.484453000Z/manifest.json",
+      "sha256": "34893070d145e8c30129178c0e18f9e11d23ac67478315aee83aa8894282661c",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 76,
+      "statuses": {
+        "PASS": 76
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "green-budget",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/green-budget/20261017T124928.309954000Z/manifest.json",
+      "sha256": "8343e0c724dd5bdcd94cae854443436ebd0c64e36e6d11aa7d47f959599c8d73",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 162,
+      "statuses": {
+        "PASS": 162
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "green-default-usage",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/green-default-usage/20261017T124433.531451000Z/manifest.json",
+      "sha256": "aedfd48e89c6f82e1469660c46df3720ed0794492dbdb9c7b9b09deea49150e1",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 9,
+      "statuses": {
+        "PASS": 9
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "green-final",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/green-final/20261017T124331.102183000Z/manifest.json",
+      "sha256": "a77c2a431287c4ac4664848a64b482e45fbbf46938042a45b21fa2da5cfcfeb8",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 27,
+      "statuses": {
+        "PASS": 27
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "green-live-assembly",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/green-live-assembly/20261017T124526.952758000Z/manifest.json",
+      "sha256": "e015e759f120ef82dd1fca4ca374c9c4ab5f6a5854d2e3c07f18993b0ff1d5ab",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "green-text",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/green-text/20261017T124148.288463000Z/manifest.json",
+      "sha256": "2b1790f0c74fbf5a1624d011eb040cb5313e6ec08b390a13d81a2d1f8be95194",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 16,
+      "statuses": {
+        "PASS": 16
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "green-thinking",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/green-thinking/20261017T124227.717743000Z/manifest.json",
+      "sha256": "cbb45c0419a9f31c88cd761d468ff2e3316918d40d8b1098029d8909d6ba791f",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 24,
+      "statuses": {
+        "PASS": 24
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "offline-regression",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/offline-regression/20261017T124606.084397000Z/manifest.json",
+      "sha256": "f69675df9ce467e68925faf46cc4f809d4f30ef5f0507c3b3c6d415214d96f5b",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 2071,
+      "statuses": {
+        "NOT_RUN": 1,
+        "PASS": 2070
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "oracle-guards",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/oracle-guards/20261017T124756.977197000Z/manifest.json",
+      "sha256": "da6d498556f1240b07830632d71407e16b2f536a13708b9bbf836400196f6b84",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "pidiff",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/pidiff/20261017T124609.218916000Z/manifest.json",
+      "sha256": "42cb4f108a10990a081f148cd4f51174405aaeb841c411aeacf51eb78142be5c",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 321,
+      "statuses": {
+        "PASS": 321
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "race",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/race/20261017T124610.966640000Z/manifest.json",
+      "sha256": "db1d69862285e3d41e49550d54f313a5c1f69dbcf687cf111601158439482180",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 76,
+      "statuses": {
+        "PASS": 76
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-budget",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-budget/20261017T124913.445065000Z/manifest.json",
+      "sha256": "c912ef2bb2f6504dee284f20d7d7c618667738477c33f364463872359c336f50",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 86,
+      "statuses": {
+        "FAIL": 60,
+        "PASS": 26
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-default-usage",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-default-usage/20261017T124425.211360000Z/manifest.json",
+      "sha256": "4d0e78ca0468dbfa2faefe7443a25aa6f40ff6b1c776d95995a078a012a35953",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 9,
+      "statuses": {
+        "FAIL": 1,
+        "PASS": 8
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-final",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-final/20261017T124309.600198000Z/manifest.json",
+      "sha256": "eea1e994e74e4e69ffa533b43970c7fe50323188a0cb46ccc3da02f2b11908ad",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 27,
+      "statuses": {
+        "FAIL": 17,
+        "PASS": 10
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-live-assembly",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-live-assembly/20261017T124505.559796000Z/manifest.json",
+      "sha256": "2df162a1fc8dd7f31a22b280e75e48443b343e7dee0c4d8cde18b88871b614f7",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 2,
+      "statuses": {
+        "FAIL": 2
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-provider-cap",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-provider-cap/20261017T124944.002410000Z/manifest.json",
+      "sha256": "b8a7a2423accf5fc191a775b88862938859df63c9a8028ec86593f7c09f646d7",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 4,
+      "statuses": {
+        "FAIL": 1,
+        "PASS": 3
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-text",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-text/20261017T124125.806037000Z/manifest.json",
+      "sha256": "3b234305412461b58d0923a8f9b5b71623d235289b1b8ee5f4c5206ce3b1de84",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 16,
+      "statuses": {
+        "FAIL": 16
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    },
+    {
+      "phase": "red-thinking",
+      "manifest": ".evidence/barness-ai-glm/ticket-02/red-thinking/20261017T124218.344685000Z/manifest.json",
+      "sha256": "847f41c35b763ba579a58349ce4f4cd4cd08ac36c87b313589680e8dfc430ef4",
+      "git_commit": "373d82286c3fd53d9451552f3f0bbbdcb7c15e93",
+      "cases": 24,
+      "statuses": {
+        "FAIL": 3,
+        "PASS": 21
+      },
+      "redaction_audit": "PASS (unconditional TestMain audit; no findings)"
+    }
+  ]
+}

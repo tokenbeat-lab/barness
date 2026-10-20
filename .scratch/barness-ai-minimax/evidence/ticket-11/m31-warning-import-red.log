@@ -1,0 +1,17 @@
+--- FAIL: TestMiniMaxProcess (0.98s)
+    --- FAIL: TestMiniMaxProcess/success-m31-chat (0.35s)
+        minimax_process_test.go:97: [MM07-process-success-m31-chat] cumulative slot budget is labeled separately from proof identity: missing slot budget label
+        minimax_process_test.go:99: [MM07-process-success-m31-chat] raw usage is separate from unknown M Plan pricing: missing M3.1 price warning
+        minimax_process_test.go:114: [MM07-process-success-m31-chat] unpriced actual usage cannot lose synthetic-cost context: <nil>
+    --- FAIL: TestMiniMaxProcess/success-m31-responses (0.31s)
+        minimax_process_test.go:97: [MM07-process-success-m31-responses] cumulative slot budget is labeled separately from proof identity: missing slot budget label
+        minimax_process_test.go:99: [MM07-process-success-m31-responses] raw usage is separate from unknown M Plan pricing: missing M3.1 price warning
+        minimax_process_test.go:114: [MM07-process-success-m31-responses] unpriced actual usage cannot lose synthetic-cost context: <nil>
+    --- FAIL: TestMiniMaxProcess/success-m31-messages (0.32s)
+        minimax_process_test.go:97: [MM07-process-success-m31-messages] cumulative slot budget is labeled separately from proof identity: missing slot budget label
+        minimax_process_test.go:99: [MM07-process-success-m31-messages] raw usage is separate from unknown M Plan pricing: missing M3.1 price warning
+        minimax_process_test.go:114: [MM07-process-success-m31-messages] unpriced actual usage cannot lose synthetic-cost context: <nil>
+FAIL
+barness-ai evidence bundle: .evidence/mm11-m31-warning-import-red/20261018T011532.264989000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	1.600s
+FAIL

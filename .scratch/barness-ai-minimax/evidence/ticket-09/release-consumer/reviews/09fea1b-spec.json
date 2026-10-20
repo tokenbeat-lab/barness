@@ -1,0 +1,65 @@
+{
+  "base": "c6801d0441da589cce29a9d4169d195b54207ac7",
+  "target": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+  "confidence": "high",
+  "verdict": "PASS",
+  "findings": [],
+  "priorP2": "CLOSED",
+  "closure": {
+    "uncheckedCaseDirsRemoved": true,
+    "bundleIdentityPinned": true,
+    "rootedNonSymlinkArtifactOpens": true,
+    "sameBytesBoundedAndHashAuthenticatedBeforeDecode": true,
+    "descriptorsClosedPerRead": true,
+    "duplicateEnumerationRejected": true,
+    "completeHashedArtifactSetRequired": true,
+    "nestedChildCannotSatisfyParentProof": true
+  },
+  "reviewedConsumers": [
+    "differential/P10",
+    "revocation",
+    "original design load",
+    "MiniMax six design loads",
+    "classifier image design/cancel/recovery",
+    "mixed image plain/hooked",
+    "generic live assertions and fixtures"
+  ],
+  "readLimitsBytes": [
+    4194304,
+    16777216,
+    67108864
+  ],
+  "inventoryLimitsUnchanged": {
+    "files": 512,
+    "entries": 2048,
+    "depth": 24,
+    "fileBytes": 67108864,
+    "caseBytes": 268435456
+  },
+  "exactTargetReceiptsInspected": {
+    "ordinary": 0,
+    "vet": 0,
+    "vetLive": 0,
+    "race": "not certified by this review",
+    "actualBundleImports": "parent integration verdict"
+  },
+  "selectedSourceApplicability": {
+    "M3Three263": "unchanged; release/E2E excluded",
+    "QGLMThree217": "unchanged; release/E2E excluded",
+    "broadLJev": "historical only"
+  },
+  "producerCaptureManifestReceiptChanged": false,
+  "approvalOrPaidScopeChanged": false,
+  "original3d3ActualState": {
+    "passPerBundle": 12385,
+    "failPerBundle": 6,
+    "auditFindings": 0,
+    "loadFailed": true,
+    "releaseReport": null,
+    "releaseVerdict": null,
+    "internalNumericCommandExits": "unknown"
+  },
+  "diagnosticIsFreshSuiteExecution": false,
+  "releaseCertification": false,
+  "testsRunByReviewer": false
+}

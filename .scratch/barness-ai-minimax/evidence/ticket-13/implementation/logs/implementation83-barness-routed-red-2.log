@@ -1,0 +1,19 @@
+test_review_request_and_exact_freeze_precede_key_and_intent (test_routed_validation.Routed.test_review_request_and_exact_freeze_precede_key_and_intent) ... FAIL
+
+======================================================================
+FAIL: test_review_request_and_exact_freeze_precede_key_and_intent (test_routed_validation.Routed.test_review_request_and_exact_freeze_precede_key_and_intent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_routed_validation.py", line 103, in test_review_request_and_exact_freeze_precede_key_and_intent
+    self.invoke('run-selected','glm',name)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_paid.py", line 104, in invoke
+    if ok: self.assertEqual(p.returncode,0,p.stderr[-500:]+p.stdout[:200])
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : REFUSED: not implemented
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.710s
+
+FAILED (failures=1)

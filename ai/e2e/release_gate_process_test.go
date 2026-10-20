@@ -74,10 +74,10 @@ func releaseEvidence(t *testing.T, r release.Report, name string) release.Eviden
 	t.Fatalf("required evidence %s absent", name)
 	return release.EvidenceCheck{}
 }
-func TestElevenIdentityReleaseCLI(t *testing.T) {
+func TestFourteenIdentityReleaseCLI(t *testing.T) {
 	ev := run.Case(t, "OD57-release-ten-route-contract")
 	r := releaseProcess(t, ev)
-	ev.Check("exactly eleven own-model live requirements", len(r.Live.Rows) == 11, "got %d", len(r.Live.Rows))
+	ev.Check("exactly seventeen own-model live requirements", len(r.Live.Rows) == 17, "got %d", len(r.Live.Rows))
 	for _, name := range []string{"chinese-effect-jev", "chinese-effect-luna", "authorization-revocation"} {
 		e := releaseEvidence(t, r, name)
 		ev.Check("missing "+name+" refuses delivery", e.Status != release.Pass, "missing evidence passed")

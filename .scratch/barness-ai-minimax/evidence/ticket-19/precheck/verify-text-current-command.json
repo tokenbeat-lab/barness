@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-text-current",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/current-textcheck",
+    "$REPO/.evidence/minimax-routed-legacy-1/text-jev/20261018T082658.776631000Z",
+    "$REPO/.evidence/minimax-routed-legacy-1/text-luna/20261018T082706.819196000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:40.711551+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.5610082079656422,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

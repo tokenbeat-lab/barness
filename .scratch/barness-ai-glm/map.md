@@ -1,0 +1,45 @@
+# GLM 实施地图
+
+## Notes
+
+- [Spec](spec.md)、[依赖图](ticket-plan.md)、[研究](research.md)。
+- 集成分支：`codex/barness-ai-glm`。
+- 基线：`f5cf5362610a8bdb8f3e170f408f3858c149e540`。
+- 公共 Client E2E 接缝已在 spec T01 获得确认；不另设业务验收入口。
+
+## Decisions-so-far
+
+- 2026-10-17：按 implement-spec 指令发布既有 13 张工单，按阻塞图实施。
+- 2026-10-17：[01 已解决](issues/01-provider-capability-prefactor.md)：Provider 自动字段边界完成；既有 Client 前后 10,598 artifact 零未解释差异、适用冻结差分零 pending。见 [ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md) 与[运行索引](evidence/ticket-01/README.md)。
+
+- 2026-10-17：[02 已解决](issues/02-glm-chat-text.md)：zhipu Chat 独立候选目录、四入口文本/思考、型号与最终请求硬约束、标准 Key Host 示例与 120 秒候选装配完成；最终 166 例、受影响冻结差分 321 例通过。见 [ADR-0033](../../docs/adr/0033-barness-ai-zhipu-chat-candidate.md) 与[证据索引](evidence/ticket-02/README.md)。工具、其他协议和正式支持仍由后续票验收。
+
+- 2026-10-17：[06 已解决](issues/06-glm-messages-text-contract.md)：Messages 独立候选与真实 SSE 文本回放完成，GLM 默认省略思考且不附加 Claude 扩展；66 公共 Client/66 race、104 原生回归、168 原生运行时及 70 冻结差分通过。见 [ADR-0035](../../docs/adr/0035-barness-ai-zhipu-messages-basic.md) 与[证据索引](evidence/ticket-06/README.md)。仅基本文本，07/11/12 继续增强、正式 live 和内置登记。
+
+- 2026-10-17：[04 已解决](issues/04-glm-responses-text-shapes.md)：Responses 原始JSON对象/数组边界、权威done/交错索引和独立候选请求约束完成；原生reasoning保留未转换形状。公共回归1978 PASS，冻结Responses差分335 PASS；真实数组重放与schema对象红绿证据见[索引](evidence/ticket-04/README.md)及[ADR-0034](../../docs/adr/0034-barness-ai-zhipu-responses-boundary.md)。05继续原生历史请求转换。
+
+- 2026-10-17：[03 已解决](issues/03-glm-chat-tool-round-trip.md)：两型号工具分片/Host 往返、同轮推理与信任降级、auto-only/clear_thinking 最终约束及精确输出预算完成；已提交完整 Chat 358 PASS、新增 192 例 race PASS、受影响冻结差分 321 PASS 零 pending。见 [ADR-0033](../../docs/adr/0033-barness-ai-zhipu-chat-candidate.md) 与[证据索引](evidence/ticket-03/README.md)。
+
+- 2026-10-17：[07 已解决](issues/07-glm-messages-tools-thinking-replay.md)：两型号 Messages 工具/原生签名与无签名 thinking 回放、5.2 唯一已证实 budget1024/max4096 full 形状、来源降级及最终能力/图片/SSE 顺序校验完成；193 公共 Client、190+3 race、104 原生回归、168 运行时和70冻结差分通过。见 [ADR-0035](../../docs/adr/0035-barness-ai-zhipu-messages-basic.md) 与[证据索引](evidence/ticket-07/README.md)。无 canonical 强度映射/预算范围/redacted 支持或正式 live 发布声明。
+
+- 2026-10-17：[08 已解决](issues/08-glm-failures-retry-usage.md)：三协议独立错误码、安全诊断、不可恢复429零重试及固定快照有界重试完成；用量缺项/零/缓存/推理/断流保留，GLM不套用Anthropic一小时缓存元数据或溢价。最新合并GLM1108 PASS、原生回归2538 PASS、冻结三协议差分608 PASS零pending；见[证据索引](evidence/ticket-08/README.md)与ADR0006/0010。
+
+- 2026-10-17：[05 已解决](issues/05-glm-responses-history-tools-cache.md)：两型号 Responses 完整历史、独立原生输入转换、工具往返、缓存路由隔离与最终能力/授权 guard 完成；合并07/08后 3,716 公共回归、471 Responses race、335 冻结 Responses 差分 PASS。见[ADR-0034](../../docs/adr/0034-barness-ai-zhipu-responses-boundary.md)与[证据索引](evidence/ticket-05/README.md)。5.3 自身生产 native-history live 仍由11取证，未扩大目录/矩阵声明。
+
+- 2026-10-17：[09 已解决](issues/09-glm-isolation-resource-callbacks.md)：共享 Client 三协议/两型号双租户工具/native/cache 隔离、回调授权/不可变边界及取消/资源释放完成；补齐 Chat 最终能力 guard 与宿主回调 panic 结算。当前359公共E2E/359 race、2,794受影响回归、523补充race及321冻结Chat差分通过；48故障调用回收与六路设计负载、原始RED/INCOMPLETE及校验ZIP见[证据索引](evidence/ticket-09/README.md)。不扩大正式支持声明。
+
+- 2026-10-17：[05 专项补充已解决](issues/05-glm-responses-history-tools-cache.md)：在11冻结前修复 GLM 不透明 ID 的分隔符/percent/Unicode 往返，以及 GLM 来源降级后的冲突/空 ID；普通转换与非 GLM 历史保持原规则。90 新例、288 相关回归、124 race、335 冻结 Responses 差分 PASS，见[专项证据](evidence/ticket-05-followup-ids/README.md)。
+
+- 2026-10-17：[10 已解决](issues/10-glm-pi-differential.md)：冻结 pi1.1.0 全 43 文件路由证明三种中国标准 zhipu API 均为 ExtensionRoute；317 旧决定、3 旧扩展与冻结 pins 保持。自身账本 43 条 / 752 case-path / 420 场景零 pending；公共 GLM 1,733 + DeepSeek Responses 64、适用完整差分 726、来源 5 通过，合并 05 ID 修复后 90 新例 + 5 来源共 95 通过。见[证据索引](evidence/ticket-10/README.md)、[来源](evidence/ticket-10/sources/frozen-source.json)与校验归档；不扩大正式目录/live/矩阵声明。
+
+- 2026-10-17：[11 已解决](issues/11-glm-candidate-live-evidence.md)：六个候选各11/11真实场景PASS，三协议各22call/22HTTP、零重跑，总66；完整来源与固定USD/保守容量快照、原始wire/usage/Observer/343文件inventory及脱敏封存。原始捕获又通过公共Client无Key/无网络精确回放66次，保留全部上游ID/原生签名；normal/race/vet通过。见[原始与回放证据](evidence/ticket-11/README.md)与[12接续](evidence/ticket-11/handoff-12.md)。正式目录/当前Hash重跑及矩阵由12完成。
+
+- 2026-10-17：[12 已解决](issues/12-glm-formal-catalog-support-matrix.md)：六个独立正式GLM条目、完整Catalog .2/Hash及三条自身22能力记录已发布；正式66次真实请求与66次无Key精确回放通过、零重跑。原始预算token0/0经公共RED定位，仅消费者派生独立已报告下界视图，原始证据/测量源码保持；固定来源、完整场景与有限artifact/隐藏调用拒绝、当前消费者身份、原子矩阵更新验证完成。旧11行保持，发布契约为14身份/13协议组合；40归档/33099文件与13接续见[证据](evidence/ticket-12/README.md)。
+
+- 2026-10-18：[13已解决](issues/13-glm-release-host-docs-rollback.md)：当前14身份/13协议组合、四独立效果、normal11049/race11049、十门禁/两种vet/全部审计PASS；本票282实际HTTP、无自动重跑。Host禁用/完整回滚与99项/643用例见[最终证据](evidence/ticket-13/README.md)，实施票13证据已具备；父spec仍待全部合并后的最终两轴审查及关闭。
+
+- 2026-10-18：全部 13 票合入 `2264bacb701a02bb4494c560ff4056f97a32e6d1` 后完成[最终两轴审查](review.md)，Standards 0 / Spec 0，无待修复问题；父 [spec](spec.md) 已关闭。实际完整门禁及持久化校验结论见 [13 证据](evidence/ticket-13/README.md)。
+
+## Fog
+
+- 无未完成实施项；失败历史、精确来源与验收范围保留在各票索引。

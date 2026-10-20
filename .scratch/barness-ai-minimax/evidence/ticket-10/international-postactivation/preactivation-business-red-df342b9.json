@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "name": "preactivation-business-red-df342b9",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "preactivation-business-red-df342b9.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-business-red-df342b9.tar.gz",
+  "archiveBytes": 320673,
+  "archiveSha256": "21c335e65c742e0c10be2ee412b0d94a46eb0a9c5a1485088be0ca88bbfd38b2",
+  "files": 120,
+  "negativeSymlinkFixtures": 0,
+  "entries": 120,
+  "expandedBytes": 2548424,
+  "inventory": "preactivation-business-red-df342b9-files.json.gz",
+  "inventorySha256": "6d762890ba1760b946c3b76013518fe84f89b6309025339287adc09314d935d1",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "business-red",
+      "manifest": "business-red/e2e/20261018T024121.879894000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 4,
+        "PASS": 17
+      },
+      "artifactReferences": 116,
+      "auditFindings": 0,
+      "executionGitCommit": "688b1e6364f9af7ffd0622f63b62043780feaf2c"
+    }
+  ],
+  "fixCheckpoint": "df342b9",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation"
+}

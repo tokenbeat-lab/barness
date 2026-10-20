@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "manifests": [
+    {
+      "role": "initial-visual-red",
+      "session": "20261018T074336.043380000Z",
+      "manifest": "bundles/20261018T074336.043380000Z/manifest.json",
+      "audit": "bundles/20261018T074336.043380000Z/audit.json",
+      "cases": 15,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 15
+      },
+      "auditFindings": 2,
+      "measuredGitCommit": "2731aaa84bfa0e9396cd26288b5bffe983b01508"
+    },
+    {
+      "role": "visual-regression",
+      "session": "20261018T074803.782166000Z",
+      "manifest": "bundles/20261018T074803.782166000Z/manifest.json",
+      "audit": "bundles/20261018T074803.782166000Z/audit.json",
+      "cases": 39,
+      "statuses": {
+        "PASS": 39,
+        "FAIL": 0
+      },
+      "auditFindings": 0,
+      "measuredGitCommit": "2731aaa84bfa0e9396cd26288b5bffe983b01508"
+    },
+    {
+      "role": "empty-fragment-red",
+      "session": "20261018T074820.039401000Z",
+      "manifest": "bundles/20261018T074820.039401000Z/manifest.json",
+      "audit": "bundles/20261018T074820.039401000Z/audit.json",
+      "cases": 1,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 1
+      },
+      "auditFindings": 0,
+      "measuredGitCommit": "2731aaa84bfa0e9396cd26288b5bffe983b01508"
+    },
+    {
+      "role": "visual-final-ordinary",
+      "session": "20261018T074847.383464000Z",
+      "manifest": "bundles/20261018T074847.383464000Z/manifest.json",
+      "audit": "bundles/20261018T074847.383464000Z/audit.json",
+      "cases": 16,
+      "statuses": {
+        "PASS": 16,
+        "FAIL": 0
+      },
+      "auditFindings": 0,
+      "measuredGitCommit": "2731aaa84bfa0e9396cd26288b5bffe983b01508"
+    },
+    {
+      "role": "visual-final-child-race",
+      "session": "20261018T074936.937083000Z",
+      "manifest": "bundles/20261018T074936.937083000Z/manifest.json",
+      "audit": "bundles/20261018T074936.937083000Z/audit.json",
+      "cases": 16,
+      "statuses": {
+        "PASS": 16,
+        "FAIL": 0
+      },
+      "auditFindings": 0,
+      "measuredGitCommit": "b327fc41b80e834e4a24a7a702840dfc0ce63338"
+    }
+  ],
+  "checks": [
+    {
+      "id": "tools-final",
+      "capsule": "reviewfix51",
+      "member": "logs/barness-routed-reviewfix-tools-all.log",
+      "result": "PASS",
+      "tests": 58,
+      "seconds": 80.322
+    },
+    {
+      "id": "launcher-final",
+      "capsule": "reviewfix51",
+      "member": "logs/barness-routed-reviewfix-cli-current.log",
+      "result": "PASS",
+      "tests": 5,
+      "seconds": 15.493
+    },
+    {
+      "id": "vet",
+      "capsule": "implementation83",
+      "member": "logs/barness-routed-final-vet.log",
+      "result": "PASS",
+      "exitCode": 0,
+      "basis": "exitCode observed in execution tool result; original empty log retained, no standalone numeric command receipt was written"
+    },
+    {
+      "id": "vet-live",
+      "capsule": "implementation83",
+      "member": "logs/barness-routed-final-vet-live.log",
+      "result": "PASS",
+      "exitCode": 0,
+      "basis": "exitCode observed in execution tool result; original empty log retained, no standalone numeric command receipt was written"
+    }
+  ],
+  "history": {
+    "initialVisualRed": "15 FAIL, audit2; absent proxy flag and unsafe failure assertion, preserved unchanged",
+    "emptyFragmentRed": "1 FAIL, audit0; fixed before final16 PASS",
+    "specReviewRed": "foreign-phase changed report was incorrectly REPORTED22/22; fixed51 now UNKNOWN24/32",
+    "fixtureRepair": "first green attempt tried creating a symlink over a restored file; original failed log retained; fixture fixed before final green",
+    "renewalFixtureRepair": "First new-round green attempt used an output directory lacking the existing minimax prefix; fixture corrected before full green. Original log retained."
+  },
+  "scope": "Measured working-tree bases in manifests stay exact; frozen83/51 source snapshots do not replace those measurements. No full release or provider certification."
+}

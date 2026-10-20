@@ -17,7 +17,7 @@ _Avoid_: 远端、服务端
 _Avoid_: Provider、租户
 
 **Provider（模型服务提供方）**：
-实际接收生成请求的模型服务提供方，其身份独立于采用的 API 协议；同一 Provider 可以提供多种协议。
+实际接收生成请求的模型服务提供方，其身份独立于采用的 API 协议；同一 Provider 可以提供多种协议。认证、账户或定价契约独立的地区服务须明确区分身份，不能仅因品牌相同互授证明或续接权限。
 _Avoid_: API、协议、凭据
 
 **API Protocol（API 协议）**：
@@ -173,7 +173,7 @@ _Avoid_: 工具白名单、全局工具开关
 _Avoid_: 模型 compat、"兼容 OpenAI"
 
 **Extension Route（扩展接入路径）**：
-冻结 pi 没有路由的 Provider × 协议组合（当前包含 DeepSeek × Responses、原生 OpenAI × Images 与 Google × Interactions 图像），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
+冻结 pi 没有路由的 Provider × 协议组合（当前包含 DeepSeek × Responses、原生 OpenAI × Images、Google × Interactions 图像及中国区 Zhipu × Chat/Responses/Messages），以自身协议 fixture 和真实冒烟证明，登记在差分账本中，不计为 pi 差分通过。
 _Avoid_: 差分通过、pi 已覆盖
 
 **Live Smoke（真实冒烟）**：
@@ -193,12 +193,20 @@ _Avoid_: 默认配置、基准测试
 _Avoid_: 日志过滤、事后清理
 
 **Release Gate（发布门禁）**：
-发布前对 barness-ai 的一次判定：vet、离线与 race、全部 P0、固定基线的差分、十组合自身完整真实证据、逐包脱敏审计、完整需求追溯、目录/价格快照、设计负载与 Jev/Luna 各自独立中文效果均有效才可发布。必交能力不可声明不支持以放行；协议、资源容量与业务效果分别呈现。只有映射或历史通过而没有当前适用证据的条目不算通过。
+发布前对 barness-ai 的一次判定：vet、离线与 race、全部 P0、固定基线的差分、十三协议组合、十四独立型号支持身份的自身完整真实证据、逐包脱敏审计、完整需求追溯、目录/价格快照、设计负载、Jev/Luna 各自独立中文效果及 Jev/Decisions 各自独立视觉效果均有效才可发布。必交能力不可声明不支持以放行；协议、资源容量与业务效果分别呈现。只有映射或历史通过而没有当前适用证据的条目不算通过。
 _Avoid_: CI 绿灯、发布流程
 
 **Chinese Classification Evaluation（中文分类评估）**：
 宿主针对固定中文标注任务和固定分类型号形成的独立业务效果证据，包含准确率、误判、置信统计、完整样本状态与消耗。其适用范围由标注任务界定，独立于协议兼容与真实冒烟的支持结论。
 _Avoid_: 协议准确率、支持矩阵通过、生产准确率保证
+
+**Formal Source Renewal（正式来源续期）**：
+在保留原真实证据与消费记录的前提下，为当前执行源码重新取得同一正式身份完整真实证明的一次有界验收。历史通过和单场景诊断不能合成新的正式支持。
+_Avoid_: 重置预算、刷新旧报告、重放认证
+
+**Renewal Grant（续期授权）**：
+对固定身份、场景、执行来源及新增消费上限进行独立批准的验收授权，只对获准的一次续期有效，保留此前的全部消费。
+_Avoid_: 旧余额、永久测试许可、重新开账
 
 **Canonical Thinking Level（规范思考档位）**：
 跨厂商描述模型思考能力的有序档位 off/minimal/low/medium/high/xhigh/max；它与厂商请求中的 wire 值相互独立，也不代表已测得的实际推理强度。

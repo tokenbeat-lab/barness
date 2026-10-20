@@ -39,7 +39,10 @@ const APIS = {
 	},
 	"anthropic-messages": {
 		api: "@earendil-works/pi-ai/api/anthropic-messages",
-		catalogs: [{ models: "@earendil-works/pi-ai/providers/anthropic.models", catalog: "ANTHROPIC_MODELS" }],
+		catalogs: [
+			{ models: "@earendil-works/pi-ai/providers/anthropic.models", catalog: "ANTHROPIC_MODELS" },
+			{ models: "@earendil-works/pi-ai/providers/minimax.models", catalog: "MINIMAX_MODELS" },
+		],
 	},
 	"google-generative-ai": {
 		api: "@earendil-works/pi-ai/api/google-generative-ai",

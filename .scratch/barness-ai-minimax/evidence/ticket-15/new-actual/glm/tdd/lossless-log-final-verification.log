@@ -1,0 +1,78 @@
+{
+  "verified": true,
+  "actualSource": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "collectionOutcome": "FAIL",
+  "calls": 66,
+  "attempts": 66,
+  "threeRoutePublication": false,
+  "archive": {
+    "id": "actualRepairGLM7931",
+    "archiveSHA256": "5371d79f7324b501626b1f6c1f1cb36037be89c89206d2855c2001a161a0d6f0",
+    "files": 1127,
+    "entries": 1127,
+    "decodedTarBytes": 23930880
+  },
+  "secondary": {
+    "preflight": {
+      "files": 27910,
+      "entries": 27910,
+      "rawBytes": 220600643,
+      "decodedTarBytes": 271063040,
+      "archiveBytes": 39276565,
+      "archiveSHA256": "dbcb04ff6185c098766d73f45fbff5f2d67af2164fb87b86a7a22c65eef68e82"
+    },
+    "binary": {
+      "files": 4,
+      "entries": 4,
+      "rawBytes": 36157481,
+      "decodedTarBytes": 36167680,
+      "archiveBytes": 14737909,
+      "archiveSHA256": "b65ce438af742c1252146ae615f233f852eada2938c4aeebaedfd2bf4c24584b"
+    },
+    "binaryBody": {
+      "bytes": 36039538,
+      "sha256": "e9d802a2cd8f23ffafe8e52ccaf53b2d3e6bacbf7688b8b10845c6665745f980"
+    },
+    "manifests": [
+      {
+        "member": "preflight/no-key-live/20261018T110935.233553000Z/manifest.json",
+        "cases": 399,
+        "statuses": {
+          "PASS": 337,
+          "NOT_RUN": 62
+        },
+        "auditFindings": 0
+      },
+      {
+        "member": "preflight/no-key-live/20261018T111144.551580000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        },
+        "auditFindings": null
+      },
+      {
+        "member": "preflight/no-key-live/20261018T111200.219026000Z/manifest.json",
+        "cases": 1,
+        "statuses": {
+          "PASS": 1
+        },
+        "auditFindings": null
+      },
+      {
+        "member": "preflight/no-key-release-contracts/20261018T111310.829036000Z/manifest.json",
+        "cases": 10,
+        "statuses": {
+          "PASS": 10
+        },
+        "auditFindings": 0
+      }
+    ],
+    "artifactReferences": 15724,
+    "intentionalLinkMetadataProjections": 1,
+    "linksFollowed": false
+  },
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0,
+  "releaseCertified": false
+}

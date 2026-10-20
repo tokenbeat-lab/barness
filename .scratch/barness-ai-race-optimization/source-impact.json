@@ -1,0 +1,169 @@
+{
+  "baseline": "eae89d5a1170bc8b716e6ee9ab26d016b9bbd013",
+  "implementationSource": "0433459",
+  "changedAIInputs": [
+    "ai/README.md",
+    "ai/README.zh-CN.md",
+    "ai/e2e/glm_release_envelope_test.go",
+    "ai/e2e/release_gate_preflight_test.go",
+    "ai/internal/testkit/release/artifacts.go",
+    "ai/internal/testkit/release/load.go",
+    "ai/internal/testkit/release/preflight.go",
+    "ai/internal/testkit/release/preflight_test.go",
+    "ai/release/cmd/releasegate/checkpoint.go",
+    "ai/release/cmd/releasegate/checkpoint_test.go",
+    "ai/release/cmd/releasegate/collection.go",
+    "ai/release/cmd/releasegate/command.go",
+    "ai/release/cmd/releasegate/execution.go",
+    "ai/release/cmd/releasegate/execution_test.go",
+    "ai/release/cmd/releasegate/main.go",
+    "ai/release/cmd/releasegate/options.go",
+    "ai/release/cmd/releasegate/stages.go",
+    "ai/release/cmd/releasegate/testevents.go",
+    "ai/release/cmd/releasegate/testevents_test.go"
+  ],
+  "nativeReleaseReaderHardening": [
+    "ai/internal/testkit/release/artifacts.go",
+    "ai/internal/testkit/release/load.go"
+  ],
+  "strictMatrixConsumerReused": true,
+  "preflight": ".evidence/race-optimization/validation-0433459/preflight/preflight-report.json",
+  "preflightReady": false,
+  "checks": [
+    {
+      "id": "snapshots",
+      "name": "checked-in snapshots match the code",
+      "pass": true
+    },
+    {
+      "id": "live",
+      "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+      "pass": false,
+      "problems": [
+        "typesafe-classifier-jev-1.14.0: no live evidence bundle of this combination was audited (pass its current report with -live)"
+      ]
+    },
+    {
+      "id": "difference-ledger",
+      "name": "no pending differences and every extension route registered",
+      "pass": true
+    },
+    {
+      "id": "external-effects",
+      "name": "current independent Chinese and visual effects",
+      "pass": false,
+      "problems": [
+        "visual-effect-jev: missing, stale or not PASS",
+        "visual-effect-decisions: missing, stale or not PASS"
+      ]
+    },
+    {
+      "id": "external-audit",
+      "name": "all selected external bundles audited",
+      "pass": false,
+      "problems": [
+        "selected external bundle missing or failed audit"
+      ]
+    }
+  ],
+  "liveStatuses": [
+    {
+      "combo": "openai-responses",
+      "status": "PASS"
+    },
+    {
+      "combo": "anthropic-messages",
+      "status": "PASS"
+    },
+    {
+      "combo": "google-gemini",
+      "status": "PASS"
+    },
+    {
+      "combo": "openai-chat",
+      "status": "PASS"
+    },
+    {
+      "combo": "deepseek-responses",
+      "status": "PASS"
+    },
+    {
+      "combo": "deepseek-chat",
+      "status": "PASS"
+    },
+    {
+      "combo": "typesafe-classifier",
+      "status": "PASS"
+    },
+    {
+      "combo": "openai-images",
+      "status": "PASS"
+    },
+    {
+      "combo": "google-interactions-image",
+      "status": "PASS"
+    },
+    {
+      "combo": "openai-decisions",
+      "status": "PASS"
+    },
+    {
+      "combo": "typesafe-classifier-jev-1.14.0",
+      "status": "NOT_RUN"
+    },
+    {
+      "combo": "zhipu-chat",
+      "status": "PASS"
+    },
+    {
+      "combo": "zhipu-responses",
+      "status": "PASS"
+    },
+    {
+      "combo": "zhipu-messages",
+      "status": "PASS"
+    },
+    {
+      "combo": "minimax-chat",
+      "status": "PASS"
+    },
+    {
+      "combo": "minimax-responses",
+      "status": "PASS"
+    },
+    {
+      "combo": "minimax-messages",
+      "status": "PASS"
+    }
+  ],
+  "effects": [
+    {
+      "name": "chinese-effect-jev",
+      "bundle": "/Users/cyber/RestoX/barness/.evidence/minimax-current-eleven-remaining-1/text-jev/20261019T062419.461402000Z",
+      "status": "PASS",
+      "detail": "independent Chinese task; 24/24 answered; accuracy 1; conditional accuracy 1; ECE 0.0012500000000000844; Brier 0.00003333333333333336; cost USD 0.000539406; no quality threshold"
+    },
+    {
+      "name": "chinese-effect-luna",
+      "bundle": "/Users/cyber/RestoX/barness/.evidence/minimax-current-eleven-remaining-1/text-luna/20261019T062520.218732000Z",
+      "status": "PASS",
+      "detail": "independent Chinese task; 24/24 answered; accuracy 1; conditional accuracy 1; ECE 0.019999999999999993; Brier 0.0018083333333333348; cost USD 0.000623800; no quality threshold"
+    },
+    {
+      "name": "visual-effect-jev",
+      "bundle": "/Users/cyber/RestoX/barness/.evidence/minimax-current-visual-renewal-1/visual-jev",
+      "status": "FAIL",
+      "detail": "visual source, fixed inputs, captures, replay, metrics, budget or audit rejected"
+    },
+    {
+      "name": "visual-effect-decisions",
+      "bundle": "/Users/cyber/RestoX/barness/.evidence/minimax-current-visual-renewal-1/visual-decisions",
+      "status": "FAIL",
+      "detail": "visual source, fixed inputs, captures, replay, metrics, budget or audit rejected"
+    }
+  ],
+  "actualCommandsStarted": 0,
+  "proofsRenewed": 0,
+  "conclusion": "Unchanged native qualification rules accept MiniMax/GLM/text inputs; Jev1.14 support and both visual proofs reject changed release source. No selector shrink, historical hash refresh, matrix rewrite or paid renewal.",
+  "proofQualificationRulesAndSelectorsUnchanged": true
+}

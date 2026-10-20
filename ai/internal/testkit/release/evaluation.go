@@ -59,8 +59,23 @@ func ChineseEffectEvidence(routeName, dir string) EvidenceCheck {
 		e.Detail = "evaluation route identity mismatch"
 		return e
 	}
-	configHash := map[string]string{"jev": "sha256:6c62b676eaac362a59d6e01ee6bf4b85205f0440ebcdb21086de8fe4cdd6aa92", "luna": "sha256:61d1bb1ea8015dfca0f18d88eb1378fd72dc677fcc78c10fe446136c7bb621df"}[routeName]
-	if chineseeval.Hash(data) != "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb" || chineseeval.Hash(config) != configHash {
+	// These independent fixed-task pins exclude only the two evolving global
+	// catalog fields already validated by Plan.Load. Every business field,
+	// including instructions, route and exact timeout/budget, stays pinned.
+	var businessConfig map[string]any
+	if json.Unmarshal(config, &businessConfig) != nil {
+		e.Detail = "fixed dataset/config drift"
+		return e
+	}
+	delete(businessConfig, "catalogVersion")
+	delete(businessConfig, "catalogHash")
+	fixedConfig, err := json.Marshal(businessConfig)
+	if err != nil {
+		e.Detail = "fixed dataset/config drift"
+		return e
+	}
+	configHash := map[string]string{"jev": "sha256:97b38ad7127e2af34089ed051f3605c175ecaf3a4a97ce8c9258fb60f82a930f", "luna": "sha256:de6491e41406eb18c95a68ca10d74e6b03c7417578a30a7b096560ef61ab8ea1"}[routeName]
+	if chineseeval.Hash(data) != "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb" || chineseeval.Hash(fixedConfig) != configHash {
 		e.Detail = "fixed dataset/config drift"
 		return e
 	}

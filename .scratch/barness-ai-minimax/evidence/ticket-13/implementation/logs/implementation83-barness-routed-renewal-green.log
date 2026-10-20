@@ -1,0 +1,19 @@
+test_routed_round_requires_own_reviewed_direct_capture_receipts (test_renewal.Renewal.test_routed_round_requires_own_reviewed_direct_capture_receipts) ... FAIL
+
+======================================================================
+FAIL: test_routed_round_requires_own_reviewed_direct_capture_receipts (test_renewal.Renewal.test_routed_round_requires_own_reviewed_direct_capture_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_renewal.py", line 143, in test_routed_round_requires_own_reviewed_direct_capture_receipts
+    args[1]='.evidence/routed-complete';self.runcli(*args)
+                                        ~~~~~~~~~~~^^^^^^^
+  File "$WORKTREE/.scratch/barness-ai-minimax/tools/test_renewal.py", line 56, in runcli
+    if ok:self.assertEqual(p.returncode,0,p.stderr[-700:]+p.stdout[:200])
+          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : REFUSED: new task-owned .evidence/minimax collection required
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.199s
+
+FAILED (failures=1)

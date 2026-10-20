@@ -1,0 +1,36 @@
+{
+  "state": "COMPLETED",
+  "name": "race",
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "-race",
+    "./ai/e2e",
+    "-run",
+    "^TestMiniMax",
+    "-count=1",
+    "-timeout=8m"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 540,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T02:26:44.862076+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "BARNESS_AI_PIDIFF",
+    "BARNESS_AI_PRESSURE",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 168.26125925034285,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

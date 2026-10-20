@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "axis": "Standards source",
+  "decision": "APPROVED_SOURCE_ONLY",
+  "reviewedSource": "dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "base": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "diffCommand": "git diff d8e7100695a5747a801bf5f8966cef1a2d129e4c...dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98",
+  "commitLogCommand": "git log d8e7100695a5747a801bf5f8966cef1a2d129e4c..dcd30f7ce6bf65f5bd1101697c8e5c98155ceb98 --oneline",
+  "reviewedFiles": [
+    {
+      "path": "ai/live/glm_assembly_test.go",
+      "bytes": 8173,
+      "lines": 142,
+      "sha256": "2fd107f18e3d34b6793fd256a69322bd335e9be42f50d232fbca963fe25afaf9"
+    }
+  ],
+  "authorizationScope": "Parent-authorized issue16/designv2 prospective GLM-only Host ResponseHeaderTimeout90→120, with existing CallTimeout120; no paid approval.",
+  "findings": [],
+  "possibleSmells": [],
+  "summary": "No documented standard breach or actionable baseline smell found. The142-line file adds one GLM-only policy assignment through the existing public Host interface and extends the existing public Client E2E. Shared livePolicy, runtime, inventory, prompts, outputs4096, zero retries, connect15/read-idle90/call120/process1800 remain unchanged. The controlled TLS peer handles a fixed synthetic request, waits cancellably, counts requests atomically and closes timers/server/idle transport. The request clone maps only the test transport to loopback after asserting the official binding and synthetic credential; production destinations remain unchanged. Genuine failure-first receipts use the same test: old factory fails at90.002s with ResponseHeaderTimeout, then header120 succeeds after91.002s and call91.009s, one request/one attempt/zero vendor calls. All1048 green selected source bytes equal this commit; red snapshot differs only by the missing policy line. Existing two normal cases and focused Host/call/cancel ordinary/race plus dualvet retain numeric0 receipts. All3 M3 native263-file maps remain identical; all3 prior GLM217-file maps expire solely on this assembly. Old90s actual FAIL is unchanged, and local success does not establish vendor success by120s. Final frozen source/plan review and explicit new108/132 permission remain required before paid work.",
+  "receiptPins": [
+    {
+      "mode": "red-headers",
+      "exitCode": 1,
+      "state": "COMPLETED",
+      "observedSHA256": "74aed21c03b9e9a19d568b6250ae69a5d3a574901bde93f3dd6b19d3aa70cef8",
+      "commandReceiptSHA256": "85d4d791e37532032375d4ddfe9e5d7ed81f11ead9b6e4d7df9f1864688580a2",
+      "sourceCommit": "06229f68de6e9dc3100724f05365bb4bd414667a",
+      "sourceManifestSHA256": "36009a3beb212d810e2447fdf087f2c0f71e05936c9be4b75538149365b6607e"
+    },
+    {
+      "mode": "green-headers",
+      "exitCode": 0,
+      "state": "COMPLETED",
+      "observedSHA256": "a4db8ca5bcffef68b360e14e60f0392f10c925bf292e85381903569957697981",
+      "commandReceiptSHA256": "55303f22d7d57e39047f0340ad64fdc29f3a88668694905fdd0531da465b3e16",
+      "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+      "sourceManifestSHA256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32"
+    },
+    {
+      "mode": "green-normal",
+      "exitCode": 0,
+      "state": "COMPLETED",
+      "observedSHA256": "1f7bab40c80ea61a088e9ad74136b28818a2d5f29d29e998541b116774a29cf3",
+      "commandReceiptSHA256": "a7d82ae78728d1d2378b7b92791a0cccde02e10d0b3fb7deec4d9bbb1a50f060",
+      "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+      "sourceManifestSHA256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32"
+    },
+    {
+      "mode": "green-host-cancel",
+      "exitCode": 0,
+      "state": "COMPLETED",
+      "observedSHA256": "870a3db54e20417f0630c64d66d38608dd89cc161a77eb0ce99a048efb630121",
+      "commandReceiptSHA256": "6576907e88b99dc303109f959ae54e108e5a8515d1b67f19d825f4a1885e116d",
+      "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+      "sourceManifestSHA256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32"
+    },
+    {
+      "mode": "race-host-cancel",
+      "exitCode": 0,
+      "state": "COMPLETED",
+      "observedSHA256": "76cfa48507140fb5a110264b3da01ff648c56f0c8637256144b9c0d139fb131f",
+      "commandReceiptSHA256": "990a276d8f2a8d6e5d795944fdc41fc00c252dfd24a2a76b79b3853f3348cbde",
+      "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+      "sourceManifestSHA256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32"
+    },
+    {
+      "mode": "vet",
+      "exitCode": 0,
+      "state": "COMPLETED",
+      "observedSHA256": "1787e9cd09329cd3a23d0b0e80840ea9e7e7bbf05011c50fd55860f724b6a9fc",
+      "commandReceiptSHA256": "7f9912b5d22ee5d4e01b8acdaa1a423b435ffa9378fab66fd454535129b1ba25",
+      "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+      "sourceManifestSHA256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32"
+    },
+    {
+      "mode": "vet-live",
+      "exitCode": 0,
+      "state": "COMPLETED",
+      "observedSHA256": "f14842eff85d4a428c63af73c561d7bb82bfedafb06d2b1606f6eed77fc980f5",
+      "commandReceiptSHA256": "97801b258fe007b56a5f138e955fdd5d01588cb65b2463b11eef6915ad6cfac1",
+      "sourceCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+      "sourceManifestSHA256": "f4863028083dbd7c14790995927a07700cec17647d7da26a7eddfbae93e75b32"
+    }
+  ],
+  "sourceProof": {
+    "greenMeasuredHEAD": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+    "greenWorkingTreeChanged": true,
+    "greenSelectedFilesMatchingCommittedBytes": 1048,
+    "redMeasuredHEAD": "06229f68de6e9dc3100724f05365bb4bd414667a",
+    "redWorkingTreeChanged": true,
+    "redDiffersOnlyHeaderAssignment": true,
+    "selectedImpactSHA256": "3eebba48fd74b7033327ebbf238ab1f8f67f59ad01d2bc347ed163994d13ee27",
+    "M3": [
+      {
+        "route": "chat",
+        "selectedFiles": 263,
+        "changed": []
+      },
+      {
+        "route": "responses",
+        "selectedFiles": 263,
+        "changed": []
+      },
+      {
+        "route": "messages",
+        "selectedFiles": 263,
+        "changed": []
+      }
+    ],
+    "GLM": [
+      {
+        "route": "chat",
+        "selectedFiles": 217,
+        "changed": [
+          "ai/live/glm_assembly_test.go"
+        ],
+        "expired": true,
+        "historicalOutcomeUnchanged": true
+      },
+      {
+        "route": "responses",
+        "selectedFiles": 217,
+        "changed": [
+          "ai/live/glm_assembly_test.go"
+        ],
+        "expired": true,
+        "historicalOutcomeUnchanged": true
+      },
+      {
+        "route": "messages",
+        "selectedFiles": 217,
+        "changed": [
+          "ai/live/glm_assembly_test.go"
+        ],
+        "expired": true,
+        "historicalOutcomeUnchanged": true
+      }
+    ]
+  },
+  "standards": [
+    "AGENTS.md principles1-5,7-9 and failure-first public E2E testing rules",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0036",
+    "ADR0045",
+    "ADR0046",
+    "code-review full12-smell baseline; repo overrides; tool-enforced issues skipped"
+  ],
+  "boundaries": {
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "mergePerformed": false,
+    "paidApproval": false,
+    "vendorSuccessAt120Proven": false,
+    "freshFullSuiteCertified": false,
+    "priorReviewsUnchanged": true
+  }
+}

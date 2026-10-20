@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py", line 195, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py", line 170, in main
+    cap=metadata(b,a.metadata_root,label);pins,seen,result=full.verify(b,a.metadata_root/label,a.common_root,cap)
+  File "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py", line 49, in metadata
+    if len(raw)!=anchor['indexBytes'] or b.sha(raw)!=anchor['indexSHA256']:raise ValueError('independent original index anchor differs')
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: independent original index anchor differs

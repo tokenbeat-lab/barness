@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "vet",
+  "argv": [
+    "go",
+    "vet",
+    "./..."
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 600,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:14:17.501908+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.3389631658792496,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

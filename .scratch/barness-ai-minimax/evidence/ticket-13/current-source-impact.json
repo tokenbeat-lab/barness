@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "atSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "allUnchanged": true,
+  "selectedApplicabilityOnly": true,
+  "noPaidRerun": true,
+  "evidence": [
+    {
+      "kind": "M3 formal",
+      "route": "chat",
+      "recordedSourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+      "selectedFiles": 263,
+      "changed": []
+    },
+    {
+      "kind": "M3 formal",
+      "route": "responses",
+      "recordedSourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+      "selectedFiles": 263,
+      "changed": []
+    },
+    {
+      "kind": "M3 formal",
+      "route": "messages",
+      "recordedSourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "reportSHA256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+      "selectedFiles": 263,
+      "changed": []
+    },
+    {
+      "kind": "historical GLM R1 selected applicability only",
+      "route": "chat",
+      "sourceMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "selectedFiles": 217,
+      "changed": [],
+      "historicalOutcomeUnchanged": true
+    },
+    {
+      "kind": "historical GLM R1 selected applicability only",
+      "route": "responses",
+      "sourceMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "selectedFiles": 217,
+      "changed": [],
+      "historicalOutcomeUnchanged": true
+    },
+    {
+      "kind": "historical GLM R1 selected applicability only",
+      "route": "messages",
+      "sourceMapSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "selectedFiles": 217,
+      "changed": [],
+      "historicalOutcomeUnchanged": true
+    }
+  ],
+  "currentRoundExecutionFiles": [
+    {
+      "phase": "glm",
+      "recordedSourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+      "sourceManifestSHA256": "dc5f1a1eddd990a885345e428614e9ac3dc91349ebca1db7765079f3a2d6b906",
+      "selectedFiles": 1047,
+      "changed": []
+    },
+    {
+      "phase": "legacy",
+      "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "sourceManifestSHA256": "33701d9c83a2a6487105e17e102264686e038ce89b396851317dd35043b5d844",
+      "selectedFiles": 1047,
+      "changed": []
+    }
+  ],
+  "exclusions": "Support-matrix data and evidence/status documents follow their own actual input pins; this comparison is execution-source applicability, not a new paid or full-suite execution."
+}

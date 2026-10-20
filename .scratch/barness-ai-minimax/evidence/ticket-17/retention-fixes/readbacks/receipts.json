@@ -1,0 +1,29 @@
+{
+  "capture": "tool-observed completed read-only public invocations",
+  "commands": [
+    {
+      "command": "barness-t17-current-original-verification",
+      "observedToolExitCode": 0,
+      "stdoutSHA256": "df1c90b3d6145b5755c7d2ff7f0c290c0e76b92bbd8b53238c195f60a1b8daeb",
+      "stderrBytes": 0,
+      "file": "readbacks/barness-t17-current-original-verification.json.gz"
+    },
+    {
+      "command": "barness-t17-correction-public-verification",
+      "observedToolExitCode": 0,
+      "stdoutSHA256": "ef519b24aeaef44fdb29842dfc130685fbaddb73666b59c9c566e42f8526e9db",
+      "stderrBytes": 0,
+      "file": "readbacks/barness-t17-correction-public-verification.json.gz"
+    },
+    {
+      "command": "barness-repair-verdict-after-producer-fix-verification",
+      "observedToolExitCode": 0,
+      "stdoutSHA256": "ca0962891d1dcc774d25d545623a986b828d8dafe8051240ea0c56ee6ae5f6ac",
+      "stderrBytes": 0,
+      "file": "readbacks/barness-repair-verdict-after-producer-fix-verification.json.gz"
+    }
+  ],
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "releaseCertified": false
+}

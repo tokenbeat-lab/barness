@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""Exercise actual public creators at real OS opens on isolated private files."""
+import argparse,hashlib,json,os,runpy,shutil,signal,stat,subprocess,sys,time
+from pathlib import Path
+BASE=Path(__file__).resolve().parent;REPO=BASE.parents[4];PRIMARY=Path('/Users/cyber/RestoX/barness');sha=lambda v:hashlib.sha256(v).hexdigest()
+
+def fingerprint(path):
+ st=path.lstat()
+ with path.open('rb') as f:digest=hashlib.file_digest(f,'sha256').hexdigest()
+ return dict(type=stat.S_IFMT(st.st_mode),mode=stat.S_IMODE(st.st_mode),bytes=st.st_size,sha256=digest)
+
+def child(a):
+ producer=Path(a.producer).resolve();base=producer.parent;root=base.parents[3] if a.creator=='ticket17' else PRIMARY
+ targets={};commands=[]
+ if a.creator=='ticket17':
+  raw=root/'.evidence/minimax-ticket17';commands=[raw/name/'command.json' for name in ('red-containers','red-containers-actual')];targets={'command-oversize':commands[0],'command-fifo':commands[0],'command-link':commands[0],'source-oversize':base/'source-proof.json'}
+ elif a.case=='suite-oversize':targets[a.case]=base.parent/'ordinary/index.json'
+ log=Path(a.events);seen={};injected=False
+ def emit(v):
+  with log.open('a') as f:f.write(json.dumps(v)+'\n')
+ def audit(event,args):
+  nonlocal injected
+  if event!='open' or not isinstance(args[0],(str,bytes)):return
+  path=Path(os.fsdecode(args[0]));mode=args[1];flags=args[2]
+  if path==log:return
+  if path in commands:emit(dict(event='command-open',path=str(path),mode=mode,flags=flags))
+  match=path==targets.get(a.case)
+  if a.case=='archive-grow':match=path.suffix=='.gz' and path.name.endswith('-raw.tar.gz') and path.is_relative_to(Path(a.common)) and not flags&(os.O_WRONLY|os.O_RDWR)
+  if not match or injected:return
+  seen[str(path)]=seen.get(str(path),0)+1
+  if a.case=='source-oversize' and seen[str(path)]!=3:return
+  injected=True
+  # Detach only the private directory entry. Never mutate or chmod shared inode.
+  old=path.read_bytes() if a.case!='archive-grow' else None
+  path.unlink()
+  if a.case in ('command-oversize','source-oversize','suite-oversize'):
+   with path.open('xb') as f:f.write(old);f.truncate(65<<20)
+   # JSON permits trailing whitespace, rather than NUL bytes.
+   with path.open('r+b') as f:
+    f.seek(len(old));chunk=b' '*(1<<20)
+    for _ in range(65):
+     left=(65<<20)-f.tell()
+     if left<=0:break
+     f.write(chunk[:left])
+  elif a.case=='command-fifo':os.mkfifo(path)
+  elif a.case=='command-link':
+   sibling=path.with_name('private-valid-command.json');sibling.write_bytes(old);path.symlink_to(sibling.name)
+  elif a.case=='archive-grow':
+   with path.open('xb') as f:f.truncate(257<<20)
+  emit(dict(event='injected',case=a.case,path=str(path),mode=mode,flags=flags,at=time.monotonic()))
+ sys.path.insert(0,str(base));sys.addaudithook(audit);sys.argv=[str(producer),'--common-root',a.common];runpy.run_path(str(producer),run_name='__main__')
+
+def main(a):
+ out=Path(a.out).resolve();out.mkdir(parents=True,exist_ok=False);clone=out/'clone';relative=Path('.scratch/barness-ai-minimax/evidence');t17=REPO/relative/'ticket-17';dest=clone/relative/'ticket-17'
+ shutil.copytree(t17,dest,ignore=shutil.ignore_patterns('retention-fixes','index.json','__pycache__'))
+ for rel in ('implementation/verify.py','final-gate/capsule.py'):
+  target=clone/relative/'ticket-13'/rel;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(REPO/relative/'ticket-13'/rel,target)
+ if a.creator=='ticket17':
+  raw=REPO/'.evidence/minimax-ticket17';shutil.copytree(raw,clone/'.evidence/minimax-ticket17',copy_function=os.link)
+  producer=dest/'freeze.py';original=(raw/'red-containers/command.json') if a.case.startswith('command-') else t17/'source-proof.json';archive=PRIMARY/'.evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz'
+ else:
+  actual=REPO/relative/'ticket-15/new-actual/final-gate';target=clone/relative/'ticket-15/new-actual/final-gate';shutil.copytree(actual,target,ignore=shutil.ignore_patterns('__pycache__'))
+  for lane in ('race','verdict'):
+   (target/lane/'index.json').unlink()
+  # Verdict references the unchanged race/ordinary metadata, so restore race index.
+  if a.creator=='verdict':shutil.copyfile(actual/'race/index.json',target/'race/index.json')
+  producer=target/a.creator/'freeze.py';original=actual/'ordinary/index.json';archive=PRIMARY/('.evidence/minimax-retained/ticket-15-new-actual/incomplete-'+('outer' if a.creator=='verdict' else 'race')+'-raw.tar.gz')
+ before=dict(target=fingerprint(original),archive=fingerprint(archive));common=out/'common';(common/'.evidence/minimax-retained/ticket-15-new-actual').mkdir(parents=True);events=out/'events.jsonl'
+ argv=[sys.executable,'-B',str(Path(__file__).resolve()),'--child','--creator',a.creator,'--case',a.case,'--producer',str(producer),'--common',str(common),'--events',str(events)]
+ started=time.monotonic();timed=False
+ with (out/'stdout.log').open('xb') as stdout,(out/'stderr.log').open('xb') as stderr:
+  process=subprocess.Popen(argv,stdout=stdout,stderr=stderr,start_new_session=True,env={k:os.environ[k] for k in ('PATH','HOME','TMPDIR') if k in os.environ})
+  while process.poll() is None:
+   records=[json.loads(v) for v in events.read_text().splitlines()] if events.exists() else []
+   injection=next((v for v in records if v['event']=='injected'),None)
+   if (injection and a.case=='command-fifo' and time.monotonic()-injection['at']>3) or time.monotonic()-started>240:
+    if os.getpgid(process.pid)!=process.pid:raise ValueError('owned process group required')
+    os.killpg(process.pid,signal.SIGTERM);timed=True
+    try:process.wait(timeout=5)
+    except subprocess.TimeoutExpired:os.killpg(process.pid,signal.SIGKILL)
+    break
+   time.sleep(.1)
+  code=process.wait()
+ records=[json.loads(v) for v in events.read_text().splitlines()] if events.exists() else [];diagnostic=(out/'stderr.log').read_text();after=dict(target=fingerprint(original),archive=fingerprint(archive));next_read=any(v['event']=='command-open' and 'red-containers-actual' in v['path'] for v in records);index=(producer.parent/'index.json').exists();injected=any(v['event']=='injected' for v in records)
+ row=dict(case=a.case,creator=a.creator,expectation=a.expect,argv=argv,exitCode=code,seconds=time.monotonic()-started,timeout=timed,injected=injected,nextCommandRead=next_read,indexPublished=index,diagnostic=diagnostic,originalBefore=before,originalAfter=after,originalsUnchanged=before==after,producerSHA256=sha(producer.read_bytes()),probeSHA256=sha(Path(__file__).read_bytes()),credentialsRead=False,paidCalls=0)
+ (out/'receipt.json').write_text(json.dumps(row,indent=2)+'\n');print(json.dumps(row,indent=2),flush=True)
+ if not injected or before!=after:raise ValueError('real injected boundary and unchanged original required')
+ if a.expect=='unsafe':
+  expected=(timed if a.case=='command-fifo' else next_read if a.case.startswith('command-') else code==0 and index)
+ else:expected=code==1 and not timed and not index and not next_read and any(v in diagnostic for v in ('bound','limit','regular','Too many levels'))
+ if not expected:raise ValueError('public creator did not demonstrate expected boundary behavior')
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--creator',choices=('ticket17','race','verdict'),required=True);p.add_argument('--case',required=True);p.add_argument('--expect',choices=('unsafe','bounded'));p.add_argument('--out');p.add_argument('--child',action='store_true');p.add_argument('--producer');p.add_argument('--common');p.add_argument('--events');a=p.parse_args();child(a) if a.child else main(a)

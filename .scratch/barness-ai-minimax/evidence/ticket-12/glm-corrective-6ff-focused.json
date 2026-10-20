@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "name": "glm-corrective-6ff-focused",
+  "codeCommit": "6ff05b843750d062de012bd4f64da625a3caa189",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "glm-corrective-6ff-focused.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/glm-corrective-6ff-focused.tar.gz",
+  "archiveBytes": 4003250,
+  "archiveSha256": "21237d7fb0194ddf87222e3feef2f7ea44024a3e930652fc6302d5e1d53c24e7",
+  "files": 3677,
+  "negativeSymlinkFixtures": 0,
+  "entries": 3677,
+  "expandedBytes": 96024029,
+  "inventory": "glm-corrective-6ff-focused-files.json.gz",
+  "inventorySha256": "f7b6bfea0b04d3c083e052c6dceaeebacae97906084ca1bc56a4633b2f462ba5",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "final-focused-checks",
+      "manifest": "final-focused-checks/normal-evidence/20261018T034023.762556000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 4
+      },
+      "artifactReferences": 1830,
+      "auditFindings": 0
+    },
+    {
+      "group": "final-focused-checks",
+      "manifest": "final-focused-checks/race-evidence/20261018T034024.322072000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 4
+      },
+      "artifactReferences": 1830,
+      "auditFindings": 0
+    }
+  ]
+}

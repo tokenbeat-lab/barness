@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "kind": "actual-owned-manual-worktree-cleanup",
+  "startedAt": "2026-10-18T14:11:05.087581+00:00",
+  "finishedAt": "2026-10-18T14:12:41.679254+00:00",
+  "ownedPath": "/private/tmp/barness-minimax-routed-validation",
+  "sourceCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
+  "command": [
+    "git",
+    "-C",
+    "/Users/cyber/RestoX/barness",
+    "worktree",
+    "remove",
+    "--force",
+    "/private/tmp/barness-minimax-routed-validation"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "removed": true,
+  "remainingWorktrees": "worktree /Users/cyber/RestoX/barness\nHEAD 6b440de18181128e082c56acc10d277fb0a721ab\nbranch refs/heads/codex/minimax-global\n\n",
+  "recoverableBranch": "codex/minimax-routed-validation",
+  "recoverableBranchPreserved": true,
+  "originalArchivesRetained": true,
+  "retainedCommonRootReferences": [
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/assembly-failed-raw.tar.gz",
+      "bytes": 958322,
+      "sha256": "dd017296ceee895329bf6fb6566435747a03b47ccb088b8bbe6d86ae8d7273f4",
+      "actualBytes": 958322,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-actual-raw.tar.gz",
+      "bytes": 1601166,
+      "sha256": "d49a9364fd60f31a8c546d394fc6969514a05f34be88e5a19c0982098216de7f",
+      "actualBytes": 1601166,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-preflight-raw.tar.gz",
+      "bytes": 39283805,
+      "sha256": "0e10dbd70e8654994ee744fb564fb9e5bc4b148780752861351d68698fbdd4e9",
+      "actualBytes": 39283805,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-binary-raw.tar.gz",
+      "bytes": 11578776,
+      "sha256": "49a30b5d22d5d1a2bed27db5b0c5f9bbb601a3390dceb4dd07cc609d8a170f3b",
+      "actualBytes": 11578776,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-binary-raw.tar.gz",
+      "bytes": 14737909,
+      "sha256": "b65ce438af742c1252146ae615f233f852eada2938c4aeebaedfd2bf4c24584b",
+      "actualBytes": 14737909,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+      "bytes": 114797350,
+      "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+      "actualBytes": 114797350,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-race-raw.tar.gz",
+      "bytes": 114046383,
+      "sha256": "d4d61315538ee4ae0d276fe54af46b11bdeedc8548be80b567d657f02d6ae473",
+      "actualBytes": 114046383,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-outer-raw.tar.gz",
+      "bytes": 13522586,
+      "sha256": "28a657eb1aecf02036af15ec47513c9f3100c0e6317e615a63429ff8a78fba3a",
+      "actualBytes": 13522586,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-raw.tar.gz",
+      "bytes": 2715968,
+      "sha256": "5371d79f7324b501626b1f6c1f1cb36037be89c89206d2855c2001a161a0d6f0",
+      "actualBytes": 2715968,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-preflight-raw.tar.gz",
+      "bytes": 39276565,
+      "sha256": "dbcb04ff6185c098766d73f45fbff5f2d67af2164fb87b86a7a22c65eef68e82",
+      "actualBytes": 39276565,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d",
+      "actualBytes": 90847757,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-factory-correction-raw.tar.gz",
+      "bytes": 165488,
+      "sha256": "efd73a8b8d1d6c35c64d48e138511df3a90e9a849f29393f23f12ea4825686c5",
+      "actualBytes": 165488,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+      "bytes": 90847871,
+      "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+      "actualBytes": 90847871,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-float-negative.tar.gz",
+      "bytes": 90847894,
+      "sha256": "5cb9eddba4cbca5c4f03cf0521ad58028d18ca9aa56ec8886bfc951edd162161",
+      "actualBytes": 90847894,
+      "modeOctal": "0o444",
+      "regular": true,
+      "shaSource": "Previously independently full-stream verified; cleanup checks retained size/type/mode, not a new hash certification."
+    }
+  ],
+  "userUntrackedStatusBefore": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/\n",
+  "userUntrackedStatusAfter": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/\n",
+  "userUntrackedPathsUntouchedByTask": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "qualification": "Cleanup only. No release/native/current-source certification."
+}

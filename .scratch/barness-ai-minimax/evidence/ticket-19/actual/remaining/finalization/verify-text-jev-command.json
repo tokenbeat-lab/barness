@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-text-jev",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/chineseeval",
+    "-route",
+    "jev",
+    "-verify",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/text-jev/20261019T062419.461402000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:16.347036+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.07933037541806698,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,50 @@
+# 19 — 当前源码十一组严格证据复验
+
+Type: task
+Status: resolved
+Blocked by: None
+
+## Question
+
+2026-10-19 用户要求说明并重新验证 M3×3、GLM×3、文本×2、protocol114×1、视觉×2 的当前源码证明，验证通过后更新上下文及相关文档。
+
+## Scope
+
+先在当前集成分支实际执行无 Key 来源/公开消费者复核；保留原报告、源码集合、哈希、场景结果与消费历史。旧报告的历史完整性、录制重放与当前正式资格分别记录，不通过重算旧 pins 或缩小 selector 授予资格。票18 Messages cancel 的最新单场景 PASS 保持，不拼接成正式22场景。
+
+若当前严格资格仍缺失，准备一次固定十一组的有界新验收：M3 三正式身份各13场景（通常13calls/12Attempts）；GLM 三协议各22场景；文本两路线各24样本；protocol114 与视觉两路线各12样本。沿用既有单进程上限，总上限216calls/252HTTPAttempts；单次输出最多4096tokens。场景内原已登记 M3 有界 rerun 仍占同一进程/阶段上限；不自动重开进程或追加轮次。中国区 GLM 直连；国际 M3、文本、protocol 与视觉经 `http://127.0.0.1:7890`。
+
+原 MiniMax candidate/formal 持久账本、canonical launcher 收据及所有已关闭旧授权均不可重置/覆盖。旧 formal39calls/36Attempts 不足以再次承载三完整身份，且普通场景不能在旧账本重复，因此先形成独立、明确授权且绑定当前源码/旧账本尾哈希的新续期边界。外层历史续期648/648与原M3候选/正式消费均原样保留，不把新目录或session当作预算重置。
+
+## Acceptance
+
+- 记录当前源码下十一组来源集合与实际公开验证退出/错误；离线检查不读 `.env`、不访问厂商。
+- 新付费执行前，固定十一项计划、当前已提交来源、二进制、完整前置检查与预算，补齐 M3 续期的持久授权/来源/原件边界并独立复核。新追加预算须有直接人类批准；旧授权不移用。
+- 成功时保存全部独立真实报告，通过原正式消费者与来源集合比较；GLM 三路同轮完整成功后才能严格发布 raw/known-usage/views。随后重新冻结其余受影响集合，保留全部历史失败。
+- 更新交付状态、机器上下文、spec/任务图及相关说明，明确十一组资格和完整发布门禁各自状态；失败不改成 PASS、不自动开启下一轮。
+
+## Comments
+
+2026-10-19：继续 implement-spec。当前基点5ba4202；原用户未跟踪目录保持。新一轮尚未读 Key、尚未建立收费 intent。
+
+2026-10-19 无Key前置复核完成：来源751ad94（AI代码同6a24ba3），11项旧输入均拒绝当前正式资格。实际公开CLI/文本公开API出口及完整日志见[前置证据](../evidence/ticket-19/precheck/README.md)。0Key/0收费；不会把该诊断或旧快照完整性当作当前formal通过。固定新续期边界继续离线实现。
+
+2026-10-19：续期实现源码fbbdea4已集成；[Standards/Spec源码复审](../evidence/ticket-19/reviews/README.md)均0未解决发现。原Spec P2为旧generic10重复导入遇相等LastRunAt拒绝，保留真实公开CLI RED1与独立审计GREEN0；修正为独立矩阵审计17份、默认候选仅更新新7行。六项最终无Key前置检查、固定完整Python工具检查与新增216/252直接批准尚待完成；无真实Key、付费intent或grant，票不关闭。
+
+2026-10-19：首次冻结0bb完整前置检查5通过/1live脱敏审计失败，原件见[首轮检查](../evidence/ticket-19/preflight-first/README.md)。HOME路径诊断修复a257经双轴复审各0发现，原执行/断言/审计不变；普通、race、双vet0及12份子报告0预算均留存。固定fbb的80项Python工具测试PASS；该测量前后1074来源相等，不把后续单个Go测试变更冒充同源重跑。两组有界归档读回0，合并a808无额外源码变更。下一步新冻结六项检查、精确计划复审与216/252新增预算批准；当前真实调用仍0。
+
+2026-10-19：最终冻结d235/1074文件的六项实际前置检查全部exit0，精确来源/二进制/固定计划与历史输入经独立最终复核通过；source-only批准仅覆盖固定三GLM路线，原件见[最终前置记录](../evidence/ticket-19/preflight-final/README.md)。已询问一次新增216/252预算；尚未取得该轮直接批准，不读Key、不建收费intent/真实grant。原11组当前formal资格未授予，完整发布未认证。工作树已清理，分支/中央原件保留；活动阶段HEAD维持d235，新文档/收据待该阶段关闭后提交。
+
+2026-10-19：直接回复call_11ea21ff批准新增216/252，固定十一项正式复验开始；canonical human批准bc185e82已保存，GLM阶段冻结d235，三路中国直连。该次批准覆盖后续独立重新冻结/检查/审查的国际其余八项，最大预算不追加、不自动续轮。
+
+2026-10-19：GLM三路新正式各22/22、共66/66全部PASS；Messages glm-5.3/cancel 1146ms PASS，usage partial未知不记免费。严格raw/known-usage公开验证后提交336a78b，派生support views公开验证亦0；四selector以两步独立提交进入其余八项新冻结，runtime/断言/原始报告未变。
+
+2026-10-19：固定十一项已全部执行关闭、真实报告11/11 PASS；新增189calls/186Attempts，未用27/66不转移。新M3三正式自身39/36；文本两路各24/24，protocol/视觉各12/12。来源b9c3c7c公开正式消费者、两文本当前API及17份支持输入审计全部exit0；仅导入新7行，旧10行对象/时间不变，默认矩阵17PASS/0FAIL。M3.1三路新NOT_RUN0/0。原件见[本轮剩余证据](../evidence/ticket-19/actual/remaining/README.md)。完整发布门禁与最终数据/文档独立审查待执行，本票不提前关闭。
+
+2026-10-19 本轮最新检查点：十一组真实复验及当前来源公开消费者全部PASS，新增189/186、固定216/252关闭。来源01341完整门禁已实际结束，双vet/ordinary/race=0/0/0/1，CLI1、报告false；ordinary12495PASS/audit0，race12494PASS/1FAIL/audit1。唯一VQ12-failure-decisions-plain-deadline及其零字节request.json审计失败正在独立工作树离线修复，原17支持与四效果均PASS、测量前后来源/输入未变。当前root源码尚未修改，十一组证明保留；完整交付不宣称通过。见[交付状态](../delivery-status.md)。
+
+## Answer
+
+固定十一组重新采集及当前源码公开消费者均通过：11/11 PASS，新增189calls/186HTTPAttempts；216/252合同已关闭，未用27/66不转移。Messages `glm-5.3/cancel` 在完整22场景新报告中1146ms PASS，partial usage不记免费。17份支持输入审计0，仅导入新7行，旧generic10对象及时间保持；矩阵17PASS。全部原件、旧失败与授权已留存，[实际结果](../evidence/ticket-19/actual/remaining/README.md)、[完整原件归档](../evidence/ticket-19/actual-retained/README.md)。
+
+本票要求的完整发布验收已实际执行并诚实留存：[门禁原件](../evidence/ticket-19/final-gate/README.md)，双vet/ordinary/race=0/0/0/1、release=false。race唯一视觉deadline证据缺陷由后续20离线修复承接；留存及数据审查零发现，不授予发布资格。当前视觉修复仍在独立工作树，未合入；原十一组在01341的来源证明保留，spec、10、09继续开放。此Answer仅关闭本票十一组复验与真实结果留存范围，不声称完整spec通过，也不新增付费授权。

@@ -43,10 +43,17 @@ func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) re
 	if provider == ProviderOpenAI {
 		prefix = "OpenAI API error"
 	}
-	return responsesFailures{httpFailures{apiKey: apiKey, clock: c, requestIDHeader: requestIDHeaderOf(provider),
+	f := httpFailures{apiKey: apiKey, clock: c, requestIDHeader: requestIDHeaderOf(provider),
 		describe: func(res *http.Response, body []byte) (string, string) {
 			return describeHTTPError(prefix, res.StatusCode, body)
-		}}}
+		}}
+	if provider == ProviderMiniMax {
+		f.minimax = APIOpenAIResponses
+	}
+	if provider == ProviderZhipu {
+		f.glm = APIOpenAIResponses
+	}
+	return responsesFailures{f}
 }
 
 // stream classifies an error that ended the SSE stream early.

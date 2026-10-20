@@ -1,0 +1,9 @@
+--- FAIL: TestMiniMaxPromotionBoundary (3.82s)
+    minimax_promotion_test.go:66: [MM10-promotion-boundary] same binary refuses first-distinct-receipt: exit status 1 lstat absent-chat/minimax-report.json: no such file or directory
+    minimax_promotion_test.go:66: [MM10-promotion-boundary] same binary refuses second-distinct-receipt: exit status 1 lstat absent-chat/minimax-report.json: no such file or directory
+    minimax_promotion_test.go:66: [MM10-promotion-boundary] same binary refuses concurrent-one: exit status 1 lstat absent-chat/minimax-report.json: no such file or directory
+    minimax_promotion_test.go:66: [MM10-promotion-boundary] same binary refuses concurrent-two: exit status 1 lstat absent-chat/minimax-report.json: no such file or directory
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/barness-ai/20261017T231903.687092000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	4.431s
+FAIL

@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -24,6 +25,11 @@ const OfflinePackage = "./ai/e2e"
 // LoadBundle reads an offline evidence bundle: every case's status from
 // manifest.json and every differential case's verdict from its pidiff.json.
 func LoadBundle(dir string) (Bundle, error) {
+	source, root, err := openArtifactBundle(dir)
+	if err != nil {
+		return Bundle{}, err
+	}
+	defer root.Close()
 	var m struct {
 		Package   string `json:"package"`
 		GitCommit string `json:"git_commit"`
@@ -34,41 +40,59 @@ func LoadBundle(dir string) (Bundle, error) {
 			Artifacts map[string]string `json:"artifacts"`
 		} `json:"cases"`
 	}
-	if err := readJSON(filepath.Join(dir, "manifest.json"), &m); err != nil {
+	if err := readBundleManifest(root, &m); err != nil {
 		return Bundle{}, err
 	}
 	if m.Package != OfflinePackage {
 		return Bundle{}, fmt.Errorf("release: %s is a bundle of %q, not the offline E2E (%s)", dir, m.Package, OfflinePackage)
 	}
-	b := Bundle{Dir: dir, Commit: m.GitCommit, caseDirs: map[string]string{}}
+	b := Bundle{Dir: dir, Commit: m.GitCommit, caseFiles: map[string]verifiedCase{}}
+	seenDirs := map[string]bool{}
 	for _, c := range m.Cases {
 		// Manifest identifiers become report fields. Reject sensitive names
 		// before conversion rather than copy them into a failed release report.
 		if len(audit.File("identifiers.txt", []byte(c.ID+"\n"+c.Dir), audit.Environment())) != 0 {
 			return Bundle{}, fmt.Errorf("release: evidence case identifier failed redaction audit")
 		}
-		if c.ID == "" || c.Dir == "" || filepath.IsAbs(c.Dir) || filepath.Clean(c.Dir) != c.Dir || strings.HasPrefix(c.Dir, "..") || b.caseDirs[c.ID] != "" {
+		// Run.Finish preserves the raw ID, including the meaningful empty-effort
+		// leaf. Only that single trailing separator may differ from its physical
+		// directory; never clean an otherwise unsafe path into an accepted one.
+		physical := strings.TrimSuffix(c.Dir, "/")
+		if c.ID == "" || !canonicalArtifactPath(physical) || b.caseFiles[c.ID].bundle != nil || seenDirs[physical] {
 			return Bundle{}, fmt.Errorf("release: invalid or duplicate evidence case directory")
 		}
-		b.caseDirs[c.ID] = filepath.Join(dir, c.Dir)
-		if err := verifyArtifactInventory(b.caseDirs[c.ID], c.Artifacts); err != nil {
-			b.Problems = append(b.Problems, err.Error())
+		seenDirs[physical] = true
+		caseRoot, inventoryErr := openInventoryCase(root, physical)
+		if inventoryErr != nil && !errors.Is(inventoryErr, fs.ErrNotExist) {
+			return Bundle{}, fmt.Errorf("release: unsafe evidence case directory")
 		}
+		if inventoryErr == nil {
+			inventoryErr = verifyCaseArtifactInventory(caseRoot, c.Artifacts)
+			caseRoot.Close()
+		}
+		if inventoryErr != nil {
+			b.Problems = append(b.Problems, inventoryErr.Error())
+		}
+		files := verifiedCase{bundle: source, dir: physical, artifacts: c.Artifacts, verified: inventoryErr == nil}
+		b.caseFiles[c.ID] = files
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
 		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {
 			continue
 		}
+		if inventoryErr != nil {
+			b.Diffs = append(b.Diffs, DiffCase{ID: c.ID, Status: c.Status, Missing: []string{"artifact inventory invalid"}})
+			continue // do not consume a verdict from an unverified artifact tree
+		}
 		var v map[string]json.RawMessage
-		path := filepath.Join(dir, c.Dir, "pidiff.json")
-		if _, err := os.Stat(path); err != nil {
+		if c.Artifacts["pidiff.json"] == "" {
 			continue // the gate reports the missing verdict
 		}
-		if err := readJSON(path, &v); err != nil {
+		if err := files.json("pidiff.json", maxInventoryFile, &v); err != nil {
 			return Bundle{}, err
 		}
 		var pending *int
 		if err := json.Unmarshal(v["pending"], &pending); err != nil || pending == nil {
-			return Bundle{}, fmt.Errorf("release: %s has no pending count", path)
+			return Bundle{}, fmt.Errorf("release: differential artifact has no pending count")
 		}
 		d := DiffCase{ID: c.ID, Status: c.Status, Pending: *pending}
 		for _, field := range diffRecordFields {
@@ -78,7 +102,7 @@ func LoadBundle(dir string) (Bundle, error) {
 		}
 		d.Missing = append(d.Missing, differentialRecordProblems(c.ID, v)...)
 		if strings.HasPrefix(c.ID, "PIDIFF-P10-") {
-			d.Missing = append(d.Missing, decisionsCaptureProblems(filepath.Join(dir, c.Dir), v)...)
+			d.Missing = append(d.Missing, decisionsCaptureProblems(files, v)...)
 		}
 		b.Diffs = append(b.Diffs, d)
 	}
@@ -180,7 +204,7 @@ func safeAuditFindings(findings []audit.Finding, forbidden []audit.Forbidden) []
 
 // GoModules returns the module versions go.mod in dir pins.
 func GoModules(dir string) (map[string]string, error) {
-	data, err := os.ReadFile(filepath.Join(dir, "go.mod"))
+	data, err := readArtifact(filepath.Join(dir, "go.mod"), 1<<20)
 	if err != nil {
 		return nil, fmt.Errorf("release: %w", err)
 	}
@@ -196,7 +220,7 @@ func GoModules(dir string) (map[string]string, error) {
 
 // LoadLedger reads and validates the difference ledger.
 func LoadLedger(path string) (Ledger, error) {
-	data, err := os.ReadFile(path)
+	data, err := readArtifact(path, 16<<20)
 	if err != nil {
 		return Ledger{}, fmt.Errorf("release: %w", err)
 	}
@@ -213,7 +237,7 @@ func LoadLedger(path string) (Ledger, error) {
 
 // LoadTraceMap reads and validates the traceability map.
 func LoadTraceMap(path string) (TraceMap, error) {
-	data, err := os.ReadFile(path)
+	data, err := readArtifact(path, 16<<20)
 	if err != nil {
 		return TraceMap{}, fmt.Errorf("release: %w", err)
 	}
@@ -242,7 +266,7 @@ func CatalogSnapshot() ([]byte, error) {
 
 // CheckSnapshot compares the checked-in snapshot at path with the code's.
 func CheckSnapshot(name, path string, want []byte) Snapshot {
-	got, err := os.ReadFile(path)
+	got, err := readArtifact(path, 16<<20)
 	switch {
 	case err != nil:
 		return Snapshot{Name: name, Detail: err.Error()}
@@ -284,7 +308,7 @@ func Fixtures(base, root string) ([]Fixture, error) {
 }
 
 func readJSON(path string, v any) error {
-	data, err := os.ReadFile(path)
+	data, err := readArtifact(path, maxInventoryFile)
 	if err != nil {
 		return fmt.Errorf("release: %w", err)
 	}

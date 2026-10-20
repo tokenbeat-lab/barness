@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-visual-decisions",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visualeval",
+    "-verify",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visual-decisions",
+    "-require-live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:17.825285+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.24126245779916644,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

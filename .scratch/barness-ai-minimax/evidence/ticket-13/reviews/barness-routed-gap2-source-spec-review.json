@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "axis": "SPEC source review",
+  "decision": "PASS_SOURCE_ONLY",
+  "base": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "reviewedCommit": "1a0ce3458d5c499b95c03e3994f3e7be35e88ea2",
+  "refVerification": "Both refs resolve to commits; nonempty six-file diff, one increment commit.",
+  "diffCommand": "git diff 1dedc575228c1691bed0843ddb54b84c379c5727...1a0ce3458d5c499b95c03e3994f3e7be35e88ea2",
+  "logCommand": "git log --oneline 1dedc575228c1691bed0843ddb54b84c379c5727..1a0ce3458d5c499b95c03e3994f3e7be35e88ea2",
+  "review": "R27 preserves every mandatory mapping; R26/T04 require genuine inventories; T02 requires external RED before implementation. The unconfigured optional diagnostic now skips before registering OD57; configured paths retain both literal historical hashes,12391-case assertions and diagnostic provenance. Four public subprocess modes cover default inventory exclusion and explicit invalid-input refusal. No mandatory trace or consumer acceptance changed. Both differential fixture families hash actual deliberately mutated artifacts, require zero inventory problems and reach all15 semantic modes, including the valid Decisions baseline. Source/result/protocol/capture/SDK/oracle faults remain rejected. The fixed preflight adds the diagnostic process and full release package, ANDs numeric exits and persists failed checks. Public failures at either seam still block Key/intent despite separately supplied approval. No paid execution, budget reset or new round is added.",
+  "findings": [],
+  "scopeCreep": [],
+  "wrongImplementation": [],
+  "verificationEvidence": "Fixture/diagnostic/preflight RED1 precedes corresponding producer changes, then GREEN0. Retained package ordinary0, package race COMPLETED0(358.550s with900s wrapper), diagnostic ordinary/race0,61 tools0 and dualvet0 are measured at1ded/WIP, not falsely attributed to a committed run. Eight complete1048-file snapshots match1a; earlier Go-only GREEN snapshots differ only in later Python preflight files. The first360s race timeout/killpg failure remains STARTING/exit1, separately annotated. Fresh committed actual-six checking is separate and not certified complete here.",
+  "sourceSnapshotComparison": {
+    "report": "/tmp/barness-gap2-snapshot-static-comparison.json",
+    "sha256": "48f57c87403ece77f23980821ef48281bd4707aee5e2bf4dd65fb83694c4c6e0",
+    "matchingFinalSnapshots": [
+      "source-green-preflight.json",
+      "source-green-release-package.json",
+      "source-race-diagnostic-process.json",
+      "source-race-release-package-complete.json",
+      "source-race-release-package.json",
+      "source-tools-all.json",
+      "source-vet-live.json",
+      "source-vet.json"
+    ],
+    "final1048SnapshotSHA256": "08cf1e6aaf2c11e826a924b991dbb8a3db07bf7ad01e47923964f2dd9316c337",
+    "measuredBase": "1dedc575228c1691bed0843ddb54b84c379c5727",
+    "workingTreeChanged": true
+  },
+  "limits": "Offline repair approval only. Old A2 remains false; no new full-spec certificate or paid approval. Final exact six-check receipts and prospective ticket16/new native evidence remain separate. Reviewer performed only committed-source/static receipt reads and hashes.",
+  "reviewedCommittedFilesSHA256": {
+    ".scratch/barness-ai-minimax/tools/routed_validation.py": "2f4f7fbcc73eb61d1cfc3896349babd40fb9345e170a02d28d3ac42c93648ba9",
+    ".scratch/barness-ai-minimax/tools/test_routed_validation.py": "1d8c0bab92234d6343051635d61b3a49f600e26780608ed76cb66aa383f094be",
+    "ai/e2e/release_recorded_bundle_process_test.go": "1b39ba3dba57263469671cf02924c1e134e41ca6a1ceccb788bd99c6ae9dd662",
+    "ai/e2e/release_recorded_bundle_test.go": "cb0e26849683cc5bf9fef8bb3b0722fbce32b1baae16ce19cad0864638667abd",
+    "ai/internal/testkit/release/artifacts_test.go": "7e70f5ffa9c53d0ea785bf48487758d213c6a14e6b22b169a0ef6c4ceba93efd",
+    "ai/internal/testkit/release/decisions_record_test.go": "c58f068e08b23cd13b2ca534b9d18d930f1d367c0f248fa1e949331f928225fb"
+  },
+  "unchangedCommittedBoundarySHA256": {
+    "ai/release/traceability.json": "457acee6499ee916ed1e116ca9f832ee73799b9b0328733063dc07ddc1025166",
+    "ai/internal/testkit/release/load.go": "35024e1fc080f318bb78d6447a6f94d918fb9386d5cd4d2fbb08bb39a4b90be6",
+    "ai/internal/testkit/release/inventory.go": "f58f2e0b57aef18ede5c10538e395dcac00a26e2c503775faf9e221915d20fe7",
+    "ai/internal/testkit/release/plan.go": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+    "go.mod": "5c8e9d19f2c6fb1145afd40d33f1904f05df796e9e3e57b0666c40ea61334fd2",
+    "go.sum": "f77e9fa444cb0de7133ad075ba5290a35b86df40b4ccfb235452ae1e4a5a8097",
+    "ai/live/main_test.go": "db5b7dab4a280b504d063c222a897d8b0de624bc055bbed573fcac9c1d120cad",
+    "ai/live/glm_assembly_test.go": "33979746dff7fdacfb895ad4c49bc4599c1c96cc5d657c9066770028f89760ec"
+  },
+  "receiptPins": {
+    "red-fixture-semantics": {
+      "sha256": "9885bf18fe7cf85ca1609872c87e73b297ca858e9116cdff4149a5e1deb2d48a",
+      "state": "COMPLETED",
+      "exitCode": 1,
+      "seconds": 3.148349749855697,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/internal/testkit/release",
+        "-count=1",
+        "-run",
+        "^(TestDecisionsEvidenceRejectsSourceAndCaptureDrift|TestImportedDifferentialRejectsWrongOracle)$"
+      ]
+    },
+    "red-diagnostic-process": {
+      "sha256": "1c456a2f4c12461b36d7da5734ebeb918e4ae2b716e05b90492cba3bf19bad76",
+      "state": "COMPLETED",
+      "exitCode": 1,
+      "seconds": 7.059250375255942,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^TestReleaseRecordedBundleDiagnosticProcess$"
+      ]
+    },
+    "red-preflight": {
+      "sha256": "b8ccda431196e7cac220750f689bdd66f7c44f47a8687a2148e8623e56645385",
+      "state": "COMPLETED",
+      "exitCode": 1,
+      "seconds": 3.168976416811347,
+      "credentialsRead": false,
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".scratch/barness-ai-minimax/tools",
+        "-p",
+        "test_routed_validation.py",
+        "-k",
+        "release_contract_preflight"
+      ]
+    },
+    "red-release-package": {
+      "sha256": "44f85531100909a26611b2c5f0db88d79ea3a40d3b847d3d9d7882a8df45d853",
+      "state": "COMPLETED",
+      "exitCode": 1,
+      "seconds": 37.43020208273083,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/internal/testkit/release",
+        "-count=1"
+      ]
+    },
+    "green-fixture-semantics": {
+      "sha256": "49a684a6a79ccce950882fb6dbed56dbaf93d0c61cd1aa5ee82d7009b5d66455",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 1.8246896248310804,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/internal/testkit/release",
+        "-count=1",
+        "-run",
+        "^(TestDecisionsEvidenceRejectsSourceAndCaptureDrift|TestImportedDifferentialRejectsWrongOracle)$"
+      ]
+    },
+    "green-diagnostic-process": {
+      "sha256": "750f575c3195004f16d1dd858d2ad12e7fa64666e33949295e3b84e88ca5ed57",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 7.206634625326842,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^TestReleaseRecordedBundleDiagnosticProcess$"
+      ]
+    },
+    "green-preflight": {
+      "sha256": "4927e30a7d4c2e87ac2c692f27e197022a7766e4bdb93724166f2e1ed88e9ba8",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 5.85682904208079,
+      "credentialsRead": false,
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".scratch/barness-ai-minimax/tools",
+        "-p",
+        "test_routed_validation.py",
+        "-k",
+        "release_contract_preflight"
+      ]
+    },
+    "green-release-package": {
+      "sha256": "9a432bca1a333c659defbe7973cf25362baf57b712962d72954847a0c2579b7d",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 37.696465832646936,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "./ai/internal/testkit/release",
+        "-count=1"
+      ]
+    },
+    "race-diagnostic-process": {
+      "sha256": "089de0cf22c40472ec1e9aac4105e776f8bd05bbb0d8ebf97e55992a5267832e",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 12.394733000081033,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^TestReleaseRecordedBundleDiagnosticProcess$"
+      ]
+    },
+    "race-release-package": {
+      "sha256": "5eabd8659492f65f0d2e53ae2ae9c6bf609bd1f3c835520262af0b7c2767a76a",
+      "state": "STARTING",
+      "exitCode": 1,
+      "seconds": 360.01656516687945,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/release",
+        "-count=1"
+      ]
+    },
+    "race-release-package-complete": {
+      "sha256": "6c5b4953c5f2cbc8bf4da47b17368e2275511371a6be76be1cd3ec6ee3f26a73",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 358.5500322501175,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/release",
+        "-count=1"
+      ]
+    },
+    "tools-all": {
+      "sha256": "51ad72a24833ca5e06a2f7b4004f4d13c62cc7cb6fe138cc8474d461da36047d",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 82.74273962480947,
+      "credentialsRead": false,
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".scratch/barness-ai-minimax/tools",
+        "-p",
+        "test_*.py"
+      ]
+    },
+    "vet": {
+      "sha256": "2d2a06672a276e3e770184f4d1207da58de39f72504e782978643ffdfb59c07d",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 0.9843647079542279,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "vet",
+        "./..."
+      ]
+    },
+    "vet-live": {
+      "sha256": "420286397b37a7b2d9284d9c11168745d162942917ce137d43c9f1a9f5013efb",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "seconds": 0.9781847088597715,
+      "credentialsRead": false,
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ]
+    }
+  },
+  "raceTimeoutAnnotationSHA256": "d01537dfe473bf23c4e23e419e57cbe03622b8ed2d85b140960b4b67b3e44583",
+  "failureInventorySHA256": "3e94439ec47071126a531451334dca066f6e4d52165ea924ef7a1df958475aa8",
+  "noExecutionByReviewer": {
+    "tests": false,
+    "verifiers": false,
+    "keys": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

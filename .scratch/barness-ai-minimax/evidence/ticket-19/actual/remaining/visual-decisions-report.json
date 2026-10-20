@@ -1,0 +1,1649 @@
+{
+  "catalogKind": "formal",
+  "schema": 1,
+  "mode": "live",
+  "route": "decisions",
+  "entry": "plain",
+  "status": "COMPLETE",
+  "realQuality": "COMPLETE",
+  "reason": "",
+  "catalogVersion": "2026-10-18.1-minimax",
+  "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+  "model": "gpt-6-luna",
+  "datasetHash": "43046cde2de5a6c846f961c31fbe07b773611a7d2c0e33648826507cf95beb71",
+  "configHash": "4fe588c74bf395b9f7765fdee91cfdecd10060db8b31220d09357a56e797e2b9",
+  "codeHash": "79088fe0f52b9fbdb32f0735cd903788227ec651cd987962964f82b119a4f4d1",
+  "protocolEvidenceHash": "c2d39b9def9f8a9dc4f9b68571ec94e337b5aba89a876156ae7304fc963a6873",
+  "startedAt": "2026-10-19T06:28:22.502938Z",
+  "finishedAt": "2026-10-19T06:28:29.517409Z",
+  "samples": [
+    {
+      "id": "v01",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 1
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0.01,
+            "red": 0.99
+          },
+          "confidence": 0.99,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 1
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0.01,
+              "red": 0.99
+            },
+            "confidence": 0.99
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "ae74962932ce5112b5243b5663f85c183c67cd38583adef73a6ea67c437644c6"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-34a90197908de90526d3330ed4b4861f",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-34a90197908de90526d3330ed4b4861f#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_244d909312d44e92976e8dd4a143a993",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:22.565611Z",
+      "finishedAt": "2026-10-19T06:28:23.887977Z"
+    },
+    {
+      "id": "v02",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.99
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.99
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "f9767f39a55aebd9dfe7f3f17a619e980c10e01fa03effed3c8c0ffc8fe4af12"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-65f29d07fa2771ffdc0b1f1acdf3f9dc",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-65f29d07fa2771ffdc0b1f1acdf3f9dc#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_0be75154aa3e4df1b564d698b1573779",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:23.890816Z",
+      "finishedAt": "2026-10-19T06:28:24.372185Z"
+    },
+    {
+      "id": "v03",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "blue",
+          "probabilities": {
+            "blue": 1,
+            "empty": 0,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "blue",
+            "probabilities": {
+              "blue": 1,
+              "empty": 0,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "6a430f5b6a206581b30ad9a26c7ed78e06710b0959f89262b28f75e64575797b"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-c586fbcb1b399e9d81cef1e7509d37af",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-c586fbcb1b399e9d81cef1e7509d37af#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_29abe90876f84009ab074bf0d86fb823",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:24.382144Z",
+      "finishedAt": "2026-10-19T06:28:24.877571Z"
+    },
+    {
+      "id": "v04",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "empty",
+          "probabilities": {
+            "blue": 0.01,
+            "empty": 0.98,
+            "red": 0.01
+          },
+          "confidence": 0.97,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "empty",
+            "probabilities": {
+              "blue": 0.01,
+              "empty": 0.98,
+              "red": 0.01
+            },
+            "confidence": 0.97
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "f8f2cae89d45af83135728fc17756cd4cd8127308a3becc92c7d492f5d9faf4b"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-8ed25e7b92512d80efa716f7aa2e5031",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-8ed25e7b92512d80efa716f7aa2e5031#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_449de3a502ef4b17b426be3c1a8a5b3c",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:24.880054Z",
+      "finishedAt": "2026-10-19T06:28:25.431122Z"
+    },
+    {
+      "id": "v05",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 1
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0.01,
+            "red": 0.99
+          },
+          "confidence": 0.99,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 1
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0.01,
+              "red": 0.99
+            },
+            "confidence": 0.99
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "ae74962932ce5112b5243b5663f85c183c67cd38583adef73a6ea67c437644c6"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-077a72635b903a467057862c9049c0d8",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-077a72635b903a467057862c9049c0d8#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_e51e8a0078bd43fca0f9e2985cd68465",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:25.434143Z",
+      "finishedAt": "2026-10-19T06:28:25.954713Z"
+    },
+    {
+      "id": "v06",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.01
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "blue",
+          "probabilities": {
+            "blue": 1,
+            "empty": 0,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.01
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "blue",
+            "probabilities": {
+              "blue": 1,
+              "empty": 0,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "bc987e870ad0b9371038ec5e331d69f62d045d84952d805571baa881810e81d8"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-b3c8f22cb1847e759d604827953cdb32",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-b3c8f22cb1847e759d604827953cdb32#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_d11c37bd4a1143c3b7b2ec7bb751a5fe",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:25.957455Z",
+      "finishedAt": "2026-10-19T06:28:26.487664Z"
+    },
+    {
+      "id": "v07",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "empty",
+          "probabilities": {
+            "blue": 0.01,
+            "empty": 0.98,
+            "red": 0.01
+          },
+          "confidence": 0.97,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "empty",
+            "probabilities": {
+              "blue": 0.01,
+              "empty": 0.98,
+              "red": 0.01
+            },
+            "confidence": 0.97
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "dad2d661dfa800d39066e94aedc2ed3a2630e97e1079787c523b7733fd633788"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-3f13460d39b24f41767c26e8c1b097a2",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-3f13460d39b24f41767c26e8c1b097a2#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_cb77fccc2a204e1abfaaf7bda1482cc5",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:26.490999Z",
+      "finishedAt": "2026-10-19T06:28:26.890493Z"
+    },
+    {
+      "id": "v08",
+      "group": "common",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.99
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0,
+            "red": 1
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.99
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0,
+              "red": 1
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "f9767f39a55aebd9dfe7f3f17a619e980c10e01fa03effed3c8c0ffc8fe4af12"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-f5c2503727fe32c44ce426c8d82a41be",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-f5c2503727fe32c44ce426c8d82a41be#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_5ca8b913c54646d79ed66d9bb4eff054",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:26.892651Z",
+      "finishedAt": "2026-10-19T06:28:27.394889Z"
+    },
+    {
+      "id": "v09",
+      "group": "supplementalContext",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 1
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0.01,
+            "red": 0.99
+          },
+          "confidence": 0.99,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 1
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0.01,
+              "red": 0.99
+            },
+            "confidence": 0.99
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "ae74962932ce5112b5243b5663f85c183c67cd38583adef73a6ea67c437644c6"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-37f62c0d1ce79996da5aaffb58249ff1",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-37f62c0d1ce79996da5aaffb58249ff1#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_47df0f4ecdd94f10914bc7fe9c44e689",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:27.397421Z",
+      "finishedAt": "2026-10-19T06:28:27.918024Z"
+    },
+    {
+      "id": "v10",
+      "group": "supplementalContext",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 1
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "red",
+          "probabilities": {
+            "blue": 0,
+            "empty": 0.01,
+            "red": 0.99
+          },
+          "confidence": 0.99,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 1
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "blue": 0,
+              "empty": 0.01,
+              "red": 0.99
+            },
+            "confidence": 0.99
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "09c61fd680b4cef8ce132494f2f103d1eef6b941be0b05c40d838e3be1000749"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-ff9d9db100128821c6b6a4203d528674",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-ff9d9db100128821c6b6a4203d528674#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_d93cb7ede5174013967161f402c2ba90",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:27.920277Z",
+      "finishedAt": "2026-10-19T06:28:28.472561Z"
+    },
+    {
+      "id": "v11",
+      "group": "supplementalContext",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "empty",
+          "probabilities": {
+            "blue": 0.01,
+            "empty": 0.98,
+            "red": 0.01
+          },
+          "confidence": 0.97,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "empty",
+            "probabilities": {
+              "blue": 0.01,
+              "empty": 0.98,
+              "red": 0.01
+            },
+            "confidence": 0.97
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/png",
+            "sha256": "dad2d661dfa800d39066e94aedc2ed3a2630e97e1079787c523b7733fd633788"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-5eb2b69112d3cbed1bae797f750ff4d2",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-5eb2b69112d3cbed1bae797f750ff4d2#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_d795233e8ac248029dff44dd12798567",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:28.479276Z",
+      "finishedAt": "2026-10-19T06:28:28.981705Z"
+    },
+    {
+      "id": "v12",
+      "group": "supplementalContext",
+      "status": "answered",
+      "view": {
+        "exists": {
+          "status": "answered",
+          "confidence": null,
+          "probability": 0.01
+        },
+        "kind": {
+          "status": "answered",
+          "choice": "blue",
+          "probabilities": {
+            "blue": 1,
+            "empty": 0,
+            "red": 0
+          },
+          "confidence": 1,
+          "probability": null
+        }
+      },
+      "result": {
+        "answers": {
+          "exists": {
+            "type": "bool",
+            "probability": 0.01
+          },
+          "kind": {
+            "type": "choice",
+            "choice": "blue",
+            "probabilities": {
+              "blue": 1,
+              "empty": 0,
+              "red": 0
+            },
+            "confidence": 1
+          }
+        },
+        "imageInputs": [
+          {
+            "mimeType": "image/jpeg",
+            "sha256": "bc987e870ad0b9371038ec5e331d69f62d045d84952d805571baa881810e81d8"
+          }
+        ],
+        "responseModel": "gpt-6-luna",
+        "usage": {
+          "input": 406,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 406,
+          "cost": {
+            "input": 0.000040600000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000040600000000000004
+          }
+        },
+        "metadata": {
+          "tenantId": "visual-evaluation-host",
+          "requestId": "req-01eb1b0dfe7dd06d600b1b42a55612c6",
+          "bindingId": "decisions",
+          "operation": "classifier",
+          "resolved": true,
+          "providerId": "openai",
+          "api": "openai-decisions",
+          "modelId": "gpt-6-luna",
+          "accountScopeId": "openai-local-unverified",
+          "bindingVersion": "visual-evaluation-v1",
+          "credentialVersion": "visual-evaluation-v1",
+          "catalogVersion": "2026-10-18.1-minimax",
+          "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+          "attempts": [
+            {
+              "attemptId": "req-01eb1b0dfe7dd06d600b1b42a55612c6#1",
+              "httpStatus": 200,
+              "providerRequestId": "req_27b0fb1b015545ce95df25a5c179f9e4",
+              "usageReporting": "complete",
+              "usage": {
+                "input": 406,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "reasoning": 0,
+                "totalTokens": 406,
+                "cost": {
+                  "input": 0.000040600000000000004,
+                  "output": 0,
+                  "cacheRead": 0,
+                  "cacheWrite": 0,
+                  "total": 0.000040600000000000004
+                }
+              }
+            }
+          ]
+        }
+      },
+      "error": null,
+      "iou": null,
+      "consumed": false,
+      "resources": {
+        "bodies": 0,
+        "calls": 0,
+        "permits": 0,
+        "waiters": 0
+      },
+      "assertions": {
+        "credentialSnapshot": true,
+        "observerDelivered": true,
+        "observerTerminal": true,
+        "released-bodies": true,
+        "released-calls": true,
+        "released-permits": true,
+        "released-waiters": true
+      },
+      "startedAt": "2026-10-19T06:28:28.984126Z",
+      "finishedAt": "2026-10-19T06:28:29.513883Z"
+    }
+  ],
+  "budget": {
+    "calls": 12,
+    "attempts": 12,
+    "retries": 0,
+    "questions": 24,
+    "occurrences": 12,
+    "sourceBytes": 27959,
+    "expandedBytes": 27959,
+    "inputTokens": 4872,
+    "outputTokens": 0,
+    "knownCostUSD": 0.0004872000000000001,
+    "unreported": 0,
+    "partial": 0
+  },
+  "metrics": {
+    "common": {
+      "total": 8,
+      "classScored": 8,
+      "classCorrect": 8,
+      "existScored": 8,
+      "existCorrect": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "classAccuracy": 1,
+      "existAccuracy": 1,
+      "confusion": {
+        "blue": {
+          "blue": 2
+        },
+        "empty": {
+          "empty": 2
+        },
+        "red": {
+          "red": 4
+        }
+      },
+      "statuses": {
+        "answered": 8
+      },
+      "errors": [],
+      "confidenceBins": [
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 8,
+          "correct": 8,
+          "sum": 7.92
+        }
+      ],
+      "existenceBrier": 0.000037500000000000044
+    },
+    "local": null,
+    "supplementalContext": {
+      "total": 4,
+      "classScored": 4,
+      "classCorrect": 4,
+      "existScored": 4,
+      "existCorrect": 4,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "classAccuracy": 1,
+      "existAccuracy": 1,
+      "confusion": {
+        "blue": {
+          "blue": 1
+        },
+        "empty": {
+          "empty": 1
+        },
+        "red": {
+          "red": 2
+        }
+      },
+      "statuses": {
+        "answered": 4
+      },
+      "errors": [],
+      "confidenceBins": [
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 0,
+          "correct": 0,
+          "sum": 0
+        },
+        {
+          "count": 4,
+          "correct": 4,
+          "sum": 3.95
+        }
+      ],
+      "existenceBrier": 0.000025
+    },
+    "box": null
+  }
+}

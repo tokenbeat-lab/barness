@@ -1,0 +1,13 @@
+--- FAIL: TestGLMReleaseLauncherGuards (3.65s)
+    --- FAIL: TestGLMReleaseLauncherGuards/commands.py (0.60s)
+        glm_release_launcher_test.go:85: [P0-GLM13-launcher-commands.py] review or source guard stops before child/paid intent: mode=commands.py unexpectedly proceeded
+    --- FAIL: TestGLMReleaseLauncherGuards/run.py (0.54s)
+        glm_release_launcher_test.go:85: [P0-GLM13-launcher-run.py] review or source guard stops before child/paid intent: mode=run.py unexpectedly proceeded
+    --- FAIL: TestGLMReleaseLauncherGuards/glm_launcher.py (0.54s)
+        glm_release_launcher_test.go:85: [P0-GLM13-launcher-glm_launcher.py] review or source guard stops before child/paid intent: mode=glm_launcher.py unexpectedly proceeded
+    --- FAIL: TestGLMReleaseLauncherGuards/review-denied (0.18s)
+        glm_release_launcher_test.go:85: [P0-GLM13-launcher-review-denied] review or source guard stops before child/paid intent: mode=review-denied unexpectedly proceeded
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T150658.317634000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	5.233s
+FAIL

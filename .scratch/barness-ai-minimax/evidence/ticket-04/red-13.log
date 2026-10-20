@@ -1,0 +1,11 @@
+--- FAIL: TestMiniMaxMessagesNarrowedDepth (0.00s)
+    minimax_messages_boundaries_test.go:170: [MM04-narrowed-depth] narrowed depth model retains effort semantics: ai: invalid_request (capability): model does not support the requested Messages effort
+--- FAIL: TestMiniMaxThinkingSwitchOnlyMetadata (0.00s)
+    minimax_switch_metadata_test.go:20: [MM04-switch-metadata] each protocol declares its own switch semantics openai-completions/MiniMax-M3: {"supportsLongCacheRetention":false}
+    minimax_switch_metadata_test.go:20: [MM04-switch-metadata] each protocol declares its own switch semantics openai-responses/MiniMax-M3: {"supportsLongCacheRetention":false}
+    minimax_switch_metadata_test.go:20: [MM04-switch-metadata] each protocol declares its own switch semantics anthropic-messages/MiniMax-M3: {"supportsLongCacheRetention":false}
+    minimax_switch_metadata_test.go:38: [MM04-switch-metadata] JSON retains switch metadata: {"version":"synthetic-switch-metadata","models":[{"provider":"openai","api":"openai-responses","id":"gpt-5","name":"GPT-5","reasoning":true,"input":["text","image"],"contextWindow":400000,"maxTokens":128000,"thinkingLevelMap":{"off":null,"minimal":"minimal","low":"low","medium":"medium","high":"high","xhigh":null,"max":null},"cost":{"input":1.25,"output":10,"cacheRead":0.125,"cacheWrite":0}}]}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T222418.656548000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.611s
+FAIL

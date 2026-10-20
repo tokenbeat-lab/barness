@@ -13,6 +13,10 @@ package ai
 // detected values. A host catalog therefore cannot give a DeepSeek model
 // OpenAI's request shape or the reverse (ADR-0015).
 type chatCompat struct {
+	// streamUsage requests a final usage chunk through stream_options.
+	streamUsage bool
+	// promptCache enables the implemented prompt cache routing/retention fields.
+	promptCache bool
 	// store: the request declares store:false.
 	store bool
 	// developerRole: a reasoning model's instructions go out as
@@ -21,24 +25,40 @@ type chatCompat struct {
 	// maxTokens: the output budget is max_tokens instead of
 	// max_completion_tokens.
 	maxTokens bool
-	// deepseekThinking: a reasoning model's thinking is switched by
+	// thinkingToggle: a reasoning model's thinking is switched by
 	// thinking:{type:enabled|disabled}, with reasoning_effort only beside an
 	// enabled one (pi's thinkingFormat "deepseek"); otherwise
 	// reasoning_effort alone, the "off" mapping included (pi's "openai").
-	deepseekThinking bool
+	thinkingToggle bool
+	// adaptiveThinking uses the MiniMax adaptive/disabled switch, independent of effort.
+	adaptiveThinking bool
+	// preserveThinkingDefault omits the switch when no effort was selected,
+	// retaining this provider's default rather than forcing thinking off.
+	preserveThinkingDefault bool
+	// toolStream requests incremental function arguments for declared tools.
+	toolStream bool
 	// reasoningContentOnAssistant: every replayed assistant message of a
 	// reasoning model carries reasoning_content, empty when the turn
 	// streamed none (pi's requiresReasoningContentOnAssistantMessages).
 	reasoningContentOnAssistant bool
 }
 
-// chatCompatOf is p's profile, as pi 1.0.0 detects it: DeepSeek is a
+// chatCompatOf is p's profile: DeepSeek is a
 // non-standard vendor (no store, no developer role, max_tokens) with its
 // own thinking format that requires reasoning_content on assistant turns;
-// every other provider gets the standard OpenAI compat (ADR-0013).
+// MiniMax declares only stream usage and its independent adaptive switch.
+// Zhipu shares only the max_tokens and switch shapes, preserves default
+// thinking and has no automatic stream usage/cache fields. Existing other
+// providers retain the standard OpenAI compat (ADR-0013).
 func chatCompatOf(p ProviderID) chatCompat {
-	if p == ProviderDeepSeek {
-		return chatCompat{maxTokens: true, deepseekThinking: true, reasoningContentOnAssistant: true}
+	if p == ProviderMiniMax {
+		return chatCompat{streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
 	}
-	return chatCompat{store: true, developerRole: true}
+	if p == ProviderDeepSeek {
+		return chatCompat{streamUsage: true, promptCache: true, maxTokens: true, thinkingToggle: true, reasoningContentOnAssistant: true}
+	}
+	if p == ProviderZhipu {
+		return chatCompat{maxTokens: true, thinkingToggle: true, preserveThinkingDefault: true, toolStream: true}
+	}
+	return chatCompat{streamUsage: true, promptCache: true, store: true, developerRole: true}
 }

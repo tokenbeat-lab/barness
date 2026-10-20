@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "status": "APPROVED_SOURCE_ONLY",
+  "base": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "head": "7d76ba46e739e1a474903531f658fac99f57a181",
+  "sourceCommit": "a25737aeb605b4d5ede11aafeb60916e5c5c701e",
+  "diffCommand": "git diff fbbdea4c321fe4368879845d5e6f224dac289c9a...7d76ba46e739e1a474903531f658fac99f57a181",
+  "diffSHA256": "b850d63158707a4cb65483745669614c40fcc5dee611edf465fe6f4eb237ef39",
+  "sourceDiffCommand": "git diff fbbdea4c321fe4368879845d5e6f224dac289c9a...7d76ba46e739e1a474903531f658fac99f57a181 -- ai/live/minimax_renewal_process_test.go",
+  "sourceDiffSHA256": "823ea45f3168b03e551b13ea9bfea6d915e83dd0f1992b61004359bcec6c2549",
+  "reviewedSource": {
+    "file": "ai/live/minimax_renewal_process_test.go",
+    "sha256": "208ceceecb27b0ffe2bd7e3bc1cf243d043ce109157c261477f958753f472116",
+    "onlyAIFileChangedSinceBase": true
+  },
+  "findings": [],
+  "report": "No documented-standard violations or actionable Fowler baseline smells found in the incremental HOME-path diagnostic change. AGENTS.md principles 4 and 9 require sensitive information to stay out of evidence while preserving diagnostic context. This case locally aliases only its evidence root and executable when recording argv, child output, and the no-publication error detail. The unchanged exec.Command arguments, environment, CombinedOutput execution, audit/redactor, report parsing, rejection assertion, zero-call assertion, and publication assertion retain their original behavior. Copying cmd.Args before normalization avoids sharing mutable command state. New observable assertions require the owned path suffix and exact selector/timeout flags to survive normalization. The local comment explains why this transformation belongs to this case, and the existing errText bound is reused. All other AI source bytes match the previously reviewed combined base. This approves exact source at 7d76ba4 only; it does not approve later retention additions, a merge, a real grant, paid execution, vendor qualification, or completion of root prerequisites.",
+  "verification": {
+    "method": "Read-only Git/source inspection; no project or captured program execution",
+    "credentialsRead": false,
+    "networkUsed": false,
+    "testsExecuted": false,
+    "repositoryEdited": false,
+    "merged": false,
+    "paidExecutionApproved": false
+  }
+}

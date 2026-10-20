@@ -1,0 +1,13 @@
+--- FAIL: TestMiniMaxMessagesStartInput (0.00s)
+    --- FAIL: TestMiniMaxMessagesStartInput/complete (0.00s)
+        minimax_messages_tools_test.go:115: [MM04-start-input-complete] complete input or fragmented placeholder retained: ai: tool call invalid_arguments: Validation failed for tool "inspect":
+              - label: missing property 'label'
+            
+            Received arguments:
+            {} {Label:}
+    --- FAIL: TestMiniMaxMessagesStartInput/mixed (0.00s)
+        minimax_messages_tools_test.go:107: [MM04-start-input-mixed] unverified mixed complete input and deltas refused: <nil>
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-04/.evidence/barness-ai/20261017T221619.208100000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.648s
+FAIL

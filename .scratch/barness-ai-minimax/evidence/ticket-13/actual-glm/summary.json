@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "actualSource": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "collectionOutcome": "FAIL",
+  "threeRoutePublication": false,
+  "jevPublicationInThisPhase": false,
+  "calls": 65,
+  "attempts": 65,
+  "plannedScenes": 66,
+  "outcomes": {
+    "PASS": 63,
+    "FAIL": 3
+  },
+  "priorCurrentReleaseCalls": 300,
+  "priorCurrentReleaseAttempts": 300,
+  "currentReleaseCalls": 365,
+  "currentReleaseAttempts": 365,
+  "accountingScope": "current MiniMax-release renewal: original GLM66 + corrective GLM66 + legacy168 + routed-validation-1; earlier standalone GLM-task history remains separate and immutable",
+  "automaticReruns": false,
+  "routes": [
+    {
+      "route": "chat",
+      "outcome": "PASS",
+      "complete": true,
+      "plannedScenes": 22,
+      "outcomes": {
+        "PASS": 22
+      },
+      "calls": 22,
+      "attempts": 22,
+      "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+      "api": "openai-completions",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "actualAttemptRecords": 22,
+      "httpStatus": {
+        "200": 22
+      },
+      "usageReporting": {
+        "complete": 20,
+        "unreported": 2
+      },
+      "knownInputSide": 1747,
+      "knownOutput": 8172,
+      "failures": [],
+      "selectedFiles": 217,
+      "integrityFiles": 355,
+      "auditFindings": 0,
+      "successfulCapturePins": true
+    },
+    {
+      "route": "responses",
+      "outcome": "FAIL",
+      "complete": false,
+      "plannedScenes": 22,
+      "outcomes": {
+        "PASS": 19,
+        "FAIL": 3
+      },
+      "calls": 21,
+      "attempts": 21,
+      "endpoint": "https://open.bigmodel.cn/api/v1",
+      "api": "openai-responses",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "actualAttemptRecords": 21,
+      "httpStatus": {
+        "200": 19,
+        "unreported": 2
+      },
+      "usageReporting": {
+        "complete": 17,
+        "unreported": 4
+      },
+      "knownInputSide": 1181,
+      "knownOutput": 5875,
+      "failures": [
+        "glm-5.3/tool-call",
+        "glm-5.3/tool-result",
+        "glm-5.3/control-max"
+      ],
+      "selectedFiles": 217,
+      "integrityFiles": 338,
+      "auditFindings": 0,
+      "successfulCapturePins": false
+    },
+    {
+      "route": "messages",
+      "outcome": "PASS",
+      "complete": true,
+      "plannedScenes": 22,
+      "outcomes": {
+        "PASS": 22
+      },
+      "calls": 22,
+      "attempts": 22,
+      "endpoint": "https://open.bigmodel.cn/api/anthropic",
+      "api": "anthropic-messages",
+      "accountVerification": "unknown",
+      "regionVerification": "unknown",
+      "privilegeVerification": "unknown",
+      "actualAttemptRecords": 22,
+      "httpStatus": {
+        "200": 22
+      },
+      "usageReporting": {
+        "partial": 22
+      },
+      "knownInputSide": 2647,
+      "knownOutput": 4069,
+      "failures": [],
+      "selectedFiles": 217,
+      "integrityFiles": 355,
+      "auditFindings": 0,
+      "successfulCapturePins": true
+    }
+  ],
+  "usageReporting": {
+    "complete": 37,
+    "unreported": 6,
+    "partial": 22
+  },
+  "unknownOrPartialUsageAttempts": 28,
+  "knownInputSide": 5575,
+  "knownOutput": 18116,
+  "usageBasis": "Independent final Attempt sums: input+cacheRead+cacheWrite once; output once. Reasoning is already output; partial/unreported stays unknown. Known lower bound, not invoice."
+}

@@ -1,0 +1,228 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "reviewedCommit": "3227b5a8d627ff6a90abf4c961280f2def5617c5",
+  "diffCommand": "git diff 6a24ba3308ade8712dd4b0d20d67d9442603ad67...3227b5a8d627ff6a90abf4c961280f2def5617c5",
+  "diffSHA256": "dae97a0c89d01428f6f876c077d68a36a3725634ac80c0bcfb80b7bd4ba4f5ac",
+  "findings": [],
+  "smells": [],
+  "standards": [
+    "AGENTS.md4/5 isolation and bounded inputs,8 accurate historical context,9 verifiable outcomes; all other principles and twelve heuristic smells assessed.",
+    "Local tracker Answer/map resolution is restricted to the single diagnostic; old contracts and source qualification remain separate."
+  ],
+  "report": "PASS: no documented Standards breach or baseline smell was found in this retention/context delta. Independent bounded stdlib reads verified237 regular raw members,684595 payload bytes,18 native-integrity hashes,1061 committed source pins and the retained binary SHA. The actual live diagnostic observes nonempty ThinkingDelta, then canceled/stream,HTTP200 and aborted:861ms scenario/862ms message,1 call/1 HTTP Attempt,retry0,usage partial and explicitly not free.\n\nAll15 original120001ms failure hashes remain; wire request is structurally equal. Four formal selectors and the default matrix are byte-identical. Exact source/binary/plan/review/authorization bindings, closed1/1 intent and successful postguard are consistent. Accounting preserves the closed647/647 history and adds one to648/648. No formal22,model,route,matrix or release qualification is minted.\n\nBoth keyless preflights retain9 PASS scenes. The initial process exit1 from audited home-directory argv is preserved; the identical binary relocated to system temporary storage passes0, without changing oracle/source. The pre-intent review-schema KeyError remains0/0. README distinguishes prepared-before-run state from completed intent.\n\nTicket18 resolves its single-case scope with immediate human/machine/map updates; full acceptance remains PARTIAL/open. Plain/managed worktrees and temporary binary are absent, root binary retained and user directories unchanged. No project/retention/operator code,test,credential or network request was executed by this review; no repository/raw write or real rerun occurred.",
+  "proof": {
+    "path": "/tmp/barness-ticket18-final-standards-proof.json",
+    "sha256": "c3676842a8c723db52d3ff1a1245b1f8e88ee818412855b7cdf15fe839c52cb4",
+    "reviewedCommit": "3227b5a8d627ff6a90abf4c961280f2def5617c5",
+    "archive": {
+      "schema": 1,
+      "archive": ".evidence/minimax-retained/ticket18-messages-cancel-actual/raw.tar.gz",
+      "archiveSHA256": "e2da2879c3ed153efabe7fdcbf8336a9be12445c951b08f539212ea12af6c877",
+      "compressedBytes": 143442,
+      "files": 237,
+      "payloadBytes": 684595,
+      "inventorySHA256": "60c81d36cf22921205a39c753304e520548d57d88e7d8694dcc6fc3e20eacd79",
+      "binaryExcluded": true,
+      "binaryRetained": ".evidence/glm-messages-cancel-20261019-1/live.test",
+      "binarySHA256": "4d8d64291c6d10466c010b1aa950ad48366f61c048642d2a63bee16868c66f33",
+      "nativeIntegrityChecked": true,
+      "nativeIntegrityFiles": 18,
+      "initialPreflightFailureRetained": true,
+      "preparationSchemaErrorRetained": true,
+      "credentialsCopied": false,
+      "releaseCertified": false
+    },
+    "rawMembers": 237,
+    "payloadBytes": 684595,
+    "nativeIntegrityFilesVerified": 18,
+    "sourceFilesVerifiedAgainstCommit": 1061,
+    "sameWireRequestAsOriginalFailure": true,
+    "originalFailureHashesVerified": 15,
+    "selectorsAndMatrixUnchanged": 5,
+    "budgetCalls": 1,
+    "httpAttempts": 1,
+    "retries": 0,
+    "caseDurationMS": 861,
+    "messageDurationMS": 862,
+    "nonemptyThinkingDeltaBeforeCancellation": true,
+    "usagePartialNotFree": true,
+    "binarySHA256": "4d8d64291c6d10466c010b1aa950ad48366f61c048642d2a63bee16868c66f33",
+    "preflightMainCases": [
+      9,
+      9
+    ],
+    "preflightOuterExits": [
+      1,
+      0
+    ],
+    "sameFrozenBinaryConfirmed": true,
+    "preIntentSchemaErrorCalls": 0,
+    "paidIntentClosed": true,
+    "postGuardPassed": true,
+    "cleanupConfirmed": true,
+    "userDirectoriesPreserved": true,
+    "projectOrCapturedCodeExecuted": false
+  },
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/delivery-status.md",
+      "bytes": 6027,
+      "sha256": "12c6dc9f024b97549018badbcca059099c10f6da61bc7f9df5e64ada689ff249"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json",
+      "bytes": 15594,
+      "sha256": "bf9f114e24f13c600fb29d0349e8458017a6c2ada5e4484998ec1f648521c7b3"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/README.md",
+      "bytes": 3484,
+      "sha256": "87f681bad3ba3a97e74e635fcfcc38c8b48511fa2d6632eaae063e1ae4ce295e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/actual-command.json",
+      "bytes": 818,
+      "sha256": "a23936d88decb4575959b18811a963f725c8d2ac2fe2b9d0da05c3e08c826129"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/authorization.json",
+      "bytes": 745,
+      "sha256": "73277790beef3960e35f5b708992ae4c684a37aad943517646e4b8bc37a5bb9e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/binaries.json",
+      "bytes": 86,
+      "sha256": "2e86e2fab97bdaee9b0161433b73a22ea1012f5d24e984725fbdf8558cb50d5c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/checks-temp.json",
+      "bytes": 259,
+      "sha256": "c9ffe3a957348e4a2dd236fe09a49aac4bb99ffa4b1caf2aade0c817c24ffb25"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/checks.json",
+      "bytes": 119,
+      "sha256": "1b26b3d0967465baca897afd5a6d39b3b15d836da6b82d4b99334acdb848a330"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/cleanup.json",
+      "bytes": 1224,
+      "sha256": "6b09ad67ed0ae3c2909afc7c4d93b02ccae35ae8188b6e6cc4eaf35600bcb118"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/execution-binary.json",
+      "bytes": 210,
+      "sha256": "f11f51f7f98d129214d73afb0051ea9d19c20bb6a8868ffecf11aded98f5d84e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/index.json",
+      "bytes": 745,
+      "sha256": "4a5be85784468c890f6df56f7ded50baa2fc3bee7fdb969f3c28c814978c965e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/original-failure-pins.json",
+      "bytes": 1620,
+      "sha256": "a3a0ad26d7c24a15a4e1340db9d509c98ad37f9f242fa78af63147f7f25cd648"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/paid-intent.json",
+      "bytes": 627,
+      "sha256": "85ad80d8b3bbee3b7b4a782b0ee49044e2507219f99f81039ed7165314bfec51"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/plan.json",
+      "bytes": 1093,
+      "sha256": "39a25cba7bcb48635983fdeba3a7a08b5c2c5958df54dc8745bc45a9d974a68a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/post-source-guard.json",
+      "bytes": 169,
+      "sha256": "1bd21e50c929a3810e3f4f0db8ddc4cd7f4c14500615ee826d8854edadad110a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/preparation-error.json",
+      "bytes": 254,
+      "sha256": "033f6f6de292ae52f11baaaec9b94b036103675e3840d1f888cbd38666c4c129"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/prepared.json",
+      "bytes": 824,
+      "sha256": "652cc3bb98b216a960587a3f3a5e0857aa2bd2a3c0cc2abe931f5d747245ad46"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/publication-before.json",
+      "bytes": 584,
+      "sha256": "abf13919d50b06324bd9d63b8e6c14b111020f972f52ef4338a1280d93350fd0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/raw-inventory.json.gz",
+      "bytes": 8519,
+      "sha256": "60c81d36cf22921205a39c753304e520548d57d88e7d8694dcc6fc3e20eacd79"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/result.json",
+      "bytes": 1235,
+      "sha256": "8bdac8a2bf65c222f67976dcbd2f674fb3528737c06f0aa7aa55bf162b91c86d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/reviewed-integration.json",
+      "bytes": 7338,
+      "sha256": "2583d539518ff04116230e5f1f7f5594259f8e332897f350c595944c51289d35"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/source-at-start.json",
+      "bytes": 117813,
+      "sha256": "fe59e559a2a44d5935c0ce9b896e52e207fc74c482eabe1173d22512914dc8da"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/spec-independent-proof.json",
+      "bytes": 48885,
+      "sha256": "4e148370e212a04367d4ea866b664c92a2df3a3eb2ec32b0d86a3b0ebc0b088b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/spec-review.json",
+      "bytes": 9558,
+      "sha256": "2309dc828acefe4522270a57522fc0adbcb93253161d269608794b82c70acdee"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/standards-independent-readhash.json",
+      "bytes": 3847,
+      "sha256": "251369c8a283007421b46a128e2834bbd40cee88b7852c0002628cdb5ec3993e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-18/standards-review.json",
+      "bytes": 5243,
+      "sha256": "9333bdf92a88195fa37b11da9fa57a3b4e8fc9888048bc10615075290be3a92f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md",
+      "bytes": 7602,
+      "sha256": "4fa356f78e1c7c6ace1b4a2cb69d7e554aded2060265b3df9a6bfc8bd82522e0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/18-glm-messages-cancel-rerun.md",
+      "bytes": 2218,
+      "sha256": "721dccf7d7dbc96ee5d3f918e11988d8ee0752c90314912261130681317bfda7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/map.md",
+      "bytes": 15131,
+      "sha256": "a8c65adc87dfcdab3dd6db0686dd3b1915e22c73c592cbcc354b930d323ed403"
+    }
+  ],
+  "releaseCertified": false,
+  "fullMessagesRouteCertified": false,
+  "newPaidAuthorityGranted": false,
+  "reviewerExecution": {
+    "projectCodeExecuted": false,
+    "retentionCodeExecuted": false,
+    "testsRun": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "repositoryOrRawWrites": false
+  }
+}

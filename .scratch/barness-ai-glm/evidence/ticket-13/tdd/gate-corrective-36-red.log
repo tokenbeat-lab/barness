@@ -1,0 +1,28 @@
+--- FAIL: TestGLMCorrectiveLauncherGuards (4.66s)
+    --- FAIL: TestGLMCorrectiveLauncherGuards/review-denied (1.06s)
+        glm_corrective_launcher_test.go:77: [P0-GLM13-corrective-review-denied] only three independently reserved components and exact provider caps: plan={MaxCalls:84 MaxAttempts:84 ProviderCaps:map[openai:36 typesafe:48] AutomaticReruns:0x7e5b03f24206 Components:[{Name:protocol114 MaxCalls:12} {Name:text-luna MaxCalls:24} {Name:text-jev MaxCalls:24} {Name:visual-decisions MaxCalls:12} {Name:visual-jev MaxCalls:12}]} error=<nil> <nil>
+    --- FAIL: TestGLMCorrectiveLauncherGuards/script-drift (0.92s)
+        glm_corrective_launcher_test.go:77: [P0-GLM13-corrective-script-drift] only three independently reserved components and exact provider caps: plan={MaxCalls:84 MaxAttempts:84 ProviderCaps:map[openai:36 typesafe:48] AutomaticReruns:0x7e5b0401506e Components:[{Name:protocol114 MaxCalls:12} {Name:text-luna MaxCalls:24} {Name:text-jev MaxCalls:24} {Name:visual-decisions MaxCalls:12} {Name:visual-jev MaxCalls:12}]} error=<nil> <nil>
+    --- FAIL: TestGLMCorrectiveLauncherGuards/binary-drift (0.87s)
+        glm_corrective_launcher_test.go:77: [P0-GLM13-corrective-binary-drift] only three independently reserved components and exact provider caps: plan={MaxCalls:84 MaxAttempts:84 ProviderCaps:map[openai:36 typesafe:48] AutomaticReruns:0x7e5b0433815e Components:[{Name:protocol114 MaxCalls:12} {Name:text-luna MaxCalls:24} {Name:text-jev MaxCalls:24} {Name:visual-decisions MaxCalls:12} {Name:visual-jev MaxCalls:12}]} error=<nil> <nil>
+    --- FAIL: TestGLMCorrectiveLauncherGuards/already-started (0.90s)
+        glm_corrective_launcher_test.go:77: [P0-GLM13-corrective-already-started] only three independently reserved components and exact provider caps: plan={MaxCalls:84 MaxAttempts:84 ProviderCaps:map[openai:36 typesafe:48] AutomaticReruns:0x7e5b03f24e4e Components:[{Name:protocol114 MaxCalls:12} {Name:text-luna MaxCalls:24} {Name:text-jev MaxCalls:24} {Name:visual-decisions MaxCalls:12} {Name:visual-jev MaxCalls:12}]} error=<nil> <nil>
+    --- FAIL: TestGLMCorrectiveLauncherGuards/gate-report-absent (0.91s)
+        glm_corrective_launcher_test.go:77: [P0-GLM13-corrective-gate-report-absent] only three independently reserved components and exact provider caps: plan={MaxCalls:84 MaxAttempts:84 ProviderCaps:map[openai:36 typesafe:48] AutomaticReruns:0x7e5b040ec03e Components:[{Name:protocol114 MaxCalls:12} {Name:text-luna MaxCalls:24} {Name:text-jev MaxCalls:24} {Name:visual-decisions MaxCalls:12} {Name:visual-jev MaxCalls:12}]} error=<nil> <nil>
+        glm_corrective_launcher_test.go:136: [P0-GLM13-corrective-gate-report-absent] reused text inputs reach child and retain failure without a report: read=open /var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMCorrectiveLauncherGuardsgate-report-absent1473292380/001/.evidence/round/gate-summary.json: no such file or directory decode=unexpected end of JSON input exit=1 output=Traceback (most recent call last):
+              File "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMCorrectiveLauncherGuardsgate-report-absent1473292380/001/.scratch/barness-ai-glm/evidence/ticket-13/corrective.py", line 161, in <module>
+                if __name__=='__main__':main()
+                                        ~~~~^^
+              File "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMCorrectiveLauncherGuardsgate-report-absent1473292380/001/.scratch/barness-ai-glm/evidence/ticket-13/corrective.py", line 160, in main
+                getattr(Corrective(args.out),args.mode)()
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+              File "/private/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMCorrectiveLauncherGuardsgate-report-absent1473292380/001/.scratch/barness-ai-glm/evidence/ticket-13/run.py", line 191, in gate
+                '-evaluation-jev',c.bundle(self.out/'text-jev'),'-evaluation-luna',c.bundle(self.out/'text-luna'),
+                                  ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+              File "/private/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestGLMCorrectiveLauncherGuardsgate-report-absent1473292380/001/.scratch/barness-ai-glm/evidence/ticket-13/commands.py", line 49, in bundle
+                raise RuntimeError('unique recorder package missing')
+            RuntimeError: unique recorder package missing
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-corrective-36-red/20261017T170432.120400000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	5.882s
+FAIL

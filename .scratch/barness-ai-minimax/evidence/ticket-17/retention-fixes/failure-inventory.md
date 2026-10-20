@@ -1,0 +1,12 @@
+# Retention correction failure inventory
+
+Original custody is immutable: ticket17 full-v2 (62996 regular members) and B ordinary/race/outer indexes/native bytes are unchanged. Original reviews confirm real records and both full-suite archives; no runtime/vendor result is revised. These are new consumer/producer checks, with no Key, network, Go, or paid execution.
+
+Confirmed public seams: `freeze.py --common-root <fresh destination>` and `verify.py --common-root <private capsule>`. The destination option only relocates new exclusive producer output. Preserve old actual writers and parameter-only unsafe writers before fixes. The approved Python audit hook mutates real, private filesystem entries at standard OS open boundaries while runpy executes actual __main__; it does not mock helper/read results or bypass scans. Never write/chmod shared hardlinks; unlink the private entry before replacement. Check original type/mode/size/bytes before/after.
+
+- T17-RETENTION-STANDARDS-01: after shape scan, command JSON may become >64MiB, link, or FIFO; old direct Path.read_bytes bypasses bounded nofollow/nonblock FD read. A late safe-read refusal is not successful native acceptance. Record next-read events; FIFO has an owned process-group timeout (not acceptance).
+- Same finding: final source-proof JSON may change after its earlier safe snapshot reads, and the final output archive may grow after size check. Old final unbounded read/hash may publish an unusable private index; the existing consumer rejects oversized archives. Keep original valid archive untouched.
+- B prospective producer gap: race and verdict final-output hash uses Path.read_bytes after size checks. Verdict also reads suite indexes without safe FD limit. Exercise the real public producer with a private grown archive and a replaced suite index before minimal bounded-FD repair. Do not rearchive original custody.
+- T17-RETENTION-SPEC-01: one final resource counter `false` or `0.0` compares equal to int0. Public verifier must reject each private resealed capsule, preserving original88 exact int0 records. Modify only one resource JSON and its corresponding saved-artifact hash; all other original members remain byte-identical. Each negative has its own full-reader envelope and no qualification.
+
+All existing reader limits remain unchanged. RED/late-refusal/setup faults and GREEN are separate numeric logs with exact controller/source hashes. No original index, capture, oracle, selector, source pin, or qualification is refreshed.

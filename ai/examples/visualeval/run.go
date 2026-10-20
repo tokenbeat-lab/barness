@@ -130,36 +130,56 @@ func executeCalls(ctx context.Context, p *plan, a arguments, b *bundle, r *repor
 			r.Samples[i].Status = "budget_exhausted"
 			continue
 		}
-		s, wire, obs, err := call(ctx, p, a, req, i, endpoint, key, alias, transport)
-		if err != nil {
-			return err
-		}
-		r.Samples[i] = s
-		r.Budget.add(s, req)
-		prefix := fmt.Sprintf("samples/%s/", s.ID)
-		if err = b.record(prefix+"input.json", req); err != nil {
-			return err
-		}
-		if err = b.record(prefix+"wire.json", wire); err != nil {
-			return err
-		}
-		if err = b.file(prefix+"request.json", wire.Request); err != nil {
-			return err
-		}
-		if err = b.file(prefix+"response.bin", wire.Response); err != nil {
-			return err
-		}
-		if err = b.record(prefix+"observations.json", obs); err != nil {
-			return err
-		}
-		if err = b.record(prefix+"result.json", s); err != nil {
+		if err := executeSample(ctx, p, a, b, r, i, endpoint, key, alias, transport, ai.Hooks{}); err != nil {
 			return err
 		}
 	}
 	finalize(p, r)
 	return nil
 }
-func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i int, endpoint, key, alias string, transport http.RoundTripper) (sampleResult, wire, []ai.Observation, error) {
+
+// executeSample is the post-precheck boundary: the work context may end between
+// the outer decision and public Client entry. Recording belongs to this same
+// production path so even an invoked-but-unsent call retains its evidence.
+func executeSample(ctx context.Context, p *plan, a arguments, b *bundle, r *report, i int, endpoint, key, alias string, transport http.RoundTripper, hooks ai.Hooks) error {
+	req := p.request(i)
+	s, wire, obs, reads, err := call(ctx, p, a, req, i, endpoint, key, alias, transport, hooks)
+	if err != nil {
+		return err
+	}
+	r.Samples[i] = s
+	r.Budget.add(s, req)
+	prefix := fmt.Sprintf("samples/%s/", s.ID)
+	if err = b.record(prefix+"input.json", req); err != nil {
+		return err
+	}
+	if err = b.record(prefix+"wire.json", wire); err != nil {
+		return err
+	}
+	// An invoked unsent termination has no HTTP capture. wire.json retains
+	// that explicit zero state; absent payload artifacts must stay absent.
+	if len(s.Result.Metadata.Attempts) == 0 {
+		if err = b.record(prefix+"unsent.json", unsentCapture{CredentialReads: reads}); err != nil {
+			return err
+		}
+	} else {
+		if err = b.file(prefix+"request.json", wire.Request); err != nil {
+			return err
+		}
+		if err = b.file(prefix+"response.bin", wire.Response); err != nil {
+			return err
+		}
+	}
+	if err = b.record(prefix+"observations.json", obs); err != nil {
+		return err
+	}
+	if err = b.record(prefix+"result.json", s); err != nil {
+		return err
+	}
+	return nil
+}
+
+func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i int, endpoint, key, alias string, transport http.RoundTripper, hooks ai.Hooks) (sampleResult, wire, []ai.Observation, int, error) {
 	s := sampleResult{ID: p.dataset.Samples[i].ID, Group: p.group(i), Status: "answered", StartedAt: time.Now().UTC(), Assertions: map[string]bool{}}
 	h := &host{binding: p.binding(endpoint, alias), key: key}
 	o := &observations{done: make(chan struct{})}
@@ -168,7 +188,7 @@ func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i
 	tracker := provider.TrackBodies(c)
 	client, err := ai.NewClient(ai.Config{Catalog: &p.catalog, Policy: policy(time.Duration(a.callMS) * time.Millisecond), Bindings: h, Credentials: h, Observer: o, Transport: tracker, AllowLoopbackHTTP: a.mode == "controlled", Probe: g})
 	if err != nil {
-		return s, wire{}, nil, err
+		return s, wire{}, nil, h.reads, err
 	}
 	var opts ai.Options = ai.OpenAIDecisionsOptions{}
 	if p.route == "jev" {
@@ -179,7 +199,7 @@ func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i
 	target := ai.Target{BindingID: h.binding.BindingID, ModelID: p.model.ID}
 	var result ai.ClassifierResult
 	if a.entry == "hooked" {
-		result, err = client.WithHooks(ai.Hooks{}).Classify(callctx, scope, target, req, opts)
+		result, err = client.WithHooks(hooks).Classify(callctx, scope, target, req, opts)
 	} else {
 		result, err = client.Classify(callctx, scope, target, req, opts)
 	}
@@ -189,7 +209,7 @@ func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i
 	for k, v := range result.Answers {
 		raw, e := json.Marshal(v)
 		if e != nil {
-			return s, wire{}, nil, e
+			return s, wire{}, nil, h.reads, e
 		}
 		answers[k] = raw
 	}
@@ -197,7 +217,7 @@ func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i
 	if err != nil {
 		var ae *ai.Error
 		if !errors.As(err, &ae) {
-			return s, wire{}, nil, errors.New("untyped public error")
+			return s, wire{}, nil, h.reads, errors.New("untyped public error")
 		}
 		s.Error = &failure{ae.Code, ae.Phase}
 	}
@@ -208,11 +228,14 @@ func call(ctx context.Context, p *plan, a arguments, req ai.ClassifierRequest, i
 	s.Assertions["observerTerminal"] = len(records) > 0 && records[len(records)-1].Kind == ai.ObservationCallFinished && reflect.DeepEqual(records[len(records)-1].Call, result.Metadata)
 	s.Assertions["observerDelivered"] = client.ObserverStats().Dropped == 0 && client.ObserverStats().Failed == 0
 	s.Assertions["credentialSnapshot"] = h.reads == 1
+	if len(s.Result.Metadata.Attempts) == 0 {
+		s.Assertions["credentialSnapshot"] = unsentTermination(p, alias, s, h.reads)
+	}
 	s.Resources = map[string]int64{"bodies": tracker.Open(), "calls": g.ActiveCalls(), "permits": g.Permits(), "waiters": g.AdmissionWaiters()}
 	for k, v := range s.Resources {
 		s.Assertions["released-"+k] = v == 0
 	}
-	return s, c.snapshot(), records, nil
+	return s, c.snapshot(), records, h.reads, nil
 }
 func assess(p *plan, i int, s *sampleResult) {
 	s.View = map[string]answerView{}

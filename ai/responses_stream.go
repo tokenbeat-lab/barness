@@ -29,11 +29,24 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 				continue
 			}
 			if raw, reported := openAIStreamError(event.Type, event.Data); reported {
-				return p.failures.upstream(apiErrorText(raw))
+				return p.failures.providerError(raw)
+			}
+		}
+		data := event.Data
+		if p.minimax != nil {
+			if err := p.validateMiniMaxEvent(data); err != nil {
+				return newError(CodeProtocol, PhaseStream, "MiniMax Responses event violates the protocol")
+			}
+		}
+		if p.glm {
+			var err error
+			data, err = p.normalizeGLMResponsesEvent(data)
+			if err != nil {
+				return newError(CodeProtocol, PhaseStream, "GLM Responses event could not be decoded")
 			}
 		}
 		var decoded responses.ResponseStreamEventUnion
-		if err := json.Unmarshal(event.Data, &decoded); err != nil {
+		if err := json.Unmarshal(data, &decoded); err != nil {
 			return p.failures.stream(err)
 		}
 		if failure := p.handle(decoded); failure != nil {

@@ -1,0 +1,22 @@
+{
+  "state": "COMPLETED",
+  "kind": "custody-readback-command",
+  "argv": [
+    "python3",
+    "-B",
+    "$OPERATOR/barness-eleven-final-gate-readback.py"
+  ],
+  "cwd": "$OWNED_WORKTREE",
+  "exitCode": 0,
+  "seconds": 8.669881457928568,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "credentialsInherited": false,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "nativeReleasePass": false,
+  "note": "Custody integrity exit is separate from original outer1/race1."
+}

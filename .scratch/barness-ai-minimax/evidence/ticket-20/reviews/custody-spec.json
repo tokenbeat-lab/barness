@@ -1,0 +1,684 @@
+{
+  "axis": "Spec DATA/custody",
+  "decision": "PASS_CUSTODY_ONLY",
+  "base": "e93063c69bb854db6cd1d783a161acdabdd885ba",
+  "tip": "2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
+  "sourceCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "diffCommand": "git diff e93063c69bb854db6cd1d783a161acdabdd885ba...2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
+  "diffSHA256": "7ebf2e7c5a91ac3c77cfe77376d1454d589e98d02f47c4d7e85f77e34ecf3877",
+  "filesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-20/README.md": "4a1c127825d8994a11285d3b95cf56f5f1186e1ac42d1855089e50f2c922805f",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/SHA256SUMS": "8efd5aa26ddc5f4ab12f68379fb5735457c7a18b0bea949098dab38ecab905d3",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/core-inventory.json.gz": "2906dcf4030cea590ecca3ba7085a6fd970ca8d68736d49c33dd530d359f05f1",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/core-source-proof.json.gz": "da5a74706563773857ca5cd79aad85d635f73cda17def7cf26ef41c12eb13cd9",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/creation-command.json": "4a828adb28cb27c06972ee4838a780a94219cc2e6aedd4ade956512e5a70386e",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/creation.log": "2fa1e205282262ff29bebc9f2c234a352962ed66c5269a797799dc45752cc66f",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/creation.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/handoff-check.json": "b06f18ba69a6ff18b8e0d60ed115f728f02285088360ce9bba4dc0a47503aa28",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/index.json": "a5c843f3379683f9058c8edd8d2e70aa385225505fbb6c18af253a2600e96e0d",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/jev_fixtures.py": "6dbfeb8505d774c7a5c8a16da086ef49511134537a6e2263464b81880e9f3358",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/ordinary-inventory.json.gz": "9c1f67e935f645beb5bd6c86f7a6bb3c01f78f7c70e371bddc35be1568c9ceb5",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/ordinary-source-proof.json.gz": "da5a74706563773857ca5cd79aad85d635f73cda17def7cf26ef41c12eb13cd9",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/race-inventory.json.gz": "7e041311f2ce76a75db949866088f9cbbe426bf58ccfaf57ab227d0f580e2f69",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/race-source-proof.json.gz": "da5a74706563773857ca5cd79aad85d635f73cda17def7cf26ef41c12eb13cd9",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/readback-command.json": "0e3d5d72a3d60f5212c19d4a0a60101da9f688ad47ba67f5cf7109d5a165b70c",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/readback.log": "ad9600506d64eb2be62174bca1bd15af7cf5bab8c67ec61308585cf58fe1b530",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/readback.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/run.py": "d6b1b3e0c681dbd70c48baf1f4f8c7631d041fc1f02fedcf39547261c02f8ccf",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/source-impact.json": "39d042df7a7665a830d9877131a532b3bf5cb00d78a14adf95ac159e27bfb347",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/source-proof.json": "0431734c9b884366091fdc607f69e2df39a95fc32686c9f87b796ebe91110b8a",
+    ".scratch/barness-ai-minimax/evidence/ticket-20/verify.py": "86f41c859e649728ff2c81892e3ccf5bfcc6dd105b3213767633e24930c87ad4",
+    ".scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md": "a7f29a7ae4429e22bc9304774729b1efac0061f4b750a97748cc85f3cdd54bf2"
+  },
+  "findings": [],
+  "report": "PASS, no Spec custody findings. Independently streamed all three capsules: 203,335 regular members, 995,568,615 payload bytes. Every complete inventory path/size/hash and compressed archive pin matched under the unchanged full-reader limits; no extraction or captured-code execution occurred. Reopened indexed originals confirm all45 actual numeric TDD receipts, stable source windows, stdout hashes, main-manifest distributions and970 artifact references. Original empty-request RED, setup/compile/path failures, failed GREENs and later deadline regressions remain distinct. Derived Jev pre-pin fixtures are explicitly consumer constructions; public replay claims cancellation category only. The null RED has2P/2F in its containing manifest and2P/1F across three tamper leaves. Final ordinary/race each23PASS with audit0; both vets0. All1,040 measured compiler/JSON/module hashes independently equal Git d02; a203 HEAD+WIP provenance is preserved without claiming postcommit runs. Original Spec finding and closure copies match their immutable hashes. Issue20 historical scope-only rules are qualified; current finite-seven-row contract remains intact. Source d02 is unchanged, and the frontdoor grants no current live or full-release PASS. Existing eight source groups retain their original maps; protocol114 and both visual groups remain unrenewed. New36/36 still needs fresh human authorization. Controller45205b42 and proofe230c685 remain byte-identical to the separate static approval, which permits credential-free preparation only.",
+  "capsules": [
+    {
+      "capsule": "core",
+      "archiveSHA256": "e3b20e4eda1a2fdcc33a43558b15cca0a733af189dcbedff6db149a3ee55a9fa",
+      "archiveBytes": 133170950,
+      "files": 90632,
+      "payloadBytes": 444540791,
+      "allMembersStreamHashVerified": true,
+      "decodedWithin2GiB": true,
+      "regularOnly": true
+    },
+    {
+      "capsule": "ordinary",
+      "archiveSHA256": "bbaea5407aa0d593936ec117e165a1d2267bcec74e7c5227ed6c01766aa0ba6a",
+      "archiveBytes": 87323271,
+      "files": 63821,
+      "payloadBytes": 311290348,
+      "allMembersStreamHashVerified": true,
+      "decodedWithin2GiB": true,
+      "regularOnly": true
+    },
+    {
+      "capsule": "race",
+      "archiveSHA256": "c5c6687265e011b4e181dffde93b5b87599710d0d75a121fb2a5ea54cc44645c",
+      "archiveBytes": 66772084,
+      "files": 48882,
+      "payloadBytes": 239737476,
+      "allMembersStreamHashVerified": true,
+      "decodedWithin2GiB": true,
+      "regularOnly": true
+    }
+  ],
+  "totalFiles": 203335,
+  "artifactReferencesVerified": 970,
+  "commandReceipts": {
+    "vet": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "ad098c13b5cadcf2423e65435dee14044b56469165b97b9f27b38ab331eadabf",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "after-pin-red": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "72e702b3295adaae0c5df961df9585e39780aa82724e6959bf984d86f378e947",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "green-ordinary-2": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "36a249bac009eec5c2fdccf455c2c24dcf8ada6835dfb65adc46d91912e77653",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "final-vet-live": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "5484316db23a7fe5176ea5b539615eb588bd4c886fac3b5a4339933fdda9fe2b",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "red-race": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "f1abc02dabc0baa37bc65363b2ab339582d3e8d9b6bd6529f954202062a0c29a",
+      "sourceStable": true,
+      "sourceFiles": 1037,
+      "stdoutHashVerified": true
+    },
+    "null-final-race": {
+      "exitCode": 0,
+      "sourceCommit": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "commandSHA256": "5669ceff592d5e4de0a12f6546509b441889802d734bc1f2de15fa92a204171e",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-capability-green": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "4a6177ebc1f9e0559a0593d102731682141ec2d69f1d789bd4ac396fb8508c22",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "complete-unsent-ordinary": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "2bf48e088e8eb99f2add6022578a1cc04d44089abea159cad5c85e63e3d0b3d7",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "null-final-vet": {
+      "exitCode": 0,
+      "sourceCommit": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "commandSHA256": "4f755d62022608b953a3dd506d67aee7b60f2776daefa0759872c8d64f92aab5",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "final-unsent-ordinary": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "b4cfd31e33ff25a8454afa7ec4f6182eb09452212907276fe4d9df6a4f1a6e3a",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "after-pin-red-2": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "03655a42d942d1601d4e97c95134ca843ce14f85008719319ee7b22576bf1e4d",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "sent-final-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "806a69ac9a6287057d6e09c6e2748fd3b051283178b761b2d20c39710d8849b2",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "missing-access-red": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "27832edf4b602556c5a5c1536bfc52758c87afa562f20d65268a6447333e32f1",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-request-red": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "a7a59fbdb732c5263375739ab8b5d896c35ccdd3fb0aa34e937935fbe933ab85",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "final-unsent-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "b9433fd5ce22d0a8f89151b7bb2f3917042a419ebbc709da8a851454cc1932d2",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "null-final-ordinary": {
+      "exitCode": 0,
+      "sourceCommit": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "commandSHA256": "f778d121d0bd037fbf3386058c48c0a2e2f8bf24160041e77a217e2643365ae0",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "green-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "ada0493823a8eecc78ae386893fb503ec38d52e3e30c07239d31f3d7cda64c32",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-request-final": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "315439e246591bb3d3eaccd4e80bb5f18c1f81399f37df750bded298967724b9",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "sent-before-decode-red": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "5979bbafe7cfd63c258ff6766304d649c41ab88130af889f5c757e45116e500d",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "sent-final-ordinary": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "8f45d34467ca9c92d4046e365df388ee6c772589e9e573236f64b35cd6970900",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "null-final-vet-live": {
+      "exitCode": 0,
+      "sourceCommit": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "commandSHA256": "5f808658dd313c307e1c26137abf9d8f52a75c7ba5cd3fedbe63faa026a1d97c",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "complete-vet": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "f994a0d82a4d26f8fa9b98205e6f055cc966a4e0130cb1d4ac687d60389aabc9",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "final-vet": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "7f86eef9aea882acc5f5fb76983ff34f046b1669d0c420aca81855c2e47aaf97",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "red-ordinary": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "35109aa5078fc8835286a0c6d5a7d3fd67713d242095a3b54fd60baf2cf8ad69",
+      "sourceStable": true,
+      "sourceFiles": 1037,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-request-green": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "0ac9249ac162bdd49d42e308c83751c7c187d9e487f11b9714226aead70612f5",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "complete-vet-live": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "50407dcdf5e00fc50010503f0e9a89da44a5e957110a5afcb5ce1bbe48203eac",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "green-ordinary": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "806f27e97aedf92763c09eadf6c226e824e6c48152359e9cbb32d2caa0a871f9",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "sent-final-vet-live": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "8e2871a4f87198549595edd68493c29b9f7d61e92458d1d9310a5520f0ad730f",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "complete-unsent-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "ad53c25ee5150c40f8dedec44a701d0b923429f3c6a8c24c6dbc6de93901345b",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "vet-live": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "1dd44d582dd94baff8321cfb819974ed4ef49264afef553acd262e8320e310f5",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-baseline-2": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "92dae2c6ef474c3a5cf57d5ffc6fff2d68727721cccddaa7fa9ec6c1940e6d85",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-baseline": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "2d7d49e1e10b76baa6de3e6f039a5e269dee3b765ca09344777fe0321ffd186d",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-capability-final": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "998bfa8084d4040be42e8f7d66901a8a79b11757067891af9bb695e2aefdbc30",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "sent-final-vet": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "a0913d9761825631b19c55405ec6a9c9ddcd6bbe4ca56adc58f54c1ce6e26f81",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "all-unsent-green": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "3c7b6e4c88b4a84cebfab6758e9b0f35f65599a151a2b4e4fba2dbc9ad347f01",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "jev-prepin-capability-red": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "e4f2718882703a27ed2b2f1149b10ade0b80c0accf9741c5ab2a4efd307d4c1a",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "null-access-red": {
+      "exitCode": 1,
+      "sourceCommit": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "commandSHA256": "ceffb215eb3cf748ebc67b7aa8ac80832d2054a942f24782f02f988d012e9337",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "final-e2e-ordinary": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "3be4834e87d2c8fbad713cb029e27f3ba5731050d32f63b5e9cff417484cef89",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "visual-e2e-ordinary": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "76e09602c78dad856eb0193bf6c3bc27e827a896a060d36a5a5a7bc15a59ac9c",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "sent-final-deadline-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "530049bb8faf82b6da10bc291558bba38eaec36088d620b4b6e50d3cf8068c96",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "final-e2e-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "e51aa1bbd955186bd7e5f1926d55069246ad2c3f77a731c5c18bcfd5ac2837c4",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "visual-e2e-race": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "d7e623e80605bfcf93df6c49711e7b46339098cbf41df505081ca4ff279a2a3b",
+      "sourceStable": true,
+      "sourceFiles": 1038,
+      "stdoutHashVerified": true
+    },
+    "sent-final-accounting-race": {
+      "exitCode": 0,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "647c44798f93a1fcc79b3c8f085199caf9db0682dcd164c3c9fa1435dd989ed9",
+      "sourceStable": true,
+      "sourceFiles": 1040,
+      "stdoutHashVerified": true
+    },
+    "complete-deadline-race": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "d76260de4cd3221ab9931a1fb09a07018deafca69eb6fb4eb84cea7c90bea70d",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    },
+    "complete-deadline-failure-verify": {
+      "exitCode": 1,
+      "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+      "commandSHA256": "64dbc0c3b9dd5be746acd9eacb1cedb6c241f6183f41e5db705611b7c75d82d9",
+      "sourceStable": true,
+      "sourceFiles": 1039,
+      "stdoutHashVerified": true
+    }
+  },
+  "mainManifests": {
+    "core:raw/green-ordinary-2/bundles/20261019T074526.157101000Z/manifest.json": {
+      "cases": 14,
+      "statuses": {
+        "PASS": 14,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/red-race/bundles/20261019T074252.402726000Z/manifest.json": {
+      "cases": 8,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 8,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 8
+    },
+    "core:raw/null-final-race/bundles/20261019T082206.884283000Z/manifest.json": {
+      "cases": 23,
+      "statuses": {
+        "PASS": 23,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/complete-unsent-ordinary/bundles/20261019T081002.517375000Z/manifest.json": {
+      "cases": 18,
+      "statuses": {
+        "PASS": 18,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/final-unsent-ordinary/bundles/20261019T080134.739175000Z/manifest.json": {
+      "cases": 18,
+      "statuses": {
+        "PASS": 18,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/after-pin-red-2/bundles/20261019T075627.233737000Z/manifest.json": {
+      "cases": 2,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 2,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 2
+    },
+    "core:raw/sent-final-race/bundles/20261019T081552.686309000Z/manifest.json": {
+      "cases": 20,
+      "statuses": {
+        "PASS": 20,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/missing-access-red/bundles/20261019T080100.484250000Z/manifest.json": {
+      "cases": 2,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 2,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/final-unsent-race/bundles/20261019T080243.151129000Z/manifest.json": {
+      "cases": 18,
+      "statuses": {
+        "PASS": 18,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/null-final-ordinary/bundles/20261019T082206.309994000Z/manifest.json": {
+      "cases": 23,
+      "statuses": {
+        "PASS": 23,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/green-race/bundles/20261019T074606.769480000Z/manifest.json": {
+      "cases": 14,
+      "statuses": {
+        "PASS": 14,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/sent-before-decode-red/bundles/20261019T081443.806830000Z/manifest.json": {
+      "cases": 2,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 2,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/sent-final-ordinary/bundles/20261019T081551.521423000Z/manifest.json": {
+      "cases": 20,
+      "statuses": {
+        "PASS": 20,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/red-ordinary/bundles/20261019T074233.551495000Z/manifest.json": {
+      "cases": 8,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 8,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 8
+    },
+    "core:raw/green-ordinary/bundles/20261019T074447.392297000Z/manifest.json": {
+      "cases": 8,
+      "statuses": {
+        "PASS": 0,
+        "FAIL": 8,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/complete-unsent-race/bundles/20261019T081013.081241000Z/manifest.json": {
+      "cases": 18,
+      "statuses": {
+        "PASS": 18,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/all-unsent-green/bundles/20261019T075937.165972000Z/manifest.json": {
+      "cases": 16,
+      "statuses": {
+        "PASS": 16,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "core:raw/null-access-red/bundles/20261019T082113.953981000Z/manifest.json": {
+      "cases": 4,
+      "statuses": {
+        "PASS": 2,
+        "FAIL": 2,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "ordinary:raw/final-e2e-ordinary/bundles/20261019T080244.274028000Z/manifest.json": {
+      "cases": 116,
+      "statuses": {
+        "PASS": 116,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "ordinary:raw/visual-e2e-ordinary/bundles/20261019T074608.556865000Z/manifest.json": {
+      "cases": 116,
+      "statuses": {
+        "PASS": 116,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "race:raw/sent-final-deadline-race/bundles/20261019T081553.836135000Z/manifest.json": {
+      "cases": 4,
+      "statuses": {
+        "PASS": 4,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "race:raw/final-e2e-race/bundles/20261019T080243.725865000Z/manifest.json": {
+      "cases": 52,
+      "statuses": {
+        "PASS": 52,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "race:raw/visual-e2e-race/bundles/20261019T074759.530926000Z/manifest.json": {
+      "cases": 52,
+      "statuses": {
+        "PASS": 49,
+        "FAIL": 3,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 3
+    },
+    "race:raw/sent-final-accounting-race/bundles/20261019T081553.286580000Z/manifest.json": {
+      "cases": 2,
+      "statuses": {
+        "PASS": 2,
+        "FAIL": 0,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    },
+    "race:raw/complete-deadline-race/bundles/20261019T081013.666336000Z/manifest.json": {
+      "cases": 4,
+      "statuses": {
+        "PASS": 3,
+        "FAIL": 1,
+        "NOT_RUN": 0
+      },
+      "auditFindings": 0
+    }
+  },
+  "indexSHA256": "a5c843f3379683f9058c8edd8d2e70aa385225505fbb6c18af253a2600e96e0d",
+  "readerSHA256": "86f41c859e649728ff2c81892e3ccf5bfcc6dd105b3213767633e24930c87ad4",
+  "compilerFilesVerifiedAgainstGit": 1040,
+  "evidenceProof": {
+    "path": "/tmp/barness-ticket20-custody-independent-proof.json",
+    "sha256": "0290a3aa681cacf6efd81425bcd4b5e58407cadf5b766621609feffab207a39c",
+    "frontdoorFileHashListSHA256": "ab2e5adc3c5e74dc321fbaa7d72569e28fe89aa00d4dcf69509487d0d7b1020f",
+    "sourceReviewOriginalSHA256": "ac392d33711307a1d29701540dd5faaa093d2a8a648a930e71cb3543e53cff6a",
+    "sourceReviewClosureSHA256": "70034f693f0c6d8f3099bbd400f80a4bd25a8f6231b8660350544855bdc86df1"
+  },
+  "operationalDraftsUnchanged": {
+    "controllerSHA256": "45205b42ad159a5a261b67da1f6aa1d08b5e7472fa2b80a571dab7592eb3648a",
+    "proofGeneratorSHA256": "e230c685994b940a26278d886147356985fd694033632e4a8704a6a2ab6ee57b",
+    "sourceOnlyStaticReportSHA256": "f5217820d61ece221e7932fcf4d144e9628068cec133ad9a5fa7400a81dc993e"
+  },
+  "requirements": [
+    {
+      "source": ".scratch/barness-ai-minimax/spec.md:357",
+      "quote": "门禁使用可信实际case与不可变来源，不能只信可编辑manifest声明；缺文件/篡改/多报case/漏Attempt/错误预算/旧目录或执行来源都要失败。"
+    },
+    {
+      "source": ".scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md:7",
+      "quote": "审计规则、预算、Provider/runtime、旧报告和完整 source maps 保持原字节。"
+    }
+  ],
+  "reviewMethod": "Read-only immutable Git objects, bounded stdlib archive SHA256/inventory streams, matched original metadata and raw logs. No project/captured program, verifier, tests, Key, paid call, network, repo edit or merge. The reviewer-only Git2MiB threshold interruption after all full streams is documented in the independent proof; the subsequent1040-object check used8MiB and passed without rescanning whole archives."
+}

@@ -1,0 +1,27 @@
+--- FAIL: TestClassifierCallbackPanicRelease (0.00s)
+    classifier_contract_test.go:320: [P07-E08-callback-panic] host can recover its own panic: got <nil>
+--- FAIL: TestGLMLegacyCallbackPanic (0.01s)
+    --- FAIL: TestGLMLegacyCallbackPanic/chat/headers (0.00s)
+        glm_legacy_panic_test.go:46: [P0-GLM13-legacy-panic-chat-headers] old synchronous panic reaches its Host: got <nil>
+    --- FAIL: TestGLMLegacyCallbackPanic/chat/payload (0.00s)
+        glm_legacy_panic_test.go:46: [P0-GLM13-legacy-panic-chat-payload] old synchronous panic reaches its Host: got <nil>
+    --- FAIL: TestGLMLegacyCallbackPanic/chat/response (0.00s)
+        glm_legacy_panic_test.go:46: [P0-GLM13-legacy-panic-chat-response] old synchronous panic reaches its Host: got <nil>
+    --- FAIL: TestGLMLegacyCallbackPanic/deepseek-chat/headers (0.00s)
+        glm_legacy_panic_test.go:46: [P0-GLM13-legacy-panic-deepseek-chat-headers] old synchronous panic reaches its Host: got <nil>
+    --- FAIL: TestGLMLegacyCallbackPanic/deepseek-chat/payload (0.00s)
+        glm_legacy_panic_test.go:46: [P0-GLM13-legacy-panic-deepseek-chat-payload] old synchronous panic reaches its Host: got <nil>
+    --- FAIL: TestGLMLegacyCallbackPanic/deepseek-chat/response (0.00s)
+        glm_legacy_panic_test.go:46: [P0-GLM13-legacy-panic-deepseek-chat-response] old synchronous panic reaches its Host: got <nil>
+--- FAIL: TestGoogleImagesResources (0.30s)
+    --- FAIL: TestGoogleImagesResources/response-panic (0.00s)
+        google_images_resources_test.go:143: [P09-E08-resources-response-panic] panic unwinds lifetime: got <nil>
+    --- FAIL: TestGoogleImagesResources/edit-response-panic (0.00s)
+        google_images_resources_test.go:143: [P09-E08-resources-edit-response-panic] panic unwinds lifetime: got <nil>
+--- FAIL: TestOpenAIImagesResources (0.14s)
+    --- FAIL: TestOpenAIImagesResources/response-panic (0.00s)
+        images_resources_test.go:118: [P08-E08-resources-response-panic] panic retained: got <nil>
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T150208.757175000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.800s
+FAIL

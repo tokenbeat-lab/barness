@@ -1,0 +1,60 @@
+{
+  "axis": "standards",
+  "base": "c6801d0441da589cce29a9d4169d195b54207ac7",
+  "target": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+  "verdict": "CHANGES_REQUESTED",
+  "confidence": "high",
+  "documentedBreaches": [
+    {
+      "priority": 2,
+      "severity": "P2",
+      "category": "documented-standard-breach",
+      "title": "Bind the opened bundle root to its pre-open identity",
+      "file": "ai/internal/testkit/release/verified_case.go",
+      "startLine": 38,
+      "endLine": 44,
+      "standard": "AGENTS.md engineering principles4/5; preregistered rooted replacement boundary.",
+      "reason": "The two Lstat results are compared with each other but not with the opened os.Root inode. An ABA path substitution can select a replacement/outside root while restoring the original path before the second check.",
+      "requestedChange": "Require the initial selected root to be a non-symlink directory and compare its identity with opened root info and final Lstat; if initial symlinks are explicitly supported, pin/compare the resolved target before opening.",
+      "confidence": "high"
+    }
+  ],
+  "judgmentSmells": [],
+  "findings": [
+    {
+      "priority": 2,
+      "severity": "P2",
+      "category": "documented-standard-breach",
+      "title": "Bind the opened bundle root to its pre-open identity",
+      "file": "ai/internal/testkit/release/verified_case.go",
+      "startLine": 38,
+      "endLine": 44,
+      "standard": "AGENTS.md engineering principles4/5; preregistered rooted replacement boundary.",
+      "reason": "The two Lstat results are compared with each other but not with the opened os.Root inode. An ABA path substitution can select a replacement/outside root while restoring the original path before the second check.",
+      "requestedChange": "Require the initial selected root to be a non-symlink directory and compare its identity with opened root info and final Lstat; if initial symlinks are explicitly supported, pin/compare the resolved target before opening.",
+      "confidence": "high"
+    }
+  ],
+  "closedFindings": [
+    {
+      "title": "Keep consumed verdicts inside the verified rooted boundary",
+      "resolution": "All private caseDirs consumers replaced with verifiedCase rooted bounded expected-hash reads.",
+      "qualification": "One new root-initialization identity gap remains separately reported."
+    },
+    {
+      "title": "Compare exact unique enumerated inventory membership",
+      "resolution": "seenEntries rejects repeats; seenFiles contains only successful hashes; every declared key must be seen."
+    }
+  ],
+  "scope": "Pinned release-consumer source only; source applicability of broad L/Jev remains historical; no refreshed actual-suite or release certification.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "originalC680ReportsUnchanged": true,
+  "findingsDeliveredTo": [
+    "/root",
+    "/root/live_harness"
+  ]
+}

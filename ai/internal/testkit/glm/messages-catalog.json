@@ -1,0 +1,68 @@
+{
+  "version": "glm-messages-candidate-2026-10-17.2-synthetic-rates",
+  "models": [
+    {
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "id": "glm-5.3",
+      "name": "glm-5.3 Messages candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 128000,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": null,
+        "medium": null,
+        "high": null,
+        "xhigh": null,
+        "max": null
+      },
+      "compat": {
+        "supportsTemperature": false,
+        "supportsLongCacheRetention": false
+      },
+      "cost": {
+        "input": 1,
+        "output": 2,
+        "cacheRead": 0.5,
+        "cacheWrite": 1
+      }
+    },
+    {
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "id": "glm-5.2",
+      "name": "glm-5.2 Messages candidate",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1000000,
+      "maxTokens": 128000,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": null,
+        "medium": null,
+        "high": null,
+        "xhigh": null,
+        "max": null
+      },
+      "compat": {
+        "supportsTemperature": false,
+        "supportsLongCacheRetention": false,
+        "messagesThinkingBudgetTokens": 1024
+      },
+      "cost": {
+        "input": 1,
+        "output": 2,
+        "cacheRead": 0.5,
+        "cacheWrite": 1
+      }
+    }
+  ]
+}

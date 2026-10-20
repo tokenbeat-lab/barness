@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/private/tmp/barness-ticket21-actual-retained/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py", line 159, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/private/tmp/barness-ticket21-actual-retained/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py", line 155, in main
+    result = facts(b, pins, seen)
+  File "/private/tmp/barness-ticket21-actual-retained/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py", line 130, in facts
+    candidate = doc('actual/finalization/matrix-candidate.json'); before = doc('actual/finalization/matrix-before.json')
+  File "/private/tmp/barness-ticket21-actual-retained/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py", line 57, in doc
+    def doc(name): return b.doc(raw(name))
+                                ~~~^^^^^^
+  File "/private/tmp/barness-ticket21-actual-retained/.scratch/barness-ai-minimax/evidence/ticket-21/actual-retained/verify.py", line 56, in raw
+    def raw(name): return seen[name]
+                          ~~~~^^^^^^
+KeyError: 'actual/finalization/matrix-candidate.json'

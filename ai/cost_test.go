@@ -76,6 +76,11 @@ func TestCostEstimate(t *testing.T) {
 		}
 		var ids []string
 		for _, m := range BuiltinCatalog().Models {
+			// China's Zhipu routes are extensions absent from frozen pi.
+			// Their six prices have independent sourced public catalog E2E.
+			if m.Provider == ProviderZhipu {
+				continue
+			}
 			ids = append(ids, m.ID)
 		}
 		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
@@ -111,6 +116,9 @@ func TestCostEstimate(t *testing.T) {
 			t.Skipf("frozen pi differential not requested (set %s=1)", pioracle.EnableEnv)
 		}
 		for _, m := range BuiltinCatalog().Models {
+			if m.Provider == ProviderZhipu {
+				continue
+			}
 			var want ModelCost
 			if err := json.Unmarshal(pi.Models[m.ID], &want); err != nil || pi.Models[m.ID] == nil {
 				t.Errorf("%s: pi has no cost entry (%v)", m.ID, err)

@@ -45,9 +45,10 @@ type chatParser struct {
 	// byIndex and byID find the call a delta continues, as pi's maps do:
 	// a call registers its first stream index, and every id a delta of it
 	// carries, the latest registration winning.
-	byIndex map[float64]int
-	byID    map[string]int
-	details chatDetails // streamed reasoning_details, nil before any
+	byIndex                map[float64]int
+	byID                   map[string]int
+	details                chatDetails // streamed reasoning_details, nil before any
+	miniMaxReasoningFormat string      // one integrated native representation per MiniMax turn
 	// responseID and responseModel were taken from a chunk: pi keeps the
 	// first truthy ones.
 	responseID, responseModel bool
@@ -63,6 +64,9 @@ type chatCall struct {
 	block   int
 	raw     *argumentText
 	indexed bool
+	index   float64
+	id      string
+	name    string
 }
 
 func newChatParser(out *assembler, model Model, usage chatUsage, failures chatFailures, attempt *initialRequest) *chatParser {
@@ -95,13 +99,15 @@ func (p *chatParser) read(ctx context.Context, dec ssestream.Decoder) *Error {
 	if ctx.Err() != nil {
 		// openai-node ends an aborted stream quietly; pi closes the blocks
 		// and then reports the abort.
-		p.closeBlocks()
+		_ = p.closeBlocks()
 		return interrupted(ctx, PhaseStream, msgChatAborted)
 	}
 	if err := dec.Err(); err != nil {
 		return p.fail(bodyReadFailure(err, msgChatConnectionLost))
 	}
-	p.closeBlocks()
+	if failure := p.closeBlocks(); failure != nil {
+		return p.fail(failure)
+	}
 	return p.settle()
 }
 
@@ -109,7 +115,7 @@ func (p *chatParser) read(ctx context.Context, dec ssestream.Decoder) *Error {
 // as its signature, without an end event.
 func (p *chatParser) fail(failure *Error) *Error {
 	if p.thinking >= 0 && p.details != nil {
-		p.out.setThinkingSignature(p.thinking, p.details.signature())
+		p.out.setThinkingSignature(p.thinking, p.reasoningSignature())
 	}
 	return failure
 }
@@ -117,6 +123,9 @@ func (p *chatParser) fail(failure *Error) *Error {
 // settle decides the terminal once the stream ended cleanly: an error
 // finish reason fails, a missing one is a protocol error.
 func (p *chatParser) settle() *Error {
+	if p.model.Provider == ProviderMiniMax && p.finished && ((len(p.calls) > 0 && p.stop == StopReasonStop) || (len(p.calls) == 0 && p.stop == StopReasonToolUse)) {
+		return newError(CodeProtocol, PhaseStream, "MiniMax finish_reason conflicts with the returned tool calls")
+	}
 	switch {
 	case p.stop == StopReasonError:
 		msg := p.stopMessage
@@ -218,6 +227,11 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 	if !rawTruthy(choice.Delta) || json.Unmarshal(choice.Delta, &delta) != nil {
 		return nil
 	}
+	if p.model.Provider == ProviderMiniMax {
+		if problem := p.validateMiniMaxReasoning(delta); problem != "" {
+			return newError(CodeProtocol, PhaseStream, problem)
+		}
+	}
 	if content, _ := rawString(delta.Content); content != "" {
 		if p.text < 0 {
 			p.text = p.out.textStart(Text{})
@@ -225,7 +239,9 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 		p.out.textDelta(p.text, content)
 	}
 	p.reasoning(delta)
-	p.toolCalls(delta.ToolCalls)
+	if failure := p.toolCalls(delta.ToolCalls); failure != nil {
+		return failure
+	}
 	p.reasoningDetails(delta.ReasoningDetails)
 	return nil
 }
@@ -289,7 +305,7 @@ func (p *chatParser) reasoningDetails(raw json.RawMessage) {
 		if p.details == nil {
 			p.details = chatDetails{}
 		}
-		p.details.add(d)
+		p.details.add(d, p.model.Provider == ProviderMiniMax)
 	}
 }
 
@@ -298,10 +314,10 @@ func (p *chatParser) reasoningDetails(raw json.RawMessage) {
 // publishes a delta for every entry, an empty one included. Custom (grammar)
 // tool calls, which only tools barness-ai does not declare produce, are
 // skipped, as on the Responses path.
-func (p *chatParser) toolCalls(raw json.RawMessage) {
+func (p *chatParser) toolCalls(raw json.RawMessage) *Error {
 	var entries []json.RawMessage
 	if json.Unmarshal(raw, &entries) != nil {
-		return
+		return nil
 	}
 	for _, e := range entries {
 		var tc chatToolCallDelta
@@ -320,6 +336,12 @@ func (p *chatParser) toolCalls(raw json.RawMessage) {
 		var index float64
 		indexed := len(tc.Index) > 0 && json.Unmarshal(tc.Index, &index) == nil
 		k := p.findCall(indexed, index, id)
+		if p.model.Provider == ProviderMiniMax && k >= 0 {
+			previous := p.calls[k]
+			if (id != "" && previous.id != "" && id != previous.id) || (indexed && previous.indexed && index != previous.index) || (name != "" && previous.name != "" && name != previous.name) {
+				return newError(CodeProtocol, PhaseStream, "MiniMax tool call has conflicting index and id")
+			}
+		}
 		if k < 0 {
 			k = len(p.calls)
 			p.calls = append(p.calls, chatCall{block: p.out.toolCallStart(id, name, ""), raw: newArgumentText("")})
@@ -327,17 +349,23 @@ func (p *chatParser) toolCalls(raw json.RawMessage) {
 		call := &p.calls[k]
 		if indexed && !call.indexed {
 			call.indexed = true
+			call.index = index
 			p.byIndex[index] = k
 		}
 		if id != "" {
 			p.byID[id] = k
+			call.id = id
+		}
+		if name != "" && call.name == "" {
+			call.name = name
 		}
 		p.out.fillToolCallIdentity(call.block, id, name)
 		if args != "" && !p.out.fitsToolJSON(call.raw.Len()+len(args)) {
-			return
+			return nil
 		}
 		p.out.toolCallDelta(call.block, args, call.raw.append(args))
 	}
+	return nil
 }
 
 // findCall is the call a delta continues: the one registered for its
@@ -355,7 +383,14 @@ func (p *chatParser) findCall(indexed bool, index float64, id string) int {
 // closeBlocks is pi's finishBlock for every block, in content order: the
 // thinking block takes the streamed details as its signature, a tool call
 // its final argument parse.
-func (p *chatParser) closeBlocks() {
+func (p *chatParser) closeBlocks() *Error {
+	if p.model.Provider == ProviderMiniMax && p.stop == StopReasonToolUse {
+		for _, c := range p.calls {
+			if c.id == "" || c.name == "" || !miniMaxToolArgumentsComplete(c.raw.String()) {
+				return newError(CodeProtocol, PhaseStream, "MiniMax tool call is incomplete or unpairable")
+			}
+		}
+	}
 	for i := range p.out.blockCount() {
 		switch {
 		case i == p.text:
@@ -363,15 +398,18 @@ func (p *chatParser) closeBlocks() {
 		case i == p.thinking:
 			sig := p.out.thinkingSignature(i)
 			if p.details != nil {
-				sig = p.details.signature()
+				sig = p.reasoningSignature()
 			}
 			p.out.thinkingEnd(i, p.out.thinkingText(i), sig)
 		default:
 			for _, c := range p.calls {
 				if c.block == i {
-					p.out.toolCallEnd(i, c.raw.String())
+					if p.model.Provider != ProviderMiniMax || miniMaxToolArgumentsComplete(c.raw.String()) {
+						p.out.toolCallEnd(i, c.raw.String())
+					}
 				}
 			}
 		}
 	}
+	return nil
 }

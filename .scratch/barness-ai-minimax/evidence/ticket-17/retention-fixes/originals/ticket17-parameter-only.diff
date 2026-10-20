@@ -1,0 +1,24 @@
+--- original-actual
++++ destination-only-unsafe
+@@ -1,11 +1,11 @@
+ #!/usr/bin/env python3
+ """Exclusively freeze the complete closed offline TDD, with unchanged full bounds."""
+-import gzip,hashlib,io,json,os,stat,tarfile
++import argparse,gzip,hashlib,io,json,os,stat,tarfile
+ from pathlib import Path
+ import contract as c,readers
+ BASE=Path(__file__).resolve().parent;ROOT=BASE.parents[3];RAW=ROOT/'.evidence/minimax-ticket17';COMMON=Path('/Users/cyber/RestoX/barness');sha=lambda v:hashlib.sha256(v).hexdigest()
+-def main():
+- b=readers.small();full=readers.full();archive=COMMON/c.ARCHIVE
++def main(common):
++ b=readers.small();full=readers.full();archive=common/c.ARCHIVE
+  if archive.exists() or (BASE/'index.json').exists():raise ValueError('fresh exclusive retention required')
+  expected=set(c.STAGES)|{'dependency-restore','dependency-restore-2'}
+  if {p.name for p in RAW.iterdir()}!=expected:raise ValueError('exact original stage roots required')
+@@ -69,4 +69,5 @@
+  with archive.open('rb') as f:digest=hashlib.file_digest(f,'sha256').hexdigest()
+  index=dict(schema=1,kind='ticket17-offline-final-payload-tdd',sourceCommit=c.SOURCE,archive=dict(file=c.ARCHIVE,bytes=archive.stat().st_size,sha256=digest,prefix=prefix),limits=full.LIMITS,inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-proof.json.gz',compressedSHA256=sha(source_encoded),decodedBytes=len(source),decodedSHA256=sha(source),archiveMember='final/source-proof.json'),observe=sorted(observed),roots=roots,originalsUnchangedAfterSnapshot=True,credentialsRead=False,paidCalls=0,releaseCertified=False)
+  (BASE/'index.json').write_text(json.dumps(index,separators=(',',':'))+'\n');archive.chmod(0o444);print(json.dumps(dict(files=len(pins),rawBytes=sum(v['bytes'] for v in pins.values()),archive=index['archive'],observed=len(observed)),indent=2))
+-if __name__=='__main__':main()
++if __name__=='__main__':
++ p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,default=COMMON);main(p.parse_args().common_root)

@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "fixedPoint": "83ff7d6be971694987de3363f0202030eb088f6e",
+  "diffCommand": "git diff 83ff7d6...51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "diffSHA256": "c1fec15afed01b5a789f9b1f4e1211c4e349512e40d49ad86064527decfd46bf",
+  "commitList": [
+    "51c3433 Verify original phase evidence before settling routed consumption"
+  ],
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "priorReview": {
+    "path": "/tmp/barness-routed-standards-review.json",
+    "sha256": "8e81af1bdc12d1b04b774815dd562c5910011fd448a3e4c6d02faa139651cab6",
+    "reviewedSource": "83ff7d6be971694987de3363f0202030eb088f6e"
+  },
+  "helperSHA256": {
+    "/tmp/barness-routed-final-keyless.py": "9e948f217a64bbed41cc6ae6bf9293f5d4cc99db975d148abc0cc82db462b02a",
+    "/tmp/barness-routed-go-recorder.py": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "/tmp/barness-routed-run-phase.py": "f7c2b86676e7a46e1aabeb4c37300eaa75663060a23420d0d518f98ce04cc29f"
+  },
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "scope": "Independent static incremental Standards review of the pinned correction and three current operational helpers. No test, paid, credential or network execution; no full-suite or release certification claim.",
+  "notes": [
+    "Historical settlement no longer trusts stored other-phase budget counters: it reopens exact pinned original metadata, command and report through a bounded directory-FD reader, rejects symlinks/non-regular reports and preserves UNKNOWN full caps.",
+    "Original collection location and owner identity are bound into the plan and canonical receipt; unavailable other worktree remains UNKNOWN rather than widening filesystem authority.",
+    "No Go source or shared/M3 execution source changed in this delta.",
+    "Current phase and finalization helpers derive ROOT from cwd and assert paid_core ROOT; no home path remains in retained script bytes.",
+    "Current Go observer only records four exact root-level commands with cwd=$REPO, keeps nested commands as transparent pass-through, and preserves underlying args/environment/streams/exit.",
+    "No finding is inferred about unfinished no-key checks or provider actuals."
+  ]
+}

@@ -1,0 +1,29 @@
+--- FAIL: TestMiniMaxSharedResources (3.29s)
+    --- FAIL: TestMiniMaxSharedResources/chat/MiniMax-M3/request (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Classifier.Images.MaxTotalImageBytes: must be positive and must not exceed MaxRequestBytes
+    --- FAIL: TestMiniMaxSharedResources/chat/MiniMax-M3/output (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Image.MaxTotalOutputImageBytes: must not exceed MaxOutputBytes
+    --- FAIL: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/request (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Classifier.Images.MaxTotalImageBytes: must be positive and must not exceed MaxRequestBytes
+    --- FAIL: TestMiniMaxSharedResources/chat/MiniMax-M3.1-Flash-Preview/output (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Image.MaxTotalOutputImageBytes: must not exceed MaxOutputBytes
+    --- FAIL: TestMiniMaxSharedResources/responses/MiniMax-M3/request (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Classifier.Images.MaxTotalImageBytes: must be positive and must not exceed MaxRequestBytes
+    --- FAIL: TestMiniMaxSharedResources/responses/MiniMax-M3/output (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Image.MaxTotalOutputImageBytes: must not exceed MaxOutputBytes
+    --- FAIL: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/request (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Classifier.Images.MaxTotalImageBytes: must be positive and must not exceed MaxRequestBytes
+    --- FAIL: TestMiniMaxSharedResources/responses/MiniMax-M3.1-Flash-Preview/output (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Image.MaxTotalOutputImageBytes: must not exceed MaxOutputBytes
+    --- FAIL: TestMiniMaxSharedResources/messages/MiniMax-M3/request (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Classifier.Images.MaxTotalImageBytes: must be positive and must not exceed MaxRequestBytes
+    --- FAIL: TestMiniMaxSharedResources/messages/MiniMax-M3/output (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Image.MaxTotalOutputImageBytes: must not exceed MaxOutputBytes
+    --- FAIL: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/request (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Classifier.Images.MaxTotalImageBytes: must be positive and must not exceed MaxRequestBytes
+    --- FAIL: TestMiniMaxSharedResources/messages/MiniMax-M3.1-Flash-Preview/output (0.00s)
+        minimax_shared_resources_test.go:41: ai: invalid config Policy.Image.MaxTotalOutputImageBytes: must not exceed MaxOutputBytes
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-05/.evidence/barness-ai/20261017T223347.813320000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	4.063s
+FAIL

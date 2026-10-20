@@ -1,0 +1,113 @@
+{
+  "stages": [
+    {
+      "stage": "green-command-fifo",
+      "receipt": "tdd/green-command-fifo/receipt.json"
+    },
+    {
+      "stage": "green-command-fifo-2",
+      "receipt": "tdd/green-command-fifo-2/receipt.json"
+    },
+    {
+      "stage": "green-command-link",
+      "receipt": "tdd/green-command-link/receipt.json"
+    },
+    {
+      "stage": "green-command-link-2",
+      "receipt": "tdd/green-command-link-2/receipt.json"
+    },
+    {
+      "stage": "green-command-oversize",
+      "receipt": "tdd/green-command-oversize/receipt.json"
+    },
+    {
+      "stage": "green-command-oversize-2",
+      "receipt": "tdd/green-command-oversize-2/receipt.json"
+    },
+    {
+      "stage": "green-race-archive-grow",
+      "receipt": "tdd/green-race-archive-grow/receipt.json"
+    },
+    {
+      "stage": "green-source-oversize",
+      "receipt": "tdd/green-source-oversize/receipt.json"
+    },
+    {
+      "stage": "green-source-oversize-2",
+      "receipt": "tdd/green-source-oversize-2/receipt.json"
+    },
+    {
+      "stage": "green-ticket17-archive-grow",
+      "receipt": "tdd/green-ticket17-archive-grow/receipt.json"
+    },
+    {
+      "stage": "green-ticket17-archive-grow-2",
+      "receipt": "tdd/green-ticket17-archive-grow-2/receipt.json"
+    },
+    {
+      "stage": "green-verdict-archive-grow",
+      "receipt": "tdd/green-verdict-archive-grow/receipt.json"
+    },
+    {
+      "stage": "green-verdict-suite-oversize",
+      "receipt": "tdd/green-verdict-suite-oversize/receipt.json"
+    },
+    {
+      "stage": "positive-creator",
+      "receipt": "tdd/positive-creator/receipt.json"
+    },
+    {
+      "stage": "red-command-fifo",
+      "receipt": "tdd/red-command-fifo/receipt.json"
+    },
+    {
+      "stage": "red-command-link",
+      "receipt": "tdd/red-command-link/receipt.json"
+    },
+    {
+      "stage": "red-command-oversize",
+      "receipt": "tdd/red-command-oversize/receipt.json"
+    },
+    {
+      "stage": "red-command-oversize-2",
+      "receipt": "tdd/red-command-oversize-2/receipt.json"
+    },
+    {
+      "stage": "red-race-archive-grow",
+      "receipt": "tdd/red-race-archive-grow/receipt.json"
+    },
+    {
+      "stage": "red-source-oversize",
+      "receipt": "tdd/red-source-oversize/receipt.json"
+    },
+    {
+      "stage": "red-source-oversize-2",
+      "receipt": "tdd/red-source-oversize-2/receipt.json"
+    },
+    {
+      "stage": "red-ticket17-archive-grow",
+      "receipt": "tdd/red-ticket17-archive-grow/receipt.json"
+    },
+    {
+      "stage": "red-ticket17-archive-grow-2",
+      "receipt": "tdd/red-ticket17-archive-grow-2/receipt.json"
+    },
+    {
+      "stage": "red-verdict-archive-grow",
+      "receipt": "tdd/red-verdict-archive-grow/receipt.json"
+    },
+    {
+      "stage": "red-verdict-suite-oversize",
+      "receipt": "tdd/red-verdict-suite-oversize/receipt.json"
+    }
+  ],
+  "firstFactoryFailure": "resource-false: assertion rejected repeated resource digest before private public invocation; partial output non-authoritative",
+  "firstCreatorFailure": "missing contract sys.path: injection false/exit1; not a vulnerability RED",
+  "firstSourceArchiveProbeFailures": "source full-path count/archive basename filters missed real opens: injection false; not vulnerability RED",
+  "failedGreenBranch": "first source-edit tool command IndentationError; five green-* names executed unchanged parameter-only unsafe producer and failed expected bounded assertions. Those actual numeric logs and source SHAs remain; only green-*-2 closes ticket17 boundaries.",
+  "sourceEditError": "Tool stdout contained Python IndentationError: unexpected indent at position=s.index; that shell continued with the first purported green-command-oversize run. No runtime/Go source changed.",
+  "allOriginalsUnchanged": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "releaseCertified": false
+}

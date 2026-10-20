@@ -1,0 +1,44 @@
+{
+  "axis": "Spec",
+  "decision": "PASS_DRAFT_STATIC_ONLY",
+  "reviewedFilesSHA256": {
+    "/tmp/barness-ticket20-three-renewal.py": "45205b42ad159a5a261b67da1f6aa1d08b5e7472fa2b80a571dab7592eb3648a",
+    "/tmp/barness-ticket20-three-source-proof.py": "e230c685994b940a26278d886147356985fd694033632e4a8704a6a2ab6ee57b",
+    "/tmp/barness-ticket20-three-renewal-failure-inventory.md": "0a5e48d207d124d6a211e280a416ab8734849aceca356bf1d26a5d078303150a"
+  },
+  "originalDraftReportSHA256": "06ab8757a35405dd3828948c93cf8c524664c1b203392d84369709e6d972628a",
+  "resolvedFindings": [
+    "T20-CONTROLLER-SPEC-01",
+    "T20-CONTROLLER-SPEC-02",
+    "T20-CONTROLLER-SPEC-03"
+  ],
+  "findings": [],
+  "report": "The three original draft findings are closed in these exact operational bytes. Extra pins now use a JSON controller binding compatible with settled(); original authority is checked against fixed independently retained hashes, not freshly adopted; and guards recompare whole current native sets, including non-Go M3 files and additions/deletions, before and after commands. Per-kind traversal follows the existing native predicates: M3/GLM skip only node_modules/.evidence, text traverses all directories, selected symlink entries reject through FD reads. The interim shared skip and unrelated-file 10000 refusal were corrected; actual complete AI metadata count is 14266, within the new one-million metadata cap, while selected-name and per-file caps remain bounded. Fixed3 names, fresh36/36 authority, explicit international proxy, one-shot common intents, conservative unknown12/12 blocking, native report settlement and honest FAIL continuation remain intact. This permits credential-free preparation only after the intended source/docs freeze. It does not approve any prepared source/binary/plan, checks, human budget, execution authorization, credential read, paid call, publication or full gate.",
+  "independentReadOnlyProof": {
+    "priorImpactSHA256": "e2f3a2df96cfac7c43faca95b7d393015754ac8c9f0033b665b6a39ecdbd9e58",
+    "originalEightRecordHashesMatch": true,
+    "canonicalInventoryCompressedSHA256": "70cf6ad70ab8c6bad47fc55155a21a939760e542ab5179d099b3995d15a6fa48",
+    "canonicalInventoryEntries": 37,
+    "canonicalInventoryCompressedBytes": 1807,
+    "canonicalInventoryDecodedBytes": 5219,
+    "authorityAndCanonicalFilesComparedToInventory": 16,
+    "trackedMatrixOriginsGLMDataComparedToFixedGit": 6,
+    "trustedBase": "06bd510880cb390b11482949891e1be265a5c525",
+    "priorConsumptionSHA256": "1236c3838ba8a942b05352445bdd1f5442ab2f77771671a2a2fcd6f5d29c4d81",
+    "currentNativeSetProofNotYetGenerated": true
+  },
+  "interimTraversalSnapshot": {
+    "controllerSHA256": "e380f11043f4887dce01709d29974c2a48979d7d4d92e57f2e7758103fcac95d",
+    "finding": "text traversal incorrectly counted all unrelated files toward10000; actual tree crossed at10040 in frozen OpenAI node dependency",
+    "status": "resolved by selected-only10000 plus metadata1000000"
+  },
+  "dependenciesRead": {
+    ".scratch/barness-ai-minimax/tools/routed_evidence.py": "ab1eb2247183768680c0d6315357fc9ea7394405b0028775fe8611d63f41f0a0",
+    ".scratch/barness-ai-minimax/tools/paid_core.py": "d04b6ada7669530169debbfead314e9140f2f6f9295871ecddb42764cad14177",
+    ".scratch/barness-ai-minimax/tools/paid_plan.py": "8213089eee34ff2ff4ad973b835886c167b90fc8fd8ac0b9af7f96eb79979a5a",
+    "ai/internal/testkit/minimaxlive/source.go": "d390eea4bdc3e16ff0900f08b7afc8f46817908ad73aaebec1ad89fc7af9ef09",
+    "ai/internal/testkit/supportmatrix/glm_source.go": "fbb70f34e8be207e53b930f7e7630c6af7fb354fec047e27aea0ccea28c2aa38",
+    "ai/internal/testkit/release/evaluation_source.go": "18c526e6d3708fccc3e23726480663b74aa2b0f22a53eeb61abb1c17524a1f64"
+  },
+  "reviewMethod": "Read-only source/Git, bounded SHA256/JSON/gzip and filesystem metadata inspection. No operational helper, project/captured code, verifier, tests, Key or network executed."
+}

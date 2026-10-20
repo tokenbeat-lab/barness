@@ -1,0 +1,26 @@
+{
+  "originalCreatorSHA256": "bbac74847b82f33f0ed1ff81c617ea17358505e1969b1615bba4b8cddde3621a",
+  "originalReaderSHA256": "8910466d945993ef21d0440b3d204bbbfc2ca32a2f323ec650961e5398c5c254",
+  "firstReadback": {
+    "exitCode": 1,
+    "classification": "GENUINE_OBSERVATION_SELECTION_RED",
+    "error": "KeyError actual/finalization/matrix-candidate.json"
+  },
+  "boundaryFixture1": {
+    "actualHarnessExitCode": 0,
+    "actualChildExitCode": 1,
+    "classification": "SETUP_FILE_NOT_FOUND_AND_INITIAL_HARNESS_FALSE_GREEN; not semantic GREEN"
+  },
+  "boundaryFixture2": {
+    "oldHarnessExitCode": 1,
+    "newHarnessExitCode": 0,
+    "classification": "GENUINE_PREOPEN_BOUNDARY_RED_GREEN; one-entry private selection"
+  },
+  "boundaryFixture3": {
+    "oldHarnessExitCode": 1,
+    "newHarnessExitCode": 0,
+    "classification": "GENUINE_OWNER_PATH_BOUNDARY_RED_GREEN; all29941 original keys/byte pins preserved, only one relative changed"
+  },
+  "actualArchiveResealed": false,
+  "currentProducerCreatedOriginalArchive": false
+}

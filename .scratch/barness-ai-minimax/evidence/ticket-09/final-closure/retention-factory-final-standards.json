@@ -1,0 +1,1765 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "e1f3b8405f8d4dddd30f2e035597db5f15fd89b0",
+  "reviewedCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
+  "diffCommand": "git diff e1f3b8405f8d4dddd30f2e035597db5f15fd89b0...6b440de18181128e082c56acc10d277fb0a721ab",
+  "diffSHA256": "9d1571e8befe3262cd4e5e304c6f2e8f1135a8a6ce1422ae8880ba4a5270c070",
+  "diffBytes": 2164600,
+  "scope": "Sole prospective resource-factory finite-read correction and its coherent raw/metadata evidence; old eight corrections/Go/source-map/native acceptance not rerun or reapproved.",
+  "findings": [],
+  "smells": [],
+  "closedFindings": [
+    {
+      "id": "RESOURCE-FACTORY-STANDARDS-01",
+      "status": "CLOSED",
+      "originalReportSHA256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020",
+      "originalReportPreserved": true,
+      "basis": "Existing fixed metadata readers now enforce index/inventory/seal limits and no-follow regular FDs; fresh output uses expected-size/cumulative/stat/fdchmod on one FD. Five actual before/after public filesystem cases plus normal0/counterfeit1 demonstrate intended behavior."
+    }
+  ],
+  "standards": [
+    "AGENTS.md principles1-10, particularly4 input isolation,5 bounded failure/resources,8 preserved history/context and9 reproducibility.",
+    "Failure-first public boundary tests use actual syscalls and isolated private filesystem mutations.",
+    "All12 supplied baseline smell heuristics considered as judgments; existing reader semantics reused; no tool-enforced issues reported."
+  ],
+  "report": "PASS: RESOURCE-FACTORY-STANDARDS-01 is closed with no remaining documented Standards breach or baseline smell in this exact delta. The constructor now reuses bounded regular/no-follow/nonblocking FD reads for its1MiB index,8MiB compressed/40MiB decoded pinned inventory and metadata seal. Seal traversal, counts, depth, aggregate payload and text are finite. Output hashing checks expected size, initial/cumulative256MiB limits and before/after stat on the same FD; readonly mode is applied through that verified FD.\n\nFive actual public runpy/OS-open pairs preserve old late refusal1 after construction/verifier invocation and corrected early refusal1. Seal overflow occurs after construction but before seal rewrite/verifier invocation, explicitly distinguished. A normal current constructor exits0 and its counterfeit-resource consumer exits1. All original inode byte/mode fingerprints remain equal.\n\nIndependent bounded stdlib streaming checked all108 regular raw members, inventory and894973 payload bytes. Current constructor bytes equal the captured GREEN and positive bytes. The initial collector no-follow refusal and exact actual completed collector source remain retained, including its readonly sidecar. Original P2 reports remain unchanged. Three new readback receipts are numeric0 and their stdout hashes match.\n\nAll six prior original/negative capsule metadata and compressed hashes remain unchanged; their previous full member proofs are reused. The full reader3017 and limits remain unchanged. Source2306/docs2957 and historical gate false retain their original identities. No project/captured code, verifier, test, credential or network operation was executed; no repository/raw byte was changed. This review grants no current native qualification, release certificate, paid authority or merge authorization.",
+  "independentReadHashProof": {
+    "path": "/tmp/barness-resource-factory-independent-readhash.json",
+    "sha256": "4cbb8b8145faf7d0978b8d467845f091de6e8f4c5c9da3beabda5b2800eb0dd6",
+    "rawCapsule": {
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-factory-correction-raw.tar.gz",
+        "bytes": 165488,
+        "sha256": "efd73a8b8d1d6c35c64d48e138511df3a90e9a849f29393f23f12ea4825686c5",
+        "prefix": "resource-factory-correction"
+      },
+      "regularMembers": 108,
+      "physicalHeaders": 108,
+      "paxHeaders": 0,
+      "payloadBytes": 894973,
+      "decodedTarBytes": 983040,
+      "links": 0,
+      "allMembersHashed": true,
+      "inventorySHA256": "085771db8017c55ae224cfc5f4d394746f2e045f162cb9889f5938a64248ecf0"
+    },
+    "all108RawMembersMatchFixedGitSnapshot": true,
+    "producerPairs": [
+      {
+        "case": "index-size",
+        "red": {
+          "actualExitCode": 1,
+          "constructionPresent": true,
+          "verificationInvoked": true,
+          "sealRewritten": true,
+          "sourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "index-size",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-index-size/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "index.json",
+                "bytes": 1048577,
+                "sha256": "e202e23692d8e3a7aa0db400dbfa56c29401ea3ba73dac8f74d3ae9ce74346a2",
+                "recipe": "original JSON + trailing spaces to1MiB+1"
+              }
+            ]
+          }
+        },
+        "green": {
+          "actualExitCode": 1,
+          "constructionPresent": false,
+          "verificationInvoked": false,
+          "sealRewritten": false,
+          "sourceSHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "index-size",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-index-size/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "index.json",
+                "bytes": 1048577,
+                "sha256": "e202e23692d8e3a7aa0db400dbfa56c29401ea3ba73dac8f74d3ae9ce74346a2",
+                "recipe": "original JSON + trailing spaces to1MiB+1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "case": "inventory-compressed",
+        "red": {
+          "actualExitCode": 1,
+          "constructionPresent": true,
+          "verificationInvoked": true,
+          "sealRewritten": true,
+          "sourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "inventory-compressed",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-inventory-compressed/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "inventory.json.gz",
+                "bytes": 8388609,
+                "sha256": "dd420c3086c8127bacf05832c479d78479b99615a64270d68c3487b756c4da64",
+                "decodedBytes": 12909744,
+                "decodedSHA256": "8de7163b9526067351c582364f0f5e8b8efe4aeacb7b9ee6a6bb14145388e9e6",
+                "recipe": "original gzip + zero padding to8MiB+1"
+              }
+            ]
+          }
+        },
+        "green": {
+          "actualExitCode": 1,
+          "constructionPresent": false,
+          "verificationInvoked": false,
+          "sealRewritten": false,
+          "sourceSHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "inventory-compressed",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-inventory-compressed/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "inventory.json.gz",
+                "bytes": 8388609,
+                "sha256": "dd420c3086c8127bacf05832c479d78479b99615a64270d68c3487b756c4da64",
+                "decodedBytes": 12909744,
+                "decodedSHA256": "8de7163b9526067351c582364f0f5e8b8efe4aeacb7b9ee6a6bb14145388e9e6",
+                "recipe": "original gzip + zero padding to8MiB+1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "case": "inventory-decoded",
+        "red": {
+          "actualExitCode": 1,
+          "constructionPresent": true,
+          "verificationInvoked": true,
+          "sealRewritten": true,
+          "sourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "inventory-decoded",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-inventory-decoded/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "inventory.json.gz",
+                "bytes": 2476816,
+                "sha256": "a2877b7335fbe30f81a8711b747d15a5fd2acd9f216debcd9340a7f28c6d0667",
+                "decodedBytes": 41943041,
+                "decodedSHA256": "ef1067c3bd8cbfea2f880ae1800e8ae9ec84d96424bc04fe9489d7b97dd6ffa6",
+                "recipe": "original decoded JSON + spaces to40MiB+1, gzip mtime0"
+              }
+            ]
+          }
+        },
+        "green": {
+          "actualExitCode": 1,
+          "constructionPresent": false,
+          "verificationInvoked": false,
+          "sealRewritten": false,
+          "sourceSHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "inventory-decoded",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-inventory-decoded/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "inventory.json.gz",
+                "bytes": 2476816,
+                "sha256": "a2877b7335fbe30f81a8711b747d15a5fd2acd9f216debcd9340a7f28c6d0667",
+                "decodedBytes": 41943041,
+                "decodedSHA256": "ef1067c3bd8cbfea2f880ae1800e8ae9ec84d96424bc04fe9489d7b97dd6ffa6",
+                "recipe": "original decoded JSON + spaces to40MiB+1, gzip mtime0"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "case": "seal-metadata",
+        "red": {
+          "actualExitCode": 1,
+          "constructionPresent": true,
+          "verificationInvoked": true,
+          "sealRewritten": true,
+          "sourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "seal-metadata",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-seal-metadata/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/summary.json",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "summary.json",
+                "bytes": 8388609,
+                "sha256": "482c58248055c19f9acfa304296458f5647a4985ab735caf2ad4f9f00e336339",
+                "recipe": "original JSON + trailing spaces to8MiB+1"
+              }
+            ]
+          }
+        },
+        "green": {
+          "actualExitCode": 1,
+          "constructionPresent": true,
+          "verificationInvoked": false,
+          "sealRewritten": false,
+          "sourceSHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "seal-metadata",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-seal-metadata/work/clone/.scratch/barness-ai-minimax/evidence/ticket-17/summary.json",
+            "openMode": null,
+            "flags": 16777476,
+            "changes": [
+              {
+                "file": "summary.json",
+                "bytes": 8388609,
+                "sha256": "482c58248055c19f9acfa304296458f5647a4985ab735caf2ad4f9f00e336339",
+                "recipe": "original JSON + trailing spaces to8MiB+1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "case": "output-grow",
+        "red": {
+          "actualExitCode": 1,
+          "constructionPresent": true,
+          "verificationInvoked": true,
+          "sealRewritten": true,
+          "sourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "output-grow",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/red-output-grow/work/common/.evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+            "openMode": "r",
+            "flags": 16777216,
+            "changes": [
+              {
+                "file": "common/.evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+                "bytes": 269484032,
+                "recipe": "fresh sparse all-zero regular file"
+              }
+            ]
+          }
+        },
+        "green": {
+          "actualExitCode": 1,
+          "constructionPresent": false,
+          "verificationInvoked": false,
+          "sealRewritten": false,
+          "sourceSHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+          "originalBeforeAfterEqual": true,
+          "event": {
+            "event": "injected",
+            "case": "output-grow",
+            "path": "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-resource-factory-2/green-output-grow/work/common/.evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+            "openMode": null,
+            "flags": 16777476,
+            "changes": [
+              {
+                "file": "common/.evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+                "bytes": 269484032,
+                "recipe": "fresh sparse all-zero regular file"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "legitimateConstructorExit": 0,
+    "legitimateCounterfeitVerifierExit": 1,
+    "currentSourceSHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+    "beforeSourceSHA256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+    "currentBytesEqualActualGREENAndPositive": true,
+    "prior6CapsulesMetadataAndCompressedHashesUnchanged": {
+      ".scratch/barness-ai-minimax/evidence/ticket-17/": {
+        "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+        "bytes": 90847757,
+        "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d",
+        "prefix": "ticket17-offline-tdd"
+      },
+      ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+        "bytes": 114797350,
+        "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+        "prefix": "repair-incomplete-ordinary"
+      },
+      ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/race/": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-race-raw.tar.gz",
+        "bytes": 114046383,
+        "sha256": "d4d61315538ee4ae0d276fe54af46b11bdeedc8548be80b567d657f02d6ae473",
+        "prefix": "repair-incomplete-race"
+      },
+      ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/verdict/": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-outer-raw.tar.gz",
+        "bytes": 13522586,
+        "sha256": "28a657eb1aecf02036af15ec47513c9f3100c0e6317e615a63429ff8a78fba3a",
+        "prefix": "repair-incomplete-outer"
+      },
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/": {
+        "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+        "bytes": 90847871,
+        "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+        "prefix": "ticket17-offline-tdd"
+      },
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/": {
+        "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-float-negative.tar.gz",
+        "bytes": 90847894,
+        "sha256": "5cb9eddba4cbca5c4f03cf0521ad58028d18ca9aa56ec8886bfc951edd162161",
+        "prefix": "ticket17-offline-tdd"
+      }
+    },
+    "collectorSidecar": {
+      "file": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/ticket-17-final-payload/resource-factory-correction-collection-complete.py.txt",
+      "bytes": 7547,
+      "sha256": "2ad6fc78a726cd5d70f908a1c706e2e006a2e20f699635c46ac28a527317d0ae",
+      "archiveUnchanged": true,
+      "actualCollectorSource": true,
+      "notExecutedByReader": true
+    },
+    "initialCollectorNofollowRefusalPreserved": true,
+    "readbackNumericExits": [
+      0,
+      0,
+      0
+    ]
+  },
+  "priorFullScanProofs": [
+    {
+      "path": "/tmp/barness-ticket17-retention-independent-readhash.json",
+      "sha256": "c11813b0dccbd7a3effcc17d0c71e4c3802e2504fb32a4b50752c640f148deeb"
+    },
+    {
+      "path": "/tmp/barness-repair-gate-retention-independent-readhash.json",
+      "sha256": "2d0593b2859ebc348028df5cac697d46de18f4c6bb02ffc690c74631a276515e"
+    },
+    {
+      "path": "/tmp/barness-repair-retention-fixes-independent-readhash.json",
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea"
+    }
+  ],
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/SHA256SUMS",
+      "sha256": "7e7cb9a9ba3f5d597131e5ba984c17c19be3865dff280ec2f4a882c11ec49ea8",
+      "bytes": 62486,
+      "gitBlob": "6cbf63b1cd29d240fbf8bc4ec42a26897b3d7312"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/README.md",
+      "sha256": "c88fa44b286309ecb988f6eefc92267d0e12b42f9cf2d4a08256e2aa577bf172",
+      "bytes": 6817,
+      "gitBlob": "618892a55e292213a2565806deb4d4fbfe7c661c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/correction-evidence.json",
+      "sha256": "87d46d329eb2a4d71b247ce2ee366105e6f8cc5c19084d7ed8a9e3440d468e15",
+      "bytes": 75809,
+      "gitBlob": "5690e0e338253777170c9d363cfe470df1b7c08f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/README.md",
+      "sha256": "6abab0a459679bfaf76ad476f671eb1986ae0892a1cf3d0bd42a3a9729803490",
+      "bytes": 5102,
+      "gitBlob": "03b676bf3de9f8cfbc92f20eae123843aa143f79"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/capsule-index.json",
+      "sha256": "11d6ef976961379f7c17c442b06545c18f3aa168639ab08a66e27c83c5faf7ac",
+      "bytes": 6501,
+      "gitBlob": "4310e3eb0fdc9544c0fc56ee111c87ec1799bd80"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py",
+      "sha256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30",
+      "bytes": 8276,
+      "gitBlob": "1dbf3baa32bce6567366b83b4f4fa13e302b4e0c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-complete-source.json",
+      "sha256": "2bd36f1a94d416e6445253ec7b985858dbd0daceef704b93d51d24cf8b972099",
+      "bytes": 339,
+      "gitBlob": "c5edecde88f12549df985d78348eeb5de1330dfb"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-complete.py.txt",
+      "sha256": "2ad6fc78a726cd5d70f908a1c706e2e006a2e20f699635c46ac28a527317d0ae",
+      "bytes": 7547,
+      "gitBlob": "89685890b5bea9aab5d3a1bd5898ca51c76d43db"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-first-refusal.json",
+      "sha256": "3a20984fd38413916957ff8e6cf799bdf03b279d7efdd9a8ff962fa44e56dc80",
+      "bytes": 14945,
+      "gitBlob": "9f9f60fc07c5bc15724c18d66161db923b715a34"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-first.py.txt",
+      "sha256": "318665dc56456f8184c6753b2baf8cdcc71518bab3838afefcc32d9f7c3bed3a",
+      "bytes": 7390,
+      "gitBlob": "85572b75ececde6683eff298e7a494aaf3b7eb1c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/completed.json",
+      "sha256": "c0c0fccc2c9a57993d52f44e77befb9836df306c47ec541c2f33a7646e63e74a",
+      "bytes": 793,
+      "gitBlob": "3f48f38c04980f014f300823ff39d00a83f7e979"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/failure-inventory.md",
+      "sha256": "8f0bf62b0c005b0bc05d8f7011afef00d902e746fc38f1e39680ded16d2c37ca",
+      "bytes": 2683,
+      "gitBlob": "ab25eba2fa323774b7cc79ea104d428ac3f6703d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/inventory.json.gz",
+      "sha256": "fbd505a9f41b781983c1f4631cc4bcf5086b011e5d0ac9df84b109776345e446",
+      "bytes": 3646,
+      "gitBlob": "69232db861fa759fd8aa31803630be49b0530d02"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/barness-repair-retention-fixes-independent-readhash.json",
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea",
+      "bytes": 8702,
+      "gitBlob": "b8dd6f4192e5e53d83f78916882f417c4af909b6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/barness-repair-retention-fixes-spec-review.json",
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2",
+      "bytes": 61301,
+      "gitBlob": "69cfb7d210416a8651c39b503ad3c6c42e12fabd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/barness-repair-retention-fixes-standards-review.json",
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020",
+      "bytes": 80933,
+      "gitBlob": "7ecae9e400f5cfb72b1d049d399066e1c1fe3b2a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/e1-correction-evidence.json",
+      "sha256": "1ee53d2486f9b2f8e8999a32608bbf7a29f984dd6bc917ca42a146559ba31c31",
+      "bytes": 35431,
+      "gitBlob": "84f8d4962a221811dee486dcddcf43b25076c4d7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/e1-resource-probe.py.txt",
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+      "bytes": 6660,
+      "gitBlob": "0db6877e5dde5b04235337fc8e50b868fc2e57c7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/collection-first-refusal.json",
+      "sha256": "3a20984fd38413916957ff8e6cf799bdf03b279d7efdd9a8ff962fa44e56dc80",
+      "bytes": 14945,
+      "gitBlob": "9f9f60fc07c5bc15724c18d66161db923b715a34"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/collection-first.py.txt",
+      "sha256": "318665dc56456f8184c6753b2baf8cdcc71518bab3838afefcc32d9f7c3bed3a",
+      "bytes": 7390,
+      "gitBlob": "85572b75ececde6683eff298e7a494aaf3b7eb1c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/controllers/check-factory.py",
+      "sha256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30",
+      "bytes": 8276,
+      "gitBlob": "1dbf3baa32bce6567366b83b4f4fa13e302b4e0c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/controllers/run-legitimate.py",
+      "sha256": "4b8bef5dde4eb03abcbc41b3b2078a9363313315dcd6978e3e8352d2084b8583",
+      "bytes": 1913,
+      "gitBlob": "9e33523144367d81f5c473dd52735a5f87bef430"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/receipt.json",
+      "sha256": "7b671c5a11be111739eed50ee93e2ff8987d0649439f700077cf8b48f0ec2885",
+      "bytes": 3353,
+      "gitBlob": "9215cdcff90276d61ada858fcdeb24d85f9db13b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/stdout.log",
+      "sha256": "3e127b7b8efb98d8f15ea716fbb0a47e85b26fd83483632bfadc857652aefe69",
+      "bytes": 620,
+      "gitBlob": "2b34cdd9e7f091232de9de1856d78656b43994c2"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/verification.json",
+      "sha256": "8938f90a95ce4f62dfc64a0df911cb051f2e609cd0486b62b274adc65e348c20",
+      "bytes": 660,
+      "gitBlob": "a1d120b5e45a167d85af36fbbc654dd55c6a8027"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/verification.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/verification.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/barness-repair-retention-fixes-independent-readhash.json",
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea",
+      "bytes": 8702,
+      "gitBlob": "b8dd6f4192e5e53d83f78916882f417c4af909b6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/barness-repair-retention-fixes-spec-review.json",
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2",
+      "bytes": 61301,
+      "gitBlob": "69cfb7d210416a8651c39b503ad3c6c42e12fabd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/barness-repair-retention-fixes-standards-review.json",
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020",
+      "bytes": 80933,
+      "gitBlob": "7ecae9e400f5cfb72b1d049d399066e1c1fe3b2a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/e1-correction-evidence.json",
+      "sha256": "1ee53d2486f9b2f8e8999a32608bbf7a29f984dd6bc917ca42a146559ba31c31",
+      "bytes": 35431,
+      "gitBlob": "84f8d4962a221811dee486dcddcf43b25076c4d7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/e1-resource-probe.py.txt",
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+      "bytes": 6660,
+      "gitBlob": "0db6877e5dde5b04235337fc8e50b868fc2e57c7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-index-size.log",
+      "sha256": "42d973b783bf168425d0d3a5f6155da2e5a656c391f6374b5f785233576533e6",
+      "bytes": 5765,
+      "gitBlob": "475f786809debbe9fe98666138bda06f0acea3a5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-inventory-compressed.log",
+      "sha256": "644f6ee02ae83d3e38b9e0a320acbe254b52f251ce1c2cc22c4ff8a2dcec8e8d",
+      "bytes": 6238,
+      "gitBlob": "c53ddfbe6ff3c3946c169296cc3134a9af9eb6d6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-inventory-decoded.log",
+      "sha256": "9bc546360e43cd7e54aacf09754aadcd6a309e846b448582c3be4685a17f38ea",
+      "bytes": 6032,
+      "gitBlob": "8f6370909f0dab8872bf170ec139f75d18a0507b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-output-grow.log",
+      "sha256": "0951abb6befea29a193890b57891465f3a3a6b6a7c5ad4d4ec41e76aa009c0a9",
+      "bytes": 5197,
+      "gitBlob": "afe06d4ba23ee1273f4182745389af199d7c8a83"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-seal-metadata.log",
+      "sha256": "26309e6701581cde3ecbba0011ff58596462c62b91bc573151d6adfe09c952e5",
+      "bytes": 7824,
+      "gitBlob": "6ee42340fe8157273d4692bb8157e18a545bfaad"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-legitimate.log",
+      "sha256": "b92d3abc01205c25fb76b6448c07d0f3cdaa9616b155defdc1a7307fa07938fc",
+      "bytes": 2891,
+      "gitBlob": "9bb91d084b6deff43cd03ad1bf8a0907b708608b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-index-size.log",
+      "sha256": "3dd356a2f59df2d6a4bca3b573a46a6a3b7af89fd152a164375865e41896b7ce",
+      "bytes": 7502,
+      "gitBlob": "c503ec59ebfa23c74a3ca230805645da0c74a764"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-inventory-compressed.log",
+      "sha256": "6d1c36b45b395f0fd4467c3b21b4d3d4f6e66330bb06e84c899be47941f28197",
+      "bytes": 7601,
+      "gitBlob": "5c32a2ab44ab8df35dcc12b19c207237fad1659b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-inventory-decoded.log",
+      "sha256": "7262f16c73db087e1f5bf417be3152669be9da7526845574670cf7c4f542f2f3",
+      "bytes": 7572,
+      "gitBlob": "4e89576026b325549737f503bef0631883de508d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-output-grow.log",
+      "sha256": "aa524dc53ee11ab7fea914b96ef1486dd2e374f1c54639c9d68840b359b9e111",
+      "bytes": 7362,
+      "gitBlob": "15abea529af945ee8282017a18aa85b6af7e20cd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-seal-metadata.log",
+      "sha256": "99f0879699cc541cb3f7aa699bd0abac5b480de6cf1825a5813841fccbe6ce50",
+      "bytes": 7531,
+      "gitBlob": "855690f2b268712d8791ff96bac2a0be2b709a9f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/source-proof.json",
+      "sha256": "e17a587f5afbc61aa71e4f83f45b016fb25812693746a6872be88b1fcf88b0b4",
+      "bytes": 580,
+      "gitBlob": "53615978a3c001f7f5bcf3ec03f288c78751a6f0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/sources/green-resource-probe.py.txt",
+      "sha256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+      "bytes": 8173,
+      "gitBlob": "3f9ae0ee1d396515e25af3328ce0a9da1141ce9c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/sources/red-resource-probe.py.txt",
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+      "bytes": 6660,
+      "gitBlob": "0db6877e5dde5b04235337fc8e50b868fc2e57c7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/summary.json",
+      "sha256": "4e5230c9505679ce49ba24ff473385f0940db6b2aa5c0c7b3797dd93f59b2258",
+      "bytes": 4278,
+      "gitBlob": "07d7788346c29a19d4bc77558dcd35231d1b4e4b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/events.jsonl",
+      "sha256": "43efc239c3e5134c128609efbdb7206dec621712d7124c1a33b1f1a107572dee",
+      "bytes": 457,
+      "gitBlob": "5228946e92ee1507a8f19dacbb3587e9b500c121"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/receipt.json",
+      "sha256": "42d973b783bf168425d0d3a5f6155da2e5a656c391f6374b5f785233576533e6",
+      "bytes": 5765,
+      "gitBlob": "475f786809debbe9fe98666138bda06f0acea3a5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/stderr.log",
+      "sha256": "c91bcf40ab91078de9d94415341c999b4570cd2973cd81dc385ca0ba5938b989",
+      "bytes": 3673,
+      "gitBlob": "0b9b03784679ccc2d2f82ea7506bf86e51f5b423"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/events.jsonl",
+      "sha256": "d91110a80bb20a1f05294c7f7131cec262c914ba457efaa14f18634cfb082379",
+      "bytes": 896,
+      "gitBlob": "1f9e43b3b2a93a57a1f692fadb876bc77347d75c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/receipt.json",
+      "sha256": "644f6ee02ae83d3e38b9e0a320acbe254b52f251ce1c2cc22c4ff8a2dcec8e8d",
+      "bytes": 6238,
+      "gitBlob": "c53ddfbe6ff3c3946c169296cc3134a9af9eb6d6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/stderr.log",
+      "sha256": "6b026ef6a5bb6740383a045eb95638507b33be0789c18c48af492dfa76d25852",
+      "bytes": 4091,
+      "gitBlob": "b50b29c31286c6150a053160648ecbb7dd5e25a9"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/events.jsonl",
+      "sha256": "350d0ee3d90bac8768265b90cae722a73bf25188b74612f2b29fdaecd11de6ff",
+      "bytes": 903,
+      "gitBlob": "7b9b2e4be492e9b13ad808e2d2d2ea735b044276"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/receipt.json",
+      "sha256": "9bc546360e43cd7e54aacf09754aadcd6a309e846b448582c3be4685a17f38ea",
+      "bytes": 6032,
+      "gitBlob": "8f6370909f0dab8872bf170ec139f75d18a0507b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/stderr.log",
+      "sha256": "bc79b57691b0a30daa67f184c96ac9b371c256abf9bb3b1ba6fdfa68746910e8",
+      "bytes": 3905,
+      "gitBlob": "8c44550d84a4c470bfe4dda6067c67f1a1ae8db2"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/events.jsonl",
+      "sha256": "acc665c31503161199bdab950afb552cf88930c556cf9bdace1214ad1512d52b",
+      "bytes": 471,
+      "gitBlob": "5c927d8f1d854106d45077810b147ae93bffaa7e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/receipt.json",
+      "sha256": "0951abb6befea29a193890b57891465f3a3a6b6a7c5ad4d4ec41e76aa009c0a9",
+      "bytes": 5197,
+      "gitBlob": "afe06d4ba23ee1273f4182745389af199d7c8a83"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/stderr.log",
+      "sha256": "08267e1311551715433ea3c4bb8c7714dee5fa07f9053ad25f9e691d0b8de91b",
+      "bytes": 3106,
+      "gitBlob": "8d183f970075d11d93c8a38f812f2bf15268d3e9"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/events.jsonl",
+      "sha256": "26744d767b09e784b593ed07579e435a19c4d30d33f240721422fb87be00992f",
+      "bytes": 468,
+      "gitBlob": "2a55c5743221bfc08d444c135fbf7b7cf62349cc"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/receipt.json",
+      "sha256": "26309e6701581cde3ecbba0011ff58596462c62b91bc573151d6adfe09c952e5",
+      "bytes": 7824,
+      "gitBlob": "6ee42340fe8157273d4692bb8157e18a545bfaad"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/stderr.log",
+      "sha256": "888ebb80ce46f540e7fb56496bcb237c06418fc741415bea06b9b8c27a7e92be",
+      "bytes": 5557,
+      "gitBlob": "d74221da9b75f1a30fac8541d5d996c370d220f7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/events.jsonl",
+      "sha256": "0fdc75563a59689ed284ea84a7bd0c7156b185e2e6472832a31fa7a3fe47f03e",
+      "bytes": 913,
+      "gitBlob": "c8cae2b9dbb4a9addd34c93a8fc484868d51a891"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/receipt.json",
+      "sha256": "3dd356a2f59df2d6a4bca3b573a46a6a3b7af89fd152a164375865e41896b7ce",
+      "bytes": 7502,
+      "gitBlob": "c503ec59ebfa23c74a3ca230805645da0c74a764"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/red.json",
+      "sha256": "2ce05c73ad9c49732d68825a2fedca7b2b529ca6c6c89441e9a8bacc3b27470f",
+      "bytes": 668,
+      "gitBlob": "cfb16ba3b45b8d88757fcb9aad1893e7400a93ac"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/red.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/stderr.log",
+      "sha256": "660783fce38e804fa96ae18dfea72942ad55192ac5269e0fb02f9408dc414bdc",
+      "bytes": 4548,
+      "gitBlob": "5f14bd304addd17d35731f54eed1ed81e8217586"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/stdout.log",
+      "sha256": "6a69a12e3f238a3b49777ef01b185c00588c7605a445a85db46385a29971b6e4",
+      "bytes": 628,
+      "gitBlob": "4c641cfc90206692b0ceb9e78bc3e0c1c495a1fb"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/events.jsonl",
+      "sha256": "d3c0b447daf76e3be46acd33d283e462b13fac19986bff851bd77a44e667928a",
+      "bytes": 1307,
+      "gitBlob": "e3dcb3b09b165549be2a635a91caab9b887d7950"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/receipt.json",
+      "sha256": "6d1c36b45b395f0fd4467c3b21b4d3d4f6e66330bb06e84c899be47941f28197",
+      "bytes": 7601,
+      "gitBlob": "5c32a2ab44ab8df35dcc12b19c207237fad1659b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/red.json",
+      "sha256": "549d312845347a94226af27b569d1cea7e84e75e25911510747742e29014c4d6",
+      "bytes": 688,
+      "gitBlob": "e58fba43185ad2e1e4e54478f7a62e56ff29bda4"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/red.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/stderr.log",
+      "sha256": "bcb9385849200eaf6869cced9475b4e96d3e9a4f23d643244e01c744b8e5eefd",
+      "bytes": 4578,
+      "gitBlob": "d9b3ce9e071abb5e47978b44797e39fe7fec1c5d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/stdout.log",
+      "sha256": "b9e1a9f0aa90333d1ab7d52b85291e7c82f085a9e126b50147de63633e66f6b9",
+      "bytes": 648,
+      "gitBlob": "57cdc6abf359d54998977e808f6727b9f9469018"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/events.jsonl",
+      "sha256": "e1868f79f868e57368877533833b086df88fe0cca8c2ae150e781d73008655ed",
+      "bytes": 1308,
+      "gitBlob": "9f46a5e5487199df4e7a0d817b9b9605c60f0059"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/receipt.json",
+      "sha256": "7262f16c73db087e1f5bf417be3152669be9da7526845574670cf7c4f542f2f3",
+      "bytes": 7572,
+      "gitBlob": "4e89576026b325549737f503bef0631883de508d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/red.json",
+      "sha256": "4c428ddfc34e06933c1173e244853f2e17296f6906e9f2403e0f848665bd2bc1",
+      "bytes": 682,
+      "gitBlob": "b54099b5a9df2a6f6ab103797edb1d6b7fd850b0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/red.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/stderr.log",
+      "sha256": "02574e49ab02e0ac331d47fe8676ac99cd391bfd0e0bd72c55a84baf94ee58fd",
+      "bytes": 4569,
+      "gitBlob": "1655d531dc3c1274069c273c468da1993df5808b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/stdout.log",
+      "sha256": "d883e1aeca654cddca5cfe241ac79891c3c8bd206b8d984c9fafa0d6e7a4e9ec",
+      "bytes": 642,
+      "gitBlob": "cc4c4b55e31af471b1959ee274497d5794f2d244"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/construction.json",
+      "sha256": "3ef26ec501818c6282d63b1e2639d0540bc60849a2b1dfbee3366722d454362c",
+      "bytes": 1689,
+      "gitBlob": "68dcfdc78b5265040d1e344423d5148e62d4b530"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/events.jsonl",
+      "sha256": "71fb16c60c5693b2108626c914d1cbb413019da14b20408061ce53cc82e2e195",
+      "bytes": 698,
+      "gitBlob": "fec99a827ba285e90ae9ac4e303d8ed86761a468"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/receipt.json",
+      "sha256": "aa524dc53ee11ab7fea914b96ef1486dd2e374f1c54639c9d68840b359b9e111",
+      "bytes": 7362,
+      "gitBlob": "15abea529af945ee8282017a18aa85b6af7e20cd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/red.json",
+      "sha256": "b79b7f394f8adb43874ea7934f6842817344a76c3ba3cc86cdde37072b5c27f7",
+      "bytes": 670,
+      "gitBlob": "a7b1b22152f58833dec88fd1e31f910b07c972d5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/red.stderr",
+      "sha256": "dec224fee2ca7bd34dc91f782514fccc1da77675325de662c78bcac4b7d322b7",
+      "bytes": 54,
+      "gitBlob": "06f1e01f83b512d8e812da4d639a1e7e349ae62c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/stderr.log",
+      "sha256": "0f1d7030d6889c21db4dde06b27f913bbbcae7c75d40e4adf0f9ef47101a235e",
+      "bytes": 4551,
+      "gitBlob": "c71dde1f302675dedf04b11de5246b732e479c43"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/stdout.log",
+      "sha256": "a2da6fb341118e08855ddb324d6e286ead1ecfc2d83ce78c4ec0f9853fbe6b8a",
+      "bytes": 630,
+      "gitBlob": "9eb44e7a74ab39b6c002a0130d193f6701557d68"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/events.jsonl",
+      "sha256": "bb4ebc48ca6b1016afc42cd51d97fa2fd592976c2ffd1bab562d1a452bebac4c",
+      "bytes": 465,
+      "gitBlob": "edc4348d23d334fff7074d7becc0cc57c0e8a711"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/receipt.json",
+      "sha256": "99f0879699cc541cb3f7aa699bd0abac5b480de6cf1825a5813841fccbe6ce50",
+      "bytes": 7531,
+      "gitBlob": "855690f2b268712d8791ff96bac2a0be2b709a9f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/red.json",
+      "sha256": "90a91fc83244454614cdbb44c2a9747e4dcf64a627d4de3093fad8a7ae59bb89",
+      "bytes": 674,
+      "gitBlob": "f4f60916067033778685949edb2a15c7d3f35848"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/red.stderr",
+      "sha256": "8246396c3309ea1ea07ce8390421d7d71366456beea29a1bd9d637c7fe58e6af",
+      "bytes": 41,
+      "gitBlob": "f8a728c3e2c1bfbef014c101ce73206ed1aceca8"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/stderr.log",
+      "sha256": "51a68b8a01e5c466313cdf1eee25298026ce193725a886275cca983debcfe96d",
+      "bytes": 4557,
+      "gitBlob": "27fcdc6a8445b07aa0f69badb371f181ee6fe880"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/stdout.log",
+      "sha256": "b919abfe9dc2384dcc567d7e27600311a11cd1a71bb3c9704dab0bfa467acafe",
+      "bytes": 634,
+      "gitBlob": "ee491f93f5448ef9ec21bce355e94af0dc9d2ec6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/controllers/check-factory.py",
+      "sha256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30",
+      "bytes": 8276,
+      "gitBlob": "1dbf3baa32bce6567366b83b4f4fa13e302b4e0c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/controllers/run-legitimate.py",
+      "sha256": "4b8bef5dde4eb03abcbc41b3b2078a9363313315dcd6978e3e8352d2084b8583",
+      "bytes": 1913,
+      "gitBlob": "9e33523144367d81f5c473dd52735a5f87bef430"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/receipt.json",
+      "sha256": "7b671c5a11be111739eed50ee93e2ff8987d0649439f700077cf8b48f0ec2885",
+      "bytes": 3353,
+      "gitBlob": "9215cdcff90276d61ada858fcdeb24d85f9db13b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/stdout.log",
+      "sha256": "3e127b7b8efb98d8f15ea716fbb0a47e85b26fd83483632bfadc857652aefe69",
+      "bytes": 620,
+      "gitBlob": "2b34cdd9e7f091232de9de1856d78656b43994c2"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/verification.json",
+      "sha256": "8938f90a95ce4f62dfc64a0df911cb051f2e609cd0486b62b274adc65e348c20",
+      "bytes": 660,
+      "gitBlob": "a1d120b5e45a167d85af36fbbc654dd55c6a8027"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/verification.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/verification.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/barness-repair-retention-fixes-independent-readhash.json",
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea",
+      "bytes": 8702,
+      "gitBlob": "b8dd6f4192e5e53d83f78916882f417c4af909b6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/barness-repair-retention-fixes-spec-review.json",
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2",
+      "bytes": 61301,
+      "gitBlob": "69cfb7d210416a8651c39b503ad3c6c42e12fabd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/barness-repair-retention-fixes-standards-review.json",
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020",
+      "bytes": 80933,
+      "gitBlob": "7ecae9e400f5cfb72b1d049d399066e1c1fe3b2a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/e1-correction-evidence.json",
+      "sha256": "1ee53d2486f9b2f8e8999a32608bbf7a29f984dd6bc917ca42a146559ba31c31",
+      "bytes": 35431,
+      "gitBlob": "84f8d4962a221811dee486dcddcf43b25076c4d7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/e1-resource-probe.py.txt",
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+      "bytes": 6660,
+      "gitBlob": "0db6877e5dde5b04235337fc8e50b868fc2e57c7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/sources/green-resource-probe.py.txt",
+      "sha256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+      "bytes": 8173,
+      "gitBlob": "3f9ae0ee1d396515e25af3328ce0a9da1141ce9c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/sources/red-resource-probe.py.txt",
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c",
+      "bytes": 6660,
+      "gitBlob": "0db6877e5dde5b04235337fc8e50b868fc2e57c7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/events.jsonl",
+      "sha256": "43efc239c3e5134c128609efbdb7206dec621712d7124c1a33b1f1a107572dee",
+      "bytes": 457,
+      "gitBlob": "5228946e92ee1507a8f19dacbb3587e9b500c121"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/receipt.json",
+      "sha256": "42d973b783bf168425d0d3a5f6155da2e5a656c391f6374b5f785233576533e6",
+      "bytes": 5765,
+      "gitBlob": "475f786809debbe9fe98666138bda06f0acea3a5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/stderr.log",
+      "sha256": "c91bcf40ab91078de9d94415341c999b4570cd2973cd81dc385ca0ba5938b989",
+      "bytes": 3673,
+      "gitBlob": "0b9b03784679ccc2d2f82ea7506bf86e51f5b423"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/events.jsonl",
+      "sha256": "d91110a80bb20a1f05294c7f7131cec262c914ba457efaa14f18634cfb082379",
+      "bytes": 896,
+      "gitBlob": "1f9e43b3b2a93a57a1f692fadb876bc77347d75c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/receipt.json",
+      "sha256": "644f6ee02ae83d3e38b9e0a320acbe254b52f251ce1c2cc22c4ff8a2dcec8e8d",
+      "bytes": 6238,
+      "gitBlob": "c53ddfbe6ff3c3946c169296cc3134a9af9eb6d6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/stderr.log",
+      "sha256": "6b026ef6a5bb6740383a045eb95638507b33be0789c18c48af492dfa76d25852",
+      "bytes": 4091,
+      "gitBlob": "b50b29c31286c6150a053160648ecbb7dd5e25a9"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/events.jsonl",
+      "sha256": "350d0ee3d90bac8768265b90cae722a73bf25188b74612f2b29fdaecd11de6ff",
+      "bytes": 903,
+      "gitBlob": "7b9b2e4be492e9b13ad808e2d2d2ea735b044276"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/receipt.json",
+      "sha256": "9bc546360e43cd7e54aacf09754aadcd6a309e846b448582c3be4685a17f38ea",
+      "bytes": 6032,
+      "gitBlob": "8f6370909f0dab8872bf170ec139f75d18a0507b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/stderr.log",
+      "sha256": "bc79b57691b0a30daa67f184c96ac9b371c256abf9bb3b1ba6fdfa68746910e8",
+      "bytes": 3905,
+      "gitBlob": "8c44550d84a4c470bfe4dda6067c67f1a1ae8db2"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/events.jsonl",
+      "sha256": "acc665c31503161199bdab950afb552cf88930c556cf9bdace1214ad1512d52b",
+      "bytes": 471,
+      "gitBlob": "5c927d8f1d854106d45077810b147ae93bffaa7e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/receipt.json",
+      "sha256": "0951abb6befea29a193890b57891465f3a3a6b6a7c5ad4d4ec41e76aa009c0a9",
+      "bytes": 5197,
+      "gitBlob": "afe06d4ba23ee1273f4182745389af199d7c8a83"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/stderr.log",
+      "sha256": "08267e1311551715433ea3c4bb8c7714dee5fa07f9053ad25f9e691d0b8de91b",
+      "bytes": 3106,
+      "gitBlob": "8d183f970075d11d93c8a38f812f2bf15268d3e9"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/events.jsonl",
+      "sha256": "26744d767b09e784b593ed07579e435a19c4d30d33f240721422fb87be00992f",
+      "bytes": 468,
+      "gitBlob": "2a55c5743221bfc08d444c135fbf7b7cf62349cc"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/receipt.json",
+      "sha256": "26309e6701581cde3ecbba0011ff58596462c62b91bc573151d6adfe09c952e5",
+      "bytes": 7824,
+      "gitBlob": "6ee42340fe8157273d4692bb8157e18a545bfaad"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/stderr.log",
+      "sha256": "888ebb80ce46f540e7fb56496bcb237c06418fc741415bea06b9b8c27a7e92be",
+      "bytes": 5557,
+      "gitBlob": "d74221da9b75f1a30fac8541d5d996c370d220f7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/events.jsonl",
+      "sha256": "0fdc75563a59689ed284ea84a7bd0c7156b185e2e6472832a31fa7a3fe47f03e",
+      "bytes": 913,
+      "gitBlob": "c8cae2b9dbb4a9addd34c93a8fc484868d51a891"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/receipt.json",
+      "sha256": "3dd356a2f59df2d6a4bca3b573a46a6a3b7af89fd152a164375865e41896b7ce",
+      "bytes": 7502,
+      "gitBlob": "c503ec59ebfa23c74a3ca230805645da0c74a764"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/red.json",
+      "sha256": "2ce05c73ad9c49732d68825a2fedca7b2b529ca6c6c89441e9a8bacc3b27470f",
+      "bytes": 668,
+      "gitBlob": "cfb16ba3b45b8d88757fcb9aad1893e7400a93ac"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/red.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/stderr.log",
+      "sha256": "660783fce38e804fa96ae18dfea72942ad55192ac5269e0fb02f9408dc414bdc",
+      "bytes": 4548,
+      "gitBlob": "5f14bd304addd17d35731f54eed1ed81e8217586"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/stdout.log",
+      "sha256": "6a69a12e3f238a3b49777ef01b185c00588c7605a445a85db46385a29971b6e4",
+      "bytes": 628,
+      "gitBlob": "4c641cfc90206692b0ceb9e78bc3e0c1c495a1fb"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/events.jsonl",
+      "sha256": "d3c0b447daf76e3be46acd33d283e462b13fac19986bff851bd77a44e667928a",
+      "bytes": 1307,
+      "gitBlob": "e3dcb3b09b165549be2a635a91caab9b887d7950"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/receipt.json",
+      "sha256": "6d1c36b45b395f0fd4467c3b21b4d3d4f6e66330bb06e84c899be47941f28197",
+      "bytes": 7601,
+      "gitBlob": "5c32a2ab44ab8df35dcc12b19c207237fad1659b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/red.json",
+      "sha256": "549d312845347a94226af27b569d1cea7e84e75e25911510747742e29014c4d6",
+      "bytes": 688,
+      "gitBlob": "e58fba43185ad2e1e4e54478f7a62e56ff29bda4"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/red.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/stderr.log",
+      "sha256": "bcb9385849200eaf6869cced9475b4e96d3e9a4f23d643244e01c744b8e5eefd",
+      "bytes": 4578,
+      "gitBlob": "d9b3ce9e071abb5e47978b44797e39fe7fec1c5d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/stdout.log",
+      "sha256": "b9e1a9f0aa90333d1ab7d52b85291e7c82f085a9e126b50147de63633e66f6b9",
+      "bytes": 648,
+      "gitBlob": "57cdc6abf359d54998977e808f6727b9f9469018"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/events.jsonl",
+      "sha256": "e1868f79f868e57368877533833b086df88fe0cca8c2ae150e781d73008655ed",
+      "bytes": 1308,
+      "gitBlob": "9f46a5e5487199df4e7a0d817b9b9605c60f0059"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/receipt.json",
+      "sha256": "7262f16c73db087e1f5bf417be3152669be9da7526845574670cf7c4f542f2f3",
+      "bytes": 7572,
+      "gitBlob": "4e89576026b325549737f503bef0631883de508d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/red.json",
+      "sha256": "4c428ddfc34e06933c1173e244853f2e17296f6906e9f2403e0f848665bd2bc1",
+      "bytes": 682,
+      "gitBlob": "b54099b5a9df2a6f6ab103797edb1d6b7fd850b0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/red.stderr",
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d",
+      "bytes": 62,
+      "gitBlob": "58aada220d2e0463cfbb9866727aecd02ee1e07a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/stderr.log",
+      "sha256": "02574e49ab02e0ac331d47fe8676ac99cd391bfd0e0bd72c55a84baf94ee58fd",
+      "bytes": 4569,
+      "gitBlob": "1655d531dc3c1274069c273c468da1993df5808b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/stdout.log",
+      "sha256": "d883e1aeca654cddca5cfe241ac79891c3c8bd206b8d984c9fafa0d6e7a4e9ec",
+      "bytes": 642,
+      "gitBlob": "cc4c4b55e31af471b1959ee274497d5794f2d244"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/construction.json",
+      "sha256": "3ef26ec501818c6282d63b1e2639d0540bc60849a2b1dfbee3366722d454362c",
+      "bytes": 1689,
+      "gitBlob": "68dcfdc78b5265040d1e344423d5148e62d4b530"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/events.jsonl",
+      "sha256": "71fb16c60c5693b2108626c914d1cbb413019da14b20408061ce53cc82e2e195",
+      "bytes": 698,
+      "gitBlob": "fec99a827ba285e90ae9ac4e303d8ed86761a468"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/receipt.json",
+      "sha256": "aa524dc53ee11ab7fea914b96ef1486dd2e374f1c54639c9d68840b359b9e111",
+      "bytes": 7362,
+      "gitBlob": "15abea529af945ee8282017a18aa85b6af7e20cd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/red.json",
+      "sha256": "b79b7f394f8adb43874ea7934f6842817344a76c3ba3cc86cdde37072b5c27f7",
+      "bytes": 670,
+      "gitBlob": "a7b1b22152f58833dec88fd1e31f910b07c972d5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/red.stderr",
+      "sha256": "dec224fee2ca7bd34dc91f782514fccc1da77675325de662c78bcac4b7d322b7",
+      "bytes": 54,
+      "gitBlob": "06f1e01f83b512d8e812da4d639a1e7e349ae62c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/stderr.log",
+      "sha256": "0f1d7030d6889c21db4dde06b27f913bbbcae7c75d40e4adf0f9ef47101a235e",
+      "bytes": 4551,
+      "gitBlob": "c71dde1f302675dedf04b11de5246b732e479c43"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/stdout.log",
+      "sha256": "a2da6fb341118e08855ddb324d6e286ead1ecfc2d83ce78c4ec0f9853fbe6b8a",
+      "bytes": 630,
+      "gitBlob": "9eb44e7a74ab39b6c002a0130d193f6701557d68"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/construction.json",
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8",
+      "bytes": 1689,
+      "gitBlob": "2957893656fabd50b960ccd6e042a059c45e6fa7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/events.jsonl",
+      "sha256": "bb4ebc48ca6b1016afc42cd51d97fa2fd592976c2ffd1bab562d1a452bebac4c",
+      "bytes": 465,
+      "gitBlob": "edc4348d23d334fff7074d7becc0cc57c0e8a711"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/mutated-manifest.json",
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d",
+      "bytes": 54323,
+      "gitBlob": "83cb51e0a0f8722773aaae614c55fca18d686398"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/mutated-resource.json",
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+      "bytes": 78,
+      "gitBlob": "fdae9cfb6af7bfc054c749313fbf6fec784e090e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/receipt.json",
+      "sha256": "99f0879699cc541cb3f7aa699bd0abac5b480de6cf1825a5813841fccbe6ce50",
+      "bytes": 7531,
+      "gitBlob": "855690f2b268712d8791ff96bac2a0be2b709a9f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/red.json",
+      "sha256": "90a91fc83244454614cdbb44c2a9747e4dcf64a627d4de3093fad8a7ae59bb89",
+      "bytes": 674,
+      "gitBlob": "f4f60916067033778685949edb2a15c7d3f35848"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/red.stderr",
+      "sha256": "8246396c3309ea1ea07ce8390421d7d71366456beea29a1bd9d637c7fe58e6af",
+      "bytes": 41,
+      "gitBlob": "f8a728c3e2c1bfbef014c101ce73206ed1aceca8"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/red.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/stderr.log",
+      "sha256": "51a68b8a01e5c466313cdf1eee25298026ce193725a886275cca983debcfe96d",
+      "bytes": 4557,
+      "gitBlob": "27fcdc6a8445b07aa0f69badb371f181ee6fe880"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/stdout.log",
+      "sha256": "b919abfe9dc2384dcc567d7e27600311a11cd1a71bb3c9704dab0bfa467acafe",
+      "bytes": 634,
+      "gitBlob": "ee491f93f5448ef9ec21bce355e94af0dc9d2ec6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/barness-factory-current-original-readback.json.gz",
+      "sha256": "3b2e33d3516e9f9aaa34d0458e4d7030a77b827188e907e131daf76e2899e662",
+      "bytes": 1743,
+      "gitBlob": "9c14a1b1788ecddda761710dc510b04b908a0f32"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/barness-factory-original-negatives-readback.json.gz",
+      "sha256": "d4e244e139a53a7d626b86d5568840dad71c1dbe442c7dfcdd387d3392dc4f30",
+      "bytes": 439,
+      "gitBlob": "9d901863dbfbfb4d937a9a97b755086186793511"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/barness-factory-public-verification.json.gz",
+      "sha256": "788506802ba0a500fdd662287110417cde87e0e61163fc00f7ef6dce25204026",
+      "bytes": 335,
+      "gitBlob": "62f2630ad12b2106eb4d96284775b89da4e90ae4"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/receipts.json",
+      "sha256": "a943a04322c7817445300de27d3bb50b2d408c29a7fa5de15029107d0b905411",
+      "bytes": 844,
+      "gitBlob": "bad54c0172bed9767402bc5d391d698690b3344e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/run-legitimate.py.txt",
+      "sha256": "4b8bef5dde4eb03abcbc41b3b2078a9363313315dcd6978e3e8352d2084b8583",
+      "bytes": 1913,
+      "gitBlob": "9e33523144367d81f5c473dd52735a5f87bef430"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/source-proof.json.gz",
+      "sha256": "e4a65b6046ea51c1e3ee2fef0e219c5985c9c967d81f921de6e4c8a088ccc146",
+      "bytes": 392,
+      "gitBlob": "5cd71a16cdcfba6c48d8c68259841944dbecab00"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/verify-factory.py",
+      "sha256": "5cbaf441e135d4834860754d2d91368ac0f63958b80b912cf15171f1c8ba1669",
+      "bytes": 4034,
+      "gitBlob": "a545d99905606c360e8ec6a0c726ff750f109613"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py",
+      "sha256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+      "bytes": 8173,
+      "gitBlob": "3f9ae0ee1d396515e25af3328ce0a9da1141ce9c"
+    }
+  ],
+  "sourceQualification": {
+    "measuredBase": "e1f3b8405f8d4dddd30f2e035597db5f15fd89b0+constructorWIP",
+    "currentConstructorBytesEqualMeasured": true,
+    "runtimeSourceCommitUnchanged": "230691742b731c77e8167b94646219e10f78c8f7",
+    "docsCommitUnchanged": "295728ac041006b00959dcfa368d3c1eab2f1953",
+    "postCommitGoOrNativeQualificationClaimed": false
+  },
+  "releaseCertified": false,
+  "paidAuthorityGranted": false,
+  "formalApplicabilityRenewed": false,
+  "mergeAuthorizedByThisReview": false,
+  "reviewerExecution": {
+    "projectCodeExecuted": false,
+    "capturedCodeExecuted": false,
+    "verifiersRun": false,
+    "testsRun": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "repositoryOrRawWrites": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": [
+      "?? .scratch/barness-ai-minimax/session-analysis/",
+      "?? .scratch/jev-1.14-multimodal-box/human-review/"
+    ]
+  }
+}

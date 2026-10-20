@@ -1,0 +1,32 @@
+{
+  "state": "COMPLETED",
+  "name": "validate-glm-raw",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/matrix-uquddyrc/matrix.json",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/raw-validation-cuxlg45k/chat/20261019T060512.942349000Z",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/raw-validation-cuxlg45k/responses/20261019T060724.271931000Z",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/raw-validation-cuxlg45k/messages/20261019T060929.035688000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:11:52.111333+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.2035782500170171,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

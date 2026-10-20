@@ -1,0 +1,13 @@
+--- FAIL: TestGLMResponsesEmptyReasoning (0.01s)
+    --- FAIL: TestGLMResponsesEmptyReasoning/glm-5.3/empty-object (0.00s)
+        glm_reasoning_authority_test.go:44: [P0-GLM13-authoritative-reasoning-glm-5.3-empty-object] presence governs authoritative thinking, including empty: got "stale draft" want ""
+    --- FAIL: TestGLMResponsesEmptyReasoning/glm-5.3/empty-part-array (0.00s)
+        glm_reasoning_authority_test.go:44: [P0-GLM13-authoritative-reasoning-glm-5.3-empty-part-array] presence governs authoritative thinking, including empty: got "stale draft" want ""
+    --- FAIL: TestGLMResponsesEmptyReasoning/glm-5.2/empty-object (0.00s)
+        glm_reasoning_authority_test.go:44: [P0-GLM13-authoritative-reasoning-glm-5.2-empty-object] presence governs authoritative thinking, including empty: got "stale draft" want ""
+    --- FAIL: TestGLMResponsesEmptyReasoning/glm-5.2/empty-part-array (0.00s)
+        glm_reasoning_authority_test.go:44: [P0-GLM13-authoritative-reasoning-glm-5.2-empty-part-array] presence governs authoritative thinking, including empty: got "stale draft" want ""
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-glm-13/.evidence/barness-ai/20261017T151433.521559000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.306s
+FAIL

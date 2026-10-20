@@ -1,0 +1,851 @@
+{
+  "cases": [
+    {
+      "artifacts": {
+        "assertions.json": "a5535909defae48d846f3d82c796aa95019e603ec2fb5e1c4c4dbf14c4b24d2c",
+        "error.json": "072c999ee67211831b583983845947137c6e691303d222f249160e6028d5b44f",
+        "events.json": "9000eb4ad32eebba37741f50131a1800cff5cd696178e04e805f5d2ef56a54c7",
+        "hook-final-body.json": "b3e9b5d76e8ef9dca8350f2dce3a2da1efe50397c19226171f327bc5e3b580ce",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f",
+        "result.json": "2fc2c07264bab37e4d175d5f0a994c297631662bbdd1c514ccfc8000429ce95c"
+      },
+      "dir": "MM04-final-block-field-text-missing",
+      "fixtures": {},
+      "id": "MM04-final-block-field-text-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^text-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/text-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "eea29e825849e88a0bc306da2daa7fcbd8095ee46aa79c13e2dd3ea57d389f4c",
+        "error.json": "072c999ee67211831b583983845947137c6e691303d222f249160e6028d5b44f",
+        "events.json": "53f44b0302a42534f115dca1d637fa670732fb07e7a554de72777c95cd839dc1",
+        "hook-final-body.json": "bb8d4bc8de0c3a2df11adb2a7b17e2a9b97804188a576caa53e27be82e458da0",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "dc1557f4afc4d32362ec2947e7d3ef1cb58e4e20d8b81e060a1425fb6a228f95"
+      },
+      "dir": "MM04-final-block-field-text-number",
+      "fixtures": {},
+      "id": "MM04-final-block-field-text-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^text-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/text-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "acc46cc26e31eb676aefd7e8d1178bd8c84c24f67e26efc087e2ce43a93b294e",
+        "error.json": "4d99e19ae54d1725227ec24d46c7e28437c856db0fb20a41f63cf102a3b3bb7a",
+        "events.json": "7fec355ab973d401102391de3a719bbb4a89e7003f7dc3059c88866f8e26333d",
+        "hook-final-body.json": "da9bc8bdfca0db27a897b883e8f7d5ca81fba8933c1a1c29fa4ae4d80e87bb3a",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "ddf970c21cf9a77a4b6c701551a218fba897abdcc7140dab0a3aaad70136b3fb"
+      },
+      "dir": "MM04-final-block-field-thinking-number",
+      "fixtures": {},
+      "id": "MM04-final-block-field-thinking-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^thinking-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/thinking-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "e03c4d8ca7b37aa822a8aa4ad6b5507bc336a75c957fe9c312ee14027b789a71",
+        "error.json": "e6458f6fcdf7ed04ec8789acc1398025e66dccdef9a12d882785a0d40a2df065",
+        "events.json": "f6137ac23544890867210e145f5cbbf7f2ead58a42471c784f0fc44e60b12c9d",
+        "hook-final-body.json": "24e667bfaba914df0f8a94cb3c92f30c12b2b1b39b2ea95a4802cd9cd34d7f9d",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "9911ff99adf50f6b1ae93d0778f0db2ba4f9bd30d06d487c1521f12a3d0573d4"
+      },
+      "dir": "MM04-final-block-field-tool-result-assistant",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-result-assistant",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-result-assistant$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-result-assistant"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "6ef6f9d2924c357787ddb8061493fef8d3976ea89f4f2e73d4b89955325e44b1",
+        "error.json": "98fead6f0342a08491f0712c35c84d9b4a5d444647a7166af11bab1a3eaad1de",
+        "events.json": "28c8e19e5d2743dabd175ee936cd25f47914a406166127af6885cc7ee58c7264",
+        "hook-final-body.json": "5d3a334086fae1b9780bb7d7208464f18c69c6f25464e6efebac5e67f7023948",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "c32ac31879af8047b39d48eeaefe7dc0c3b19a59df890219068e95692c9da90c"
+      },
+      "dir": "MM04-final-block-field-tool-result-content-number",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-result-content-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-result-content-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-result-content-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "a175692f8960d279800917fd478ced82bfd5ac31d22e4708cf20b4781d21ba46",
+        "error.json": "a06ea41fb011a761314c84c85c5373b571b79155125a8e9446902856fa6647ad",
+        "events.json": "7ee7ebe477e8d54472368c0cc56a96063e73ae60083d9fea4f388f1c38c45667",
+        "hook-final-body.json": "d174d0ebed02f03b4c5864bdf8467ee8b3141a2bb227f4e3e1a3ff73af706400",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "570b8eeb7dc167187105b25fc5052c3125cb1c8f4a629de83ac62f11b2c8250b"
+      },
+      "dir": "MM04-final-block-field-tool-result-error-string",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-result-error-string",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-result-error-string$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-result-error-string"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "3365fe42aaefaa6fb04f6d21ebc85b22b12599a5bf9632ab2bdaeef5f32071ca",
+        "error.json": "e6458f6fcdf7ed04ec8789acc1398025e66dccdef9a12d882785a0d40a2df065",
+        "events.json": "6b3496b2d81e8c2e6056dda6cfbbceb94082301220902b6124b7b3017d4c58ba",
+        "hook-final-body.json": "08df677c781be772ed97147791b35af130e7ca8f7ea0bdc38bf42d2ad39b1fbb",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "f1354ac6b322a8b0cb4d6da2f77dc481db371eb01fcf359c05b440937c09ab21"
+      },
+      "dir": "MM04-final-block-field-tool-result-id-missing",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-result-id-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-result-id-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-result-id-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "86b1716a676466b796b2a2073a8616bf3743973dd60599e501f635288a907c79",
+        "error.json": "f34bee9520e3df19e40085ef9356a3ff3498231bf8cefd731dce93fd7a32dc7c",
+        "events.json": "a2f65fcda4ae4db1b1d3e67261a6bee3ca270020a5ad1df667de51211b1eaf74",
+        "hook-final-body.json": "52178785392c6f077f2bcae3f84f71f62bc141aa1be7df954e3fcd1f2fb646c5",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "79211f77976ade7b43d3a5a9823145a95c5c65f1b0baeb44747d5e60e4b426e7"
+      },
+      "dir": "MM04-final-block-field-tool-result-nested-use",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-result-nested-use",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-result-nested-use$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-result-nested-use"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "2926849b8721861e1769b6aa3a3a2bb4218466a30c1c65848fb20398bca1f257",
+        "error.json": "8e61bbad4ff61232f6a952bb66b53b6231c58b615d29ed5e2f2eb09c26fe8660",
+        "events.json": "f65c861f1297c9f298bd3b8cf6083c969a1a48a7c04cf6b1be26156f00d20035",
+        "hook-final-body.json": "911372ca41326a061ddc4f010fce5f9eb4a1dfb9c6b65dbc40f38465d543ca06",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "d5d4690c1b8dd7ade9a19efe4b41295dd9534ccfcdd2323789e51423adf3758b"
+      },
+      "dir": "MM04-final-block-field-tool-use-id-missing",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-use-id-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-use-id-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-use-id-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "59ffed058d79694af6fb02b36f06d74e03fe4c5bc21f229d44e13f13356fd28a",
+        "error.json": "8e61bbad4ff61232f6a952bb66b53b6231c58b615d29ed5e2f2eb09c26fe8660",
+        "events.json": "1e82d183cc9adc0dac3d7309a1faa473560ed3143d8fe1b92d3c8d78a27469d9",
+        "hook-final-body.json": "4d47e4e5e1a1e09cfad54d6b0d0c6eadc656c2791306de432aeba2af38b4b3d5",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "7fcb346481a6c26d62a2faeb69530746f25abb786d7939af524e45db7dca87ec"
+      },
+      "dir": "MM04-final-block-field-tool-use-input-array",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-use-input-array",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-use-input-array$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-use-input-array"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "2a0ddf3ce8d8056fc901467cb75f46209e904fb0fcea8493c1130fff3676d7a2",
+        "error.json": "8e61bbad4ff61232f6a952bb66b53b6231c58b615d29ed5e2f2eb09c26fe8660",
+        "events.json": "24b2e4729ed048d70c0283cfc364a9e9a9a1f8823fa8bc48f73b42d086070a29",
+        "hook-final-body.json": "aca781a2785e822b0fe4f6bea62466dd644da49b3af03dfdfb24b93893e81ba8",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "38a48a9e12a677c4cdefc9ed462b2ad1abdbfd60114b0fdfccf48e25d5a50434"
+      },
+      "dir": "MM04-final-block-field-tool-use-input-null",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-use-input-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-use-input-null$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-use-input-null"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "fa998b143399244644c9bb475e74860f0c8b4a0cb681a459831852123054bb7b",
+        "error.json": "8e61bbad4ff61232f6a952bb66b53b6231c58b615d29ed5e2f2eb09c26fe8660",
+        "events.json": "f65c861f1297c9f298bd3b8cf6083c969a1a48a7c04cf6b1be26156f00d20035",
+        "hook-final-body.json": "8b4f246bb4839b64aa733d384d6f7dc9cc330127f95868dba19dda909ae32c84",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "6bd384a401f17a3e3c0a02a973f02678157bd034f4a44d3aaf9ba06162a5554a"
+      },
+      "dir": "MM04-final-block-field-tool-use-name-number",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-use-name-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-use-name-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-use-name-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "61a6fda8188b53cd5b8c1b677487bb30f206855357626f9ee83cc89c038723b3",
+        "error.json": "8e61bbad4ff61232f6a952bb66b53b6231c58b615d29ed5e2f2eb09c26fe8660",
+        "events.json": "a4be7f9359c0c9f9ab68fa734968860c9ccb5abf5f07b454a4ef9f9f3c7cc94f",
+        "hook-final-body.json": "a707a7bdf5a5d0e2ef8c2883d3dc74699b3e0ebb7c05d2a9c88ac6afa33435a2",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "b450a1a1d9fda5457c2a6984d54daa5f014ebe90fba252cce26db780d370fcec"
+      },
+      "dir": "MM04-final-block-field-tool-use-user",
+      "fixtures": {},
+      "id": "MM04-final-block-field-tool-use-user",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^tool-use-user$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/tool-use-user"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "83b730bd610f7a31f38c3cae6ed51ac3f09eb072ccee5abb5671f02844c4048d",
+        "error.json": "c5cfe8612282490ef34f56f2603de4af1283273f0085f2310457c36ae0707b37",
+        "events.json": "72634b984a352a1a20fc0f8462ce0ff7d809839125a145f4450d9691e35f754b",
+        "hook-final-body.json": "825a2de12a397a80dfeb7e8b41ea0e2d55fcbc4bdee12758de75bffc4cd424de",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "f6764312c8b8cb9fa60f5a6397b8bf8de37d68ee09924863949a82530e8fbf7c"
+      },
+      "dir": "MM04-final-block-field-type-missing",
+      "fixtures": {},
+      "id": "MM04-final-block-field-type-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBlockFields$/^type-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBlockFields/type-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "589d13f628e9711c006bd3edb245204f47bfc28dbad1cac78f303f5dc7a77f3e",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "hook-final-body.json": "02578982a9e9de220760c59b22ea19e4fcb5930edd8e7dc522a0fb43b29aae70",
+        "host-admission.json": "eb738b7bab170ce26cbabc0eb1a70aacf060daa8b7941580da327f64f52f3e6b",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "8fb2c99fcfbd7283d187140a10e77cef071a4793dc0c8649fab8c1599efe9ecc",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "a44ab6aa3fc6fbc4d083535fb334a54d4ee1498d648f44b00c01db5dabd76c39"
+      },
+      "dir": "MM04-final-business-hook-business-containers",
+      "fixtures": {},
+      "id": "MM04-final-business-hook-business-containers",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBusinessHook$/^business-containers$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBusinessHook/business-containers"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "0eec9a16c8f826a3a8628807ec98521003c9387399feb2902dbf0c52fa80794f",
+        "error.json": "bd85bcdb8d4e613a79cb62d0903946ad10c83e63dc75f67614c159c0dbf4d184",
+        "hook-final-body.json": "ed236dbb50fe619c7ab2f2eb3592b5257ef8aad623cea2b1f0d5dfc364ce052a",
+        "host-admission.json": "82ad6897b1ff87b8dd425eecefaf2ae338b9bd4b2220671faeb797b46e461d2f",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "7c49cefe02a701e2fe9a12cda5f8cd8d9f98ef2620f22d9908d27224bd8273a7",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "f51a44055d8e7eff907143e127e84a7b37db313e22fb0f884bf2fe2176a3f93c"
+      },
+      "dir": "MM04-final-business-hook-string-content",
+      "fixtures": {},
+      "id": "MM04-final-business-hook-string-content",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalBusinessHook$/^string-content$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalBusinessHook/string-content"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "579835bb004be91a62362ba863cd197fd249b5de0d383e036818a5faf603e7e9",
+        "error.json": "ee913a30829d7fd562fa63cd191eb2f1e0de99ec6bc8ff06baa6f48414510562",
+        "events.json": "223a82ba5d7cb3f05ddc33d8ac82133a2610b82178a89634bdbed31b4d2360d5",
+        "hook-final-body.json": "0138911327c1746377e6e33ec4158a0669d28dbdd2e60929bab4cbc1cf335e7b",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "67ce90ef133daa0717657f6115140748420963844af51e66dbd5133a03ab784e"
+      },
+      "dir": "MM04-final-message-container-empty",
+      "fixtures": {},
+      "id": "MM04-final-message-container-empty",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageContainers$/^empty$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageContainers/empty"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "3b8ae53e804faf75877a4b807f6a35688f011a8b06e385ed31d48c4897dba8a7",
+        "error.json": "ee913a30829d7fd562fa63cd191eb2f1e0de99ec6bc8ff06baa6f48414510562",
+        "events.json": "b46bee730a8711f876748252d331a38b967008c3d62c8417a7cf943b6cd14cce",
+        "hook-final-body.json": "8a605506bdf6bef821cf6cd8d3122a1d21c4e8aaa3966a3a4680e0624ba14221",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "ead1e6bb3c6a0467142163576caf3380727e7efb0e96ad9586b822f564f12c60"
+      },
+      "dir": "MM04-final-message-container-null",
+      "fixtures": {},
+      "id": "MM04-final-message-container-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageContainers$/^null$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageContainers/null"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "70a42817f8ac5107ad55316647e76e22c6d7d380b2b317ba40e01d0fc0e0d4e9",
+        "error.json": "ee913a30829d7fd562fa63cd191eb2f1e0de99ec6bc8ff06baa6f48414510562",
+        "events.json": "1a6dd9016ea6e5c126291f0b77941840ec8e0bd88f9b3d6dd3d0a1c6787bcb50",
+        "hook-final-body.json": "b47b72fb407620309b96560ac766e2b65da8a4bcf944bcea690b496514d9f753",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "e998ea07802bc67bee1252017592f6af70225fda169e1d347e88481a05b82ae3"
+      },
+      "dir": "MM04-final-message-container-number",
+      "fixtures": {},
+      "id": "MM04-final-message-container-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageContainers$/^number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageContainers/number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "8710509c7e845312ea81a1c9f355cdf93b01932bff4867e9d938ed9923a91352",
+        "error.json": "ee913a30829d7fd562fa63cd191eb2f1e0de99ec6bc8ff06baa6f48414510562",
+        "events.json": "1faa6634cdd88bd0ee0f5eaa8b8eb085c1f7a31a426ea6b5e21f1e411e80cd03",
+        "hook-final-body.json": "337af2c1f0a84e70b881c6f64c1ebe101c0ac874e9887c04e951cbe158b8f5d7",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "6e6a0a13eaab29f790eb4b34c85e7215017b6f2ab2c162a66506f0801456b437"
+      },
+      "dir": "MM04-final-message-container-object",
+      "fixtures": {},
+      "id": "MM04-final-message-container-object",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageContainers$/^object$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageContainers/object"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "d5fe7cdc9bb106349a2b1b32b284e8d713a172036732c56f48c2e3958ac3755b",
+        "error.json": "8852fd7c7899a89bd9df9ab8c081bef9cffeea3781a37984d1acd5fa2d184a4d",
+        "events.json": "94d9ca4d64eb870c4da017e436d4043bf54aa74417753ebc9b43c572620c090a",
+        "hook-final-body.json": "ac5da1e364b7a16c92cbb08a0f828f624401bb0a53f8968fcd21e003c0f1d56b",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "cf5c72e3438246c0cec46e3bd59b9d828e31ec67f60c9ec146d52a5279152ed9"
+      },
+      "dir": "MM04-final-message-container-scalar-element",
+      "fixtures": {},
+      "id": "MM04-final-message-container-scalar-element",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageContainers$/^scalar-element$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageContainers/scalar-element"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "0cfef16079804885080491f0ad5c3673fbe6d6086cd39c589814af5b6822820e",
+        "error.json": "7bd1c721ec852308793d063ba1a6c93b2a9f6edfd24d37daa1b000d1723e867f",
+        "events.json": "95ae531b8789ea9625c5377b7dbb8c73ce228e5c51eba8af93707ef982166213",
+        "hook-final-body.json": "70a37de854c174d2d8c247bce193d4ef0e94441bedabf9754b3f57fbbf4f5848",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "d026edf3e7748bbd799853218cbbd528140a452f9969c54a3d791cb09c01d431"
+      },
+      "dir": "MM04-final-message-field-block-scalar",
+      "fixtures": {},
+      "id": "MM04-final-message-field-block-scalar",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^block-scalar$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/block-scalar"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "15572969d27553ec64ed8867797db7584d1102884f3220b345c79b4f4a8fb491",
+        "error.json": "352d6c0d4f658ce52a76a9aad8dcc837f9ee744da4adf9812421749418518e95",
+        "events.json": "47d1cc060509e430ff0f82f3982135aadb9662e3e78e40a7936f13657139108e",
+        "hook-final-body.json": "59f27f8613a058a143c85632cce8d0fa1373279396f0236ac6ded2acb0150dcb",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "9f796c877856cf990b68790295530defe0036438701102162c7c8a73ad065a34"
+      },
+      "dir": "MM04-final-message-field-content-empty",
+      "fixtures": {},
+      "id": "MM04-final-message-field-content-empty",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^content-empty$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/content-empty"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "184748223b534687b0142a13b49fd34b3eb56cc37bd9c93ce32a197319348b48",
+        "error.json": "352d6c0d4f658ce52a76a9aad8dcc837f9ee744da4adf9812421749418518e95",
+        "events.json": "fa2a9c8aa0708adf737a0d7a2b2099eff96c09fae9319deb47c0203a04c9ce81",
+        "hook-final-body.json": "c388ff06696cfbcb56c52962ac45ee7b6f1006843fd1e96cd0f6a91fd9add60c",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "419caa484c484e4615c6b38f001c12c85561f611a5205f844883673657ce5232"
+      },
+      "dir": "MM04-final-message-field-content-missing",
+      "fixtures": {},
+      "id": "MM04-final-message-field-content-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^content-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/content-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "841f9be50825ed16ac76990f304ce62c146cfa5ad1131504dfc736853c9413fe",
+        "error.json": "352d6c0d4f658ce52a76a9aad8dcc837f9ee744da4adf9812421749418518e95",
+        "events.json": "b36566cc4b96ffd4015401b1a8dbbe13f209356104663ea9b766cc4f4cab941f",
+        "hook-final-body.json": "ba8c900f1622f5879db730f9c5a2c7d9cad5fa07722c2b94528a8b3a62e91d0a",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "e5348ebb381902d610a0b1022a278f222205fab57d934abbdb79f172004896e1"
+      },
+      "dir": "MM04-final-message-field-content-null",
+      "fixtures": {},
+      "id": "MM04-final-message-field-content-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^content-null$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/content-null"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "217b1301ec775c171251ebd91585351bb7e8f8ba3f2a27cc08ec3a42dd7531ce",
+        "error.json": "352d6c0d4f658ce52a76a9aad8dcc837f9ee744da4adf9812421749418518e95",
+        "events.json": "b36566cc4b96ffd4015401b1a8dbbe13f209356104663ea9b766cc4f4cab941f",
+        "hook-final-body.json": "63ced102a919605ccbc12f8bc4f91553288e7568f032ff6a5b35e2a89e357063",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "9342fcd443a91bf3c1eaec5fb7ca7cf6f0dd8c8a3ee3a3475eb0b3b0aab46728"
+      },
+      "dir": "MM04-final-message-field-content-number",
+      "fixtures": {},
+      "id": "MM04-final-message-field-content-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^content-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/content-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "40eb08f656850c86809460e2485407424474a1320c3097589f8ba29c13476ca9",
+        "error.json": "352d6c0d4f658ce52a76a9aad8dcc837f9ee744da4adf9812421749418518e95",
+        "events.json": "1f04b897440df9ed810b0ce51b8f110d13b17e6df87dbe57d79e709b7a1c2193",
+        "hook-final-body.json": "ab7ae94d827e49f5ad61618b86d59d0f41da352c41753a7ee43a00e4c80103d0",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "89f2e595711022830ce64ade598708a6a1c6b097e5fd52b5bd1d1fb0490ebaa9"
+      },
+      "dir": "MM04-final-message-field-content-object",
+      "fixtures": {},
+      "id": "MM04-final-message-field-content-object",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^content-object$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/content-object"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "771364a41af5d3736ee27987b46fdfbefce7c8c2a110ea46ef2fa2bb623ff416",
+        "error.json": "04fd0ff1f7b4bfaee52a9fd2c8554a4ff2d72d7426158c0d7122c57cb7c34a14",
+        "events.json": "ed8f50ea9491d688825ddaae12e11d79d58a1460c169fa11e0f1eb8352916e93",
+        "hook-final-body.json": "b8b8cbf89e49ee4cf4c156832dc0a6cd1024a85466a566a987bd8d2e79d3cdda",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "d2cebeb43f56fb559528fa74cda106d63d8f8d974b58e9284e861739390ef6d2"
+      },
+      "dir": "MM04-final-message-field-role-missing",
+      "fixtures": {},
+      "id": "MM04-final-message-field-role-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^role-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/role-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "d531fdd72aef7a7f18367f715836d726c73ec319b46a8ba007a4895172446ed8",
+        "error.json": "04fd0ff1f7b4bfaee52a9fd2c8554a4ff2d72d7426158c0d7122c57cb7c34a14",
+        "events.json": "a29565c0aa7c080943f44ec4ae163a61d67b6fac7b4355d92906b5f1773f2b1d",
+        "hook-final-body.json": "53288be48615e4a73434f3c426ceff485251744cec6eac0239497f0f4fc72478",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "6ae4d785b6b42834dc7dfff8e082299acb41bcd9bf3863aa2069e1fe98d42aee"
+      },
+      "dir": "MM04-final-message-field-role-number",
+      "fixtures": {},
+      "id": "MM04-final-message-field-role-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^role-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/role-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "9907e878b5672648e13522364c4836f2d2e64944c2a73df107b3e566655dcefe",
+        "error.json": "04fd0ff1f7b4bfaee52a9fd2c8554a4ff2d72d7426158c0d7122c57cb7c34a14",
+        "events.json": "79fd018f204e176d83c5cf81f071077be9eaf5518daa34cc27036764f4345048",
+        "hook-final-body.json": "b6277678e44f81a16227260533c2484bea44878185960a48fca1575040c39ab8",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "ed64b2cc4b6561c15f1336d7388ba47ba15e5fcfa59afdb42604cf0a350b65d5"
+      },
+      "dir": "MM04-final-message-field-role-unknown",
+      "fixtures": {},
+      "id": "MM04-final-message-field-role-unknown",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalMessageFields$/^role-unknown$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalMessageFields/role-unknown"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "0d0d60ecef43a199bc89b60875df32efb39dccdef42d1983821b905c5fa8f482",
+        "error.json": "57c87207fb8b19267c470cbed0866352531f1cb793383f5975e173a2fd2bcac3",
+        "events.json": "d677e4da415aab9c1899dca6115fb690e757ced1ea28a4bda67be2e72cb70a3d",
+        "hook-final-body.json": "a789bddd8be00936bc698b91ed6732766cb28ab256587ea1aa8a4de7f3c7d651",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "1ad54796e900bb3d464687d02d0f852478aea8c39bcab0a21f02b6ebcde00ebf"
+      },
+      "dir": "MM04-final-tool-field-description-number",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-description-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^description-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/description-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "e43fcff1cea012ed5df10520fe61fccfa4cfd88e45fcd34b84db32fe5160b727",
+        "error.json": "b90bb1c6fbb4007b230608d50be2e78fa83d9efa2db922ef05809fe096c98723",
+        "events.json": "e1ad814a98d4568159de396fb20a10345582440d396360f4f8885958200b546c",
+        "hook-final-body.json": "9ea3ee3f35c1aef8de6a9a179bae30cad60d0d9bb6e5536403015d782ccef876",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "6702020a71f6123747dae86fb27306c134a00f38c1da4d0cc52cbe10259e6c00"
+      },
+      "dir": "MM04-final-tool-field-missing-name-schema",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-missing-name-schema",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^missing-name-schema$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/missing-name-schema"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "5bdd7b1977b6b2552bb48857de15bbd3f211187d3f5459551af61d2bb4acdc94",
+        "error.json": "b90bb1c6fbb4007b230608d50be2e78fa83d9efa2db922ef05809fe096c98723",
+        "events.json": "4bdd5b8e3fdaea9308193c1f1ccae7d45f88cc3c58380399a99dcc07e7af567c",
+        "hook-final-body.json": "994b6aed1ba5349a3b4c249355bc9235310bfe27c5648027200813341db45887",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "89bd707fe7a382e6e6c98be7fb7dabc1b2fc2899c9dc08fa53cc71a924dfdc55"
+      },
+      "dir": "MM04-final-tool-field-name-blank",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-name-blank",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^name-blank$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/name-blank"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "2f92c28b0483f5e55cacc0e5f590013dac6723ad9c94d57ee708bc0b2067101c",
+        "error.json": "b90bb1c6fbb4007b230608d50be2e78fa83d9efa2db922ef05809fe096c98723",
+        "events.json": "14905073548647f6c70f6e60d0317031156655f882098ce41ee4fef10a29ddb1",
+        "hook-final-body.json": "39c0db0f8f05486ee6d0e6ebcb3c9155fa85d337c1a1f4d8c3cb2d1e80ef54ec",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "c1a4fffd67a0b92e3566875ef064ee69108db98977927aa1ac702939d4f187f4"
+      },
+      "dir": "MM04-final-tool-field-name-number",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-name-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^name-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/name-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "9b2d6bd2b7591bd4bbb270a0167a125674a6b7ecd41f9dc0c98b40ecec19e954",
+        "error.json": "216943a9dcbc4af5716396e981684867b8b0159f46089889417d92ea9583a37c",
+        "events.json": "fe50efa49974f0c41956d470e8e919ed193f211ff2ae383f03f7360eb3d1e81e",
+        "hook-final-body.json": "3a545331538cf67a455aec020639c3302441854d38c6874275e42a4cb1346813",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "b3b47da106e84436ad57f8a6271677211fd9e19099e542b987d7d741e44d540a"
+      },
+      "dir": "MM04-final-tool-field-null",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^null$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/null"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "f5f0ff818f1536a8bab297b0e9a16d726506ac8558e32b18347a22a1e0344542",
+        "error.json": "c85ac25cf44f2f4aaf5b9a14c0930a7a416fbe8b3eb84330e569b5080c3cb1e3",
+        "events.json": "96597f543bd45eb6597df0739b6596cb4193badb646ced397e65f0419dd13340",
+        "hook-final-body.json": "74e4920983f06ab4020e3bd77144577211fec1ee576441edd1b68ce16759ea4a",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "ddb8fd7d13446d60bd4645897c2bc672d7bb3825217dfcbef84db3802d4be702"
+      },
+      "dir": "MM04-final-tool-field-properties-array",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-properties-array",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^properties-array$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/properties-array"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "54230de7017da79d9fcc665186e73a2c9ab8a843b09f3d6fa6769fef44b7fd91",
+        "error.json": "11daf1270a3168333cc703fcca5e944647458a4b7190857bff909380836d731f",
+        "events.json": "aca594416994a877b8fbe1c8b31f2cf82bd8c5b3a9d4ce11bee59a903b28f12f",
+        "hook-final-body.json": "de2a4a3acdfb8d27f6dca21e565898fe883fa067ffd9a3ba8503344fd2c687f7",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "5435de3be545dfd703bdea45c7ff532abc272b2896169020888e067ce093831b"
+      },
+      "dir": "MM04-final-tool-field-required-number",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-required-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^required-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/required-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "bc28ee467aa56c74f7822a8876a8173d6aa209ad68e568b969d52b5e6d314e55",
+        "error.json": "11daf1270a3168333cc703fcca5e944647458a4b7190857bff909380836d731f",
+        "events.json": "1d59aa75ee53a497dc6f1bd70340b59f37155c4894a5d3f6f66618b682f80238",
+        "hook-final-body.json": "549453cf84333222cf74f3a26a8772e926e507a9d3b2fee67df9ef7b1e6f6105",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "3114eaf5189fbc89a466e73c43df8ef11ea85a6271f4dd325f4355bcb55c9055"
+      },
+      "dir": "MM04-final-tool-field-required-string",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-required-string",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^required-string$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/required-string"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "28ee85859f010248e79175d23c051d33627365b7b0e71d44e405d6f94df8d364",
+        "error.json": "960cdd3f45710b24a33cd0bb6a51f3397e8d587c24d81162b48d437e81d21ec5",
+        "events.json": "459494f837e84a65270bf60bb8147bc7d2bb446d7919e7dca211143164bce7b6",
+        "hook-final-body.json": "d9ab394c4ddb4b7b786bdbeedf7f4464b61d2db39656fa09b1f842391ce5e1d6",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "a5aac5b4e9416148ddba9c2c2a360b2755d156af9e93675bc0a35870e6aea6ab"
+      },
+      "dir": "MM04-final-tool-field-schema-array",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-schema-array",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^schema-array$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/schema-array"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "8622efd971cb11bba972673ab7051959ed49387c042c40bb7d5badcd6e862104",
+        "error.json": "960cdd3f45710b24a33cd0bb6a51f3397e8d587c24d81162b48d437e81d21ec5",
+        "events.json": "771e15a78b6bf005f540460f7018cc46dab31d654421c446f04f3a9317cbff23",
+        "hook-final-body.json": "6fb6951124aca643f038f4c5a46ea378968a05d49f68845ed3a8ba033f4fce17",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "c57c0139e07afa736772e015d0c374dd77ff8919aa913efadbdde0d3c162f0e6"
+      },
+      "dir": "MM04-final-tool-field-schema-missing",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-schema-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^schema-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/schema-missing"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "0a7c86773c94f9ac74433a298d6eed4c213f0b9c86099870253027523ee161e2",
+        "error.json": "960cdd3f45710b24a33cd0bb6a51f3397e8d587c24d81162b48d437e81d21ec5",
+        "events.json": "459494f837e84a65270bf60bb8147bc7d2bb446d7919e7dca211143164bce7b6",
+        "hook-final-body.json": "01d5b77e7049ba8b29034db9b739269eab1d58834bf0dd08dd30c55d3079d305",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "b58f1661bd1c4987b41e9e8c3cbdba8a65fc86ee62c3d8b9b9374d2574aba059"
+      },
+      "dir": "MM04-final-tool-field-schema-null",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-schema-null",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^schema-null$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/schema-null"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "6610096b3a2f8626b0480a32a4ca13464210f0f47f496e59c14f87b9eba186a1",
+        "error.json": "960cdd3f45710b24a33cd0bb6a51f3397e8d587c24d81162b48d437e81d21ec5",
+        "events.json": "999e40469025acf63c409dda411cbe20ca608d22e7532193749f45b3f5bc03f1",
+        "hook-final-body.json": "5423f6361f4bd325ad3cc89a8d5795a0c2a53ebd37d57133dd4c99e3f8e827d2",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "284e9583828f053e634672112e7a323082f867b229c919bb1354223fed0f4a4f"
+      },
+      "dir": "MM04-final-tool-field-schema-number",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-schema-number",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^schema-number$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/schema-number"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "8ca474194f37453e6d48e9021d95ee94895663b7d8be80e8d8bb8891c40c2310",
+        "error.json": "960cdd3f45710b24a33cd0bb6a51f3397e8d587c24d81162b48d437e81d21ec5",
+        "events.json": "215795a1f3eb89f93d9f41403e06fd37097850fd7f50752980aac1a6eff20c3e",
+        "hook-final-body.json": "9b58f2b5359f3f8c4e0a4584f3bd780c9b2d9b3a293578cb733ed052be556eac",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "9bcb082da8024909406e73cfc8aee1410ef93a35a98d5a89e0718665735e92ae"
+      },
+      "dir": "MM04-final-tool-field-schema-type-array",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-schema-type-array",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^schema-type-array$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/schema-type-array"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "5b2329db85579b01eb6b069d09daa3a22178f638d779a00774c02bf1e36683fd",
+        "error.json": "960cdd3f45710b24a33cd0bb6a51f3397e8d587c24d81162b48d437e81d21ec5",
+        "events.json": "25d821d927ea3a4763c198380582d96babf94ac55d96403adb34805218e06bfa",
+        "hook-final-body.json": "070b7723858eb05f662a6657bf31d842731faeebeaecb2186528f4c2b1aa600b",
+        "host-admission.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "provider-script.json": "e65566a14c600cd2fd7d368f7b34a756adacf8db65a908c5b9ab4234314e90ad",
+        "requests.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+        "resources.json": "01a62ca97630eaca4f92384a239478a02d4b69aad960bf2ecbda2d3336dd6e42",
+        "result.json": "f1826a84448ba8670d5aabe09ce5a9cf4b002d8817e229564ff23aff66ce8ba2"
+      },
+      "dir": "MM04-final-tool-field-schema-type-missing",
+      "fixtures": {},
+      "id": "MM04-final-tool-field-schema-type-missing",
+      "replay": "go test ./ai/e2e -count=1 -run '^TestMiniMaxMessagesFinalToolFields$/^schema-type-missing$'",
+      "status": "PASS",
+      "test": "TestMiniMaxMessagesFinalToolFields/schema-type-missing"
+    }
+  ],
+  "finished_at": "2026-10-18T12:30:17.640394Z",
+  "git_commit": "d47d7bd4ed1f09bfc47d3b8f73e92d2c8c02cdc5",
+  "go_version": "go1.26.2",
+  "module": "barness-ai",
+  "package": "./ai/e2e",
+  "platform": "darwin/arm64",
+  "started_at": "2026-10-18T12:30:17.584602Z",
+  "versions": {
+    "anthropic-sdk-go": "v1.75.0",
+    "model_catalog_hash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+    "model_catalog_version": "2026-10-18.1-minimax",
+    "openai-go": "v3.66.0"
+  }
+}

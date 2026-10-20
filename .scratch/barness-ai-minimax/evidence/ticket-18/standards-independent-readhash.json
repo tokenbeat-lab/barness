@@ -1,0 +1,81 @@
+{
+  "archive": {
+    "archive": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/ticket18-diagnostic-controlled/controlled-raw.tar.gz",
+    "bytes": 91564,
+    "sha256": "1958a651ac05a180939098b33ac4431c4dd82043d1beef434c01708f2d126fe9",
+    "files": 222,
+    "payloadBytes": 592856,
+    "bounds": {
+      "files": 4096,
+      "entries": 4096,
+      "depth": 32,
+      "memberBytes": 8388608,
+      "payloadBytes": 67108864,
+      "compressedBytes": 16777216
+    },
+    "vendorCalls": 0,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "releaseCertified": false
+  },
+  "regularMembers": 222,
+  "payloadBytes": 592856,
+  "decodedTarBytes": 931840,
+  "artifactReferencesChecked": 262,
+  "manifests": {
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-429/child/manifest.json": {
+      "FAIL": 1
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-formal-mixed/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-formal-narrowed/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-missing-key/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-narrowed/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-proxy/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-success/child/manifest.json": {
+      "PASS": 1
+    },
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-wrong-model/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/GLM18-diagnostic-process-wrong-route/child/manifest.json": {},
+    "bundles/green/20261018T225541.524632000Z/manifest.json": {
+      "PASS": 9
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-429/child/manifest.json": {
+      "FAIL": 1
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-formal-mixed/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-formal-narrowed/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-missing-key/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-narrowed/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-proxy/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-success/child/manifest.json": {
+      "PASS": 1
+    },
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-wrong-model/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/GLM18-diagnostic-process-wrong-route/child/manifest.json": {},
+    "bundles/race/20261018T225631.154072000Z/manifest.json": {
+      "PASS": 9
+    },
+    "bundles/red-retained/20261018T225519.711790000Z/GLM18-diagnostic-process-success/refused-child/manifest.json": {},
+    "bundles/red-retained/20261018T225519.711790000Z/manifest.json": {
+      "FAIL": 1
+    },
+    "bundles/red/20261018T225502.308558000Z/manifest.json": {
+      "FAIL": 1
+    }
+  },
+  "sourceFilesMatchCommit": {
+    "ai/live/main_test.go": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05",
+    "ai/live/glm_config_test.go": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+    "ai/live/glm_capture_test.go": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+    "ai/live/glm_diagnostic_test.go": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+    "ai/live/glm_diagnostic_process_test.go": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+  },
+  "recordedCommandExits": [
+    1,
+    1,
+    0,
+    0,
+    0
+  ],
+  "selectorsUnchanged": true
+}

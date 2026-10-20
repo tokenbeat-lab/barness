@@ -1,0 +1,775 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_RETENTION_ONLY",
+  "baseCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "reviewedCommit": "1c629514ff760e4889ce64c4b787f9800a4514b9",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 7931b163f983a8b362374163b7949d31e68bbec4...1c629514ff760e4889ce64c4b787f9800a4514b9",
+  "commitsCommand": "git log 7931b163f983a8b362374163b7949d31e68bbec4..1c629514ff760e4889ce64c4b787f9800a4514b9 --oneline",
+  "diffSHA256": "964ffd1df27588b069540f4d4cdfd8ef4d344f5c1a955818a16c86ed3e98a003",
+  "commits": [
+    "1c62951 docs(validation): retain closed repair effects actuals",
+    "04a284e docs(validation): preserve raw RED logs with lossless gzip",
+    "aa7073a docs(validation): retain actual repair GLM failure and refusal"
+  ],
+  "findings": [],
+  "report": "Spec retention review: PASS, no findings. Reviewed fixed7931b163…1c629514,93 added G/E files only; this approves retention fidelity, not source correctness or release certification.\n\nR26 requires own source-bound live evidence and finite accounting; T02:353 says “失败历史不覆盖” and offline replay must read no real Key or vendor. Independent bounded stdlib reads verified six archive hashes,58,030 regular entries and every inventory/member hash.58,018 members match their original regular-file bytes; remaining declared inline metadata and two intentional-link projections are explicit. No archive was extracted, no link target followed, and compressed/decoded/member/inventory/observation limits remain32/192MiB small and256MiB/2GiB full. The220MB preflight uses the full reader. Original decoded RED logs, failed authoring attempts and numeric outcomes remain distinct from current retained verification.\n\nAll six own native roots, canonical intents, source7931,1056-file snapshot, original build/binary bodies, new human108/132 approval, checks and independent review pins agree. G is66/66,65PASS/1FAIL: Messages cancel120001ms, unreported usage, complete:false, no successful capturePins or support report. Strict publisher exits1 and four selectors remain byte-identical; partial Chat/Responses ZIPs are unpublished. Unknown usage remains unknown.\n\nE is36/36,three PASS collections. Independent Attempt sums, native manifest references, visual class/existence denominators, confidence/Brier and Jev present-box IoU agree; synthetic twelve-sample scope and unverified account/region remain explicit. All three effects use explicit127.0.0.1:7890; G remains China-direct. G live binary is reused by exact member pin, with only the distinct visual executable copied.\n\nOriginal39/545 receipts and990 native-file inventory references remain unchanged, with original15 input identities, full860 text snapshots/261 applicable paths and three263-path M3 maps preserved. New102/102 totals647/647 within108/132. Native protocol’s extra committed validator and M3 README outside the outer map match exact7931 Git bytes. No future17 source, A/B gate outcome, row import, vendor invoice or current certificate is asserted. Recorded public verifier0 and19/15 refusals were inspected, not rerun. No project/captured program, test, Key or network was executed.",
+  "reportBodyWords": 287,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/README.md": {
+      "bytes": 5449,
+      "sha256": "5bcd8270c29633ff910d067b6cde200e87a4a3d0d020a1db2ff510bb420dc897"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/SHA256SUMS": {
+      "bytes": 3429,
+      "sha256": "d7bfcbf5625272349c32552c67b86e9c40a34c02fe475f464a255b1235234fc8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/additional-protocol-source.json": {
+      "bytes": 668,
+      "sha256": "eded6c74942de481719816ed33bfe7832b66e20e8df08e4f7641272cc31dbc5b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/additional-protocol-source.py.gz": {
+      "bytes": 6179,
+      "sha256": "572f51cd62e9c927ad7aef7f599d19674ad97e1b76e462fb4d3ca5045a6da44a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/binary-inventory.json.gz": {
+      "bytes": 295,
+      "sha256": "185701c0b462be9c08900f44e692a16f32cc256bce84339f38e53228dcc9c769"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/check-boundaries.py": {
+      "bytes": 5600,
+      "sha256": "988a4847ae37caedddfd4f1f494810115401a42826b1e4e2e61891511ced64b3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/failure-inventory.md": {
+      "bytes": 1239,
+      "sha256": "8d28df9194fc7a39ad178d06b8ff714dc496e7b42784ee058e81237bd14a8d12"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/freeze.py": {
+      "bytes": 9008,
+      "sha256": "6fa4548fce1f1e1387372af2d9db6c48975f15fcdc248c625b83e630bc085e70"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/index.json": {
+      "bytes": 15403,
+      "sha256": "02ee494af106d539921538d884edbc7eac1f07a66a205792ce633b18bd99708b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/inventory.json.gz": {
+      "bytes": 49518,
+      "sha256": "d8c4b91827c903d0029f3193f0c7c70baf86862ca578baf7eb92dc84b47e99fe"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/negative-results.json": {
+      "bytes": 2259,
+      "sha256": "637fe6772e5f967286614bd59b928765fe342f92f42e9863f32d5ecee863966c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/preflight-inventory.json.gz": {
+      "bytes": 1090193,
+      "sha256": "269dedc1fa21043560bcb1552a09db5541602e7b61562598f46ff7a3fafbac05"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/provenance.py": {
+      "bytes": 5633,
+      "sha256": "46634c5c644937dfd9eadc255d94847b5163ade4deef1d3311f639f0a995fd78"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/quality.py": {
+      "bytes": 3706,
+      "sha256": "2cbadf5ff28ff4234f1b4e1fcad7069af9c633be18c6144a4c238ac46017ccb2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/readers.py": {
+      "bytes": 949,
+      "sha256": "2e338ce15ef8b372f4b14ea3cc0d027650b2a3d4bea4f84e44d9ffb94576983c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/scenarios.jsonl": {
+      "bytes": 12171,
+      "sha256": "aed16036d0a81e2f7f894c478c800b4b425097bd4a175c5b24af7e36f19be5fe"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/secondary-summary.json": {
+      "bytes": 1483,
+      "sha256": "640c126d3b9cdb209207dc2620d046cdef61c58028a20d572ee0774d75c30dc9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/snapshot-authoring-history.json": {
+      "bytes": 373,
+      "sha256": "d1077e2b4371044b91b1bc651d3d0e1f65ae1f1e7a9fbeda25e229562511b849"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/source-at-start.json.gz": {
+      "bytes": 49298,
+      "sha256": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/summary.json": {
+      "bytes": 7505,
+      "sha256": "f64d90054d5edd11d92c2931248299e1718346010e1ed25ea89e076ba265beca"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/analyse-controller.py": {
+      "bytes": 872,
+      "sha256": "056b9f524c5e61ececaaef726dc4fb3f4c570f8b3ca7a622fd6d9bf1f9d12b7a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/final-public-verification-output.json": {
+      "bytes": 2638,
+      "sha256": "deb824b98b085ccaa2ae249325761cc674f82a9e1fa686b85db3894ad44fcb71"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/final-public-verification.json": {
+      "bytes": 296,
+      "sha256": "437babe8093c6e6e1464e9d0244b7bdbadc62bc7fadfa6735ee06cebef08fe74"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/green-public-cli-command.json": {
+      "bytes": 296,
+      "sha256": "437babe8093c6e6e1464e9d0244b7bdbadc62bc7fadfa6735ee06cebef08fe74"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/green-public-cli.log.gz": {
+      "bytes": 1009,
+      "sha256": "da70fc4f5376e215d785fda24dc124426488a73538a44573643b7408696c4ece"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/initial-analysis-native-source-refusal-command.json": {
+      "bytes": 324,
+      "sha256": "861ae0167b85cf0bd548f40efdedc7c9bedc9de4e1099f743ac5850e6a89ad3a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/initial-analysis-native-source-refusal.log.gz": {
+      "bytes": 508,
+      "sha256": "a2e2a41aca92fb0b11d5abc86b3d5510959356bc7fcb96b28eb015a3cd8cbd43"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/negative-guards-command.json": {
+      "bytes": 306,
+      "sha256": "fbf6e729a147653b859059594671347cdbda4aa7f218c594ed3fee48b3548400"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/negative-guards-command.log.gz": {
+      "bytes": 557,
+      "sha256": "30038a0f4f84841caa2ff63f2711cfa715ccd774bac9433c1f74879c19d57308"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/raw-log-index.json": {
+      "bytes": 1716,
+      "sha256": "9075580a03e1b984fdea8edf3172bc6e86311dc91f123f38a0b467cb4ee907f9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-missing-public-cli-command.json": {
+      "bytes": 380,
+      "sha256": "a2831be5bb76b6e1f3f6b6fb6487eb7880e09bd3fc1b212fa01ce33a0cf7a9ab"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-missing-public-cli.log.gz": {
+      "bytes": 234,
+      "sha256": "7352503a5a14664aa404bb1366443aa632b6e40fa3999ef25da968c8258d1f20"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-original-regular-scan-command.json": {
+      "bytes": 391,
+      "sha256": "4962494934d3cee33743ec8b214de0dada016ab86fff5933a3dffb798aa1d6eb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-original-regular-scan.log.gz": {
+      "bytes": 338,
+      "sha256": "c80b29ea682163a8e4339a729899c0692fc5ef2706a0c105d36211151e0fddc1"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/red-original-regular-scan.py": {
+      "bytes": 719,
+      "sha256": "4d08d04410360954a962edddfdaa52dd2a1aeea47819633bcd51aa0c1b383303"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/snapshot-command.json": {
+      "bytes": 266,
+      "sha256": "0ea4847efa5e48d430ab4303d496fecd164d86744bff64e26773833b6fcd73b4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/tdd/snapshot-command.log.gz": {
+      "bytes": 284,
+      "sha256": "0691d7413a1c872894ef6a59fcf56bce17ce80e77c2ad27eadb7ce4a0cd39218"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/effects/verify.py": {
+      "bytes": 17813,
+      "sha256": "04ee2c8351996297c058c99befca7e82ce7b4ac9d2ccf18bc5f73054fc7a4b10"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/README.md": {
+      "bytes": 7640,
+      "sha256": "2aa6527bb2002bf8ad71c61d748125b09ace3b90eee6d53432b9f0db48b2f832"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/SHA256SUMS": {
+      "bytes": 5325,
+      "sha256": "b2c29495c40921c0a0654cb45e556de7bc12e325d43c19e7bde26ee2ec72d243"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/binary-inventory.json.gz": {
+      "bytes": 292,
+      "sha256": "88fee7d8443e373a88648d2d0ed90b45d56f73d90fa5c8ca4020e75b8fc71269"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/check-boundaries.py": {
+      "bytes": 7041,
+      "sha256": "271ffdc67666b74d04fc783960621e9c0d308659c728ee7344541d0cba8055c2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/complete-snapshot.py": {
+      "bytes": 4599,
+      "sha256": "527f43efd7a4874747acfa1687cd8a1533ab2e3b42769380b280a9912a43a78f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/failure-inventory.md": {
+      "bytes": 1309,
+      "sha256": "a81c48dd20428a8c6bb45b83ff11532c6cf22cf36e648f82297d466ae89872bb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py": {
+      "bytes": 10107,
+      "sha256": "ee60fc38a0e656727918d3e8b92b0fdd81285bc7600e40463e40740a08afa3ba"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/index.json": {
+      "bytes": 25821,
+      "sha256": "e85009f4eeb7893d44ec91c7938bcf401fa1318c714445cfa6d8f926e4ad6f9d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/inventory.json.gz": {
+      "bytes": 47357,
+      "sha256": "f2eeece1a1e37daf6caee41bae353db6750b36e307e7d59cedd46b091ebffc89"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/negative-results.json": {
+      "bytes": 2877,
+      "sha256": "11c1028c09bf3704849d0874dda59e28ae6e27be68201f455612837b19d722d2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/preflight-inventory.json.gz": {
+      "bytes": 1088302,
+      "sha256": "9c211cb2895c060aaf570f53cd0c784aafeceeb0aaddf8bab1371f0176ad7dfa"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/provenance.py": {
+      "bytes": 7663,
+      "sha256": "a71b0b535bc79ed24ece99738f850c57ce7a8f8fdfc4d9f6391cf4223af6fef2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/readers.py": {
+      "bytes": 949,
+      "sha256": "2e338ce15ef8b372f4b14ea3cc0d027650b2a3d4bea4f84e44d9ffb94576983c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/scenarios.jsonl": {
+      "bytes": 8161,
+      "sha256": "460664d08fbaf0d4d83e0540b01be8f63817ca54e70fca6b58d014c33bdb4582"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/secondary-summary.json": {
+      "bytes": 1141,
+      "sha256": "ebf8cc3ad1ebd5e249e3bc84f75c755621c7695945f0aad8fc1fc9976fc5ae34"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/snapshot-authoring-history.json": {
+      "bytes": 546,
+      "sha256": "c1c94d638be39394122ec33b825c611df114ec4fefb3d165b22ce8d0bbe36ee0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/source-at-start.json.gz": {
+      "bytes": 49298,
+      "sha256": "c137fc0fcf8776d5682d6a87f464bb65cbaea9eefbbbb16486afe6b0b3bc4dec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/summary.json": {
+      "bytes": 3803,
+      "sha256": "c99c6195239224d154cfa374b11756e73df01edf521c50b9ee887558437e76ab"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/before-messages-support-guard.py.txt": {
+      "bytes": 14917,
+      "sha256": "a8b72f0a8c9d671702d8e7f1852f785831332056f0ac2d4daab40046f3a70990"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/before-path-guards-provenance.py.txt": {
+      "bytes": 7443,
+      "sha256": "bc6c2396ec0ceb036c0a26dc226d4e86c820c2accb9091412af266e2fc6f9d90"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/before-path-guards-verify.py.txt": {
+      "bytes": 14156,
+      "sha256": "13af4ce9834f78755a7e74806d3021a568d88aa86f714bb1d6478034ec0e9009"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-g-public-negative-guards-command.json": {
+      "bytes": 633,
+      "sha256": "5fe5ae4a1388396e9176a851e2d526c200ea843886cfdf5f0ed2e1929ddb3b45"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-g-public-negative-guards.log": {
+      "bytes": 2877,
+      "sha256": "11c1028c09bf3704849d0874dda59e28ae6e27be68201f455612837b19d722d2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-independent-verify-command.json": {
+      "bytes": 617,
+      "sha256": "328addbcfe630cde5ddd5be3c0c0ec9576a9ec53c22c2b87c6e27a13c75dca45"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-independent-verify.log": {
+      "bytes": 2136,
+      "sha256": "99bc95487452d8eefaf6a154dbb4d86b295db3e7b31f6a0883c3a3b2f8546370"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-sealed-g-verification-command.json": {
+      "bytes": 620,
+      "sha256": "053d8a34aafed3fff486f6f518b13718c88c0a2da0c8c2568c2e736055ca9270"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/final-sealed-g-verification.log": {
+      "bytes": 2136,
+      "sha256": "99bc95487452d8eefaf6a154dbb4d86b295db3e7b31f6a0883c3a3b2f8546370"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/freeze-before-link-projection.py.txt": {
+      "bytes": 8658,
+      "sha256": "2d6238af86f658f20b644f148b53f634b34bbe6d8d9613aafa8413c70e58e06f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/freeze-before-observation-selection.py.txt": {
+      "bytes": 9845,
+      "sha256": "8af47f8d45f1d1256807647946f500e8992639bb7ea56e2ecb9c92ccee1b2657"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-complete-actual-g-guards-command.json": {
+      "bytes": 633,
+      "sha256": "971e1c014f094912060607bb37124720fa5c260b7b6d793836f36a49c2572cc3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-complete-actual-g-guards.log": {
+      "bytes": 2877,
+      "sha256": "11c1028c09bf3704849d0874dda59e28ae6e27be68201f455612837b19d722d2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-completed-fixed-snapshot-command.json": {
+      "bytes": 599,
+      "sha256": "1b40e267209bfdf773d851b4185bc27cda44ed9226db53c510e704cb8f32f396"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-completed-fixed-snapshot.log": {
+      "bytes": 920,
+      "sha256": "a9c4d90984f5170cfae3b920d914eb4b11824f035dfc559717afdb115337de3f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-final-public-negative-guards-command.json": {
+      "bytes": 637,
+      "sha256": "1455482e887c13b0cd7a58e0ae493ab4fa136da796de09aaa0f74fb949b26f93"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-final-public-negative-guards.log": {
+      "bytes": 2649,
+      "sha256": "782792c7ca6e52675a0c096abb2d26e28548983c1f1f46d8e9b6bdc9acded4b1"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-fixed-regular-snapshot-command.json": {
+      "bytes": 586,
+      "sha256": "30030d4fc297b577d8acd0af9c7ef77ab889883dfc2c72adb99395d7998e8da8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-fixed-regular-snapshot.log": {
+      "bytes": 1746,
+      "sha256": "90f973eb369c0364e0ad0396496e5e3e8ed5e3f55bcc4a0992b9099304a41e2f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-original-paths-proof-command.json": {
+      "bytes": 628,
+      "sha256": "ab7dc6a770dcd3376b87885bbb5d87bb249ac327d60e2b97abf847c018d3b206"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/green-original-paths-proof.log": {
+      "bytes": 2649,
+      "sha256": "782792c7ca6e52675a0c096abb2d26e28548983c1f1f46d8e9b6bdc9acded4b1"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/initial-tool-scan.json": {
+      "bytes": 546,
+      "sha256": "bdce348f38f14ffb711669bc1c730c98cfd5973b593d123ef7a74a06d618fe35"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/link-projection.json": {
+      "bytes": 694,
+      "sha256": "ba2942ec08dde7cc57ac196289746c1ecc13b00de46aec282ada57f8b62de66e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/lossless-log-final-verification-command.json": {
+      "bytes": 625,
+      "sha256": "1b4c7c0157efc165cd23454dc66126b35ccc6b3f327a3a4320b9f017158c1672"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/lossless-log-final-verification.log": {
+      "bytes": 2136,
+      "sha256": "99bc95487452d8eefaf6a154dbb4d86b295db3e7b31f6a0883c3a3b2f8546370"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/raw-log-index.json": {
+      "bytes": 1483,
+      "sha256": "1eae3c07f65e931406c3c26fa2f47809c491d882efe55c86411f7d8afb923870"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-canonical-root-proof-command.json": {
+      "bytes": 627,
+      "sha256": "41185f5abc0f88e22bc89d6bce6440952cbad055fda3bc017106cd7e9f108732"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-canonical-root-proof.log.gz": {
+      "bytes": 474,
+      "sha256": "9d1ee5bd0202a9b4ee1fb4fe03ddb500ef572e79b2c54f75bf7e5a1befd562fe"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-capsule-public-cli-command.json": {
+      "bytes": 627,
+      "sha256": "973a0d5850b6e59bbb822a977c8b46cb4429d353db2983d3a34eddf95be052b6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-capsule-public-cli.log.gz": {
+      "bytes": 515,
+      "sha256": "b9fa7588fd0e229fcfa325fffc6539f54aeef051c9c8794d1c1befc79b50443d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-exact-link-scan-command.json": {
+      "bytes": 578,
+      "sha256": "cc667399edeaa51e1b32e958c46f15959d6f8f3731844cbc261877348ef13a6a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-exact-link-scan.log": {
+      "bytes": 842,
+      "sha256": "b6d01dde24d7759c9bc27ce1675a2f70bd968894f17343d95fac388fe03ea61c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-fabricated-messages-support-command.json": {
+      "bytes": 634,
+      "sha256": "327ae4e88a9db58d560b2e6e64c56faa5855979131054205927572f46ff6fe44"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-fabricated-messages-support.log.gz": {
+      "bytes": 440,
+      "sha256": "2c1bcc6f99299902a35b04f0d8b9f2a5a995c752febe05dae40de2dffbf2a6a0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-original-paths-proof-command.json": {
+      "bytes": 628,
+      "sha256": "970dae47aa607aa93d5705fce3e9775f1da5a6b20b87f9c6434ec2b8293cbc3d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/tdd/red-original-paths-proof.log.gz": {
+      "bytes": 461,
+      "sha256": "a915ef1959f08835df7636065a7091f4484c27cd7da8158012fef3e9d6213dae"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/verify.py": {
+      "bytes": 15729,
+      "sha256": "20bcd7c821bd7a855c929865923ca4d7e74203e33d75c9bb7e5c42bf4f94cf0f"
+    }
+  },
+  "capsuleProofs": [
+    {
+      "phase": "glm",
+      "capsule": "capsule",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-raw.tar.gz",
+        "bytes": 2715968,
+        "sha256": "5371d79f7324b501626b1f6c1f1cb36037be89c89206d2855c2001a161a0d6f0",
+        "prefix": "repair-glm-actual"
+      },
+      "files": 1127,
+      "payloadBytes": 22326483,
+      "decodedTarBytes": 23930880,
+      "maxMemberBytes": 991246,
+      "directOriginalBytesMatched": 1119,
+      "observedMembers": 270,
+      "projection": null
+    },
+    {
+      "phase": "glm",
+      "capsule": "preflight",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-preflight-raw.tar.gz",
+        "bytes": 39276565,
+        "sha256": "dbcb04ff6185c098766d73f45fbff5f2d67af2164fb87b86a7a22c65eef68e82",
+        "prefix": "repair-glm-preflight"
+      },
+      "files": 27910,
+      "payloadBytes": 220600643,
+      "decodedTarBytes": 271063040,
+      "maxMemberBytes": 4394975,
+      "directOriginalBytesMatched": 27909,
+      "observedMembers": 9,
+      "projection": {
+        "originalRelativePath": "no-key-live/20261018T110935.233553000Z/formal-corrupt-symlink/formal-integrity.json",
+        "type": "symlink",
+        "targetHex": "2f55736572732f63796265722f526573746f582f6261726e6573732f2e65766964656e63652f6d696e696d61782d72656c656173652d7265706169722d676c6d2d312f6e6f2d6b65792d6c6976652f3230323631303138543131303933352e3233333535333030305a2f666f726d616c2d636f72727570742d73796d6c696e6b2f7365616c2e6a736f6e",
+        "targetSHA256": "18ebed3cd4eba35406b844c0abba746151949978df4204c4c5b0578b6eff235c",
+        "targetFollowed": false
+      }
+    },
+    {
+      "phase": "glm",
+      "capsule": "binary",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/glm-binary-raw.tar.gz",
+        "bytes": 14737909,
+        "sha256": "b65ce438af742c1252146ae615f233f852eada2938c4aeebaedfd2bf4c24584b",
+        "prefix": "repair-glm-binary"
+      },
+      "files": 4,
+      "payloadBytes": 36157481,
+      "decodedTarBytes": 36167680,
+      "maxMemberBytes": 36039538,
+      "directOriginalBytesMatched": 4,
+      "observedMembers": 3,
+      "projection": null
+    },
+    {
+      "phase": "effects",
+      "capsule": "capsule",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-actual-raw.tar.gz",
+        "bytes": 1601166,
+        "sha256": "d49a9364fd60f31a8c546d394fc6969514a05f34be88e5a19c0982098216de7f",
+        "prefix": "repair-effects-actual"
+      },
+      "files": 1075,
+      "payloadBytes": 6173920,
+      "decodedTarBytes": 7188480,
+      "maxMemberBytes": 587193,
+      "directOriginalBytesMatched": 1073,
+      "observedMembers": 166,
+      "projection": null
+    },
+    {
+      "phase": "effects",
+      "capsule": "preflight",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-preflight-raw.tar.gz",
+        "bytes": 39283805,
+        "sha256": "0e10dbd70e8654994ee744fb564fb9e5bc4b148780752861351d68698fbdd4e9",
+        "prefix": "repair-effects-preflight"
+      },
+      "files": 27910,
+      "payloadBytes": 220601763,
+      "decodedTarBytes": 271073280,
+      "maxMemberBytes": 4394975,
+      "directOriginalBytesMatched": 27909,
+      "observedMembers": 9,
+      "projection": {
+        "originalRelativePath": "no-key-live/20261018T114438.245219000Z/formal-corrupt-symlink/formal-integrity.json",
+        "type": "symlink",
+        "targetHex": "2f55736572732f63796265722f526573746f582f6261726e6573732f2e65766964656e63652f6d696e696d61782d72656c656173652d7265706169722d656666656374732d312f6e6f2d6b65792d6c6976652f3230323631303138543131343433382e3234353231393030305a2f666f726d616c2d636f72727570742d73796d6c696e6b2f7365616c2e6a736f6e",
+        "targetSHA256": "53a6f961cad79b77ca8beaf2409530413dd04b7c38f01560f2a51eb7d3131782",
+        "targetFollowed": false
+      }
+    },
+    {
+      "phase": "effects",
+      "capsule": "binary",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/effects-binary-raw.tar.gz",
+        "bytes": 11578776,
+        "sha256": "49a30b5d22d5d1a2bed27db5b0c5f9bbb601a3390dceb4dd07cc609d8a170f3b",
+        "prefix": "repair-effects-binary"
+      },
+      "files": 4,
+      "payloadBytes": 29737360,
+      "decodedTarBytes": 29747200,
+      "maxMemberBytes": 29619346,
+      "directOriginalBytesMatched": 4,
+      "observedMembers": 3,
+      "projection": null
+    }
+  ],
+  "independentAnalysis": {
+    "sourceGitFilesMatched": 1056,
+    "phases": {
+      "glm": {
+        "calls": 66,
+        "attempts": 66,
+        "preflightReferences": 15724,
+        "preflightManifests": [
+          [
+            399,
+            {
+              "PASS": 337,
+              "NOT_RUN": 62
+            }
+          ],
+          [
+            1,
+            {
+              "PASS": 1
+            }
+          ],
+          [
+            1,
+            {
+              "PASS": 1
+            }
+          ],
+          [
+            10,
+            {
+              "PASS": 10
+            }
+          ]
+        ],
+        "checksSHA256": "1c7d8db297419f0f7dd85caa3853af93a46df1824009377d8d8695ff33e36338",
+        "authSHA256": "06bff1b72f6484db4d1efb2bbd9e6b71ee24423576a3167a06da87c71c267310"
+      },
+      "effects": {
+        "calls": 36,
+        "attempts": 36,
+        "preflightReferences": 15724,
+        "preflightManifests": [
+          [
+            399,
+            {
+              "PASS": 337,
+              "NOT_RUN": 62
+            }
+          ],
+          [
+            1,
+            {
+              "PASS": 1
+            }
+          ],
+          [
+            1,
+            {
+              "PASS": 1
+            }
+          ],
+          [
+            10,
+            {
+              "PASS": 10
+            }
+          ]
+        ],
+        "checksSHA256": "67ff2a6e18233b9b541df28376af8c0e140214d9a5857b49e22e67ec2335c796",
+        "authSHA256": "ec6b758bfcb219241360a1cc4c8644ba030a5234faec02eb357b6407ea2b5f19"
+      }
+    },
+    "nativeRows": [
+      {
+        "name": "chat",
+        "calls": 22,
+        "attempts": 22,
+        "usageReporting": {
+          "complete": 20,
+          "unreported": 2
+        },
+        "knownInputSide": 1739,
+        "knownOutput": 6889,
+        "sourceFiles": 217
+      },
+      {
+        "name": "responses",
+        "calls": 22,
+        "attempts": 22,
+        "usageReporting": {
+          "complete": 20,
+          "unreported": 2
+        },
+        "knownInputSide": 1648,
+        "knownOutput": 6283,
+        "sourceFiles": 217
+      },
+      {
+        "name": "messages",
+        "calls": 22,
+        "attempts": 22,
+        "usageReporting": {
+          "partial": 21,
+          "unreported": 1
+        },
+        "knownInputSide": 8293,
+        "knownOutput": 5525,
+        "sourceFiles": 217
+      },
+      {
+        "name": "visual-decisions",
+        "calls": 12,
+        "attempts": 12,
+        "usageReporting": {
+          "complete": 12
+        },
+        "knownInputSide": 4872,
+        "knownOutput": 0,
+        "sourceFiles": 323
+      },
+      {
+        "name": "visual-jev",
+        "calls": 12,
+        "attempts": 12,
+        "usageReporting": {
+          "complete": 12
+        },
+        "knownInputSide": 10008,
+        "knownOutput": 716,
+        "sourceFiles": 323
+      },
+      {
+        "name": "protocol114",
+        "calls": 12,
+        "attempts": 12,
+        "usageReporting": {
+          "complete": 12
+        },
+        "knownInputSide": 9862,
+        "knownOutput": 372,
+        "sourceFiles": 862
+      }
+    ],
+    "oldNativeFilesMatched": 1980,
+    "oldReceiptPinsMatched": 78,
+    "visualQuality": {
+      "visual-decisions": {
+        "common": {
+          "total": 8,
+          "correctClass": 8,
+          "correctExistence": 8,
+          "brier": 3.7500000000000044e-05
+        },
+        "supplementalContext": {
+          "total": 4,
+          "correctClass": 4,
+          "correctExistence": 4,
+          "brier": 2.5e-05
+        }
+      },
+      "visual-jev": {
+        "common": {
+          "total": 8,
+          "correctClass": 8,
+          "correctExistence": 8,
+          "brier": 0.022387499999999998
+        },
+        "local": {
+          "total": 4,
+          "correctClass": 4,
+          "correctExistence": 4,
+          "brier": 0.020575
+        },
+        "presentMeanIoU": 0.7236578040509236
+      }
+    },
+    "glmRecordedNegativeGuards": 19,
+    "effectsRecordedNegativeGuards": 15,
+    "releaseCertified": false,
+    "newCalls": 102,
+    "newAttempts": 102,
+    "priorCalls": 545,
+    "priorAttempts": 545,
+    "totalCalls": 647,
+    "totalAttempts": 647,
+    "originalReusableSourceMaps": {
+      "text-jev": {
+        "originalEntries": 860,
+        "originalMapAt": [
+          "code-snapshot.json"
+        ],
+        "currentApplicableUnchangedEntries": 261,
+        "outsideOuterMapVerifiedFromExact7931Git": []
+      },
+      "text-luna": {
+        "originalEntries": 860,
+        "originalMapAt": [
+          "code-snapshot.json"
+        ],
+        "currentApplicableUnchangedEntries": 261,
+        "outsideOuterMapVerifiedFromExact7931Git": []
+      },
+      "minimax-chat": {
+        "originalEntries": 263,
+        "originalMapAt": [
+          "minimax-report.json/executionSource"
+        ],
+        "currentApplicableUnchangedEntries": 263,
+        "outsideOuterMapVerifiedFromExact7931Git": [
+          "ai/internal/testkit/minimax/README.md"
+        ]
+      },
+      "minimax-responses": {
+        "originalEntries": 263,
+        "originalMapAt": [
+          "minimax-report.json/executionSource"
+        ],
+        "currentApplicableUnchangedEntries": 263,
+        "outsideOuterMapVerifiedFromExact7931Git": [
+          "ai/internal/testkit/minimax/README.md"
+        ]
+      },
+      "minimax-messages": {
+        "originalEntries": 263,
+        "originalMapAt": [
+          "minimax-report.json/executionSource"
+        ],
+        "currentApplicableUnchangedEntries": 263,
+        "outsideOuterMapVerifiedFromExact7931Git": [
+          "ai/internal/testkit/minimax/README.md"
+        ]
+      }
+    },
+    "certifiedInventoryPinsMatched": 3
+  },
+  "additionalProtocolSource": {
+    "file": "additional-protocol-source.py.gz",
+    "compressedSHA256": "572f51cd62e9c927ad7aef7f599d19674ad97e1b76e462fb4d3ca5045a6da44a",
+    "decodedBytes": 19486,
+    "decodedSHA256": "0ad4b561cfe0407d8ee2943aa6543d4c56ea0f0e895e772ff111d4699a78f08e",
+    "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "originalPath": ".scratch/jev-1.14-multimodal-box/verify-11-evidence.py",
+    "gitCommand": [
+      "git",
+      "show",
+      "7931b163f983a8b362374163b7949d31e68bbec4:.scratch/jev-1.14-multimodal-box/verify-11-evidence.py"
+    ],
+    "reason": "Native protocol selected862 includes861 frozen paths plus this committed validator outside outer1056 selection; original outer snapshot is unchanged."
+  },
+  "sharedReaderPins": {
+    ".scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/capsule.py": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328"
+  },
+  "scopeConstraints": {
+    "projectOrCapturedProgramsExecuted": false,
+    "testsOrVerifiersExecuted": false,
+    "credentialsRead": false,
+    "vendorCalls": 0,
+    "rootFilesModified": false,
+    "sourceCorrectnessApproved": false,
+    "gateOrAssemblyApproval": false,
+    "releaseCertified": false
+  },
+  "independentReaderSources": {
+    "/tmp/barness-repair-actuals-independent-read.py": "b79016f731ebb4eabfef2d9f0dd58bbdb9eb1e4641f59c1d2abe7da346e512d1",
+    "/tmp/barness-repair-actuals-independent-analysis.py": "d6d4b54cc8fd8f3c45365a835d5d23290ef327b78aae4098039eeeae475b8d91"
+  }
+}

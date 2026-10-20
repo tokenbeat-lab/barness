@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "axis": "SPEC narrow retention rereview",
+  "decision": "PASS_RETENTION_ONLY",
+  "base": "06229f68de6e9dc3100724f05365bb4bd414667a",
+  "reviewedCommit": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "diffCommand": "git diff 06229f68de6e9dc3100724f05365bb4bd414667a...d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "resolvedFinding": {
+    "id": "RETENTION-SPEC-01",
+    "status": "RESOLVED",
+    "file": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md",
+    "line": 32,
+    "proof": "The committed paragraph now explicitly separates verdict snapshot-creation32MiB/256-file bounds from the public verifier shared256MiB compressed/2GiB decoded/160000-file read envelope and its pinned45-file actual inventory. Wording matches unchanged snapshot-verdict.py, verdict-index.json and capsule.py."
+  },
+  "openFindings": [],
+  "scopeCreep": [],
+  "unchangedEvidence": "Only README and its matching SHA256SUMS line changed. All raw archive references, indexes/inventories, observations/summary, native captures, verifier programs, actual public verify0 and14 refused negatives remain byte-identical to0622. Actual8fbd release report remains false with four0/0/1/1 exits. No corrected-source/full-spec PASS or future16 approval is inferred.",
+  "changedCommittedFilesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md": "e53dcad81f788e57f0d7bf171ecda00b9386ef1000f3d82d15c7226d34710f4a",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/SHA256SUMS": "d2ccc769daf0d0b9e2c7458c3013b389414b2c243e6944ff49eae39ac2ef3a1a"
+  },
+  "priorReview": {
+    "path": "/tmp/barness-routed-final-gate-retention-spec-review.json",
+    "sha256": "8263dc9734fe27b9cf65001c026a0d3cc357e67aef2891bfdde29bbe51a5e020",
+    "unchanged": true
+  },
+  "summarySHA256": "d9235181d19e11003a772095aacf4ced9ea23a5e6aac91b90273837509ad1ca1",
+  "sourceBoundary": "This is a documentation closure only, separate from gap2 source/check and prospective GLM header alignment reviews. No paid approval.",
+  "reviewerActions": {
+    "committedReadAndHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "keysRead": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

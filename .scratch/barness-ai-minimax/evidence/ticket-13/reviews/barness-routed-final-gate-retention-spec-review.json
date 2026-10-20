@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "axis": "SPEC retention review",
+  "decision": "CHANGES_REQUESTED_DOCUMENTATION_ONLY",
+  "base": "572570bbe4a9322fb02ed740bd2a10c9b8ce792f",
+  "reviewedCommit": "06229f68de6e9dc3100724f05365bb4bd414667a",
+  "diffCommand": "git diff 572570bbe4a9322fb02ed740bd2a10c9b8ce792f...06229f68de6e9dc3100724f05365bb4bd414667a",
+  "scope": "Exactly23 files under ticket13/final-gate; committed git objects only, no mutable worker source.",
+  "review": "R27/T04 require truthful current-versus-historical results and immutable failures. Retention preserves actual8fbd false report, outer1 and four actual numeric0/0/1/1 exits. Both12448-case manifests retain12439PASS/8FAIL/1NOT_RUN,868 actual PIDiff and29 pressure PASS, audit0; optional OD57 remains NOT_RUN. Extra unregistered Decisions fixture and two mapping Go-test failures remain explicit. GLM Responses remains the sole live FAIL; aggregate trace consequences do not invent failures for other providers. Strict archive membership/hash/path/source checks do not relax native acceptance. Three compressed archive hashes, original main manifests, each98703 artifact-reference mapping, all45 verdict member hashes and every original outer file match independently. Same program public verify0 and14 refused negatives are retained; reviewer did not execute them.0622 changes only JSON formatting plus seal versus604e, with exact parsed equality. Binary reference remains the immutable original, not a repaired-source executable certificate.",
+  "findings": [
+    {
+      "id": "RETENTION-SPEC-01",
+      "severity": "P2",
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md",
+      "line": 32,
+      "requirement": ".scratch/barness-ai-minimax/spec.md:353,355 requires accurate bounded, independently verifiable evidence claims.",
+      "finding": "README describes verdict as separately limited to32MiB/256 files, but only snapshot-verdict.py enforces that creation bound. verdict-index.json uses the common full-suite limits, and capsule.verify applies256MiB compressed/2GiB decoded/160000files/1600MiB payload to verdict as well.",
+      "requestedCorrection": "Explicitly distinguish the32MiB/256-file snapshot-creation bound from the verifier shared read ceiling, or enforce a distinct verdict read ceiling. No raw archive or measured history needs changing."
+    }
+  ],
+  "scopeCreep": [],
+  "wrongActualClaims": [],
+  "limits": "No full-spec PASS or future16/source certification is granted.545/545 prior accounting and all original native bytes remain historical. This report concerns retention only, separate from1a source/check approval and any future108/132 human authorization.",
+  "reviewedCommittedFilesSHA256": {
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md": "87d35109b628bb1f56a4fb80a1ef73dae7e7fbf929a61b9bb85852ee28f212be",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/SHA256SUMS": "b9eb822b04d22511c3a491843763c942dcef35f26d0ee7c73625ee4a03d4e1ec",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/binary-reference.json": "240a31456083d84c530e03ef17ba7e52f2039b0e3287cec9ffaa891ee4c2504e",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/boundary-checks.json": "d26bca044636029b203eccc3364457d9c368e44ed1484c1ddc4a051b41b72498",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/capsule.py": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/check-boundaries.py": "aed537cad23b9f84d1fc817765eafed376740ec96864c4ffdbebc05379a45ab3",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-index.json": "6584f1d5e6d14dd0c133aab8578be43738168ec67a192e04a118bece9143b831",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-inventory.json.gz": "0101aa0ed7cac24a7f6c4dc33d43131501a4b6a36690ca0a70d36c93da8bc230",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-observations.json": "d574af94a1081860b9f767a27d62ed1f790985c371e5894a5b2987e0ac3b6510",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/public-verify-command.json": "8ee1b732c994e66dfb8873800202ba151f46536a4f4493dbc444bdd0e260e8d8",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/public-verify.log": "6b375fd6cc813cf711684c9b8ad9ac2cdf49212ddaca1ba210cd2e6ccd35224e",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-index.json": "ba65bdf993a7ad8ee7be00e7ccc073e094acd16ff4db272616b68a75a4889fb5",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-inventory.json.gz": "61382cf4e37bc39f1c3d00e4e2202c080e3e9dcec46b05acae39d5da5ce8b4ba",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-observations.json": "6b655f59b1a84b60865a21ddf4d68cfba2211a8e3d1991f84f9b08d5f06f7be6",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/snapshot-ordinary.py": "b355709278ab8795fba0eab5047ea4aeb53cd3c052e1947d49ed304e0f547b41",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/snapshot-race.py": "010abcd97b363625ce946fb31ef55165fe2b1506a1051717aa07564b4c955c0d",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/snapshot-verdict.py": "c9b40146dcabdb62aff983de796b76614ef8f2a1fd1d111a6d2a5becc16250c6",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/source-at-start.json.gz": "df42eb6709fd15aa3e63433700c03ea1897416672ce2c96a4cf3e24e7dc3681a",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/summary.json": "d9235181d19e11003a772095aacf4ced9ea23a5e6aac91b90273837509ad1ca1",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/validation.json": "3f5b9366e10747cf656869dd1f14792729a4af6f293824d900e9d7d8d1d80050",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verdict-index.json": "55c0ecc5c6e355417e2a52ef0923b6a7597d7d61ba804c203adef465add168ef",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verdict-inventory.json.gz": "2bb10e4883524d4792984c2750993932a540d328f3890e956653b479335a4d09",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/verify.py": "2f3728842f58a68f5d05cbc448216fb8c1ce3adc4e64d73ea587060879938ad4"
+  },
+  "independentStaticPins": {
+    "ordinary": {
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-final-gate/ordinary-raw.tar.gz",
+        "bytes": 114322540,
+        "sha256": "9f72789f54f61f40cba8880c9a42f7be818df02f431c1360e250dbafd1329467",
+        "prefix": "routed-compiled-ordinary"
+      },
+      "inventoryFiles": 133171,
+      "rawPayloadBytes": 1307506599,
+      "inventoryCompressedSHA256": "0101aa0ed7cac24a7f6c4dc33d43131501a4b6a36690ca0a70d36c93da8bc230",
+      "manifestSHA256": "1e92b61eb7b03f418c7cda87d13985bc2c6345e8d4bb7709c454a8efd8b142cc",
+      "artifactReferences": 98703,
+      "cases": 12448,
+      "statuses": {
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1
+      },
+      "actualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "PIDIFF": 868,
+      "pressure": 29
+    },
+    "race": {
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-final-gate/race-raw.tar.gz",
+        "bytes": 113453106,
+        "sha256": "b5b96d819cd097c6db13ebbc2101f1a3988ecd05ad4f607a1f32d7b561a0371f",
+        "prefix": "routed-compiled-race"
+      },
+      "inventoryFiles": 133169,
+      "rawPayloadBytes": 1302505276,
+      "inventoryCompressedSHA256": "61382cf4e37bc39f1c3d00e4e2202c080e3e9dcec46b05acae39d5da5ce8b4ba",
+      "manifestSHA256": "f3376fbe1755edea44bef41f4c634b08b87a5bdee35586867dd5856d9fec086e",
+      "artifactReferences": 98703,
+      "cases": 12448,
+      "statuses": {
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1
+      },
+      "actualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "PIDIFF": 868,
+      "pressure": 29
+    },
+    "verdict": {
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-final-gate/verdict-raw.tar.gz",
+        "bytes": 407502,
+        "sha256": "5988535e18f3cefcf793cd6ea126b16ecd06b062e20c45256eb434d69910078e",
+        "prefix": "routed-compiled-verdict"
+      },
+      "inventoryFiles": 45,
+      "rawPayloadBytes": 4619704,
+      "inventoryCompressedSHA256": "2bb10e4883524d4792984c2750993932a540d328f3890e956653b479335a4d09",
+      "all45MembersHashed": true,
+      "allOuterMembersMatchActualRoot": true,
+      "releaseReportSHA256": "af9362f5e8a525420bef595f032f9bf7fbb3ab44eeb33d23657aa492005b864d",
+      "releasePass": false,
+      "gateExit": 1,
+      "actualNumericExits": {
+        "vet": 0,
+        "vet-live": 0,
+        "ordinary": 1,
+        "race": 1
+      },
+      "actualSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "liveStatuses": {
+        "PASS": 16,
+        "FAIL": 1
+      },
+      "traceStatuses": {
+        "PASS": 354,
+        "FAIL": 40
+      }
+    },
+    "formatOnlyCommit": {
+      "parent": "604e8342ee5c8d571cf92edea645f0f03c8b5e8f",
+      "changedFiles": [
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/SHA256SUMS",
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-observations.json",
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-observations.json",
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/summary.json"
+      ],
+      "jsonSemanticallyIdentical": [
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/ordinary-observations.json",
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/race-observations.json",
+        ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/summary.json"
+      ]
+    }
+  },
+  "staticPinsReportSHA256": "2ebc30007115e10876a209946a390fabafba6057fd3b94fad38987355ec904da",
+  "retainedValidation": {
+    "publicVerifyExit": 0,
+    "negativeCases": 14,
+    "allRefused": true
+  },
+  "reviewerActions": {
+    "readHashOnly": true,
+    "testsOrVerifiersExecuted": false,
+    "keysRead": false,
+    "network": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

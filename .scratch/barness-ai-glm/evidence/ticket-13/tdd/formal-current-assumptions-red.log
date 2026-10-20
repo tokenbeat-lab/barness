@@ -1,0 +1,14 @@
+--- FAIL: TestGLMFormalReports (46.66s)
+    --- FAIL: TestGLMFormalReports/chat (20.72s)
+        glm_formal_reports_test.go:158: [GLM12-formal-import-chat] coherent local rehash cannot substitute importer-commit: accepted forged derivation
+        glm_formal_reports_test.go:174: [GLM12-formal-import-chat] immutable false-zero original cannot substitute corrected support view: old raw support report imported
+    --- FAIL: TestGLMFormalReports/responses (14.40s)
+        glm_formal_reports_test.go:158: [GLM12-formal-import-responses] coherent local rehash cannot substitute importer-commit: accepted forged derivation
+        glm_formal_reports_test.go:174: [GLM12-formal-import-responses] immutable false-zero original cannot substitute corrected support view: old raw support report imported
+    --- FAIL: TestGLMFormalReports/messages (11.54s)
+        glm_formal_reports_test.go:158: [GLM12-formal-import-messages] coherent local rehash cannot substitute importer-commit: accepted forged derivation
+        glm_formal_reports_test.go:174: [GLM12-formal-import-messages] immutable false-zero original cannot substitute corrected support view: old raw support report imported
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-formal-positive/20261017T153343.277648000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	50.984s
+FAIL

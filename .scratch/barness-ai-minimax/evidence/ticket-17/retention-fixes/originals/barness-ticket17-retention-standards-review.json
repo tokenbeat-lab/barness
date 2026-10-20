@@ -1,0 +1,404 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "CHANGES_REQUESTED",
+  "baseCommit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+  "reviewedCommit": "3274ba478ad52c8a0bffa4c4490a846a976cfe30",
+  "diffCommand": "git diff 295728ac041006b00959dcfa368d3c1eab2f1953..3274ba478ad52c8a0bffa4c4490a846a976cfe30",
+  "diffSHA256": "a8f28e3e5e16f6d025f89a13c14734b0ca422023d90f82c54bcde70242487ac8",
+  "diffBytes": 557326,
+  "scope": "Exact43 new ticket17 raw-retention frontdoor files only; source2306/docs295 unchanged; B not read.",
+  "findings": [
+    {
+      "id": "T17-RETENTION-STANDARDS-01",
+      "priority": "P2",
+      "classification": "documented-standard breach",
+      "file": ".scratch/barness-ai-minimax/evidence/ticket-17/freeze.py",
+      "line": 27,
+      "additionalLines": [
+        68,
+        69
+      ],
+      "rule": "AGENTS.md4 treats every external input as untrusted and requires safe default boundaries;5 requires bounded failure/resource behavior;9 requires safe verifiable changes. The local failure inventory promises regular/no-follow/finite snapshot reads.",
+      "quote": "v=json.loads((RAW/label/'command.json').read_bytes())",
+      "finding": "The earlier scandir lstat/size observation does not protect a subsequent pathname open/read. These direct reads bypass read(path), which uses the existing component-wise no-follow/nonblocking regular-FD reader and a size/cumulative read cap. The raw command file can be replaced or grow between scan and read, causing link traversal, FIFO blocking or unbounded allocation. The final Path.read_bytes() source-proof reread and file_digest archive reread have the same bypass.",
+      "requestedChange": "Move/reuse the existing finite same-FD metadata reader before command validation and use it for every source-proof reread. Hash the archive through component-wise no-follow regular FD, fstat expected/cap guard and cumulative byte count; preserve historical raw/archive/inventory/native pins and all fixed reader limits. Add failure-first public creator guard receipts on private copies without executing captured code.",
+      "notClaimed": "No defect found in unchanged pinned full reader, actual original capsule custody, typed numeric command checks or source/doc qualification; no current raw corruption or new native certification is inferred."
+    }
+  ],
+  "smells": [],
+  "standards": [
+    "AGENTS.md principles1-10 and failure-first public E2E requirements.",
+    "Twelve supplied smell heuristics assessed as judgments; documented repo rules override; no tooling-enforced issue reported.",
+    "Existing full retention protocol is reused without widened bounds; source/history/current-certification separation applies."
+  ],
+  "report": "CHANGES_REQUESTED: one documented boundary breach remains in the new retention creator; no baseline smell is reported. T17-RETENTION-STANDARDS-01: freeze.py reads raw command metadata with Path.read_bytes() after its directory scan, then repeats unbounded pathname reads for source-proof and archive hashing. A replacement FIFO/link or growing regular input can bypass the existing no-follow/nonblocking/regular-file and finite-read guards. Reuse the existing same-FD bounded reader for metadata and bound compressed archive hashing on the opened regular FD. This concerns creator safety; the public verification reader remains bounded.\n\nIndependent stdlib streaming checked all62996 regular members,106602 physical headers,594764048 payload bytes and all39321 artifact references. All1642 fixture inputs were checked, including141 exact same-stage anthropic/failures.json input-to-saved-artifact relationships; none was ignored or accepted by arbitrary hash similarity. All88 selected resource records are zero.\n\nTwenty-four numeric command stages preserve genuine42 malformed sends at1Provider/1Attempt, then42 local0/0 rejections plus2 business-wire positives. Ordinary/race remain1663 PASS+8 NOT_RUN each; separate exact8 opt-ins each PASS. Six measured ca67+WIP snapshots match1027 Git2306 compiler/JSON/modsum files, without claiming a postcommit1056 operational freeze. Compile, fixture, dependency, initial reader/authoring failures and the non-authoritative2548-byte archive remain distinct. Original source/docs/applicability review bytes are preserved. Recorded public verification0 and11 private-copy refusals were read, not rerun. No credential/network/project execution or repository/raw write occurred; no current formal eligibility or paid authority is granted.",
+  "capsules": {
+    "authoritative": {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d",
+      "prefix": "ticket17-offline-tdd"
+    },
+    "nonAuthoritativeIncomplete": {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw.tar.gz",
+      "bytes": 2548,
+      "sha256": "0bd557473ea2f9d498cd96b330d7c11938126bc2b04103857202ad459b85e828",
+      "complete": false,
+      "authoritative": false
+    }
+  },
+  "independentReadHashProof": {
+    "path": "/tmp/barness-ticket17-retention-independent-readhash.json",
+    "sha256": "c11813b0dccbd7a3effcc17d0c71e4c3802e2504fb32a4b50752c640f148deeb",
+    "regularMembers": 62996,
+    "physicalHeaders": 106602,
+    "paxHeaders": 43606,
+    "payloadBytes": 594764048,
+    "decodedTarBytes": 689623040,
+    "manifestArtifactReferences": 39321,
+    "fixtureInputReferences": 1642,
+    "exactStageFixtureInputBindings": 141,
+    "resourceRecordsZero": 88,
+    "measuredCompilerJSONModsumFiles": 1027,
+    "all6FinalSourceSnapshotsMatchGit2306": true
+  },
+  "readerPins": {
+    "small": {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py",
+      "sha256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f"
+    },
+    "full": {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/capsule.py",
+      "sha256": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328"
+    },
+    "limits": {
+      "compressedBytes": 268435456,
+      "decodedTarBytes": 2147483648,
+      "files": 160000,
+      "entries": 200000,
+      "memberBytes": 67108864,
+      "observedMetadataBytes": 16777216,
+      "observedTotalBytes": 67108864,
+      "inventoryDecodedBytes": 41943040,
+      "inventoryCompressedBytes": 8388608,
+      "rawMemberBytes": 1677721600
+    }
+  },
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/README.md",
+      "sha256": "6dd10607ddf2aa2b89f9dfb60a997c7d6aaf7acef9981de6565b72e1373d1f47",
+      "bytes": 7585,
+      "gitBlob": "ccff2d721f8fa845d0cfce1ff5cd2300e77638bb"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/SHA256SUMS",
+      "sha256": "18ee3c01607cecd535e31f2a000c159c3ae2374062dd827267ecab0362b68bab",
+      "bytes": 4035,
+      "gitBlob": "70c7e2d878a95c26a003d62bcee499c2abad2279"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/check-boundaries.py",
+      "sha256": "1b6f38f12b1e0d0991291e1a51bf5a5b41708af6df336c31ec9ac7b123d7dfaa",
+      "bytes": 4002,
+      "gitBlob": "0ae40a6bf1aa3a77e6d404ff77044a017632179f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/contract.py",
+      "sha256": "d5e2f957eb923b8ed985dbea956f4f1459f2d44653b002504c1d04d4d7f4d07c",
+      "bytes": 2040,
+      "gitBlob": "1901816c26f047a08988d1e9cc053433090b0179"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/freeze-before-physical-tmp-fix.py.txt",
+      "sha256": "0fb3a4e429d9bb0aace62179b5731482d78b704ef7da2db9039c70e54bb80aba",
+      "bytes": 5977,
+      "gitBlob": "04de14db3ccbedea014c6d4b6c235894ed36ccb7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/freeze-original-refusal.log.gz",
+      "sha256": "aece1507f13e6109d99454bc810062fb22292addc81639a4e6b54e57869df218",
+      "bytes": 462,
+      "gitBlob": "50c853fa9ea600d02edf02ed318417dba5829c2e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/metadata-reader-corrections.json",
+      "sha256": "9c1f4783a69221e9c41382c5569c9c8fc15eae383227effb7d3968f45b9d06c5",
+      "bytes": 513,
+      "gitBlob": "b9c665f48aa34ea993bbd8420e851042e8e59936"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/public-entrypoint-authoring-history.json",
+      "sha256": "0289a9392dc60061a6ef6ef49a4da884c8dcacdd99a06fb3bb33340556895571",
+      "bytes": 1004,
+      "gitBlob": "dd7faf4689a815015659287d64481736210885a5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/public-initial-fixture-refusal.log.gz",
+      "sha256": "ace6cba07110042898cd34958fcc77cc433a6cd16953f69af15576f27ed544e7",
+      "bytes": 84,
+      "gitBlob": "ab881c8492b9f02b6f6a561bb00c8b377588cc08"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/refusal.json",
+      "sha256": "fdfbe3b766aaac2a3090a0497b8f0a79c64d53995288b924c015610fb588c933",
+      "bytes": 498,
+      "gitBlob": "c1901315a0a83c9f6eb7afe7361f04ec715f5eef"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/retention-initial-red.log.gz",
+      "sha256": "b24cb3192a8f5ee52baecd55fb6cbc3775039713ad3fdce63f2a5ce4991558ee",
+      "bytes": 223,
+      "gitBlob": "2373f2893f5d502dfa979155dc1919c8e0203f90"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/retention-negative-initial-red.log.gz",
+      "sha256": "fa8930859a7ccffa4c5575c2d9f0ac33cb96775d4845b33fb20e90c06431bcfc",
+      "bytes": 586,
+      "gitBlob": "96507faf41ea1728ba4525c430afdd1b66ce5e3f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/creation-history/verify-before-fixture-provenance-correction.py.txt",
+      "sha256": "72a814aa2bc04868f48f400f679fc374c22594b591ecfa7c7369819b1d58b947",
+      "bytes": 7929,
+      "gitBlob": "bfedcef13a1ac90fef60573f70a685b32fbb6bac"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/expand-trace.py",
+      "sha256": "a371f61a308e550abe6d374f500555d8e13be95039d1c3a18212c0acba68355e",
+      "bytes": 3659,
+      "gitBlob": "7fcba27edad9195a3f3eb9c5c21b9d8931ab8bf6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/failure-inventory.md",
+      "sha256": "ad70315b9a9d6079e9cb96172d93f50969c5426c91099b013252204feb35e7e5",
+      "bytes": 3742,
+      "gitBlob": "8e4a31a6a1a65bae5870768b613e9ada81f8a632"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/final-checks.json",
+      "sha256": "735977361068e07703e43952b2c742af9d2b5854e93c8b643a6b378c972a7c22",
+      "bytes": 10456,
+      "gitBlob": "ac2fa63c7cba937ad1f5492d8afa3ef6b53ccca8"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/freeze.py",
+      "sha256": "94bf02267f8adee85b3653d72cf47f86651508dc9473ae3796554137d33b4595",
+      "bytes": 6387,
+      "gitBlob": "f0f03d072bc1537435cb7c9d81b0a3ff5166798e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/historical-fixture-hash-divergences.json",
+      "sha256": "9463d819dc873fe0d5510c7c9f848628ae569f6d99f92826645b937b36c7c983",
+      "bytes": 62957,
+      "gitBlob": "f9e01f2b543056db4833eecc979c7c9d5d9309d3"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/index.json",
+      "sha256": "0b34de732cf6ecbffa0eb7e22ec395480827fe8c9d3fc1d7bd564c0b9da09d90",
+      "bytes": 28721,
+      "gitBlob": "c574ab791d03caea055b7a49712000d9f86dc48d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/inventory.json.gz",
+      "sha256": "28602c0447c8840bcf5a89c6b862cad2eaa9f8f1f871c0a55b6e18638c9eca26",
+      "bytes": 2448289,
+      "gitBlob": "c9ecfc073a6d6b8aa35ab5532cc0353feb463182"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/original-spec-review.json",
+      "sha256": "003b8edb0b584a6c63f1c854588644808f25216a340e9d1fc6b4cd8706f40a8a",
+      "bytes": 8978,
+      "gitBlob": "e0bdd0134a23f75c490051d62de7834c2dd1bae3"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/original-standards-review.json",
+      "sha256": "61a03e2fe01267f2fcbeeb5814e90fe42ae0090df3d9c36e04a0b1852824e53a",
+      "bytes": 7175,
+      "gitBlob": "5ec4a86230de83fed9bddaf4808a4b250aaa235e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/readers.py",
+      "sha256": "5e01d36494d35dcd8dc1754b2caa69455c22a51a076e05834fcf89596e5a94b6",
+      "bytes": 921,
+      "gitBlob": "a94f97973b34cb9e346f6f182fc93cb32270b899"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/current-source-applicability.json",
+      "sha256": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0",
+      "bytes": 49705,
+      "gitBlob": "5714ade9c80ae1ad25ff8fd2cd158db0a298911d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/current-source-applicability.md",
+      "sha256": "b905c0ffd46cf4967512837755f5a9927528204f55edddc13e8d35e92642488b",
+      "bytes": 2779,
+      "gitBlob": "d6a2d884ce1f57d5d91e23465769b28363d69458"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/docs-spec-review.json",
+      "sha256": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46",
+      "bytes": 10535,
+      "gitBlob": "416f5ab35ab1df0958db0f2410e2c3e294775ead"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/docs-standards-review.json",
+      "sha256": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f",
+      "bytes": 27537,
+      "gitBlob": "bee43921ab30a522a61c9be4bcfa4f8eff9fe298"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/index.json",
+      "sha256": "5db8c8bae1943c06b7d6651cb134dcd5a032ef88d66c0cf597ce7888b692c4dc",
+      "bytes": 949,
+      "gitBlob": "83e2493f4a7a2d02a34f0a018a473ffd1f8ad2cf"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/source-spec-review.json",
+      "sha256": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd",
+      "bytes": 22345,
+      "gitBlob": "3efd75c9666a0c7bd50c2fbb03fc608fc2091c0b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/reviews/source-standards-review.json",
+      "sha256": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573",
+      "bytes": 12610,
+      "gitBlob": "ec22b8b552b34b44d9f9912b8f2a59da0226229a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/source-proof.json",
+      "sha256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299",
+      "bytes": 107685,
+      "gitBlob": "b039b97726e3291db059f53a4e5df100c94b5e81"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/source-proof.json.gz",
+      "sha256": "17dc071a628ec93d587b1622bcaa73ba8b62b708338b5b226c8ef19231bde779",
+      "bytes": 47964,
+      "gitBlob": "d4a655f88be1813542a61421c0a1aa5d5abdb031"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/summary.json",
+      "sha256": "a53f1b01cab5fe3bdc3464c0fb85c01946c8eb511613c3cb818a4b72b510c629",
+      "bytes": 4975,
+      "gitBlob": "d6f4dca987cb4f143aa07459f52ee3868fbcfd55"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/tool-fixture-repair-source-proof.json",
+      "sha256": "8cafc4240955893ce96f67821dbfd7fb72c9ac2d2235fea951f833e4fa9d4013",
+      "bytes": 670,
+      "gitBlob": "1a1585a2a3d348b84e2cbcb63c40225a8d6ae81e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/tool-guard-reapplied-proof.json",
+      "sha256": "8de808624924e4a4ced8c5f451876123fc6eb146568a011758eca84292be9f9d",
+      "bytes": 488,
+      "gitBlob": "4a995e4418446f6145752755ebd23f5b38ed799a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/trace-after.json.gz",
+      "sha256": "5de7e6d4a27880e9d6c69a25ec8850bed6df67919c4ce3e4869987aa85128d49",
+      "bytes": 184179,
+      "gitBlob": "53967904feb575807716dbb3ed82b7a1f8961785"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/trace-before.json.gz",
+      "sha256": "cd18d1dcdf2febea33fa58d194fa9d1ce32067f68179180aca9f4a6c695b3c9e",
+      "bytes": 182194,
+      "gitBlob": "743daa91b5c104c38def5c1da9fe15b8eebe1ea7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/trace-byte-delta.json",
+      "sha256": "feff59e4cd62c50e6fabd08e9e66db9a8cfeb780d15f49d91d5e9117f1cff8b0",
+      "bytes": 109689,
+      "gitBlob": "b61186960b0be71cc2e83c7b3ede89900fd3655f"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/trace-expansion.json",
+      "sha256": "9b9298b83965854707d44f7198d545d47063a03bd93c69909412742392106165",
+      "bytes": 10741,
+      "gitBlob": "80e68cabcce4d66aeed0342eecd262a1c695b9b0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/verification/commands.json",
+      "sha256": "9154debcce23799163744aa05834af88cdf2883fe7ce92f0b60ed3c0609e7bb2",
+      "bytes": 1232,
+      "gitBlob": "d4a0606c540a6a974bc75e8d8e38f36b4b628ee0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/verification/public-negatives.json.gz",
+      "sha256": "6a1cece7f69647eefbe2c5c21b9404c921c2f25dd69f6a8d563fca3c703a50cb",
+      "bytes": 953,
+      "gitBlob": "e01c5afad515cc054cae78902b0affd8b5870f99"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/verification/public-verifier.json.gz",
+      "sha256": "3b2e33d3516e9f9aaa34d0458e4d7030a77b827188e907e131daf76e2899e662",
+      "bytes": 1743,
+      "gitBlob": "9c14a1b1788ecddda761710dc510b04b908a0f32"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-17/verify.py",
+      "sha256": "a3a19fca113bc1f3c77ca47946887e7aab218c2ac13937a7f6ba331f6bb805c2",
+      "bytes": 9353,
+      "gitBlob": "2717dc172af3937582cc67d9d372080f786a07bb"
+    }
+  ],
+  "preservedReviewCopies": {
+    "reviews/source-standards-review.json": {
+      "original": "/tmp/barness-ticket17-source-standards-review.json",
+      "sha256": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573"
+    },
+    "reviews/source-spec-review.json": {
+      "original": "/tmp/barness-ticket17-source-spec-review.json",
+      "sha256": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd"
+    },
+    "reviews/docs-standards-review.json": {
+      "original": "/tmp/barness-ticket17-docs-standards-review.json",
+      "sha256": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f"
+    },
+    "reviews/docs-spec-review.json": {
+      "original": "/tmp/barness-ticket17-docs-spec-review.json",
+      "sha256": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46"
+    },
+    "reviews/current-source-applicability.json": {
+      "original": "/tmp/barness-ticket17-current-source-applicability.json",
+      "sha256": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0"
+    },
+    "reviews/current-source-applicability.md": {
+      "original": "/tmp/barness-ticket17-current-source-applicability.md",
+      "sha256": "b905c0ffd46cf4967512837755f5a9927528204f55edddc13e8d35e92642488b"
+    },
+    "original-standards-review.json": {
+      "original": "/tmp/barness-minimax-final-source-standards-review.json",
+      "sha256": "61a03e2fe01267f2fcbeeb5814e90fe42ae0090df3d9c36e04a0b1852824e53a"
+    },
+    "original-spec-review.json": {
+      "original": "/tmp/barness-minimax-final-source-spec-review.json",
+      "sha256": "003b8edb0b584a6c63f1c854588644808f25216a340e9d1fc6b4cd8706f40a8a"
+    }
+  },
+  "measurementQualification": "ca67+WIP1027 source-byte match to committed2306; not a postcommit test run, complete1056 operational freeze or current formal qualification.",
+  "reviewerExecution": {
+    "projectCodeExecuted": false,
+    "capturedCodeExecuted": false,
+    "verifiersRun": false,
+    "testsRun": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "repoOrRawWrites": false,
+    "BRead": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": [
+      "?? .scratch/barness-ai-minimax/session-analysis/",
+      "?? .scratch/jev-1.14-multimodal-box/human-review/"
+    ]
+  },
+  "releaseCertified": false,
+  "formalApplicabilityRenewed": false,
+  "paidAuthorityGranted": false
+}

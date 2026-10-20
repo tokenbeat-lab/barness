@@ -1,0 +1,198 @@
+{
+  "url": "https://docs.bigmodel.cn/openapi/openapi-responses.json",
+  "retrieved": "2026-10-17",
+  "sha256": "0914af477ff4c1fae0372f9c44ace23033d0bed0cc486796eaff2c2024e5f18c",
+  "selectors": [
+    "#/components/schemas/InputReasoning",
+    "#/components/schemas/OutputReasoning",
+    "#/components/schemas/OutputMessage",
+    "#/components/schemas/InputFunctionCall",
+    "#/components/schemas/OutputFunctionCall",
+    "#/components/schemas/Error"
+  ],
+  "excerpts": {
+    "InputReasoning": {
+      "type": "object",
+      "required": [
+        "type",
+        "content"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "reasoning"
+          ],
+          "description": "思维链，始终为 `reasoning`。"
+        },
+        "content": {
+          "$ref": "#/components/schemas/ReasoningTextPart"
+        }
+      },
+      "title": "思维链输入"
+    },
+    "OutputReasoning": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "reasoning"
+          ],
+          "description": "输出类型，此处为 `reasoning`。"
+        },
+        "status": {
+          "type": "string",
+          "description": "输出消息状态。"
+        },
+        "id": {
+          "type": "string",
+          "description": "此输出项的唯一标识。"
+        },
+        "content": {
+          "$ref": "#/components/schemas/ReasoningTextPart"
+        }
+      },
+      "title": "思维链输出"
+    },
+    "OutputMessage": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "message"
+          ],
+          "description": "输出消息类型，此处为 `message`。"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "assistant"
+          ],
+          "description": "固定为 `assistant`。"
+        },
+        "status": {
+          "type": "string",
+          "description": "输出消息状态。"
+        },
+        "id": {
+          "type": "string",
+          "description": "此回答的唯一标识。"
+        },
+        "content": {
+          "description": "模型回答内容。",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/OutputTextPart",
+              "title": "输出文本"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OutputTextPart"
+              },
+              "title": "输出文本列表"
+            }
+          ]
+        }
+      },
+      "title": "助手回答"
+    },
+    "InputFunctionCall": {
+      "type": "object",
+      "required": [
+        "type",
+        "name",
+        "call_id",
+        "arguments"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "function_call"
+          ],
+          "description": "工具调用，始终为 `function_call`。"
+        },
+        "name": {
+          "type": "string",
+          "description": "要运行的函数名称。"
+        },
+        "call_id": {
+          "type": "string",
+          "description": "模型生成的函数调用唯一 ID。"
+        },
+        "arguments": {
+          "type": "string",
+          "description": "传递给函数的参数 JSON 字符串。"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "函数所属命名空间。"
+        }
+      },
+      "title": "工具命中"
+    },
+    "OutputFunctionCall": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "function_call"
+          ],
+          "description": "工具调用类型，此处为 `function_call`。"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "待执行函数所属命名空间。"
+        },
+        "status": {
+          "type": "string",
+          "description": "输出消息状态。"
+        },
+        "id": {
+          "type": "string",
+          "description": "此输出项的唯一标识。"
+        },
+        "name": {
+          "type": "string",
+          "description": "要运行的函数名称。"
+        },
+        "call_id": {
+          "type": "string",
+          "description": "模型生成的函数调用唯一 ID。"
+        },
+        "arguments": {
+          "type": "string",
+          "description": "传递给函数的参数 JSON 字符串。"
+        }
+      },
+      "title": "函数调用"
+    },
+    "Error": {
+      "type": "object",
+      "description": "Response API 错误。`error.code` 为字符串，与对话补全的数字业务码不是同一套。\n\n| code | 含义 |\n| --- | --- |\n| `invalid_request` | 请求参数或格式错误 |\n| `model_not_found` | 模型不存在 |\n| `not_implemented` | 接口或能力未实现 |\n| `request_too_large` | 请求体超过大小限制 |\n| `authentication_error` / `invalid_api_key` / `expired` | 认证失败 |\n| `permission_denied` | 权限不足 |\n| `context_length_exceeded` | 输入超过模型上下文窗口 |\n| `rate_limit_exceeded` | 请求频率超限 |\n| `insufficient_quota` / `quota_exceeded` / `usage_limit_reached` / `usage_not_included` | 额度或用量限制 |\n| `server_error` | 服务端内部错误 |\n| `server_is_overloaded` / `overloaded` / `slow_down` | 服务过载或要求降速 |\n| `content_filter` / `cyber_policy` | 内容或安全策略拦截 |",
+      "properties": {
+        "error": {
+          "type": "object",
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "错误码，例如 `invalid_request`。"
+            },
+            "message": {
+              "type": "string",
+              "description": "错误描述。"
+            }
+          }
+        }
+      }
+    }
+  }
+}

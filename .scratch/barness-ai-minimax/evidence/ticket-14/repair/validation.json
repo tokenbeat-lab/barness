@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "codeCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "retentionCredentialsRead": false,
+  "retentionPaidCalls": 0,
+  "capturedCommandsExecuted": false,
+  "publicVerifier": {
+    "argv": [
+      "python3",
+      "-B",
+      ".scratch/barness-ai-minimax/evidence/ticket-14/repair/verify.py",
+      "--common-root",
+      "/Users/cyber/RestoX/barness"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-10-18T09:28:14.156978+00:00",
+    "stdout": {
+      "verified": true,
+      "codeCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+      "retentionCredentialsRead": false,
+      "retentionPaidCalls": 0,
+      "releaseCertified": false,
+      "archive": {
+        "files": 54792,
+        "entries": 54792,
+        "rawBytes": 425402095,
+        "decodedTarBytes": 524359680,
+        "archiveBytes": 81125177,
+        "archiveSHA256": "88eae30a5c322edab67bde19a709c62acd7971bf07446a62637454d7332c407c"
+      },
+      "scope": "Offline mapping hash and preflight repair only; original paid failures and frozen source expiry remain; no new paid authority"
+    },
+    "stderr": ""
+  },
+  "boundaryReplay": {
+    "exitCode": 0,
+    "cases": 14,
+    "allRejected": true
+  },
+  "programSHA256": {
+    "verify.py": "66fbcc8b5f84b5bfcf0b97a457e3f09b5a81bdf9d4a6fa6e38f23fdf5ce8d6da",
+    "capsule.py": "651903be831bcff9ac172f2f8e1b3cbd5f469460760bfaa3af9af59a08c30f84",
+    "check-boundaries.py": "1ee8d3a024a52fb41e1300d6b03126549830cbe177612cd3a3750a8cea7b3ad7",
+    "snapshot.py": "b2f8add23b13154e25e6a980cd31b7da470347a1b8adcab603192e2f1ab54873"
+  }
+}

@@ -1,0 +1,965 @@
+--- FAIL: TestMiniMaxChatFinalGuard (0.49s)
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"low" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"low"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"low"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-"low"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/model/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"low" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"low"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"low"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-"low"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/profile/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"low" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"low"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"low"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-"low"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/call/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"low" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"low"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"low"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-"low"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3/hook/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"disabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"disabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"disabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"disabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/model/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"disabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"disabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"disabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"disabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/profile/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"disabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"disabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"disabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"disabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/call/n-2] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"disabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"disabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"disabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"disabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"enabled"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"enabled"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"enabled"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"enabled"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"adaptive","budget_tokens":12} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"adaptive","budget_tokens":12}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"adaptive","budget_tokens":12}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/thinking-{"type":"adaptive","budget_tokens":12}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"minimal" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"minimal"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"minimal"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-"minimal"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_effort-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/reasoning_split-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_tokens-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_tokens-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_tokens-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_tokens-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131073 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131073] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131073] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-131073] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-0 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-0] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-0] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-0] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1.00000000000000001 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1.00000000000000001] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1.00000000000000001] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1.00000000000000001] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e1000000000 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e1000000000] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e1000000000] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/max_completion_tokens-1e1000000000] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-2.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature--0.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature--0.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature--0.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/temperature--0.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-1.1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-1.1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-1.1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-1.1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-null (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-null] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-null] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/top_p-null] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"none" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"none"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"none"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_choice-"none"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/parallel_tool_calls-false (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/parallel_tool_calls-false] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/parallel_tool_calls-false] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/parallel_tool_calls-false] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stream_options-{"include_usage":false} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stream_options-{"include_usage":false}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stream_options-{"include_usage":false}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stream_options-{"include_usage":false}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_stream-true (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_stream-true] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_stream-true] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/tool_stream-true] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/prompt_cache_retention-"24h" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/prompt_cache_retention-"24h"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/prompt_cache_retention-"24h"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/prompt_cache_retention-"24h"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"priority" (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"priority"] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"priority"] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/service_tier-"priority"] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stop-["END"] (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stop-["END"]] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stop-["END"]] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/stop-["END"]] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/response_format-{"type":"json_object"} (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/response_format-{"type":"json_object"}] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/response_format-{"type":"json_object"}] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/response_format-{"type":"json_object"}] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/seed-1 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/seed-1] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/seed-1] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/seed-1] zero attempts and provider calls: <nil>
+    --- FAIL: TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-2 (0.00s)
+        preflight_reject_test.go:223: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-2] errors.Is matches code and phase: want invalid_request/request, got <nil>
+        preflight_reject_test.go:236: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-2] stream ends with only an error terminal: got ["start" "thinking_start#0" "thinking_delta#0:Check." "text_start#1" "text_delta#1:Hello MiniMax." "thinking_end#0:Check." "text_end#1:Hello MiniMax." "done:stop"]
+        minimax_chat_guard_test.go:83: [MM02-guard-TestMiniMaxChatFinalGuard/MiniMax-M3.1-Flash-Preview/hook/n-2] zero attempts and provider calls: <nil>
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-02/.evidence/barness-ai/20261017T221311.908310000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.486s
+FAIL

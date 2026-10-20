@@ -1,0 +1,41 @@
+{
+  "derivedDisplay": true,
+  "usableAsOriginalReport": false,
+  "originalSHA256": "73132452dee52784412d56361ffeb3776aa8800c11daef34e42dfe05378507d2",
+  "originalPrivateSidecar": "operations-v1/operator/barness-ticket21-custody-source-rereview-checks.json.data",
+  "transform": [
+    "absolute repository prefix -> $REPO",
+    "absolute HOME prefix -> $HOME",
+    "absolute owned worktree prefix -> $WORKTREE"
+  ],
+  "document": {
+    "producerSHA256": "b6ef9bc41c997525b21123aa53b2c8299077312ba0eda2aca3aec346062947b8",
+    "readerSHA256": "85ee06e783293ab35b6cbaa06081a7163f4e08adfd9ed8fa5d5083dde72926a0",
+    "programAuthoritySHA256": "698f62d6fa943f901d57df454a3bd15381f542d891b512afcfca75f770b5d0c8",
+    "authenticatedHistoryMembers": 23,
+    "nonauthoritativeHistorySnapshots": {
+      "barness-ticket21-prepared-independent-proof.json": "f6626c005e031ac1a6cd6fabccbacd094c0795f3f5f272fe18f932f67e2cc533",
+      "barness-ticket21-review-prepared.py": "6aa364fb70bb17ce03266c32a27df7d29c3def194f122324981d564e49534ad1",
+      "barness-ticket21-review-prepared-post.py": "9ef60ddf9aac6b9c9f4a96a635b63a3e53ef76e8d150fc4e7995019ddf4bb131"
+    },
+    "originalInventoryMembers": 29941,
+    "originalInventoryPayloadBytes": 349808496,
+    "allOriginalSelectionOwnersPathsPinsChecked": true,
+    "immutableArchiveSHA256": "a95ffa0ca3aba1c816a2b956048037a9578af4602f69756fc1972bf650de537b",
+    "immutableArchiveBytes": 86782794,
+    "originalIndexSHA256": "19083ef6a0a23892490a8c48abf94d4b48f28f7e5c8052553244ef6b15fe6beb",
+    "correctedIndexSHA256": "72ef221535f9aa125e7c2f0122198c681ee2927e90a7aef34bc705d4aa30c085",
+    "indexOnlyCandidateObservationAdded": true,
+    "genuineOriginalReaderRedLogSHA256": "a359cf429230ab6ef4cb64e4ebd04caf6109666a9156a8e4189feae560ed585e",
+    "controlledBoundary3": {
+      "oldResultSHA256": "b53020bddf557435b9ead7dd9cdd5d9088fae49652707ed2a152f56b2365d766",
+      "newResultSHA256": "026c56e9b01d8c22c98af9387810c1fc1d37b72e2b1af9c8d8481be48c57cdbc",
+      "oldTargetAttempts": 1,
+      "newTargetAttempts": 0,
+      "targetReadsPrevented": true,
+      "actualArchiveResealed": false
+    },
+    "newPublicReaderGreenNotClaimed": true,
+    "noProgramsExecutedByReviewer": true
+  }
+}

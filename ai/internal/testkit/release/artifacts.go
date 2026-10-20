@@ -6,7 +6,7 @@ import (
 	"io"
 	"math"
 	"os"
-	"path/filepath"
+	"syscall"
 	"time"
 )
 
@@ -28,21 +28,21 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 	for i, name := range []string{"local", "cloud"} {
 		id := "E08-mixed-pressure-" + name + "-design-load"
 		e := EvidenceCheck{Name: "mixed-pressure-" + name, Bundle: b.Dir, Status: NotRun}
-		dir := b.caseDirs[id]
+		files := b.caseFiles[id]
 		var r designLoad
 		var gauges map[string]*int64
-		if dir == "" {
+		if files.bundle == nil {
 			e.Detail = "required design-load case missing"
 			out = append(out, e)
 			continue
 		}
 		e.Status = Fail
-		if err := readJSON(filepath.Join(dir, "mixed-pressure.json"), &r); err != nil {
+		if err := files.json("mixed-pressure.json", maxInventoryFile, &r); err != nil {
 			e.Detail = "design-load report missing or invalid"
 			out = append(out, e)
 			continue
 		}
-		if err := readJSON(filepath.Join(dir, "resources.json"), &gauges); err != nil {
+		if err := files.json("resources.json", maxInventoryFile, &gauges); err != nil {
 			e.Detail = "resource-release report missing or invalid"
 			out = append(out, e)
 			continue
@@ -74,11 +74,20 @@ func DesignLoadEvidence(b Bundle) []EvidenceCheck {
 
 // Import budgets apply before allocation, even if a file changes while read.
 func readArtifact(path string, budget int64) ([]byte, error) {
-	f, err := os.Open(path)
+	before, err := os.Lstat(path)
+	if err != nil || !before.Mode().IsRegular() || before.Size() > budget {
+		return nil, fmt.Errorf("release: artifact missing, non-regular or over import budget")
+	}
+	f, err := os.OpenFile(path, os.O_RDONLY|syscall.O_NONBLOCK|syscall.O_NOFOLLOW, 0)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
+	opened, e1 := f.Stat()
+	after, e2 := os.Lstat(path)
+	if e1 != nil || e2 != nil || !opened.Mode().IsRegular() || !after.Mode().IsRegular() || opened.Size() > budget || !os.SameFile(before, opened) || !os.SameFile(before, after) {
+		return nil, fmt.Errorf("release: artifact changed during open")
+	}
 	raw, err := io.ReadAll(io.LimitReader(f, budget+1))
 	if err != nil {
 		return nil, err

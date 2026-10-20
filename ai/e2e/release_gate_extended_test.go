@@ -64,3 +64,50 @@ func TestReleaseExecutionSourceDrift(t *testing.T) {
 	e := releaseEvidence(t, r, "chinese-effect-luna")
 	ev.Check("coherently rehashed stale source rejected", e.Status == release.Fail && strings.Contains(e.Detail, "source"), "got %s", e.Detail)
 }
+
+// A legitimate catalog update cannot loosen the independently fixed business
+// task. Rehashing all local pins must not admit different instructions or time.
+func TestReleaseFixedBusinessConfig(t *testing.T) {
+	for _, field := range []string{"instructions", "timeoutSeconds"} {
+		t.Run(field, func(t *testing.T) {
+			ev := run.Case(t, "OD57-release-fixed-business-"+field)
+			dir := currentReleaseEvaluationFixture(t, ev)
+			read := func(name string) map[string]any {
+				raw, err := os.ReadFile(filepath.Join(dir, name))
+				if err != nil {
+					t.Fatal(err)
+				}
+				var value map[string]any
+				if err = json.Unmarshal(raw, &value); err != nil {
+					t.Fatal(err)
+				}
+				return value
+			}
+			config := read("config.json")
+			if field == "instructions" {
+				config[field] = config[field].(string) + " Changed controlled business task."
+			} else {
+				config[field] = float64(599)
+			}
+			writeReleaseJSON(t, dir, "config.json", config)
+			raw, err := os.ReadFile(filepath.Join(dir, "config.json"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			hash := chineseeval.Hash(raw)
+			report := read("evaluation-report.json")
+			report["config"] = config
+			report["configHash"] = hash
+			writeReleaseJSON(t, dir, "evaluation-report.json", report)
+			manifest := read("manifest.json")
+			manifest["versions"].(map[string]any)["config_hash"] = hash
+			writeReleaseJSON(t, dir, "manifest.json", manifest)
+			for _, name := range []string{"config.json", "evaluation-report.json", "manifest.json"} {
+				rehashReleaseFile(t, dir, name)
+			}
+			r := releaseProcess(t, ev, "-evaluation-luna", dir)
+			e := releaseEvidence(t, r, "chinese-effect-luna")
+			ev.Check("coherently rehashed business change refused by fixed task guard", e.Status == release.Fail && e.Detail == "fixed dataset/config drift", "got %s", e.Detail)
+		})
+	}
+}

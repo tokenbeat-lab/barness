@@ -1,0 +1,22 @@
+test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt (__main__.Renewal.test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt) ... FAIL
+
+======================================================================
+FAIL: test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt (__main__.Renewal.test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 196, in test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt
+    self.runcli(*args,ok=False)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 55, in runcli
+    else:self.assertNotEqual(p.returncode,0,p.stderr[-700:]+p.stdout[:200])
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : {
+  "schema": 1,
+  "sourceCommit": "c6ae95bd53a63be47cb0243e9d1ecffaf7aacb24",
+  "selectorSHA256": {
+    "ai/live/testdata/glm-formal/live-captures.json": "6d9ccb7b6d71a0c104802b34c0192d43fa30b60b64a5
+
+----------------------------------------------------------------------
+Ran 1 test in 1.253s
+
+FAILED (failures=1)

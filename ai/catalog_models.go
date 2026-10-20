@@ -26,6 +26,11 @@ type Model struct {
 	// ThinkingLevelMap maps a reasoning model's levels to provider values
 	// and marks unsupported ones.
 	ThinkingLevelMap ThinkingLevelMap `json:"thinkingLevelMap,omitzero"`
+	// DefaultThinkingLevel selects the sampling profile when reasoning is
+	// omitted. It labels the service default without requesting a wire effort
+	// or recording a caller choice. Empty preserves the existing off/clamp
+	// selection; an explicit label must be canonical and model-supported.
+	DefaultThinkingLevel ThinkingLevel `json:"defaultThinkingLevel,omitempty"`
 	// SamplingParams are the model's default sampling parameters; full and
 	// simple chat entries apply call-level values over them key by key.
 	SamplingParams map[string]json.RawMessage `json:"samplingParams,omitempty"`
@@ -39,9 +44,24 @@ type Model struct {
 	Cost ModelCost `json:"cost"`
 }
 
-// ModelCompat holds the protocol compatibility flags of pi-ai's model data
-// that barness-ai implements. An absent flag has pi's default.
+// ModelCompat holds model constraints and the protocol compatibility flags
+// of pi-ai's model data that barness-ai implements. An absent pi flag has
+// pi's default; additional semantic constraints document their zero behavior.
 type ModelCompat struct {
+	// MessagesThinkingBudgetTokens opts a model into one verified Messages
+	// enabled/budget wire value, within its provider's implemented subset.
+	// Zero opts into none. This is exact shape evidence, not a budget range,
+	// enforcement guarantee or canonical intensity mapping (ADR-0035).
+	MessagesThinkingBudgetTokens int `json:"messagesThinkingBudgetTokens,omitempty"`
+	// RequiresThinking: the model cannot disable reasoning. This semantic
+	// constraint is independent of the provider's wire switch and level map;
+	// zero preserves existing models. Implemented by Zhipu Chat initially.
+	RequiresThinking bool `json:"requiresThinking,omitempty"`
+	// ThinkingSwitchOnly: canonical high enables reasoning without exposing
+	// distinct effort depths. This is independent of RequiresThinking and of
+	// a Host narrowing the supported level map; zero retains existing models'
+	// depth semantics. Provider capability still limits the actual wire shape.
+	ThinkingSwitchOnly bool `json:"thinkingSwitchOnly,omitempty"`
 	// SupportsStrictMode: Responses function tools carry a "strict" field.
 	SupportsStrictMode bool `json:"supportsStrictMode,omitempty"`
 	// SupportsMidConvoSystemMessages: later system messages are sent in place

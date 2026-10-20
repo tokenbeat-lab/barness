@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "name": "glm-corrective-initial-stages",
+  "codeCommit": "6ff05b843750d062de012bd4f64da625a3caa189",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "glm-corrective-initial-stages.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/glm-corrective-initial-stages.tar.gz",
+  "archiveBytes": 6641296,
+  "archiveSha256": "8151a1d8b7244334c0d5b4ef0291dd30de1f8a72a384e0f57c698eb17b2d4767",
+  "files": 6433,
+  "negativeSymlinkFixtures": 0,
+  "entries": 6433,
+  "expandedBytes": 123061238,
+  "inventory": "glm-corrective-initial-stages-files.json.gz",
+  "inventorySha256": "98dd7d894adcd037a17fb9d91d82edb839129a210fb7be61721cfadfe337a4cb",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "wire-red",
+      "manifest": "wire-red/20261018T032049.028035000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 2,
+        "PASS": 1
+      },
+      "artifactReferences": 16,
+      "auditFindings": 0
+    },
+    {
+      "group": "codec-fixture-diagnostic",
+      "manifest": "codec-fixture-diagnostic/20261018T032151.627108000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 2,
+        "PASS": 1
+      },
+      "artifactReferences": 16,
+      "auditFindings": 0
+    },
+    {
+      "group": "replay-fixture-diagnostic",
+      "manifest": "replay-fixture-diagnostic/20261018T032302.766766000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 1,
+        "PASS": 2
+      },
+      "artifactReferences": 18,
+      "auditFindings": 0
+    },
+    {
+      "group": "intermediate-replay",
+      "manifest": "intermediate-replay/20261018T032328.364632000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 3
+      },
+      "artifactReferences": 18,
+      "auditFindings": 0
+    },
+    {
+      "group": "replay-size-red",
+      "manifest": "replay-size-red/20261018T032402.644773000Z/manifest.json",
+      "caseOutcomes": {
+        "FAIL": 1
+      },
+      "artifactReferences": 8,
+      "auditFindings": 0
+    },
+    {
+      "group": "intermediate-capture-green",
+      "manifest": "intermediate-capture-green/20261018T032423.622345000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 3
+      },
+      "artifactReferences": 18,
+      "auditFindings": 0
+    },
+    {
+      "group": "prior-focused",
+      "manifest": "prior-focused/20261018T032519.081523000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 59
+      },
+      "artifactReferences": 8560,
+      "auditFindings": 0
+    }
+  ]
+}

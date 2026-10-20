@@ -119,12 +119,16 @@ func verify(dir string, requireLive bool) error {
 		CallMS        int                `json:"callMS"`
 		Policy        *ai.ResourcePolicy `json:"policy"`
 		Authorization *authorization     `json:"authorization"`
+		Proxy         string             `json:"proxy"`
 	}
 	if get("run-config.json", &config) != nil || config.Formal != p.formal || config.Mode != r.Mode || config.Route != r.Route || config.Entry != r.Entry || config.MaxCalls < 1 || config.MaxCalls > 12 || config.WorkMS < 1 || config.WorkMS > 225000 || config.CallMS < 1 || config.CallMS > 30000 || !same(config.Policy, policy(time.Duration(config.CallMS)*time.Millisecond)) {
 		return errors.New("invalid run configuration")
 	}
 	if (r.Mode != "controlled" && r.Mode != "live") || (r.Entry != "plain" && r.Entry != "hooked") {
 		return errors.New("invalid evaluation source")
+	}
+	if _, err := visualProxy(config.Proxy); err != nil || (config.Proxy != "" && r.Mode != "live") {
+		return errors.New("invalid recorded proxy configuration")
 	}
 	if r.Mode == "controlled" && config.Authorization != nil {
 		return errors.New("controlled run cannot carry live authorization")
@@ -217,32 +221,58 @@ func verify(dir string, requireLive bool) error {
 		if get(prefix+"wire.json", &w) != nil {
 			return errors.New("missing wire capture")
 		}
-		raw, e = read(prefix + "request.json")
-		if e != nil || !bytes.Equal(raw, w.Request) {
-			return errors.New("final request drift")
-		}
-		raw, e = read(prefix + "response.bin")
-		if e != nil || !bytes.Equal(raw, w.Response) {
-			return errors.New("final response drift")
-		}
 		md := s.Result.Metadata
+		if ids[md.RequestID] {
+			return errors.New("duplicate request identity")
+		}
+		ids[md.RequestID] = true
+		var obs []ai.Observation
+		if get(prefix+"observations.json", &obs) != nil {
+			return errors.New("missing Observer capture")
+		}
 		alias := "synthetic-account"
 		if r.Mode == "live" && config.Authorization != nil {
 			alias = config.Authorization.AccountAlias
 		}
-		if md.TenantID != "visual-evaluation-host" || md.BindingID != p.route || md.BindingVersion != "visual-evaluation-v1" || md.CredentialVersion != "visual-evaluation-v1" || md.AccountScopeID != alias {
-			return errors.New("pinned Host attribution drift")
-		}
+		if len(md.Attempts) == 0 {
+			if listed[prefix+"request.json"] || listed[prefix+"response.bin"] {
+				return errors.New("unsent call invents payload capture")
+			}
+			var access map[string]*int
+			if get(prefix+"unsent.json", &access) != nil || len(access) != 1 {
+				return errors.New("missing measured unsent access")
+			}
+			reads, present := access["credentialReads"]
+			if !present || reads == nil {
+				return errors.New("missing credential read count")
+			}
+			if err := verifyUnsent(p, i, r.Entry, alias, s, w, obs, unsentCapture{CredentialReads: *reads}); err != nil {
+				return err
+			}
+		} else {
+			if listed[prefix+"unsent.json"] {
+				return errors.New("sent call carries unsent access")
+			}
+			raw, e = read(prefix + "request.json")
+			if e != nil || !bytes.Equal(raw, w.Request) {
+				return errors.New("final request drift")
+			}
+			raw, e = read(prefix + "response.bin")
+			if e != nil || !bytes.Equal(raw, w.Response) {
+				return errors.New("final response drift")
+			}
+			if md.TenantID != "visual-evaluation-host" || md.BindingID != p.route || md.BindingVersion != "visual-evaluation-v1" || md.CredentialVersion != "visual-evaluation-v1" || md.AccountScopeID != alias {
+				return errors.New("pinned Host attribution drift")
+			}
 
-		if ids[md.RequestID] || len(md.Attempts) != 1 || md.Attempts[0].AttemptID != md.RequestID+"#1" || md.Attempts[0].RetryDelay != 0 || md.Attempts[0].HTTPStatus != w.Status {
-			return errors.New("attempt identity or accounting drift")
+			if len(md.Attempts) != 1 || md.Attempts[0].AttemptID != md.RequestID+"#1" || md.Attempts[0].RetryDelay != 0 || md.Attempts[0].HTTPStatus != w.Status {
+				return errors.New("attempt identity or accounting drift")
+			}
+			if len(obs) != 4 || obs[0].Kind != ai.ObservationCallStarted || obs[1].Kind != ai.ObservationAttemptStarted || obs[2].Kind != ai.ObservationAttemptFinished || obs[3].Kind != ai.ObservationCallFinished || !same(obs[3].Call, md) || obs[1].Attempt == nil || obs[2].Attempt == nil || obs[1].Attempt.AttemptID != md.Attempts[0].AttemptID || !same(*obs[2].Attempt, md.Attempts[0]) {
+				return errors.New("Observer accounting drift")
+			}
 		}
-		ids[md.RequestID] = true
-		var obs []ai.Observation
-		if get(prefix+"observations.json", &obs) != nil || len(obs) != 4 || obs[0].Kind != ai.ObservationCallStarted || obs[1].Kind != ai.ObservationAttemptStarted || obs[2].Kind != ai.ObservationAttemptFinished || obs[3].Kind != ai.ObservationCallFinished || !same(obs[3].Call, md) || obs[1].Attempt == nil || obs[2].Attempt == nil || obs[1].Attempt.AttemptID != md.Attempts[0].AttemptID || !same(*obs[2].Attempt, md.Attempts[0]) {
-			return errors.New("Observer accounting drift")
-		}
-		terminal := obs[3]
+		terminal := obs[len(obs)-1]
 		if !same(terminal.Usage, s.Result.Usage) || (s.Error == nil) != (terminal.Error == nil) {
 			return errors.New("Observer terminal usage/error drift")
 		}
@@ -277,8 +307,10 @@ func verify(dir string, requireLive bool) error {
 		}
 		// Replay consumes only the captured response through the public Classify
 		// runtime, using the original public image/task. There is no network access.
-		if err := replaySample(p, i, r.Entry, w, s); err != nil {
-			return err
+		if len(md.Attempts) != 0 {
+			if err := replaySample(p, i, r.Entry, w, s); err != nil {
+				return err
+			}
 		}
 		copy := s
 		assess(p, i, &copy)
@@ -336,7 +368,7 @@ func canonicalRequest(raw []byte) any {
 }
 func replaySample(p *plan, i int, entry string, w wire, s sampleResult) error {
 	a := arguments{mode: "controlled", entry: entry, callMS: 30000}
-	got, generated, _, err := call(context.Background(), p, a, p.request(i), i, "http://127.0.0.1"+officialBasePath(p.route), "synthetic-replay-credential", "synthetic-replay-account", replayTransport{w})
+	got, generated, _, _, err := call(context.Background(), p, a, p.request(i), i, "http://127.0.0.1"+officialBasePath(p.route), "synthetic-replay-credential", "synthetic-replay-account", replayTransport{w}, ai.Hooks{})
 	if err != nil {
 		return err
 	}
@@ -350,7 +382,7 @@ func replaySample(p *plan, i int, entry string, w wire, s sampleResult) error {
 		ga, sa := got.Result.Metadata.Attempts[0], s.Result.Metadata.Attempts[0]
 		// Cancellation may occur before decoding even a fully consumed response.
 		// In that case nothing was reported, and every usage/cost field stays zero.
-		if sa.UsageReporting == ai.UsageUnreported && same(sa.Usage, ai.Usage{}) && same(s.Result.Usage, ai.Usage{}) && s.Result.ResponseModel.IsZero() {
+		if sa.UsageReporting == ai.UsageUnreported && same(sa.Usage, ai.Usage{}) && same(s.Result.Usage, ai.Usage{}) && same(s.Result.ResponseModel, ai.Nullable[string]{}) {
 			return nil
 		}
 		// A cancellation after decoding can retain consumption, but only what the

@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "vet-live",
+  "argv": [
+    "go",
+    "vet",
+    "-tags",
+    "live",
+    "./..."
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 600,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T05:42:00.580373+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.4185041249729693,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

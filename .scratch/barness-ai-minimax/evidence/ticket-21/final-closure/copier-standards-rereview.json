@@ -1,0 +1,607 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "32608717c4342f19f2a09492dc69c5fba209fbe3dabf2166e2166ddf43bed86e",
+  "privateRawMember": "barness-ticket21-final-docs-standards-rereview.json",
+  "nativeInput": false,
+  "observed": {
+    "axis": "Standards",
+    "status": "PASS_SOURCE_ONLY_AND_FROZEN_DOCUMENTATION_CANDIDATE",
+    "closedFinding": "T21-FINAL-CLOSURE-STANDARDS-01",
+    "originalReport": {
+      "path": "$TMP/barness-ticket21-final-docs-standards-review.json",
+      "sha256": "d25d636ea1242f0675a22bfb2b05ba345e38786711b6d8601ddf7002c686f8b1",
+      "preservedUnchanged": true
+    },
+    "reviewedSourceSHA256": "82defb65afb58314d288f69ac104f3bba6e9481cc11c4ef18d3235bfc794ccec",
+    "reviewedSourceBytes": 12893,
+    "candidateManifestSHA256": "617e139e2205e6ebf5bfff5673f4c0b75e9f6c928c8b5e67b170f50d7c456a97",
+    "candidateDiffSHA256": "0a0d9bdad2c114f25719ef6d598330019252169777f79aa942106a5ca5dcf80e",
+    "docs14Unchanged": true,
+    "hardViolations": [],
+    "judgmentSmells": [],
+    "findings": [],
+    "narrative": "The original P2 is closed at exact82defb65. Selection now has one private temporary owner and64 literal relative-to-destination pairs; strict complete row shape, path/name hygiene, exact failure-inventory authority and unchanged count/member/aggregate bounds all precede helper and selected target reads. Unknown, ROOT, credential/env/hidden, dot, NUL and mismatched destinations refuse before access. No generic source discovery or new execution authority was introduced. Independently read all four retained private phases and64 aliased producer files; each reverses byte-for-byte to c0 or82def with only ROOT$TMP constants changed. The corrected original RED has a successful control and11 metadata-first gaps:10 blocked synthetic open attempts plus NUL reaching helper/OS. Earlier two harness failures remain explicitly separate. Fixed GREEN matches16/16: valid CLI0 and15 exact-reason refusals1 with zero invalid helper/selected opens. Frozen14-document hashes and original finding report remain unchanged. This closes only source and supplied private regression evidence; actual exclusive central copy/readback and final derived index/CLOSED_PASS are still pending. No reviewer native, captured, archive, credential, vendor or paid execution occurred.",
+    "finiteSelection": {
+      "literalRecords": 64,
+      "owner": "$TMP",
+      "failureInventorySHA256": "94781e31929d0eb06e16b4c1198c1055e58fca75eba98519e90911c51751762e",
+      "memberLimit": 1048576,
+      "aggregateLimit": 16777216,
+      "sourceRowsLimit": 64,
+      "allMapChecksBeforeHelperAndSelectedRead": true,
+      "futureAdditionsRequireSeparateLiteralSourceReview": true
+    },
+    "privateRegression": {
+      "resultsSHA256": "38064b711818434790eee355a827c801c7557b9cdbdd1277cda8a398dd15898b",
+      "resultsBytes": 139762,
+      "aliasReversalsIndependentlyChecked": 64,
+      "stages": {
+        "red": {
+          "sourceSHA256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+          "cases": 16,
+          "exitCodes": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "expectedMatches": 4,
+          "unmet": [
+            "valid",
+            "root-credential",
+            "unknown-tmp",
+            "env-source",
+            "hidden-source",
+            "dot-output",
+            "dotdot-output",
+            "hidden-output",
+            "nul-relative",
+            "name-mismatch",
+            "failure-inventory",
+            "whole-map-late-invalid"
+          ],
+          "selectedOpenTrapCount": 0
+        },
+        "red-fixture-corrected": {
+          "sourceSHA256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+          "cases": 16,
+          "exitCodes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "expectedMatches": 4,
+          "unmet": [
+            "valid",
+            "root-credential",
+            "unknown-tmp",
+            "env-source",
+            "hidden-source",
+            "dot-output",
+            "dotdot-output",
+            "hidden-output",
+            "nul-relative",
+            "name-mismatch",
+            "failure-inventory",
+            "whole-map-late-invalid"
+          ],
+          "selectedOpenTrapCount": 0
+        },
+        "red-audit-corrected": {
+          "sourceSHA256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+          "cases": 16,
+          "exitCodes": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "expectedMatches": 5,
+          "unmet": [
+            "root-credential",
+            "unknown-tmp",
+            "env-source",
+            "hidden-source",
+            "dot-output",
+            "dotdot-output",
+            "hidden-output",
+            "nul-relative",
+            "name-mismatch",
+            "failure-inventory",
+            "whole-map-late-invalid"
+          ],
+          "selectedOpenTrapCount": 10
+        },
+        "green": {
+          "sourceSHA256": "82defb65afb58314d288f69ac104f3bba6e9481cc11c4ef18d3235bfc794ccec",
+          "cases": 16,
+          "exitCodes": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "expectedMatches": 16,
+          "unmet": [],
+          "selectedOpenTrapCount": 0
+        }
+      },
+      "greenValidExit": 0,
+      "greenNegativeExits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "greenInvalidHelperOpens": 0,
+      "greenInvalidSelectedOpens": 0,
+      "realEnvCredentialsRead": false,
+      "productionCopyExecuted": false
+    },
+    "fixReportSHA256": "dabd24f10b619095857e8010179f31a3afa2dcba90eddf002e98996398ceb4a0",
+    "fixManifestSHA256": "ccae720c1e5f827051fdff0a596019f6cc62fe17c9a44753d0b2bb38e736f010",
+    "filePins": {
+      "$TMP/barness-ticket21-final-closure-copy.py": {
+        "bytes": 12893,
+        "sha256": "82defb65afb58314d288f69ac104f3bba6e9481cc11c4ef18d3235bfc794ccec"
+      },
+      "$TMP/barness-ticket21-final-closure-copy-source-reviewed-original.py.txt": {
+        "bytes": 5030,
+        "sha256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428"
+      },
+      "$TMP/barness-ticket21-final-closure-copy-failures.md": {
+        "bytes": 1004,
+        "sha256": "94781e31929d0eb06e16b4c1198c1055e58fca75eba98519e90911c51751762e"
+      },
+      "$TMP/barness-ticket21-final-closure-copier-test-results.json": {
+        "bytes": 139762,
+        "sha256": "38064b711818434790eee355a827c801c7557b9cdbdd1277cda8a398dd15898b"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/valid/public-copier.py": {
+        "bytes": 5186,
+        "sha256": "d665ca4645ce23a4c88cf4d1e15dae8c214db237fd2afe06b6f88f76399f0eff"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/root-credential/public-copier.py": {
+        "bytes": 5206,
+        "sha256": "baeeb6d1bd089e4bf55aba033cf295decd1ac4099eed6fc3e6d6bf19e07df647"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/unknown-tmp/public-copier.py": {
+        "bytes": 5198,
+        "sha256": "75933b3538296281e1ff0d2207d9a8dffa02a52d63f3387962dba25b9d6d702f"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/env-source/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "878d15f4d4fe4c5d7e8299ce576bcf6799400052de08f93ea89f7e7f1d2d0326"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/hidden-source/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "8bf9cbe83167113211c2881bb646ed86c37d10940b85d4f19acb3fcead420fc6"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/dot-output/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "fcf53c8e2ce999159767a527e57206f90fafe3e3c77bfe2ff075877d40272eaf"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/dotdot-output/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "1ec21b0c90e645df41a07e842c1dff2e1a02da29b5ba6d23cdf4e5a9cf29d712"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/hidden-output/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "05b4bf83af549e42848fd6030e487b2e9c987494d3ca4b0891841fa196116fa7"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/nul-relative/public-copier.py": {
+        "bytes": 5200,
+        "sha256": "19193c3c9d5417ad713cb1ff8c894d2751c6379b28fac42498f62b102ff28bf1"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/nul-output/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "2863762cd814d76a255bc1b35ed66690667a535c4b2eab358f7c5c61fd31812e"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/name-mismatch/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "cb7ebae6017857e3062bd91cfe36199629f403b231a8bf866e790d3c6a50e0c7"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/failure-inventory/public-copier.py": {
+        "bytes": 5210,
+        "sha256": "74ee0d7e1622bdfd39fc80fbdeb082d00797bc54a98f74092b473928989c8293"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/whole-map-late-invalid/public-copier.py": {
+        "bytes": 5220,
+        "sha256": "620d15d5c4839b357bc80cb6e7af58eaffe2eef250d806c835353ec8b9f2c47a"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/count65/public-copier.py": {
+        "bytes": 5190,
+        "sha256": "fbe6b49b78704d53544809c0b2e5df74d5b9321eae381c3c313a3cfba128e1cc"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/aggregate17/public-copier.py": {
+        "bytes": 5198,
+        "sha256": "7a202182557a6b77ca3e47798368841a57880347c66b186941b3b3c07fd81fc6"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-pe9bir2p/duplicate/public-copier.py": {
+        "bytes": 5194,
+        "sha256": "801e5d3a3ddc828719579d8a2ccea7444fdaa9332741f0f67f39acfa8aa2c730"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/valid/public-copier.py": {
+        "bytes": 5186,
+        "sha256": "44be80e4efb13ff5d30faa44d89f8619d905e69f39096cf57c89e67a4b4f7363"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/root-credential/public-copier.py": {
+        "bytes": 5206,
+        "sha256": "e0a0fedcf99a6fa06e7b147469d8e193e3651ac466fbeff58d2f3436ea9d6e96"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/unknown-tmp/public-copier.py": {
+        "bytes": 5198,
+        "sha256": "0af002e2952bb66c9156c3a98090de1a49573e9a50a39cf493b0fa2cb8f2ee88"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/env-source/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "eaf232ba89cf8c63390744e945bfef294ed31e18579e08868529f91e010ca54f"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/hidden-source/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "87170560431788e73596c6aba9b01f9bd91fe8a19602bb3198805a5a8be633f1"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/dot-output/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "3d742807fd2423fb1bf72f60e8d5ec87b508f53cd97db6e596308022c6db20af"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/dotdot-output/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "333edb69ea25aded4cb0e787f40fd65a56e6e12d0413a3c959e27efb96cf6f75"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/hidden-output/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "bf706edad97d679a0f28124b2ae8ca7fbf8cf4e1af5097618961863d63934e52"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/nul-relative/public-copier.py": {
+        "bytes": 5200,
+        "sha256": "a2b11c5fa1542b548478aacf4026d7a40a388430b4937b33a50b710a86249b1c"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/nul-output/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "ed90b804ba58610f2f20cd85b68a23d55bdd08ebb6dc1aef4ad6a076fdb840e2"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/name-mismatch/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "cf706e628af01433552b2f47203a349c8c6ba5770e97a8ddc2b8c38d00475b9a"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/failure-inventory/public-copier.py": {
+        "bytes": 5210,
+        "sha256": "dde7ba4ab7c0aa509ae5c2b0fe75cb20002cb477908e90d780abaa7a752e39d3"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/whole-map-late-invalid/public-copier.py": {
+        "bytes": 5220,
+        "sha256": "cd183a3acca0526a35016bd93dfd8d7ed8ccfccce294b9080a38f1e8a1201e2b"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/count65/public-copier.py": {
+        "bytes": 5190,
+        "sha256": "51decb8e887ff85bf601afcee576172b1bb001baceaabda4021d654c441a697f"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/aggregate17/public-copier.py": {
+        "bytes": 5198,
+        "sha256": "2dbf940e6d907bbb3e7cc3a6db2a30cf76c4fb6c9ebc83b39de7450c7fc380ce"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-bnpmcpaf/duplicate/public-copier.py": {
+        "bytes": 5194,
+        "sha256": "231bba68a5b570c76f9dc410b83a4b9f34f8d944e183266d6c3341c3b7a0731f"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/valid/public-copier.py": {
+        "bytes": 5186,
+        "sha256": "e8d94fa053e5b4fd70398f0423f67097860f4ff57e5c19f07212663919107154"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/root-credential/public-copier.py": {
+        "bytes": 5206,
+        "sha256": "6b523be22d4d12502425082eafb705084cbdf434ad42dd5da15871f19bac366a"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/unknown-tmp/public-copier.py": {
+        "bytes": 5198,
+        "sha256": "4b360e9ff0cf04d97eaf88e678e0dd7725eaff7fa6acdd8856938319193c2f0f"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/env-source/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "80bd14c263ec1e2817f85b4618048b5382488dcfe07c6c4765ba59f13204492a"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/hidden-source/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "5a2de7556906c2064ac94303377caa73799b5cd3ed04ea85e905130ae03f61e8"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/dot-output/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "efbbc6359a22b990a18636efb2646da56359c29b413fbe41a324fc6e4e26d8b2"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/dotdot-output/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "aa4574ae963aa068a7ac85e3489a7d6a5a32325aa79269b0b2cf9d2460db873a"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/hidden-output/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "f37e3d87ac2b691faef4024c23869cc6e95a121f03239d0dcc0473c92a819a12"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/nul-relative/public-copier.py": {
+        "bytes": 5200,
+        "sha256": "6d115df00690c91c0db9d4e885d8facc85c174313f059d629973f86b9fc3c13c"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/nul-output/public-copier.py": {
+        "bytes": 5196,
+        "sha256": "d0a9082d0ec874b189fa04372d4d5c6f1a0aa62b346d2e79bd6f37262abbcb89"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/name-mismatch/public-copier.py": {
+        "bytes": 5202,
+        "sha256": "cd02543f08b172c8bae012142fc821cb6e9d0558725423c5746a203cac4bd007"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/failure-inventory/public-copier.py": {
+        "bytes": 5210,
+        "sha256": "5e7f5a4bd69c08ed1f3e79986a1fbf6f6b9ac318005b32c18f637673bbaf42d3"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/whole-map-late-invalid/public-copier.py": {
+        "bytes": 5220,
+        "sha256": "674373c115d0a7fc18358052bab280a71a5c09195dbb60654ffb1bca38878c3a"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/count65/public-copier.py": {
+        "bytes": 5190,
+        "sha256": "46d730868a1267f3897601c9108ef98cb01d88c89aef6f22522acc6bf0c6afee"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/aggregate17/public-copier.py": {
+        "bytes": 5198,
+        "sha256": "2293a81088ed391b9d951beac7629b7af3bec711ebb32203e3d2bb4976868db0"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-s7klkk4q/duplicate/public-copier.py": {
+        "bytes": 5194,
+        "sha256": "3fa8d85f756be41840ce8fabf4313a5a0ef1ddead3b0256081fbf7aa00aa6531"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/valid/public-copier.py": {
+        "bytes": 13049,
+        "sha256": "3772f8c969021ec6332624540bca376415f68554e524bf2a60e91595e2039ce9"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/root-credential/public-copier.py": {
+        "bytes": 13069,
+        "sha256": "c5471abfafd3f3016d849d1d0bcd73b556b1a8ff0dc0e05e768e7bd0309125ee"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/unknown-tmp/public-copier.py": {
+        "bytes": 13061,
+        "sha256": "f6d999ccb6ed23e37326eb64e6e2e158d99388ca580eafb24657b9742c2fcf80"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/env-source/public-copier.py": {
+        "bytes": 13059,
+        "sha256": "7eab2b48ae2c2bcd992e548bf1af842d7f3e7c2352f24342b5956943d45f142c"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/hidden-source/public-copier.py": {
+        "bytes": 13065,
+        "sha256": "57fabad3404b2d6456415c6551aee51555eb43aff0a1223d107316d9fb7c27d2"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/dot-output/public-copier.py": {
+        "bytes": 13059,
+        "sha256": "39f9e799dc2b8a11edd9d299252aaf206d6f801982ef8f560742115876cb32c9"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/dotdot-output/public-copier.py": {
+        "bytes": 13065,
+        "sha256": "182785dc23c702e237bd508b0f9ea2e0a5265aaf1976d5eb52e2bceae16e56d3"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/hidden-output/public-copier.py": {
+        "bytes": 13065,
+        "sha256": "7a6554bb23b4c0ec3326092eadac81f172ab3a0fd292340f2252a29875972ef0"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/nul-relative/public-copier.py": {
+        "bytes": 13063,
+        "sha256": "4f90c54384fa9c25c9bfc80ab3d9aa662e361d0d3df7be84ce9fa6da4ff16c46"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/nul-output/public-copier.py": {
+        "bytes": 13059,
+        "sha256": "bd1dd1a2cdbdad61908423ab5b653eeb3f88f515a79d4e9f02e13ee598b73233"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/name-mismatch/public-copier.py": {
+        "bytes": 13065,
+        "sha256": "fbf887b7e0ee9310063b744bdad3e07d0821ca78be1dce9fd2976ceaa165d5e1"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/failure-inventory/public-copier.py": {
+        "bytes": 13073,
+        "sha256": "29a4b5350e6ef04b73ba606ca0e3526f114dd6ee0aecf1d140c5edf889d24aa1"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/whole-map-late-invalid/public-copier.py": {
+        "bytes": 13083,
+        "sha256": "b3c22381e34cb1fce631d7d808d2d504f80f59ec85891c1c2b63c173e4692683"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/count65/public-copier.py": {
+        "bytes": 13053,
+        "sha256": "53e3eb09239773277b8672773d22e4ac37f4c50885d2f1e4be496d48e3de49aa"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/aggregate17/public-copier.py": {
+        "bytes": 13061,
+        "sha256": "d5617e0b3cad28a758804025c45d421f3345f8f2729927c3a75e79d076d005cd"
+      },
+      "/var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/barness-ticket21-closure-test-0ld822t5/duplicate/public-copier.py": {
+        "bytes": 13057,
+        "sha256": "5936ad35075cf39e830ef6ac2014ced2e85c70b9d52efd50574f792da89c1103"
+      },
+      "$TMP/barness-ticket21-final-docs-candidate.json": {
+        "bytes": 2320,
+        "sha256": "617e139e2205e6ebf5bfff5673f4c0b75e9f6c928c8b5e67b170f50d7c456a97"
+      },
+      "$TMP/barness-ticket21-final-docs-candidate.diff": {
+        "bytes": 44043,
+        "sha256": "0a0d9bdad2c114f25719ef6d598330019252169777f79aa942106a5ca5dcf80e"
+      },
+      "$REPO/.scratch/barness-ai-minimax/delivery-status.md": {
+        "bytes": 11770,
+        "sha256": "513eefcc9288b31197b1ee1776396de0ed35131ad29a8f19ef90c9306a08ff52"
+      },
+      "$REPO/.scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json": {
+        "bytes": 39609,
+        "sha256": "55fcd4f12eb6d01e2425cb9894347efc987494dc319d5ca047dc0594a59d06fe"
+      },
+      "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/README.md": {
+        "bytes": 1813,
+        "sha256": "94743c081cf765a19afa09a8f4aa267f31672bba6283ccbd4c60c5cacb3ffa95"
+      },
+      "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/actual/README.md": {
+        "bytes": 2543,
+        "sha256": "9b2551311eae7eaa5d51ad0c53485e649b14fff94f73fd3de6d07135a27381d6"
+      },
+      "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md": {
+        "bytes": 7895,
+        "sha256": "66b7630a600170a3d7af3711795e7b1b959fb9db0e652d19ffc53592d9a838ef"
+      },
+      "$REPO/.scratch/barness-ai-minimax/issues/09-integrated-acceptance-review.md": {
+        "bytes": 8648,
+        "sha256": "19bc1365ee78775b06e57f9bec46bf010a3d6d3abcfbd702851694dc0d126083"
+      },
+      "$REPO/.scratch/barness-ai-minimax/issues/10-formal-catalog-support.md": {
+        "bytes": 13324,
+        "sha256": "549e836823ddd29d22de661d7ba2d6c9c359bdbb4c1e8d27068afa32c1675c18"
+      },
+      "$REPO/.scratch/barness-ai-minimax/issues/12-glm-corrective-1.md": {
+        "bytes": 9297,
+        "sha256": "263c7d064438f25b03927ea07c25b2bf3128ccb4bba39666ff00cb732d0ee384"
+      },
+      "$REPO/.scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md": {
+        "bytes": 9871,
+        "sha256": "49b42ce3efbea35ed11628a43826b65da5c2bdb8c02e3d1969bbff5aca5be236"
+      },
+      "$REPO/.scratch/barness-ai-minimax/issues/21-visual-source-renewal.md": {
+        "bytes": 4767,
+        "sha256": "e7d71dcf57067958f71da2608aa244ed85f5eed1575e7a3b3ea60d10baa935b0"
+      },
+      "$REPO/.scratch/barness-ai-minimax/map.md": {
+        "bytes": 16465,
+        "sha256": "218beadfc44ff8548d10dd802a3ccff78fc10e0c1b0a05dc31facf57a858446a"
+      },
+      "$REPO/.scratch/barness-ai-minimax/spec.md": {
+        "bytes": 61203,
+        "sha256": "ebb0bead85cba3f9d1adfc8ea4cbaba469a30aebc4a0942ad708b18846ef86b7"
+      },
+      "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/owned-worktree-cleanup.json": {
+        "bytes": 1255,
+        "sha256": "ff88e28743f0da32027e711a7c6a90c840de51dc42bc0d39e58d7f6b02037a77"
+      },
+      "$REPO/.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/installed-readers-smoke.json": {
+        "bytes": 3238,
+        "sha256": "244c62b2f148405b0b66d0f20cd7a776a3a69671a3ec8c19ccfdf45ba94136d0"
+      },
+      "$TMP/barness-ticket21-final-closure-copier-fix.json": {
+        "bytes": 3700,
+        "sha256": "dabd24f10b619095857e8010179f31a3afa2dcba90eddf002e98996398ceb4a0"
+      },
+      "$TMP/barness-ticket21-final-closure-copier-fix-files.json": {
+        "bytes": 10024,
+        "sha256": "ccae720c1e5f827051fdff0a596019f6cc62fe17c9a44753d0b2bb38e736f010"
+      },
+      "$TMP/barness-ticket21-final-closure-copier-fix-failures.md": {
+        "bytes": 2191,
+        "sha256": "19046121ba01381d28bf028e2a39598f8e26816dcc2f4bcf112311555ea6cf15"
+      },
+      "$TMP/barness-ticket21-final-closure-copier-test.py": {
+        "bytes": 8270,
+        "sha256": "7542c9b34cffa624bad09897b04b8acf6d9da47ff79c1350ddd84504c4479705"
+      },
+      "$TMP/barness-ticket21-final-closure-copier-test-initial.py.txt": {
+        "bytes": 8025,
+        "sha256": "20d55c059f554827c76bd203042c5a6f911d3b52c68a5b3f7a83f4c4c96e8eb5"
+      },
+      "$TMP/barness-ticket21-final-docs-standards-review.json": {
+        "bytes": 5213,
+        "sha256": "d25d636ea1242f0675a22bfb2b05ba345e38786711b6d8601ddf7002c686f8b1"
+      }
+    },
+    "reviewerOnlySetupHistory": [
+      {
+        "toolChunk": "a469be",
+        "operation": "Read fix report while author explicitly still writing it",
+        "exitCode": 1,
+        "error": "No such file or directory",
+        "correction": "Waited for explicit READY and pinned completed report",
+        "nativeOrCopyFailure": false
+      },
+      {
+        "toolChunk": "4d6fe8",
+        "operation": "Own inline retained-history summary",
+        "exitCode": 1,
+        "error": "KeyError: 'unmetExpectedOutcomes'",
+        "cause": "Initial historical stage preserves a differently named diagnostic field. Corrected checker derives unmet cases directly.",
+        "nativeOrCopyFailure": false
+      },
+      {
+        "toolChunk": "93f60b",
+        "operation": "Own inline exact OS terminal comparison",
+        "exitCode": 1,
+        "error": "AssertionError",
+        "cause": "Reviewer expected a shorter NUL OS error; raw retained terminal is exactly ValueError: open: embedded null character in path. Corrected to actual raw terminal without changing worker evidence.",
+        "nativeOrCopyFailure": false
+      },
+      {
+        "operation": "Final corrected inline bounded metadata/alias check",
+        "exitCode": 0,
+        "rawTimestampsCaptured": false
+      }
+    ],
+    "onlyNewReviewerFile": "$TMP/barness-ticket21-final-docs-standards-rereview.json",
+    "noNewHelperOrExtraFileCreated": true,
+    "productionCentralCopyApprovedAsAlreadyExecuted": false,
+    "actualCentralCopyStillRequired": true,
+    "privateFixtureTargetsReadByReviewer": false,
+    "capturedOrProjectProgramsExecutedByReviewer": false,
+    "archiveBodiesOpened": false,
+    "paidCalls": 0,
+    "credentialsRead": false,
+    "rootWrites": false
+  }
+}

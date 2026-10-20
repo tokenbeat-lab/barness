@@ -1,0 +1,155 @@
+{"collection": "openai-responses", "id": "text-stream", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": null}
+{"collection": "openai-responses", "id": "text-complete", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": null}
+{"collection": "openai-responses", "id": "tool-round-trip", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "gpt-5-mini", "note": "tool call by forced choice"}
+{"collection": "openai-responses", "id": "cancel-after-first-frame", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": "canceled after thinking_start"}
+{"collection": "openai-responses", "id": "reasoning-history", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "gpt-5-mini", "note": "returned thinking signature, encrypted reasoning"}
+{"collection": "openai-responses", "id": "image", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": "answer mentions red: true"}
+{"collection": "openai-responses", "id": "tool-changes-gpt-5.4", "outcome": "PASS", "calls": 3, "attempts": 3, "model": "gpt-5.4", "note": "called convert_temperature after the change and answered"}
+{"collection": "openai-responses", "id": "tool-changes-gpt-6-sol", "outcome": "PASS", "calls": 3, "attempts": 3, "model": "gpt-6-sol", "note": "called convert_temperature after the change and answered"}
+{"collection": "openai-chat", "id": "text-stream", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": null}
+{"collection": "openai-chat", "id": "text-complete", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": null}
+{"collection": "openai-chat", "id": "tool-round-trip", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "gpt-5-mini", "note": "tool call by forced choice"}
+{"collection": "openai-chat", "id": "cancel-after-first-frame", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": "canceled after text_start"}
+{"collection": "openai-chat", "id": "reasoning-history", "outcome": "UNSUPPORTED", "calls": 0, "attempts": 0, "model": "gpt-5-mini", "note": "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage"}
+{"collection": "openai-chat", "id": "image", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": "answer mentions red: false"}
+{"collection": "openai-chat", "id": "usage-position", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5-mini", "note": "usage in a separate chunk 1 after the finish_reason chunk"}
+{"collection": "openai-chat", "id": "tool-changes-gpt-5.4", "outcome": "PASS", "calls": 3, "attempts": 3, "model": "gpt-5.4", "note": "called convert_temperature after the change and answered"}
+{"collection": "openai-chat", "id": "tool-changes-gpt-6-sol", "outcome": "PASS", "calls": 3, "attempts": 3, "model": "gpt-6-sol", "note": "called convert_temperature after the change and answered"}
+{"collection": "openai-chat", "id": "pro-model-unavailable", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-5.4-pro", "note": "refused with HTTP 404 (invalid_request): 404: {\"message\":\"This is not a chat model and thus not supported in the v1/chat/completions endpoint. Did you mean to use v1/completions?\",\"type\":\"invalid_request_error\",\"param\":\"model\",\"code\":null}"}
+{"collection": "anthropic-messages", "id": "text-stream", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "claude-haiku-4-5", "note": null}
+{"collection": "anthropic-messages", "id": "text-complete", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "claude-haiku-4-5", "note": null}
+{"collection": "anthropic-messages", "id": "tool-round-trip", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "claude-haiku-4-5", "note": "tool call by forced choice"}
+{"collection": "anthropic-messages", "id": "cancel-after-first-frame", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "claude-haiku-4-5", "note": "canceled after text_start"}
+{"collection": "anthropic-messages", "id": "reasoning-history", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "claude-haiku-4-5", "note": "returned thinking text, thinking signature"}
+{"collection": "anthropic-messages", "id": "image", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "claude-haiku-4-5", "note": "answer mentions red: true"}
+{"collection": "anthropic-messages", "id": "tool-changes-claude-opus-4-8", "outcome": "PASS", "calls": 3, "attempts": 3, "model": "claude-opus-4-8", "note": "called convert_temperature after the change and answered"}
+{"collection": "anthropic-messages", "id": "tool-changes-claude-fable-5", "outcome": "PASS", "calls": 3, "attempts": 3, "model": "claude-fable-5", "note": "called convert_temperature after the change and answered"}
+{"collection": "anthropic-messages", "id": "effort-changes-claude-fable-5-1", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "claude-fable-5-1", "note": "the vendor accepted the effort change from high to low"}
+{"collection": "anthropic-messages", "id": "effort-changes-claude-opus-5", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "claude-opus-5", "note": "the vendor accepted the effort change from high to low"}
+{"collection": "anthropic-messages", "id": "effort-changes-claude-opus-5-5", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "claude-opus-5-5", "note": "the vendor accepted the effort change from high to low"}
+{"collection": "google-gemini", "id": "text-stream", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gemini-3.8-flash", "note": null}
+{"collection": "google-gemini", "id": "text-complete", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gemini-3.8-flash", "note": null}
+{"collection": "google-gemini", "id": "tool-round-trip", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "gemini-3.8-flash", "note": "tool call by forced choice"}
+{"collection": "google-gemini", "id": "cancel-after-first-frame", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gemini-3.8-flash", "note": "canceled after text_start"}
+{"collection": "google-gemini", "id": "reasoning-history", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "gemini-3.8-flash", "note": "returned tool call thought signature"}
+{"collection": "google-gemini", "id": "image", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gemini-3.8-flash", "note": "answer mentions red: true"}
+{"collection": "deepseek-responses", "id": "text-stream", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": null}
+{"collection": "deepseek-responses", "id": "text-complete", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": null}
+{"collection": "deepseek-responses", "id": "tool-round-trip", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "deepseek-flash", "note": "tool call by automatic choice with a directive prompt"}
+{"collection": "deepseek-responses", "id": "cancel-after-first-frame", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "canceled after text_start"}
+{"collection": "deepseek-responses", "id": "reasoning-history", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "deepseek-flash", "note": "returned thinking text, thinking signature, encrypted reasoning, text signature"}
+{"collection": "deepseek-responses", "id": "image", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "answer mentions red: true"}
+{"collection": "deepseek-responses", "id": "reasoning-level-high", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "accepted; stop stop, 15 output tokens of which 13 reasoning"}
+{"collection": "deepseek-responses", "id": "reasoning-level-max", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "accepted; stop stop, 21 output tokens of which 19 reasoning"}
+{"collection": "deepseek-chat", "id": "text-stream", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": null}
+{"collection": "deepseek-chat", "id": "text-complete", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": null}
+{"collection": "deepseek-chat", "id": "tool-round-trip", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "deepseek-flash", "note": "tool call by forced choice"}
+{"collection": "deepseek-chat", "id": "cancel-after-first-frame", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "canceled after text_start"}
+{"collection": "deepseek-chat", "id": "reasoning-history", "outcome": "PASS", "calls": 2, "attempts": 2, "model": "deepseek-flash", "note": "returned thinking text, thinking signature"}
+{"collection": "deepseek-chat", "id": "image", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "answer mentions red: true"}
+{"collection": "deepseek-chat", "id": "usage-position", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "usage in the finish_reason chunk"}
+{"collection": "deepseek-chat", "id": "forced-tool-with-thinking", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "refused with HTTP 400 as ADR-0015 决策三 expects: 400: {\"message\":\"Thinking mode does not support this tool_choice (request_id: a7ba9102-c4db-4ff0-9a6f-5f21fecaf628)\",\"type\":\"invalid_request_error\",\"param\":null,\"code\":\"invalid_request_error\"}"}
+{"collection": "deepseek-chat", "id": "prompt-cache-long-retention", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-flash", "note": "accepted; cache read 0 tokens"}
+{"collection": "deepseek-chat", "id": "reasoning-level-high", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-v4-pro", "note": "accepted; stop stop, 27 output tokens of which 25 reasoning"}
+{"collection": "deepseek-chat", "id": "reasoning-level-max", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "deepseek-v4-pro", "note": "accepted; stop stop, 40 output tokens of which 38 reasoning"}
+{"collection": "openai-images", "id": "json-edit", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-image-2.5-sunburst-2026-09-08", "note": "png: png output, 1024x1024; usage complete; known-only cost 0.00808300 USD"}
+{"collection": "openai-images", "id": "generation", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-image-2.5-sunburst-2026-09-08", "note": "jpeg: jpeg output, 1024x1024; usage complete; known-only cost 0.01325500 USD"}
+{"collection": "openai-images", "id": "mask-edit", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-image-2.5-sunburst-2026-09-08", "note": "webp: webp output, 1024x1024; usage complete; known-only cost 0.00809300 USD"}
+{"collection": "google-interactions-image", "id": "generation", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gemini-nano-banana-2.1", "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.04131150 USD"}
+{"collection": "google-interactions-image", "id": "reference-edit", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gemini-nano-banana-2.1", "note": "completed, inline, 1K/1:1; response id present=false model present=true; thought included in output modalities=false; usage partial; estimated 0.03749250 USD"}
+{"collection": "openai-decisions", "id": "text-choice", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "text-score", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "text-bool", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "mixed-questions", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "image-png", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "image-jpeg", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "image-webp", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "openai-decisions", "id": "cancel-in-flight", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "openai-decisions", "id": "recovery", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": "actual response model captured; usage reporting complete; billing/cache/regional premium unobserved"}
+{"collection": "typesafe-classifier", "id": "mixed-questions", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0; severity score distribution deviation 0 / expectation 0.01 (Client validates bounded hundredth rounding)"}
+{"collection": "typesafe-classifier", "id": "single-choice", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": "response model jev-1.13.0; usage complete (absence means unknown consumption); intent choice distribution deviation 0"}
+{"collection": "typesafe-classifier", "id": "context-422", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": "422 shape UNCONFIRMED; bounded public Client probe observed HTTP 400 detail.error_type=max_tokens_exceeded, classified invalid_request/request; 80002 state bytes, 1 question; usage unreported"}
+{"collection": "protocol114", "id": "default-context-plain", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "explicit-context-plain", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "ordered-reuse-plain", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "local-state-instructions-plain", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "visual-criteria-plain", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "box-existence-plain", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "default-context-hooked", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "explicit-context-hooked", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "ordered-reuse-hooked", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "local-state-instructions-hooked", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "visual-criteria-hooked", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "protocol114", "id": "box-existence-hooked", "outcome": "PASS", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "text-jev", "id": "billing-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "billing-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "billing-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "billing-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "billing-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "billing-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "technical-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "technical-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "technical-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "technical-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "technical-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "technical-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "delivery-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "delivery-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "delivery-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "delivery-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "delivery-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "delivery-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "account-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "account-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "account-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "account-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "account-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-jev", "id": "account-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.13.0", "note": null}
+{"collection": "text-luna", "id": "billing-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "billing-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "billing-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "billing-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "billing-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "billing-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "technical-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "technical-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "technical-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "technical-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "technical-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "technical-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "delivery-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "delivery-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "delivery-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "delivery-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "delivery-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "delivery-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "account-01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "account-02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "account-03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "account-04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "account-05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "text-luna", "id": "account-06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-jev", "id": "v01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v07", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v08", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v09", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v10", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v11", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-jev", "id": "v12", "outcome": "answered", "calls": 1, "attempts": 1, "model": "jev-1.14.0", "note": null}
+{"collection": "visual-decisions", "id": "v01", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v02", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v03", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v04", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v05", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v06", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v07", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v08", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v09", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v10", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v11", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}
+{"collection": "visual-decisions", "id": "v12", "outcome": "answered", "calls": 1, "attempts": 1, "model": "gpt-6-luna", "note": null}

@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED_SOURCE_ONLY",
+  "base": "4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef",
+  "reviewedCommit": "09228e06e6ff6ea5062e3636228cf59724f8041e",
+  "sourceCommit": "1b64e0b",
+  "diffCommand": "git diff 4bfdaa7ba73caf8c2dd389cc951a1da66e3c0eef...09228e06e6ff6ea5062e3636228cf59724f8041e -- .scratch/barness-ai-minimax/tools/",
+  "diffSHA256": "d1176bf5a9dc1dd7b5eae81bfd80b60285829e030b65ff91c7b3b88ce25a5289",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/tools/paid_checks.py": {
+      "sha256": "fb43c9aded424d475892e1cb9c890299aca33b9e4bcb0822465f292059385034",
+      "bytes": 2599,
+      "lines": 36
+    },
+    ".scratch/barness-ai-minimax/tools/release_repair_validation.py": {
+      "sha256": "a5ed655967041360e79a0527c7c13aca685265d7f0994b7660b18ec8711b503f",
+      "bytes": 11248,
+      "lines": 120
+    },
+    ".scratch/barness-ai-minimax/tools/renewal.py": {
+      "sha256": "dd7176a56737f8df3e209c9ac71467d8ca676872fd2f084765e7fc1a35da4aac",
+      "bytes": 9663,
+      "lines": 138
+    },
+    ".scratch/barness-ai-minimax/tools/renewal_glm.py": {
+      "sha256": "75fa4f408e1b9a280fca6750b30913fc08233fe46429552aa1064d6cdf385281",
+      "bytes": 10424,
+      "lines": 153
+    },
+    ".scratch/barness-ai-minimax/tools/repair_anchors.py": {
+      "sha256": "33c279ccc32bdbbbb63c6dfd1fd0af82cf918d40111c9ef0ef224606130f6c42",
+      "bytes": 2862,
+      "lines": 43
+    },
+    ".scratch/barness-ai-minimax/tools/repair_contract.py": {
+      "sha256": "97ce3c09620d8beaef2f0d7ed530feb413ae6c51011bff775be8ec99eeb7cce3",
+      "bytes": 2615,
+      "lines": 41
+    },
+    ".scratch/barness-ai-minimax/tools/repair_inputs.py": {
+      "sha256": "d6e38602f14b1edbcf881b0a0262a904a87859b022a55344a5cb44b92577e047",
+      "bytes": 12485,
+      "lines": 141
+    },
+    ".scratch/barness-ai-minimax/tools/repair_publication.py": {
+      "sha256": "b976b09fa66378eced20a479a590663e5cc58a3a2ecd6bc3e0edb9529d37a1ec",
+      "bytes": 5502,
+      "lines": 59
+    },
+    ".scratch/barness-ai-minimax/tools/routed_evidence.py": {
+      "sha256": "fa3504ebc442506e4c1bb95f804b4f0a539b3662510427a1d0f6cb1296bb38d1",
+      "bytes": 9972,
+      "lines": 163
+    },
+    ".scratch/barness-ai-minimax/tools/routed_validation.py": {
+      "sha256": "d4218ae16c85a1e679a775d78f59870b374d530e65d7f3d7060d61cc95efe4ca",
+      "bytes": 11269,
+      "lines": 178
+    },
+    ".scratch/barness-ai-minimax/tools/test_release_repair.py": {
+      "sha256": "20ed2ab31668c85c4390e67e917c754a212bd2906e3259ec7824ded16232cb5e",
+      "bytes": 11472,
+      "lines": 135
+    },
+    ".scratch/barness-ai-minimax/tools/test_renewal.py": {
+      "sha256": "adbfe37776cc3cdb319c80aff316e5b309807ad858b82021a59127d912dce0f8",
+      "bytes": 33415,
+      "lines": 366
+    },
+    ".scratch/barness-ai-minimax/tools/test_repair_fixtures.py": {
+      "sha256": "e60d2d7107adf66f42a8880b203236e3bb665dfdd9e7b94931b7e0ecd914f9fb",
+      "bytes": 9707,
+      "lines": 85
+    }
+  },
+  "findings": [],
+  "possibleSmells": [],
+  "review": "The13 Python files preserve the old contract default and add a fixed second authority, with shared six-command preflight and settlement readers rather than duplicated launch logic. All changed files stay below500 lines. Anchored original39 receipts, certified native inventories and complete selected text/M3 sources cannot be freshly rehashed as history. The named offline/GLM source exception is exact, and no Go/runtime byte changes occur. New authority remains PENDING, requires new108/132 approval and all six pinned keyless receipts, creates canonical exclusive intent before selected credential access, retains known FAIL consumption, blocks UNKNOWN and permits no automatic retry. GLM is direct; protocol/visual use the explicit loopback proxy with sanitized inherited environment. Publication reopens new canonical own22PASS captures, validates same measured source and whole raw payloads, independently recomputes usage and binds support derivations; it has no old-round fallback. No documented standard breach or supplied baseline smell found.",
+  "helperCompatibility": {
+    "path": "/tmp/barness-repair-final-keyless.py",
+    "sha256": "e5dc66b14e65011574c807602a77502a4b28b72fe64c1685953c7d2e53fda836",
+    "lines": 351,
+    "decision": "COMPATIBLE_STATIC_DRAFT_ONLY",
+    "review": "Committed historical/reusable/scope/tree, jobs/report_path and settled(contract=...) APIs match the helper shapes. Matrix scope permits only original13-preserving new4, while helper additionally authenticates exact before/candidate/default bytes and normalizes only that known matrix SHA transition. Build receipt validation, strict integer exits and malformed-report retention close the minor draft hardening. Exact future final F/binary/plan and retained independent reports still require separate approval."
+  },
+  "retainedVerificationReadOnly": {
+    "final-tools-command.json": {
+      "sha256": "3eae29adc34a3e514652b2ef6cde63699e8428ba932075a08569b74f86091755",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "final-vet-command.json": {
+      "sha256": "854f71602eff0642bd9d18bf9ba39108bd3ff5defec7f73191479a82f58f4ba6",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "final-vet-live-command.json": {
+      "sha256": "79081fad74e1ef56177a58a692ce2c22e47eed889184ac6cf8159a5e16386041",
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "final-tools.log": {
+      "sha256": "a0b30ffcdf225eacae1cc92f8070279d53245e63c0d2c610193829ebd49e5d0d",
+      "retainedResult": "71 tests PASS;336.252s"
+    }
+  },
+  "standards": [
+    "AGENTS.md principles1-10 and failure-first E2E policy",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045/0046",
+    "All12 supplied baseline smells considered as judgment calls; documented overrides respected; tool-enforced issues skipped"
+  ],
+  "constraints": {
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "projectCodeExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "paidApproval": false,
+    "futureExactFinalPlanApproved": false,
+    "sourceEdits": false,
+    "rootWrites": false,
+    "workerWIPInspected": false
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "sourceCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "files": [
+    {
+      "selector": "ai/live/testdata/glm-candidate/live-captures.json",
+      "route": "chat",
+      "archive": ".evidence/barness-ai-glm/ticket-11/20261017T135338Z-chat.zip",
+      "bytes": 371189,
+      "sha256": "a1c568f7f7019088f961b045b31070eb0510b519f5292eff83ba1643681069b5",
+      "source": "$COMMON/.evidence/barness-ai-glm/ticket-11/20261017T135338Z-chat.zip",
+      "target": "$REPO/.evidence/barness-ai-glm/ticket-11/20261017T135338Z-chat.zip",
+      "exactCommittedSelector": true
+    },
+    {
+      "selector": "ai/live/testdata/glm-candidate/live-captures.json",
+      "route": "responses",
+      "archive": ".evidence/barness-ai-glm/ticket-11/20261017T135635Z-responses.zip",
+      "bytes": 408681,
+      "sha256": "872063b9abe49150bb813b33cb91b5fae6361e35bc5a47a95f77f5ea355b0f91",
+      "source": "$COMMON/.evidence/barness-ai-glm/ticket-11/20261017T135635Z-responses.zip",
+      "target": "$REPO/.evidence/barness-ai-glm/ticket-11/20261017T135635Z-responses.zip",
+      "exactCommittedSelector": true
+    },
+    {
+      "selector": "ai/live/testdata/glm-candidate/live-captures.json",
+      "route": "messages",
+      "archive": ".evidence/barness-ai-glm/ticket-11/20261017T135838Z-messages.zip",
+      "bytes": 346555,
+      "sha256": "469363dd4fc28a0a67071c1be6efb6f67196a222d5e2186479b2dc60d8c7bf51",
+      "source": "$COMMON/.evidence/barness-ai-glm/ticket-11/20261017T135838Z-messages.zip",
+      "target": "$REPO/.evidence/barness-ai-glm/ticket-11/20261017T135838Z-messages.zip",
+      "exactCommittedSelector": true
+    },
+    {
+      "selector": "ai/live/testdata/glm-formal/live-captures.json",
+      "route": "chat",
+      "archive": ".evidence/barness-ai-glm/ticket-13/formal-current/3485306-chat.zip",
+      "bytes": 606285,
+      "sha256": "681b69c6d5e2a4fe5096c3408c83c5725782a200be435783e180bb92d399ee9e",
+      "source": "$COMMON/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-chat.zip",
+      "target": "$REPO/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-chat.zip",
+      "exactCommittedSelector": true
+    },
+    {
+      "selector": "ai/live/testdata/glm-formal/live-captures.json",
+      "route": "responses",
+      "archive": ".evidence/barness-ai-glm/ticket-13/formal-current/3485306-responses.zip",
+      "bytes": 615633,
+      "sha256": "8b81bed1659480f65cb63fe62466072d531709501dc65032ef6fb291c090893f",
+      "source": "$COMMON/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-responses.zip",
+      "target": "$REPO/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-responses.zip",
+      "exactCommittedSelector": true
+    },
+    {
+      "selector": "ai/live/testdata/glm-formal/live-captures.json",
+      "route": "messages",
+      "archive": ".evidence/barness-ai-glm/ticket-13/formal-current/3485306-messages.zip",
+      "bytes": 543590,
+      "sha256": "517acecc5ae5a780a812dfa3d81666e59677c2411b3781ac2c95ea12ca744337",
+      "source": "$COMMON/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-messages.zip",
+      "target": "$REPO/.evidence/barness-ai-glm/ticket-13/formal-current/3485306-messages.zip",
+      "exactCommittedSelector": true
+    }
+  ],
+  "selectors": {
+    "ai/live/testdata/glm-candidate/live-captures.json": "67d90ba4473914c3390677d536b7cc0275879a214a3e0aa184204d55ae367c05",
+    "ai/live/testdata/glm-formal/live-captures.json": "32d15c15a2c18af47f686b3004098a9d16bf182a9c9c5de077988a6490155e8e"
+  },
+  "sourceAndSelectorsUnchanged": true,
+  "actualProviderRequestsReplayed": false,
+  "historicalOfflineReplayOnly": true,
+  "newCapturesPublished": false,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

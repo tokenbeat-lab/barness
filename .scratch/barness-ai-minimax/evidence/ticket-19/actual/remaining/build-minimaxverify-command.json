@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "build-minimaxverify",
+  "argv": [
+    "go",
+    "build",
+    "-o",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/minimaxverify",
+    "./ai/live/cmd/minimaxverify"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:14:06.669735+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.7203974169678986,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

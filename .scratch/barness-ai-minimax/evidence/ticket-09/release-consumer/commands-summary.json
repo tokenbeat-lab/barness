@@ -1,0 +1,829 @@
+{
+  "actual-read-only": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestReleaseRecordedBundleDiagnostic$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 0,
+    "elapsedSeconds": 42.989
+  },
+  "catalog-final-ordinary": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestMiniMaxCatalogReleaseAdmission|TestImportedDifferentialRejectsWrongOracle)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "exit": 0,
+    "elapsedSeconds": 5.088,
+    "startedAt": "2026-10-18T06:31:46.209949+00:00",
+    "finishedAt": "2026-10-18T06:31:51.298067+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-final-ordinary"
+  },
+  "catalog-final-race": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "-race",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestMiniMaxCatalogReleaseAdmission|TestImportedDifferentialRejectsWrongOracle)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "exit": 0,
+    "elapsedSeconds": 10.286,
+    "startedAt": "2026-10-18T06:31:46.209949+00:00",
+    "finishedAt": "2026-10-18T06:31:56.495924+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_MINIMAX_CATALOG_CHILD_RACE",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-final-race"
+  },
+  "catalog-final-vet-live": {
+    "argv": [
+      "go",
+      "vet",
+      "-tags",
+      "live",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "exit": 0,
+    "elapsedSeconds": 0.989,
+    "startedAt": "2026-10-18T06:31:46.209949+00:00",
+    "finishedAt": "2026-10-18T06:31:47.198988+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-final-vet-live"
+  },
+  "catalog-final-vet": {
+    "argv": [
+      "go",
+      "vet",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "exit": 0,
+    "elapsedSeconds": 0.984,
+    "startedAt": "2026-10-18T06:31:46.210227+00:00",
+    "finishedAt": "2026-10-18T06:31:47.193943+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-final-vet"
+  },
+  "catalog-green": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestMiniMaxCatalogReleaseAdmission$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 0,
+    "elapsedSeconds": 5.827,
+    "startedAt": "2026-10-18T06:30:38.155275+00:00",
+    "finishedAt": "2026-10-18T06:30:43.982019+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-green"
+  },
+  "catalog-red-actual": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestMiniMaxCatalogReleaseAdmission$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 1,
+    "elapsedSeconds": 3.623,
+    "startedAt": "2026-10-18T06:28:25.358141+00:00",
+    "finishedAt": "2026-10-18T06:28:28.980867+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-red-actual"
+  },
+  "catalog-red-compile-preparation": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestMiniMaxCatalogReleaseAdmission$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 1,
+    "elapsedSeconds": 0.573,
+    "startedAt": "2026-10-18T06:26:35.998027+00:00",
+    "finishedAt": "2026-10-18T06:26:36.571175+00:00",
+    "environmentKeys": [
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": null
+  },
+  "catalog-red-corrected": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestMiniMaxCatalogReleaseAdmission$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 1,
+    "elapsedSeconds": 5.465,
+    "startedAt": "2026-10-18T06:29:57.309809+00:00",
+    "finishedAt": "2026-10-18T06:30:02.774393+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-red-corrected"
+  },
+  "catalog-red-runtime-prerequisite": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestMiniMaxCatalogReleaseAdmission$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 1,
+    "elapsedSeconds": 5.386,
+    "startedAt": "2026-10-18T06:27:24.816318+00:00",
+    "finishedAt": "2026-10-18T06:27:30.202775+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-catalog-red"
+  },
+  "diagnostic-argv": {
+    "kind": "adopted-original-inputs-diagnostic-only",
+    "argv": [
+      "go",
+      "run",
+      "./ai/release/cmd/releasegate",
+      "-out",
+      ".evidence/release-consumer/diagnostic-releasegate",
+      "-evaluation-jev",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/text-jev/20261018T045313.344018000Z",
+      "-evaluation-luna",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/text-luna/20261018T045321.320255000Z",
+      "-visual-evaluation-jev",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/visual-jev",
+      "-visual-evaluation-decisions",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/visual-decisions",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-responses/20261018T043700.861534000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-chat/20261018T044121.509056000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/anthropic-messages/20261018T044617.207205000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/google-gemini/20261018T044621.835242000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/deepseek-responses/20261018T044932.533105000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/deepseek-chat/20261018T044939.527068000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-images/20261018T044949.747276000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/google-interactions-image/20261018T045025.350717000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-decisions/20261018T045135.991551000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/typesafe-classifier/20261018T045306.632466000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/support",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z",
+      "-bundle",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-final-keyless/gate/offline/20261018T045647.697909000Z",
+      "-race-bundle",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-final-keyless/gate/race/20261018T050644.512932000Z"
+    ],
+    "parentAliasTarget": "$REPO/.evidence",
+    "currentConsumer": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "originalFourInternalNumericCommandExits": "UNKNOWN; not reconstructed",
+    "fullCertificate": false,
+    "credentialsRead": false,
+    "paidCalls": 0
+  },
+  "diagnostic-output-audit-overlay": {
+    "Replace": {
+      "/private/tmp/barness-minimax-10-global/ai/internal/testkit/audit/cmd/auditbundle/main.go": "/private/tmp/barness-minimax-10-global/.evidence/release-consumer/diagnostic-output-audit-overlay.go.txt"
+    }
+  },
+  "diagnostic-output-audit": {
+    "argv": [
+      "go",
+      "run",
+      "./ai/internal/testkit/audit/cmd/auditbundle",
+      ".evidence/release-consumer/diagnostic-releasegate"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "exit": 1,
+    "elapsedSeconds": 1.406,
+    "startedAt": "2026-10-18T06:33:46.392507+00:00",
+    "finishedAt": "2026-10-18T06:33:47.798649+00:00",
+    "environmentKeys": [
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": null
+  },
+  "diagnostic-output-content-audit-result": {
+    "bytes": 4213682,
+    "files": 8,
+    "findings": [],
+    "gateRerun": false,
+    "kind": "derived-content-audit-of-nonbundle-release-output",
+    "rules": "existing audit.File + audit.Environment",
+    "sourceOverlayOnly": true
+  },
+  "diagnostic-output-content-audit": {
+    "argv": [
+      "go",
+      "run",
+      "-overlay",
+      ".evidence/release-consumer/diagnostic-output-audit-overlay.json",
+      "./ai/internal/testkit/audit/cmd/auditbundle",
+      ".evidence/release-consumer/diagnostic-releasegate",
+      ".evidence/release-consumer/diagnostic-output-content-audit-result.json"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+    "exit": 0,
+    "elapsedSeconds": 1.447,
+    "startedAt": "2026-10-18T06:34:39.071059+00:00",
+    "finishedAt": "2026-10-18T06:34:40.517645+00:00",
+    "environmentKeys": [
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": null
+  },
+  "diagnostic-releasegate": {
+    "argv": [
+      "go",
+      "run",
+      "./ai/release/cmd/releasegate",
+      "-out",
+      ".evidence/release-consumer/diagnostic-releasegate",
+      "-evaluation-jev",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/text-jev/20261018T045313.344018000Z",
+      "-evaluation-luna",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/text-luna/20261018T045321.320255000Z",
+      "-visual-evaluation-jev",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/visual-jev",
+      "-visual-evaluation-decisions",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/visual-decisions",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-responses/20261018T043700.861534000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-chat/20261018T044121.509056000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/anthropic-messages/20261018T044617.207205000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/google-gemini/20261018T044621.835242000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/deepseek-responses/20261018T044932.533105000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/deepseek-chat/20261018T044939.527068000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-images/20261018T044949.747276000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/google-interactions-image/20261018T045025.350717000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/openai-decisions/20261018T045135.991551000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/live/typesafe-classifier/20261018T045306.632466000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-legacy-final/support",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z",
+      "-live",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z",
+      "-bundle",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-final-keyless/gate/offline/20261018T045647.697909000Z",
+      "-race-bundle",
+      "/tmp/barness-release-consumer-original-evidence/minimax-global-final-keyless/gate/race/20261018T050644.512932000Z"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 1,
+    "elapsedSeconds": 176.607,
+    "startedAt": "2026-10-18T06:17:03.397419+00:00",
+    "finishedAt": "2026-10-18T06:20:00.004582+00:00",
+    "environmentKeys": [
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": null
+  },
+  "final-actual-read-only": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestReleaseRecordedBundleDiagnostic$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 0,
+    "elapsedSeconds": 46.984
+  },
+  "final-ordinary": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|BundlePostLoadIsolation|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete|TestInventoryIteratorRejectsDuplicateNames|TestMiniMaxReleaseLoadConsumer|TestCurrentReleaseLoadImport)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 0,
+    "elapsedSeconds": 29.424
+  },
+  "final-race": {
+    "argv": [
+      "go",
+      "test",
+      "-race",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|BundlePostLoadIsolation|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete|TestInventoryIteratorRejectsDuplicateNames|TestMiniMaxReleaseLoadConsumer|TestCurrentReleaseLoadImport)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 0,
+    "elapsedSeconds": 131.365
+  },
+  "final-vet-live": {
+    "argv": [
+      "go",
+      "vet",
+      "-tags",
+      "live",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 0,
+    "elapsedSeconds": 1.309
+  },
+  "final-vet": {
+    "argv": [
+      "go",
+      "vet",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 0,
+    "elapsedSeconds": 1.272
+  },
+  "fixed-actual-read-only": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestReleaseRecordedBundleDiagnostic$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 0,
+    "elapsedSeconds": 29.595,
+    "startedAt": "2026-10-18T06:11:57.909327+00:00",
+    "finishedAt": "2026-10-18T06:12:27.504188+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "BARNESS_RELEASE_DIAGNOSTIC_BUNDLES",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-fixed-actual-read-only"
+  },
+  "fixed-ordinary": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|BundlePostLoadIsolation|BundleRootSelection|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete|TestInventoryIteratorRejectsDuplicateNames|TestMiniMaxReleaseLoadConsumer|TestCurrentReleaseLoadImport)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 0,
+    "elapsedSeconds": 25.804,
+    "startedAt": "2026-10-18T06:11:57.909328+00:00",
+    "finishedAt": "2026-10-18T06:12:23.713563+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-fixed-ordinary"
+  },
+  "fixed-race": {
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "-race",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|BundlePostLoadIsolation|BundleRootSelection|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete|TestInventoryIteratorRejectsDuplicateNames|TestMiniMaxReleaseLoadConsumer|TestCurrentReleaseLoadImport)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 0,
+    "elapsedSeconds": 91.134,
+    "startedAt": "2026-10-18T06:11:57.909327+00:00",
+    "finishedAt": "2026-10-18T06:13:29.043203+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-fixed-race"
+  },
+  "fixed-vet-live": {
+    "argv": [
+      "go",
+      "vet",
+      "-tags",
+      "live",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 0,
+    "elapsedSeconds": 1.02,
+    "startedAt": "2026-10-18T06:11:57.909327+00:00",
+    "finishedAt": "2026-10-18T06:11:58.929518+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-fixed-vet-live"
+  },
+  "fixed-vet": {
+    "argv": [
+      "go",
+      "vet",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+    "exit": 0,
+    "elapsedSeconds": 1.034,
+    "startedAt": "2026-10-18T06:11:57.909327+00:00",
+    "finishedAt": "2026-10-18T06:11:58.943156+00:00",
+    "environmentKeys": [
+      "BARNESS_AI_EVIDENCE_DIR",
+      "HOME",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "TMPDIR"
+    ],
+    "credentialsRead": false,
+    "evidenceDirectory": "cases-fixed-vet"
+  },
+  "green-iterator": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^TestInventoryIteratorRejectsDuplicateNames$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 0,
+    "elapsedSeconds": 3.162
+  },
+  "green-post-load": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestRelease(BundlePostLoadIsolation|ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 0,
+    "elapsedSeconds": 4.47
+  },
+  "green-public": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+    "exit": 0,
+    "elapsedSeconds": 4.697
+  },
+  "green-regression": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|OfflineInventoryCannotOmitFile|RollbackArtifacts|Imports|Seventeen|Fourteen)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+    "exit": 0,
+    "elapsedSeconds": 6.046
+  },
+  "green-root-selection": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestReleaseBundleRootSelection$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 0,
+    "elapsedSeconds": 4.494
+  },
+  "oracle-runtime-retention": {
+    "kind": "ignored-frozen-runtime-symlink-relocation",
+    "source": "ai/internal/testkit/pioracle/node/node_modules",
+    "retained": ".evidence/minimax-retained/release-consumer-node-modules-symlink",
+    "method": "rename symlink only",
+    "targetUnchanged": true,
+    "target": "main repository existing frozen runtime",
+    "targetBytesChanged": 0,
+    "sourceFilesChanged": 0
+  },
+  "oracle-runtime-setup": {
+    "action": "symlink existing ignored frozen node_modules only",
+    "target": "$REPO/ai/internal/testkit/pioracle/node/node_modules",
+    "noInstall": true,
+    "networkCalls": 0,
+    "sourceChanges": 0,
+    "lockSHA256": "e0b4084c372bc764b73faa25f2a311a3649e5b7ffb341352f25c13a891b7de65",
+    "provenanceSHA256": "e4a486db16ef1bb57fdd1ed06c271fd892ee2e659b280fa1f6510929a780a20f"
+  },
+  "race-focused": {
+    "argv": [
+      "go",
+      "test",
+      "-race",
+      "./ai/e2e",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 0,
+    "elapsedSeconds": 74.836
+  },
+  "red-iterator": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/internal/testkit/release",
+      "-count=1",
+      "-run",
+      "^TestInventoryIteratorRejectsDuplicateNames$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 1,
+    "elapsedSeconds": 1.276
+  },
+  "red-post-load": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestReleaseBundlePostLoadIsolation$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 1,
+    "elapsedSeconds": 5.242
+  },
+  "red-public": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds)$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "e3b90a3fc7fdd774a1a4f0faa82ea7278b3182d9",
+    "exit": 1,
+    "elapsedSeconds": 4.546
+  },
+  "red-root-selection": {
+    "argv": [
+      "go",
+      "test",
+      "./ai/e2e",
+      "-count=1",
+      "-run",
+      "^TestReleaseBundleRootSelection$"
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+    "exit": 1,
+    "elapsedSeconds": 4.829
+  },
+  "root-selection-red-move": {
+    "originalLocation": "ai/e2e/.evidence",
+    "retainedLocation": "$COMMON/.evidence/minimax-retained/release-consumer-root-selection-red",
+    "method": "rename, exact member hash comparison",
+    "files": 8,
+    "byteChanges": 0
+  },
+  "vet-live": {
+    "argv": [
+      "go",
+      "vet",
+      "-tags",
+      "live",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 0,
+    "elapsedSeconds": 0.982
+  },
+  "vet": {
+    "argv": [
+      "go",
+      "vet",
+      "./..."
+    ],
+    "workingDirectory": "/tmp/barness-minimax-10-global",
+    "sourceHead": "c6801d0441da589cce29a9d4169d195b54207ac7",
+    "exit": 0,
+    "elapsedSeconds": 1.005
+  }
+}

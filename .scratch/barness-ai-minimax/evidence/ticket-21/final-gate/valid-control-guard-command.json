@@ -1,0 +1,27 @@
+{
+  "case": "valid-control",
+  "state": "COMPLETED",
+  "exitCode": 0,
+  "expectedExitCode": 0,
+  "expectedTerminalReason": null,
+  "actualTerminalReason": null,
+  "expectedOutcomeObserved": true,
+  "startedAt": "2026-10-19T11:24:41.654443+00:00",
+  "finishedAt": "2026-10-19T11:24:50.552505+00:00",
+  "seconds": 8.898032166995108,
+  "readerSHA256": "c8822bb073117b87b15ef026e5a5b9055a8f415f9a66a0a382e1123a015b3c67",
+  "classification": "PRIVATE_VALID_CONTROL",
+  "argvDisplay": [
+    "python3",
+    "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py",
+    "--common-root",
+    "$REPO",
+    "--metadata-root",
+    "$PRIVATE_FIXTURE/valid-control",
+    "--repository-root",
+    "$OWN_WORKTREE"
+  ],
+  "displayIsDerived": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

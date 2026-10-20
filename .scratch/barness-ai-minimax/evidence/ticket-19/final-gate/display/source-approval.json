@@ -1,0 +1,30 @@
+{
+  "decision": "APPROVED",
+  "axis": "Spec",
+  "reviewedBy": "/root/routed_spec_review",
+  "scope": "SOURCE_ONLY_ONE_FIXED_OFFLINE_FULL_GATE",
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "planSHA256": "c81ead7d3b162a2a6a448a548df4794e8838af782e59ff5cf7d3398a9c10802c",
+  "sourceManifestSHA256": "1addf761d313ea38d80ae049364e4cdaa8f62c38c6dfae321c54171f1ca9528a",
+  "inputsManifestSHA256": "9c5141d89868dccb32fbdb44177d23d2b5f9c4df3fc88b07dfe6950a56e27ff9",
+  "compiledBinarySHA256": "d0dbe2a1799e38c2a29f54123447df85b9f12b5cfd19063f07101e25f9acfe92",
+  "controllerSHA256": "6a9a5f9df95b1825a13e44a3a12d9b9e531d4e580ce9a632a0ff1b534646e53d",
+  "buildReceiptSHA256": "5e15b3245fcfbdc379be78ff72b79daea550cfbc57d5856b062b502cd7f6a16c",
+  "observerSHA256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+  "realGoSHA256": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646",
+  "selectedSourceFiles": 1074,
+  "supportInputs": 17,
+  "businessEffects": 4,
+  "inputFiles": 3536,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "adoptedOldBundles": false,
+  "releaseCertified": false,
+  "findings": [],
+  "reasons": [
+    "All 1074 selected files equal committed source and the completed remaining-phase selected source map; HEAD and fixed manifests, Go, matrix, origins, compiled CLI, observer and all 3536 input bytes are pinned.",
+    "The public compiled CLI has 17 own native support inputs and four current independent effects, with no bundle-adoption flags; it runs the existing dual vet, ordinary and race commands.",
+    "The isolated environment supplies no credential or proxy injection. The observer records the four exact commands at the exact repository cwd and delegates to the pinned real Go binary.",
+    "Both original unrun draft guard findings are closed by the exact controller. This approves one prospective offline execution, not its result or a release certificate."
+  ]
+}

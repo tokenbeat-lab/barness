@@ -37,3 +37,9 @@ tenant_denied；无法解码、非法问题或超出分类容量为 callback_fai
 图像生成回调只可改变允许的生成字段，不能改授权型号、端点或操作，也不能加入流、partial images、user、外部资源或续接状态。以最终冻结请求校验数量和格式；无效回调为 callback_failed，扩大授权为 tenant_denied。
 
 详见 [ADR-0022](0022-barness-ai-openai-images-unary.md)。
+
+## GLM 工单 09：执行边界与能力边界（2026-10-17）
+
+可信回调仍在调用执行路径上；仅当不可变 Call Attribution 的 Provider 为 Zhipu 时，对宿主函数的实际调用包围 panic recovery，使 GLM headers/payload/response 的 panic 按 callback_failed 结算并释放 body/许可，而非终止流生产协程所在进程。既有 Provider/operation 的 panic 传播保持；同步 Host 仍可自行 recover，不能把 GLM 的新契约扩大成其他厂商行为变更。工单13的完整回归发现并纠正了09最初过宽的全局恢复；旧 classifier/image 与新增旧 Chat 公共红例保留。取消/截止时间优先级保持；error 类型的原始 cause 可由 Host errors.Is/As 诊断，任意其他 panic 值不格式化、不进入结果或 Observer。不会对 adapter/核心内部 panic 做宽泛恢复，也不能抢占不遵守 context 的 Go 回调。
+
+绑定托管工具放行与 Provider 已集成能力是两个独立条件，最终请求先检查授权，再检查 GLM 的窄协议子集。Native State 仍继承 ADR-0001/native.go 的 Host 存储完整性担保：反序列化不恢复信任，合法的跨模型/账户/协议历史降级后保留可见内容和工具配对；不新增所谓指纹来验证进程内可信 Host 对正文的修改。厂商保存资源的 file_id/item_reference 等引用仍受原有授权 guard 限制。

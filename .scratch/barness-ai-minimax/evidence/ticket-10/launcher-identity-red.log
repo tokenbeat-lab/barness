@@ -1,0 +1,32 @@
+test_known_research_plus_candidate_cannot_exceed_identity_cap (__main__.Launcher.test_known_research_plus_candidate_cannot_exceed_identity_cap) ... FAIL
+test_malformed_report_never_prints_unknown_fields (__main__.Launcher.test_malformed_report_never_prints_unknown_fields) ... ok
+test_prepare_check_preview_never_acquire_credentials (__main__.Launcher.test_prepare_check_preview_never_acquire_credentials) ... ok
+test_selected_process_isolation_redaction_and_directory_restart (__main__.Launcher.test_selected_process_isolation_redaction_and_directory_restart) ... ok
+test_source_binary_review_drift_refuses_before_intent (__main__.Launcher.test_source_binary_review_drift_refuses_before_intent) ... ok
+test_unknown_research_consumes_full_identity_cap (__main__.Launcher.test_unknown_research_consumes_full_identity_cap) ... ok
+
+======================================================================
+FAIL: test_known_research_plus_candidate_cannot_exceed_identity_cap (__main__.Launcher.test_known_research_plus_candidate_cannot_exceed_identity_cap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 147, in test_known_research_plus_candidate_cannot_exceed_identity_cap
+    self.invoke('summarize','out',ok=False)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 45, in invoke
+    else: self.assertNotEqual(p.returncode,0,p.stdout+p.stderr)
+          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[excerpt: repetitive controlled JSON stdout omitted]
+          "attempts": 0,
+          "unknown": false
+        }
+      }
+    }
+  ],
+  "credentialsRead": false
+}
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.089s
+
+FAILED (failures=1)

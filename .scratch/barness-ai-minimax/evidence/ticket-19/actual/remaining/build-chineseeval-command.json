@@ -1,0 +1,29 @@
+{
+  "state": "COMPLETED",
+  "name": "build-chineseeval",
+  "argv": [
+    "go",
+    "build",
+    "-o",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/chineseeval",
+    "./ai/examples/chineseeval/cmd/chineseeval"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:14:05.833937+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.8351799589581788,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

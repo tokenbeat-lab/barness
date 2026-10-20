@@ -1,0 +1,32 @@
+Run from the repository root; only the unchanged verified readers execute, never captured code.
+
+python3 -B - <<'PY'
+import hashlib,json,os,stat,subprocess,types
+from pathlib import Path
+root=Path.cwd().resolve();base=root/'.scratch/barness-ai-minimax/evidence/ticket-19/actual-retained'
+def load(relative,pin):
+ p=root/'.scratch/barness-ai-minimax/evidence/ticket-13'/relative
+ with os.fdopen(os.open(p,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK),'rb') as f:
+  info=os.fstat(f.fileno())
+  if not stat.S_ISREG(info.st_mode) or info.st_size>65536:raise ValueError('bounded fixed reader')
+  raw=f.read(65537)
+ if len(raw)>65536 or hashlib.sha256(raw).hexdigest()!=pin:raise ValueError('unchanged reader pin')
+ m=types.ModuleType('fixed_reader');m.__file__=str(p);exec(compile(raw,str(p),'exec'),m.__dict__);return m
+b=load('implementation/verify.py','b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f')
+f=load('final-gate/capsule.py','3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328')
+for line in b.read(base,'SHA256SUMS',1<<20).decode().splitlines():
+ pin,name=line.split('  ',1)
+ if b.sha(b.read(base,name,8<<20))!=pin:raise ValueError('frontdoor metadata pin')
+index=b.doc(b.read(base,'index.json',1<<20));common=Path(subprocess.check_output(['git','rev-parse','--git-common-dir'],text=True).strip()).resolve().parent
+if [x['label'] for x in index['capsules']]!=['glm','remaining','publication','canonical']:raise ValueError('fixed closed scopes')
+results=[]
+for item in index['capsules']:
+ cap=b.doc(b.read(base,item['index'],1<<20))
+ if cap['archive']!=item['archive']:raise ValueError('capsule archive pin')
+ _,observed,result=f.verify(b,base/item['label'],common,cap)
+ if item['label']=='remaining':
+  final=b.doc(observed['original/finalization/result.json']);receipt=b.doc(observed['original/finalization/audit-seventeen-current-inputs-command.json'])
+  if final['current']['calls']!=189 or final['current']['attempts']!=186 or final['strictElevenCurrent'] is not True or final['releaseCertified'] is not False or type(receipt.get('exitCode')) is not int or receipt['exitCode']!=0:raise ValueError('closed actual finalization0 without release claim required')
+ results.append(dict(label=item['label'],**result))
+print(json.dumps(dict(verified=True,capsules=results,retentionPaidCalls=0,retentionCredentialsRead=False,fullGateCaptured=False),indent=2))
+PY

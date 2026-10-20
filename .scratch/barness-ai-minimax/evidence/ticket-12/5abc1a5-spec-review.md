@@ -1,0 +1,11 @@
+Spec-axis final corrective-source review: PASS; 0 open findings. Target 5abc1a541ed2ed09d588904bb7eb55f951f56f04; fixed base b862249da6510d7bd23ab06f0470ce758529965c; follow-up delta 4ff6dca...5abc1a5. Confidence: high.
+
+Both previous P2 findings are closed.
+
+The GLM event-overflow refusal now occurs after copying known Usage, Attempt reporting, provider IDs and raw presence into the scene (glm_harness_test.go:358–385). The new public Messages process supplies known input20, exceeds8192 events, and checks that the raw Result and failed report retain the same Attempt usage/reporting. Overflow remains explicit, bounded and FAIL. This satisfies GLM R17:196: “流中断保留已合法上报的用量”, without treating missing output usage as zero or granting support.
+
+Ordinary paid preparation now uses canonical corrective disclosure for440/464 legacy ceilings and zhipu138/162, retains original66/66 plus each round's actual/conservative consumption, and keeps other302/302 unchanged (paid.py:29–38; glm_corrective.py:135–153). Malformed or unapproved canonical rows refuse preparation/summary. The prior282-call GLM-task history is expressly separate and immutable; current renewal accounting does not reset it. The independent exact human/source/binary/plan/checks approvals remain required before any corrective intent/key acquisition. Issue12:14's prospective additional72/96 remains PENDING HUMAN APPROVAL; this review provides no paid authority.
+
+No additional missing requirement, scope creep or incorrect implementation confirmed across the whole corrective delta. Shared/MiniMax source selectors and importer acceptance rules are unchanged. Independently hashing all three actual M3 source maps against this target confirms263 files each, zero drift. Length/no-text, truncation, unknown consumption, second-round/restart, scene splicing and stale/mixed-source formal evidence remain failures; original actual captures/intents are not rewritten. R26:294 still prohibits capture replay from publishing formal PASS; R27:302 still requires complete current delivery evidence.
+
+Whole-spec remaining gates remain tracked. No repository edits, tests, environment/credential reads, network or vendor calls were performed. The original4ff review files remain untouched.

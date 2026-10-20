@@ -1,0 +1,75 @@
+{
+  "state": "COMPLETED",
+  "outerExit": 1,
+  "sourceCommit": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+  "selectedSourceAndInputsUnchanged": true,
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "commands": {
+    "ordinary": {
+      "state": "COMPLETED",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-count=1",
+        "-timeout=20m",
+        "./..."
+      ],
+      "cwd": "$REPO",
+      "credentialsRead": false,
+      "exitCode": 0,
+      "startedAt": "2026-10-19T06:48:42.671293+00:00",
+      "seconds": 647.8028602916747,
+      "finishedAt": "2026-10-19T06:59:30.474711+00:00"
+    },
+    "vet-live": {
+      "state": "COMPLETED",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "vet",
+        "-tags",
+        "live",
+        "./..."
+      ],
+      "cwd": "$REPO",
+      "credentialsRead": false,
+      "exitCode": 0,
+      "startedAt": "2026-10-19T06:48:42.322730+00:00",
+      "seconds": 0.32508054189383984,
+      "finishedAt": "2026-10-19T06:48:42.648100+00:00"
+    },
+    "race": {
+      "state": "COMPLETED",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=75m",
+        "./..."
+      ],
+      "cwd": "$REPO",
+      "credentialsRead": false,
+      "exitCode": 1,
+      "startedAt": "2026-10-19T06:59:30.504441+00:00",
+      "seconds": 2932.2393203331158,
+      "finishedAt": "2026-10-19T07:48:22.839770+00:00"
+    },
+    "vet": {
+      "state": "COMPLETED",
+      "argv": [
+        "/usr/local/go/bin/go",
+        "vet",
+        "./..."
+      ],
+      "cwd": "$REPO",
+      "credentialsRead": false,
+      "exitCode": 0,
+      "startedAt": "2026-10-19T06:48:41.775967+00:00",
+      "seconds": 0.5229802499525249,
+      "finishedAt": "2026-10-19T06:48:42.299345+00:00"
+    }
+  },
+  "reportPresent": true,
+  "releasePass": false
+}

@@ -1,0 +1,47 @@
+{
+  "rootHead": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "scope": "untracked CLOSED L/A retention data only; no unmerged consumer source review",
+  "confidence": "high",
+  "verdict": "PASS",
+  "findings": [],
+  "legacyPaid": {
+    "jobs": 15,
+    "calls": 168,
+    "attempts": 168,
+    "PASS": 2,
+    "FAIL": 13,
+    "cumulativeLegacy": [
+      300,
+      300
+    ],
+    "cumulativeGLM": [
+      132,
+      132
+    ]
+  },
+  "actualGate": {
+    "ordinary": {
+      "PASS": 12385,
+      "FAIL": 6,
+      "auditFindings": 0
+    },
+    "race": {
+      "PASS": 12385,
+      "FAIL": 6,
+      "auditFindings": 0
+    },
+    "outerExitCode": 1,
+    "childCLIExitInLog": 2,
+    "internalNumericCommandExitsPersisted": false,
+    "releaseReportPresent": false,
+    "releasePass": null,
+    "artifactReferences": 197120,
+    "plannedOwnInputs": 17,
+    "missingJevSupportInputs": 1,
+    "effects": 4,
+    "actualMatrixUnchanged": true
+  },
+  "fullLargeRawScanRepeated": false,
+  "unrelatedFilesModified": false,
+  "releaseCertification": false
+}

@@ -1,0 +1,11 @@
+--- FAIL: TestMiniMaxInternationalHistoricalLedgerSchema (0.00s)
+    --- FAIL: TestMiniMaxInternationalHistoricalLedgerSchema/extra-field (0.00s)
+        minimax_international_ledger_test.go:94: [MM11-historical-schema-extra-field] archival accounting accepts no editable schema variants: accepted extra-field
+    --- FAIL: TestMiniMaxInternationalHistoricalLedgerSchema/duplicate-field (0.00s)
+        minimax_international_ledger_test.go:94: [MM11-historical-schema-duplicate-field] archival accounting accepts no editable schema variants: accepted duplicate-field
+    --- FAIL: TestMiniMaxInternationalHistoricalLedgerSchema/noncanonical-field (0.00s)
+        minimax_international_ledger_test.go:94: [MM11-historical-schema-noncanonical-field] archival accounting accepts no editable schema variants: accepted noncanonical-field
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/mm11-historical-schema-red/20261018T012324.377907000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.281s
+FAIL

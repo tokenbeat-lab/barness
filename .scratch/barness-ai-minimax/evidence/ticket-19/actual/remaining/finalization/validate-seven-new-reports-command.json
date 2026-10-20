@@ -1,0 +1,36 @@
+{
+  "state": "COMPLETED",
+  "name": "validate-seven-new-reports",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/finalization/matrix-candidate.json",
+    "$REPO/.evidence/minimax-current-eleven-glm-2/glm-chat/20261019T060512.942349000Z",
+    "$REPO/.evidence/minimax-current-eleven-glm-2/glm-responses/20261019T060724.271931000Z",
+    "$REPO/.evidence/minimax-current-eleven-glm-2/glm-messages/20261019T060929.035688000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-chat/20261019T062128.598465000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-responses/20261019T062307.720629000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-messages/20261019T062340.882760000Z",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/finalization/jev-support"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:29:22.264048+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 2.4147629998624325,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,12 @@
+--- FAIL: TestMiniMaxReplayProcess (0.58s)
+    --- FAIL: TestMiniMaxReplayProcess/rerun-tool (0.58s)
+        minimax_replay_process_test.go:34: [MM07-replay-rerun-tool] bounded child passes ^TestMiniMaxReplay$: err=exit status 1 output=--- FAIL: TestMiniMaxReplay (0.17s)
+                --- FAIL: TestMiniMaxReplay/tool-call (0.01s)
+                    minimax_replay_test.go:128: [MM07-tool-call] replayed Result matches capture except Host clock/IDs: public Result differs
+                    minimax_replay_test.go:140: [MM07-tool-call] replayed event sequence matches capture: event sequence differs
+            FAIL
+            barness-ai evidence bundle: /var/folders/d_/smkpnjs95pdc18xbg6dlgdt80000gn/T/TestMiniMaxReplayProcessrerun-tool3077873301/001/replay/20261017T224413.028288000Z
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-07/.evidence/barness-ai/20261017T224412.718390000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/live	1.178s
+FAIL

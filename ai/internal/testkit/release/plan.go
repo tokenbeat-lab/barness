@@ -15,45 +15,58 @@ const requiredReleaseItems = `OD-R01 OD-R02 OD-R03 OD-R04 OD-R05 OD-R06 OD-R07 O
 
 const requiredImageItems = `UC-R01 UC-R02 UC-R03 UC-R04 UC-R05 UC-R06 UC-R07 UC-R08 UC-R09 UC-R10 UC-R11 UC-R12 UC-R13 UC-R14 UC-R15 UC-R16 UC-R17 UC-T01 UC-T02 UC-T03 UC-T04 UC-T05 UC-T06 UC-T07 UC-T08 UC-T09 UC-T10 UC-T11 UC-T12 UC-T13 UC-T14 UC-T15 UC-T16 UC-US01 UC-US03 UC-US17 UC-US23 UC-US25 UC-US32 UC-US33 UC-US41 UC-US42 UC-US43 UC-US44 UC-US45 UC-US46 UC-US47 UC-US48 UC-US49 UC-US50 UC-current-live UC-mixed-images UC-visual-effects`
 
+// Every GLM requirement, acceptance group and story is independently required.
+const requiredGLMItems = `GLM-R01 GLM-R02 GLM-R03 GLM-R04 GLM-R05 GLM-R06 GLM-R07 GLM-R08 GLM-R09 GLM-R10 GLM-R11 GLM-R12 GLM-R13 GLM-R14 GLM-R15 GLM-R16 GLM-R17 GLM-R18 GLM-R19 GLM-R20 GLM-R21 GLM-R22 GLM-A01 GLM-A02 GLM-A03 GLM-A04 GLM-A05 GLM-A06 GLM-A07 GLM-A08 GLM-A09 GLM-A10 GLM-A11 GLM-A12 GLM-A13 GLM-A14 GLM-A15 GLM-US01 GLM-US02 GLM-US03 GLM-US04 GLM-US05 GLM-US06 GLM-US07 GLM-US08 GLM-US09 GLM-US10 GLM-US11 GLM-US12 GLM-US13 GLM-US14 GLM-US15 GLM-US16 GLM-US17 GLM-US18 GLM-US19 GLM-US20 GLM-US21 GLM-US22 GLM-US23 GLM-US24 GLM-US25 GLM-US26 GLM-US27 GLM-US28 GLM-US29 GLM-US30 GLM-US31 GLM-US32 GLM-US33 GLM-US34 GLM-US35 GLM-US36 GLM-US37 GLM-US38 GLM-US39 GLM-US40 GLM-US41 GLM-US42 GLM-US43 GLM-US44 GLM-US45 GLM-US46 GLM-US47 GLM-US48 GLM-US49 GLM-US50 GLM-US51 GLM-US52 GLM-US53 GLM-US54 GLM-US55 GLM-US56 GLM-US57 GLM-US58 GLM-US59 GLM-US60 GLM-US61 GLM-US62`
+
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "d6ac8b86a0e6584a0b1f9b33c3d9d0abcef45bd7599eb3eb66c126e18bfb774f"
+const approvedMappingHash = "e2a81850d9082571cb1cd5033415a442cf96a138c50d82c12997736bcca6c5d4"
 
-// CheckReleasePlan validates the complete eleven live identities and seven differentials acceptance plan before
+// CheckReleasePlan validates the complete seventeen own live identities and eight differentials acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
 // input for Evaluate rather than allowing a mapping to assert its own status.
 func CheckReleasePlan(m TraceMap) Snapshot {
 	s := Snapshot{Name: "release-plan"}
 	var problems []string
-	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0") {
+	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0 zhipu-chat zhipu-responses zhipu-messages minimax-chat minimax-responses minimax-messages") {
 		if count(m.LiveCombos, combo) != 1 {
 			problems = append(problems, "required live combo "+combo)
 		}
 	}
-	if len(m.LiveCombos) != 11 {
-		problems = append(problems, "want exactly eleven live identities")
+	if len(m.LiveCombos) != 17 {
+		problems = append(problems, "want exactly seventeen live identities")
 	}
-	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC") {
+	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC GLM-CHAT GLM-RESPONSES GLM-MESSAGES GLM-ACCEPTANCE MM-CHAT MM-RESPONSES MM-MESSAGES MM-ACCEPTANCE") {
 		if count(m.P0, scenario) != 1 {
 			problems = append(problems, "required P0 "+scenario)
 		}
 	}
-	for _, scenario := range strings.Fields("P01 P02 P03 P04 P06 P07 P10") {
+	for _, scenario := range strings.Fields("P01 P02 P03 P04 P06 P07 P10 MM-MESSAGES") {
 		if count(m.Differential.Required, scenario) != 1 {
 			problems = append(problems, "required differential "+scenario)
 		}
 	}
-	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}} {
+	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}, {Scenario: "GLM-CHAT", Provider: "zhipu", API: "openai-completions"}, {Scenario: "GLM-RESPONSES", Provider: "zhipu", API: "openai-responses"}, {Scenario: "GLM-MESSAGES", Provider: "zhipu", API: "anthropic-messages"}, {Scenario: "MM-CHAT", Provider: "minimax", API: "openai-completions"}, {Scenario: "MM-RESPONSES", Provider: "minimax", API: "openai-responses"}} {
 		if !slices.Contains(m.Differential.Routes, route) {
 			problems = append(problems, "required extension route "+route.Scenario)
 		}
 	}
-	for _, id := range strings.Fields(requiredReleaseItems + " " + requiredImageItems) {
+	for _, id := range strings.Fields(requiredReleaseItems + " " + requiredImageItems + " " + requiredGLMItems) {
 		if !slices.ContainsFunc(m.Items, func(i TraceItem) bool { return i.ID == id }) {
 			problems = append(problems, "required trace item "+id)
 		}
 	}
+	for prefix, total := range map[string]int{"MM-R": 28, "MM-T": 4, "MM-A": 20, "MM-US": 80} {
+		for n := 1; n <= total; n++ {
+			id := fmt.Sprintf("%s%02d", prefix, n)
+			at := slices.IndexFunc(m.Items, func(i TraceItem) bool { return i.ID == id })
+			if at < 0 || len(m.Items[at].RequiredCases) == 0 {
+				problems = append(problems, "required finite MiniMax trace item "+id)
+			}
+		}
+	}
+
 	if mappingHash(m) != approvedMappingHash {
 		problems = append(problems, "approved evidence mappings changed")
 	}

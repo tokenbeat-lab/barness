@@ -1,0 +1,971 @@
+{
+  "schema": 3,
+  "updated": "2026-10-19",
+  "integrationBranch": "codex/minimax-global",
+  "delivery": "PARTIAL",
+  "releaseCertified": false,
+  "specClosed": false,
+  "latestPaidActualSource": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "currentCodeSource": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "allAuthorizedPaidProcessesClosed": true,
+  "additionalPaidRoundAuthorized": false,
+  "accountingScope": "Current MiniMax-driven legacy renewal; earlier GLM task and MiniMax candidate/formal stages remain separate.",
+  "legacyCalls": 648,
+  "legacyAttempts": 648,
+  "fixedSixReleaseRepair1": {
+    "round": "release-repair-validation-1",
+    "status": "CLOSED",
+    "processes": 6,
+    "processPASS": 5,
+    "processFAIL": 1,
+    "logicalCalls": 102,
+    "httpAttempts": 102,
+    "ceilingCalls": 108,
+    "ceilingAttempts": 132,
+    "combinedCeilingCalls": 653,
+    "combinedCeilingAttempts": 677,
+    "priorCalls": 545,
+    "priorAttempts": 545,
+    "combinedActualCalls": 647,
+    "combinedActualAttempts": 647,
+    "unspentCalls": 6,
+    "unspentAttempts": 30,
+    "unusedBudgetTransferable": false,
+    "automaticReruns": false,
+    "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "china": "DIRECT: GLM",
+    "internationalProxy": "http://127.0.0.1:7890",
+    "inheritedProxy": false,
+    "regionFallback": false,
+    "humanApprovalQuestionItem": "request_user_input_async/call_4440aa130a7c45eda945dcb7589a3291/0",
+    "humanApprovalReceiptSHA256": "0e2fc317bc6ee74ac0c42f6beae49628ff201db83c9617a619097e7440a22003",
+    "glm": {
+      "chat": {
+        "PASS": 22,
+        "FAIL": 0,
+        "logicalCalls": 22,
+        "httpAttempts": 22
+      },
+      "responses": {
+        "PASS": 22,
+        "FAIL": 0,
+        "logicalCalls": 22,
+        "httpAttempts": 22
+      },
+      "messages": {
+        "PASS": 21,
+        "FAIL": 1,
+        "logicalCalls": 22,
+        "httpAttempts": 22,
+        "failedCase": "glm-5.3/cancel",
+        "durationMillis": 120001,
+        "observableContentBeforeDeadline": false,
+        "usage": "unreported",
+        "nativeSupportReportPresent": false
+      },
+      "usageAttempts": {
+        "complete": 40,
+        "partial": 21,
+        "unreported": 5
+      },
+      "unreportedMeansFree": false,
+      "strictRawViewsPublicationExit": 1,
+      "oldFourSelectorsUnchanged": true,
+      "evidence": "evidence/ticket-15/new-actual/glm/README.md"
+    },
+    "effects": {
+      "protocol114": {
+        "status": "PASS",
+        "logicalCalls": 12,
+        "httpAttempts": 12
+      },
+      "visualJev": {
+        "status": "PASS",
+        "logicalCalls": 12,
+        "httpAttempts": 12
+      },
+      "visualDecisions": {
+        "status": "PASS",
+        "logicalCalls": 12,
+        "httpAttempts": 12
+      },
+      "usageAttempts": {
+        "complete": 36,
+        "partial": 0,
+        "unreported": 0
+      },
+      "knownInputSideTokens": 24742,
+      "knownOutputTokens": 1088,
+      "evidence": "evidence/ticket-15/new-actual/effects/README.md"
+    },
+    "assembly": {
+      "state": "REFUSED",
+      "deriveJevExit": 0,
+      "verifyJevExit": 0,
+      "candidateFourImportExit": 1,
+      "defaultImportAttempted": false,
+      "defaultMatrixChanged": false,
+      "missingReport": "new GLM Messages live-report.json",
+      "completedMarkerPresent": false,
+      "evidence": "evidence/ticket-15/new-actual/assembly/README.md"
+    }
+  },
+  "defaultMatrix": {
+    "sha256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "rowCount": 17,
+    "latestPass": 17,
+    "latestFail": 0,
+    "updatedFreshRows": 7,
+    "preservedGenericRows": 10,
+    "genericRowObjectsAndTimesUnchanged": true,
+    "evidence": "evidence/ticket-19/actual/remaining/README.md"
+  },
+  "latestFullGate": {
+    "source": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+    "state": "COMPLETED",
+    "certifiesCurrentCodeSource": false,
+    "fourCommandsActuallyExecuted": true,
+    "individualCommandExitCodes": {
+      "ordinary": 0,
+      "vet-live": 0,
+      "race": 1,
+      "vet": 0
+    },
+    "mainE2E": {
+      "ordinary": {
+        "cases": 12495,
+        "PASS": 12495,
+        "FAIL": 0,
+        "NOT_RUN": 0,
+        "auditFindings": 0
+      },
+      "race": {
+        "cases": 12495,
+        "PASS": 12494,
+        "FAIL": 1,
+        "NOT_RUN": 0,
+        "auditFindings": 1
+      }
+    },
+    "reportPresent": true,
+    "releasePass": false,
+    "outerExit": 1,
+    "reportConsistent": true,
+    "finalInputPostGuardsComplete": true,
+    "selectedSourceAndInputsUnchanged": true,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "adoptedOldOfflineBundles": false,
+    "liveSupportIdentitiesPASS": 17,
+    "independentBusinessEffectsPASS": 4,
+    "failedCase": "VQ12-failure-decisions-plain-deadline",
+    "failedAssertion": "honest failure package replays",
+    "failedAuditRule": "unparseable",
+    "failedAuditFile": "visual-failure-decisions-plain-deadline/samples/v08/request.json",
+    "failedGateIDs": [
+      "go-test-race",
+      "redaction-audit",
+      "traceability",
+      "required-artifacts"
+    ],
+    "seconds": 3770.7171571250074,
+    "reportSHA256": "62637ac00b9d1dadfce5b2cf39e5f978ed910cda853b9476272afabb1b72680f",
+    "resultSHA256": "af95c0f653f7730cce85ce92cdbe12f0dc72404662912dbeb71f69de71b907b1",
+    "rawEvidence": ".evidence/minimax-current-eleven-gate-2",
+    "retainedEvidence": "evidence/ticket-19/final-gate/README.md",
+    "custodyReviewSHA256": "7ff7d98196a5964ebdce3355f28b46424dea3eb8606c6f94d459892c9be971b6",
+    "custodyReviewFindings": 0
+  },
+  "m3Formal": {
+    "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "reports": 3,
+    "currentPassReports": 3,
+    "logicalCalls": 39,
+    "httpAttempts": 36,
+    "selectedFilesEach": 268,
+    "currentCodeSourceApplicable": true,
+    "grantSHA256": "4db78522951769f22b0b73283508a63cd32a89c99738d8d77861238e2a04b9b4",
+    "originalFormal39And36Unchanged": true,
+    "evidence": "evidence/ticket-19/actual/remaining/README.md"
+  },
+  "m3CandidateStageIncludingHistory": {
+    "logicalCalls": 49,
+    "httpAttempts": 45,
+    "reservedAttempts": 49
+  },
+  "m31Online": {
+    "status": "NOT_RUN",
+    "identities": 3,
+    "logicalCalls": 0,
+    "httpAttempts": 0,
+    "reason": "No authorized M Plan entitlement",
+    "offlineConstraints": "PASS",
+    "source": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "credentialsRead": false,
+    "newReports": 3,
+    "evidence": "evidence/ticket-19/actual/remaining/README.md"
+  },
+  "sourceApplicability": {
+    "evaluatedCodeCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+    "strictSourceMapsCurrent": false,
+    "strictGroups": 11,
+    "currentQualifiedGroups": 8,
+    "glmCollectionSource": "d2354144570da8aeda56862bbcaffe323061f986",
+    "glmToRemainingTransition": "Only four GLM raw/known-usage/views publication data selectors changed; exact runtime and assertion bytes unchanged",
+    "publicNativeConsumerExitsAllZero": false,
+    "currentChineseEffectsAPIExit": 0,
+    "genericTenSourceApplicabilityRetained": true,
+    "oldReportsRehashed": false,
+    "oldSourceMapsNarrowed": false,
+    "oldGateCertifiesChangedSource": false,
+    "evidence": "evidence/ticket-19/actual/remaining/README.md",
+    "selectedExecutionFiles": 1078,
+    "selectedExecutionBytesUnchangedFromRemainingSource": false,
+    "unchangedSelectedGroups": [
+      "m3-chat",
+      "m3-responses",
+      "m3-messages",
+      "glm-chat",
+      "glm-responses",
+      "glm-messages",
+      "text-jev",
+      "text-luna"
+    ],
+    "pendingRenewedGroups": [
+      "protocol114",
+      "visual-jev",
+      "visual-decisions"
+    ]
+  },
+  "openTickets": [
+    "09",
+    "10",
+    "12",
+    "15",
+    "19"
+  ],
+  "blockers": [
+    "Visual example invoked-but-unsent cancellation retention/replay defect causes race failure and one unparseable audit finding",
+    "Final source review, current-source proof for any affected groups, and a passing complete release certification remain required"
+  ],
+  "historical": {
+    "preFixedSixStatus": "evidence/ticket-15/pre-fixed6-delivery-status.json",
+    "routedValidation1": {
+      "status": "CLOSED",
+      "processes": 18,
+      "processPass": 17,
+      "processFail": 1,
+      "logicalCalls": 245,
+      "httpAttempts": 245,
+      "ceilingCalls": 374,
+      "ceilingAttempts": 398,
+      "china": "DIRECT: GLM and DeepSeek",
+      "internationalProxy": "http://127.0.0.1:7890",
+      "inheritedProxy": false,
+      "regionFallback": false,
+      "automaticReruns": false,
+      "glm": {
+        "source": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+        "logicalCalls": 65,
+        "httpAttempts": 65,
+        "chat": "PASS",
+        "messages": "PASS",
+        "responses": {
+          "status": "FAIL",
+          "PASS": 19,
+          "FAIL": 3,
+          "logicalCalls": 21,
+          "httpAttempts": 21,
+          "failedCases": [
+            "glm-5.3/tool-call",
+            "glm-5.3/tool-result",
+            "glm-5.3/control-max"
+          ]
+        },
+        "rawViewsRenewal": "REJECTED",
+        "oldFourSelectorsUnchanged": true,
+        "usageAttempts": {
+          "complete": 37,
+          "partial": 22,
+          "unreported": 6
+        }
+      },
+      "other15": {
+        "source": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "collectionsPass": 15,
+        "collectionsFail": 0,
+        "logicalCalls": 180,
+        "httpAttempts": 180,
+        "nativeRows": {
+          "PASS": 82,
+          "UNSUPPORTED": 1,
+          "answered": 72
+        },
+        "usageAttempts": {
+          "complete": 170,
+          "partial": 2,
+          "unreported": 8
+        },
+        "unreportedMeansFree": false,
+        "jevSupportDerived": true
+      }
+    },
+    "priorRenewal": {
+      "logicalCalls": 300,
+      "httpAttempts": 300,
+      "immutableStatus": "evidence/ticket-13/pre-routed-delivery-status.json"
+    },
+    "previousFullGate": {
+      "source": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "finishedAt": "2026-10-18T09:34:10.738298Z",
+      "fourCommandsActuallyExecuted": true,
+      "individualCommandExitCodes": {
+        "vet": 0,
+        "vet-live": 0,
+        "ordinary": 1,
+        "race": 1
+      },
+      "eachOfflineSuite": {
+        "cases": 12448,
+        "PASS": 12439,
+        "FAIL": 8,
+        "NOT_RUN": 1,
+        "auditFindings": 0,
+        "truePIDiffPASS": 868,
+        "pressurePASS": 29
+      },
+      "reportPresent": true,
+      "releasePass": false,
+      "outerExit": 1,
+      "adoptedOldOfflineBundles": false,
+      "credentialsRead": false,
+      "paidCalls": 0,
+      "evidence": "evidence/ticket-13/final-gate/README.md"
+    },
+    "originalFullGateSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+    "originalFullGateReportPresent": false,
+    "preElevenStatus": "evidence/ticket-19/pre-eleven-delivery-status.json",
+    "preElevenDefaultMatrix": {
+      "sha256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+      "changedByFixedSix": false,
+      "fixedFourImport": "REFUSED",
+      "rowCount": 17,
+      "latestPass": 16,
+      "latestFail": 1,
+      "failedCombo": "zhipu-responses",
+      "oldAllPassedAtPreserved": true
+    },
+    "preElevenLatestFullGate": {
+      "source": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "state": "COMPLETED",
+      "certifiesCurrentCodeSource": false,
+      "fourCommandsActuallyExecuted": true,
+      "individualCommandExitCodes": {
+        "vet": 0,
+        "vet-live": 0,
+        "ordinary": 1,
+        "race": 1
+      },
+      "eightNativeVerifiersAllZero": true,
+      "mainE2EEachSuite": {
+        "cases": 12451,
+        "PASS": 12445,
+        "FAIL": 6,
+        "NOT_RUN": 0,
+        "auditFindings": 0,
+        "truePIDiffPASS": 868,
+        "namedPressurePASS": 29,
+        "requiredPressureRegexPASS": 15
+      },
+      "reportPresent": true,
+      "releasePass": false,
+      "outerExit": 1,
+      "reportConsistent": true,
+      "commandBindingsValid": true,
+      "finalInputPostGuardsComplete": true,
+      "newRowsImported": 0,
+      "adoptedOldOfflineBundles": false,
+      "credentialsRead": false,
+      "paidCalls": 0,
+      "failedGateIDs": [
+        "go-test",
+        "go-test-race",
+        "p0-offline",
+        "live",
+        "traceability",
+        "required-artifacts"
+      ],
+      "completedSHA256": "d2b69f5092462df7195b30af8e85f23cd710657f32e4b83bf2d2c46f52093089",
+      "reportSHA256": "ffff3f88c3d30dc6a9cc6ed515ee99a7944e49eee7d8ea4e862823e552f99734",
+      "evidence": "evidence/ticket-15/new-actual/final-gate/README.md"
+    },
+    "preElevenM3Formal": {
+      "source": "8900034",
+      "reports": 3,
+      "historicalPassReports": 3,
+      "logicalCalls": 39,
+      "httpAttempts": 36,
+      "selectedFilesEach": 263,
+      "rerunInFixedSix": false,
+      "applicableAtSource7931": true,
+      "currentCodeSourceApplicable": false
+    },
+    "preElevenSourceApplicability": {
+      "evaluatedCodeCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+      "assessmentSHA256": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0",
+      "strictSourceMapsCurrent": false,
+      "strictMapGroups": {
+        "m3Three": [
+          263,
+          264
+        ],
+        "glmThree": [
+          217,
+          218
+        ],
+        "textTwoExecution": [
+          261,
+          262
+        ],
+        "protocol114": [
+          862,
+          865
+        ],
+        "visualTwo": [
+          323,
+          324
+        ]
+      },
+      "textRawOriginalFiles": 860,
+      "aJevInheritsProtocolAndVisual": true,
+      "genericTenSourceApplicabilityRetained": true,
+      "genericReason": "Exact unchanged SDK/catalog/model/live producer and non-MiniMax return path; no new shared global or foreign use. Not a missing-map exemption.",
+      "oldReportsRehashed": false,
+      "oldSourceMapsNarrowed": false,
+      "oldGateCertifiesChangedSource": false,
+      "laterSelectedByteEqualityPending": false,
+      "evidence": "evidence/ticket-09/final-closure/current-source-applicability.json",
+      "targetCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
+      "sourceDataFilesByteEqual": 1117,
+      "sourceDataRecordSetSHA256": "b02623831357bed132dd7ae5699b311e5e12855418abd2375cf1a60149c10a76",
+      "byteEqualityEvidence": "evidence/ticket-09/final-closure/current-source-byte-equality.json",
+      "currentSourceReassessmentPending": true,
+      "newDiagnosticSourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+      "newDiagnosticDoesNotRenewStrictMaps": true
+    },
+    "elevenGatePreparingStatus": {
+      "state": "PREPARING",
+      "certifiesCurrentCodeSource": false,
+      "releasePass": false,
+      "credentialsRead": false,
+      "paidCalls": 0,
+      "adoptedOldOfflineBundles": false,
+      "previousFailurePreserved": true
+    }
+  },
+  "ownedWorker": "/tmp/barness-minimax-routed-validation",
+  "ownedWorkerRemoved": true,
+  "userUntrackedDirectoriesPreserved": true,
+  "finalStaticCodeReview": {
+    "fixedBase": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+    "initialReviewedTip": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "originalFindings": {
+      "Standards": 1,
+      "Spec": 2
+    },
+    "codeClosureCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+    "docsClosureCommit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+    "openSourceOrDocumentationFindings": 0,
+    "sourceReviewSHA256": {
+      "Standards": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573",
+      "Spec": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd"
+    },
+    "docsReviewSHA256": {
+      "Standards": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f",
+      "Spec": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46"
+    },
+    "mandatoryActualAcceptanceGapsRemain": true,
+    "evidence": "evidence/ticket-09/final-closure/README.md",
+    "openRetentionFindings": 0,
+    "finalRetentionReviewSHA256": {
+      "Standards": "670bc5f44543e4ea975857b6b430b894f0fcf6cea61af52cd20b21735ac9fd76",
+      "Spec": "e33f2a70d786d2d82ebf439d18191e72cd855a5cf29906fab2268ff2980d1cc0"
+    }
+  },
+  "offlineTicket17": {
+    "sourceCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+    "docsCommit": "295728ac041006b00959dcfa368d3c1eab2f1953",
+    "retentionReviewPending": false,
+    "actualMeasuredHEAD": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+    "measuredWIPBytesEqualSourceCommit": true,
+    "compilerJSONModSumFiles": 1027,
+    "fullOperational1056FreezeClaimed": false,
+    "postCommitRunClaimed": false,
+    "newPublicCases": 44,
+    "invalidCases": 42,
+    "invalidProviderRequests": 0,
+    "invalidHTTPAttempts": 0,
+    "validBusinessJSONCases": 2,
+    "relatedOrdinary": {
+      "exitCode": 0,
+      "seconds": 51.04,
+      "cases": 1671,
+      "PASS": 1663,
+      "NOT_RUN": 8,
+      "auditFindings": 0
+    },
+    "relatedRace": {
+      "exitCode": 0,
+      "seconds": 140.15,
+      "cases": 1671,
+      "PASS": 1663,
+      "NOT_RUN": 8,
+      "auditFindings": 0
+    },
+    "mandatoryEightOptInOrdinary": {
+      "exitCode": 0,
+      "seconds": 5.25,
+      "PASS": 8,
+      "auditFindings": 0
+    },
+    "mandatoryEightOptInRace": {
+      "exitCode": 0,
+      "seconds": 59.13,
+      "PASS": 8,
+      "auditFindings": 0
+    },
+    "originalNotRunResultsRewritten": false,
+    "commandWindowsOverlap": true,
+    "bothVetExits": 0,
+    "initialCompileFixtureAndEnvironmentFailuresPreserved": true,
+    "vendorCalls": 0,
+    "credentialsRead": false,
+    "evidence": "evidence/ticket-17/README.md",
+    "retentionFixCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
+    "retentionFinalReviewSHA256": {
+      "Standards": "670bc5f44543e4ea975857b6b430b894f0fcf6cea61af52cd20b21735ac9fd76",
+      "Spec": "e33f2a70d786d2d82ebf439d18191e72cd855a5cf29906fab2268ff2980d1cc0"
+    },
+    "producerBoundaryPairs": 8,
+    "resourceCounterNegativeFixtures": 2,
+    "privateLegitimateCreatorExit": 0,
+    "negativeConstructorBoundaryCorrection": true,
+    "negativeConstructorBoundaryPairs": 5,
+    "negativeConstructorExpectedEarlyRefusalExits": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "normalPrivateNegativeConstructorExit": 0,
+    "normalPrivateCounterfeitConsumerExpectedExit": 1
+  },
+  "currentIntegrationSourceTip": "2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
+  "currentCodeSourceScope": "Example-only visual cancellation evidence fix; retained eight native execution-source sets unchanged; three classifier groups require fresh current-source proof",
+  "ownedWorkerCleanupEvidence": "evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
+  "singleCaseMessagesCancelRerun": {
+    "schema": 1,
+    "updated": "2026-10-19",
+    "status": "CLOSED",
+    "outcome": "PASS",
+    "scope": "single-case diagnostic only",
+    "sourceCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+    "route": "messages",
+    "case": "glm-5.3/cancel",
+    "durationMs": 861,
+    "httpStatus": 200,
+    "firstObservableEvent": "thinking_delta",
+    "nonEmptyDeltaObserved": true,
+    "cancelCode": "canceled",
+    "cancelPhase": "stream",
+    "stopReason": "aborted",
+    "logicalCalls": 1,
+    "httpAttempts": 1,
+    "retries": 0,
+    "china": "DIRECT",
+    "usageReporting": [
+      "partial"
+    ],
+    "unknownUsageMeansFree": false,
+    "priorRenewalCalls": 647,
+    "priorRenewalHTTPAttempts": 647,
+    "combinedRenewalCalls": 648,
+    "combinedRenewalHTTPAttempts": 648,
+    "originalFailurePreserved": true,
+    "sameWireRequestAsOriginalFailure": true,
+    "publicationSelectorsAndMatrixUnchanged": true,
+    "fullMessagesRouteCertified": false,
+    "releaseCertified": false,
+    "additionalPaidRoundAuthorized": false,
+    "report": ".evidence/glm-messages-cancel-20261019-1/actual/20261018T230218.566865000Z/diagnostic-glm-messages-cancel-report.json",
+    "reportSHA256": "78395266585b5c632bced498789d2135d57c214860e59cba48b1c317d483267c",
+    "evidence": "evidence/ticket-18/README.md"
+  },
+  "ticket18OwnedWorkerCleanup": {
+    "removed": true,
+    "evidence": "evidence/ticket-18/cleanup.json"
+  },
+  "currentSourceElevenRevalidation": {
+    "state": "CLOSED_PASS",
+    "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "precheckCurrentQualified": 0,
+    "strictGroups": 11,
+    "publicVerificationCompleted": true,
+    "credentialsRead": true,
+    "paidCalls": 189,
+    "newBudgetApproved": true,
+    "proposedAdditionalMaxCalls": 216,
+    "proposedAdditionalMaxHTTPAttempts": 252,
+    "evidence": "evidence/ticket-19/actual/remaining/README.md",
+    "codeSourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "sourceReviews": {
+      "Standards": 0,
+      "Spec": 0,
+      "evidence": "evidence/ticket-19/reviews/README.md"
+    },
+    "sixCurrentKeylessChecksCompleted": true,
+    "newActualFormalQualification": true,
+    "sixCurrentKeylessChecksPassed": true,
+    "firstPreflight": {
+      "PASS": 5,
+      "FAIL": 1,
+      "failed": "no-key-live",
+      "reason": "MM19 controlled child output records home directory; final redaction audit fails",
+      "evidence": "evidence/ticket-19/preflight-first/README.md",
+      "sourceCommit": "0bbd73d77eb40460d4051662e9a5d6abd6de9c47"
+    },
+    "homePatchReviews": {
+      "Standards": 0,
+      "Spec": 0,
+      "sourceCommit": "a25737aeb605b4d5ede11aafeb60916e5c5c701e"
+    },
+    "pythonRegression": {
+      "sourceCommit": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+      "tests": 80,
+      "exitCode": 0,
+      "seconds": 666.097,
+      "selectedSourceBeforeAfterEqual": 1074,
+      "currentApplicability": "All Python and production AI unchanged; one controlled Go test HOME diagnostic fix reviewed separately and requires fresh root checks",
+      "evidence": "evidence/ticket-19/outer-controlled/README.md"
+    },
+    "retentionReadbacks": {
+      "nativeHomeMembers": 101,
+      "outerMembers": 4148,
+      "exitCodes": [
+        0,
+        0
+      ]
+    },
+    "preparedSourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+    "selectedExecutionFiles": 1074,
+    "keylessCheckResult": {
+      "PASS": 6,
+      "FAIL": 0,
+      "commands": {
+        "vet": 0,
+        "vet-live": 0,
+        "no-key-live": 0,
+        "no-key-visual-proxy": 0,
+        "no-key-release-contracts": 0,
+        "no-key-release-package": 0
+      },
+      "evidence": "evidence/ticket-19/preflight-final/README.md"
+    },
+    "sourceReviewApproved": true,
+    "sourceReviewSHA256": "61f561575c4c1eac37f5351b88bb8b73e092703e52262b8b0b0e7b682a4574fc",
+    "budgetQuestionAsked": true,
+    "executionAuthorizationPresent": true,
+    "realRenewalGrantPresent": true,
+    "ownedWorkerWorktreesRemoved": true,
+    "approvedAdditionalMaxCalls": 216,
+    "approvedAdditionalMaxHTTPAttempts": 252,
+    "humanApprovalReference": "request_user_input_async/call_11ea21ff6def436e987cceda274c6cab/0",
+    "latestCollection": ".evidence/minimax-current-eleven-remaining-1",
+    "glm": {
+      "routes": {
+        "chat": {
+          "PASS": 22,
+          "FAIL": 0,
+          "calls": 22,
+          "attempts": 22,
+          "cancelDurationMillis": 1711,
+          "cancelUsage": [
+            "unreported"
+          ]
+        },
+        "responses": {
+          "PASS": 22,
+          "FAIL": 0,
+          "calls": 22,
+          "attempts": 22,
+          "cancelDurationMillis": 667,
+          "cancelUsage": [
+            "unreported"
+          ]
+        },
+        "messages": {
+          "PASS": 22,
+          "FAIL": 0,
+          "calls": 22,
+          "attempts": 22,
+          "cancelDurationMillis": 1146,
+          "cancelUsage": [
+            "partial"
+          ]
+        }
+      },
+      "calls": 66,
+      "attempts": 66,
+      "currentFormalReports": 3,
+      "evidence": "evidence/ticket-19/actual/glm/README.md",
+      "strictPublication": {
+        "raw": true,
+        "knownUsage": true,
+        "views": true,
+        "allPublicExitCodesZero": true,
+        "evidence": "evidence/ticket-19/actual/glm-publication/README.md"
+      }
+    },
+    "currentRoundCalls": 189,
+    "currentRoundHTTPAttempts": 186,
+    "combinedWithPrior648Calls": 837,
+    "combinedWithPrior648Attempts": 834,
+    "currentQualifiedFreshGroups": 11,
+    "remainingGroups": 0,
+    "paidHTTPAttempts": 186,
+    "remainingPreparedSourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "remainingState": "CLOSED_PASS",
+    "remainingSourceReviewApproved": true,
+    "remainingSourceReviewSHA256": "200bfce81531e0d51f6432daa332a346a97bcde0c715fd3c921614f52240a971",
+    "realRenewalGrantSHA256": "4db78522951769f22b0b73283508a63cd32a89c99738d8d77861238e2a04b9b4",
+    "currentKnownClosedCalls": 189,
+    "currentKnownClosedHTTPAttempts": 186,
+    "m3CurrentFormal": {
+      "reports": 3,
+      "PASS": 3,
+      "calls": 39,
+      "attempts": 36,
+      "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+      "grantSHA256": "4db78522951769f22b0b73283508a63cd32a89c99738d8d77861238e2a04b9b4",
+      "oldFormal39And36Unchanged": true
+    },
+    "precheckSourceCommit": "751ad941a7dcda4392ee9dd73ff6089f8c846f0e",
+    "allPaidProcessesClosed": true,
+    "unusedCalls": 27,
+    "unusedAttempts": 66,
+    "unusedBudgetTransferable": false,
+    "automaticReruns": false,
+    "currentChineseEffectsAPIExit": 0,
+    "publicSupportInputsVerified": 17,
+    "defaultUpdatedFreshRows": 7,
+    "preservedGenericRows": 10,
+    "fullReleaseCertified": false,
+    "actualGroups": [
+      {
+        "route": "current-source-eleven-renewal-1-glm-chat",
+        "baseName": "glm-chat",
+        "networkRoute": "china-direct",
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 22,
+        "attempts": 22,
+        "conservativeCalls": 22,
+        "conservativeAttempts": 22
+      },
+      {
+        "route": "current-source-eleven-renewal-1-glm-responses",
+        "baseName": "glm-responses",
+        "networkRoute": "china-direct",
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 22,
+        "attempts": 22,
+        "conservativeCalls": 22,
+        "conservativeAttempts": 22
+      },
+      {
+        "route": "current-source-eleven-renewal-1-glm-messages",
+        "baseName": "glm-messages",
+        "networkRoute": "china-direct",
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 22,
+        "attempts": 22,
+        "conservativeCalls": 22,
+        "conservativeAttempts": 22
+      },
+      {
+        "route": "current-source-eleven-renewal-1-mm-global-formal-m3-chat",
+        "baseName": "mm-global-formal-m3-chat",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 20,
+        "maxAttempts": 24,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 13,
+        "attempts": 12,
+        "conservativeCalls": 13,
+        "conservativeAttempts": 12
+      },
+      {
+        "route": "current-source-eleven-renewal-1-mm-global-formal-m3-responses",
+        "baseName": "mm-global-formal-m3-responses",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 20,
+        "maxAttempts": 24,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 13,
+        "attempts": 12,
+        "conservativeCalls": 13,
+        "conservativeAttempts": 12
+      },
+      {
+        "route": "current-source-eleven-renewal-1-mm-global-formal-m3-messages",
+        "baseName": "mm-global-formal-m3-messages",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 20,
+        "maxAttempts": 24,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 13,
+        "attempts": 12,
+        "conservativeCalls": 13,
+        "conservativeAttempts": 12
+      },
+      {
+        "route": "current-source-eleven-renewal-1-text-jev",
+        "baseName": "text-jev",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 24,
+        "maxAttempts": 24,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 24,
+        "attempts": 24,
+        "conservativeCalls": 24,
+        "conservativeAttempts": 24
+      },
+      {
+        "route": "current-source-eleven-renewal-1-text-luna",
+        "baseName": "text-luna",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 24,
+        "maxAttempts": 24,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 24,
+        "attempts": 24,
+        "conservativeCalls": 24,
+        "conservativeAttempts": 24
+      },
+      {
+        "route": "current-source-eleven-renewal-1-protocol114",
+        "baseName": "protocol114",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 12,
+        "maxAttempts": 12,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 12,
+        "attempts": 12,
+        "conservativeCalls": 12,
+        "conservativeAttempts": 12
+      },
+      {
+        "route": "current-source-eleven-renewal-1-visual-jev",
+        "baseName": "visual-jev",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 12,
+        "maxAttempts": 12,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 12,
+        "attempts": 12,
+        "conservativeCalls": 12,
+        "conservativeAttempts": 12
+      },
+      {
+        "route": "current-source-eleven-renewal-1-visual-decisions",
+        "baseName": "visual-decisions",
+        "networkRoute": "international-loopback-proxy",
+        "maxCalls": 12,
+        "maxAttempts": 12,
+        "state": "REPORTED",
+        "status": "PASS",
+        "calls": 12,
+        "attempts": 12,
+        "conservativeCalls": 12,
+        "conservativeAttempts": 12
+      }
+    ],
+    "fullGateExecuted": true,
+    "fullGatePass": false,
+    "allElevenQualifiedAtCodeSource": "01341f8df60d4787bcdbeb48a024e3873fc780f6",
+    "ticketStatus": "resolved",
+    "resolutionScope": "Fixed eleven revalidation and truthful complete-gate retention; full specification remains open"
+  },
+  "pendingVisualUnsentFix": {
+    "state": "CLOSED_OFFLINE_REPAIR_AND_CUSTODY",
+    "mergedIntoIntegration": true,
+    "rootCause": "Unsent cancellation recording/replay assumptions and sent cancellation JSON-null response-model decoding",
+    "sourceImpactIfExampleOnly": [
+      "protocol114",
+      "visual-jev",
+      "visual-decisions"
+    ],
+    "otherEightSelectedMapsUnchanged": true,
+    "originalElevenReportsUnchanged": true,
+    "additionalPaidApprovalPresent": false,
+    "unusedPriorBudgetTransferable": false,
+    "sourceCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+    "sourceReviews": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "ordinaryRegressionPASS": 23,
+    "raceRegressionPASS": 23,
+    "auditFindings": 0,
+    "dualVetExitCodes": [
+      0,
+      0
+    ],
+    "measuredCompilerFilesEqualCommittedSource": 1040,
+    "ticketStatus": "resolved",
+    "custodyReviews": {
+      "Standards": 0,
+      "Spec": 0
+    },
+    "retainedRegularMembers": 203335,
+    "actualNumericTDDReceipts": 45,
+    "evidence": "evidence/ticket-20/README.md",
+    "ownedWorktreeRemoved": true
+  },
+  "proposedThreeSourceRenewal": {
+    "state": "PREPARING_OFFLINE",
+    "round": "visual-source-renewal-1",
+    "additionalMaxCalls": 36,
+    "additionalMaxHTTPAttempts": 36,
+    "humanApprovalPresent": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "automaticRetries": false,
+    "automaticProcessReruns": false,
+    "groups": [
+      "protocol114",
+      "visual-jev",
+      "visual-decisions"
+    ],
+    "otherEightPaidReruns": false,
+    "proxy": "http://127.0.0.1:7890",
+    "outputTokenLimitSupported": false,
+    "evidence": "issues/21-visual-source-renewal.md"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "axis": "SPEC",
+  "base": "a86005b",
+  "reviewedCommit": "83ff7d6be971694987de3363f0202030eb088f6e",
+  "verificationCommands": [
+    "git rev-parse --verify 83ff7d6be971694987de3363f0202030eb088f6e^{commit}",
+    "git diff --stat a86005b...83ff7d6be971694987de3363f0202030eb088f6e",
+    "git diff a86005b...83ff7d6be971694987de3363f0202030eb088f6e",
+    "git log a86005b..83ff7d6be971694987de3363f0202030eb088f6e --oneline"
+  ],
+  "scope": "Incremental ticket13 source review only; earlier full-spec review/retention chain remains historical. No paid execution, credential read, vendor request, or full-suite certification performed.",
+  "helperSHA256": {
+    "/tmp/barness-routed-final-keyless.py": "913d9f2d37dff05580c34b22b6e7d0b24983298df91c3023f81aed6cbbc0754f",
+    "/tmp/barness-routed-go-recorder.py": "0cd1d2832598dde2cefa202de1a3adda51477ebf5a64db177418ce7bbe37f2de",
+    "/tmp/barness-routed-run-phase.py": "489beb838df9b3734b2672b3f81163ab46809b23ca0232764c2fa1605f3e19e8"
+  },
+  "decision": "CHANGES_REQUESTED",
+  "findings": [
+    {
+      "id": "SPEC-13-01",
+      "severity": "P2",
+      "category": "wrong implementation",
+      "file": ".scratch/barness-ai-minimax/tools/routed_validation.py",
+      "line": 116,
+      "requirement": "ROUTED-VALIDATION-1.md lines17–20: \"An interrupted, missing or edited report consumes its full original component allowance, rather than reset the budget or become NOT_RUN.\"",
+      "finding": "summarize() rechecks command/report hashes only when the current output directory contains the native command receipt. When legacy summarizes the completed GLM phase, that file lives in the GLM collectionRoot, so line116 accepts receipt[\"budget\"] directly. Deleting or editing the original GLM report then continues to report known PASS22/22 instead of UNKNOWN with the24/32 conservative reservation. The same shortcut applies from any new output/worktree. Fixed canonical intents still prevent process replay, but the required conservative accounting is wrong.",
+      "requestedChange": "Resolve the completed intent original collectionRoot through a bounded trusted path and recheck its original command/report hashes before settling stored counters; absent, altered or unresolvable original artifacts must reserve that job full cap. Add failure-first coverage from the other phase and another directory/worktree."
+    }
+  ],
+  "requirementsMissingOrPartial": [
+    "Conservative accounting for missing/altered reports across phase/output boundaries (SPEC-13-01). The actual18 paid runs and fresh complete releasegate remain execution work, not claims of this incremental diff."
+  ],
+  "scopeCreep": [],
+  "operationalHelperReview": "No additional concrete defects found in the pinned drafts. Phase runner enumerates fixed jobs and reviews all before the first key, refuses preexisting canonical intents, and does not retry failures. Finalizer pins canonical actuals and invokes public releasegate without adopted bundles; Go observer matches the four current exact vet/ordinary/race commands, retains their numeric exits independently, and inherits only the isolated environment. G actual prepared plan has exactly three full22 GLM jobs, GLM_KEY selected only at reviewed child execution, and no explicit or ambient proxy inherited.",
+  "reviewWordLimit": "Finding narrative and conclusions under400 words."
+}

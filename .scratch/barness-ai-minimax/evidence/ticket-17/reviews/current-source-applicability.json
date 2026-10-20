@@ -1,0 +1,970 @@
+{
+  "schema": 1,
+  "kind": "exact-committed-source-native-applicability",
+  "baselineCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "sourceCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "validOnlyAtCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "sourceDiffCommand": "git diff 7931b163f983a8b362374163b7949d31e68bbec4...230691742b731c77e8167b94646219e10f78c8f7 -- ai go.mod go.sum",
+  "sourceDiffSHA256": "c187bb4df761716617f4bfa5b37771edecaac274d2e8e4ccbb976748b10ff130",
+  "sourceDelta": {
+    "ai/anthropic_minimax_message.go": {
+      "oldSHA256": null,
+      "newSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+      "oldGitBlobOID": null,
+      "newGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4"
+    },
+    "ai/anthropic_minimax_payload.go": {
+      "oldSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+      "newSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+      "oldGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+      "newGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12"
+    },
+    "ai/e2e/minimax_messages_final_shape_test.go": {
+      "oldSHA256": null,
+      "newSHA256": "fcf900f767d231b42ff8cce2faab7c33400fec9cc0963ffa029b166e25e6c478",
+      "oldGitBlobOID": null,
+      "newGitBlobOID": "16f5fcdfb25a12b14f71cdeb492ad778a79c6065"
+    },
+    "ai/e2e/minimax_messages_final_tools_test.go": {
+      "oldSHA256": null,
+      "newSHA256": "4a2674852073484ee74bc34abd1813ae7377c922b151d0aa96641ab016b79a09",
+      "oldGitBlobOID": null,
+      "newGitBlobOID": "7ed53f06f53c8e073638bced1735fe2d2665412e"
+    },
+    "ai/internal/testkit/release/plan.go": {
+      "oldSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+      "newSHA256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+      "oldGitBlobOID": "ed412d527ddb6e7244e5a0d3d52722ff69b4584f",
+      "newGitBlobOID": "7b0623e482ed340022f3b390644f5eff9396c1d3"
+    },
+    "ai/release/traceability.json": {
+      "oldSHA256": "457acee6499ee916ed1e116ca9f832ee73799b9b0328733063dc07ddc1025166",
+      "newSHA256": "0bb23afc3ce9881a4965ce5408b5d46626b655d2b3937cb523ab8bdcae8d4ca8",
+      "oldGitBlobOID": "d304dcf7a96ff6d025bb5dc5eeb50f521b2d0826",
+      "newGitBlobOID": "2d3c8ac2564e05c3867ff7db640e38210cbe175f"
+    }
+  },
+  "strictNativeEvidence": [
+    {
+      "evidence": "text-jev",
+      "kind": "text",
+      "measuredSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "recordedMapEntries": 860,
+      "recordedExecutionEntries": 261,
+      "currentExecutionEntries": 262,
+      "selectorFile": "ai/internal/testkit/release/evaluation_source.go",
+      "selectorFileSHA256": "18c526e6d3708fccc3e23726480663b74aa2b0f22a53eeb61abb1c17524a1f64",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "file": ".evidence/minimax-routed-legacy-1/text-jev/20261018T082658.776631000Z/evaluation-report.json",
+        "sha256": "46e2d6d34b4e8e759723ce21e922fc372840ba3a30d6af055a337133276975c6",
+        "projectionFile": ".evidence/minimax-routed-legacy-1/text-jev/20261018T082658.776631000Z/evaluation-report.json",
+        "projectionSHA256": "46e2d6d34b4e8e759723ce21e922fc372840ba3a30d6af055a337133276975c6"
+      },
+      "recordedMapStorage": "reuse.json/sourceMaps/text-jev",
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "Original860 raw code snapshot preserved; execute existing evaluationSource selection: root/runtime and relevant testkit non-test Go, chineseeval/requestid Go, fixed recorded Jev fixture and go.mod/go.sum; exclude ai/release, ai/e2e, ai/live, internal/testkit/release and unrelated examples. Compare complete261\u2192262 set including additions/deletions.",
+      "currentConsumerReference": "ai/internal/testkit/release/evaluation_source.go:53-98",
+      "originalRawSnapshotUnchanged": {
+        "entries": 860,
+        "unselectedPlanGoSHA256": "30d31a60f903b2c91555b734b1d16dd6463be12c5ff3248c048e8fbd169c3e55",
+        "planGoExcludedFromExecutionSelection": true,
+        "traceabilityJSONAbsentFromRawSnapshot": true,
+        "codeHashAndMeasuredCommitRefreshed": false
+      }
+    },
+    {
+      "evidence": "text-luna",
+      "kind": "text",
+      "measuredSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+      "recordedMapEntries": 860,
+      "recordedExecutionEntries": 261,
+      "currentExecutionEntries": 262,
+      "selectorFile": "ai/internal/testkit/release/evaluation_source.go",
+      "selectorFileSHA256": "18c526e6d3708fccc3e23726480663b74aa2b0f22a53eeb61abb1c17524a1f64",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "file": ".evidence/minimax-routed-legacy-1/text-luna/20261018T082706.819196000Z/evaluation-report.json",
+        "sha256": "64dc5b7ae0ae4cfcbe823cb6f9af3284c10f6649467cc428bf6e749d7a691a38",
+        "projectionFile": ".evidence/minimax-routed-legacy-1/text-luna/20261018T082706.819196000Z/evaluation-report.json",
+        "projectionSHA256": "64dc5b7ae0ae4cfcbe823cb6f9af3284c10f6649467cc428bf6e749d7a691a38"
+      },
+      "recordedMapStorage": "reuse.json/sourceMaps/text-luna",
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "Original860 raw code snapshot preserved; execute existing evaluationSource selection: root/runtime and relevant testkit non-test Go, chineseeval/requestid Go, fixed recorded Jev fixture and go.mod/go.sum; exclude ai/release, ai/e2e, ai/live, internal/testkit/release and unrelated examples. Compare complete261\u2192262 set including additions/deletions.",
+      "currentConsumerReference": "ai/internal/testkit/release/evaluation_source.go:53-98",
+      "originalRawSnapshotUnchanged": {
+        "entries": 860,
+        "unselectedPlanGoSHA256": "30d31a60f903b2c91555b734b1d16dd6463be12c5ff3248c048e8fbd169c3e55",
+        "planGoExcludedFromExecutionSelection": true,
+        "traceabilityJSONAbsentFromRawSnapshot": true,
+        "codeHashAndMeasuredCommitRefreshed": false
+      }
+    },
+    {
+      "evidence": "minimax-chat",
+      "kind": "M3",
+      "measuredSourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "recordedMapEntries": 263,
+      "recordedExecutionEntries": 263,
+      "currentExecutionEntries": 264,
+      "selectorFile": "ai/internal/testkit/minimaxlive/source.go",
+      "selectorFileSHA256": "5a4691e992739bc4887cddfe5484306b91d288cdfe98b7b7240081791ca211cb",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "file": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z/minimax-report.json",
+        "sha256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+        "projectionFile": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z/live-report.json",
+        "projectionSHA256": "dc78881bf3631189dbf2e0db5b047f30729641b4ddd75b88e7aa89b4600d7af8"
+      },
+      "recordedMapStorage": "reuse.json/sourceMaps/minimax-chat",
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "All root ai/*.go except *_test.go; fixed minimax capture Go plus seven shared live test files; non-test requestid/minimax/minimaxlive/evidence/audit/supportmatrix and minimax source-data prefixes; go.mod/go.sum. Exact complete set equality.",
+      "currentConsumerReference": "ai/internal/testkit/minimaxlive/verify.go:59-61; ai/internal/testkit/supportmatrix/minimax.go"
+    },
+    {
+      "evidence": "minimax-responses",
+      "kind": "M3",
+      "measuredSourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "recordedMapEntries": 263,
+      "recordedExecutionEntries": 263,
+      "currentExecutionEntries": 264,
+      "selectorFile": "ai/internal/testkit/minimaxlive/source.go",
+      "selectorFileSHA256": "5a4691e992739bc4887cddfe5484306b91d288cdfe98b7b7240081791ca211cb",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "file": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z/minimax-report.json",
+        "sha256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+        "projectionFile": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z/live-report.json",
+        "projectionSHA256": "417be2156fe3478e19af8a0b398f562d1d9e85db57a97afdee67079a5d3c298c"
+      },
+      "recordedMapStorage": "reuse.json/sourceMaps/minimax-responses",
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "All root ai/*.go except *_test.go; fixed minimax capture Go plus seven shared live test files; non-test requestid/minimax/minimaxlive/evidence/audit/supportmatrix and minimax source-data prefixes; go.mod/go.sum. Exact complete set equality.",
+      "currentConsumerReference": "ai/internal/testkit/minimaxlive/verify.go:59-61; ai/internal/testkit/supportmatrix/minimax.go"
+    },
+    {
+      "evidence": "minimax-messages",
+      "kind": "M3",
+      "measuredSourceCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+      "recordedMapEntries": 263,
+      "recordedExecutionEntries": 263,
+      "currentExecutionEntries": 264,
+      "selectorFile": "ai/internal/testkit/minimaxlive/source.go",
+      "selectorFileSHA256": "5a4691e992739bc4887cddfe5484306b91d288cdfe98b7b7240081791ca211cb",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "file": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z/minimax-report.json",
+        "sha256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+        "projectionFile": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z/live-report.json",
+        "projectionSHA256": "a4882ca666945e605261f89175918da7d2a4305ef7a0f0551aac3f27edbeef83"
+      },
+      "recordedMapStorage": "reuse.json/sourceMaps/minimax-messages",
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "All root ai/*.go except *_test.go; fixed minimax capture Go plus seven shared live test files; non-test requestid/minimax/minimaxlive/evidence/audit/supportmatrix and minimax source-data prefixes; go.mod/go.sum. Exact complete set equality.",
+      "currentConsumerReference": "ai/internal/testkit/minimaxlive/verify.go:59-61; ai/internal/testkit/supportmatrix/minimax.go"
+    },
+    {
+      "evidence": "G/chat",
+      "kind": "GLM",
+      "measuredSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "recordedMapEntries": 217,
+      "recordedExecutionEntries": 217,
+      "currentExecutionEntries": 218,
+      "selectorFile": "ai/internal/testkit/supportmatrix/glm_source.go",
+      "selectorFileSHA256": "fbb70f34e8be207e53b930f7e7630c6af7fb354fec047e27aea0ccea28c2aa38",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "archiveMember": "actual/chat/20261018T113441.516431000Z/formal-glm-report.json",
+        "sha256": "8eedb489ec91c51a3c7fc7e9d90667e5dab599366e7fa48c21108cc1a66e23ed"
+      },
+      "recordedMapStorage": {
+        "archiveMember": "actual/chat/20261018T113441.516431000Z/glm-execution-source.json",
+        "sha256": "b392c02ac81b0fb62d762d1bff7e8b50da23c1a775926125122a5530a976da26"
+      },
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "historicalOutcome": "PASS",
+      "nativeSupportReportPresent": true,
+      "alreadyBlockedByOwnFailure": false,
+      "originalSelectorRule": "All root ai/*.go except *_test.go; fixed glm capture Go plus seven shared live test files; non-test requestid/evidence/audit/glm Go; go.mod/go.sum. Exact complete set equality.",
+      "currentConsumerReference": "ai/internal/testkit/supportmatrix/glm_capture.go:132-139"
+    },
+    {
+      "evidence": "G/responses",
+      "kind": "GLM",
+      "measuredSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "recordedMapEntries": 217,
+      "recordedExecutionEntries": 217,
+      "currentExecutionEntries": 218,
+      "selectorFile": "ai/internal/testkit/supportmatrix/glm_source.go",
+      "selectorFileSHA256": "fbb70f34e8be207e53b930f7e7630c6af7fb354fec047e27aea0ccea28c2aa38",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "archiveMember": "actual/responses/20261018T113707.359791000Z/formal-glm-report.json",
+        "sha256": "8da04460d1bdd3eaad5c6371d3a0f5c011536116e196e523d7b207ebc49762ca"
+      },
+      "recordedMapStorage": {
+        "archiveMember": "actual/responses/20261018T113707.359791000Z/glm-execution-source.json",
+        "sha256": "b392c02ac81b0fb62d762d1bff7e8b50da23c1a775926125122a5530a976da26"
+      },
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "historicalOutcome": "PASS",
+      "nativeSupportReportPresent": true,
+      "alreadyBlockedByOwnFailure": false,
+      "originalSelectorRule": "All root ai/*.go except *_test.go; fixed glm capture Go plus seven shared live test files; non-test requestid/evidence/audit/glm Go; go.mod/go.sum. Exact complete set equality.",
+      "currentConsumerReference": "ai/internal/testkit/supportmatrix/glm_capture.go:132-139"
+    },
+    {
+      "evidence": "G/messages",
+      "kind": "GLM",
+      "measuredSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "recordedMapEntries": 217,
+      "recordedExecutionEntries": 217,
+      "currentExecutionEntries": 218,
+      "selectorFile": "ai/internal/testkit/supportmatrix/glm_source.go",
+      "selectorFileSHA256": "fbb70f34e8be207e53b930f7e7630c6af7fb354fec047e27aea0ccea28c2aa38",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "archiveMember": "actual/messages/20261018T113921.111086000Z/formal-glm-report.json",
+        "sha256": "7ac9902998289a27275f7e2b2d167e5cea380deb55a9bb37de212ffb716d14a7"
+      },
+      "recordedMapStorage": {
+        "archiveMember": "actual/messages/20261018T113921.111086000Z/glm-execution-source.json",
+        "sha256": "b392c02ac81b0fb62d762d1bff7e8b50da23c1a775926125122a5530a976da26"
+      },
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "historicalOutcome": "FAIL",
+      "nativeSupportReportPresent": false,
+      "alreadyBlockedByOwnFailure": true,
+      "originalSelectorRule": "All root ai/*.go except *_test.go; fixed glm capture Go plus seven shared live test files; non-test requestid/evidence/audit/glm Go; go.mod/go.sum. Exact complete set equality.",
+      "currentConsumerReference": "ai/internal/testkit/supportmatrix/glm_capture.go:132-139"
+    },
+    {
+      "evidence": "E/protocol114",
+      "kind": "protocol114",
+      "measuredSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "recordedMapEntries": 862,
+      "recordedExecutionEntries": 862,
+      "currentExecutionEntries": 865,
+      "selectorFile": "ai/internal/testkit/jevformal/verify.go",
+      "selectorFileSHA256": "0900d628af3784fef6edcea7b4f7c916e91ae13ac58e239d5d3bafdbe26ee6cf",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        },
+        {
+          "path": "ai/e2e/minimax_messages_final_shape_test.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "fcf900f767d231b42ff8cce2faab7c33400fec9cc0963ffa029b166e25e6c478",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "16f5fcdfb25a12b14f71cdeb492ad778a79c6065",
+          "change": "added"
+        },
+        {
+          "path": "ai/e2e/minimax_messages_final_tools_test.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "4a2674852073484ee74bc34abd1813ae7377c922b151d0aa96641ab016b79a09",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "7ed53f06f53c8e073638bced1735fe2d2665412e",
+          "change": "added"
+        },
+        {
+          "path": "ai/internal/testkit/release/plan.go",
+          "oldNativeSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+          "baselineGitSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+          "currentGitSHA256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+          "baselineGitBlobOID": "ed412d527ddb6e7244e5a0d3d52722ff69b4584f",
+          "currentGitBlobOID": "7b0623e482ed340022f3b390644f5eff9396c1d3",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "archiveMember": "actual/protocol114/20261018T115021.300997000Z/multimodal-report.json",
+        "sha256": "fa2da77ca1ad950f82ec7c81ea585fa77363515f4a89d80cc035e7b440663fc8"
+      },
+      "recordedMapStorage": "native multimodal-report.json/sourceHashes, keys normalized relative to ai/live",
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "Every tracked ai/**/*.go including tests plus go.mod/go.sum, original verify-11-evidence.py and fixed Jev formal source manifest. Native relative keys normalized only for this analysis, not edited.",
+      "currentConsumerReference": "ai/internal/testkit/jevformal/verify.go:148-181; ai/internal/testkit/supportmatrix/jev.go"
+    },
+    {
+      "evidence": "E/visual-jev",
+      "kind": "visual",
+      "measuredSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "recordedMapEntries": 323,
+      "recordedExecutionEntries": 323,
+      "currentExecutionEntries": 324,
+      "selectorFile": "ai/examples/visualeval/bundle.go",
+      "selectorFileSHA256": "65c39bb65fd6c88c7cea954c30e230fc1c2a95de76d5790f6b76ba9576c975ef",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        },
+        {
+          "path": "ai/internal/testkit/release/plan.go",
+          "oldNativeSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+          "baselineGitSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+          "currentGitSHA256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+          "baselineGitBlobOID": "ed412d527ddb6e7244e5a0d3d52722ff69b4584f",
+          "currentGitBlobOID": "7b0623e482ed340022f3b390644f5eff9396c1d3",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "archiveMember": "actual/visual-jev/report.json",
+        "sha256": "0af554fd064f3a63ce99573ab409bed45e575a14672a27d09c81d0c42207c007"
+      },
+      "recordedMapStorage": {
+        "archiveMember": "actual/visual-jev/source-hashes.json",
+        "sha256": "71c7b0923dbf6143962ff01df559a2317a84220c527077b580d76aacf4be742b"
+      },
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "Every ai/**/*.go excluding *_test.go, plus go.mod/go.sum; current names and bytes must equal the complete recorded snapshot.",
+      "currentConsumerReference": "ai/examples/visualeval/verify.go:172-185"
+    },
+    {
+      "evidence": "E/visual-decisions",
+      "kind": "visual",
+      "measuredSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "recordedMapEntries": 323,
+      "recordedExecutionEntries": 323,
+      "currentExecutionEntries": 324,
+      "selectorFile": "ai/examples/visualeval/bundle.go",
+      "selectorFileSHA256": "65c39bb65fd6c88c7cea954c30e230fc1c2a95de76d5790f6b76ba9576c975ef",
+      "selectorUnchanged": true,
+      "baseline7931Equality": true,
+      "currentStrictEquality": false,
+      "changedOrNewSelectedPaths": [
+        {
+          "path": "ai/anthropic_minimax_message.go",
+          "oldNativeSHA256": null,
+          "baselineGitSHA256": null,
+          "currentGitSHA256": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+          "baselineGitBlobOID": null,
+          "currentGitBlobOID": "b19b4a0baa51f57471d97609a2da412ecfcc5ca4",
+          "change": "added"
+        },
+        {
+          "path": "ai/anthropic_minimax_payload.go",
+          "oldNativeSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "baselineGitSHA256": "592aa9292cba249305c311875a91991b6477d93985da23b63c09038b72490d5d",
+          "currentGitSHA256": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+          "baselineGitBlobOID": "8cf100e383a4f8fe4018ad5f3aade0a9cf592252",
+          "currentGitBlobOID": "afa94c6bd77b3f59e28eb4e03e075e74e7a29a12",
+          "change": "modified"
+        },
+        {
+          "path": "ai/internal/testkit/release/plan.go",
+          "oldNativeSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+          "baselineGitSHA256": "0026bdf6d8a93c6765a5e0455d3d37a0271821b771900bb77d52c53d7fc7a97b",
+          "currentGitSHA256": "fa15f0bee8a78d0855ca9b8c5910c1f0ed050626240dc67cde9e64527b219ffd",
+          "baselineGitBlobOID": "ed412d527ddb6e7244e5a0d3d52722ff69b4584f",
+          "currentGitBlobOID": "7b0623e482ed340022f3b390644f5eff9396c1d3",
+          "change": "modified"
+        }
+      ],
+      "deletedSelectedPaths": [],
+      "report": {
+        "archiveMember": "actual/visual-decisions/report.json",
+        "sha256": "f46431db299996d9a3f458572967f623dc79ef6853d93c7f23e7eacd1da0ce58"
+      },
+      "recordedMapStorage": {
+        "archiveMember": "actual/visual-decisions/source-hashes.json",
+        "sha256": "71c7b0923dbf6143962ff01df559a2317a84220c527077b580d76aacf4be742b"
+      },
+      "recordedMapMutated": false,
+      "historicalCustodyUnaffected": true,
+      "currentSourceEligible": false,
+      "originalSelectorRule": "Every ai/**/*.go excluding *_test.go, plus go.mod/go.sum; current names and bytes must equal the complete recorded snapshot.",
+      "currentConsumerReference": "ai/examples/visualeval/verify.go:172-185"
+    }
+  ],
+  "derivedJev": {
+    "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "source": "A original/jev-support; own derive0/verify0",
+    "recordedSourceMaps": {
+      "protocol": 862,
+      "visual": 323
+    },
+    "currentSourceMaps": {
+      "protocol": 865,
+      "visual": 324
+    },
+    "currentStrictEquality": false,
+    "currentSourceEligible": false,
+    "candidateValidationExit": 1,
+    "matrixImportCompleted": false,
+    "inherits": [
+      "E/protocol114",
+      "E/visual-jev"
+    ],
+    "historicalCallsAreReferences": true
+  },
+  "generic10": {
+    "existingAuthority": "Base spec327 / ADR0017 / retained postgate scope reviews and ADR0046 affected-combination rule",
+    "sourceApplicabilityRetained": true,
+    "reason": "Only MiniMax-gated runtime body changed; all other runtime/SDK/catalog/model/live-producer code unchanged. No complete generic map is invented and absence of HEAD checks is not the justification.",
+    "reports": [
+      {
+        "evidence": "openai-responses",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/openai-responses/20261018T082351.964640000Z/live-report.json",
+        "reportSHA256": "d60839f2f9561d837fa822dbd69577e8e84948083b3ccd84e913d2ee31f56c43",
+        "startedAt": "2026-10-18T08:23:51.964512Z",
+        "finishedAt": "2026-10-18T08:24:14.403087Z",
+        "provider": "openai",
+        "api": "openai-responses",
+        "model": "gpt-5-mini",
+        "SDK": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "openai-chat",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/openai-chat/20261018T082415.346674000Z/live-report.json",
+        "reportSHA256": "9639a1f1186c5261d605b0e6b7d7852414a2600f1e0c7b7befa990f758295c5b",
+        "startedAt": "2026-10-18T08:24:15.346633Z",
+        "finishedAt": "2026-10-18T08:24:32.037623Z",
+        "provider": "openai",
+        "api": "openai-completions",
+        "model": "gpt-5-mini",
+        "SDK": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "anthropic-messages",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/anthropic-messages/20261018T082432.962715000Z/live-report.json",
+        "reportSHA256": "3de558312237206ebf07264ca60f3c9ce058385dd96b74bc5da306a7fce8b214",
+        "startedAt": "2026-10-18T08:24:32.962674Z",
+        "finishedAt": "2026-10-18T08:25:00.103561Z",
+        "provider": "anthropic",
+        "api": "anthropic-messages",
+        "model": "claude-haiku-4-5",
+        "SDK": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "google-gemini",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/google-gemini/20261018T082500.989942000Z/live-report.json",
+        "reportSHA256": "630ef3ef5774e6197c6ae8abcedeb9de7926d95b2972d5df205662b7c4c68ea1",
+        "startedAt": "2026-10-18T08:25:00.989903Z",
+        "finishedAt": "2026-10-18T08:25:18.840591Z",
+        "provider": "google",
+        "api": "google-generative-ai",
+        "model": "gemini-3.8-flash",
+        "SDK": "direct HTTP (ADR-0012)",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "deepseek-responses",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/deepseek-responses/20261018T082519.737452000Z/live-report.json",
+        "reportSHA256": "227f61ff7cbd23d34cddf10a4f63f6919fe850a550dd2fbf128ef5ad1b6524a8",
+        "startedAt": "2026-10-18T08:25:19.737413Z",
+        "finishedAt": "2026-10-18T08:25:29.62946Z",
+        "provider": "deepseek",
+        "api": "openai-responses",
+        "model": "deepseek-flash",
+        "SDK": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "deepseek-chat",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/deepseek-chat/20261018T082530.544023000Z/live-report.json",
+        "reportSHA256": "9f1dd332cde1895c20b1aa59a0447c78b6c1938f502aa5380be6adb00be9399e",
+        "startedAt": "2026-10-18T08:25:30.54398Z",
+        "finishedAt": "2026-10-18T08:25:43.433358Z",
+        "provider": "deepseek",
+        "api": "openai-completions",
+        "model": "deepseek-flash",
+        "SDK": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "openai-images",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/openai-images/20261018T082544.322311000Z/live-report.json",
+        "reportSHA256": "1dcb77d06f1025ff6ca397599f56c093a142da272ba89ccc06e18b29fa1257ed",
+        "startedAt": "2026-10-18T08:25:44.322273Z",
+        "finishedAt": "2026-10-18T08:26:12.416873Z",
+        "provider": "openai",
+        "api": "openai-images",
+        "model": "gpt-image-2.5-sunburst-2026-09-08",
+        "SDK": "direct HTTP (OpenAI Images JSON; ADR-0022)",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "google-interactions-image",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/google-interactions-image/20261018T082613.527826000Z/live-report.json",
+        "reportSHA256": "31e81c996a2bbd3be666f369b8d542807fbd730daac0da2d978f3b985b830dba",
+        "startedAt": "2026-10-18T08:26:13.527786Z",
+        "finishedAt": "2026-10-18T08:26:42.63404Z",
+        "provider": "google",
+        "api": "google-interactions",
+        "model": "gemini-nano-banana-2.1",
+        "SDK": "direct HTTP (Google Interactions v1beta; ADR-0023)",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "openai-decisions",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/openai-decisions/20261018T082643.731045000Z/live-report.json",
+        "reportSHA256": "e132afe1b54b94481e3ac57421a9a3af1d1da6e5a7cda8cdfb6c27f077aacae7",
+        "startedAt": "2026-10-18T08:26:43.731012Z",
+        "finishedAt": "2026-10-18T08:26:47.939974Z",
+        "provider": "openai",
+        "api": "openai-decisions",
+        "model": "gpt-6-luna",
+        "SDK": "direct HTTP (OpenAI Decisions; ADR-0026)",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      },
+      {
+        "evidence": "typesafe-classifier",
+        "recordedSourceCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "reportFile": ".evidence/minimax-routed-legacy-1/live/typesafe-classifier/20261018T082648.885174000Z/live-report.json",
+        "reportSHA256": "673cad94278a0cbdc73bc0155d5ecf4fec9a95d6bda5aa4511dae538eb9e1e31",
+        "startedAt": "2026-10-18T08:26:48.885133Z",
+        "finishedAt": "2026-10-18T08:26:50.724188Z",
+        "provider": "typesafe",
+        "api": "typesafe-system-one",
+        "model": "jev-1.13.0",
+        "SDK": "direct HTTP (ADR-0021; typesafe-system-one v1)",
+        "catalogVersion": "2026-10-18.1-minimax",
+        "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+        "matrixOwnTimestampStillMatches": true,
+        "declaredCompleteExecutionMap": false,
+        "sourceApplicabilityUnderExistingAffectedCombinationPolicy": true,
+        "currentPublicVerifierExecuted": false
+      }
+    ],
+    "unchangedProducerFilesChecked": 172,
+    "SDKUnchanged": true,
+    "catalogAndModelsUnchanged": true,
+    "MiniMaxEarlyReturnUnchanged": true,
+    "newHelpersOnlyReachableFromMiniMaxGuard": true,
+    "newSharedGlobals": false,
+    "currentPublicVerifiersRun": false,
+    "wholeReleaseCertified": false,
+    "callBoundaryProof": {
+      "file": "ai/anthropic_minimax_payload.go",
+      "providerGuard": "if m.Provider != ProviderMiniMax { return nil }",
+      "guardUnchanged": true,
+      "callSite": "ai/anthropic.go:114 before transport",
+      "callerUnchanged": true,
+      "newHelperEntryCall": "ai/anthropic_minimax_payload.go:87 after unchanged provider guard",
+      "helperOnlyPrivateFunctions": true,
+      "importsOrInitOrPackageGlobalsAdded": false,
+      "modifiedRuntimePaths": [
+        "ai/anthropic_minimax_payload.go"
+      ],
+      "newRuntimePaths": [
+        "ai/anthropic_minimax_message.go"
+      ],
+      "otherFourSourceFiles": "two public E2E tests plus release plan/traceability consumers; no generic live request/capture changes"
+    },
+    "dependencyPins": {
+      "go.mod": "5c8e9d19f2c6fb1145afd40d33f1904f05df796e9e3e57b0666c40ea61334fd2",
+      "go.sum": "f77e9fa444cb0de7133ad075ba5290a35b86df40b4ccfb235452ae1e4a5a8097",
+      "ai/anthropic.go": "a25b9d4ae0e7cef960899e5a93fd207c6e8df6a9ffe7709bc9188906a113337c",
+      "ai/anthropic_minimax_message.go": "1125d654f8c1076371f92f83b0d5b89b991da8c86465c14354dcc5d9f33e661f",
+      "ai/anthropic_minimax_payload.go": "f7b1a520463262553feaa5f66b818a16c59b48715619ceb7f65b4c8cb0658029",
+      "ai/release/catalog-snapshot.json": "fd6d59db596e8e4a81f970e50d6fe0567f86306957c1e934c1fae5e1c36dce63",
+      "ai/catalog_minimax.json": "5d9be9244a1cb4059f50f4b7d8333461deeffaf0ead3220910afe20d3fb525ce",
+      "ai/live/combos_test.go": "fdc83dca67f1f2e2a2efb35eeb56fb292112444a1e886cf66d57bbc00e97f17b",
+      "ai/live/main_test.go": "db5b7dab4a280b504d063c222a897d8b0de624bc055bbed573fcac9c1d120cad",
+      "ai/live/recorder_test.go": "193eefa10ac172d42d88b57fd841265cc48aa148effcd2eacb0f1600eb198ec7",
+      "ai/live/proxy_test.go": "55a6d0af33f9e2ddb6a514ae873628e2f47df75336f717e538a4dba3d9853832",
+      "ai/live/session_test.go": "17a1ec85a3f38ab7e15f41efa4cac65ccad574ff7c4edad8d1b9ea84aebbb410"
+    }
+  },
+  "matrix": {
+    "file": "ai/live/support-matrix.json",
+    "sha256": "7fbe72c37324a5700b0cff9416bf2a05543167ca1eed88186741669e39c6190f",
+    "unchanged": true,
+    "rows": 17,
+    "completePassedRows": 16,
+    "failedRows": [
+      "zhipu-responses"
+    ],
+    "oldResponsesFailureCapabilities": [
+      "glm-5.3/tool-call",
+      "glm-5.3/tool-result",
+      "glm-5.3/control-max"
+    ],
+    "noNewMatrixImport": true
+  },
+  "sourceVsHistory": {
+    "M3MeasuredCommit": "89000346b48480d94c3d6f6523629870f4e7b1b0",
+    "oldGenericAndTextCommit": "8fbd17006677774368d4d77d924a8672fd205c51",
+    "GEABMeasuredCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "sourceBeingAssessed": "230691742b731c77e8167b94646219e10f78c8f7",
+    "BOutcomeNotRead": true,
+    "post17CertificationFrom7931Gate": false,
+    "latestRawMessagesFAILPreservedAlongsideOldMatrixResponsesFAIL": true
+  },
+  "policyBounds": {
+    "noSemanticWaiver": true,
+    "noMapNarrowing": true,
+    "noRepinning": true,
+    "noFutureRunCountFeeContractOrApproval": true,
+    "laterMetadataOrDocsCommitRequiresSeparateExplicitRelevantByteEqualitySeal": true,
+    "oldPaidLauncherFreezeRemainsStale": true,
+    "oldPaidGuardNotBypassedOrRepinned": true
+  },
+  "reviewerExecution": {
+    "projectProgramsExecuted": false,
+    "guardOrVerifierOrCLIOrTestsExecuted": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "repoWrites": false,
+    "BRead": false
+  },
+  "anchors": {
+    "earlierInventory": {
+      "file": "/tmp/barness-ticket17-applicability-inventory.md",
+      "sha256": "ad1188a4dee7643bce3aa1c658eb8e001972bc9dff23b355fc3befa9d2065b2d"
+    },
+    "sourceReview": {
+      "file": "/tmp/barness-ticket17-source-standards-review.json",
+      "sha256": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573"
+    },
+    "reuseProofSHA256": "63d9245b0692a5544467e4ec8fad93a231d2a40d571f71cc16dd0904840d3aeb",
+    "source7931ManifestSHA256": "4bb4e654f4f23c7faa6fbda6ef24d3ddd7ab1ef41a095d8a6c6e6ea181b66620"
+  },
+  "sourceSelectors": {
+    "M3": {
+      "file": "ai/internal/testkit/minimaxlive/source.go",
+      "unchangedSHA256": "5a4691e992739bc4887cddfe5484306b91d288cdfe98b7b7240081791ca211cb",
+      "baselineCount": 263,
+      "currentCount": 264
+    },
+    "GLM": {
+      "file": "ai/internal/testkit/supportmatrix/glm_source.go",
+      "unchangedSHA256": "fbb70f34e8be207e53b930f7e7630c6af7fb354fec047e27aea0ccea28c2aa38",
+      "baselineCount": 217,
+      "currentCount": 218
+    },
+    "text": {
+      "file": "ai/internal/testkit/release/evaluation_source.go",
+      "unchangedSHA256": "18c526e6d3708fccc3e23726480663b74aa2b0f22a53eeb61abb1c17524a1f64",
+      "baselineCount": 261,
+      "currentCount": 262
+    },
+    "protocol114": {
+      "file": "ai/internal/testkit/jevformal/verify.go",
+      "unchangedSHA256": "0900d628af3784fef6edcea7b4f7c916e91ae13ac58e239d5d3bafdbe26ee6cf",
+      "baselineCount": 862,
+      "currentCount": 865
+    },
+    "visual": {
+      "file": "ai/examples/visualeval/bundle.go",
+      "unchangedSHA256": "65c39bb65fd6c88c7cea954c30e230fc1c2a95de76d5790f6b76ba9576c975ef",
+      "baselineCount": 323,
+      "currentCount": 324
+    }
+  },
+  "conclusion": {
+    "strictRecordedMapsCurrentEqual": false,
+    "strictArtifactsEvaluated": 11,
+    "strictArtifactsCurrentEqualCount": 0,
+    "AJeVCurrentEligible": false,
+    "generic10SourceApplicabilityRetainedUnderExistingPolicy": true,
+    "genericPublicConsumersExecutedAt2306": false,
+    "wholeReleaseCertified": false,
+    "originalEvidenceBytesAndRecordedOutcomesPreserved": true
+  }
+}

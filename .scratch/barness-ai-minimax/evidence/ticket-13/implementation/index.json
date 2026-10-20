@@ -1,0 +1,442 @@
+{
+  "schema": 1,
+  "kind": "immutable-keyless-implementation-history",
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "capsules": [
+    {
+      "id": "implementation83",
+      "sourceCommit": "83ff7d6be971694987de3363f0202030eb088f6e",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-implementation/implementation-raw.tar.gz",
+        "bytes": 21010391,
+        "sha256": "34d68cce3b7f23c9a1add084eff7762769bb800257a72b7a2df3284464edd70e",
+        "prefix": "implementation-raw"
+      },
+      "inventory": {
+        "file": "inventories/implementation83.json.gz",
+        "compressedSHA256": "79a425f35bbf2d234a7218a9c4071c7827b1d19e1236977a02db0b3acabcaaf4",
+        "decodedBytes": 3044532,
+        "decodedSHA256": "678d0cc846415b4190016cca05a0a14109f2a5bb14813cf918e9e6703e5d7109",
+        "files": 14713
+      },
+      "innerInventory": {
+        "bytes": 3044532,
+        "sha256": "678d0cc846415b4190016cca05a0a14109f2a5bb14813cf918e9e6703e5d7109"
+      },
+      "sourceSnapshot": {
+        "file": "sources/implementation83.json.gz",
+        "compressedSHA256": "cc10df662165d8487fccfaec960e24d5e282cdbd9c33c6255e916075e0360f65",
+        "decodedSHA256": "91e00b33d179528e61d8d5af2d7bd1d481971b20fbcf8c265473881b967c3ddf",
+        "decodedBytes": 115959,
+        "archiveMember": "source-at-implementation.json"
+      },
+      "retentionMetadata": {
+        "file": "metadata/implementation83-retention.json",
+        "originalSHA256": "8a22f4e0f953720661754fefdaa7e2da423178c4ebcd8472149e42fc6f628c9a",
+        "projectionSHA256": "4b9452cba55c66d0315eb6d1de0de68c8c527e950e8dc96953d64a4d542d99df",
+        "transforms": [
+          "absolute archive root replaced with $COMMON"
+        ]
+      },
+      "observe": [
+        "bundles/20261018T074336.043380000Z/manifest.json",
+        "bundles/20261018T074336.043380000Z/audit.json",
+        "bundles/20261018T074803.782166000Z/manifest.json",
+        "bundles/20261018T074803.782166000Z/audit.json",
+        "bundles/20261018T074820.039401000Z/manifest.json",
+        "bundles/20261018T074820.039401000Z/audit.json",
+        "bundles/20261018T074847.383464000Z/manifest.json",
+        "bundles/20261018T074847.383464000Z/audit.json",
+        "bundles/20261018T074936.937083000Z/manifest.json",
+        "bundles/20261018T074936.937083000Z/audit.json",
+        "logs/barness-routed-final-vet.log",
+        "logs/barness-routed-final-vet-live.log"
+      ]
+    },
+    {
+      "id": "reviewfix51",
+      "sourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+      "archive": {
+        "file": ".evidence/minimax-retained/ticket-13-reviewfix-1/reviewfix-raw.tar.gz",
+        "bytes": 65366,
+        "sha256": "f70359541f175efc0e7306315b190133b5639303ec30acab136ae78fb8f2372a",
+        "prefix": "reviewfix-raw"
+      },
+      "inventory": {
+        "file": "inventories/reviewfix51.json.gz",
+        "compressedSHA256": "9575dc6f663b00803cfd934c05f03fc42e55d8d9c8617bb8f94c07b25b3f72bc",
+        "decodedBytes": 1757,
+        "decodedSHA256": "4b9b33594487e5a3e37f5b580922ee52979f8237507d6c8dc3c635cbc7cae146",
+        "files": 12
+      },
+      "sourceSnapshot": {
+        "file": "sources/reviewfix51.json.gz",
+        "compressedSHA256": "0c37807776fd0b4cb124bf29ee9e498a15eb532b598616b33faf7545786cdc56",
+        "decodedSHA256": "dc5f1a1eddd990a885345e428614e9ac3dc91349ebca1db7765079f3a2d6b906",
+        "decodedBytes": 116087,
+        "archiveMember": "source-at-reviewfix.json"
+      },
+      "retentionMetadata": {
+        "file": "metadata/reviewfix51-retention.json",
+        "originalSHA256": "3f661f382c823589847e0e00dcd24f96455a571b3c70c5edf45f5829f2762c96",
+        "projectionSHA256": "3f661f382c823589847e0e00dcd24f96455a571b3c70c5edf45f5829f2762c96",
+        "transforms": []
+      },
+      "observe": [
+        "logs/barness-routed-reviewfix-tools-all.log",
+        "logs/barness-routed-reviewfix-cli-current.log"
+      ]
+    }
+  ],
+  "logProjections": [
+    {
+      "file": "logs/implementation83-barness-routed-cli-final.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-cli-final.log",
+      "originalSHA256": "9250a10b32575620d15de4b956bdf8ca1d2edc4e706e0fea6f3694e778268c74",
+      "projectionSHA256": "9250a10b32575620d15de4b956bdf8ca1d2edc4e706e0fea6f3694e778268c74",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-final-vet-live.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-final-vet-live.log",
+      "originalSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projectionSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-final-vet.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-final-vet.log",
+      "originalSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projectionSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-green-1.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-green-1.log",
+      "originalSHA256": "fd7510bd2a3a39618ede7d5560afa3dd486ebe24827e37a715cb58fe21787f6a",
+      "projectionSHA256": "fd7510bd2a3a39618ede7d5560afa3dd486ebe24827e37a715cb58fe21787f6a",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-green-2.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-green-2.log",
+      "originalSHA256": "e0dcefb5d0c388247c7c9990ce9de232cb6df85815d0ee888bf72bf74bbcfd96",
+      "projectionSHA256": "e0dcefb5d0c388247c7c9990ce9de232cb6df85815d0ee888bf72bf74bbcfd96",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-green-all-v2.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-green-all-v2.log",
+      "originalSHA256": "22d8b5e53d73411441a0227718fca6725db006e37fbc86ffb2f2afec977b42c5",
+      "projectionSHA256": "22d8b5e53d73411441a0227718fca6725db006e37fbc86ffb2f2afec977b42c5",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-green-all.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-green-all.log",
+      "originalSHA256": "b97eb6b94f3e53334a212d82f48b6f5a2f916d939203cb074f9e9ac8db70e6d3",
+      "projectionSHA256": "b97eb6b94f3e53334a212d82f48b6f5a2f916d939203cb074f9e9ac8db70e6d3",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-red-1.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-red-1.log",
+      "originalSHA256": "b822fa6bd0e1de0e90eb1f9b1caf657354c3b5c4418f571135322c8b9156ad12",
+      "projectionSHA256": "a3dfb70bdccc88ce44da1207f77f76dc6ba1229a6cffed25ce1e63a0b5a078d4",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-red-2.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-red-2.log",
+      "originalSHA256": "8b0b6918a370738451453a6dea39dbea69abb6f234b2208841ffc4d1529b595d",
+      "projectionSHA256": "1ec12187ab1355068d123ef558df2122bbe46aedd86b95b05ade33552b99cac0",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-renewal-green.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-renewal-green.log",
+      "originalSHA256": "5bef71b95b977b597ba2f73333e714943def54e365355ef8a1d9181cf4a8457e",
+      "projectionSHA256": "b1d201bd093c43a1a47a0e7a6ad1675b87a5ab5fbb900f93e42d11861e117660",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-renewal-red.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-renewal-red.log",
+      "originalSHA256": "b9f3b806b73603a95badd243842ffcaa70f33a25c43d65f0685e3329a684fae8",
+      "projectionSHA256": "56bd43e1c9e9a628c5a93208fb3bcb60f46b521f0292d898092262554da325c9",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-tools-all.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-tools-all.log",
+      "originalSHA256": "01c40300af883928523d44648431f12074681a8610e765a976c798d262e309c4",
+      "projectionSHA256": "01c40300af883928523d44648431f12074681a8610e765a976c798d262e309c4",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-vet-live.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-vet-live.log",
+      "originalSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projectionSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-routed-vet.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-routed-vet.log",
+      "originalSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projectionSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-empty-fragment-red.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-empty-fragment-red.log",
+      "originalSHA256": "87de211004d8b8b2cd4b5259c762d0c9a78c0ce297787a4d9c00ff9a17e230c9",
+      "projectionSHA256": "25e064c64336a906c539c111ac099da2e25ab0c6e982b03004dd3641c0560e72",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-proxy-child-race.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-proxy-child-race.log",
+      "originalSHA256": "c77530b47f89a140977992b1a334ef53b4b42f1e111e47dfc299b4b5202ed5ec",
+      "projectionSHA256": "1dfe607d3856427116011639ddea7619a24197b0c4b2f97d59fd8a76b0c02db1",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-proxy-final-race.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-proxy-final-race.log",
+      "originalSHA256": "17490d4cc953def3a28be11a78745f97c5c9909cbe4be59e4ff36bf115468494",
+      "projectionSHA256": "3b59efd0ceef11d6415dffc65ce1faa8f81823dde109f7648ba40bf46fdfd8fb",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-proxy-final.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-proxy-final.log",
+      "originalSHA256": "6f4a21addaaf20d9454ab87aeb2f43b54ae09edc67c2c83dc2c48f6439e50044",
+      "projectionSHA256": "0a23f318fbbd84b4d26291b18d4fae1a8b21d054350c7fd11dd1560ef43b6100",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-proxy-green.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-proxy-green.log",
+      "originalSHA256": "a3a1f65ed66e1302971ae37b9d09feea3a1eb2ad2d97fe3f2ddfccfdefc2c242",
+      "projectionSHA256": "1a2ba333641806ebc1e1642ddbff3d405153ef4b3eed012c4ff65ccd2c1ae09e",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-proxy-race.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-proxy-race.log",
+      "originalSHA256": "e050d884e7df161c78fbfce8e660b163da42f160ad1074d4c8e1ebc2aaecd2a7",
+      "projectionSHA256": "295634bf825cba164d6a2eac7bedf6bb50c4abb2fcd8961c12440b419b51bbb6",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-proxy-red.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-proxy-red.log",
+      "originalSHA256": "74bf21396cc3ec9bcd41f032cd565fea2c575b90c012dbfe1b727f1c43a9855b",
+      "projectionSHA256": "a8cdd8ac79af7f31de67dea353b0428afd40e7703e35f021acebcc20f1c97736",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/implementation83-barness-visual-targeted.log",
+      "capsule": "implementation83",
+      "originalMember": "logs/barness-visual-targeted.log",
+      "originalSHA256": "1ebf49282928c73115073d9879be4006214f68d5e11e09af5ebf1d1d24beae6c",
+      "projectionSHA256": "d466251ef1bc4ae7456a0184caee1304d449be67fa9aa1bd41684fe5e9ada0ad",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-cross-phase-green.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-cross-phase-green.log",
+      "originalSHA256": "cf840e3ececdceff5207edafe6c03bb0bc2cbf0db9ffb9c2ac73a0bc2908a439",
+      "projectionSHA256": "87db9efd67736910be4c8e8acde1172d08a26759ee8fa2692624e76f864771ad",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-cross-phase-red.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-cross-phase-red.log",
+      "originalSHA256": "16265255650fe85538d646d151d2bc011622cb5f1bf5742eac567b1b16b1af52",
+      "projectionSHA256": "a3d9a3ef55eaf974c891b47986c23238aeea5f572192ebc38e2e3ef6e312c50a",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-reviewfix-cli-current.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-reviewfix-cli-current.log",
+      "originalSHA256": "83187d77d69b9181fd44aa932477c2d6ed8dcbc876099aaa21ca1a9492202aaf",
+      "projectionSHA256": "83187d77d69b9181fd44aa932477c2d6ed8dcbc876099aaa21ca1a9492202aaf",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-reviewfix-cli-final.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-reviewfix-cli-final.log",
+      "originalSHA256": "f39da16747d83ea6db3b7fd2794d0cfbc576fde68e50e26a36ee56fe379d8feb",
+      "projectionSHA256": "f39da16747d83ea6db3b7fd2794d0cfbc576fde68e50e26a36ee56fe379d8feb",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-reviewfix-cli-v2.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-reviewfix-cli-v2.log",
+      "originalSHA256": "56e451b774c71352509429a171a338274ea9bab0ac59a3b4acccfaf95e0e1711",
+      "projectionSHA256": "56e451b774c71352509429a171a338274ea9bab0ac59a3b4acccfaf95e0e1711",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-reviewfix-cli.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-reviewfix-cli.log",
+      "originalSHA256": "d27ff0496b495969f5298579d987d79ba3dc6222be82ee8825813fc2bb9387f4",
+      "projectionSHA256": "c0612a0b4cd456e5b454d77d8dd28a8d920f7c1e717ab2dfe80b971947112ae4",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    },
+    {
+      "file": "logs/reviewfix51-barness-routed-reviewfix-tools-all.log",
+      "capsule": "reviewfix51",
+      "originalMember": "logs/barness-routed-reviewfix-tools-all.log",
+      "originalSHA256": "c570e32127572ff487516a39e7212b4797e81574586937ebbb369fe081140e88",
+      "projectionSHA256": "c570e32127572ff487516a39e7212b4797e81574586937ebbb369fe081140e88",
+      "transforms": [
+        "known workspace/common/HOME paths replaced",
+        "temporary launcher fixture root replaced",
+        "tabs expanded to four spaces"
+      ]
+    }
+  ]
+}

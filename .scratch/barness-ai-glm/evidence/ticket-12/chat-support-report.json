@@ -1,0 +1,340 @@
+{
+  "schema": 3,
+  "combo": "zhipu-chat",
+  "operation": "chat",
+  "provider": "zhipu",
+  "api": "openai-completions",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+  "model": "glm-5.3",
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "accountAlias": "local-glm@cn-standard-endpoint",
+  "gitCommit": "93c510669cbab6eec6021481fa8f53340400b836",
+  "catalogVersion": "2026-10-17.2",
+  "catalogHash": "sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942",
+  "startedAt": "2026-10-17T14:25:49.278153Z",
+  "finishedAt": "2026-10-17T14:27:55.608017Z",
+  "budget": {
+    "maxAttempts": 32,
+    "attemptsReserved": 22,
+    "processSeconds": 1800,
+    "callSeconds": 120,
+    "finalizationReserveSeconds": 20,
+    "maxCalls": 24,
+    "httpAttempts": 22,
+    "maxRetriesPerScenario": 0,
+    "maxOutputTokensPerCall": 4096,
+    "callsUsed": 22,
+    "outputTokensUsed": 8312,
+    "inputTokensUsed": 1725,
+    "environmentRetries": 0
+  },
+  "expected": [
+    "glm-5.3/full-stream",
+    "glm-5.3/full-complete",
+    "glm-5.3/simple-stream",
+    "glm-5.3/simple-complete",
+    "glm-5.3/tool-call",
+    "glm-5.3/tool-result",
+    "glm-5.3/native-history",
+    "glm-5.3/cancel",
+    "glm-5.3/recovery",
+    "glm-5.3/control-temperature",
+    "glm-5.3/control-usage",
+    "glm-5.2/full-stream",
+    "glm-5.2/full-complete",
+    "glm-5.2/simple-stream",
+    "glm-5.2/simple-complete",
+    "glm-5.2/tool-call",
+    "glm-5.2/tool-result",
+    "glm-5.2/native-history",
+    "glm-5.2/cancel",
+    "glm-5.2/recovery",
+    "glm-5.2/control-temperature",
+    "glm-5.2/control-usage"
+  ],
+  "scenarios": [
+    {
+      "id": "glm-5.3/full-stream",
+      "caseId": "GLM11-glm-5.3-full-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4798,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "5d02c3c1-68d4-4336-9e8e-3ce3cc820fda"
+      ]
+    },
+    {
+      "id": "glm-5.3/full-complete",
+      "caseId": "GLM11-glm-5.3-full-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 9516,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "25ff6b5d-89a2-4697-9120-44a8a0862eee"
+      ]
+    },
+    {
+      "id": "glm-5.3/simple-stream",
+      "caseId": "GLM11-glm-5.3-simple-stream",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 5571,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "2dc44473-109d-4fd3-89b8-8ab8b853ad32"
+      ]
+    },
+    {
+      "id": "glm-5.3/simple-complete",
+      "caseId": "GLM11-glm-5.3-simple-complete",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 5054,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "f8ee1cd1-3079-4658-aa15-3117a5af6981"
+      ]
+    },
+    {
+      "id": "glm-5.3/tool-call",
+      "caseId": "GLM11-glm-5.3-tool-call",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 3598,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "ed6b32f0-5c00-44ef-b366-b0c72cb7dfdd"
+      ]
+    },
+    {
+      "id": "glm-5.3/tool-result",
+      "caseId": "GLM11-glm-5.3-tool-result",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 5325,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "10f69952-89d4-465c-a81a-12e525bcf92e"
+      ]
+    },
+    {
+      "id": "glm-5.3/native-history",
+      "caseId": "GLM11-glm-5.3-native-history",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 1513,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "55d9dad3-18a2-400e-9eb8-a42a93ac7976"
+      ]
+    },
+    {
+      "id": "glm-5.3/cancel",
+      "caseId": "GLM11-glm-5.3-cancel",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 1055,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "7b22bf59-e0b6-4522-bc9a-007f5fb51d77"
+      ]
+    },
+    {
+      "id": "glm-5.3/recovery",
+      "caseId": "GLM11-glm-5.3-recovery",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 5875,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "43d145a3-86be-4a0e-ba49-44e70be3ea1b"
+      ]
+    },
+    {
+      "id": "glm-5.3/control-temperature",
+      "caseId": "GLM11-glm-5.3-control-temperature",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 4238,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "79d3be89-2a23-461c-b6c7-df5f7c0bd88b"
+      ]
+    },
+    {
+      "id": "glm-5.3/control-usage",
+      "caseId": "GLM11-glm-5.3-control-usage",
+      "model": "glm-5.3",
+      "outcome": "PASS",
+      "durationMs": 3411,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "54f369f0-f5b6-4e28-9166-7f338d52077e"
+      ]
+    },
+    {
+      "id": "glm-5.2/full-stream",
+      "caseId": "GLM11-glm-5.2-full-stream",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 8013,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "7fe3a908-5ed7-46bd-806c-b8bfa2fdb822"
+      ]
+    },
+    {
+      "id": "glm-5.2/full-complete",
+      "caseId": "GLM11-glm-5.2-full-complete",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 8194,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "d81f9068-f837-4dd3-b8da-4c57dfe0cc00"
+      ]
+    },
+    {
+      "id": "glm-5.2/simple-stream",
+      "caseId": "GLM11-glm-5.2-simple-stream",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 10069,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "018289fa-53f9-4c05-b7e7-4f2627482a68"
+      ]
+    },
+    {
+      "id": "glm-5.2/simple-complete",
+      "caseId": "GLM11-glm-5.2-simple-complete",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5825,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "f8908117-28ce-4744-ab8c-32020bb06ead"
+      ]
+    },
+    {
+      "id": "glm-5.2/tool-call",
+      "caseId": "GLM11-glm-5.2-tool-call",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 1731,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "3aede49c-9265-4400-86be-965ad18cb6c1"
+      ]
+    },
+    {
+      "id": "glm-5.2/tool-result",
+      "caseId": "GLM11-glm-5.2-tool-result",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 1942,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "b27623b1-05ae-47db-a8f1-b96d2e18aed1"
+      ]
+    },
+    {
+      "id": "glm-5.2/native-history",
+      "caseId": "GLM11-glm-5.2-native-history",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5254,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "83b2410e-11a5-4c6a-9f05-1d48846ffbb2"
+      ]
+    },
+    {
+      "id": "glm-5.2/cancel",
+      "caseId": "GLM11-glm-5.2-cancel",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 3316,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "5aa65c2a-f1cc-4024-9ad1-3c2bb60c43dd"
+      ]
+    },
+    {
+      "id": "glm-5.2/recovery",
+      "caseId": "GLM11-glm-5.2-recovery",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 18009,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "48c2086d-f175-4b03-b8b7-9b728322edaf"
+      ]
+    },
+    {
+      "id": "glm-5.2/control-temperature",
+      "caseId": "GLM11-glm-5.2-control-temperature",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 5443,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "49a3b853-f821-4f28-9c40-49f8df3a5729"
+      ]
+    },
+    {
+      "id": "glm-5.2/control-usage",
+      "caseId": "GLM11-glm-5.2-control-usage",
+      "model": "glm-5.2",
+      "outcome": "PASS",
+      "durationMs": 8344,
+      "calls": 1,
+      "attempts": 1,
+      "providerRequestIds": [
+        "845e90dc-9f33-4012-b305-24224a821a39"
+      ]
+    }
+  ],
+  "glm": {
+    "mode": "live",
+    "sourceManifestHash": "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907",
+    "usageBasis": "reported-known-lower-bound",
+    "unknownUsageAttempts": 2,
+    "derivation": {
+      "schema": 1,
+      "kind": "glm-derived-live-support",
+      "route": "chat",
+      "rawCaptureIndexSHA256": "8d634c772a8a47bae12a9ea7d50f4a617d2340b3537f1714ecb70706452408b4",
+      "rawArchiveSHA256": "3a97895be2d245a4022f07b715d813ecac5627c6d24c3393861ba9819b6c6c8e",
+      "originalFormalReportSHA256": "7138ce39b482aa7d065a02960e2a9934a9b676ca8b0502859637b3fe112d1844",
+      "originalSupportReportSHA256": "24998e86eeed6cf679813e67c3c8910b10f976c701efc90c4a8680bc581aed15",
+      "originalGitCommit": "93c510669cbab6eec6021481fa8f53340400b836",
+      "importerGitCommit": "064ee926c71b6b3297d7a5512e5631c7791c084a",
+      "importerSourceSHA256": "efe2f5cf35d99b8471151effeaa5b2253ca428bc5de43c381c21dda2beaf394d",
+      "derivedAt": "2026-10-17T14:43:02.822733Z"
+    }
+  }
+}

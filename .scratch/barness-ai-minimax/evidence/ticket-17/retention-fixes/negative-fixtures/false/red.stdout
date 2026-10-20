@@ -1,0 +1,265 @@
+{
+  "verified": true,
+  "archive": {
+    "files": 62996,
+    "entries": 62996,
+    "rawBytes": 594764027,
+    "decodedTarBytes": 689623040,
+    "archiveBytes": 90847871,
+    "archiveSHA256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34"
+  },
+  "resourceRecords": 88,
+  "summary": {
+    "schema": 1,
+    "sourceCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+    "trueMalformedSendREDs": 42,
+    "finalNegativeLocalRejections": 42,
+    "finalBusinessWirePositiveControls": 2,
+    "nativeNullZeroRequestCaptures": 42,
+    "stages": {
+      "red-containers": {
+        "actualExitCode": 1,
+        "seconds": 0.38651108741760254,
+        "statuses": {}
+      },
+      "red-containers-actual": {
+        "actualExitCode": 1,
+        "seconds": 4.4422008991241455,
+        "statuses": {
+          "FAIL": 5
+        },
+        "cases": 5,
+        "startedAt": "2026-10-18T12:18:53.311746Z",
+        "finishedAt": "2026-10-18T12:18:53.323173Z"
+      },
+      "green-containers": {
+        "actualExitCode": 0,
+        "seconds": 4.547728776931763,
+        "statuses": {
+          "PASS": 5
+        },
+        "cases": 5,
+        "startedAt": "2026-10-18T12:19:27.011767Z",
+        "finishedAt": "2026-10-18T12:19:27.020663Z"
+      },
+      "red-message-fields": {
+        "actualExitCode": 1,
+        "seconds": 3.7080671787261963,
+        "statuses": {
+          "FAIL": 9
+        },
+        "cases": 9,
+        "startedAt": "2026-10-18T12:21:06.559344Z",
+        "finishedAt": "2026-10-18T12:21:06.577222Z"
+      },
+      "green-message-fields": {
+        "actualExitCode": 0,
+        "seconds": 4.359243154525757,
+        "statuses": {
+          "PASS": 14
+        },
+        "cases": 14,
+        "startedAt": "2026-10-18T12:21:53.344566Z",
+        "finishedAt": "2026-10-18T12:21:53.365032Z"
+      },
+      "red-block-fields": {
+        "actualExitCode": 1,
+        "seconds": 4.6234049797058105,
+        "statuses": {
+          "FAIL": 14
+        },
+        "cases": 14,
+        "startedAt": "2026-10-18T12:22:36.796622Z",
+        "finishedAt": "2026-10-18T12:22:36.822449Z"
+      },
+      "green-block-fields": {
+        "actualExitCode": 0,
+        "seconds": 5.37230110168457,
+        "statuses": {
+          "PASS": 28
+        },
+        "cases": 28,
+        "startedAt": "2026-10-18T12:23:21.490659Z",
+        "finishedAt": "2026-10-18T12:23:21.525235Z"
+      },
+      "red-tool-fields": {
+        "actualExitCode": 1,
+        "seconds": 6.2158708572387695,
+        "statuses": {
+          "FAIL": 14
+        },
+        "cases": 14,
+        "startedAt": "2026-10-18T12:25:18.120862Z",
+        "finishedAt": "2026-10-18T12:25:18.13878Z"
+      },
+      "red-tools-with-business-controls": {
+        "actualExitCode": 1,
+        "seconds": 2.919041872024536,
+        "statuses": {
+          "FAIL": 15,
+          "PASS": 1
+        },
+        "cases": 16,
+        "startedAt": "2026-10-18T12:26:56.034781Z",
+        "finishedAt": "2026-10-18T12:26:56.058219Z"
+      },
+      "green-final-shapes": {
+        "actualExitCode": 1,
+        "seconds": 6.159332036972046,
+        "statuses": {
+          "PASS": 29,
+          "FAIL": 15
+        },
+        "cases": 44,
+        "startedAt": "2026-10-18T12:27:38.66539Z",
+        "finishedAt": "2026-10-18T12:27:38.71972Z"
+      },
+      "red-tools-native-containers-actual": {
+        "actualExitCode": 1,
+        "seconds": 4.7106850147247314,
+        "statuses": {
+          "FAIL": 14,
+          "PASS": 2
+        },
+        "cases": 16,
+        "startedAt": "2026-10-18T12:29:09.942395Z",
+        "finishedAt": "2026-10-18T12:29:09.986879Z"
+      },
+      "green-final-native-shapes": {
+        "actualExitCode": 0,
+        "seconds": 4.118484020233154,
+        "statuses": {
+          "PASS": 44
+        },
+        "cases": 44,
+        "startedAt": "2026-10-18T12:30:17.584602Z",
+        "finishedAt": "2026-10-18T12:30:17.640394Z"
+      },
+      "red-expanded-trace-old-constant": {
+        "actualExitCode": 1,
+        "seconds": 5.844702959060669,
+        "statuses": {
+          "FAIL": 2,
+          "PASS": 4
+        },
+        "cases": 6,
+        "startedAt": "2026-10-18T12:31:42.352878Z",
+        "finishedAt": "2026-10-18T12:31:44.909389Z"
+      },
+      "green-expanded-trace": {
+        "actualExitCode": 0,
+        "seconds": 6.002680778503418,
+        "statuses": {
+          "PASS": 6
+        },
+        "cases": 6,
+        "startedAt": "2026-10-18T12:32:20.0111Z",
+        "finishedAt": "2026-10-18T12:32:22.502084Z"
+      },
+      "regression-ordinary": {
+        "actualExitCode": 1,
+        "seconds": 48.76548194885254,
+        "statuses": {
+          "PASS": 1662,
+          "NOT_RUN": 8,
+          "FAIL": 1
+        },
+        "cases": 1671,
+        "startedAt": "2026-10-18T12:41:45.175152Z",
+        "finishedAt": "2026-10-18T12:42:28.467636Z"
+      },
+      "diagnose-catalog-before-local-dependencies": {
+        "actualExitCode": 1,
+        "seconds": 3.800100803375244,
+        "statuses": {
+          "FAIL": 2
+        },
+        "cases": 2,
+        "startedAt": "2026-10-18T12:47:06.007591Z",
+        "finishedAt": "2026-10-18T12:47:06.010054Z"
+      },
+      "vet": {
+        "actualExitCode": 0,
+        "seconds": 1.1058807373046875,
+        "statuses": {}
+      },
+      "vet-live": {
+        "actualExitCode": 0,
+        "seconds": 1.1050629615783691,
+        "statuses": {}
+      },
+      "regression-ordinary-restored": {
+        "actualExitCode": 0,
+        "seconds": 51.04156494140625,
+        "statuses": {
+          "PASS": 1663,
+          "NOT_RUN": 8
+        },
+        "cases": 1671,
+        "startedAt": "2026-10-18T12:48:27.338851Z",
+        "finishedAt": "2026-10-18T12:49:11.55912Z"
+      },
+      "regression-race-restored": {
+        "actualExitCode": 0,
+        "seconds": 140.15305590629578,
+        "statuses": {
+          "PASS": 1663,
+          "NOT_RUN": 8
+        },
+        "cases": 1671,
+        "startedAt": "2026-10-18T12:48:32.832724Z",
+        "finishedAt": "2026-10-18T12:49:59.036076Z"
+      },
+      "selected-opt-in-ordinary": {
+        "actualExitCode": 0,
+        "seconds": 5.2498321533203125,
+        "statuses": {
+          "PASS": 8
+        },
+        "cases": 8,
+        "startedAt": "2026-10-18T12:51:07.495754Z",
+        "finishedAt": "2026-10-18T12:51:08.503941Z"
+      },
+      "selected-opt-in-race": {
+        "actualExitCode": 0,
+        "seconds": 59.132752895355225,
+        "statuses": {
+          "PASS": 8
+        },
+        "cases": 8,
+        "startedAt": "2026-10-18T12:51:08.049617Z",
+        "finishedAt": "2026-10-18T12:51:15.86486Z"
+      },
+      "vet-restored": {
+        "actualExitCode": 0,
+        "seconds": 0.6905558109283447,
+        "statuses": {}
+      },
+      "vet-live-restored": {
+        "actualExitCode": 0,
+        "seconds": 0.6665468215942383,
+        "statuses": {}
+      }
+    },
+    "manifestArtifactReferences": 39321,
+    "fixtureInputReferences": 1642,
+    "preRedactionFixtureReferences": 141,
+    "all141RawInputSourceProofsRetained": true,
+    "mandatory8SupplementedSeparately": true,
+    "mainNotRunIDs": [
+      "MM05-design-load-cloud-chat",
+      "MM05-design-load-cloud-messages",
+      "MM05-design-load-cloud-responses",
+      "MM05-design-load-local-chat",
+      "MM05-design-load-local-messages",
+      "MM05-design-load-local-responses",
+      "MM06-frozen-catalog-metadata",
+      "PIDIFF-MM06-catalog-differences"
+    ],
+    "fixtureFailuresRemainHistorical": true,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "formalApplicabilityRenewed": false,
+    "releaseCertified": false
+  }
+}

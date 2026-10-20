@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "axis": "Standards exact incomplete-input gate rereview",
+  "decision": "APPROVED_FIRST_KEYLESS_INCOMPLETE_GATE_OBSERVATION_ONLY",
+  "revision": 2,
+  "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "planSHA256": "f97c97c158189bc741a22ea714a1cc64053ea79755d688f8a66450d87fab6985",
+  "compiledCLISHA256": "ee246d0e05346d4b6295f60847e64095db45c10306f85db7ba866fef58e79bca",
+  "helperSHA256": "0ee913b5856de200b75f550a33c34a8ab8d4f3e52f445221f9c6b820d4790ee6",
+  "buildReceiptSHA256": "a0f63739280f88b98d4e066fb1850a21a6fad3cadaa3f425fe3f70d01b3aead2",
+  "findings": [],
+  "possibleSmells": [],
+  "resolvedFindings": [
+    {
+      "id": "INCOMPLETE-STANDARDS-01",
+      "status": "CLOSED",
+      "location": "/tmp/barness-repair-incomplete-keyless.py:23",
+      "basis": "ModuleType executes compile(raw, originalFile, exec) from the already bounded hash-verified bytes; there is no loader pathname reopen before execution."
+    }
+  ],
+  "review": "V2 changes only the verified-byte module import and one pending-plan revision. It authenticates the immutable originalbbf plan, permits only the new helper hash in before, reuses the exact actual build/binary and routes every review/intent/result to fixed plan-v2. Original plan/template/probe and the original P2 report remain retained. Current1056 sources,3677 native inputs and603 original failed-assembly files still match. The exact missing Messages support report, original matrix, six closed102/102 and whole old proof remain bound. All17 directory arguments/four effects, eight read-only verifiers and the first full four-command public gate remain fixed. Numeric exits, report absence/malformed/false and source/command consistency remain observable; success/releaseCertified/assemblyComplete remain false. No further documented standard breach or supplied baseline smell found.",
+  "supersededReview": {
+    "path": "/tmp/barness-repair-incomplete-gate-draft-standards-review.json",
+    "sha256": "46cd9eeb1a309f237622d3d59504f7f268adda320dceec76cf66539e2670ae87",
+    "helperSHA256": "b011176adc7ad15438975f3101eac25c18cbee4242a8d7bf823628847b619488",
+    "planSHA256": "bbf895e5cfab00ddab99ae5ef03479cbfe8ffd141d31596b5d9e2c2465877bfe"
+  },
+  "originalReadhashProof": {
+    "path": "/tmp/barness-repair-incomplete-gate-final-standards-readhash.json",
+    "sha256": "7e8524a91b758a3a9588b63133024c706e46ba7a83d1b4a23246861cf7c4ccab"
+  },
+  "deltaSHA256": "f21bb53aaf71b4d5e3f87b442d4a2a022d7eee1efd8f7157291bb1e302550a8d",
+  "operations": {
+    "assemblyHelperSHA256": "e5dc66b14e65011574c807602a77502a4b28b72fe64c1685953c7d2e53fda836",
+    "observerSHA256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "realGoSHA256": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646",
+    "helperSHA256": "0ee913b5856de200b75f550a33c34a8ab8d4f3e52f445221f9c6b820d4790ee6",
+    "designSHA256": "26777274527fbdb99389a48c8ff5c432dddce40aabe5e95bd68edd072300bd42",
+    "operatorPlansSHA256": {
+      "Standards": "9adf792c118fc56e3934b2c0b4a886b9386fad129626fbceb7e92f631e9180a6",
+      "Spec": "da86ad62e53714779e4f4b4d031451e9ccce855c834306c338dc2487a4a22756"
+    }
+  },
+  "checks": {
+    "expectedPreapprovalCLIExit": 1,
+    "originalAndV2NegativeReceiptsMatch": true,
+    "noExecutionIntent": true,
+    "noGateOutput": true,
+    "plannedPublicVerifierCount": 8,
+    "plannedRootGoCommandCount": 4,
+    "firstActualGateNotYetExecuted": true
+  },
+  "inputVerification": {
+    "sourceFiles": 1056,
+    "nativeFiles": 3677,
+    "failedAssemblyFiles": 603,
+    "exactOriginalMatrixUnchanged": true,
+    "missingMessagesReportAbsent": true
+  },
+  "standards": [
+    "AGENTS.md principles2/4/5/7/8/9",
+    "Both retained incomplete-gate operator plans",
+    "All12 supplied baseline smells considered; documented overrides respected; tool-enforced issues skipped"
+  ],
+  "constraints": {
+    "testsExecutedByReviewer": false,
+    "verifiersExecutedByReviewer": false,
+    "helperOrCapturedCodeExecutedByReviewer": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "rootWrites": false,
+    "sourceEdits": false,
+    "paidApproval": false,
+    "releaseCertificationApproved": false,
+    "assemblyApproval": false
+  }
+}

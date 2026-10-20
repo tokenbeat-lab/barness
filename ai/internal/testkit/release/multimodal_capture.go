@@ -20,7 +20,7 @@ var multimodalFixture []byte
 // These literal expectations describe only the finite controlled UC09 workload.
 // Template binding substitutes exact sentinel nodes, never substrings or user
 // text. They cannot grant a native payload additional authority.
-func verifyMultimodalCapture(dir, call, tenant, binding string, capture provider.Request, answers map[string]json.RawMessage, usage ai.Usage) error {
+func verifyMultimodalCapture(files verifiedCase, call, tenant, binding string, capture provider.Request, answers map[string]json.RawMessage, usage ai.Usage) error {
 	bad := errors.New("mixed image captured input/wire/response/named answers differ from fixed workload")
 	var fixture map[string]json.RawMessage
 	if json.Unmarshal(multimodalFixture, &fixture) != nil {
@@ -31,7 +31,7 @@ func verifyMultimodalCapture(dir, call, tenant, binding string, capture provider
 		return bad
 	}
 	var input ai.ClassifierRequest
-	if readLoadJSON(dir, call+"-input.json", &input) != nil || len(input.Images) != 2 {
+	if readLoadJSON(files, call+"-input.json", &input) != nil || len(input.Images) != 2 {
 		return bad
 	}
 	var hashes []string
@@ -95,7 +95,7 @@ func verifyMultimodalCapture(dir, call, tenant, binding string, capture provider
 	}
 	response := "response-" + binding + "-" + pioracle.SHA256(compact.Bytes()) + ".json"
 	var actualResponse any
-	if readLoadJSON(dir, response, &actualResponse) != nil || !reflect.DeepEqual(actualResponse, bindMultimodalFixture(spec.Response, values)) {
+	if readLoadJSON(files, response, &actualResponse) != nil || !reflect.DeepEqual(actualResponse, bindMultimodalFixture(spec.Response, values)) {
 		return bad
 	}
 	raw, err = json.Marshal(answers)

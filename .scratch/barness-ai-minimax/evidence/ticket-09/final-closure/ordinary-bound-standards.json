@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "27f44f7296f9edf1545c3775e2c5eac3b67012ee",
+  "reviewedCommit": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 27f44f7296f9edf1545c3775e2c5eac3b67012ee...ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+  "diffSHA256": "aa6a33ccd0c891ae98870996ca64a0d27fdee759e9a16565d7209a6ca6bffcc4",
+  "diffBytes": 112717,
+  "scope": "Only ordinary creator bounded-read closure; ticket17 WIP excluded",
+  "standards": [
+    "AGENTS principles4/5 bounded untrusted inputs;8 historical provenance;9 verifiable diagnostics",
+    "Full twelve-smell baseline judged without forced abstraction; no actionable smell",
+    "Tool-enforced checks skipped"
+  ],
+  "findings": [],
+  "smells": [],
+  "report": "PASS: ORDINARY-TYPE-STANDARDS-01 is closed for this exact31-file delta. The creator now fstats the same opened regular FD before hashing, requires the original index byte count114797350 within256MiB, caps cumulative reads against both limits and rejects a truncated read. Hashing, seek and decoding retain that FD, avoiding a pathname reopen. Existing nofollow/nonblock/regular protection is unchanged; later decoded/member/payload/hash checks remain in place. An FD alone is not claimed to freeze contents.\n\nThe preserved old public oversize/wrong-size children exited1 after hash mismatch; the new children also exit1, now at the required pre-hash size guard. They were never accepted native inputs. FIFO/link cases were already refused. RED1 retains its mistaken FIFO oracle, corrected RED2 still exposes the two missing early bounds, and GREEN passes all four public probes. Creator snapshots match exact27f/ca67 sources; wrapper and child exits remain separate. No probe was executed during this review.\n\nOriginal24a5 Standards and023b Spec reports remain byte-identical. The final original public verifier receipt is0. Original archive9c8c1bcb, boolean fixtureff7ea49e and float fixturea294c835 were checked by compressed size/hash; their inventories/source/plan and member pins are unchanged, so the prior full member scans remain applicable. Full-reader limits are unchanged and synthetic fixtures remain non-authoritative. No original133k rescan, root/worker/native mutation, Key/network/test/verifier execution, evolving B race/outer read or ticket17 approval occurred. Historical ordinary exit1/six failures and releaseCertified:false remain unchanged.",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/README.md": "2f5c193c6bdf00585d5c182a2fff2be0242353e0fa7ec140565f0aea907e674c",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/SHA256SUMS": "f2861cd9ce7b3cc47baa16f42eeeb8fcb26bae18256a2950c1c6772884a91741",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-probe-bounds.py": "51bb941926f7501c8270dedef046f746992c2580ee2915006ff32d6c4a1e6c4e",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/creator.py.txt": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/fifo.log.gz": "b6e57a98fd116aa863672b67c9ad2f8da44cd2fd0bdb3a5b521486d26e71911d",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/link.log.gz": "907f2c197cb1c8ea12c9c4288cfd2367bcba7fb2ec324abaaf961e65b6024551",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/oversize.log.gz": "7104a58272f41fc5691352bf8277a77ffc4680df7d76feac6f0a0e229f7b7082",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/public-wrapper.log.gz": "f0eeeffb9b104b48794a5f0a6b8b7876c1bf432a49f9ac5943e55ea7465cd2ce",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/results.json": "b1bb10d8cea6170f3c6090ba4881044e5301133db8cd491d0a310c2d932a5f38",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/wrong-size.log.gz": "7104a58272f41fc5691352bf8277a77ffc4680df7d76feac6f0a0e229f7b7082",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/history.json": "b5e030211d69a0f73140087c0ec2ce9b11087f3c71c261e13e82cc5e0058bceb",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-typed-exit-spec-review.json": "023b902e715cea85a9195744b05664702f942162f272059e11588ffca2405483",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-typed-exit-standards-review.json": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-verification-command.json": "88e98b2dcb89e9efbcc669793d45ca89cae1e0b2baf7c27b28856bbb981384c0",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-verification-output.json": "de11c069f24468e82512540a3e9977eda242cc2ebb751e02da71cf1f8c65d685",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/creator.py.txt": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/fifo.log.gz": "9c09a94c21dfecc4c3d29a5f9cce0f175a8a720133f5af02050b561b2224bafb",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/link.log.gz": "6f72d784fedce12d2bc8b09b13c1d27db206e633b002cdfbd6cf258b2a0440ed",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/oversize.log.gz": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/public-wrapper.log.gz": "89d3a4d801d954a4fc8dbe4a46fe86e48e735aa2f28ffd1ca8185c20fb9bb1ff",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/results.json": "a56039a995a8bc39360da3c51dff33728093a421fab32008f6792422a7b591c6",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/wrong-size.log.gz": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/creator.py.txt": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/fifo.log.gz": "9c09a94c21dfecc4c3d29a5f9cce0f175a8a720133f5af02050b561b2224bafb",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/link.log.gz": "6f72d784fedce12d2bc8b09b13c1d27db206e633b002cdfbd6cf258b2a0440ed",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/oversize.log.gz": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/public-wrapper.log.gz": "26faa3b5c7170c29699ee652365f0c5cfd1f2a490b3b72ee6beb40d19b8b0bc4",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/results.json": "4feb3c7cb06d800bd00417b80cae6e85f0de36ea50d9d10eecca85078773bdae",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/wrong-size.log.gz": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3",
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/failure-inventory.md": "36d2ab210c0b559117f61623df9271a36dfa4d87db540a14ebd5e8045bac0166"
+  },
+  "findingClearance": {
+    "findingID": "ORDINARY-TYPE-STANDARDS-01",
+    "priorReviewSHA256": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943",
+    "status": "CLOSED",
+    "sameFDSizeBeforeHash": true,
+    "fixedExpectedBytes": 114797350,
+    "compressedCapBytes": 268435456,
+    "cumulativeReadBound": true,
+    "truncationRejected": true,
+    "existingLinkFIFOProtectionUnchanged": true,
+    "oldOversizeAcceptedClaimed": false
+  },
+  "proof": {
+    "allLocalFiles": 95,
+    "originalAndSyntheticCompressedPinsChecked": [
+      {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+        "bytes": 114797350,
+        "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+        "prefix": "repair-incomplete-ordinary"
+      },
+      {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-boolean-negative-raw.tar.gz",
+        "bytes": 114797347,
+        "sha256": "ff7ea49e9fdec8f8004a8c98bd73cd9273f38d5c2d25ff1ed32d5046fe06ad53",
+        "prefix": "repair-incomplete-ordinary"
+      },
+      {
+        "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-float-negative-raw.tar.gz",
+        "bytes": 114797346,
+        "sha256": "a294c835e078d6eeac61454f939476115715f0f9b7acc35e0cdad9f33b9f4373",
+        "prefix": "repair-incomplete-ordinary"
+      }
+    ],
+    "publicRecordedProofs": {
+      "red-1": {
+        "creatorSHA256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+        "wrapperExit": 1,
+        "cases": [
+          {
+            "case": "oversize",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false
+          },
+          {
+            "case": "wrong-size",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false
+          },
+          {
+            "case": "fifo",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false
+          },
+          {
+            "case": "link",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true
+          }
+        ]
+      },
+      "red-2": {
+        "creatorSHA256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+        "wrapperExit": 1,
+        "cases": [
+          {
+            "case": "oversize",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false
+          },
+          {
+            "case": "wrong-size",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false
+          },
+          {
+            "case": "fifo",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true
+          },
+          {
+            "case": "link",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true
+          }
+        ]
+      },
+      "green-1": {
+        "creatorSHA256": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed",
+        "wrapperExit": 0,
+        "cases": [
+          {
+            "case": "oversize",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": true,
+            "guardPassed": true
+          },
+          {
+            "case": "wrong-size",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": true,
+            "guardPassed": true
+          },
+          {
+            "case": "fifo",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true
+          },
+          {
+            "case": "link",
+            "actualPublicExit": 1,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true
+          }
+        ]
+      }
+    },
+    "originalPublicVerifyExit": 0,
+    "fullReaderUnchanged": true,
+    "noArchiveMembersRescanned": true
+  },
+  "independentReadArtifact": {
+    "file": "/tmp/barness-repair-ordinary-creator-bound-independent-proof.json",
+    "sha256": "92daa41d40edaad23a088fa500d2d391c5d69d7517240950020d93897d34afd3"
+  },
+  "retainedPreviousReviews": {
+    "ordinaryTypedStandards": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943",
+    "ordinaryTypedSpec": "023b902e715cea85a9195744b05664702f942162f272059e11588ffca2405483",
+    "overwritten": false
+  },
+  "reviewerExecution": {
+    "projectOrCapturedProgramsExecuted": false,
+    "testsOrVerifiersExecuted": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "rootWrites": false,
+    "workerWrites": false,
+    "nativeWrites": false,
+    "BOriginalRaceOrOuterRead": false,
+    "archiveMembersRescanned": false
+  },
+  "rootObserved": {
+    "head": "7931b163f983a8b362374163b7949d31e68bbec4",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/\n"
+  },
+  "releaseCertified": false,
+  "ticket17Approval": false
+}

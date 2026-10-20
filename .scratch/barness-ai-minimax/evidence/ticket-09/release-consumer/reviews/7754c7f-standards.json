@@ -1,0 +1,48 @@
+{
+  "axis": "standards",
+  "base": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+  "target": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+  "verdict": "PASS",
+  "confidence": "high",
+  "openFindings": 0,
+  "documentedBreaches": [],
+  "judgmentSmells": [],
+  "findings": [],
+  "closedFindings": [
+    {
+      "title": "Bind opened bundle root to its pre-open identity",
+      "file": "ai/internal/testkit/release/verified_case.go",
+      "startLine": 29,
+      "endLine": 47,
+      "resolution": "Selected root is a real directory; pre-open/opened/post-open identities must match, including rejection of trailing-slash symlink selection."
+    },
+    {
+      "title": "Keep consumed verdicts inside verified rooted boundary",
+      "file": "ai/internal/testkit/release/verified_case.go",
+      "startLine": 74,
+      "endLine": 111,
+      "resolution": "All case consumers retain rooted bounded reads with expected hashes; root is pinned before initial manifest parsing."
+    },
+    {
+      "title": "Verify unique inventory membership",
+      "file": "ai/internal/testkit/release/inventory.go",
+      "startLine": 91,
+      "endLine": 164,
+      "resolution": "Repeated entries rejected; successfully hashed names must cover every declaration."
+    }
+  ],
+  "manifestBoundary": {
+    "file": "ai/internal/testkit/release/verified_case.go",
+    "startLine": 50,
+    "endLine": 59,
+    "maxBytes": 67108864,
+    "expectedHashAbsentOnlyForInitialDeclaration": true
+  },
+  "scope": "Pinned release/e2e source review; unchanged M3/Q typed importers/selected sources; original A outcomes and broader L/Jev historical applicability preserved; no current release certification.",
+  "repoMutations": false,
+  "testsRun": false,
+  "credentialAccess": false,
+  "networkUsed": false,
+  "vendorCalls": 0,
+  "originalReportsUnchanged": true
+}

@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-visual-decisions",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/visualeval",
+    "-verify",
+    "$REPO/.evidence/minimax-release-repair-effects-1/visual-decisions",
+    "-require-live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:29.968464+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.985830666963011,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

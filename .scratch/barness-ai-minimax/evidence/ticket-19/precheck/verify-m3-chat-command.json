@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-m3-chat",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/minimaxverify",
+    "-formal",
+    "$REPO/.evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:28.444603+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.8291888330131769,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

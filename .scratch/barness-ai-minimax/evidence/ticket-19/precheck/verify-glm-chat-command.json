@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "verify-glm-chat",
+  "argv": [
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/bin/supportmatrix",
+    "-matrix",
+    "$REPO/.evidence/current-source-eleven-precheck-20261019-1/glm-chat-matrix-copy.json",
+    "$REPO/.evidence/minimax-release-repair-glm-1/glm-chat/20261018T113441.516431000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 180,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T04:53:28.445919+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 1.8987641669809818,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

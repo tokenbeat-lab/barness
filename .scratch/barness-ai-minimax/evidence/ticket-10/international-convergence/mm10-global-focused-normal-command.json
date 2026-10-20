@@ -1,0 +1,32 @@
+{
+  "state": "COMPLETED",
+  "name": "focused",
+  "argv": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-run",
+    "^Test(MiniMax(Chat|Responses|Messages)|Chat)",
+    "-count=1",
+    "-timeout=5m"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 360,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T02:00:45.976659+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 8.517762000206858,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

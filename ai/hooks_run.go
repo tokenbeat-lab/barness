@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"slices"
 )
@@ -51,7 +52,12 @@ func (b boundHooks) headers(ctx context.Context, merged http.Header) (http.Heade
 			view[name] = masked
 		}
 	}
-	err := b.hooks.TransformHeaders(ctx, b.scope, view)
+	err := func() (err error) {
+		if b.identity.ProviderID == ProviderZhipu || b.identity.ProviderID == ProviderMiniMax {
+			defer recoverCallbackPanic(&err)
+		}
+		return b.hooks.TransformHeaders(ctx, b.scope, view)
+	}()
 	if failure := callbackFailure(ctx, err, "header transform failed"); failure != nil {
 		return nil, failure
 	}
@@ -94,7 +100,12 @@ func (b boundHooks) payload(ctx context.Context, body []byte, validate func(map[
 		return nil, newError(CodeInvalidRequest, PhaseRequest, "request could not be encoded")
 	}
 	p := &Payload{Operation: b.identity.Operation, ProviderID: b.identity.ProviderID, API: b.identity.API, ModelID: b.identity.ModelID, Body: decoded}
-	decision, err := b.hooks.OnPayload(ctx, b.scope, p)
+	decision, err := func() (decision PayloadDecision, err error) {
+		if b.identity.ProviderID == ProviderZhipu || b.identity.ProviderID == ProviderMiniMax {
+			defer recoverCallbackPanic(&err)
+		}
+		return b.hooks.OnPayload(ctx, b.scope, p)
+	}()
 	if failure := callbackFailure(ctx, err, "payload callback failed"); failure != nil {
 		return nil, failure
 	}
@@ -139,7 +150,12 @@ func (b boundHooks) response(ctx context.Context, res *http.Response) *Error {
 		API:        b.identity.API,
 		ModelID:    b.identity.ModelID,
 	}
-	err := b.hooks.OnResponse(ctx, b.scope, info)
+	err := func() (err error) {
+		if b.identity.ProviderID == ProviderZhipu || b.identity.ProviderID == ProviderMiniMax {
+			defer recoverCallbackPanic(&err)
+		}
+		return b.hooks.OnResponse(ctx, b.scope, info)
+	}()
 	return callbackFailure(ctx, err, "response callback failed")
 }
 
@@ -159,4 +175,19 @@ func callbackFailure(ctx context.Context, err error, msg string) *Error {
 		return failure
 	}
 	return nil
+}
+
+// GLM and MiniMax callbacks must settle the logical call instead of crashing its stream
+// producer. The caller gates recovery on the immutable Provider attribution;
+// other providers retain their existing panic behavior. Preserve error causes
+// for Host diagnosis, but never format
+// arbitrary panic values: they may contain credentials or private payloads.
+func recoverCallbackPanic(err *error) {
+	if value := recover(); value != nil {
+		if cause, ok := value.(error); ok {
+			*err = cause
+		} else {
+			*err = errors.New("request callback panicked")
+		}
+	}
 }

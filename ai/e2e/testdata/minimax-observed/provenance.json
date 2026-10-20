@@ -1,0 +1,39 @@
+{
+  "kind": "verbatim-first-frame-only-actual-wire",
+  "sourceCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+  "sourceReportSha256": "848b9d066677833477159cb480552742d4566869205f9e366155beebb7b85106",
+  "sourceSealSha256": "8aa8d96a807b5644eb64056ae25e70183ad35684289e12cf59d2d311fda76b77",
+  "scope": "Only first frame captured before prior Client protocol failure. Later test frames are independently synthetic; unreported usage is not zero billing.",
+  "fixtures": [
+    {
+      "fixture": "chat-mirror-text-first-frame.sse",
+      "sourceCase": "MM07-research-full-stream",
+      "sourceRelativePath": ".evidence/minimax-research-captures/mm-global-research-m3-chat/20261018T014940.090685000Z/MM07-research-full-stream/response.sse",
+      "bytes": 381,
+      "sha256": "6a63ae4bc792b754f6d2fd285ca7a6e21a7cc954c3ca0e478c2f4a6490a31f12"
+    },
+    {
+      "fixture": "chat-mirror-tool-first-frame.sse",
+      "sourceCase": "MM07-research-tool-call",
+      "sourceRelativePath": ".evidence/minimax-research-captures/mm-global-research-m3-chat/20261018T014940.090685000Z/MM07-research-tool-call/response.sse",
+      "bytes": 415,
+      "sha256": "a25905a47f140c9cf86769bde82bd9db4493222e034ea1aac082fe60dd2b60dd"
+    }
+  ],
+  "responses": {
+    "fixture": "responses-tool-complete.sse",
+    "sourceCommit": "38b709800f3ddb72e5c3b35e06484db47aed03dc",
+    "sourceRelativePath": ".evidence/minimax-research-captures/mm-global-research-m3-responses/20261018T015119.674986000Z/MM07-research-tool-call/response.sse",
+    "bytes": 12870,
+    "sha256": "78b3143923ef0bf483abadcd6b9efd93a1a858005223aac17e33d8a5df0da19c",
+    "sourceReportSha256": "53c0c11cb58c266495e776797546e6cdcca3b3b36f84300f4425cf714ba630e9",
+    "sourceSealSha256": "cae6beecd8e87a6f23fb81379a495f0bebec56a9fbeb9e8876d761dbfd677c02",
+    "scope": "Verbatim complete actual tool-call stream. Follow-up reply in controlled tests is separately synthetic; no actual native-continuation success claimed.",
+    "nativeItemFixture": {
+      "path": "responses-reasoning-item.json",
+      "source": "original result.message.content[0].thinkingSignature UTF-8 bytes",
+      "bytes": 812,
+      "sha256": "d68e02e5b32306596831363d067450025dad751696bd6b24dd03f6c68c3af2be"
+    }
+  }
+}

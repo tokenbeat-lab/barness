@@ -1,0 +1,26 @@
+test_keyless_not_run_cannot_report_archived_cn_identity (__main__.Renewal.test_keyless_not_run_cannot_report_archived_cn_identity) ... FAIL
+
+======================================================================
+FAIL: test_keyless_not_run_cannot_report_archived_cn_identity (__main__.Renewal.test_keyless_not_run_cannot_report_archived_cn_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 164, in test_keyless_not_run_cannot_report_archived_cn_identity
+    self.runcli('m31-not-run','prepared',ok=False)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 55, in runcli
+    else:self.assertNotEqual(p.returncode,0,p.stderr[-700:]+p.stdout[:200])
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : {
+  "credentialsRead": false,
+  "entitlementConfirmed": false,
+  "paidIntentsCreated": false,
+  "routes": [
+    {
+      "route": "chat",
+      "model": "MiniMax-M3.1-Flash-Preview",
+      "status": "N
+
+----------------------------------------------------------------------
+Ran 1 test in 1.557s
+
+FAILED (failures=1)

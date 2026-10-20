@@ -1,0 +1,87 @@
+{
+  "axis": "Spec",
+  "status": "PASS_PREPARED_SOURCE_ONLY",
+  "sourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+  "collectionRoot": ".evidence/minimax-current-eleven-glm-2",
+  "reviewedAt": "2026-10-19T05:47:30.239147+00:00",
+  "pins": {
+    "sourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+    "sourceManifestSHA256": "d3b8d8d2f2c4b1802ef8c0b8392363784c85d7af98bf9a2a330df897c44ec391",
+    "binariesManifestSHA256": "26344c05cf0e9d8defbe6bfc056ddad331685f1439229da999f0293b05e79529",
+    "planSHA256": "6535fa46a6b3bd61166a29ed6d461435851e0ad9fe24a14223e70546578a664c",
+    "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+    "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+    "transitionSHA256": "0b853fe5845c1d79d50536353fbc224a2c7c554e0ccf1abd7c102fa5d6010d22",
+    "nativeRenewalFactsSHA256": "0cd9cee0eb7363ecf646bd34dd74b54662bc4e34357eb0736799276a1dc097c3"
+  },
+  "binarySHA256": "55fc3a346aa4bc2d8216acfa46215da7ca11b5a2ebf60ea3da9a3c7545ffd155",
+  "checksSHA256": "ad5a214399ec40c6e4228c48c8611e33b0d61baa7cef146b4f4e0c82f12cdfa1",
+  "actualKeylessCommands": {
+    "vet": {
+      "sha256": "ee0346c110382b179771b33f13a570b628905be216b6ba92f91e70975f9463e8",
+      "exitCode": 0,
+      "seconds": 0.4718731250613928
+    },
+    "vet-live": {
+      "sha256": "6e5cda0be2171dbd96c3b1eacd2e997264a0700a227cff869049ca59d2e4edbe",
+      "exitCode": 0,
+      "seconds": 0.4185041249729693
+    },
+    "no-key-live": {
+      "sha256": "ba2b1ecb89602649d3beae9aed592a02a61e35a4df390d574e0ef1c7056c5007",
+      "exitCode": 0,
+      "seconds": 209.90143274981529
+    },
+    "no-key-visual-proxy": {
+      "sha256": "8eb05ee67298d650d7d3c094feb0d56cb2815667f430d04d267e5fedc817ed08",
+      "exitCode": 0,
+      "seconds": 6.3420395837165415
+    },
+    "no-key-release-contracts": {
+      "sha256": "b19e325318ab215f3320948af8d8259e9151e4f226ca6e1e7d66e2bbd14d6541",
+      "exitCode": 0,
+      "seconds": 6.8843451254069805
+    },
+    "no-key-release-package": {
+      "sha256": "89963943fdbe3f5cd91ad0e491b9b165c88839ef126762a70e182aaf5758313b",
+      "exitCode": 0,
+      "seconds": 33.61334775015712
+    }
+  },
+  "independentStaticProofSHA256": "d3c0020a4a2c5d97fffa1426903ffa726107dbccf98fa4693f45be0f5053b0a6",
+  "sourceReviewSHA256": "61f561575c4c1eac37f5351b88bb8b73e092703e52262b8b0b0e7b682a4574fc",
+  "sourceReview": {
+    "decision": "APPROVED",
+    "reviewedBy": "/root/routed_spec_review",
+    "sourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+    "sourceManifestSHA256": "d3b8d8d2f2c4b1802ef8c0b8392363784c85d7af98bf9a2a330df897c44ec391",
+    "binariesManifestSHA256": "26344c05cf0e9d8defbe6bfc056ddad331685f1439229da999f0293b05e79529",
+    "planSHA256": "6535fa46a6b3bd61166a29ed6d461435851e0ad9fe24a14223e70546578a664c",
+    "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+    "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+    "transitionSHA256": "0b853fe5845c1d79d50536353fbc224a2c7c554e0ccf1abd7c102fa5d6010d22",
+    "nativeRenewalFactsSHA256": "0cd9cee0eb7363ecf646bd34dd74b54662bc4e34357eb0736799276a1dc097c3",
+    "authorizedRoutes": [
+      "current-source-eleven-renewal-1-glm-chat",
+      "current-source-eleven-renewal-1-glm-responses",
+      "current-source-eleven-renewal-1-glm-messages"
+    ],
+    "credentialScopes": {
+      "GLM_KEY": "current-source-eleven-renewal-1/china-direct"
+    }
+  },
+  "findings": [],
+  "report": "PASS — exact G-2 source/plan approval only, 0 findings. Complete1074 source files equal frozen ROOTd235; all30 Python tools equal the completed80-test fbb suite, with only the reviewed HOME diagnostic test changed to a257 bytes. All six fresh exact keyless commands completed with numeric0, no inherited/read credential and clean launcher audits; receipt hashes bind the completed checks.\n\nThe build/binary/plan, three full22 GLM jobs, fixed total11 jobs, nominal189/186 and hard216/252 match the reviewed contract. GLM routes are ChinaDIRECT; only a future separately frozen/reviewed remaining8 phase uses the explicit127.0.0.1:7890 proxy. Legacy648/648, separate originalM3 formal39/36, prior diagnostic PASS,45 canonical receipts,445 generic files,184 relevant producer hashes, four selectors and original matrix remain unchanged. Known GLM FAIL continuation retains source/data/selectors and forbids publication; full same-source GLM3PASS is required for strict renewal.\n\nThe exact prerelease source review authorizes only current-source-eleven-renewal-1-glm-{chat,responses,messages}, and only GLM_KEY under current-source-eleven-renewal-1/china-direct. It approves neither human budget nor execution authorization, native grant, actual vendor qualification, later remaining8 freeze, matrix promotion or full release certification. Execution authorization remains absent and its template PENDING. Failed G-1 remains unchanged5×0/1×1; no old result or approval is upgraded. Reviewer executed only read-only stdlib/Git/hash checks and writes this explicitly requested source-review artifact; no project program, Key or network use.",
+  "noRealBudgetOrExecutionApproval": true,
+  "executionAuthorizationAbsent": true,
+  "realNativeGrantAbsent": true,
+  "oldG1Checks": {
+    "vet": 0,
+    "vet-live": 0,
+    "no-key-live": 1,
+    "no-key-visual-proxy": 0,
+    "no-key-release-contracts": 0,
+    "no-key-release-package": 0
+  },
+  "reviewerExecutedProjectPrograms": false
+}

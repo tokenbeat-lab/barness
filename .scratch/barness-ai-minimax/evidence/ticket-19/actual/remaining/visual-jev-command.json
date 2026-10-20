@@ -1,0 +1,39 @@
+{
+  "state": "COMPLETED",
+  "name": "visual-jev",
+  "argv": [
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visualeval",
+    "-formal",
+    "-mode",
+    "live",
+    "-route",
+    "jev",
+    "-entry",
+    "plain",
+    "-authorization",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visual-jev-authorization.json",
+    "-out",
+    "$REPO/.evidence/minimax-current-eleven-remaining-1/visual-jev",
+    "-proxy",
+    "http://127.0.0.1:7890"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 270,
+  "credentialsInherited": false,
+  "sourceVariable": "TYPESAFE_KEY",
+  "injectedCredential": "BARNESS_VISUAL_KEY",
+  "credentialsRead": true,
+  "startedAt": "2026-10-19T06:26:48.859594+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_VISUAL_KEY",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 4.826582208275795,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

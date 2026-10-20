@@ -1,0 +1,75 @@
+{
+  "classification": "DERIVED_LITERAL_PATH_ALIAS_DISPLAY",
+  "originalSHA256": "6677118f4e8bec83bbddd6d3c1122082a34515c06df79b1406e6183b7018be34",
+  "privateRawMember": "barness-ticket21-final-closure-copy-spec-source-rereview.json",
+  "nativeInput": false,
+  "observed": {
+    "axis": "Spec",
+    "decision": "PASS_NARROW_FIXED_COPIER_SOURCE_ONLY",
+    "findings": [],
+    "resolvedFinding": "T21-FINAL-COPY-SPEC-01",
+    "originalFindingReportSHA256": "6b1470ea0e87a2cd6138a2523538cce2803d668ce77e067204b10b49a30d39e4",
+    "originalSourceSHA256": "c0e67e0e906187dff7420d8a9d69f00bd818691c80be259cf6219d7ec1798428",
+    "sourceSHA256": "82defb65afb58314d288f69ac104f3bba6e9481cc11c4ef18d3235bfc794ccec",
+    "sourceBytes": 12893,
+    "literalSources": 64,
+    "allowlistSHA256": "559672f2964a43183f18d6e1e0503723aa2e394625d18bf203d7556adef80c9b",
+    "fixReportSHA256": "dabd24f10b619095857e8010179f31a3afa2dcba90eddf002e98996398ceb4a0",
+    "fixManifestSHA256": "ccae720c1e5f827051fdff0a596019f6cc62fe17c9a44753d0b2bb38e736f010",
+    "fixFiles": {
+      "barness-ticket21-final-closure-copier-fix-failures.md": {
+        "bytes": 2191,
+        "sha256": "19046121ba01381d28bf028e2a39598f8e26816dcc2f4bcf112311555ea6cf15"
+      },
+      "barness-ticket21-final-closure-copier-test.py": {
+        "bytes": 8270,
+        "sha256": "7542c9b34cffa624bad09897b04b8acf6d9da47ff79c1350ddd84504c4479705"
+      },
+      "barness-ticket21-final-closure-copier-test-initial.py.txt": {
+        "bytes": 8025,
+        "sha256": "20d55c059f554827c76bd203042c5a6f911d3b52c68a5b3f7a83f4c4c96e8eb5"
+      },
+      "barness-ticket21-final-closure-copier-test-results.json": {
+        "bytes": 139762,
+        "sha256": "38064b711818434790eee355a827c801c7557b9cdbdd1277cda8a398dd15898b"
+      },
+      "barness-ticket21-final-closure-copier-fix.json": {
+        "bytes": 3700,
+        "sha256": "dabd24f10b619095857e8010179f31a3afa2dcba90eddf002e98996398ceb4a0"
+      }
+    },
+    "publicRegressionRawSHA256": "38064b711818434790eee355a827c801c7557b9cdbdd1277cda8a398dd15898b",
+    "publicRegressionRawBytes": 139762,
+    "controlledRed": {
+      "validControlExit": 0,
+      "metadataFirstFailures": 11,
+      "blockedSelectedOpenAttemptsBeforeRead": 10,
+      "NULReachedHelperButNoSelectedOpen": true,
+      "existingNegativeControls": 4
+    },
+    "green": {
+      "cases": 16,
+      "matched": 16,
+      "validExit": 0,
+      "invalidHelperAndSelectedOpens": 0
+    },
+    "main14CandidateUnchanged": true,
+    "productionCopyExecuted": false,
+    "reviewerProgramExecutions": "stdlib read/hash/AST/data assertions only; no copier/helper/project execution",
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "reviewerOnlyInspectionFormattingHistory": [
+      {
+        "kind": "TypeError",
+        "cause": "Read-only console formatter sliced nullable terminal None after printing retained stage data",
+        "nativeOrCopierFailure": false
+      },
+      {
+        "kind": "AttributeError",
+        "cause": "Read-only console formatter assumed intermediateDriverSourceHistory dict; actual type is retained list",
+        "nativeOrCopierFailure": false
+      }
+    ],
+    "report": "PASS: exact source82def closes T21-FINAL-COPY-SPEC-01. ROOT input ownership is removed. Only64 literal private$TMP relative-to-destination pairs are admitted; complete row shape, unique names, exact integer bounds and path hygiene reject unknown, hidden, env, credential, dot and NUL records before helper or selected-file reads. The original9478 failure-inventory metadata pin is checked before those reads. Existing64-record/1MiB-member/16MiB-aggregate bounds remain.\n\nThe retained corrected-audit public CLI RED uses the exact c0 validation/copy body with path-constant aliases only: valid0, ten private selected-open attempts blocked by the real OS audit before target reads, and one NUL case reaching helper/OS without a target open. Four negative controls already passed. The first two fixture/audit authoring failures remain explicitly disqualified as vulnerability RED.\n\nGREEN16/16 preserves valid0 and rejects every invalid record with exact reasons and zero helper/selected opens. Full raw stdout,stderr,audit and intermediate source history are retained as data; all six finite fix artifacts hash correctly. The14 primary document candidates remain byte-identical. No production copy, native/captured program, test, credential or network operation was executed by this review. This approves only the corrected copier source for the separately pinned finite input map; it grants no native or paid authority."
+  }
+}

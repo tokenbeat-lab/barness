@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "axis": "Standards design",
+  "decision": "APPROVED_WITH_DESIGN_CLARIFICATION",
+  "implementationReviewed": false,
+  "paidAuthorizationGranted": false,
+  "designSHA256": "fab544f37bb976cd16506fba84ab4c2f53dc6d9e56d39655348f51e823725368",
+  "issue15SHA256": "2c35251e073c0022251823803521eeb70ff196b4ae9608c394585ddd17fee88a",
+  "policyReferences": {
+    ".scratch/barness-ai-minimax/evidence/ticket-13/postgate-source-policy-review.json": "ce53bc70c0900fdf48b1f3818e4393f975d24b0c9e698d921b9f97880855097a",
+    ".scratch/barness-ai-minimax/evidence/ticket-13/postgate-minimal-scope-spec-review.json": "f4ab925705043a9269c4c02fd787874db7d10a42e22d1a7cf214382964c894d5"
+  },
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md",
+    ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "findings": [
+    {
+      "id": "DESIGN-STANDARDS-01",
+      "priority": "clarification before implementation",
+      "location": "Implementation boundaries: authorization paragraph",
+      "quote": "No intent or binary/native execution on preview/check/summarize.",
+      "rule": "AGENTS.md principle3: boundaries and data flow must remain clear.",
+      "message": "Literal prohibition conflicts with the required six actual keyless preflight commands, whose Go tests necessarily execute native binaries. State instead that these modes never acquire a selected credential, create a paid canonical intent or execute any selected paid job; check still must execute the fixed six keyless commands and persist their actual numeric exits. This prevents a future implementation from satisfying the phrase by silently omitting real preflight execution."
+    }
+  ],
+  "assessment": {
+    "accounting": "Fixed6 nominal102/max108calls132Attempts, immutable39prior545/545, combined653/677 and separate MiniMax/earlier GLM history are correct.",
+    "authority": "PENDING-only preparation, explicit new human108/132 reply bound to source/binary/plan/check/reuse/scope and both exact-source reviews, old approval/request rejection and one-shot global namespace are sufficient design boundaries; no execution authority is granted by design approval.",
+    "reuse": "Relevant runtime/SDK/model/catalog/producer invariance plus existing261text/263M3 source maps and complete original native bundles preserve the established affected-combination policy. The old outer1047 guard correctly stays stale; reuse happens through separately pinned native inputs and current public consumers.",
+    "failures": "Normal finite GLM FAIL keeps its known usage and does not cancel the independently authorized protocol/visual inventory; no3PASS publication occurs. Unknown/pin/security/budget invalidity consumes its full cap and halts further paid work.",
+    "phases": "Strict same-source three GLM PASS publication and separate validated raw/views commits precede a fresh effects source freeze; fixed canonical six names/accounting survive directory/worktree/phase changes.",
+    "matrix": "Only newGLM3 plus derivedJev update four actual rows on a copy of the current17-row matrix, then default atomically; original13 rows/times remain unchanged. Final gate still consumes all17 identities and four effects with real four commands.",
+    "maintainability": "Reusing existing native job/execution/counter/capture/secure Root primitives is appropriate for the second fixed contract. Keep trusted internal two-contract parameters narrow; no mutable global ROOT rebinding, generic caller policy/regex engine, arbitrary round/name or compatibility shim."
+  },
+  "cautions": [
+    "All pending source gaps and committed keyless checks must finish before implementation freeze/approval question; final exact code and artifacts require separate Standards/Spec review. This design is not implementation approval.",
+    "A possible GLM-specific header wait change90→120 is not preapproved. It can stay within the six-process scope only after failure-first evidence, separate source review, unchanged retained generic/text/M3 relevant paths and preserved finite per-call/process/output limits. Applicability receipt must distinguish newly measured GLM assembly paths from the producer code of reused identities; do not silently expand its current whitelist.",
+    "Historical reader factoring may parameterize only a trusted fixed contract/original owner while preserving old authority and public rejection behavior. Any factoring that widens old key/plan/round authority must be rejected."
+  ],
+  "scope": "Read-only design review. No source implementation, tests, selected keys, network, freeze, marker, paid process or merge executed."
+}

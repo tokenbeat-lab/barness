@@ -1,0 +1,139 @@
+{
+  "cases": [
+    {
+      "phase": "red",
+      "case": "index-size",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "EXACT-BYTE-REFERENCE",
+          "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+          "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+          "bytes": 90847871
+        }
+      ]
+    },
+    {
+      "phase": "red",
+      "case": "inventory-compressed",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "EXACT-BYTE-REFERENCE",
+          "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+          "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+          "bytes": 90847871
+        }
+      ]
+    },
+    {
+      "phase": "red",
+      "case": "inventory-decoded",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "EXACT-BYTE-REFERENCE",
+          "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+          "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+          "bytes": 90847871
+        }
+      ]
+    },
+    {
+      "phase": "red",
+      "case": "seal-metadata",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "EXACT-BYTE-REFERENCE",
+          "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+          "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+          "bytes": 90847871
+        }
+      ]
+    },
+    {
+      "phase": "red",
+      "case": "output-grow",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "NON_AUTHORITATIVE_SYNTHETIC_RECIPE",
+          "bytes": 269484032,
+          "content": "all zero regular sparse file",
+          "hashFromActualOldConstructor": "053eadfdec682cf16f3f8704c7609c57868dd75765e08dc5a7491f5d06bcb74d"
+        }
+      ]
+    },
+    {
+      "phase": "green",
+      "case": "index-size",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": []
+    },
+    {
+      "phase": "green",
+      "case": "inventory-compressed",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": []
+    },
+    {
+      "phase": "green",
+      "case": "inventory-decoded",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": []
+    },
+    {
+      "phase": "green",
+      "case": "seal-metadata",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "EXACT-BYTE-REFERENCE",
+          "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz",
+          "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+          "bytes": 90847871
+        }
+      ]
+    },
+    {
+      "phase": "green",
+      "case": "output-grow",
+      "actualConstructorExit": 1,
+      "publicProbeToolExit": 0,
+      "largeOutputStorage": [
+        {
+          "kind": "NON_AUTHORITATIVE_SYNTHETIC_RECIPE",
+          "bytes": 269484032,
+          "content": "all zero regular sparse file",
+          "hashFromActualOldConstructor": null
+        }
+      ]
+    }
+  ],
+  "legitimateFactoryExit": 0,
+  "legitimateCounterfeitVerifierExit": 1,
+  "legitimateArchiveReference": {
+    "file": ".evidence/minimax-retained/ticket-17-final-payload/offline-tdd-raw-v2.tar.gz",
+    "bytes": 90847871,
+    "sha256": "80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34",
+    "prefix": "ticket17-offline-tdd"
+  },
+  "allOriginalsUnchanged": true,
+  "newNegativeCapsulesQualified": false,
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "zlibVersion": "1.2.12",
+  "zlibRuntime": "1.2.12",
+  "credentialsRead": false,
+  "paidCalls": 0,
+  "releaseCertified": false
+}

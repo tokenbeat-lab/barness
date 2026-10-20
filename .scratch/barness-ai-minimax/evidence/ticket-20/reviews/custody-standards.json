@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "kind": "derived-home-aliased-review-display",
+  "usableAsNativeVerificationInput": false,
+  "originalSHA256": "a9beb4a0546325d635c3459bf44bbfb41e5b5ae14a6c8233c7243522c13b7e5f",
+  "originalFile": ".evidence/minimax-retained/ticket-20-visual-unsent/independent-custody-standards.json",
+  "transformation": "literal HOME path replaced by $HOME",
+  "display": {
+    "axis": "Standards",
+    "scope": "Ticket20 immutable offline TDD custody; data/docs only",
+    "base": "e93063c69bb854db6cd1d783a161acdabdd885ba",
+    "reviewed_commit": "2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
+    "reviewed_source_commit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+    "diff_command": "git diff e93063c69bb854db6cd1d783a161acdabdd885ba...2ddaa6e11fe4e858888b40e0f56076b44e1e33f3",
+    "diff_sha256": "7ebf2e7c5a91ac3c77cfe77376d1454d589e98d02f47c4d7e85f77e34ecf3877",
+    "findings": [],
+    "finding_count": 0,
+    "narrative": "No documented-standard violations or actionable smell findings. The 22-file diff retains the offline cancellation TDD history without changing runtime code, original vendor evidence, selectors or the support matrix. Independent pinned full-reader verification exited 0 for all three complete capsules: 203,335 regular members and 995,568,615 payload bytes. Their 203,308 original raw inputs are disjoint, exactly cover the private raw tree, and independently rehash unchanged. All 45 command receipts have exact integer exits, stable source guards, matching stdout hashes and chronological closure. Setup failures, failed GREEN runs and later behavioral RED results remain failures. Null-access RED accurately records main 2 PASS/2 FAIL and three leaves 2 PASS/1 FAIL; final ordinary/race each record 23 PASS, audit0, with both vet exits0. All 1,040 measured compiler/JSON/module files and the four final before/after snapshots match committed d02 bytes; the documented a203 HEAD plus WIP timing is honest. Derived Jev fixtures remain labelled consumer fixtures. Tracked text and decoded gzip contain no literal home paths. Existing pinned bounded readers, fixed limits and no-extraction behavior are unchanged. This evidence grants no current live or release qualification.",
+    "standards": [
+      "AGENTS.md principles 3,4,5,7,8,9 and failure-first test principles",
+      "GLOSSARY.md Logical Call, Attempt, Credential Snapshot, Call Attribution",
+      "docs/adr/0047-current-source-formal-renewal.md",
+      "$HOME/.agents/skills/code-review/SKILL.md twelve heuristic baseline"
+    ],
+    "public_readback": {
+      "argv": [
+        "python3",
+        "-B",
+        ".scratch/barness-ai-minimax/evidence/ticket-20/verify.py",
+        "--common-root",
+        "$COMMON_ROOT"
+      ],
+      "exitCode": 0,
+      "toolSession": 36058,
+      "result": {
+        "verified": true,
+        "sourceCommit": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+        "capsules": [
+          {
+            "capsule": "core",
+            "files": 90632,
+            "entries": 90632,
+            "rawBytes": 444540791,
+            "decodedTarBytes": 604405760,
+            "archiveBytes": 133170950,
+            "archiveSHA256": "e3b20e4eda1a2fdcc33a43558b15cca0a733af189dcbedff6db149a3ee55a9fa"
+          },
+          {
+            "capsule": "ordinary",
+            "files": 63821,
+            "entries": 63821,
+            "rawBytes": 311290348,
+            "decodedTarBytes": 425789440,
+            "archiveBytes": 87323271,
+            "archiveSHA256": "bbaea5407aa0d593936ec117e165a1d2267bcec74e7c5227ed6c01766aa0ba6a"
+          },
+          {
+            "capsule": "race",
+            "files": 48882,
+            "entries": 48882,
+            "rawBytes": 239737476,
+            "decodedTarBytes": 327321600,
+            "archiveBytes": 66772084,
+            "archiveSHA256": "c5c6687265e011b4e181dffde93b5b87599710d0d75a121fb2a5ea54cc44645c"
+          }
+        ],
+        "paidCalls": 0,
+        "credentialsRead": false,
+        "scope": "offline TDD history only; no current live or release qualification"
+      }
+    },
+    "independent_checks": {
+      "path": "/tmp/barness-ticket20-custody-independent-checks.json",
+      "sha256": "7df6efecc7fa550b9565305ce8e7061aee3097ad9e6e6510a5b737c9dd91bee0",
+      "rawOriginalFiles": 203308,
+      "rawOriginalBytes": 994928376,
+      "numericCommands": 45,
+      "compilerFilesEqualCommitted": 1040,
+      "trackedDecodedHomeMatches": 0
+    },
+    "pins": {
+      "indexSHA256": "a5c843f3379683f9058c8edd8d2e70aa385225505fbb6c18af253a2600e96e0d",
+      "verifierSHA256": "86f41c859e649728ff2c81892e3ccf5bfcc6dd105b3213767633e24930c87ad4",
+      "fixedFDReader": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+      "fixedFullReader": "3017cba1d4ac09e0a203c68ac768a4d508b861fa862aa04c9ca4550efebd9328",
+      "archives": {
+        "core": {
+          "file": ".evidence/minimax-retained/ticket-20-visual-unsent/core.tar.gz",
+          "bytes": 133170950,
+          "sha256": "e3b20e4eda1a2fdcc33a43558b15cca0a733af189dcbedff6db149a3ee55a9fa",
+          "prefix": "ticket20-core"
+        },
+        "ordinary": {
+          "file": ".evidence/minimax-retained/ticket-20-visual-unsent/ordinary.tar.gz",
+          "bytes": 87323271,
+          "sha256": "bbaea5407aa0d593936ec117e165a1d2267bcec74e7c5227ed6c01766aa0ba6a",
+          "prefix": "ticket20-ordinary"
+        },
+        "race": {
+          "file": ".evidence/minimax-retained/ticket-20-visual-unsent/race.tar.gz",
+          "bytes": 66772084,
+          "sha256": "c5c6687265e011b4e181dffde93b5b87599710d0d75a121fb2a5ea54cc44645c",
+          "prefix": "ticket20-race"
+        }
+      }
+    },
+    "limitations": [
+      "Standards custody approval only; independent Spec report remains separate.",
+      "No captured command, native/project test, network request, credential read or paid call executed."
+    ]
+  }
+}

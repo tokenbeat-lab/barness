@@ -1,0 +1,7 @@
+{
+  "testedProducerSHA256": "a65f069f7c995c09a4a63106a602369d5ef584fb0debbd0b31a6b9e1fbf1af2e",
+  "currentProducerSHA256": "d4f971c81411a8c86db29001c7d7a4392e85b611e694fb8a6ab01b9147ed2feb",
+  "onlyBlankLineWhitespaceChanged": true,
+  "pythonASTIdentical": true,
+  "diff": "--- actual-tested-producer\n+++ current-producer\n@@ -38,7 +38,7 @@\n  metadata=('source-proof.json','final-checks.json','original-spec-review.json','original-standards-review.json','failure-inventory.md','tool-fixture-repair-source-proof.json','tool-guard-reapplied-proof.json','trace-expansion.json','trace-byte-delta.json','trace-before.json.gz','trace-after.json.gz')\n  for name in metadata:selected['final/'+name]=BASE/name\n  selected['controllers/runner.py']=Path('/tmp/barness-ticket17-run.py').resolve();selected['controllers/freeze.py']=Path(__file__)\n- \n+\n  if len(selected)>full.LIMITS['files']:raise ValueError('final snapshot file bound')\n  pins={};prefix='ticket17-offline-tdd';observed=[]\n  archive.parent.mkdir(parents=True,exist_ok=True)\n"
+}

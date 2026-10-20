@@ -1,0 +1,89 @@
+--- FAIL: TestVisualEvaluationProxyProcess (2.84s)
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-0 (1.02s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-0] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-1 (0.58s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-1] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-2 (0.10s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-2] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-3 (0.09s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-3] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-4 (0.10s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-4] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-5 (0.09s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-5] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-6 (0.09s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-6] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-7 (0.10s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-7] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-8 (0.10s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-8] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-9 (0.09s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-9] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/invalid-10 (0.10s)
+        visual_proxy_process_test.go:28: [VQ12-proxy-invalid-10] proxy refused before authorization and evidence: invalid proxy reached later stages
+    --- FAIL: TestVisualEvaluationProxyProcess/controlled (0.10s)
+        visual_proxy_process_test.go:39: [VQ12-proxy-controlled-rejected] proxy requires actual live execution: proxy accepted outside live execution
+    --- FAIL: TestVisualEvaluationProxyProcess/verify (0.09s)
+        visual_proxy_process_test.go:39: [VQ12-proxy-verify-rejected] proxy requires actual live execution: proxy accepted outside live execution
+    --- FAIL: TestVisualEvaluationProxyProcess/connect-jev (0.09s)
+        visual_proxy_process_test.go:65: [VQ12-proxy-connect-jev] explicit proxy reaches only official TLS target: CONNECT counts=0/0; flag provided but not defined: -proxy
+            Usage of $HOME/Library/Caches/go-build/57/5725d3078a120c14d784c467b608eb3d049ecfc1833fcf5bce22050a1fc3133b-d/visualeval:
+              -authorization string
+                    live Host authorization JSON; sole key is BARNESS_VISUAL_KEY
+              -call-ms int
+                    controlled-only shorter call deadline (default 30000)
+              -calls int
+                    controlled-only lower call limit (default 12)
+              -entry string
+                    plain or hooked (default "plain")
+              -formal
+                    use the current formal catalog for the selected fixed classifier; preserve candidate fixtures
+              -mode string
+                    controlled or live (requires explicit isolated authorization) (default "controlled")
+              -out string
+                    new evidence directory
+              -require-live
+                    verification must contain complete real quality evidence
+              -responses string
+                    controlled-only native response script
+              -route string
+                    jev or decisions (default "jev")
+              -verify string
+                    independently verify an existing bundle without network
+              -work-ms int
+                    controlled-only shorter work deadline (default 225000)
+            exit status 2
+    --- FAIL: TestVisualEvaluationProxyProcess/connect-decisions (0.10s)
+        visual_proxy_process_test.go:65: [VQ12-proxy-connect-decisions] explicit proxy reaches only official TLS target: CONNECT counts=0/0; flag provided but not defined: -proxy
+            Usage of $HOME/Library/Caches/go-build/57/5725d3078a120c14d784c467b608eb3d049ecfc1833fcf5bce22050a1fc3133b-d/visualeval:
+              -authorization string
+                    live Host authorization JSON; sole key is BARNESS_VISUAL_KEY
+              -call-ms int
+                    controlled-only shorter call deadline (default 30000)
+              -calls int
+                    controlled-only lower call limit (default 12)
+              -entry string
+                    plain or hooked (default "plain")
+              -formal
+                    use the current formal catalog for the selected fixed classifier; preserve candidate fixtures
+              -mode string
+                    controlled or live (requires explicit isolated authorization) (default "controlled")
+              -out string
+                    new evidence directory
+              -require-live
+                    verification must contain complete real quality evidence
+              -responses string
+                    controlled-only native response script
+              -route string
+                    jev or decisions (default "jev")
+              -verify string
+                    independently verify an existing bundle without network
+              -work-ms int
+                    controlled-only shorter work deadline (default 225000)
+            exit status 2
+FAIL
+barness-ai evidence bundle: $WORKTREE/.evidence/barness-ai/20261018T074336.043380000Z
+redaction audit: VQ12-proxy-connect-decisions/assertions.json [environment] the home directory appears 1 time(s)
+redaction audit: VQ12-proxy-connect-jev/assertions.json [environment] the home directory appears 1 time(s)
+FAIL    github.com/tokenbeat-lab/barness/ai/e2e 3.451s
+FAIL

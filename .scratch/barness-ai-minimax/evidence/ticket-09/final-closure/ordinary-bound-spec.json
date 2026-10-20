@@ -1,0 +1,550 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_CREATOR_BOUND_REPAIR_ONLY",
+  "baseCommit": "27f44f7296f9edf1545c3775e2c5eac3b67012ee",
+  "reviewedCommit": "ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+  "actualSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff 27f44f7296f9edf1545c3775e2c5eac3b67012ee...ca67bedb001217a4b585e798b0feacfa3ee02c1a",
+  "commitsCommand": "git log 27f44f7296f9edf1545c3775e2c5eac3b67012ee..ca67bedb001217a4b585e798b0feacfa3ee02c1a --oneline",
+  "diffSHA256": "aa6a33ccd0c891ae98870996ca64a0d27fdee759e9a16565d7209a6ca6bffcc4",
+  "findings": [],
+  "previousSpecFinding": "ORDINARY-SPEC-01 remains cleared",
+  "standardsAxisClosureNotClaimed": true,
+  "report": "Spec narrow rereview: PASS, no new Spec finding. Exact27f44f7…ca67bed,31 ordinary-retention files; ticket17 WIP and B race/outer remain outside scope.\n\nThe fixture creator now fstats the same already no-follow/nonblocking regular descriptor before hashing. Its size must equal the immutable index’s114797350 bytes and stay within the existing256MiB compressed cap. Cumulative reads stop above declared/fixed limits and must finish at the declared count before hash verification. Existing regular-file, decoded2GiB/member64MiB/payload and inventory limits remain unchanged; no larger bound or substitute descriptor is introduced.\n\nFailure-first records accurately distinguish a missing early bound from native acceptance. Both pre-code oversized/wrong-size public processes exited1 for wrong archive hash, rather than accepting native data. After the minimal creator change, the same two finite inputs exit1 for early size refusal; corrected four-probe wrapper exits0. FIFO/link already refused before implementation and remain refused. The first FIFO expectation mismatch is explicitly retained alongside corrected pre-code RED2, with unchanged creator bytes across both RED stages.\n\nIndependent metadata/raw-log hashes, before/after creator snapshots and actual argv/reasons agree. Original typed-exit Spec023b… and Standards24a5… reports are preserved verbatim. The earlier ORDINARY-SPEC-01 exact-int closure remains intact; this Spec report does not replace the independent Standards axis.\n\nOriginal archive9c8c1bcb… and both non-authoritative boolean/float fixture archive hashes/byte counts match their previously fully streamed pins; no redundant full scan was performed. Original index, inventory, source, summary, consumer, exact-int creation guard and two negative inventories are byte-identical. The final original public verifier receipt remains numeric0, reporting native ordinary int1 and the same12445PASS/6FAIL. Raw bytes and failed outcomes were not rewritten, per T04’s “失败历史不覆盖”.\n\nOnly retention creation bounds are addressed. No Go PASS, race/outer verdict, current certificate, new source applicability, budget or paid authority is granted. No project/captured program/test/verifier, Key, network, repository edit or merge by reviewer.",
+  "reportBodyWords": 284,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/README.md": {
+      "bytes": 6619,
+      "sha256": "2f5c193c6bdf00585d5c182a2fff2be0242353e0fa7ec140565f0aea907e674c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/SHA256SUMS": {
+      "bytes": 9953,
+      "sha256": "f2861cd9ce7b3cc47baa16f42eeeb8fcb26bae18256a2950c1c6772884a91741"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py": {
+      "bytes": 6963,
+      "sha256": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/check-probe-bounds.py": {
+      "bytes": 2207,
+      "sha256": "51bb941926f7501c8270dedef046f746992c2580ee2915006ff32d6c4a1e6c4e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/creator.py.txt": {
+      "bytes": 6963,
+      "sha256": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/fifo.log.gz": {
+      "bytes": 534,
+      "sha256": "b6e57a98fd116aa863672b67c9ad2f8da44cd2fd0bdb3a5b521486d26e71911d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/link.log.gz": {
+      "bytes": 562,
+      "sha256": "907f2c197cb1c8ea12c9c4288cfd2367bcba7fb2ec324abaaf961e65b6024551"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/oversize.log.gz": {
+      "bytes": 514,
+      "sha256": "7104a58272f41fc5691352bf8277a77ffc4680df7d76feac6f0a0e229f7b7082"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/public-wrapper.log.gz": {
+      "bytes": 776,
+      "sha256": "f0eeeffb9b104b48794a5f0a6b8b7876c1bf432a49f9ac5943e55ea7465cd2ce"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/results.json": {
+      "bytes": 3816,
+      "sha256": "b1bb10d8cea6170f3c6090ba4881044e5301133db8cd491d0a310c2d932a5f38"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/green-1/wrong-size.log.gz": {
+      "bytes": 514,
+      "sha256": "7104a58272f41fc5691352bf8277a77ffc4680df7d76feac6f0a0e229f7b7082"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/history.json": {
+      "bytes": 3371,
+      "sha256": "b5e030211d69a0f73140087c0ec2ce9b11087f3c71c261e13e82cc5e0058bceb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-typed-exit-spec-review.json": {
+      "bytes": 30509,
+      "sha256": "023b902e715cea85a9195744b05664702f942162f272059e11588ffca2405483"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-typed-exit-standards-review.json": {
+      "bytes": 19072,
+      "sha256": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-verification-command.json": {
+      "bytes": 314,
+      "sha256": "88e98b2dcb89e9efbcc669793d45ca89cae1e0b2baf7c27b28856bbb981384c0"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/original-verification-output.json": {
+      "bytes": 675,
+      "sha256": "de11c069f24468e82512540a3e9977eda242cc2ebb751e02da71cf1f8c65d685"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/creator.py.txt": {
+      "bytes": 6535,
+      "sha256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/fifo.log.gz": {
+      "bytes": 533,
+      "sha256": "9c09a94c21dfecc4c3d29a5f9cce0f175a8a720133f5af02050b561b2224bafb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/link.log.gz": {
+      "bytes": 562,
+      "sha256": "6f72d784fedce12d2bc8b09b13c1d27db206e633b002cdfbd6cf258b2a0440ed"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/oversize.log.gz": {
+      "bytes": 483,
+      "sha256": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/public-wrapper.log.gz": {
+      "bytes": 1024,
+      "sha256": "89d3a4d801d954a4fc8dbe4a46fe86e48e735aa2f28ffd1ca8185c20fb9bb1ff"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/results.json": {
+      "bytes": 3804,
+      "sha256": "a56039a995a8bc39360da3c51dff33728093a421fab32008f6792422a7b591c6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-1/wrong-size.log.gz": {
+      "bytes": 483,
+      "sha256": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/creator.py.txt": {
+      "bytes": 6535,
+      "sha256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/fifo.log.gz": {
+      "bytes": 533,
+      "sha256": "9c09a94c21dfecc4c3d29a5f9cce0f175a8a720133f5af02050b561b2224bafb"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/link.log.gz": {
+      "bytes": 562,
+      "sha256": "6f72d784fedce12d2bc8b09b13c1d27db206e633b002cdfbd6cf258b2a0440ed"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/oversize.log.gz": {
+      "bytes": 483,
+      "sha256": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/public-wrapper.log.gz": {
+      "bytes": 1025,
+      "sha256": "26faa3b5c7170c29699ee652365f0c5cfd1f2a490b3b72ee6beb40d19b8b0bc4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/results.json": {
+      "bytes": 3804,
+      "sha256": "4feb3c7cb06d800bd00417b80cae6e85f0de36ea50d9d10eecca85078773bdae"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/creator-bound-repair/red-2/wrong-size.log.gz": {
+      "bytes": 483,
+      "sha256": "0fa56f708617d78fb6dfd77f920b5bbe904c54e79147adc0ac8cf2ee17cdf1f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/failure-inventory.md": {
+      "bytes": 2428,
+      "sha256": "36d2ab210c0b559117f61623df9271a36dfa4d87db540a14ebd5e8045bac0166"
+    }
+  },
+  "originalReports": {
+    "standards": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943",
+    "spec": "023b902e715cea85a9195744b05664702f942162f272059e11588ffca2405483"
+  },
+  "publicProbeStages": {
+    "red-1": {
+      "results": {
+        "creatorSHA256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+        "cases": [
+          {
+            "case": "oversize",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-1/oversize/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-1/oversize/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": true,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false,
+            "seconds": 0.3035204168409109,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2"
+          },
+          {
+            "case": "wrong-size",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-1/wrong-size/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-1/wrong-size/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": true,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false,
+            "seconds": 0.1853035418316722,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2"
+          },
+          {
+            "case": "fifo",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-1/fifo/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-1/fifo/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": false,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false,
+            "seconds": 0.19833041680976748,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "ad52df41efc65a69b68a4828aa03d59562cddb12512ec8cbbf0ca102d518493b"
+          },
+          {
+            "case": "link",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-1/link/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-1/link/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": false,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true,
+            "seconds": 0.18918570782989264,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "60f0860e210aa191ed41c92fa7922ed693b5a616aedc0dd71a5c72009c6d6c2a"
+          }
+        ],
+        "credentialsRead": false,
+        "paidCalls": 0,
+        "originalNativeTouched": false
+      },
+      "logs": {
+        "oversize": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 19, in prepare\n    if digest.hexdigest()!=EXPECTED:raise ValueError('original archive pin differs')\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: original archive pin differs\n",
+        "wrong-size": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 19, in prepare\n    if digest.hexdigest()!=EXPECTED:raise ValueError('original archive pin differs')\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: original archive pin differs\n",
+        "fifo": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 16, in prepare\n    with b.opened(common,REL) as source:\n         ~~~~~~~~^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 33, in opened\n    if not stat.S_ISREG(info.st_mode):raise ValueError('regular artifact required')\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: regular artifact required\n",
+        "link": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 16, in prepare\n    with b.opened(common,REL) as source:\n         ~~~~~~~~^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 31, in opened\n    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child\nOSError: [Errno 62] Too many levels of symbolic links: 'incomplete-ordinary-raw.tar.gz'\n"
+      },
+      "wrapperSHA256": "722f0982c3657b000197564442b0c1c9cc96d819bd8dac13d23ae037d5d61c78",
+      "creatorSHA256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79"
+    },
+    "red-2": {
+      "results": {
+        "creatorSHA256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79",
+        "cases": [
+          {
+            "case": "oversize",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-2/oversize/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-2/oversize/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": true,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false,
+            "seconds": 0.28823808301240206,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2"
+          },
+          {
+            "case": "wrong-size",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-2/wrong-size/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-2/wrong-size/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": true,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": false,
+            "seconds": 0.18061020784080029,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "18614a002f78343875366bd390b4e5c986d9f3f68492945f6ff8a451179932e2"
+          },
+          {
+            "case": "fifo",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-2/fifo/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-2/fifo/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": false,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true,
+            "seconds": 0.1828607921488583,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "ad52df41efc65a69b68a4828aa03d59562cddb12512ec8cbbf0ca102d518493b"
+          },
+          {
+            "case": "link",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-red-2/link/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-red-2/link/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": false,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true,
+            "seconds": 0.18640341656282544,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "60f0860e210aa191ed41c92fa7922ed693b5a616aedc0dd71a5c72009c6d6c2a"
+          }
+        ],
+        "credentialsRead": false,
+        "paidCalls": 0,
+        "originalNativeTouched": false
+      },
+      "logs": {
+        "oversize": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 19, in prepare\n    if digest.hexdigest()!=EXPECTED:raise ValueError('original archive pin differs')\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: original archive pin differs\n",
+        "wrong-size": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 19, in prepare\n    if digest.hexdigest()!=EXPECTED:raise ValueError('original archive pin differs')\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: original archive pin differs\n",
+        "fifo": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 16, in prepare\n    with b.opened(common,REL) as source:\n         ~~~~~~~~^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 33, in opened\n    if not stat.S_ISREG(info.st_mode):raise ValueError('regular artifact required')\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: regular artifact required\n",
+        "link": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 56, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 48, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 16, in prepare\n    with b.opened(common,REL) as source:\n         ~~~~~~~~^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 31, in opened\n    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child\nOSError: [Errno 62] Too many levels of symbolic links: 'incomplete-ordinary-raw.tar.gz'\n"
+      },
+      "wrapperSHA256": "af9392e5c6b62345952f2323195c42c89121948f7d395eae79decaf532d09ccd",
+      "creatorSHA256": "b543e26b1aa74c5d34c75a8320c4593100670038050a2229b1db4f59a9909e79"
+    },
+    "green-1": {
+      "results": {
+        "creatorSHA256": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed",
+        "cases": [
+          {
+            "case": "oversize",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-green-1/oversize/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-green-1/oversize/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": true,
+            "actualEarlySizeRefusal": true,
+            "guardPassed": true,
+            "seconds": 0.19416841631755233,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "230adde1ba6c495cb71b29b918a36dceaa9fa86d8a5280013c73bc53a3e32475"
+          },
+          {
+            "case": "wrong-size",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-green-1/wrong-size/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-green-1/wrong-size/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": true,
+            "actualEarlySizeRefusal": true,
+            "guardPassed": true,
+            "seconds": 0.18888395885005593,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "230adde1ba6c495cb71b29b918a36dceaa9fa86d8a5280013c73bc53a3e32475"
+          },
+          {
+            "case": "fifo",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-green-1/fifo/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-green-1/fifo/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": false,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true,
+            "seconds": 0.1853504586033523,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "cefc4b60a7f094b3597a51d7150bd5b501837f17f4bf969ee94cb491b2a076d0"
+          },
+          {
+            "case": "link",
+            "argv": [
+              "/opt/homebrew/opt/python@3.14/bin/python3.14",
+              "-B",
+              "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py",
+              "--common-root",
+              "/tmp/barness-ordinary-creator-bounds-green-1/link/common",
+              "--work-output",
+              "/tmp/barness-ordinary-creator-bounds-green-1/link/work",
+              "--mode",
+              "prepare",
+              "--kind",
+              "boolean"
+            ],
+            "actualPublicExit": 1,
+            "expectedEarlySizeRefusal": false,
+            "actualEarlySizeRefusal": false,
+            "guardPassed": true,
+            "seconds": 0.18090108362957835,
+            "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderrSHA256": "030587edf36c2fbfab421a403e6de0a4d57cc12ea137d23bcddca2a4bb96d8f7"
+          }
+        ],
+        "credentialsRead": false,
+        "paidCalls": 0,
+        "originalNativeTouched": false
+      },
+      "logs": {
+        "oversize": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 62, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 54, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 18, in prepare\n    if type(expected) is not int or size!=expected or size>full.LIMITS['compressedBytes']:raise ValueError('compressed archive size differs')\n                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: compressed archive size differs\n",
+        "wrong-size": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 62, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 54, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 18, in prepare\n    if type(expected) is not int or size!=expected or size>full.LIMITS['compressedBytes']:raise ValueError('compressed archive size differs')\n                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: compressed archive size differs\n",
+        "fifo": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 62, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 54, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 16, in prepare\n    with b.opened(common,REL) as source:\n         ~~~~~~~~^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 33, in opened\n    if not stat.S_ISREG(info.st_mode):raise ValueError('regular artifact required')\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: regular artifact required\n",
+        "link": "Traceback (most recent call last):\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 62, in <module>\n    p=argparse.ArgumentParser();p.add_argument('--common-root',type=Path,required=True);p.add_argument('--work-output',type=Path,required=True);p.add_argument('--mode',choices=('prepare','check'),required=True);p.add_argument('--kind',choices=('boolean','float'),required=True);a=p.parse_args();run(a.common_root,a.work_output,a.mode,a.kind)\n                                                                                                                                                                                                                                                                                                       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 54, in run\n    base=prepare(common,root,kind) if mode=='prepare' else root/'.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary'\n         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/boolean-receipt-probe.py\", line 16, in prepare\n    with b.opened(common,REL) as source:\n         ~~~~~~~~^^^^^^^^^^^^\n  File \"/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py\", line 31, in opened\n    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child\nOSError: [Errno 62] Too many levels of symbolic links: 'incomplete-ordinary-raw.tar.gz'\n"
+      },
+      "wrapperSHA256": "b1bb10d8cea6170f3c6090ba4881044e5301133db8cd491d0a310c2d932a5f38",
+      "creatorSHA256": "58f99f58927da30a0589d9ba0fb1b54efe05d613f7e22b3dd9fe175dcf7c43ed"
+    }
+  },
+  "archivesUnchanged": [
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-raw.tar.gz",
+      "bytes": 114797350,
+      "sha256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd",
+      "prefix": "repair-incomplete-ordinary"
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-boolean-negative-raw.tar.gz",
+      "bytes": 114797347,
+      "sha256": "ff7ea49e9fdec8f8004a8c98bd73cd9273f38d5c2d25ff1ed32d5046fe06ad53",
+      "prefix": "repair-incomplete-ordinary"
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-15-new-actual/incomplete-ordinary-float-negative-raw.tar.gz",
+      "bytes": 114797346,
+      "sha256": "a294c835e078d6eeac61454f939476115715f0f9b7acc35e0cdad9f33b9f4373",
+      "prefix": "repair-incomplete-ordinary"
+    }
+  ],
+  "originalPublicVerification": {
+    "command": {
+      "argv": [
+        "python3",
+        "-B",
+        ".scratch/barness-ai-minimax/evidence/ticket-15/new-actual/final-gate/ordinary/verify.py",
+        "--common-root",
+        "/Users/cyber/RestoX/barness"
+      ],
+      "actualExitCode": 0,
+      "outputSHA256": "de11c069f24468e82512540a3e9977eda242cc2ebb751e02da71cf1f8c65d685",
+      "credentialsRead": false,
+      "paidCalls": 0
+    },
+    "outputSHA256": "de11c069f24468e82512540a3e9977eda242cc2ebb751e02da71cf1f8c65d685",
+    "output": {
+      "verified": true,
+      "sourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+      "ordinaryExit": 1,
+      "cases": 12451,
+      "statuses": {
+        "PASS": 12445,
+        "FAIL": 6
+      },
+      "truePIDiff": 868,
+      "allNamedPressureCases": 29,
+      "requiredPRESSURERegexCases": 15,
+      "artifactReferences": 98710,
+      "archive": {
+        "files": 133177,
+        "entries": 133177,
+        "rawBytes": 1308872132,
+        "decodedTarBytes": 1543362560,
+        "archiveBytes": 114797350,
+        "archiveSHA256": "9c8c1bcb79b3ea07c93a276f25f2d97768eb937c1b8008c012ae6fdfe934cacd"
+      },
+      "raceCaptured": false,
+      "gateVerdictCaptured": false,
+      "releaseCertified": false,
+      "credentialsRead": false,
+      "paidCalls": 0
+    }
+  },
+  "nativeMetadataAndLimitsUnchanged": true,
+  "scopeConstraints": {
+    "BRead": false,
+    "ticket17Reviewed": false,
+    "projectOrCapturedProgramsOrTestsExecuted": false,
+    "keysRead": false,
+    "networkCalls": 0,
+    "repoChanged": false,
+    "releaseCertified": false
+  }
+}

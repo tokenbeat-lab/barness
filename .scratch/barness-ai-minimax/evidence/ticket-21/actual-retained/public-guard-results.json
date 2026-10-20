@@ -1,0 +1,51 @@
+[
+  {
+    "case": "valid-control",
+    "exitCode": 0,
+    "expectedRejection": null,
+    "outputSHA256": "ca24bc339f7bacf115ee377038363d0cc54e277820b20ad62d820aab146fd803",
+    "passed": true
+  },
+  {
+    "case": "schema-bool",
+    "exitCode": 1,
+    "expectedRejection": "exact integer measurement differs",
+    "outputSHA256": "fb8d670b81d1af7d723f090910e4ce1d48a94ea1922620ac97e6ea53f83544db",
+    "passed": true
+  },
+  {
+    "case": "source-drift",
+    "exitCode": 1,
+    "expectedRejection": "fixed custody source/round differs",
+    "outputSHA256": "7d92068dca778804f27f98036aa4baf9c1549c374a131fec6bce0e9efc23eca9",
+    "passed": true
+  },
+  {
+    "case": "archive-traversal",
+    "exitCode": 1,
+    "expectedRejection": "fixed actual archive/source authority differs",
+    "outputSHA256": "bb35f5b78ea2ca81f3a1d17b1d59f05138ef43845969b8be94e649060f792504",
+    "passed": true
+  },
+  {
+    "case": "archive-size-float",
+    "exitCode": 1,
+    "expectedRejection": "exact integer measurement differs",
+    "outputSHA256": "67579f05e54d48b3ad4176bed5bec6dbd7c599d77cda2d8ee5d6dd55201f2a83",
+    "passed": true
+  },
+  {
+    "case": "inventory-overlimit",
+    "exitCode": 1,
+    "expectedRejection": "artifact size limit",
+    "outputSHA256": "bb87ed29035d13729fd450403775f9a73f8386776dc826f026bdd4afb9dfb01e",
+    "passed": true
+  },
+  {
+    "case": "archive-symlink",
+    "exitCode": 1,
+    "expectedRejection": "too many levels of symbolic links",
+    "outputSHA256": "2e8873748f08fb200a26a31de83348223b5dc4cbc109b378f77cab40ca83e935",
+    "passed": true
+  }
+]

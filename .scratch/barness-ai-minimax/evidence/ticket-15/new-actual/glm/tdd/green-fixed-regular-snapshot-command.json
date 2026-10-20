@@ -1,0 +1,27 @@
+{
+  "state": "COMPLETED",
+  "name": "green-fixed-regular-snapshot",
+  "argv": [
+    "python3",
+    "-B",
+    "$REPO/.scratch/barness-ai-minimax/evidence/ticket-15/new-actual/glm/freeze.py"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 600,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T11:49:49.395448+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 12.041122583206743,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

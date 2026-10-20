@@ -1,0 +1,42 @@
+{
+  "axis": "Spec",
+  "status": "PASS_SOURCE_ONLY",
+  "reviewedAt": "2026-10-19T05:15:59.199224+00:00",
+  "base": "5ba420231082f1b6df2ce6ec9d7d3bd88a079cef",
+  "head": "f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e",
+  "diffCommand": "git diff 5ba420231082f1b6df2ce6ec9d7d3bd88a079cef...f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e",
+  "diffSHA256": "3bc9df4c0b8516de7d1274e640e12881afcc7847f89c871795dbb156899b4066",
+  "commitCommand": "git log 5ba420231082f1b6df2ce6ec9d7d3bd88a079cef..f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e --oneline",
+  "commits": [
+    "f599c6cee2a8c7a666cfbcccb5ad44ccd94b575e feat: bound MiniMax formal source renewal to one approved grant",
+    "751ad941a7dcda4392ee9dd73ff6089f8c846f0e docs: scope current-source eleven-group renewal"
+  ],
+  "policyCommit": "1c366ab3338378e15b711d379777cd58a9082930",
+  "specSources": [
+    ".scratch/barness-ai-minimax/spec.md:R26/R27",
+    ".scratch/barness-ai-minimax/issues/19-current-source-eleven-renewal.md",
+    "docs/adr/0047-current-source-formal-renewal.md"
+  ],
+  "findings": [],
+  "report": "PASS — native source scope, 0 findings. The fixed renewal preserves the original stage/identity caps and thirteen-case inventory. R26 requires “原candidate/formal账本、旧canonical收据及旧消费均保留” and “每个身份只领取一个新执行session”; separate canonical renewal storage binds original39/36 digest/tail, one fixed ID, new216/252 human approval, exact review/source/binary/plan pins, and exclusive per-route session claims. Claims reject a new session, missing/deleted ledger, changed grant and unregistered repeat, while retaining existing registered same-session reruns within unchanged60/72 and20/24 limits.\n\nR26 requires “正式报告绑定实际 SDK、执行源码完整集合/依赖” and “candidate/controlled/capture replay 不发布正式 PASS”. Existing ExecutionSource selection is retained; active execution requires the approved committed HEAD. Later verification permits unselected data/docs commits only when the complete selected source set remains byte-identical and committed. The malformed commit is validated as40hex before Git. Own reports and receipts bind renewal/grant identity; imported grants and portable old-origin fallback cannot establish renewal authority. Original report and receipt fields remain compatible without rewriting historical bytes.\n\nNo additional mandatory behavior was removed, scope expansion found, or source implementation defect identified. This review covers f599c6c only. It does not approve the mutable outer launcher, a real grant, budget use, current vendor qualification, retention custody, or release certification. Latest single-case Messages PASS and historical full failures remain separate. The latest policy permitting remaining8 after three closed GLM with known FAIL requires an unchanged-source/no-publication outer branch; that branch is outside this native diff and awaits exact final outer review.",
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/issues/19-current-source-eleven-renewal.md": "487618f39e8eb3c77865373a4074ca819df76fdd892f94a09770a5ba42b4421e",
+    "ai/internal/testkit/minimaxlive/ledger.go": "115f74eaa011bdca6b131da391a846910b1d3cd3c45445deb58f132ad84bba49",
+    "ai/internal/testkit/minimaxlive/ledger_evidence.go": "883536c0a8816b370ebee629a676d577a2c57a9756b53bb5b93786496ee0bca8",
+    "ai/internal/testkit/minimaxlive/origin.go": "b2a65ccf9a43a191db46d657b8d4a32c35533ed77fac1750e5fef199d281e52c",
+    "ai/internal/testkit/minimaxlive/renewal.go": "7b65d54824e81534e77dfa3f1519e2f19d58bc25c46edb80ccde34a93de8274c",
+    "ai/internal/testkit/minimaxlive/renewal_ledger.go": "cd76163c68a8b24797ba0bc7b8b4c3d719334d002c7a8e89c34e3313b1522f35",
+    "ai/internal/testkit/minimaxlive/renewal_process_test.go": "9f3c10294efa78be0305dca9ce4a8346cdf7d8ce44dd200af71a54b3a8ed67e3",
+    "ai/internal/testkit/minimaxlive/renewal_report.go": "c4f9ef2c763ea96cd21d85006991f6667bc16047e6c74d49407f8e180d2b0914",
+    "ai/internal/testkit/minimaxlive/renewal_report_test.go": "3bdda4bfac874fccf17382e511859f2bd5e290dc22caeb1cf5873b2f3063ad79",
+    "ai/internal/testkit/minimaxlive/renewal_test.go": "e07c52e8a7a83970094ed377e21b29c3946a6bc35cd4c2710682c49a53691004",
+    "ai/internal/testkit/minimaxlive/report.go": "c0c938c1d3c4a8875abd432b477e0a49c63026f8bcd64c8b3302e40f5d9dfdcc",
+    "ai/internal/testkit/minimaxlive/source.go": "d390eea4bdc3e16ff0900f08b7afc8f46817908ad73aaebec1ad89fc7af9ef09",
+    "ai/internal/testkit/minimaxlive/stage_path.go": "78e68e2d75a1dd3cf919ec5a706ea72667b6a427186a6f05f6c22e2cf86d184e",
+    "ai/internal/testkit/minimaxlive/verify.go": "e0f42f51974990a523d6de11714d106914deadf95a544bd318f2dbfb487732c8",
+    "ai/live/cmd/minimaxverify/main.go": "46cf9612fac8124bb8ebda9afca803b126f25dda5026eb1b623ca5d82cc85f67",
+    "ai/live/minimax_config_test.go": "55118e7edb7a02ab1662d8b617fbb2b58e52ed7d2407bb0abd148991fc918f0f",
+    "ai/live/minimax_renewal_process_test.go": "2336903948d72bd32a746040e842162594ca9d2d1db955292c965d24e74a3fcc"
+  },
+  "verification": "Read-only Git/source inspection. No project/captured program/test/verifier execution, .env/Key read, paid request, network, or repository edits. Author unsealed native-retention README/failure inventory/index read only as context; no retention approval."
+}

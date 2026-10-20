@@ -1,0 +1,28 @@
+test_actual_origin_requires_successful_reviewed_child_and_seal (__main__.Launcher.test_actual_origin_requires_successful_reviewed_child_and_seal) ... FAIL
+
+======================================================================
+FAIL: test_actual_origin_requires_successful_reviewed_child_and_seal (__main__.Launcher.test_actual_origin_requires_successful_reviewed_child_and_seal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 84, in test_actual_origin_requires_successful_reviewed_child_and_seal
+    self.invoke('run-selected','out','mm-candidate-m3-chat',ok=False)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 45, in invoke
+    else: self.assertNotEqual(p.returncode,0,p.stderr[-500:]+p.stdout[:200])
+          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : {
+  "route": "mm-candidate-m3-chat",
+  "exitCode": 0,
+  "budget": {
+    "state": "REPORTED",
+    "calls": 3,
+    "attempts": 3,
+    "status": "PASS",
+    "currentReportBudget": {
+      "calls": 3,
+   
+
+----------------------------------------------------------------------
+Ran 1 test in 1.265s
+
+FAILED (failures=1)

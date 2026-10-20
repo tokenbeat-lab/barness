@@ -142,6 +142,17 @@ func goodInputs(t *testing.T) Inputs {
 		in.Evidence = append(in.Evidence, EvidenceCheck{Name: name, Bundle: "/b", Status: Pass})
 	}
 	in.Audits = append(in.Audits, AuditResult{Bundle: "/effect"})
+
+	// Keep the synthetic legacy inputs focused on their original decision tests,
+	// and attach genuine new public load captures for the added evidence gates.
+	loads := actualMiniMaxLoadFixture(t)
+	in.Offline.Cases = append(in.Offline.Cases, loads.Cases...)
+	in.Offline.caseFiles = loads.caseFiles
+	for _, e := range MiniMaxDesignLoadEvidence(loads) {
+		e.Name = "race-" + e.Name
+		e.Bundle = "/b"
+		in.Evidence = append(in.Evidence, e)
+	}
 	return in
 }
 
@@ -388,7 +399,8 @@ func TestSeparateSections(t *testing.T) { // 17
 	in := goodInputs(t)
 	in.Offline.Cases = append(in.Offline.Cases, Case{ID: "LIVE-P01-text-stream", Status: NotRun})
 	r := Evaluate(in)
-	if r.Offline.Total() != 5 || r.Differential.Total() != 1 {
+	// Five original offline proofs plus six added public MiniMax loads.
+	if r.Offline.Total() != 11 || r.Differential.Total() != 1 {
 		t.Fatalf("offline %+v differential %+v: sections mixed", r.Offline.Counts, r.Differential.Counts)
 	}
 	if !r.Pass {

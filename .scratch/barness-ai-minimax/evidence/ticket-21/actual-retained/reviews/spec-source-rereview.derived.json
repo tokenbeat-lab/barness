@@ -1,0 +1,41 @@
+{
+  "derivedDisplay": true,
+  "usableAsOriginalReport": false,
+  "originalSHA256": "f08e8a108b0b7e086a22f61a9c54725fd31ac8d9f14c269a741c23e66ae886e1",
+  "originalPrivateSidecar": "operations-v1/operator/barness-ticket21-custody-spec-source-rereview.json.data",
+  "transform": [
+    "absolute repository prefix -> $REPO",
+    "absolute HOME prefix -> $HOME",
+    "absolute owned worktree prefix -> $WORKTREE"
+  ],
+  "document": {
+    "decision": "APPROVED_SOURCE_ONLY_FOR_READBACK",
+    "reviewedBy": "/root/routed_spec_review",
+    "scope": "Finite custody source/index correction review; not complete archive custody or actual public GREEN approval.",
+    "sourceCommit": "78843eb99905e95c8fa534a75897e0dc8787b1da",
+    "producerSHA256": "b6ef9bc41c997525b21123aa53b2c8299077312ba0eda2aca3aec346062947b8",
+    "readerSHA256": "85ee06e783293ab35b6cbaa06081a7163f4e08adfd9ed8fa5d5083dde72926a0",
+    "originalReviewSHA256": "81871fc3cda2ed5dd638418bce403068ab0ff6771e874396cc7377826a9a4f30",
+    "oldIndexSHA256": "19083ef6a0a23892490a8c48abf94d4b48f28f7e5c8052553244ef6b15fe6beb",
+    "currentIndexSHA256": "72ef221535f9aa125e7c2f0122198c681ee2927e90a7aef34bc705d4aa30c085",
+    "originalArchiveSHA256": "a95ffa0ca3aba1c816a2b956048037a9578af4602f69756fc1972bf650de537b",
+    "originalArchiveBytes": 86782794,
+    "originalInventorySHA256": "19020d5cab381cd6826d386d314b23f8c03a4f581d37da8a81368d743b45ddda",
+    "programAuthoritySHA256": "698f62d6fa943f901d57df454a3bd15381f542d891b512afcfca75f770b5d0c8",
+    "independentProgramPins": 23,
+    "nonauthoritativeCapturedFiles": 3,
+    "metadataProof": {
+      "path": "/tmp/barness-ticket21-custody-source-rereview-metadata-proof.json",
+      "sha256": "aab0791c6f0e78e46f7c5a13975de6172cc1ae463255068969d5fa498c78952b"
+    },
+    "findings": [],
+    "resolvedFindings": [
+      {
+        "id": "T21-CUSTODY-SPEC-01",
+        "resolution": "Current index differs from original only by adding the exact candidate member to observe. Candidate591323 is bound by unchanged original inventory. Updated producer also adds this observed member and requires it before any future seal; all existing bounds remain fixed."
+      }
+    ],
+    "report": "Approved the exact corrected custody source (producerb6ef/reader85ee) for public readback, with no remaining Spec findings. T21-CUSTODY-SPEC-01 is resolved: the index changes only by observing the existing candidate; its original inventory SHA binds candidate591323. The original a95 archive, inventory, old19083 index, executedbbac writer/8910 reader and genuine KeyError RED remain separate and preserved. The revised writer is not represented as having created that archive.\n\nStage-driven names, owner/path pairs and all29941 byte pins are validated against immutable original metadata before any selected-file read. Fixed archive/prefix/source/limits are checked before sealing; no redirected.env or arbitrary-origin read is admitted. Twenty-three captured data files have an independent fixed authority; three explicitly named inventory snapshots remain nonauthoritative data. Captured code is never executed by the reader. Full native/canonical/43-pin proofs and strict accounting/resource checks remain unchanged.\n\nIndependent bounded metadata review verified the observation-only patch, full29941-entry inventory binding, original source identities and23 authority matches. The immutable full-capsule limits are unchanged. This is source/index approval only: no new public GREEN or complete capsule scan is asserted here. Gate/publication outputs and certification remain outside custody scope. No project/captured execution, native commands, tests, build, key/network access or repository changes were performed.",
+    "method": "Read-only source diff, bounded original/current metadata comparison, immutable authority membership/hash checks. No archive member rescan in this source review."
+  }
+}

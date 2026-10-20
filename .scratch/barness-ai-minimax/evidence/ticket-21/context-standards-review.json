@@ -1,0 +1,79 @@
+{
+  "axis": "Standards",
+  "scope": "Ticket21 context/planning data and documentation only",
+  "base": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "reviewed_commit": "e93063c69bb854db6cd1d783a161acdabdd885ba",
+  "diff_command": "git diff d02b5adb862e98d73672b47bfd1e3142a2d6082d...e93063c69bb854db6cd1d783a161acdabdd885ba",
+  "diff_sha256": "e11e5c7d28b6b48e4efa4e52464844f8331d68ab2f6ac48f9008001e10761c5e",
+  "findings": [],
+  "finding_count": 0,
+  "narrative": "No documented-standard violations or actionable smell findings. The eleven changed files preserve the original closed eleven-PASS history while marking current qualification as eight of eleven, with protocol114 and both visual groups pending after the merged d02 source fix. Whole delivery remains PARTIAL and the historical full gate remains FAIL. The future three-group round is proposed at 36 calls/36 attempts, expressly unapproved and unexecuted. Native token-limit metadata is accurately distinguished from enforced byte/time limits. Static draft reviews and their closed findings are retained as planning evidence, without claiming operational checks, exact prepared-source approval, credential reads or paid execution. All four index pins match; changed tracked text contains no literal home paths. Runtime sources and the support matrix are outside this diff.",
+  "files": [
+    {
+      "path": ".scratch/barness-ai-minimax/delivery-status.md",
+      "bytes": 9436,
+      "sha256": "0ddfefea8f8d30b9680184e36f40627c523e2e91ba5a4a9c58ba187a7b3d6f17"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json",
+      "bytes": 31480,
+      "sha256": "e54e08172bb7acca2e6029702840cae855bd333edbf29ba5e1af2c7ec9ab241e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-21/README.md",
+      "bytes": 1138,
+      "sha256": "e5048dc213f35eb1aef8716efad959014e577202602d3af1e942fcf4a21c1550"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-21/controller-draft-spec-review.json",
+      "bytes": 5046,
+      "sha256": "06ab8757a35405dd3828948c93cf8c524664c1b203392d84369709e6d972628a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-21/controller-static-spec-rereview.json",
+      "bytes": 3944,
+      "sha256": "f5217820d61ece221e7932fcf4d144e9628068cec133ad9a5fa7400a81dc993e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-21/failure-inventory.md",
+      "bytes": 2189,
+      "sha256": "0a5e48d207d124d6a211e280a416ab8734849aceca356bf1d26a5d078303150a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-21/index.json",
+      "bytes": 1006,
+      "sha256": "495881dbd23b7331bb22777f093a24575e859d5c3410dfaea8f5e8c75a671336"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-21/prerequisites-plan.md",
+      "bytes": 16445,
+      "sha256": "64184b32cef9613a6c046c41cff6af9bcbef18baff203aed8fa5326ff105d1fd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/21-visual-source-renewal.md",
+      "bytes": 2401,
+      "sha256": "92bec59a338e0fd12d10c4e95e9bd20b5ce91091375f8b0358114f8e676ec395"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/map.md",
+      "bytes": 16722,
+      "sha256": "c9843f1a3807ff1c12714b35710c79582709f80e491779f2dee162da3c4837ea"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/spec.md",
+      "bytes": 60982,
+      "sha256": "a44aebcede8e4bf21e51e3f4c914fd381f117ac5c8c2bfbe8a7caddebdd4c1fe"
+    }
+  ],
+  "checks": {
+    "index_pins": 4,
+    "index_pins_match": true,
+    "literal_home_matches": 0,
+    "runtime_changed": false,
+    "matrix_changed": false
+  },
+  "limitations": [
+    "Standards data/docs review only; no Spec certification.",
+    "No project tests, native/captured commands, credential access, network, paid calls, root edits or merges performed."
+  ]
+}

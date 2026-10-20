@@ -1,0 +1,39 @@
+{
+  "axis": "SPEC",
+  "base": "83ff7d6be971694987de3363f0202030eb088f6e",
+  "reviewedCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "commands": [
+    "git rev-parse --verify 51c34338cdcabd77625d6265409ab910ae08c8c9^{commit}",
+    "git diff --stat 83ff7d6...51c34338cdcabd77625d6265409ab910ae08c8c9",
+    "git diff 83ff7d6...51c34338cdcabd77625d6265409ab910ae08c8c9",
+    "git diff --check 83ff7d6...51c3433"
+  ],
+  "priorReviewSHA256": "97702bc58765373af6f3f6b9be576b5d91a152e5044d43111feee18a9d81708a",
+  "decision": "PASS",
+  "openFindings": [],
+  "resolvedFindings": [
+    {
+      "id": "SPEC-13-01",
+      "previousSeverity": "P2",
+      "resolution": "summarize no longer trusts stored counters. Every completed canonical intent settles through the original source/binary/plan/review/authorization/checks/command/report byte pins. Plan-bound relative collectionRoot and checkout-root SHA bind ownership; another worktree or unavailable original remains UNKNOWN with full component caps. Bounded directory-FD reads reject symlinks, special files, ambiguous inventories and oversized artifacts. The historical phase commit is compared to its original receipt without requiring that HEAD to remain current."
+    }
+  ],
+  "evidence": {
+    "failureFirst": "Retained cross-phase RED shows REPORTED22/22 after original report alteration versus required UNKNOWN24/32. An intermediate symlink fixture FileExistsError remains separately retained; final committed fixture unlinks before symlinking.",
+    "finalTargeted": "Reviewed current log:5 public CLI tests PASS in15.493s, including cross-phase byte mutation/deletion/symlink/FIFO/oversize and canonical ownership/path changes.",
+    "allTools": "Reviewed log:58 tests PASS in80.322s. No tests or paid process executed by this reviewer.",
+    "logSHA256": {
+      "/tmp/barness-routed-cross-phase-red.log": "16265255650fe85538d646d151d2bc011622cb5f1bf5742eac567b1b16b1af52",
+      "/tmp/barness-routed-cross-phase-green.log": "cf840e3ececdceff5207edafe6c03bb0bc2cbf0db9ffb9c2ac73a0bc2908a439",
+      "/tmp/barness-routed-reviewfix-cli-current.log": "83187d77d69b9181fd44aa932477c2d6ed8dcbc876099aaa21ca1a9492202aaf",
+      "/tmp/barness-routed-reviewfix-tools-all.log": "c570e32127572ff487516a39e7212b4797e81574586937ebbb369fe081140e88"
+    }
+  },
+  "helperSHA256": {
+    "/tmp/barness-routed-final-keyless.py": "9e948f217a64bbed41cc6ae6bf9293f5d4cc99db975d148abc0cc82db462b02a",
+    "/tmp/barness-routed-go-recorder.py": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+    "/tmp/barness-routed-run-phase.py": "f7c2b86676e7a46e1aabeb4c37300eaa75663060a23420d0d518f98ce04cc29f"
+  },
+  "helperReview": "All3 current helper drafts re-read. Root is bound to cwd and confirmed against paid_core. Phase helper still enumerates fixed jobs, reviews all before first key, rejects preexisting intents/parent outputs, and preserves failures without retries. Finalizer binds provenance and invokes actual public gate without adopted bundles. Observer records only four exact current gate commands from the explicitly matching repository cwd; cwd is safely rendered as $REPO. Its descendants in other directories pass through, preventing controlled E2E commands from consuming actual gate receipt names. No additional concrete defects found.",
+  "limitations": "Incremental source/helper review only. No .env read, Key acquisition, vendor request or full-suite certification; actual finite paid validation and fresh complete gate remain execution work."
+}

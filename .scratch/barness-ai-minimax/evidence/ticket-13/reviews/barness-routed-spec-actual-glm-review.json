@@ -1,0 +1,30 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "findings": [],
+  "reviewedCommit": "67e8b916f6e003a3f84dd79c314f12824e4d3d22",
+  "actualSourceCommit": "51c34338cdcabd77625d6265409ab910ae08c8c9",
+  "integrationSourceHeld": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "scope": "Read-only static source/schema review and original data/hash inspection; no verifier/test/helper execution, no merge/root changes, Key read, vendor request, or paid replay.",
+  "pins": {
+    "archiveSHA256": "e28b2bcc02c545d7c876b983458806855aae2ed0dfbe1c93a16d868b245a1793",
+    "archiveBytes": 2719870,
+    "portableVerifierSHA256": "f2c6507aa27e889fb67a466ab2ea92f1ac137f2db7fb777ae81cb800cc4709ec",
+    "boundaryProgramSHA256": "cbd467caf593285fd09290244688cea2276a618984b4b6de2cea25b6b64e1b3c",
+    "boundedHelperSHA256": "b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f",
+    "indexSHA256": "5f922edfaf66772808088bb25aedeeaad4b32c232adc63671212b4bcdd312ca7",
+    "summarySHA256": "82c46b42ccd75d335f397c97113c4a2f220477a62d9795b1d5aba855c06476c2",
+    "scenariosSHA256": "0637f306a039ba5b497625e1f65193536dc3c33f96b81c8fff0bc49544bcedff",
+    "publicationRejectionSHA256": "006c0c8556c62cf203710cfd7f665227fbf665b97bd524c0dea0320a90e6c002",
+    "unchangedSelectorsSHA256": "e2d8fe9a9eacd981f2e1ec3e38eb4b6ecbca7b7dbb155f6200c9527f6ae25daf"
+  },
+  "evidence": {
+    "immutableArchive": "Compressed archive matches indexed2719870 bytes/e28b2bcc...; all1113 member sizes/hashes match indexed inventory, decoded25405440 bytes, and1054 raw route files match original G files byte-for-byte. No extraction or writes.",
+    "accounting": "Independent original report/result/wire reading confirms Chat22/22allPASS, Responses21/21with19PASS3FAIL, Messages22/22allPASS;66scenarios,63PASS3FAIL,65calls65Attempts65Attempt records/wires. Failed tool-result has0call/0Attempt; tool-call/control-max each90001ms deadline_exceeded and no HTTP status. Both model native-history scenarios in each protocol arePASS.",
+    "usage": "Independent final Attempt sums match complete37/unreported6/partial22; known input-side5575/output18116. Unknown/partial28 remains unknown and totals are explicitly lower bounds, not billing.",
+    "integrityAndPublication": "Three integrity inventories and audit0 retain failed Responsescompletefalse and absent successfulcapturePins; Chat/Messages four-file successful pins remain distinct. Strict public renewal exit1 and all4selector before/after hashes remain unchanged. No GLM3 publication, no later rerun authority, and no failed-status upgrade.",
+    "portableVerifier": "Pinned bounded helper is the exact reviewed read-only implementation verifier. Fixed three-route/source schema, successful prerelease review/check/request hashes, direct wire target, canonical report/command pins, seal member inventory, exact66scenario/65resource accounting, explicit failure semantics, partial usage and rejected publication are independently checked from archived raw bytes. Hash-before-parse compressed bound, finite decode/member/path limits, symlink/nonregular/duplicate/omission rejection and gzip drain remain intact. No paid module import or external execution occurs in verify.py.",
+    "history": "Retired83 no-Key preflight, actual51 source and byte-equal217selected route maps remain separately labelled. README preserves failure, missing PASS pins, timeout attribution limits and current-renewal accounting scope; earlier standalone GLM/MiniMax histories are separate. Seven archived refusal results remain diagnostic records, not executions performed in this review."
+  },
+  "limitations": "This verifies the actual failed GLM capsule integrity and truthful reporting only. It does not certify provider support or the entire spec; A2 fullgate remains a separate actual process."
+}

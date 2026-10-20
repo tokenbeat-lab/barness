@@ -1,0 +1,28 @@
+test_bundle_lookup_fanout_is_bounded_before_capture_reads (__main__.Renewal.test_bundle_lookup_fanout_is_bounded_before_capture_reads) ... ok
+test_capture_file_count_per_file_and_expanded_bounds (__main__.Renewal.test_capture_file_count_per_file_and_expanded_bounds) ... ok
+test_catalog_pins_preserve_fixed_business_contract_without_credentials (__main__.Renewal.test_catalog_pins_preserve_fixed_business_contract_without_credentials) ... ok
+test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt (__main__.Renewal.test_coherent_raw_edits_cannot_borrow_canonical_successful_receipt) ... ok
+test_empty_directory_fanout_and_depth_refuse_before_selector_writes (__main__.Renewal.test_empty_directory_fanout_and_depth_refuse_before_selector_writes) ... ok
+test_fresh_raw_archives_and_independent_attempt_sums_then_committed_views (__main__.Renewal.test_fresh_raw_archives_and_independent_attempt_sums_then_committed_views) ... ok
+test_global_origin_names_cannot_borrow_cn_identity_or_old_name (__main__.Renewal.test_global_origin_names_cannot_borrow_cn_identity_or_old_name) ... ok
+test_origin_index_only_accepts_successful_canonical_receipt (__main__.Renewal.test_origin_index_only_accepts_successful_canonical_receipt) ... FAIL
+test_raw_capture_symlink_and_mixed_source_refuse_without_selector_mutation (__main__.Renewal.test_raw_capture_symlink_and_mixed_source_refuse_without_selector_mutation) ... ok
+test_three_not_run_processes_never_acquire_key_or_paid_intents (__main__.Renewal.test_three_not_run_processes_never_acquire_key_or_paid_intents) ... ok
+
+======================================================================
+FAIL: test_origin_index_only_accepts_successful_canonical_receipt (__main__.Renewal.test_origin_index_only_accepts_successful_canonical_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 126, in test_origin_index_only_accepts_successful_canonical_receipt
+    self.runcli('origins','.evidence/minimax-origin-current','--bundle','mm-global-candidate-m3-chat='+base)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private$REPO/.scratch/barness-ai-minimax/tools/test_renewal.py", line 54, in runcli
+    if ok:self.assertEqual(p.returncode,0,p.stderr[-700:]+p.stdout[:200])
+          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : REFUSED: distinct fixed M3 candidate/formal route=bundle required
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 4.621s
+
+FAILED (failures=1)

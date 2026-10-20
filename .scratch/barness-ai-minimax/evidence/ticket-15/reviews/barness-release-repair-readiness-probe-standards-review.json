@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "axis": "Standards readiness premature-refusal addendum",
+  "decision": "APPROVED_METADATA_ONLY",
+  "reviewedHEAD": "90ecf203fa979e21cb46b1ad74f15e40b38a6c11",
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/README.md": {
+      "bytes": 1216,
+      "sha256": "1d9f2e2d7d154fd9aa773c9639fa5280ac450754573c4688b41d2f5ae0be00f2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/index.json": {
+      "bytes": 1728,
+      "sha256": "86926964258ab232568e32eafee8d5f9d35faca14ffadf35242468cf20c1b5a3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/SHA256SUMS": {
+      "bytes": 1398,
+      "sha256": "7514797e52361964067a0d0754ba5f878bfd22ef2a5ddba58fdd1cd379523919"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/premature-refusal-command.json": {
+      "bytes": 591,
+      "sha256": "78f26afa9af0ae05db2b18c5366dea03a1d7008dce891c55fe4dff03c846a22b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-15/finalizer-design/premature-refusal.log": {
+      "bytes": 156,
+      "sha256": "545abdf7f56c32d92be6f208d5b20e9e4f963eaeb3f2f09cff77a4b02bac613c"
+    }
+  },
+  "priorReadinessReportSHA256": "4af3aec2c7ecb92cac38246c177cac4d05a1e52a3aedf01d261cf30f2d5704c6",
+  "findings": [],
+  "possibleSmells": [],
+  "review": "The two copied original files exactly record one V4 public assemble attempt at90ec: exit1/REFUSED on the missing new GLM canonical receipt, no new canonical intent, no finalizer output, no Key and zero paid calls. The updated README/index explicitly limit this to premature-refusal evidence, retain assemblyOrGateExecuted=false and require future exact-plan review. All previous27-file hashes remain unchanged except the three intentionally updated finalizer metadata seals/description files; helper drafts and prior reports are untouched. The failure branch occurs before finalizer output/command creation. Current new canonical namespace and finalizer output are still absent. This is expected refusal evidence, not assembly/gate success or paid approval. No documented standard breach or baseline smell found.",
+  "constraints": {
+    "testsExecuted": false,
+    "probeRerunByReviewer": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "rootWrites": false,
+    "paidApproval": false,
+    "futureExactPlanApproved": false
+  }
+}

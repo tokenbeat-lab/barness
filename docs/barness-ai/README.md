@@ -1,6 +1,10 @@
 # barness-ai 发布说明
 
-> **2026-10-17 目录更新**：当前快照为 `2026-10-17.1`，Hash 为 `sha256:ae3315ce504af2019ce6476f3b021093e13428a5992b3e5fc7d3208576eb49c7`，共 87 个聊天身份、两个图像型号和三个分类型号。新增固定 Jev 1.14 的四位置图片与 Box，实验选择及授权仍必需；[独立正式证据指南](../../ai/live/testdata/jev-formal/README.md)和 [ADR-0031](../adr/0031-jev-model-specific-formal-evidence.md)记录身份、预算及复放。下文 2026-10-13 的整体验收与其他路线行保留为历史，不能据此声明当前 Hash 已完整通过；本次整体验收由票 14 负责。
+> **门禁拆分后的当前状态（2026-10-20）**：实现、普通验证与人工 race 待执行情况见[当前状态](../../.scratch/barness-ai-race-optimization/status.json)。下述完整验收基线属于记录的原受测源码；新源码的整版资格须重新由当前来源消费者判定。
+
+> **MiniMax 完整验收基线（2026-10-19）**：目录`2026-10-18.1-minimax`包含96聊天身份、2图像和3分类；16协议组合、17自身支持和4项独立效果通过。严格来源资格11/11；来源`78843eb`完整普通/race主包各12495PASS、audit0，双vet与CLI均exit0、发布报告true，精确矩阵已发布。M3.1线上三个候选仍NOT_RUN0/0。后续文档/证据提交保持1078份选定源码。当前结论见[交付状态](../../.scratch/barness-ai-minimax/delivery-status.md)和[完整证据及最终审查](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。以下保留各次历史结果。
+
+> **历史GLM完整验收（2026-10-18）**：目录 `2026-10-17.2` / Hash `sha256:81d6d9f3b69e9231985967e1ec8e13640aa7f4fdfd9e7ccef72f7d05320a6942`，93聊天身份、2图像、3分类；中国标准GLM-5.3/5.2三协议六身份、十三协议组合/十四自身支持和四独立效果全部通过。实际完整CLI在3d3cd0f执行 normal11049/race11049、两种vet、压力/差分/撤权及20份审计，十门禁PASS。[票13结论及精确来源](../../.scratch/barness-ai-glm/evidence/ticket-13/README.md)、[可重复校验索引](../../.scratch/barness-ai-glm/evidence/ticket-13/index.json)保留原失败、282次本票实际HTTP、完整基线回滚与99项/643用例追溯。以下历次验收保留各自历史身份。
 
 barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go 包 `github.com/tokenbeat-lab/barness/ai`），支持 chat、image、classifier 三种操作。本目录汇总发布交付物、当前验证结论与历史证据。
 
@@ -18,7 +22,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`（聊天与混合操作）、`toolloop`、`requestid`；独立中文评估见 [`chineseeval`](../../ai/examples/chineseeval/README.md) |
 | 研究条目追溯 | [`ai/release/traceability.json`](../../ai/release/traceability.json)（研究 T/C/H/V/S 条目 → E/P/D 场景 → 证据用例） |
-| 决策 | [ADR-0001…0029](../adr/)；门禁本身见 ADR-0017 |
+| 决策 | [ADR-0001…0048](../adr/)；门禁本身见 ADR-0017 |
 
 ## 历史完整验收与交付状态（2026-10-13）
 
@@ -27,7 +31,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 实现使用唯一核验的 pi-ai 1.1.0 基线。Luna 已纳入正式目录，支持单选、评分、是非、逐题拒答与
 显式授权的内联 PNG/JPEG/WebP；采样配置和 `durationMs` 的公共行为见上表对应契约。
 
-[最近一次完整自动门禁报告](../../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md)
+[该次历史完整自动门禁报告](../../.scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence/release-report.md)
 受测源码 `1291d10`，实际退出 0，十项 gate 全部 PASS：
 
 | 核验 | 实际结果 |
@@ -38,6 +42,8 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 容量与授权撤销 | 普通/race 均验证原混合负载、分类图片负载与六种撤销；资源归零 |
 | 独立中文效果 | Jev/Luna 本轮分别新采集，均 COMPLETE、24 Calls / 24 Attempts、零重试、24/24 正确 |
 | 脱敏审计 | 普通、race、十个 live、两份效果包，共 14 包全部零发现 |
+
+以下旧工单及交付状态保留该次历史记录；当前 MiniMax 完整门禁结论及此前 GLM 结论见本文开头，父 spec 的最终审查与关闭另行记录。
 
 自动门禁 PASS 与最终交付状态分别记录。[历史交付 verdict](../../.scratch/barness-ai-openai-decisions/release-evidence/delivery-verdict.json)
 仍为 `FAIL / completed=false`，[工单 13](../../.scratch/barness-ai-openai-decisions/issues/13-ten-route-release-gate.md)
@@ -62,21 +68,25 @@ python3 .scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence
 在仓库根目录执行（需要 Node.js 与 `npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node` 安装的冻结 pi 副本）：
 
 ```sh
-go run ./ai/release/cmd/releasegate -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> [-live <live 证据包目录>]...
+go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> -visual-evaluation-jev <Jev-视觉包> -visual-evaluation-decisions <Decisions-视觉包> [-live <live 证据包目录>]...
+# 普通验证结束后，由人工明确选择：
+go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
 ```
 
-它依次执行 `go vet ./...`（含与不含 `live` tag）、离线 E2E 与 `go test -race ./...`；两次测试均打开 `BARNESS_AI_PIDIFF=1` 和 `BARNESS_AI_PRESSURE=1`。证据写入 `.evidence/barness-ai-release/<时间>/`；全部门禁通过才退出 0：
+默认执行 check：先核对固定映射、账本、快照、17份自身支持和四项业务效果的当前来源、完整性及审计；通过后顺序执行两种 vet、完整普通测试与原生证据消费。失败停止后续启动，全部普通验证通过则输出 `READY_FOR_RACE`、race `NOT_RUN`、发布false，退出2。使用编译后的 CLI 读取此退出码；`go run` 会将程序非零退出包装成自身退出1。`-collect-all`仅继续收集check阶段诊断，不启动race；独立`-preflight`不执行验证命令，退出0只表示外部输入就绪。
+
+人工选择 race 后，`-from`必须指向原check目录，不能覆盖输入。工具验证原实际命令回执、来源、测试、工具身份和选定输入，复核普通原件后才运行完整race；来源或输入变化拒绝沿用。两次测试均打开`BARNESS_AI_PIDIFF=1`和`BARNESS_AI_PRESSURE=1`，分别保留原生bundle。check与race输出目录须独立且为空；命令保存执行报告、数字退出、起止时间、事件元数据及有界失败尾部。实际失败退出1，十项门禁全部通过才退出0。旧`-bundle`/`-race-bundle`入口只读重评估，命令保持NOT_RUN，不能替代认证。项目执行规则见[验证策略](../agents/verification.md)。
 
 | 门禁 | 通过条件 |
 | --- | --- |
 | go-test / go-test-race / go-vet | 命令成功；未执行即失败 |
 | p0-offline | 每个用例 PASS（或明确 UNSUPPORTED），完整 artifacts 哈希清单成立；E01–E11、P01–P10、D1、D2 与压力场景各至少一个 PASS |
 | differential | 全部 PASS、0 pending；固定当前唯一 pi 1.1.0 的版本/commit/model-data hash、SDK、请求/帧哈希及发现清单有效；P01–P04/P06/P07/P10 有差分，DeepSeek Responses 与两条原生图像有独立扩展登记及 skip |
-| live | 十组合自身报告与矩阵当前完整运行的能力、操作、型号、SDK、时间及正式目录/价格哈希一致，捕获/结果/Observer/图片校验完整；必交分类、生成与编辑不可 UNSUPPORTED |
-| redaction-audit | 离线、race、十条 live 与两份中文效果包均审计，逐包与运行时 audit.json 零发现；拒绝证据不重新输出敏感字段 |
+| live | 十六协议组合、十七自身支持身份的报告与矩阵当前完整运行的能力、操作、型号、SDK、时间及正式目录/价格哈希一致，捕获/结果/Observer/图片校验完整；必交分类、生成与编辑不可 UNSUPPORTED |
+| redaction-audit | 离线、race、十七份 live 与两份中文/两份视觉效果包均审计，逐包与运行时 audit.json 零发现；拒绝证据不重新输出敏感字段 |
 | traceability | 每个研究条目由实际证据判定为 PASS；只有映射没有证据的条目为 NO_EVIDENCE |
 | snapshots | 目录/价格快照与代码一致，固定发布合同不因删追溯或路线而缩减 |
-| required-artifacts | normal/race 各自的旧混合与分类图片设计负载、并发/内存/限额占用率 <=75%（余量 >=25%）/资源释放及六个授权撤销场景有效；Jev/Luna 两份当前真实 COMPLETE 报告通过完整重放与来源核验，不设置准确率阈值 |
+| required-artifacts | normal/race 各自的旧混合与分类图片设计负载、并发/内存/限额占用率 <=75%（余量 >=25%）/资源释放及六个授权撤销场景有效；Jev/Luna 中文与 Jev/Decisions 视觉四份独立当前真实报告通过完整重放与来源核验，不设置准确率阈值 |
 
 报告 `release-report.md`/`.json` 分别列出离线、差分与 live 结果，并附追溯表、审计结论、命令耗时；证据包另含目录快照、账本、支持矩阵、追溯表与 fixture 索引的副本。`-bundle <dir>` 只评估已有离线证据包（命令门禁记为未执行），`-race-bundle <dir>` 可同时重放 race 证据。
 
@@ -161,6 +171,27 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 
 ## 当前支持矩阵
 
+| 身份 | 操作 | Provider / API | 型号 | 状态 |
+| --- | --- | --- | --- | --- |
+| openai-responses | chat | openai / openai-responses | gpt-5-mini | PASS |
+| anthropic-messages | chat | anthropic / anthropic-messages | claude-haiku-4-5 | PASS |
+| google-gemini | chat | google / google-generative-ai | gemini-3.8-flash | PASS |
+| openai-chat | chat | openai / openai-completions | gpt-5-mini | PASS |
+| deepseek-responses | chat | deepseek / openai-responses | deepseek-flash | PASS |
+| deepseek-chat | chat | deepseek / openai-completions | deepseek-flash | PASS |
+| typesafe-classifier | classifier | typesafe / typesafe-system-one | jev-1.13.0 | PASS |
+| openai-images | image | openai / openai-images | gpt-image-2.5-sunburst-2026-09-08 | PASS |
+| google-interactions-image | image | google / google-interactions | gemini-nano-banana-2.1 | PASS |
+| openai-decisions | classifier | openai / openai-decisions | gpt-6-luna | PASS |
+| typesafe-classifier-jev-1.14.0 | classifier | typesafe / typesafe-system-one | jev-1.14.0 | PASS |
+| zhipu-chat | chat | zhipu / openai-completions | glm-5.2 / glm-5.3 | PASS |
+| zhipu-responses | chat | zhipu / openai-responses | glm-5.2 / glm-5.3 | PASS |
+| zhipu-messages | chat | zhipu / anthropic-messages | glm-5.2 / glm-5.3 | PASS |
+
+以上十四身份分别消费自身真实报告，当前完整 CLI 验收及来源适用范围见[票13校验索引](../../.scratch/barness-ai-glm/evidence/ticket-13/index.json)。三份 GLM 报告各覆盖两个型号；表中其余型号为对应矩阵主字段，工具换型等能力见原报告。账户/区域/权限仍未独立核实，固定任务效果不作为生产准确率承诺。
+
+## 历史十组合支持矩阵（2026-10-13）
+
 | 组合 | 操作 | 协议 | 状态 |
 | --- | --- | --- | --- |
 | openai-responses | chat | OpenAI × Responses（P01），gpt-5-mini | PASS |
@@ -186,7 +217,7 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 
 [分档采样配置与 Host 示例](thinking-sampling.md)使用唯一来源核验的 pi 1.1.0 oracle。当时六子集 814 条差分、pending 0，完整正式目录核对通过；采样的公共矩阵、授权、快照、重试和并发已验证。目录版本 2026-10-11.1，包含五处上游价格分层，没有编造采样默认。
 
-当时真实路线与独立中文评估未全部通过；一次普通压力失败另记未确认原因的缺陷，完整发布未通过；[原候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部成功/失败结果。2026-10-13 的当前自动门禁结论见本文开头；历史 PASS/FAIL 仍只属于各自原受测源码与目录 hash。
+当时真实路线与独立中文评估未全部通过；一次普通压力失败另记未确认原因的缺陷，完整发布未通过；[原候选证据](../../.scratch/barness-ai-thinking-sampling/evidence.md)保留全部成功/失败结果。该次2026-10-13历史自动门禁结论见本文历史章节；当前GLM完整结论见本文开头；历史 PASS/FAIL 仍只属于各自原受测源码与目录 hash。
 
 ## 统一图片 Host 示例（工单 10，受控验证）
 

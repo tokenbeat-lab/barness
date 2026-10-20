@@ -1,0 +1,40 @@
+"""Read committed AI trees only; emits an applicability extension, never native proof."""
+import hashlib,json,subprocess,sys
+from pathlib import Path
+repo=Path(sys.argv[1]); target=sys.argv[2]; dest=Path(sys.argv[3])
+base='230691742b731c77e8167b94646219e10f78c8f7'
+allowed={'ai/README.md','ai/README.zh-CN.md'}
+def git(*a):return subprocess.check_output(['git','-C',str(repo),*a])
+def tree(ref):
+ rows={}
+ for row in git('ls-tree','-r','-z',ref,'--','ai','go.mod','go.sum').split(b'\0'):
+  if not row:continue
+  meta,name=row.split(b'\t',1);mode,kind,oid=meta.decode().split();name=name.decode()
+  if name in allowed:continue
+  assert mode=='100644' and kind=='blob',(name,mode,kind)
+  rows[name]=oid
+ return rows
+x=tree(base);y=tree(target);assert x==y,'AI source/data tree changed after assessed source'
+proof=json.loads((repo/'.scratch/barness-ai-minimax/evidence/ticket-17/source-proof.json').read_text())
+assert len(proof['files'])==1027
+p=subprocess.Popen(['git','-C',str(repo),'cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+records={}
+for name,oid in sorted(x.items()):
+ p.stdin.write((oid+'\n').encode());p.stdin.flush();header=p.stdout.readline().decode().strip().split();assert header[0]==oid and header[1]=='blob'
+ n=int(header[2]);h=hashlib.sha256();left=n
+ while left:
+  b=p.stdout.read(min(left,1024*1024));assert b;h.update(b);left-=len(b)
+ assert p.stdout.read(1)==b'\n'
+ sha=h.hexdigest()
+ if name in proof['files']:assert proof['files'][name]==sha
+ records[name]={'gitBlobOID':oid,'bytes':n,'sha256':sha}
+p.stdin.close();assert p.wait()==0
+assert set(proof['files'])<=set(records)
+delta=git('diff','--name-only',base+'..'+target).decode().splitlines()
+allowed_delta=lambda n:n.startswith('.scratch/barness-ai-minimax/evidence/') or n=='.scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md' or n in allowed or n=='docs/barness-ai/contract.md'
+assert all(allowed_delta(n) for n in delta),delta
+app_path=Path(sys.argv[4]) if len(sys.argv)>4 else repo/'.scratch/barness-ai-minimax/evidence/ticket-09/final-closure/current-source-applicability.json'
+app=app_path.read_bytes()
+raw=json.dumps(records,sort_keys=True,separators=(',',':')).encode()
+result={'schema':1,'kind':'post-integration-selected-source-byte-equality','assessedCodeCommit':base,'targetCommit':git('rev-parse',target).decode().strip(),'originalAssessmentSHA256':hashlib.sha256(app).hexdigest(),'scope':'All tracked ai/ source/data and go.mod/go.sum, excluding only the two reviewed README documents. Complete set equality covers additions and deletions, not merely previously listed paths.','excludedReviewedDocs':sorted(allowed),'postAssessmentRepositoryDelta':delta,'repositoryDeltaRestrictedToReviewedEvidenceIssueAndDocs':True,'sourceAndDataFiles':len(records),'compilerJSONModSumProofFiles':1027,'allFilesByteEqual':True,'recordSetSHA256':hashlib.sha256(raw).hexdigest(),'records':records,'strictOriginalNativeMapsCurrent':False,'historicalSourcePinsRefreshed':False,'nativeReportsRenewed':False,'paidCalls':0,'credentialsRead':False,'qualification':'Extends the original2306 applicability assessment only to this identical selected source/data. Does not certify release or replace current-source real evidence.'}
+dest.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k not in ('records','postAssessmentRepositoryDelta')}))

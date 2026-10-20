@@ -1,0 +1,21 @@
+--- FAIL: TestGLMFormalReports (3.35s)
+    --- FAIL: TestGLMFormalReports/chat (1.17s)
+        glm_formal_reports_test.go:41: [GLM12-formal-import-chat] own full current-hash report accepted: supportmatrix: invalid report: GLM execution source drift
+    --- FAIL: TestGLMFormalReports/responses (1.33s)
+        glm_formal_reports_test.go:41: [GLM12-formal-import-responses] own full current-hash report accepted: supportmatrix: invalid report: GLM execution source drift
+    --- FAIL: TestGLMFormalReports/messages (0.84s)
+        glm_formal_reports_test.go:41: [GLM12-formal-import-messages] own full current-hash report accepted: supportmatrix: invalid report: GLM execution source drift
+--- FAIL: TestGLMFormalKnownUsage (1.67s)
+    --- FAIL: TestGLMFormalKnownUsage/chat (0.58s)
+        glm_formal_usage_test.go:88: [GLM12-reported-known-usage-chat] captured formal source accepted: supportmatrix: invalid report: GLM execution source drift
+        glm_formal_usage_test.go:89: [GLM12-reported-known-usage-chat] reported known totals retained: got input=0 output=0
+    --- FAIL: TestGLMFormalKnownUsage/responses (0.66s)
+        glm_formal_usage_test.go:88: [GLM12-reported-known-usage-responses] captured formal source accepted: supportmatrix: invalid report: GLM execution source drift
+        glm_formal_usage_test.go:89: [GLM12-reported-known-usage-responses] reported known totals retained: got input=0 output=0
+    --- FAIL: TestGLMFormalKnownUsage/messages (0.42s)
+        glm_formal_usage_test.go:88: [GLM12-reported-known-usage-messages] captured formal source accepted: supportmatrix: invalid report: GLM execution source drift
+        glm_formal_usage_test.go:89: [GLM12-reported-known-usage-messages] reported known totals retained: got input=0 output=0
+FAIL
+barness-ai evidence bundle: /tmp/barness-glm13-renewal-pending/20261017T150516.245755000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	6.292s
+FAIL

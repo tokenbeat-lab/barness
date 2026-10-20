@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "kind": "full-audited-failed-whole-run-retention",
+  "originalSourceCommit": "9481a6ad8028025a7f35da19a3e488935c6cd897",
+  "originalGoExitCode": -15,
+  "goPassClaim": false,
+  "manifestCases": 12356,
+  "manifestPass": 12304,
+  "manifestFail": 52,
+  "rawFiles": 131506,
+  "rawBytes": 1291614681,
+  "archive": ".evidence/minimax-retained/whole-ordinary-failed-9481a6a.tar.gz",
+  "archiveSha256": "4a4e3db782980460be550c7c07fbecbdca9eac20c8f36f665270720efff30183",
+  "archiveBytes": 110349400,
+  "fullArchiveInSharedRoot": true,
+  "retention": "Full archive is in the shared main checkout .evidence/minimax-retained, independently of temporary worktrees. Retain until explicit evidence retention decision; no cleanup in this task.",
+  "verifiedArtifactReferences": 98236,
+  "artifactHashMismatches": [],
+  "missingArtifacts": [],
+  "fixtureSourceAttributionDifferences": 349,
+  "fixtureSourceAttributionBasis": "Fixture source and final artifact maps are distinct; no original map or byte is rewritten.",
+  "fileInventorySha256": "b9d2535edd85d236551de30cab01a069ac163a02e9aeb53e46aba242d8f1be1c",
+  "fileInventoryGzipSha256": "734721c3d939da00a0991bed4b920bb2a96ff361fbf0d60dc43f09a3d61b446b",
+  "derivedAuditSourceCommit": "120530041de78c26e803719dd5c856d321d6aa34",
+  "derivedAuditFindings": 0,
+  "derivedAuditSeparateFromOriginalExit": true,
+  "originalTreeFiles": 131505,
+  "originalTreeBytes": 1291614660,
+  "derivedFiles": {
+    "audit.json": {
+      "bytes": 21,
+      "sourceCommit": "120530041de78c26e803719dd5c856d321d6aa34",
+      "findings": 0
+    }
+  },
+  "retainedTreeIncludesDerivedAudit": true,
+  "fileInventory": "whole-ordinary-failed-9481a6a-files.json.gz",
+  "fixtureAttribution": "whole-ordinary-fixture-attribution.json.gz",
+  "integrityDiagnosis": "../ticket-09/whole-ordinary-artifact-integrity.md",
+  "integrityDiagnosisOriginalSha256": "65e7299e4a711cabfd252c14a1a58a9d8bff982bac52baa33792135c603e4fa1",
+  "archiveProvenanceFieldClarification": "Embedded provenance originalTreeFiles/originalTreeBytes name the retained post-derived-audit snapshot. Original pre-audit tree is 131505 files/1291614660 bytes; derived audit.json adds 1 file/21 bytes. No original file was changed."
+}

@@ -1,0 +1,36 @@
+{
+  "state": "COMPLETED",
+  "name": "refuse-failed-glm-renewal",
+  "argv": [
+    "python3",
+    "$REPO/.scratch/barness-ai-minimax/tools/renewal.py",
+    "glm-archive",
+    ".evidence/minimax-global-glm-r1-rejected",
+    "--round",
+    "corrective-1",
+    "--chat",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z",
+    "--responses",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z",
+    "--messages",
+    "$REPO/.evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 300,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T04:28:28.830965+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 0.26109891571104527,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

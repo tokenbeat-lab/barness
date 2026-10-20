@@ -1,0 +1,61 @@
+{
+  "case": "archive-grow",
+  "creator": "ticket17",
+  "expectation": "bounded",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "/private/tmp/barness-minimax-routed-validation/.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/creator-probe.py",
+    "--child",
+    "--creator",
+    "ticket17",
+    "--case",
+    "archive-grow",
+    "--producer",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-ticket17-archive-grow/clone/.scratch/barness-ai-minimax/evidence/ticket-17/freeze.py",
+    "--common",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-ticket17-archive-grow/common",
+    "--events",
+    "/private/tmp/barness-minimax-routed-validation/.evidence/minimax-ticket17-retention-fixes/green-ticket17-archive-grow/events.jsonl"
+  ],
+  "exitCode": 0,
+  "seconds": 53.16540416609496,
+  "timeout": false,
+  "injected": true,
+  "nextCommandRead": true,
+  "indexPublished": true,
+  "diagnostic": "",
+  "originalBefore": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 107685,
+      "sha256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalAfter": {
+    "target": {
+      "type": 32768,
+      "mode": 420,
+      "bytes": 107685,
+      "sha256": "43ead96b64121f89acf90ee6b2fa6f5e44bd2bd048c4fb6618803c65bdef5299"
+    },
+    "archive": {
+      "type": 32768,
+      "mode": 292,
+      "bytes": 90847757,
+      "sha256": "5d9b5d5ad032fdcba150d294cf65f0944f6219068ec810f49a86caa45d71ef8d"
+    }
+  },
+  "originalsUnchanged": true,
+  "producerSHA256": "3da01a866bc38499f08c76b7cc50c60894ef6b01970e22f9ca4a04665ee93eaa",
+  "probeSHA256": "dd5109648420fc588534cf1395f94bfdc66307de515f753d8ba2d3a1d033eab6",
+  "credentialsRead": false,
+  "paidCalls": 0
+}

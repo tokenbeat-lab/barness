@@ -12,7 +12,9 @@ import (
 //
 // Every callback runs synchronously on the call's path, receives the call's
 // context and its scope (including the entry Operation) explicitly, and must honor the context. A callback
-// error fails the call with CodeCallbackFailed in PhaseRequest, and a context
+// error fails the call with CodeCallbackFailed in PhaseRequest. Zhipu and MiniMax callback
+// panics are classified the same way; other providers preserve their existing
+// panic behavior. A context
 // that ended while it ran fails it as canceled or deadline_exceeded. The
 // callback's error text is never put in the message, so host internals
 // cannot reach it; errors.Is/As on the call's error still reach the

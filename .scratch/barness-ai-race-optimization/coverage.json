@@ -1,0 +1,20 @@
+{
+  "status": "existing-coverage-sufficient",
+  "addedTimingCases": 0,
+  "shared": [
+    "ai/e2e/minimax_shared_isolation_test.go",
+    "ai/e2e/minimax_shared_release_test.go",
+    "ai/e2e/minimax_shared_resources_test.go",
+    "ai/e2e/minimax_shared_observer_test.go",
+    "ai/e2e/minimax_shared_snapshots_test.go",
+    "ai/e2e/event_queue_test.go",
+    "ai/e2e/protocol_admission_test.go"
+  ],
+  "visual": [
+    "ai/examples/visualeval/unsent_test.go",
+    "ai/examples/visualeval/unsent_after_pin_test.go",
+    "ai/examples/visualeval/sent_cancel_test.go"
+  ],
+  "reason": "Existing public writer/finish/verify scenarios cover unsent, canceled-after-pin and sent-before-decode; ordinary coverage is deterministic. No repeated tests or production test switch added.",
+  "race": "NOT_RUN"
+}

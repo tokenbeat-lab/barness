@@ -70,7 +70,7 @@ func differentialRecordProblems(id string, fields map[string]json.RawMessage) []
 
 // P10 requires full observations and binds their lossless compact JSON to
 // the record. Format-valid hashes alone cannot substitute for captured work.
-func decisionsCaptureProblems(dir string, fields map[string]json.RawMessage) []string {
+func decisionsCaptureProblems(files verifiedCase, fields map[string]json.RawMessage) []string {
 	raw, _ := json.Marshal(fields)
 	var r pioracle.Record
 	if json.Unmarshal(raw, &r) != nil {
@@ -79,7 +79,7 @@ func decisionsCaptureProblems(dir string, fields map[string]json.RawMessage) []s
 	var problems []string
 	for _, side := range []string{"pi", "barness"} {
 		var obs pioracle.Observation
-		if err := readJSON(dir+"/"+side+"-observation.json", &obs); err != nil {
+		if err := files.json(side+"-observation.json", maxInventoryFile, &obs); err != nil {
 			problems = append(problems, side+" observation missing or invalid")
 			continue
 		}

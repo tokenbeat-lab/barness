@@ -1,0 +1,94 @@
+{
+  "checkedHead": "ad20469d0a0d854ebda35c15b9c4ed49beebfda5",
+  "originalRootSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "proofs": [
+    {
+      "family": "M3",
+      "route": "mm-global-formal-m3-chat",
+      "proof": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-chat/20261018T030234.929339000Z/minimax-report.json",
+      "proofSHA256": "e65cd00d598befd62b9af32e2daa42e0f06d83878187afe83d2f90c164dd03ff",
+      "files": 263,
+      "currentMapSHA256": "c75df05dc2bcdc05a64ddc624282d16152f568500c20dd66dd978feef647336e",
+      "changed": [],
+      "qualificationUnchanged": true
+    },
+    {
+      "family": "M3",
+      "route": "mm-global-formal-m3-messages",
+      "proof": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-messages/20261018T030335.626044000Z/minimax-report.json",
+      "proofSHA256": "4932f71f744a2532269ed64005447e6ab98f859cd288ccefa1350ed747e907fd",
+      "files": 263,
+      "currentMapSHA256": "c75df05dc2bcdc05a64ddc624282d16152f568500c20dd66dd978feef647336e",
+      "changed": [],
+      "qualificationUnchanged": true
+    },
+    {
+      "family": "M3",
+      "route": "mm-global-formal-m3-responses",
+      "proof": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-responses/20261018T030308.589357000Z/minimax-report.json",
+      "proofSHA256": "33fb060912110b35680c0baadd37566f3380d165998c1ec38334d47f129dc425",
+      "files": 263,
+      "currentMapSHA256": "c75df05dc2bcdc05a64ddc624282d16152f568500c20dd66dd978feef647336e",
+      "changed": [],
+      "qualificationUnchanged": true
+    },
+    {
+      "family": "Q",
+      "route": "glm-corrective-1-chat",
+      "proof": ".evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat/20261018T041951.329592000Z/glm-execution-source.json",
+      "proofSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "files": 217,
+      "currentMapSHA256": "65b7ab595745ae5533918a043ac74e29e0f082f6b212034d5de307f97a07f558",
+      "changed": [],
+      "qualificationUnchanged": true
+    },
+    {
+      "family": "Q",
+      "route": "glm-corrective-1-messages",
+      "proof": ".evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages/20261018T042527.020498000Z/glm-execution-source.json",
+      "proofSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "files": 217,
+      "currentMapSHA256": "65b7ab595745ae5533918a043ac74e29e0f082f6b212034d5de307f97a07f558",
+      "changed": [],
+      "qualificationUnchanged": true
+    },
+    {
+      "family": "Q",
+      "route": "glm-corrective-1-responses",
+      "proof": ".evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses/20261018T042202.466861000Z/glm-execution-source.json",
+      "proofSHA256": "40725f5be1477eb78b6f02081a89df2b8dacdf75aa7cd99fc31eaacc066a40e9",
+      "files": 217,
+      "currentMapSHA256": "65b7ab595745ae5533918a043ac74e29e0f082f6b212034d5de307f97a07f558",
+      "changed": [],
+      "qualificationUnchanged": true
+    }
+  ],
+  "changedGo": [
+    "ai/e2e/minimax_catalog_release_test.go",
+    "ai/e2e/minimax_pidiff_catalog_test.go",
+    "ai/e2e/minimax_pidiff_test.go",
+    "ai/e2e/release_bundle_consumption_test.go",
+    "ai/e2e/release_bundle_directory_test.go",
+    "ai/e2e/release_bundle_inventory_test.go",
+    "ai/e2e/release_recorded_bundle_test.go",
+    "ai/internal/testkit/release/artifacts.go",
+    "ai/internal/testkit/release/classifier_load.go",
+    "ai/internal/testkit/release/classifier_load_capture.go",
+    "ai/internal/testkit/release/differential_record.go",
+    "ai/internal/testkit/release/gate.go",
+    "ai/internal/testkit/release/gate_test.go",
+    "ai/internal/testkit/release/inventory.go",
+    "ai/internal/testkit/release/inventory_iterator_test.go",
+    "ai/internal/testkit/release/live_manifest.go",
+    "ai/internal/testkit/release/load.go",
+    "ai/internal/testkit/release/minimax_load.go",
+    "ai/internal/testkit/release/minimax_load_fixture_test.go",
+    "ai/internal/testkit/release/multimodal.go",
+    "ai/internal/testkit/release/multimodal_capture.go",
+    "ai/internal/testkit/release/revocation.go",
+    "ai/internal/testkit/release/revocation_observations.go",
+    "ai/internal/testkit/release/verified_case.go"
+  ],
+  "scope": "release consumer/tests and authorized future-only catalog producer/tests; strict consumer SDK/oracle rules unchanged; all 3 M3 and all 3 Q execution sets exactly unchanged including additions/deletions",
+  "broadSourceStatus": "L1034 prepared guard and Jev protocol/text/visual Go-wide proofs are historical/stale; all five original producer jobs already FAIL. No pin refresh, paid approval reuse or new PASS. Original A full ordinary/race executions remain literal 3d3 history; targeted current tests do not replace them."
+}

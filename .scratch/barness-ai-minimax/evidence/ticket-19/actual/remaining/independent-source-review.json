@@ -1,0 +1,91 @@
+{
+  "axis": "Spec",
+  "status": "PASS_PREPARED_SOURCE_ONLY",
+  "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "collectionRoot": ".evidence/minimax-current-eleven-remaining-1",
+  "reviewedAt": "2026-10-19T06:20:12.154102+00:00",
+  "pins": {
+    "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "sourceManifestSHA256": "da67eb09d90c3cb8aaf8d0ab5c88d404d6852e8b9fdfc1da89960892ec68fc52",
+    "binariesManifestSHA256": "748c8e5ae2165296bfffd4269ccc441ee2a998965b6042cd9a65a72227669c84",
+    "planSHA256": "6a0a93cf0a8778f3e5d6cbf7da3a68cf230684a454295ba4980a543eeb6dd135",
+    "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+    "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+    "transitionSHA256": "bf63bee3dafa0675e5ac815402693290918e0624a6c9f2f94fd892eff0e70811",
+    "nativeRenewalFactsSHA256": "b814cae6b372304b50c5160e200b636045b0279140dbc8a6ca7b8bacb0c28f73"
+  },
+  "checksSHA256": "0c7f31247ef5c4c7bc0f6a13983351fbe9584bee4c608cfb29d244d447d802ed",
+  "actualKeylessCommands": {
+    "vet": {
+      "sha256": "acd42b4ae8ff0448a4dce1da17399e484ff7e98514299616fbe6865a1d2a1b34",
+      "exitCode": 0,
+      "seconds": 0.3389631658792496
+    },
+    "vet-live": {
+      "sha256": "b4d6f617270010216a6de4dd0a52044003c38d06b9bbc992913014f3d529c330",
+      "exitCode": 0,
+      "seconds": 0.3397572082467377
+    },
+    "no-key-live": {
+      "sha256": "73177bf96d32695ca6cb8ad828a217f89c8d8281cd628c2a08e1528a22a16dea",
+      "exitCode": 0,
+      "seconds": 208.52339712530375
+    },
+    "no-key-visual-proxy": {
+      "sha256": "5381bd515b47a9d747eeaa750966aa75865b7e87445168d90d688bd7c48e862b",
+      "exitCode": 0,
+      "seconds": 6.465391291305423
+    },
+    "no-key-release-contracts": {
+      "sha256": "29bc34478951325477701691b44f3e8a5ac8859a95ff7e9653171b47d13b1304",
+      "exitCode": 0,
+      "seconds": 7.45483783306554
+    },
+    "no-key-release-package": {
+      "sha256": "1ddb276c82bd163d9b7d74e4901315adc3830e9b39d1a18ac1d77077a4bd13ad",
+      "exitCode": 0,
+      "seconds": 34.5295271249488
+    }
+  },
+  "sourceProofSHA256": "a03ef9911b18f4c195d4dd297255f02527a1569850c584f7fe81506c91e0dc7c",
+  "publicationProofSHA256": "c7861070daf394d8eb5981b1bbff04da41988746bb01566280c77f29ec03188d",
+  "phase1ActualCalls": 66,
+  "phase1ActualAttempts": 66,
+  "phase1OwnRoutesCompletePASS": 3,
+  "sourceReviewSHA256": "200bfce81531e0d51f6432daa332a346a97bcde0c715fd3c921614f52240a971",
+  "sourceReview": {
+    "decision": "APPROVED",
+    "reviewedBy": "/root/routed_spec_review",
+    "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+    "sourceManifestSHA256": "da67eb09d90c3cb8aaf8d0ab5c88d404d6852e8b9fdfc1da89960892ec68fc52",
+    "binariesManifestSHA256": "748c8e5ae2165296bfffd4269ccc441ee2a998965b6042cd9a65a72227669c84",
+    "planSHA256": "6a0a93cf0a8778f3e5d6cbf7da3a68cf230684a454295ba4980a543eeb6dd135",
+    "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+    "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+    "transitionSHA256": "bf63bee3dafa0675e5ac815402693290918e0624a6c9f2f94fd892eff0e70811",
+    "nativeRenewalFactsSHA256": "b814cae6b372304b50c5160e200b636045b0279140dbc8a6ca7b8bacb0c28f73",
+    "authorizedRoutes": [
+      "current-source-eleven-renewal-1-mm-global-formal-m3-chat",
+      "current-source-eleven-renewal-1-mm-global-formal-m3-responses",
+      "current-source-eleven-renewal-1-mm-global-formal-m3-messages",
+      "current-source-eleven-renewal-1-text-jev",
+      "current-source-eleven-renewal-1-text-luna",
+      "current-source-eleven-renewal-1-protocol114",
+      "current-source-eleven-renewal-1-visual-jev",
+      "current-source-eleven-renewal-1-visual-decisions"
+    ],
+    "credentialScopes": {
+      "MINIMAX_KEY": "current-source-eleven-renewal-1/international-loopback-proxy",
+      "TYPESAFE_KEY": "current-source-eleven-renewal-1/international-loopback-proxy",
+      "OPENAI_KEY": "current-source-eleven-renewal-1/international-loopback-proxy"
+    }
+  },
+  "humanApprovalSHA256": "bc185e82398ecebaa84a58e00cb541c301332b157152c637174421d51e9cb59c",
+  "humanRequestReference": "request_user_input_async/call_11ea21ff6def436e987cceda274c6cab/0",
+  "newBudgetApprovalNeeded": false,
+  "findings": [],
+  "report": "PASS — exact remaining8 source/plan scope, 0 findings. All six fresh fixed public keyless receipts completed with exact integer0, clean audit and no credential access. ROOTb9/1074 files, four binaries/builds, plan and native facts remain frozen. Only the four committed GLM selector data files changed since d235; three occur in the outer selected map and the SHA companion is separately pinned. Every other execution byte is unchanged. Native M3’s complete268-file map, including its README outside the outer map, independently matches native facts and immutable original39/36 ledger/tail.\n\nOwn current-round GLM3 each retain22/22PASS atd235,66calls/66Attempts. Independent bounded checks bind all original357 files per route to raw ZIPs,355 integrity hashes and349 case artifact references each; derived views embed all originals. Actual canonical receipts, public raw/view validation and derivation receipts remain pinned. Known usage is6985 input-side/16502 output with26 partial/unreported attempts preserved as unknown; Messages cancel1146ms PASS does not rewrite earlier failures or the separate diagnostic.\n\nThe8 jobs exactly preserve M3formal3, text2×24, protocol12 and visuals2×12, nominal123calls/120HTTP and hard144/156 within the fixed216/252 approval. International services use explicit127.0.0.1:7890, M3’s dedicated proxy variable/canonical ledger and unchanged token/time/rerun limits. Legacy648/648, generic10, four selectors and original matrix history remain bound. Existing human216/252 approval covers both phases; no new budget question is required.\n\nAPPROVED source review is limited to these8 routes and MINIMAX_KEY/TYPESAFE_KEY/OPENAI_KEY under the fixed international-loopback-proxy scope. It neither creates execution authorization/native grant nor certifies remaining actual results, promotion or full release. Those files remain absent for the parent to issue through the reviewed authority. No reviewer Key, project program, test or network execution occurred.",
+  "executionAuthorizationAbsent": true,
+  "nativeGrantAbsent": true,
+  "scopeIsSourceOnly": true
+}

@@ -1,0 +1,44 @@
+{
+  "state": "COMPLETED",
+  "route": "current-source-eleven-renewal-1-visual-jev",
+  "baseName": "visual-jev",
+  "validationRound": "current-source-eleven-renewal-1",
+  "phase": "remaining",
+  "sourceCommit": "b9c3c7c81342d661e86f2d8ffc1da7d942c3f00d",
+  "sourceVariable": "TYPESAFE_KEY",
+  "credentialsRead": true,
+  "maxCalls": 12,
+  "maxAttempts": 12,
+  "networkRoute": "international-loopback-proxy",
+  "collectionRoot": "$REPO/.evidence/minimax-current-eleven-remaining-1",
+  "collectionOwnerSHA256": "bf574a3ed52ff02819aa91b7a137d9abac7c4ba7333701e584cde352ac83aa72",
+  "automaticReruns": false,
+  "accountingScope": "prior current-release renewal648/648; original M3 formal39/36 remains separate; this fixed eleven renewal adds at most216/252",
+  "sourceManifestSha256": "da67eb09d90c3cb8aaf8d0ab5c88d404d6852e8b9fdfc1da89960892ec68fc52",
+  "binariesManifestSha256": "748c8e5ae2165296bfffd4269ccc441ee2a998965b6042cd9a65a72227669c84",
+  "planSha256": "6a0a93cf0a8778f3e5d6cbf7da3a68cf230684a454295ba4980a543eeb6dd135",
+  "sourceReviewSha256": "200bfce81531e0d51f6432daa332a346a97bcde0c715fd3c921614f52240a971",
+  "authorizationSha256": "c2f52641b1dc58d4cf42dee6448062f676a2d84c3a76832af938a432266ee48a",
+  "historySHA256": "afe54cb33b19635c97c644fc160c46c032413bb6a498e5f6104f3fecc050d57a",
+  "genericSHA256": "eae5b2fbbd431fcb884a16c3680a21a4d854fae7fdf86b3e6c3725a34d095fd1",
+  "transitionSHA256": "bf63bee3dafa0675e5ac815402693290918e0624a6c9f2f94fd892eff0e70811",
+  "nativeRenewalFactsSHA256": "b814cae6b372304b50c5160e200b636045b0279140dbc8a6ca7b8bacb0c28f73",
+  "exitCode": 0,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  },
+  "finishedAt": "2026-10-19T06:26:53.695209+00:00",
+  "commandReceiptSha256": "c19d86633ce714b4b5c08cf85e852ab920fba47a2247f6fc9ad02f31402c710c",
+  "budget": {
+    "state": "REPORTED",
+    "status": "PASS",
+    "calls": 12,
+    "attempts": 12,
+    "currentReportBudget": {
+      "calls": 12,
+      "attempts": 12
+    }
+  },
+  "reportedFileSha256": "c1f465559dc7594121e60ea74410a60da4471211462b455c08291444aa710903"
+}

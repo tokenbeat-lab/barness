@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "derive-glm-chat",
+  "argv": [
+    "go",
+    "run",
+    "./ai/live/cmd/glmformal",
+    "-route",
+    "chat",
+    "-out",
+    "$REPO/.evidence/minimax-current-eleven-publication-1/support-views/chat"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T06:12:54.116277+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 4.479700207710266,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

@@ -1,0 +1,9 @@
+--- FAIL: TestMiniMaxChatObservedMirrorHistory (0.03s)
+    --- FAIL: TestMiniMaxChatObservedMirrorHistory/in-process (0.01s)
+        minimax_chat_mirror_history_test.go:84: [MM10-actual-chat-mirror-history-in-process] original native details and mirror both replay: map[content:[110 117 108 108] role:[34 97 115 115 105 115 116 97 110 116 34] tool_calls:[91 123 34 105 100 34 58 34 109 105 114 114 111 114 45 99 97 108 108 34 44 34 116 121 112 101 34 58 34 102 117 110 99 116 105 111 110 34 44 34 102 117 110 99 116 105 111 110 34 58 123 34 110 97 109 101 34 58 34 108 111 111 107 117 112 34 44 34 97 114 103 117 109 101 110 116 115 34 58 34 123 92 34 113 92 34 58 92 34 97 92 34 125 34 125 125 93]]
+    --- FAIL: TestMiniMaxChatObservedMirrorHistory/trusted-restored (0.01s)
+        minimax_chat_mirror_history_test.go:84: [MM10-actual-chat-mirror-history-trusted-restored] original native details and mirror both replay: map[content:[110 117 108 108] role:[34 97 115 115 105 115 116 97 110 116 34] tool_calls:[91 123 34 105 100 34 58 34 109 105 114 114 111 114 45 99 97 108 108 34 44 34 116 121 112 101 34 58 34 102 117 110 99 116 105 111 110 34 44 34 102 117 110 99 116 105 111 110 34 58 123 34 110 97 109 101 34 58 34 108 111 111 107 117 112 34 44 34 97 114 103 117 109 101 110 116 115 34 58 34 123 92 34 113 92 34 58 92 34 97 92 34 125 34 125 125 93]]
+FAIL
+barness-ai evidence bundle: $REPO/.evidence/mm10-global-chat-history-red/captures/20261018T015453.002710000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	0.662s
+FAIL

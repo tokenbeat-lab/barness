@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "kind": "failure-first-intermediate-offline-captures",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "rawFiles": 949,
+  "rawBytes": 6994917,
+  "archive": "international-red-green.tar.gz",
+  "archiveBytes": 3344373,
+  "archiveSha256": "4c845fcd60aec847c33514f076a556cc57f4a4877853e632600bb4e4e591c954",
+  "verifiedArtifactReferences": 921,
+  "artifactHashMismatches": 0,
+  "fileInventoryGzipSha256": "429296c9c18ea5b13a26dc9251ed3ec72ca0c31cfebecfa69759cb22d3a866e7",
+  "runs": [
+    {
+      "manifest": "mm11-intermediate/e2e/mm11-ledger-green/20261018T010749.410375000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 1,
+      "outcomes": {
+        "PASS": 1
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/e2e/mm11-ledger-red/20261018T010703.317464000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 1,
+      "outcomes": {
+        "FAIL": 1
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/e2e/mm11-pi-enabled/20261018T011858.419679000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 9,
+      "outcomes": {
+        "PASS": 9
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/e2e/mm11-pi/20261018T011838.206190000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 3,
+      "outcomes": {
+        "PASS": 1,
+        "NOT_RUN": 2
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/e2e/mm11-runtime-green/20261018T011101.780179000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 38,
+      "outcomes": {
+        "PASS": 38
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/e2e/mm11-runtime-red/20261018T010934.910808000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 37,
+      "outcomes": {
+        "PASS": 21,
+        "FAIL": 16
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/live/mm11-global-history-green/20261018T011732.193373000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 1,
+      "outcomes": {
+        "PASS": 1
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/live/mm11-m31-price-red/20261018T011232.564187000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 3,
+      "outcomes": {
+        "FAIL": 3
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/live/mm11-m31-warning-import-red/20261018T011532.264989000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 3,
+      "outcomes": {
+        "FAIL": 3
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/live/mm11-price-slot-green/20261018T011619.210226000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 3,
+      "outcomes": {
+        "PASS": 3
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-intermediate/live/mm11-price-slot-red/20261018T011358.898966000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 3,
+      "outcomes": {
+        "FAIL": 3
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-historical-schema-red/20261018T012324.377907000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 3,
+      "outcomes": {
+        "FAIL": 3
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-historical-schema-green/20261018T012347.047987000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 4,
+      "outcomes": {
+        "PASS": 4
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "mm11-evidence-contract/20261018T012058.848369000Z/manifest.json",
+      "gitCommit": "3d839b0b3e3531aa49e032fb0e689f855809abcb",
+      "cases": 22,
+      "outcomes": {
+        "PASS": 22
+      },
+      "auditFindings": 0
+    }
+  ],
+  "provenance": "Intermediate red/green manifests retain their original base git_commit. The new tests and implementation were then committed in 0de9e9c/e9731a4. These are retained failure history; complete frozen current-source ordinary/race bundles are separate. Relative-path roots originally under ai/e2e or ai/live were moved byte-identically under mm11-intermediate before curation.",
+  "retention": "Complete archive tracked here and duplicated in common-root .evidence/minimax-retained/international-red-green.tar.gz"
+}

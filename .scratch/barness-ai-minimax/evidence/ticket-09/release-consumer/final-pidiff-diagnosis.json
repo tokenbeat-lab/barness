@@ -1,0 +1,51 @@
+{
+  "originalSource": "3d3a1fb28e143a2c29d684f78edcad94c0217243",
+  "originalGoVersion": "go1.26.2",
+  "cases": [
+    {
+      "artifacts": {
+        "assertions.json": "53815896a967eccbc5e753de6cfd271cb086fe28ed29fae5f95c637191bb84c2",
+        "barness-observation.json": "1dea154a00ed333f4ce2e8f63956afe270f9be69b648a1cb19ddf059ba8f9b5d",
+        "pi-observation.json": "86f8546236a8907787529490b7624abcf60f3a793dd6f6f6e05f8cd096857405",
+        "pidiff.json": "0973c228ef6e5484a6f1612ca8646c6dd1e69079f2a0424e064e0a7bba3cebd1"
+      },
+      "dir": "PIDIFF-MM06-catalog-differences",
+      "fixtures": {},
+      "id": "PIDIFF-MM06-catalog-differences",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxPiCatalogDifferences$'",
+      "status": "PASS",
+      "test": "TestMiniMaxPiCatalogDifferences"
+    },
+    {
+      "artifacts": {
+        "assertions.json": "f638a32a7550d7c9d4d114c56ecd9f341f01ef1c245d8ad79f19fa7f02d0aa21",
+        "frozen-models.json": "1de3a8af7fe1c1a645658d7f76a29854f6a1ad1876c37c759f895f8613bf8ee7"
+      },
+      "dir": "PIDIFF-MM06-frozen-catalog",
+      "fixtures": {},
+      "id": "PIDIFF-MM06-frozen-catalog",
+      "replay": "BARNESS_AI_PIDIFF=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxPiCatalog$'",
+      "status": "PASS",
+      "test": "TestMiniMaxPiCatalog"
+    }
+  ],
+  "catalogRecord": {
+    "sdk_versions": {
+      "@anthropic-ai/sdk": "0.129.0",
+      "@earendil-works/pi-ai": "1.1.0",
+      "openai": "7.19.0"
+    },
+    "pi_commit": "abe508e1b89912adde45528136c3221eb69acdd7",
+    "pi_version": "1.1.0",
+    "sdk_lock_sha256": "e0b4084c372bc764b73faa25f2a311a3649e5b7ffb341352f25c13a891b7de65",
+    "request_sha256": {
+      "barness": "9696da6384e58201b5210eca3aca5c3c8bced8127c19ac7d4d2135fb30e0c0a6",
+      "pi": "9696da6384e58201b5210eca3aca5c3c8bced8127c19ac7d4d2135fb30e0c0a6"
+    },
+    "frame_sha256": "b9475dea34a9b43c0aa7405409712aab62edcf0525d514e48a0241f0234e6fcb",
+    "pending": 0,
+    "pass": true,
+    "gate": "PASS"
+  },
+  "artifactHashesVerified": true
+}

@@ -1,0 +1,108 @@
+{
+  "axis": "Spec",
+  "decision": "PASS_SOURCE_ONLY",
+  "base": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+  "tip": "d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "diffCommand": "git diff a2038ff805b51ca9c60fc4218abc23810549f8dc...d02b5adb862e98d73672b47bfd1e3142a2d6082d",
+  "diffSHA256": "673c4dbc06facda90b31311f3f6e3f195e3dd83578e7d1a9183fdd39604d11f9",
+  "filesSHA256": {
+    ".scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md": "7b4a8c0b85e6656e4927746f0ad1297503308783890280240248d297538a9135",
+    "ai/examples/visualeval/unsent_test.go": "bd8c4a8e71ea294e16004e274e8349fd43aacf8ab47213a91822ac6fc1e76c78",
+    "ai/examples/visualeval/verify.go": "f112b8fbaad158f38ee7cbce2c97ef7125cf2dd1dc439f9a312be24338f2db61"
+  },
+  "originalReportSHA256": "ac392d33711307a1d29701540dd5faaa093d2a8a648a930e71cb3543e53cff6a",
+  "resolvedFindings": [
+    "T20-SOURCE-SPEC-01"
+  ],
+  "findings": [],
+  "requirements": [
+    {
+      "path": ".scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md",
+      "lines": [
+        22,
+        25
+      ],
+      "quote": "未发送访问记录必须明确提供唯一的整数 credentialReads；缺失字段不能借 int 零值冒充实测 0，伪造次数必须拒绝。"
+    }
+  ],
+  "report": "PASS, no new Spec findings. The narrow decoder now requires exactly one credentialReads key with a non-nil *int before dereferencing, so null/missing, boolean and fractional values cannot impersonate measured integer zero. This clears T20-SOURCE-SPEC-01; the finite lifecycle, sent-call checks and source selectors are unchanged. The preserved public consumer RED accepts only the null mutation incorrectly (three tamper leaves: 2 PASS/1 FAIL; propagated manifest: 2 PASS/2 FAIL). Final ordinary and race manifests each contain 23 PASS, audit zero; both vets exit zero. Receipts record a203 HEAD plus stable WIP source, whose changed Go bytes equal d02; these are not post-commit/full-source-freeze executions. This is source correctness approval only. Original failed full gate, historical evidence, three renewed groups’ current source eligibility, paid authorization and full acceptance remain separate.",
+  "receipts": {
+    "null-access-red": {
+      "commandSHA256": "ceffb215eb3cf748ebc67b7aa8ac80832d2054a942f24782f02f988d012e9337",
+      "exitCode": 1,
+      "sourceCommitRecorded": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceStable": true,
+      "snapshotCount": 1040,
+      "stdoutSHA256": "061e8879f1e7da85eac823cb8397c52e1e4743b1ced7fade5973fcc281a24364",
+      "selectedMatchesFinal": {
+        "ai/examples/visualeval/unsent_test.go": true,
+        "ai/examples/visualeval/verify.go": false
+      },
+      "manifestSHA256": "ff99dee047108c7cd06c14c969ca9bc25c214b4a401ad352915d70a2e8a3d22a",
+      "caseCounts": {
+        "PASS": 2,
+        "FAIL": 2
+      },
+      "auditFindings": []
+    },
+    "null-final-ordinary": {
+      "commandSHA256": "f778d121d0bd037fbf3386058c48c0a2e2f8bf24160041e77a217e2643365ae0",
+      "exitCode": 0,
+      "sourceCommitRecorded": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceStable": true,
+      "snapshotCount": 1040,
+      "stdoutSHA256": "942b16b14659c834228cfaa0417332465668df4ccbc8659d7a0bdcb9d78200d0",
+      "selectedMatchesFinal": {
+        "ai/examples/visualeval/unsent_test.go": true,
+        "ai/examples/visualeval/verify.go": true
+      },
+      "manifestSHA256": "d5b7f48055acbba3abd5fdbdd5b9aff280daf0a878ca827e5bdd1b146a4be858",
+      "caseCounts": {
+        "PASS": 23
+      },
+      "auditFindings": []
+    },
+    "null-final-race": {
+      "commandSHA256": "5669ceff592d5e4de0a12f6546509b441889802d734bc1f2de15fa92a204171e",
+      "exitCode": 0,
+      "sourceCommitRecorded": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceStable": true,
+      "snapshotCount": 1040,
+      "stdoutSHA256": "ba1cbd8502f55dca1ae5bd9629e0889988a90a2461acc284daba2f6267fba921",
+      "selectedMatchesFinal": {
+        "ai/examples/visualeval/unsent_test.go": true,
+        "ai/examples/visualeval/verify.go": true
+      },
+      "manifestSHA256": "844232d782ee619be9a5080905b5e0ef83677f0c52c36dc077db877781c2aecd",
+      "caseCounts": {
+        "PASS": 23
+      },
+      "auditFindings": []
+    },
+    "null-final-vet": {
+      "commandSHA256": "4f755d62022608b953a3dd506d67aee7b60f2776daefa0759872c8d64f92aab5",
+      "exitCode": 0,
+      "sourceCommitRecorded": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceStable": true,
+      "snapshotCount": 1040,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selectedMatchesFinal": {
+        "ai/examples/visualeval/unsent_test.go": true,
+        "ai/examples/visualeval/verify.go": true
+      }
+    },
+    "null-final-vet-live": {
+      "commandSHA256": "5f808658dd313c307e1c26137abf9d8f52a75c7ba5cd3fedbe63faa026a1d97c",
+      "exitCode": 0,
+      "sourceCommitRecorded": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+      "sourceStable": true,
+      "snapshotCount": 1040,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selectedMatchesFinal": {
+        "ai/examples/visualeval/unsent_test.go": true,
+        "ai/examples/visualeval/verify.go": true
+      }
+    }
+  },
+  "reviewMethod": "Read-only Git, JSON, raw log and SHA256 inspection; no project/captured code, tests, keys or network executed."
+}

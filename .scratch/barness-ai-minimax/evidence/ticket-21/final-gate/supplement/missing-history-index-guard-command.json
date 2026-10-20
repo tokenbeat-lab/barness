@@ -1,0 +1,27 @@
+{
+  "case": "missing-history-index",
+  "state": "COMPLETED",
+  "exitCode": 1,
+  "expectedExitCode": 1,
+  "expectedTerminalReason": "FileNotFoundError: [Errno 2] No such file or directory: 'index.json'",
+  "actualTerminalReason": "FileNotFoundError: [Errno 2] No such file or directory: 'index.json'",
+  "expectedOutcomeObserved": true,
+  "startedAt": "2026-10-19T11:26:40.911119+00:00",
+  "finishedAt": "2026-10-19T11:26:40.981008+00:00",
+  "seconds": 0.06989500019699335,
+  "readerSHA256": "de9550f1e4458310ead810d6154a4b1e3929077fb642cdba140d50d1a88f825c",
+  "classification": "PRIVATE_METADATA_NEGATIVE; anchor-first or exact index ENOENT/ELOOP; missing-history checks after prior publication archive; no deeper branch claim",
+  "argvDisplay": [
+    "python3",
+    "$SYSTEM_TMP/barness-ticket21-postgate-verify.py",
+    "--common-root",
+    "$REPO",
+    "--metadata-root",
+    "$PRIVATE_FIXTURE/missing-history-index",
+    "--repository-root",
+    "$OWN_WORKTREE"
+  ],
+  "displayIsDerived": true,
+  "credentialsRead": false,
+  "paidCalls": 0
+}

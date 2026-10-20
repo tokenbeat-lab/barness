@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "axis": "Standards retention narrow re-review",
+  "decision": "APPROVED_RETENTION_ONLY",
+  "reviewedSource": "d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "base": "06229f68de6e9dc3100724f05365bb4bd414667a",
+  "diffCommand": "git diff 06229f68de6e9dc3100724f05365bb4bd414667a...d8e7100695a5747a801bf5f8966cef1a2d129e4c",
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/README.md",
+      "bytes": 4694,
+      "sha256": "e53dcad81f788e57f0d7bf171ecda00b9386ef1000f3d82d15c7226d34710f4a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-13/final-gate/SHA256SUMS",
+      "bytes": 1883,
+      "sha256": "d2ccc769daf0d0b9e2c7458c3013b389414b2c243e6944ff49eae39ac2ef3a1a"
+    }
+  ],
+  "priorReview": {
+    "file": "/tmp/barness-routed-final-gate-retention-standards-review.json",
+    "sha256": "3d4bb5800dbafe8e4b825115daf93b0820da15c9cd00789949137e96b6972f35",
+    "reviewedSource": "06229f68de6e9dc3100724f05365bb4bd414667a",
+    "immutable": true
+  },
+  "resolvedFindings": [
+    {
+      "id": "RETAIN-STANDARDS-01",
+      "status": "CLOSED",
+      "proof": "README line32 now explicitly distinguishes the creation32MiB/256-file selection bound from the shared finite256MiB-compressed/2GiB-decoded/160000-file runtime envelope, while preserving the fixed45-file inventory and actual hashes."
+    }
+  ],
+  "findings": [],
+  "possibleSmells": [],
+  "summary": "The exact diff changes one README paragraph and only its matching SHA256SUMS row. All21 other retained tracked files, including indexes, observations, summaries, readers, public verification receipts and snapshot programs, are byte-identical to0622. Every22-file seal hash matches committed bytes. The prior archive/read-hash findings remain scoped to the original failed8fbd run; this documentation correction does not remeasure or recertify it. No other Standards finding or actionable baseline smell in this narrow change.",
+  "boundaries": {
+    "committedBytesOnly": true,
+    "workerUncommittedSourceRead": false,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "sourceEdits": false,
+    "mergePerformed": false,
+    "paidApproval": false,
+    "releaseCertified": false
+  },
+  "oldRawArchivePinsUnchanged": [
+    {
+      "file": ".evidence/minimax-retained/ticket-13-final-gate/verdict-raw.tar.gz",
+      "bytes": 407502,
+      "sha256": "5988535e18f3cefcf793cd6ea126b16ecd06b062e20c45256eb434d69910078e",
+      "prefix": "routed-compiled-verdict"
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-13-final-gate/ordinary-raw.tar.gz",
+      "bytes": 114322540,
+      "sha256": "9f72789f54f61f40cba8880c9a42f7be818df02f431c1360e250dbafd1329467",
+      "prefix": "routed-compiled-ordinary"
+    },
+    {
+      "file": ".evidence/minimax-retained/ticket-13-final-gate/race-raw.tar.gz",
+      "bytes": 113453106,
+      "sha256": "b5b96d819cd097c6db13ebbc2101f1a3988ecd05ad4f607a1f32d7b561a0371f",
+      "prefix": "routed-compiled-race"
+    }
+  ]
+}

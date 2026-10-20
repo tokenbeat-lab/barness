@@ -1,0 +1,84 @@
+panic: test timed out after 5m0s
+	running tests:
+		TestGLMFormalReports (5m0s)
+		TestGLMFormalReports/chat (5m0s)
+
+goroutine 55 [running]:
+testing.(*M).startAlarm.func1()
+	/usr/local/go/src/testing/testing.go:2802 +0x494
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:215 +0x44
+
+goroutine 1 [chan receive, 5 minutes]:
+testing.(*T).Run(0xc00032e008, {0x1014ad9ca, 0x14}, 0x1024ba740)
+	/usr/local/go/src/testing/testing.go:2109 +0x7dc
+testing.runTests.func1(0xc00032e008)
+	/usr/local/go/src/testing/testing.go:2585 +0x7c
+testing.tRunner(0xc00032e008, 0xc000587928)
+	/usr/local/go/src/testing/testing.go:2036 +0x168
+testing.runTests({0x1014c7fa8, 0x20}, {0x1014d55f4, 0x27}, 0xc000011020, {0x1025accc0, 0x202, 0x202}, {0x151b606e8?, 0x10048dd5c?, ...})
+	/usr/local/go/src/testing/testing.go:2583 +0x7a4
+testing.(*M).Run(0xc0003e8780)
+	/usr/local/go/src/testing/testing.go:2443 +0xb3c
+github.com/tokenbeat-lab/barness/ai/e2e.TestMain(0xc0003e8780)
+	/private/tmp/barness-glm-13/ai/e2e/main_test.go:44 +0x438
+main.main()
+	_testmain.go:1074 +0x108
+
+goroutine 49 [chan receive, 5 minutes]:
+testing.(*T).Run(0xc00032e248, {0x1014940dd, 0x4}, 0xc00041c3a0)
+	/usr/local/go/src/testing/testing.go:2109 +0x7dc
+github.com/tokenbeat-lab/barness/ai/e2e.TestGLMFormalReports(0xc00032e248)
+	/private/tmp/barness-glm-13/ai/e2e/glm_formal_reports_test.go:30 +0x14c
+testing.tRunner(0xc00032e248, 0x1024ba740)
+	/usr/local/go/src/testing/testing.go:2036 +0x168
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2101 +0x7c0
+
+goroutine 50 [runnable]:
+regexp.(*machine).add(0xc0003983c0, 0xc000398400, 0x4, 0x11a6b, {0xc0020e9020, 0x6, 0x6}, 0xc00014c3c0, 0x0)
+	/usr/local/go/src/regexp/exec.go:368 +0x6a0
+regexp.(*machine).add(0xc0003983c0, 0xc000398400, 0x1, 0x11a6b, {0xc0020e9020, 0x6, 0x6}, 0xc00014c3c0, 0x0)
+	/usr/local/go/src/regexp/exec.go:355 +0x3b8
+regexp.(*machine).match(0xc0003983c0, {0x1024eec40, 0xc000398480}, 0x0)
+	/usr/local/go/src/regexp/exec.go:222 +0x424
+regexp.(*Regexp).doExecute(0xc0000ae460, {0x0, 0x0}, {0x0, 0x0, 0x0}, {0xc001408000, 0x1e49c}, 0x0, 0x6, ...)
+	/usr/local/go/src/regexp/exec.go:542 +0x414
+regexp.(*Regexp).allMatches(0xc0000ae460, {0xc001408000, 0x1e49c}, {0x0, 0x0, 0x0}, 0x1e49d, 0xc00014c6c0)
+	/usr/local/go/src/regexp/regexp.go:758 +0x118
+regexp.(*Regexp).FindAllStringSubmatchIndex(0xc0000ae460, {0xc001408000, 0x1e49c}, 0xffffffffffffffff)
+	/usr/local/go/src/regexp/regexp.go:1201 +0x90
+github.com/tokenbeat-lab/barness/ai/internal/testkit/audit.File({0xc000033647, 0x2f}, {0xc0013e8000, 0x1e49c, 0x1e49d}, {0x0, 0x0, 0x100455b00?})
+	/private/tmp/barness-glm-13/ai/internal/testkit/audit/audit.go:126 +0x300
+github.com/tokenbeat-lab/barness/ai/internal/testkit/audit.Bundle.func1({0xc0000335f0, 0x86}, {0x1024e6a30, 0xc0004437c0}, {0x0, 0x0})
+	/private/tmp/barness-glm-13/ai/internal/testkit/audit/audit.go:100 +0xe4
+path/filepath.walkDir({0xc0000335f0, 0x86}, {0x1024e6a30, 0xc0004437c0}, 0xc00014ceb0)
+	/usr/local/go/src/path/filepath/path.go:311 +0x60
+path/filepath.walkDir({0xc001afc000, 0x79}, {0x1024e6a30, 0xc000442400}, 0xc00014ceb0)
+	/usr/local/go/src/path/filepath/path.go:333 +0x2d8
+path/filepath.walkDir({0xc00002c120, 0x5f}, {0x1024e6a30, 0xc0004421c0}, 0xc00014ceb0)
+	/usr/local/go/src/path/filepath/path.go:333 +0x2d8
+path/filepath.walkDir({0xc000027030, 0x56}, {0x1024e6c60, 0xc0000347e0}, 0xc00014ceb0)
+	/usr/local/go/src/path/filepath/path.go:333 +0x2d8
+path/filepath.WalkDir({0xc000027030, 0x56}, 0xc00014ceb0)
+	/usr/local/go/src/path/filepath/path.go:401 +0x84
+github.com/tokenbeat-lab/barness/ai/internal/testkit/audit.Bundle({0xc000027030, 0x56}, {0x0, 0x0, 0x0})
+	/private/tmp/barness-glm-13/ai/internal/testkit/audit/audit.go:88 +0x21c
+github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.NewGLMSupportViewReport({_, _})
+	/private/tmp/barness-glm-13/ai/internal/testkit/supportmatrix/glm_derivation.go:162 +0x8bc
+github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.VerifyGLMReport({0x3, {0xc0002ea376, 0xa}, {0xc0002ea38c, 0x4}, {0xc0002ea39b, 0x5}, {0xc0002b2378, 0x12}, {0xc00063b710, ...}, ...})
+	/private/tmp/barness-glm-13/ai/internal/testkit/supportmatrix/glm.go:158 +0xa4
+github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.checkGLM({0x3, {0xc0002ea376, 0xa}, {0xc0002ea38c, 0x4}, {0xc0002ea39b, 0x5}, {0xc0002b2378, 0x12}, {0xc00063b710, ...}, ...})
+	/private/tmp/barness-glm-13/ai/internal/testkit/supportmatrix/glm.go:176 +0x80
+github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.check({_, {_, _, _}}, {0x3, {0xc0002ea376, 0xa}, {0xc0002ea38c, 0x4}, {0xc0002ea39b, ...}, ...})
+	/private/tmp/barness-glm-13/ai/internal/testkit/supportmatrix/matrix.go:301 +0xd94
+github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix.Merge({_, {_, _, _}}, {0x3, {0xc0002ea376, 0xa}, {0xc0002ea38c, 0x4}, {0xc0002ea39b, ...}, ...})
+	/private/tmp/barness-glm-13/ai/internal/testkit/supportmatrix/matrix.go:192 +0x74
+github.com/tokenbeat-lab/barness/ai/e2e.TestGLMFormalReports.func1(0xc00032e6c8)
+	/private/tmp/barness-glm-13/ai/e2e/glm_formal_reports_test.go:91 +0x1188
+testing.tRunner(0xc00032e6c8, 0xc00041c3a0)
+	/usr/local/go/src/testing/testing.go:2036 +0x168
+created by testing.(*T).Run in goroutine 49
+	/usr/local/go/src/testing/testing.go:2101 +0x7c0
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	300.642s
+FAIL

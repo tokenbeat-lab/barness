@@ -1,0 +1,173 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_SINGLE_CASE_DIAGNOSTIC_SOURCE_ONLY",
+  "baseCommit": "14769dc1c1cdf426803c88d401b6d3e7b2406256",
+  "reviewedCommit": "6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "diffCommand": "git diff 14769dc1c1cdf426803c88d401b6d3e7b2406256...6a24ba3308ade8712dd4b0d20d67d9442603ad67",
+  "commitsCommand": "git log 14769dc1c1cdf426803c88d401b6d3e7b2406256..6a24ba3308ade8712dd4b0d20d67d9442603ad67 --oneline",
+  "commits": [
+    "6a24ba3 Add isolated one-case GLM Messages cancellation diagnostic",
+    "8357ded docs: scope one GLM Messages cancellation rerun"
+  ],
+  "diffSHA256": "101052abf80e6a080ad8ef9b704b5279aed9033caafa3dc79c75ffcc41d130dc",
+  "issue": {
+    "file": ".scratch/barness-ai-minimax/issues/18-glm-messages-cancel-rerun.md",
+    "sha256": "c239debc3e7937eb2d20c8122b1a3763600b4cc37929fbea4935c30b8c5d2a0a"
+  },
+  "fullSpec": {
+    "file": ".scratch/barness-ai-minimax/spec.md",
+    "sha256": "279175b94b1e1602d430f30ed604e01a34b8d3606e8764fbd64bf721ad67b1a5",
+    "mandatoryAcceptanceUnchanged": true
+  },
+  "findings": [],
+  "report": "Spec source review: PASS, no findings, for exact14769dc…6a24ba3. The actual vendor rerun and subsequent context update are separate remaining execution steps.\n\nTicket18 requires “最多1 logical call /1 HTTP Attempt”, original prompt/options/cancel assertions, China direct and no formal-route promotion. The new exact test entry selects only the immutable Messages glm-5.3/cancel plan element and directly calls existing glmSession.execute. Original prompt construction, Messages options,4096 output check,120s deadline and first TextDelta/ThinkingDelta→Canceled/Aborted oracle are unchanged. Existing reservation plus HTTP gate enforce1/1; default zero-retry Client assembly remains unchanged. The180s process and20s finalization reserve leave the120s call limit intact. BuiltinCatalog and its hash are used; the fixed China endpoint, Proxy=nil transport and rejected explicit proxy prevent international/inherited proxy routing.\n\nDiagnostic kind/report/entry are distinct. Formal/replay/provider mixing and altered model/route/regex selection refuse; ordinary formal22 selection cannot shrink. No absent glm-5.2 model summary or formal support report is emitted; formal publication requires glm-formal. Missing key remains incompleteNOT_RUN,429 consumes one attempt and fails, and no selector or matrix changes occur. The existing initialization reads only the selected child environment credential; no dotenv loader or extra credential channel was added. Parent must still bind committed source/binary/plan and perform the fresh controlled check before the authorized child reads its selected Key.\n\nIndependently bounded stdlib streaming verifies all222 regular controlled-archive members/inventory hashes,592856 payload/931840 decoded/91564 compressed bytes, SHA1958a651…. Captured five source files match the committed bytes. Recorded two RED1 runs preserve the unavailable entry/refused child; ordinary/race each9/9PASS and live vet0 remain controlled results. Child success uses one own call/attempt, one expected case and no formal/live support publication; rejection children spend zero except deliberate429. All native manifest artifact references reconcile. Measurements remain14769dc+WIP matching6a24, without a postcommit claim.\n\nScope is limited to five harness files, authoritative ticket and finite offline evidence. Original120001ms failure and full-spec acceptance requirements are untouched. No real Key/network/paid call, project/captured program/test/verifier execution or repository mutation by reviewer. No single-case or full-route real PASS is claimed before the actual run.",
+  "reportBodyWords": 316,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/failure-inventory.md": {
+      "bytes": 903,
+      "sha256": "096b92bafeb41d379de140850bdb958f08912c1426aeecd1525575635c36a5c7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/index.json": {
+      "bytes": 528,
+      "sha256": "edfdad771ac8b3c7790dc64d385a1225c140c37dff5b4ada2590c53b495dd62b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/inventory.json.gz": {
+      "bytes": 7913,
+      "sha256": "4eaab73e2d6a000046bea51b0e6060efcb6b18b7308e402322660e4653e63ea5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-18/controlled/source-proof.json": {
+      "bytes": 1598,
+      "sha256": "c2e8965ddc6931e31d74c2c612f67e8758ec0ace9d329180b62a53280299af52"
+    },
+    ".scratch/barness-ai-minimax/issues/18-glm-messages-cancel-rerun.md": {
+      "bytes": 1675,
+      "sha256": "c239debc3e7937eb2d20c8122b1a3763600b4cc37929fbea4935c30b8c5d2a0a"
+    },
+    "ai/live/glm_capture_test.go": {
+      "bytes": 5959,
+      "sha256": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274"
+    },
+    "ai/live/glm_config_test.go": {
+      "bytes": 9883,
+      "sha256": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa"
+    },
+    "ai/live/glm_diagnostic_process_test.go": {
+      "bytes": 5657,
+      "sha256": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+    },
+    "ai/live/glm_diagnostic_test.go": {
+      "bytes": 3972,
+      "sha256": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13"
+    },
+    "ai/live/main_test.go": {
+      "bytes": 11660,
+      "sha256": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05"
+    }
+  },
+  "sourceFiles": {
+    "ai/live/main_test.go": "97aa4028be63398b0cbf38bd1e1106ddc5ecabc39a87a2ce486d3a6e27c5bb05",
+    "ai/live/glm_config_test.go": "9538ae2831ce46d0fbab83583dccb845b1d54edac0a5138dde018e0a61becbaa",
+    "ai/live/glm_capture_test.go": "53bb09a8aef9b4d1f65ac6436c3e53dd1d2b3d1d0e76b226cc7c74783d8c2274",
+    "ai/live/glm_diagnostic_test.go": "c7a8c44a20f88264bac86ea459cb11da02ae26bf88398331a46dd51a54723f13",
+    "ai/live/glm_diagnostic_process_test.go": "478c8cc802058a36491b5e44dc0aaffffaf2deb9a1d4d593be0f978d6570cfed"
+  },
+  "controlledArchive": {
+    "archive": "/Users/cyber/RestoX/barness/.evidence/minimax-retained/ticket18-diagnostic-controlled/controlled-raw.tar.gz",
+    "bytes": 91564,
+    "sha256": "1958a651ac05a180939098b33ac4431c4dd82043d1beef434c01708f2d126fe9",
+    "files": 222,
+    "payloadBytes": 592856,
+    "bounds": {
+      "files": 4096,
+      "entries": 4096,
+      "depth": 32,
+      "memberBytes": 8388608,
+      "payloadBytes": 67108864,
+      "compressedBytes": 16777216
+    },
+    "vendorCalls": 0,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "releaseCertified": false
+  },
+  "controlledInventoryMembers": 222,
+  "controlledPayloadBytes": 592856,
+  "controlledDecodedTarBytes": 931840,
+  "controlledArtifactReferences": 262,
+  "recordedControlledCommands": [
+    {
+      "argv": "go test -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$/^success$' -timeout=90s",
+      "actualExit": 1,
+      "stage": "red"
+    },
+    {
+      "argv": "same exact RED command with complete refused-child retention",
+      "actualExit": 1,
+      "stage": "red-retained"
+    },
+    {
+      "argv": "go test -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$' -timeout=90s",
+      "actualExit": 0,
+      "stage": "green"
+    },
+    {
+      "argv": "go test -race -tags live ./ai/live -count=1 -run '^TestGLMMessagesCancelDiagnosticProcess$' -timeout=90s",
+      "actualExit": 0,
+      "stage": "race"
+    },
+    {
+      "argv": "go vet -tags live ./ai/live",
+      "actualExit": 0,
+      "stage": "vet"
+    }
+  ],
+  "unchangedOriginalFunctionsAndSelectors": [
+    "ai/live/glm_harness_test.go",
+    "ai/live/glm_assembly_test.go",
+    "ai/live/glm_formal_test.go",
+    "ai/live/glm_finish_test.go",
+    "ai/live/recorder_test.go",
+    "ai/live/testdata/glm-candidate/plan.json",
+    "ai/live/testdata/glm-formal/live-captures.json",
+    "ai/live/testdata/glm-formal/live-captures.sha256",
+    "ai/live/testdata/glm-formal/known-usage.json",
+    "ai/live/testdata/glm-formal/support-views.json",
+    "ai/live/support-matrix.json"
+  ],
+  "independentProof": {
+    "path": "/tmp/barness-ticket18-spec-independent-proof.json",
+    "sha256": "4e148370e212a04367d4ea866b664c92a2df3a3eb2ec32b0d86a3b0ebc0b088b",
+    "readerSHA256": "8057b1706866d9e1afafd8949eff27f4ca111c10c86bf9f308a82d40ee541ead"
+  },
+  "requirementCoverage": {
+    "fixedOnlyMessagesGLM53Cancel": true,
+    "logicalCallMaximum": 1,
+    "httpAttemptMaximum": 1,
+    "outputTokenMaximum": 4096,
+    "callSecondsMaximum": 120,
+    "retryMaximum": 0,
+    "automaticRerun": false,
+    "chinaDirectNoFallback": true,
+    "originalPromptOptionsCancelOracle": true,
+    "builtinCatalog": true,
+    "formal22CannotBeNarrowed": true,
+    "diagnosticDoesNotCertifyAbsentModelOrWholeRoute": true,
+    "originalFailureSelectorsMatrixPreserved": true
+  },
+  "remainingExecution": [
+    "Parent binds exact committed-source manifest, actual binary and finite plan plus fresh controlled check",
+    "Run the one human-authorized real child only; retain honest actual outcome and independent accounting",
+    "Update human/machine context without promoting full Messages route, matrix or release certification"
+  ],
+  "actualPaidCallsByReviewer": 0,
+  "actualVendorResultReviewed": false,
+  "releaseCertified": false,
+  "sourceQualificationRenewed": false,
+  "scopeConstraints": {
+    "sourceReviewOnly": true,
+    "capturedProgramsProjectTestsVerifiersExecuted": false,
+    "keyRead": false,
+    "network": false,
+    "repositoryMutation": false
+  }
+}

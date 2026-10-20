@@ -1,0 +1,45 @@
+from pathlib import Path
+import gzip,hashlib,io,json,os,shutil,sys,tarfile,zlib
+repo=Path('/tmp/barness-minimax-routed-validation').resolve();front=repo/'.scratch/barness-ai-minimax/evidence/ticket-17';base=front/'retention-fixes/factory-correction';local=repo/'.evidence/minimax-ticket17-resource-factory-2';raw=base/'raw';raw.mkdir(exist_ok=False);sha=lambda v:hashlib.sha256(v).hexdigest();sys.path.insert(0,str(front));import readers
+b=readers.small();full=readers.full();cases=('index-size','inventory-compressed','inventory-decoded','seal-metadata','output-grow');facts=[]
+for phase in ('red','green'):
+ for case in cases:
+  source=local/(phase+'-'+case);dest=raw/'tdd'/(phase+'-'+case);dest.mkdir(parents=True)
+  for name in ('receipt.json','events.jsonl','stdout.log','stderr.log'):
+   data=b.read(source,name,8<<20);(dest/name).write_bytes(data)
+  row=b.doc(b.read(source,'receipt.json',1<<20));assert row['exitCode']==1 and type(row['exitCode']) is int and row['originalsUnchanged'] is True and row['injected'] is True
+  producer=source/'source'/Path('.scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py');code=b.read(producer.parent,producer.name,64<<10);assert sha(code)==row['sourceSHA256'];target=raw/'sources'/(phase+'-resource-probe.py.txt');target.parent.mkdir(exist_ok=True)
+  if target.exists():assert b.read(target.parent,target.name,64<<10)==code
+  else:target.write_bytes(code)
+  extra=source/'work';out=[]
+  for name in ('construction.json','red.json','red.stdout','red.stderr','verification.json','verification.stdout','verification.stderr','mutated-resource.json','mutated-manifest.json'):
+   if (extra/name).exists():data=b.read(extra,name,1<<20);(dest/name).write_bytes(data)
+  if row.get('privateOutput'):
+   assert row['privateOutput']['sha256']=='80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34'
+   out.append(dict(kind='EXACT-BYTE-REFERENCE',file='.evidence/minimax-retained/ticket-17-final-payload/resource-counter-false-negative.tar.gz',sha256=row['privateOutput']['sha256'],bytes=row['privateOutput']['bytes']))
+  if case=='output-grow':out.append(dict(kind='NON_AUTHORITATIVE_SYNTHETIC_RECIPE',bytes=257<<20,content='all zero regular sparse file',hashFromActualOldConstructor=(row.get('publicVerification') and b.doc(b.read(extra,'construction.json',1<<20))['archive']['sha256']) if phase=='red' else None))
+  facts.append(dict(phase=phase,case=case,actualConstructorExit=1,publicProbeToolExit=0,largeOutputStorage=out))
+for name in ('receipt.json','stdout.log','stderr.log'):
+ dest=raw/'legitimate';dest.mkdir(exist_ok=True);(dest/name).write_bytes(b.read(local/'legitimate-driver',name,1<<20))
+for name in ('construction.json','verification.json','verification.stdout','verification.stderr','mutated-resource.json','mutated-manifest.json'):(raw/'legitimate'/name).write_bytes(b.read(local/'legitimate-work',name,1<<20))
+for name in ('check-factory.py','run-legitimate.py'):
+ dest=raw/'controllers'/name;dest.parent.mkdir(exist_ok=True);dest.write_bytes(b.read(base,name,64<<10))
+for name in ('barness-repair-retention-fixes-standards-review.json','barness-repair-retention-fixes-spec-review.json','barness-repair-retention-fixes-independent-readhash.json','e1-resource-probe.py.txt','e1-correction-evidence.json'):
+ dest=raw/'originals'/name;dest.parent.mkdir(exist_ok=True);dest.write_bytes(b.read(base/'originals',name,8<<20))
+for path in sorted(Path('/tmp').glob('barness-factory-*.log')):
+ dest=raw/'public-probe-logs'/path.name;dest.parent.mkdir(exist_ok=True);dest.write_bytes(b.read(path.parent,path.name,8<<20))
+source=dict(sourceCommit='e1f3b8405f8d4dddd30f2e035597db5f15fd89b0',kind='WIP-resource-fixture-constructor-only',files={'resource-probe.py':sha(b.read(front/'retention-fixes','resource-probe.py',64<<10))},beforeSourceSHA256=sha(b.read(raw/'sources','red-resource-probe.py.txt',64<<10)),currentBytesEqualActualGREEN=sha(b.read(raw/'sources','green-resource-probe.py.txt',64<<10))==sha(b.read(front/'retention-fixes','resource-probe.py',64<<10)),runtimeSourceCommitUnchanged='230691742b731c77e8167b94646219e10f78c8f7',docsCommitUnchanged='295728ac041006b00959dcfa368d3c1eab2f1953',credentialsRead=False,paidCalls=0,releaseCertified=False)
+assert source['currentBytesEqualActualGREEN'];(raw/'source-proof.json').write_text(json.dumps(source,indent=2)+'\n');positive=b.doc(b.read(raw/'legitimate','receipt.json',1<<20));assert positive['exitCode']==0 and positive['publicVerification']['exitCode']==1 and positive['construction']['archive']['sha256']=='80befd9d76176b28c60ad7b7de1868ed3fde6902dd7a9ced832820194d784b34'
+summary=dict(cases=facts,legitimateFactoryExit=0,legitimateCounterfeitVerifierExit=1,legitimateArchiveReference=positive['construction']['archive'],allOriginalsUnchanged=True,newNegativeCapsulesQualified=False,python=sys.version,zlibVersion=zlib.ZLIB_VERSION,zlibRuntime=zlib.ZLIB_RUNTIME_VERSION,credentialsRead=False,paidCalls=0,releaseCertified=False);(raw/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+common=Path('/Users/cyber/RestoX/barness');filename='.evidence/minimax-retained/ticket-17-final-payload/resource-factory-correction-raw.tar.gz';archive=common/filename;pins={};prefix='resource-factory-correction';selected=sorted(p for p in raw.rglob('*') if p.is_file());assert len(selected)<=256
+with archive.open('xb') as output,gzip.GzipFile(fileobj=output,mode='wb',mtime=0,compresslevel=6) as zipped,tarfile.open(fileobj=zipped,mode='w|',format=tarfile.PAX_FORMAT) as tar:
+ for path in selected:
+  name=path.relative_to(raw).as_posix();data=b.read(raw,name,8<<20);pins[name]=dict(bytes=len(data),sha256=sha(data));item=tarfile.TarInfo(prefix+'/'+name);item.mode=0o600;item.size=len(data);tar.addfile(item,io.BytesIO(data))
+assert sum(v['bytes'] for v in pins.values())<=64<<20
+with b.opened(common,filename) as f:
+ before=os.fstat(f.fileno());assert before.st_size<=32<<20;h=hashlib.sha256();count=0
+ for chunk in iter(lambda:f.read(1<<20),b''):
+  count+=len(chunk);assert count<=32<<20;h.update(chunk)
+ after=os.fstat(f.fileno());assert (before.st_size,before.st_mtime_ns,before.st_ctime_ns)==(after.st_size,after.st_mtime_ns,after.st_ctime_ns);digest=h.hexdigest();os.fchmod(f.fileno(),0o444)
+inventory=(json.dumps(pins,sort_keys=True,separators=(',',':'))+'\n').encode();encoded=gzip.compress(inventory,mtime=0);(base/'inventory.json.gz').write_bytes(encoded);snapshot=b.read(raw,'source-proof.json',1<<20);se=gzip.compress(snapshot,mtime=0);(base/'source-proof.json.gz').write_bytes(se)
+index=dict(kind='resource-factory-correction-history',sourceCommit=source['sourceCommit'],limits=full.LIMITS,archive=dict(file=filename,bytes=count,sha256=digest,prefix=prefix),inventory=dict(file='inventory.json.gz',compressedSHA256=sha(encoded),decodedBytes=len(inventory),decodedSHA256=sha(inventory),files=len(pins)),sourceSnapshot=dict(file='source-proof.json.gz',compressedSHA256=sha(se),decodedBytes=len(snapshot),decodedSHA256=sha(snapshot),archiveMember='source-proof.json'),observe=sorted(pins),creationBounds=dict(files=256,memberBytes=8<<20,payloadBytes=64<<20,compressedBytes=32<<20),credentialsRead=False,paidCalls=0,releaseCertified=False);(base/'capsule-index.json').write_text(json.dumps(index,indent=2)+'\n');print(json.dumps(dict(archive=index['archive'],files=len(pins),payloadBytes=sum(v['bytes'] for v in pins.values())),indent=2))

@@ -1,0 +1,28 @@
+{
+  "state": "COMPLETED",
+  "name": "no-key-release-package",
+  "argv": [
+    "go",
+    "test",
+    "./ai/internal/testkit/release",
+    "-count=1"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 360,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T05:30:30.292403+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 35.08497199974954,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

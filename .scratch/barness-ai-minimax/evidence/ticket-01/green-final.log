@@ -1,0 +1,29 @@
+--- FAIL: TestMiniMaxDefaultSampling (0.13s)
+    --- FAIL: TestMiniMaxDefaultSampling/responses//stream-full (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses--stream-full] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"reasoning":{"effort":"none"},"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/responses//stream-simple (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses--stream-simple] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"max_output_tokens":32768,"reasoning":{"effort":"none"},"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/responses//complete-full (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses--complete-full] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"reasoning":{"effort":"none"},"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/responses//complete-simple (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses--complete-simple] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"max_output_tokens":32768,"reasoning":{"effort":"none"},"temperature":0.1}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/stream-full (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-high-stream-full] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"reasoning":{"effort":"none"},"temperature":0.8}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/stream-simple (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-high-stream-simple] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"max_output_tokens":32768,"reasoning":{"effort":"none"},"temperature":0.8}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/complete-full (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-high-complete-full] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"reasoning":{"effort":"none"},"temperature":0.8}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/high/complete-simple (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-high-complete-simple] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"max_output_tokens":32768,"reasoning":{"effort":"none"},"temperature":0.8}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/stream-full (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-max-stream-full] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"reasoning":{"effort":"none"},"temperature":0.9}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/stream-simple (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-max-stream-simple] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"max_output_tokens":32768,"reasoning":{"effort":"none"},"temperature":0.9}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/complete-full (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-max-complete-full] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"reasoning":{"effort":"none"},"temperature":0.9}
+    --- FAIL: TestMiniMaxDefaultSampling/responses/max/complete-simple (0.01s)
+        minimax_default_sampling_test.go:48: [MM01-sampling-responses-max-complete-simple] default label does not request wire reasoning: {"model":"gpt-4.1-mini","input":[{"role":"developer","content":"You are terse."},{"role":"user","content":[{"type":"input_text","text":"Say hello."}]}],"stream":true,"store":false,"max_output_tokens":32768,"reasoning":{"effort":"none"},"temperature":0.9}
+FAIL
+barness-ai evidence bundle: /tmp/barness-minimax-01/.scratch/barness-ai-minimax/evidence/ticket-01/green-final/20261017T220752.969216000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.196s
+FAIL

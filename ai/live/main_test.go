@@ -46,7 +46,13 @@ func TestMain(m *testing.M) {
 	var err error
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An MM process never resolves or executes a legacy live combination.
-	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+	if glmDiagnosticSelected() {
+		cfg = processConfig{notRun: "isolated one-case GLM diagnostic"}
+	} else if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+		cfg = processConfig{notRun: "isolated MiniMax identity"}
+	} else if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+		cfg = processConfig{notRun: "isolated GLM candidate"}
+	} else if os.Getenv("BARNESS_MM_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated multimodal candidate process"}
 	} else {
 		cfg = loadConfig()
@@ -55,14 +61,27 @@ func TestMain(m *testing.M) {
 	if isDecisionsProcess() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
+	if os.Getenv("BARNESS_GLM_ROUTE") != "" || os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+		packageArgs = "-tags live -timeout 1800s ./ai/live"
+	}
+	if glmDiagnosticSelected() {
+		packageArgs = "-tags live -timeout 180s ./ai/live"
+	}
 	if run, err = evidence.NewRun(packageArgs); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+	if glmDiagnosticSelected() {
+		initializeGLM()
+	} else if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+		initializeMiniMax()
+	} else if os.Getenv("BARNESS_GLM_ROUTE") != "" {
+		initializeGLM()
+	}
 	if isDecisionsProcess() {
 		decisionsReport = initialDecisionsReport()
 	}
-	if os.Getenv("BARNESS_MM_ROUTE") != "" {
+	if os.Getenv("BARNESS_MM_ROUTE") != "" && glmReportState == nil && minimaxReport == nil {
 		multimodalReport = initialMultimodalReport()
 		if key := os.Getenv("BARNESS_MM_KEY"); key != "" {
 			run.RedactSecret(key, "[MULTIMODAL-CREDENTIAL]")
@@ -84,8 +103,10 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	run.SetVersion("model_catalog_version", catalog.Version)
-	run.SetVersion("model_catalog_hash", catalogHash)
+	if glmReportState == nil && minimaxReport == nil {
+		run.SetVersion("model_catalog_version", catalog.Version)
+		run.SetVersion("model_catalog_hash", catalogHash)
+	}
 	if cfg.combo != nil {
 		run.SetVersion("live_combo", cfg.combo.name)
 		run.SetVersion("live_sdk", cfg.combo.sdk())
@@ -96,7 +117,14 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if multimodalReport != nil && flag.Lookup("test.run").Value.String() != mmEntry {
+	if minimaxReport != nil && flag.Lookup("test.run").Value.String() != minimaxEntry() {
+		minimaxFail("exact isolated entry selection required")
+		code = 1
+	} else if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmSelectedEntry() {
+		glmReportState.Outcome = "FAIL"
+		glmReportState.Failure = "exact isolated entry selection required"
+		code = 1
+	} else if multimodalReport != nil && flag.Lookup("test.run").Value.String() != mmEntry {
 		multimodalReport.Outcome = "FAIL"
 		multimodalReport.Failure = "isolated candidate entry selection is required before any tests execute"
 		code = 1
@@ -113,6 +141,18 @@ func TestMain(m *testing.M) {
 		decisionsReport.FinishedAt = time.Now().UTC()
 		if err := run.Record(decisionsDetailName(), decisionsReport); err != nil {
 			fmt.Fprintln(os.Stderr, err)
+			code = 1
+		}
+	}
+	if glmReportState != nil {
+		glmReportState.FinishedAt = time.Now().UTC()
+		if err := run.Record(glmReportName, glmReportState); err != nil {
+			code = 1
+		}
+	}
+	if minimaxReport != nil {
+		minimaxReport.FinishedAt = time.Now().UTC()
+		if err := run.Record("minimax-report", minimaxReport); err != nil {
 			code = 1
 		}
 	}
@@ -138,6 +178,13 @@ func TestMain(m *testing.M) {
 	}
 	if multimodalReport != nil {
 		code = finishMultimodalReport(code, auditOK)
+	}
+	if glmReportState != nil {
+		code = finishGLM(code, auditOK)
+		code = publishGLMFormal(code)
+	}
+	if minimaxReport != nil {
+		code = finishMiniMax(code, auditOK)
 	}
 	os.Exit(code)
 }
@@ -211,10 +258,18 @@ func newLiveEnv(t *testing.T, c *combo, key string) *liveEnv {
 // newClient assembles the Client on cat, allowing every model cat lists for
 // the combination.
 func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client, error) {
+	return newClientWithPolicy(c, key, rec, cat, livePolicy())
+}
+
+// newClientWithPolicy shares only Host assembly, not the legacy runner's
+// scenario selection, call budget or time limits with candidate evidence.
+func newClientWithPolicy(c *combo, key string, rec *recorder, cat ai.Catalog, policy *ai.ResourcePolicy) (*ai.Client, error) {
 	var models []string
 	for _, m := range cat.Models {
 		if m.Provider == c.provider && m.API == c.api {
-			models = append(models, m.ID)
+			if c.provider != ai.ProviderMiniMax || m.ID == c.model {
+				models = append(models, m.ID)
+			}
 		}
 	}
 	for _, m := range cat.ImageModels {
@@ -234,7 +289,7 @@ func newClient(c *combo, key string, rec *recorder, cat ai.Catalog) (*ai.Client,
 		credential: ai.Credential{OwnerTenantID: liveTenant, CredentialID: "live-key", Version: "live",
 			BindingVersion: "live", AccountScopeID: "live-" + c.name, Active: true, APIKey: ai.NewSecret(key)},
 	}
-	return ai.NewClient(ai.Config{Policy: livePolicy(), Bindings: res, Credentials: res, Transport: rec, Observer: rec, Catalog: &cat})
+	return ai.NewClient(ai.Config{Policy: policy, Bindings: res, Credentials: res, Transport: rec, Observer: rec, Catalog: &cat})
 }
 
 // livePolicy bounds a smoke process: short turns, one call at a time.

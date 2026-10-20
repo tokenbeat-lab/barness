@@ -1,0 +1,27 @@
+{
+  "axis": "SPEC",
+  "decision": "PASS",
+  "findings": [],
+  "reviewedMetadataCommit": "1dedc575228c1691bed0843ddb54b84c379c5727",
+  "measuredCodeCommit": "c2604db6f693f5c7d3a82c656512004ec85d2249",
+  "scope": "Static retention/snapshot/reader/negative-guard review and read-only compressed archive/inventory/original receipt hash inspection; no verification/test/captured command, Key, network or root/source/HEAD writes.",
+  "pins": {
+    "archiveSHA256": "88eae30a5c322edab67bde19a709c62acd7971bf07446a62637454d7332c407c",
+    "archiveBytes": 81125177,
+    "indexSHA256": "cba9b90c183030dca9382271febfc83b84417829ce16da99da988a129e40ac7a",
+    "summarySHA256": "df1df8acde5bc2574d1a92b939555c55b1cf5fad7f633d2e91aa3bd4e4d14c67",
+    "verifierSHA256": "66fbcc8b5f84b5bfcf0b97a457e3f09b5a81bdf9d4a6fa6e38f23fdf5ce8d6da",
+    "readerSHA256": "651903be831bcff9ac172f2f8e1b3cbd5f469460760bfaa3af9af59a08c30f84",
+    "snapshotProgramSHA256": "b2f8add23b13154e25e6a980cd31b7da470347a1b8adcab603192e2f1ab54873",
+    "negativeBoundaryProgramSHA256": "1ee8d3a024a52fb41e1300d6b03126549830cbe177612cd3a3750a8cea7b3ad7"
+  },
+  "observations": [
+    "Archive81125177bytes hashes88eae30a...; pinned inventory has54792regular entries/425402095payload bytes and524359680recorded decodedtar bytes. Inventory decoded11938276bytes,174observedmetadata total12271060bytes, below fixed24/16MiB limits. Main actual manifests are selected separately from intentionally malformed child fixture manifests.",
+    "Genuine codeRED6cases4P2F and CLI2failures remain distinct from working-treeGREEN6P/60tools0/race6P/vets0. Original a3/711measured heads are preserved and finalc260 selected hashes are tied to corresponding GREEN snapshots, not inferred from HEAD labels.",
+    "First committed preflight324P12F62NOT_RUN remainsfalse due absent historical ZIPs. Six exact selector-bound ZIP copies lead to fresh336P62NOT_RUN,visual16P,contracts6P and5numeric0. Original18receipts unchanged;PENDING/no new round/noKey/no paid work remain explicit.",
+    "Two deliberate negative symlinks are preserved only as regular JSON target metadata with exact path/target/hash/byte bindings, without following or recreating them. Tar reader rejects all link types. Six unused prepared binaries retain manifest/build receipts and hash/size external references; excluded raw binaries are never claimed copied.",
+    "Read-only verifier checks exact normalized7renames/394items, minimal3sourcefile delta, raw command and proof pins, all11 selected native run manifests,27412artifactreferences and explicit null audit for four pre-existing single-case child records. It does not convert intentional negative child fixture files into actual accepted suite evidence."
+  ],
+  "staticBounds": "Distinct constants192MiBcompressed/1GiBdecoded/90kfiles/100kentries/64MiBmember/24MiBinventory/8MiBperobservedmetadata/16MiBobservedtotal/900MiBpayload. Hash precedes parsing; directory-FD primitives reject symlinks/nonregulars, strict paths/JSON duplicates and exact member inventory refuse tamper/omissions, gzip is fully drained.14negative guard records cover laundering RED/missing-fixture/approval, tar links, changed source/helper/unusedbinary reference and larger bounds. No guard was executed in this review.",
+  "limitation": "Ticket14 offline repair retention only; original paid/whole-run failures and source expiry stay unchanged. No provider/current full-release certification or new paid authority."
+}

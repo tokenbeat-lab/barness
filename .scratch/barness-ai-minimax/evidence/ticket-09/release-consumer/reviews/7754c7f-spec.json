@@ -1,0 +1,36 @@
+{
+  "base": "09fea1b748718795bacc531f6c4037ebe66ba3a9",
+  "target": "7754c7fe9c71c1203a0c9f860da35dbf5973c3d9",
+  "confidence": "high",
+  "verdict": "PASS",
+  "findings": [],
+  "initialABAGap": "CLOSED",
+  "rootSelection": {
+    "callerRootOnlyCleaned": true,
+    "selectedRootMustBeRealDirectory": true,
+    "trailingSlashCannotHideRootSymlink": true,
+    "beforeOpenedAfterSameFileRequired": true,
+    "documentedParentAliasesAllowed": true
+  },
+  "manifest": {
+    "rootPinnedBeforeRead": true,
+    "sameRootUsed": true,
+    "regularNonSymlinkActualRead": true,
+    "actualByteLimit": 67108864,
+    "initialDeclarationExpectedHashExceptionOnly": true
+  },
+  "caseArtifactHashAuthentication": "unchanged strict nonempty expected hash",
+  "attributionAssertionsInventoryAndRollback": "unchanged",
+  "selectedSourceApplicability": {
+    "M3Three263": "unchanged; reviewed paths excluded",
+    "QGLMThree217": "unchanged; reviewed paths excluded",
+    "broadLJev": "historical only"
+  },
+  "producerCaptureManifestReceiptChanged": false,
+  "approvalOrPaidScopeChanged": false,
+  "original3d3ActualState": "unchanged failures, load failure, no report, null release verdict",
+  "exactTargetCheckVerdicts": "parent integration checks; no earlier-target result credited",
+  "diagnosticIsFreshSuiteExecution": false,
+  "releaseCertification": false,
+  "testsRunByReviewer": false
+}

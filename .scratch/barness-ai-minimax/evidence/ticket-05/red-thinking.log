@@ -1,0 +1,7 @@
+--- FAIL: TestMiniMaxSharedThinkingSemantics (0.01s)
+    --- FAIL: TestMiniMaxSharedThinkingSemantics/MiniMax-M3.1-Flash-Preview (0.00s)
+        minimax_shared_thinking_test.go:42: [MM05-thinking-semantics-MiniMax-M3.1-Flash-Preview] explicit semantic capability fixes depth shape: {"model":"MiniMax-M3.1-Flash-Preview","messages":[{"role":"system","content":"Be terse."},{"role":"user","content":[{"type":"text","text":"Say hello."}]}],"stream":true,"stream_options":{"include_usage":true},"thinking":{"type":"adaptive"},"reasoning_split":true}
+FAIL
+barness-ai evidence bundle: /private/tmp/barness-minimax-05/.evidence/barness-ai/20261017T223025.603584000Z
+FAIL	github.com/tokenbeat-lab/barness/ai/e2e	1.276s
+FAIL

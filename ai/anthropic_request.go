@@ -79,7 +79,7 @@ type anthropicToolResult struct {
 type anthropicThinkingBlock struct {
 	Type      string `json:"type"`
 	Thinking  string `json:"thinking"`
-	Signature string `json:"signature"`
+	Signature string `json:"signature,omitempty"`
 }
 
 type anthropicRedactedThinking struct {
@@ -103,7 +103,7 @@ type anthropicInputSchema struct {
 type anthropicTool struct {
 	Name                string                 `json:"name"`
 	Description         string                 `json:"description"`
-	EagerInputStreaming bool                   `json:"eager_input_streaming"`
+	EagerInputStreaming bool                   `json:"eager_input_streaming,omitempty"`
 	InputSchema         anthropicInputSchema   `json:"input_schema"`
 	CacheControl        *anthropicCacheControl `json:"cache_control,omitempty"`
 }
@@ -134,13 +134,14 @@ const anthropicInterleavedThinkingBeta = "interleaved-thinking-2025-05-14"
 // supports in pi's data.) A beta the trusted header transform configures
 // replaces this list, as pi's configured anthropic-beta header does.
 func anthropicBetas(m Model, o AnthropicOptions) []string {
+	caps := anthropicCapabilitiesOf(m.Provider)
 	var betas []string
 	enabled, _ := o.ThinkingEnabled.Get()
 	interleaved, set := o.InterleavedThinking.Get()
-	if m.Reasoning && enabled && (interleaved || !set) && !m.Compat.ForceAdaptiveThinking {
+	if caps.nativeThinking && m.Reasoning && enabled && (interleaved || !set) && !caps.usesAdaptiveThinking(m) {
 		betas = append(betas, anthropicInterleavedThinkingBeta)
 	}
-	if m.Compat.SupportsMidConvoEffort {
+	if caps.managesEffort(m) {
 		betas = append(betas, anthropicMidConvoOutputConfigBeta, anthropicThinkingBindingControlBeta)
 	}
 	return betas
@@ -162,8 +163,9 @@ func normalizeBetas(values []string) []string {
 // ephemeral marker with a one-hour ttl for long retention on a model that
 // supports it. pi's PI_CACHE_RETENTION environment fallback is never read.
 func (o AnthropicOptions) cacheControl(m Model) *anthropicCacheControl {
+	caps := anthropicCapabilitiesOf(m.Provider)
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
-	if retention == CacheRetentionNone {
+	if !caps.promptCache || retention == CacheRetentionNone {
 		return nil
 	}
 	cc := &anthropicCacheControl{Type: "ephemeral"}
@@ -180,6 +182,7 @@ func (o AnthropicOptions) cacheControl(m Model) *anthropicCacheControl {
 // buildAnthropicBody encodes the prepared history and options for model, as
 // pi's buildParams does. betas are included for a payload callback to see.
 func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, betas []string) ([]byte, error) {
+	caps := anthropicCapabilitiesOf(model.Provider)
 	cc := opts.cacheControl(model)
 	body := anthropicBody{Model: model.ID, MaxTokens: model.MaxTokens, Stream: true, Betas: betas}
 	if n, ok := opts.MaxTokens.Get(); ok {
@@ -195,7 +198,7 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 			msgs = msgs[1:]
 		}
 	}
-	managed := model.Compat.SupportsMidConvoEffort
+	managed := caps.managesEffort(model)
 	var managedProvider ProviderID
 	if managed {
 		managedProvider = model.Provider
@@ -214,12 +217,12 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 	if v, ok := model.Compat.SupportsTemperature.Get(); ok {
 		supportsTemperature = v
 	}
-	if !enabled && !managed && supportsTemperature {
+	if (!enabled && !managed && supportsTemperature) || model.Provider == ProviderMiniMax {
 		body.Temperature = opts.Temperature
 	}
 
 	for i, t := range history.tools {
-		tool, err := newAnthropicTool(t)
+		tool, err := newAnthropicTool(t, caps)
 		if err != nil {
 			return nil, err
 		}
@@ -229,7 +232,10 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 		body.Tools = append(body.Tools, tool)
 	}
 
-	display := cmp.Or(opts.ThinkingDisplay, "summarized")
+	var display string
+	if caps.nativeThinking {
+		display = cmp.Or(opts.ThinkingDisplay, "summarized")
+	}
 	switch {
 	case managed:
 		// Whatever the thinking options, so that thinking bound to a
@@ -239,9 +245,19 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 		body.Thinking = &anthropicThinking{Type: "adaptive", Display: display,
 			BlockBinding: &anthropicBlockBinding{PrefixMismatchBehavior: "drop_block"}}
 		body.OutputConfig = &anthropicOutputConfig{Effort: AnthropicEffortHigh}
+	case model.Provider == ProviderMiniMax:
+		// Omission keeps the service default, including mandatory M3.1.
+		if enabled {
+			body.Thinking = &anthropicThinking{Type: "adaptive"}
+		} else if _, explicit := opts.ThinkingEnabled.Get(); explicit {
+			body.Thinking = &anthropicThinking{Type: "disabled"}
+		}
+		if opts.Effort != "" {
+			body.OutputConfig = &anthropicOutputConfig{Effort: opts.Effort}
+		}
 	case model.Reasoning:
 		switch {
-		case enabled && model.Compat.ForceAdaptiveThinking:
+		case enabled && caps.usesAdaptiveThinking(model):
 			body.Thinking = &anthropicThinking{Type: "adaptive", Display: display}
 			if opts.Effort != "" {
 				body.OutputConfig = &anthropicOutputConfig{Effort: opts.Effort}
@@ -362,8 +378,8 @@ func withCacheControl(block any, cc *anthropicCacheControl) any {
 // anthropicAssistantBlocks replays a previous turn prepared by
 // prepareTranscript: blank text is skipped; redacted thinking returns its
 // payload; signed thinking is replayed with its signature even when its text
-// is blank; unsigned thinking (only same-model state reaches here as
-// thinking) becomes text; tool calls become tool_use blocks.
+// is blank; unsigned thinking becomes text except for GLM's proven trusted
+// same-model field-absence replay shape (ADR-0035); tool calls become tool_use.
 func anthropicAssistantBlocks(m replayedAssistant) ([]any, error) {
 	var blocks []any
 	for _, block := range m.Content {
@@ -378,6 +394,8 @@ func anthropicAssistantBlocks(m replayedAssistant) ([]any, error) {
 			case b.Redacted:
 				blocks = append(blocks, anthropicRedactedThinking{Type: "redacted_thinking", Data: b.Signature})
 			case isBlank(b.Thinking) && !signed:
+			case !signed && m.Provider == ProviderZhipu && m.API == APIAnthropicMessages && m.sameModel:
+				blocks = append(blocks, anthropicThinkingBlock{Type: "thinking", Thinking: b.Thinking, Signature: b.Signature})
 			case !signed:
 				blocks = append(blocks, anthropicText{Type: "text", Text: b.Thinking})
 			default:
@@ -430,7 +448,7 @@ func anthropicToolResultBlock(m ToolResultMessage) anthropicToolResult {
 
 // newAnthropicTool is pi's convertTools without constrained sampling: the
 // schema is reduced to an object of its properties and required list.
-func newAnthropicTool(t Tool) (anthropicTool, error) {
+func newAnthropicTool(t Tool, caps anthropicCapabilities) (anthropicTool, error) {
 	// Parameters were checked to be a JSON object when the call was received.
 	var schema map[string]json.RawMessage
 	if err := json.Unmarshal(t.Parameters, &schema); err != nil {
@@ -442,6 +460,6 @@ func newAnthropicTool(t Tool) (anthropicTool, error) {
 		}
 		return raw
 	}
-	return anthropicTool{Name: t.Name, Description: t.Description, EagerInputStreaming: true,
+	return anthropicTool{Name: t.Name, Description: t.Description, EagerInputStreaming: caps.eagerInputStreaming,
 		InputSchema: anthropicInputSchema{Type: "object", Properties: orDefault(schema["properties"], "{}"), Required: orDefault(schema["required"], "[]")}}, nil
 }

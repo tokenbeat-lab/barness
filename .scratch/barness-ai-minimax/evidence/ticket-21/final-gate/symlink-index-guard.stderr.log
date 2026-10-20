@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py", line 195, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py", line 170, in main
+    cap=metadata(b,a.metadata_root,label);pins,seen,result=full.verify(b,a.metadata_root/label,a.common_root,cap)
+  File "$SYSTEM_TMP/barness-ticket21-finalgate-verify.py", line 47, in metadata
+    anchor=CAPSULES[label];raw=b.read(base/label,'index.json',1<<20)
+                               ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$OWN_WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py", line 40, in read
+    with opened(root,name) as stream:
+         ~~~~~~^^^^^^^^^^^
+  File "$OWN_WORKTREE/.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py", line 31, in opened
+    child=os.open(part,flags,dir_fd=fd);os.close(fd);fd=child
+OSError: [Errno 62] Too many levels of symbolic links: 'index.json'

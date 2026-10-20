@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "status": "REQUIRES_NULL_MEASUREMENT_FIX",
+  "base": "06bd510880cb390b11482949891e1be265a5c525",
+  "reviewedHead": "a2038ff805b51ca9c60fc4218abc23810549f8dc",
+  "diffCommand": "git diff 06bd510880cb390b11482949891e1be265a5c525...a2038ff805b51ca9c60fc4218abc23810549f8dc",
+  "diffSHA256": "5a907ec5cf6a148e14b607ee2af910c98f24933a2a8123f369ea47d03bc87789",
+  "reviewedFilesSHA256": {
+    ".scratch/barness-ai-minimax/issues/20-visual-unsent-cancellation.md": "fa51fc2a55d4f6d022bc3ee4371da16703c5d842a7ed46c87f3c0837871c159b",
+    "ai/examples/visualeval/run.go": "d960ae951a22b39c5d7582d54470a81c8bda978e4410e7dcc463fccc2a7aa7f8",
+    "ai/examples/visualeval/sent_cancel_test.go": "5f0e5560f28bdc33106d1f7284578abd5027b49d3997918cf6794bcfb6a281e0",
+    "ai/examples/visualeval/unsent.go": "df31ba2e3e244ef3efb6c11ecbf96e442d891b81392b0c45a522426f581e0ba8",
+    "ai/examples/visualeval/unsent_after_pin_test.go": "372cfcf02efffe6f3bb9c813cef2d46147363bc43ee28731160afac3ddd7c265",
+    "ai/examples/visualeval/unsent_test.go": "c91391c8dd2fbecc3123ed970b35dc16eab4a97eda25fde7a7e6a28f3dc7a030",
+    "ai/examples/visualeval/verify.go": "e7f7e332ff8856dc810e8c240747774472ac8779af6847c7b0e4d5ab2c5b1712"
+  },
+  "findings": [
+    {
+      "id": "T20-STANDARDS-01",
+      "priority": "P2",
+      "kind": "documented-standard violation",
+      "file": "ai/examples/visualeval/verify.go",
+      "line": 241,
+      "rule": "AGENTS.md principle3: external/persisted data must be validated at its boundary; principle9: evidence must remain observable and verifiable. Issue20 failure inventory11 requires explicitly measured integer credentialReads.",
+      "problem": "The new access decoder uses map[string]int. encoding/json accepts null into an int as its unchanged zero value, so a resealed {\"credentialReads\":null} passes presence/length checks and is accepted as measured0 for unresolved unsent branches.",
+      "requestedCorrection": "Reject null separately from required integer0 or1, with a failure-first public consumer case for null and other invalid types."
+    }
+  ],
+  "baselineSmells": [],
+  "finiteTableSHA256": "2c8f859a0abd1124bbb0f20e9a67ac00572679b0450a681dd88fa79a6c5e217a",
+  "closedInitialEvidence": {
+    "sent-final-ordinary": {
+      "commandSHA256": "8f45d34467ca9c92d4046e365df388ee6c772589e9e573236f64b35cd6970900",
+      "exitCode": 0,
+      "sourceBeforeAfterEqual": 1040,
+      "manifests": [
+        {
+          "cases": 20,
+          "statuses": {
+            "PASS": 20
+          },
+          "auditFindings": 0,
+          "manifestSHA256": "9c85d6fb04b7083ce149e0e5e234441b36578fd2d378f71bb243702b191e048f"
+        }
+      ]
+    },
+    "sent-final-race": {
+      "commandSHA256": "806a69ac9a6287057d6e09c6e2748fd3b051283178b761b2d20c39710d8849b2",
+      "exitCode": 0,
+      "sourceBeforeAfterEqual": 1040,
+      "manifests": [
+        {
+          "cases": 20,
+          "statuses": {
+            "PASS": 20
+          },
+          "auditFindings": 0,
+          "manifestSHA256": "ffd918160e4f56bdbc45781c9784b1a2237fc6baf620d4f12b65e0679756b591"
+        }
+      ]
+    },
+    "sent-final-deadline-race": {
+      "commandSHA256": "530049bb8faf82b6da10bc291558bba38eaec36088d620b4b6e50d3cf8068c96",
+      "exitCode": 0,
+      "sourceBeforeAfterEqual": 1040,
+      "manifests": [
+        {
+          "cases": 4,
+          "statuses": {
+            "PASS": 4
+          },
+          "auditFindings": 0,
+          "manifestSHA256": "c9184f135ad643e8d0952e066e8d89b626f7ab40d8f8e9bf42e57d1f032d472a"
+        }
+      ]
+    },
+    "sent-final-accounting-race": {
+      "commandSHA256": "647c44798f93a1fcc79b3c8f085199caf9db0682dcd164c3c9fa1435dd989ed9",
+      "exitCode": 0,
+      "sourceBeforeAfterEqual": 1040,
+      "manifests": [
+        {
+          "cases": 2,
+          "statuses": {
+            "PASS": 2
+          },
+          "auditFindings": 0,
+          "manifestSHA256": "6c2490cd0c3f4f53c19244d4fb75079568a1a24ddf6f743de90c8103c6d6769a"
+        }
+      ]
+    },
+    "sent-final-vet": {
+      "commandSHA256": "a0913d9761825631b19c55405ec6a9c9ddcd6bbe4ca56adc58f54c1ce6e26f81",
+      "exitCode": 0,
+      "sourceBeforeAfterEqual": 1040
+    },
+    "sent-final-vet-live": {
+      "commandSHA256": "8e2871a4f87198549595edd68493c29b9f7d61e92458d1d9310a5520f0ad730f",
+      "exitCode": 0,
+      "sourceBeforeAfterEqual": 1040
+    }
+  },
+  "report": "One documented boundary-validation finding: null credentialReads can masquerade as measured0. Other source branches match the finite seven states, preserve exact unresolved start and stage-correct terminal attribution, require empty wire/no payload for zero Attempts, and keep the sent path and cancellation usage/model checks. The deterministic public Client\u2192production writer\u2192finish\u2192verify regressions produce auditable evidence; initial20 ordinary/race, four deadline and two accounting scenarios pass with audit0, and both vets exit0. Final approval awaits the exact null correction and its closed source-bound regression records. This is source review only; no merge, paid authority or release certification is approved.",
+  "method": {
+    "readOnly": true,
+    "projectOrCapturedProgramsExecuted": false,
+    "testsExecuted": false,
+    "credentialsRead": false,
+    "paidCalls": 0,
+    "rootEdited": false,
+    "candidateEdited": false
+  }
+}

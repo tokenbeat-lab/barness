@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/buger/jsonparser"
 	"github.com/openai/openai-go/v3"
 	"github.com/openai/openai-go/v3/option"
 	"github.com/openai/openai-go/v3/packages/ssestream"
@@ -24,8 +25,8 @@ import (
 // built per call from explicit options only.
 //
 // It speaks pi's openai-completions compat for the binding's provider
-// (chatCompatOf): the standard OpenAI compat, or DeepSeek's. pi detects
-// other vendors' quirks too; their Chat models are not served here.
+// (chatCompatOf): OpenAI, DeepSeek and the independent China standard Zhipu
+// route. Shared wire framing never implies shared provider capabilities.
 type chatAdapter struct{}
 
 // headers are the bearer authentication and barness-ai's User-Agent; pi
@@ -49,6 +50,9 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	// stream back to true after it, which pi's does not.
 	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorizeChatPayload(ac.model, cacheKey, ac.hostedTools)))
 	if failure != nil {
+		return failure
+	}
+	if failure := validateChatFinalBody(ac.model, body, authorizeChatPayload(ac.model, cacheKey, ac.hostedTools)); failure != nil {
 		return failure
 	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
@@ -89,15 +93,26 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
+		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMax {
+			failure.HTTPStatus = res.StatusCode
+		}
 		return failure
 	}
 
 	out.start()
-	usage := chatUsage{model: ac.model, reasoningExpected: opts.reasoningExpected(ac.model, chatCompatOf(ac.model.Provider))}
+	reasoningExpected := opts.reasoningExpected(ac.model, chatCompatOf(ac.model.Provider))
+	if ac.model.Provider == ProviderMiniMax {
+		kind, _ := jsonparser.GetString(body, "thinking", "type")
+		reasoningExpected = ac.model.Reasoning && kind != "disabled"
+	}
+	usage := chatUsage{model: ac.model, reasoningExpected: reasoningExpected}
 	p := newChatParser(out, ac.model, usage, failures, ac.initial)
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
+		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMax {
+			failure.HTTPStatus = res.StatusCode
+		}
 	}
 	return failure
 }
@@ -108,13 +123,23 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 type chatFailures struct{ httpFailures }
 
 func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest) chatFailures {
-	return chatFailures{httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}}
+	f := httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}
+	if provider == ProviderMiniMax {
+		f.minimax = APIOpenAICompletions
+	}
+	if provider == ProviderZhipu {
+		f.glm = APIOpenAICompletions
+	}
+	return chatFailures{f}
 }
 
 // inBand is a named error event or a chunk's truthy error: openai-node raises
 // APIError without a status, whose message pi reports, followed by
 // OpenRouter's raw provider metadata when the message lacks it.
 func (f chatFailures) inBand(raw json.RawMessage) *Error {
+	if f.glm != "" {
+		return f.providerError(raw)
+	}
 	return f.upstream(withRawMetadata(apiErrorText(raw), raw))
 }
 

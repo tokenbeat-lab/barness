@@ -1,0 +1,15 @@
+test_history_is_counted_once_with_current_component_not_cumulative (__main__.Launcher.test_history_is_counted_once_with_current_component_not_cumulative) ... ERROR
+
+======================================================================
+ERROR: test_history_is_counted_once_with_current_component_not_cumulative (__main__.Launcher.test_history_is_counted_once_with_current_component_not_cumulative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private$REPO/.scratch/barness-ai-minimax/tools/test_paid.py", line 356, in test_history_is_counted_once_with_current_component_not_cumulative
+    self.assertEqual(current['budgetSlot'],'chat/MiniMax-M3/standard')
+                     ~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'budgetSlot'
+
+----------------------------------------------------------------------
+Ran 1 test in 2.024s
+
+FAILED (errors=1)

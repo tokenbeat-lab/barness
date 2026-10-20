@@ -1,0 +1,228 @@
+{
+  "date": "2026-10-18",
+  "kind": "synthetic-host-and-isolated-software-rollback",
+  "formalSupport": false,
+  "liveCredentialReads": 0,
+  "vendorHTTPRequests": 0,
+  "finalCodeCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+  "baselineFailure": {
+    "sourceLogSHA256": "ea79091b1dce84259711a543c09b5bd85d5efee5954ada16411fec8f61a0bc2c",
+    "storedLogReplacesAbsoluteCheckoutAndHome": true,
+    "originalAuditSHA256": "d9b1eca57fc27d29ad2c211d2f28df543e25df86add6c459fee590815a1ad671",
+    "originalBundle": "user root .evidence/barness-ai/20261017T220458.212752000Z",
+    "finding": "P0-GLM13-full-rollback/commands.json: home directory appears twice",
+    "allBaselineAssertionsPassed": true
+  },
+  "restoredBaseline": {
+    "commit": "ecfd4b4d6ec54db30453f4b5112989e9fdbd0782",
+    "tree": "b9798a4e96dfb08cbfcce45c182915589b42eed1",
+    "trackedPaths": 7039
+  },
+  "runs": [
+    {
+      "label": "red-rollback-receipt",
+      "sourceLogSHA256": "7f786aa66a27661d26df4d40c14e90e6af5281109a823e0631be6eae233a6833",
+      "storedLogSHA256": "378e4b3b61049d549ebd67cee15903f1179fc0b30f2117b98f36a13e803b076f",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "69d4f543c7cf10f9b113a18f6c28019fb739f0d2",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 10,
+      "archiveSHA256": "8bfd929067a9bb67ff7435132f1ddf73555af287f547aad226e9bdffc9d12305"
+    },
+    {
+      "label": "green-rollback-receipt",
+      "sourceLogSHA256": "fed921de949af886901c4a3c0cdfbd1307eb933f13a49282377b35395bf4bb33",
+      "storedLogSHA256": "a4e6f56235633ab3e4577d77659ea9f8089dbd2f6f6ecd4aebef8d07bf1d6d85",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "69d4f543c7cf10f9b113a18f6c28019fb739f0d2",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 10,
+      "archiveSHA256": "653f2490ff3f3eef459022bd6e47cd4a445133b807dff998f162c8db4be03430"
+    },
+    {
+      "label": "red-bindings",
+      "sourceLogSHA256": "22e8082c6a280bdcf6ff5d3ab45b9cc2fbb080b99a7d29b4e6f1ccdd4ac065f3",
+      "storedLogSHA256": "22e8082c6a280bdcf6ff5d3ab45b9cc2fbb080b99a7d29b4e6f1ccdd4ac065f3",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true
+    },
+    {
+      "label": "green-bindings",
+      "sourceLogSHA256": "c9547a580ed8aa98cade8b32f38ab4657a7231b04988db6bf8c0ac323a58ee16",
+      "storedLogSHA256": "2243292ed8bf0c55c6016eeca06d2a1e931d0cb7a9e5c6d5fe503c9d2919a4a4",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "69d4f543c7cf10f9b113a18f6c28019fb739f0d2",
+      "cases": 4,
+      "statuses": {
+        "PASS": 4
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 6,
+      "archiveSHA256": "ef9a328d39dae3819e9cbc052af7fdc1478d55236a8ac2008c9bf03b9bba67e4"
+    },
+    {
+      "label": "red-full-rollback",
+      "sourceLogSHA256": "cd2f0c64bb2f40c4268ae997ea2b2ca8120b9f6f4bacc9cc7bdc4d726772963e",
+      "storedLogSHA256": "522240182542c51253354db4fdfdb532581cbf620072f2c0dea0deafebf3f39a",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "69d4f543c7cf10f9b113a18f6c28019fb739f0d2",
+      "cases": 1,
+      "statuses": {
+        "FAIL": 1
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 2,
+      "archiveSHA256": "3955d1cbb054b8faf362039227a1978be2573b075f2d7ecf3adc0b09bf7d9410"
+    },
+    {
+      "label": "green-full-rollback",
+      "sourceLogSHA256": "461f8b70ee12476c9c1b6a1e94bc5f2d0c4dd9167ff495363f7a145009ae6e4a",
+      "storedLogSHA256": "9bb8042b0a45f836b472c39268fd28a7fe8e3e10498466a2e36c141b3ef55fca",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "69d4f543c7cf10f9b113a18f6c28019fb739f0d2",
+      "cases": 1,
+      "statuses": {
+        "PASS": 1
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 11,
+      "archiveSHA256": "42a8451a93796d03e2ed8ce12559aad0a38f61c2ba00c854e5f24bd41d427a1d"
+    },
+    {
+      "label": "red-local-catalog",
+      "sourceLogSHA256": "d3bdfbb4c7abe11e443b5ecb054868c6375b97ff3b2bdff7bd0c4756b1048993",
+      "storedLogSHA256": "d3bdfbb4c7abe11e443b5ecb054868c6375b97ff3b2bdff7bd0c4756b1048993",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true
+    },
+    {
+      "label": "green-local-catalog",
+      "sourceLogSHA256": "5478c1b986b6ac76817216e9d65da8c2da5b9e6627762cfedef5d873547c78ab",
+      "storedLogSHA256": "7f928bffa83df9d9a4e411a47ec6e302b851d20a03570314ee750b8702e00c36",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "69d4f543c7cf10f9b113a18f6c28019fb739f0d2",
+      "cases": 6,
+      "statuses": {
+        "PASS": 6
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 18,
+      "archiveSHA256": "5f9491bb387e1c014fb7ee87ab4a0e445492603f948899ba945fde8a426503d4"
+    },
+    {
+      "label": "host-final",
+      "sourceLogSHA256": "86bed49ccc305133db9a1efd464bf667386cb570c6f00de61b613201c409d767",
+      "storedLogSHA256": "9b830f90a0468ac835b716c0217abc57a7b243061fc1137fed40ef3a6a9a90c1",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+      "cases": 79,
+      "statuses": {
+        "PASS": 79
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 573,
+      "archiveSHA256": "cffb8e315553cd96e74464a5eacdc7d0b02b48f251f7a0342e4b9a86b98fcf10"
+    },
+    {
+      "label": "host-race-final",
+      "sourceLogSHA256": "ca494c7639dd3cbbf347631d5547ea6c94782021db91b625c1950e42baade029",
+      "storedLogSHA256": "eec2ffafb64646b55c397b78057ff5a703e5b15670319e7d2a30fc6d8a3e74d4",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+      "cases": 79,
+      "statuses": {
+        "PASS": 79
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 573,
+      "archiveSHA256": "26eedbf885571eb4cfab78904218250443b3138752c3120d8293fcf32a994458"
+    },
+    {
+      "label": "native-host-final",
+      "sourceLogSHA256": "d08e3b2060327a9eadbecc6ba18a6f6ab9f949df7826db890ad3a2ca03464425",
+      "storedLogSHA256": "8e5974bd019fcd1b9c2a859d1ced44440e7deae401843331b442cab03690e1a9",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+      "cases": 88,
+      "statuses": {
+        "PASS": 88
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 545,
+      "archiveSHA256": "2bd4aef47367612b4b1a35b3db540ec5b927390d3ec63988d1cde90095613e37"
+    },
+    {
+      "label": "native-host-race-final",
+      "sourceLogSHA256": "ec2ea53a10ac46c5bf8e7a115c8fd7085a228374fb4f2f053aeffcef35af0544",
+      "storedLogSHA256": "80a90aafd5f3ed3c32698586569159af94b36fa79dbddbe4fb3ddc9aababedac",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+      "cases": 88,
+      "statuses": {
+        "PASS": 88
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 545,
+      "archiveSHA256": "92de76aa6079e17408fe53edcd6b5d27f774d7b60f18eba6138ab86dcc92326c"
+    },
+    {
+      "label": "rollback-final",
+      "sourceLogSHA256": "484e2df21cee4a55c78eebeb70c15e89bc42e9aaaa95f164e2aa828bd7aa4281",
+      "storedLogSHA256": "43513d6755196e96a50917e344d87dd8b401f2c78ceac1660ea45622645a2263",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 21,
+      "archiveSHA256": "55a55c3b695806c0da234949cea18e25a3dbbae495688c16ecd580a0c5bc3e57"
+    },
+    {
+      "label": "rollback-race-final",
+      "sourceLogSHA256": "4001f28c22d0054614884f59f4aa78b10ca5ba69221f7e7e7e249f2c09d0003c",
+      "storedLogSHA256": "30b65ee74025d4700387d2707efe39c26fc27e94ce84268a344c9f8c163579d6",
+      "storedLogReplacesAbsoluteCheckoutAndHome": true,
+      "gitCommit": "055a55de451be80740785ea04c93bbebcf23e406",
+      "cases": 2,
+      "statuses": {
+        "PASS": 2
+      },
+      "audit": {
+        "findings": []
+      },
+      "verifiedArchivedArtifacts": 21,
+      "archiveSHA256": "94221c358dc2a1340c371a5dae07057cec5b5f01d02410030c057d82f656d37e"
+    }
+  ],
+  "totalVerifiedArchivedArtifacts": 2335
+}

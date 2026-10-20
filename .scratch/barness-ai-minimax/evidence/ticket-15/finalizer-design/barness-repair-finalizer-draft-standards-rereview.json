@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "axis": "Standards static operational draft rereview",
+  "decision": "APPROVED_STATIC_DRAFT_ONLY",
+  "reviewedDraft": {
+    "file": "/tmp/barness-repair-final-keyless.py",
+    "sha256": "bbc37116927566418faf933c72bbb3fa0b77c94f8398ab6b9adb8024fc88ded7",
+    "bytes": 21047,
+    "lines": 346
+  },
+  "integrationHEAD": "4d83ca2b00b76f313c32d62f020a331a4cf3b88c",
+  "scope": "Narrow v1-to-v2 operational helper delta; no worker WIP, future API implementation, prepared binary or actual plan reviewed.",
+  "diffCommand": [
+    "git",
+    "diff",
+    "--no-index",
+    "--",
+    "/tmp/barness-repair-final-keyless-draft-v1.py",
+    "/tmp/barness-repair-final-keyless.py"
+  ],
+  "diffSHA256": "ed2fa6803ebc78ca873a28f45e17a76bf419711092e658fa350387389c2cb1a6",
+  "findings": [],
+  "possibleSmells": [],
+  "resolvedFindings": [
+    {
+      "id": "FINAL-STANDARDS-01",
+      "status": "CLOSED_IN_DRAFT",
+      "locations": [
+        "143-168",
+        "241-248",
+        "265-271"
+      ],
+      "basis": "Prepare and loaded now authenticate the original matrix, parsed old13 equality, exact candidate/default bytes, six original actuals, input snapshot, four completed public command receipts and new4 complete trees. Source file equality permits only the documented later matrix commit boundary."
+    },
+    {
+      "id": "FINAL-STANDARDS-02",
+      "status": "CLOSED_IN_DRAFT",
+      "locations": [
+        "60-73",
+        "180-220",
+        "241-271"
+      ],
+      "basis": "Finite FD reads require regular files and O_NOFOLLOW, with 1MiB helper/observer and64MiB Go caps. Fixed Go/observer hashes and helper identity are captured before assembly, rechecked around command stages and rebound into prepare/loaded."
+    }
+  ],
+  "additionalReview": "Four observer argv/cwd/no-Key bindings match the fixed public commands. COMMANDS display lines match the current releasegate run implementation. Success now requires four integer zero exits, all eight public verifier zero exits, the frozen source commit, consistent command/gate booleans, and public exit0/report true. The346-line helper remains below the500-line limit and introduces one shared four-row argv function for its two real callers. No additional documented-standard breach or baseline smell found.",
+  "executionApprovalConditions": [
+    "Review the promised repair_contract/repair_inputs/routed_evidence APIs at their exact committed source before integration; matrix normalization must accept only the authenticated before-to-candidate transition.",
+    "Retain and verify both actual independent report files before approving the exact future helper/source/plan/compiled-binary pins. Hexadecimal report placeholders alone are not evidence."
+  ],
+  "reviewedFiles": {
+    "/tmp/barness-repair-final-keyless-draft-v1.py": {
+      "sha256": "1cf19f87e583dcbc42f419380400684a6db451dc0292333604798cc396af5e88",
+      "bytes": 14886
+    },
+    "/tmp/barness-repair-final-keyless.py": {
+      "sha256": "bbc37116927566418faf933c72bbb3fa0b77c94f8398ab6b9adb8024fc88ded7",
+      "bytes": 21047
+    },
+    "/tmp/barness-repair-finalizer-draft-standards-review.json": {
+      "sha256": "44fb25a73d0411aa63febb992400aa3920370cb6dec7a16dcbbb99cb8c350c6e",
+      "bytes": 4535
+    },
+    "/tmp/barness-repair-finalizer-input-guard-plan.md": {
+      "sha256": "5ee556ca834608a2964f4dc9e3850a470558a1f5e605c8e40c3441ce10ea8a18",
+      "bytes": 14960
+    },
+    "/tmp/barness-routed-go-recorder.py": {
+      "sha256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+      "bytes": 1959
+    },
+    "/usr/local/go/bin/go": {
+      "sha256": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646",
+      "bytes": 14483328
+    },
+    "/Users/cyber/RestoX/barness/ai/release/cmd/releasegate/main.go": {
+      "sha256": "d62dfff8ef52eecb54097f33169bc0b9fb9e485a8c3a32801782783a6223f87a",
+      "bytes": 9238
+    },
+    "/Users/cyber/RestoX/barness/.scratch/barness-ai-minimax/tools/paid_core.py": {
+      "sha256": "d04b6ada7669530169debbfead314e9140f2f6f9295871ecddb42764cad14177",
+      "bytes": 8568
+    }
+  },
+  "standards": [
+    "AGENTS.md principles2/4/5/7/8/9",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "ADR0045/0046",
+    "All12 supplied baseline smells considered as judgment calls; repo overrides respected; tool-enforced issues skipped"
+  ],
+  "constraints": {
+    "draftOnly": true,
+    "futureExactBinaryApproved": false,
+    "futureExactPlanApproved": false,
+    "paidApproval": false,
+    "testsExecuted": false,
+    "verifiersExecuted": false,
+    "keyRead": false,
+    "networkCalls": false,
+    "codeExecuted": false,
+    "workerWIPInspected": false,
+    "sourceEdits": false,
+    "rootWrites": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "responses-native",
+  "argv": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-run",
+    "^TestMiniMaxResponses(ObservedNative|ObservedEncryptedType|FinalPayloadGuards)$",
+    "-count=1"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 240,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-18T01:58:58.923780+00:00",
+  "exitCode": 1,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 4.351017290726304,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

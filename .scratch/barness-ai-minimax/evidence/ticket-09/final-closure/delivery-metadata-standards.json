@@ -1,0 +1,389 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "PASS",
+  "baseCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
+  "reviewedCommit": "955567d0dd686001a9f8fbdfa1bcd3a0b9b1a807",
+  "diffCommand": "git diff 6b440de18181128e082c56acc10d277fb0a721ab...955567d0dd686001a9f8fbdfa1bcd3a0b9b1a807",
+  "diffSHA256": "ee19b613cef877c286c32175e694226401d09e9e19000012105a5726840fc63a",
+  "diffBytes": 1720612,
+  "scope": "Exact parent-owned final delivery49-file metadata delta only; no feature/runtime/pin/native changes or review of executing captured code.",
+  "findings": [],
+  "smells": [],
+  "standards": [
+    "AGENTS.md principles1-10, particularly8 accurate maintainer/historical context and9 verifiable qualification.",
+    "Local issue tracker: per-ticket Status, scope-specific Answer resolution and map pointer; remaining acceptance tickets stay open.",
+    "All12 supplied baseline smell heuristics considered as judgments; no tool-enforced issue reported."
+  ],
+  "report": "PASS: no documented Standards breach or possible baseline smell was found in this49-file delivery-metadata delta. The final status consistently remains PARTIAL, spec/release false. Ticket17 resolves only its offline source/docs/retention scope with Answer and map pointers;09/10 stay claimed and12/15 ready-for-human. Historical approval checkpoints remain explicitly historical.\n\nThe latest fixed six processes close at5 PASS/1 FAIL,102calls/102Attempts and647/647 cumulative. China GLM remains direct, international effects use127.0.0.1:7890, M3 was not rerun, unused budget is nontransferable and no next round is authorized. Latest Messages cancel120001ms/missing support is kept separate from the unchanged old Responses-failing matrix. Eight format verifiers0 do not become17 audited support reports. The7931 full gate preserves0/0/1/1,outer1/false and each suite12445PASS/6FAIL/0NOT_RUN,868 true PIDIFF and29 named/15 required pressure cases.\n\nAll37 indexed files match their hashes;33 retained original outputs were compared byte-for-byte. The1117-file complete AI/data tree and record hashes independently match2306,6b and this metadata tip, excluding only the two reviewed READMEs. Generic10 retains its existing affected-source proof; all11 strict groups remain unqualified. The57915-byte requirements body and0fe0428… hash are unchanged. Old545/545 snapshots are exact.\n\nThe owned worktree is actually absent, its branch retained,14 regular readonly common-root references remain, and both user directories are preserved. No archive rescan, project/operator/verifier/test execution, credential/network access or repository/raw mutation occurred. This is metadata review, not a current native certificate or new paid authority.",
+  "independentReadHashProof": {
+    "path": "/tmp/barness-final-delivery-metadata-independent-readhash.json",
+    "sha256": "cd2bce6012013c9e564cd61ee57d6be5a14d7c7241413095f5ec790f53470571",
+    "indexedFiles": 37,
+    "exactRawCopiesChecked": 33,
+    "sourceAndDataRecords": 1117,
+    "compilerJSONModsumRecords": 1027,
+    "recordSetSHA256": "b02623831357bed132dd7ae5699b311e5e12855418abd2375cf1a60149c10a76",
+    "allCompleteTreesEqual": true,
+    "requirementsBodyBytes": 57915,
+    "requirementsBodySHA256": "0fe0428b27c1e661b1f79596ac338a7996949aec7318f6d159ddf3080247c422",
+    "preFixedSixStatusSHA256": {
+      "md": "6be9ede63952c7c4d2069cdb9372ce92ba18ac8cf5263436cb4656864bb4e5ac",
+      "json": "3098d8715f59ff912ffdc554a7b9777c4ed2cd4929c9f2e482a9bc9cb97413f6"
+    },
+    "cleanupReferencesRetained": 14,
+    "ownedWorktreeRemoved": true,
+    "recoverableBranchRetained": true,
+    "userUntrackedStatusUnchanged": true,
+    "currentFacingLinksChecked": 147
+  },
+  "facts": {
+    "fixedSixActualCalls": 102,
+    "fixedSixActualAttempts": 102,
+    "cumulativeCalls": 647,
+    "cumulativeAttempts": 647,
+    "fixedSixCollectionPASS": 5,
+    "fixedSixCollectionFAIL": 1,
+    "oldNativeSource7931QualifiesCurrent2306": false,
+    "genericTenProofRetained": true,
+    "strictCurrentMapGroupsFalse": 11,
+    "latestRawMessagesFailureSeparateFromOldMatrixResponsesFailure": true,
+    "numericFullGateExits": {
+      "vet": 0,
+      "vet-live": 0,
+      "ordinary": 1,
+      "race": 1
+    },
+    "outerExit": 1,
+    "releasePass": false,
+    "remainingOpenTickets": [
+      "09",
+      "10",
+      "12",
+      "15"
+    ],
+    "ticket17OfflineResolved": true,
+    "unusedBudgetTransferable": false,
+    "nextPaidRoundAuthorized": false
+  },
+  "reviewedFiles": [
+    {
+      "path": ".scratch/barness-ai-minimax/delivery-status.md",
+      "sha256": "dd859cedf8fbf28d10d70f6666e5eacd91f0d4b89d97d6c31f8cf3853337d49a",
+      "bytes": 5229,
+      "gitBlob": "c7dd2f0a1ccc9b56589b787fa3e9eac47c5088e0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/README.md",
+      "sha256": "85b4a317c70285639604e16d715ed91ea502562443999ddc90e11cdd80b0a239",
+      "bytes": 4951,
+      "gitBlob": "72613ee01b9ea3787a34bacc22c3921f6d26ea57"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/actual-glm-effects-spec.json",
+      "sha256": "4653f225933a6c1d42959557749c5d121c21cf64833a720d7fdfa22c76bda1cf",
+      "bytes": 34964,
+      "gitBlob": "dec431e6bb531b95e7a1e44cf2723f50a4799107"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/actual-glm-effects-standards.json",
+      "sha256": "aaa1c0f3980945033749a8d65d8505258849b79394926f507f9d268fe8bb6e90",
+      "bytes": 28737,
+      "gitBlob": "9fba32086bc35e9d0fe6f4329bf5b71aa2eaf0c5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/assembly-spec.json",
+      "sha256": "4a1f18630ba4d6d1c6daa66d7f3676c96095b2d5540001cebc4bb2d4142b2f05",
+      "bytes": 15229,
+      "gitBlob": "2ce139b6ba38705d3fde6fdd5d2e766a2904e5b5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/assembly-standards.json",
+      "sha256": "9d2b39fc91ac0a6b5043bd43efd77392e64532135e66c7511b896f19de855a9a",
+      "bytes": 10207,
+      "gitBlob": "0a8f43b68e9b75adaaed09c006b2195ed5f17869"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/current-source-applicability.json",
+      "sha256": "29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0",
+      "bytes": 49705,
+      "gitBlob": "5714ade9c80ae1ad25ff8fd2cd158db0a298911d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/current-source-applicability.md",
+      "sha256": "b905c0ffd46cf4967512837755f5a9927528204f55edddc13e8d35e92642488b",
+      "bytes": 2779,
+      "gitBlob": "d6a2d884ce1f57d5d91e23465769b28363d69458"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/current-source-byte-equality.json",
+      "sha256": "590467e7e37100e06d1dcd2b481c48b3302d9c48cdeacffa2b7e8231b610c7d9",
+      "bytes": 308249,
+      "gitBlob": "413f41961908f01f0383985a74fcea029e536ee0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/gate-operator-spec.json",
+      "sha256": "8e2de89ee9b91d07f17846b97a2c5687ba33829a016f1b8d43bc9c4223b17aee",
+      "bytes": 5445,
+      "gitBlob": "7bddeeb24aad67ba61dd0096a2267dfaef49adcc"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/gate-operator-standards.json",
+      "sha256": "fe3b8727957893a288404621b6482a49d1f4b9f8cf7f1161b09dabe18a11787c",
+      "bytes": 4239,
+      "gitBlob": "056ec1b7e4f5fa2f6d8df846bd49a8b0e6144ee7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/gate-retention-independent-readhash.json",
+      "sha256": "2d0593b2859ebc348028df5cac697d46de18f4c6bb02ffc690c74631a276515e",
+      "bytes": 9787,
+      "gitBlob": "fb4f83c0e0fc6033b6bf645528bdce81e3516ea0"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/gate-retention-original-spec.json",
+      "sha256": "7801f66f06ccd68368a91aa191bbfb8ffda4b5fac11ba56084f9b7d023143957",
+      "bytes": 14887,
+      "gitBlob": "b365bfe5f6dfde3b7ef45d6f70cf75d723fd6723"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/gate-retention-original-standards.json",
+      "sha256": "df323c2847cca7492dbcc2e585f29d47a9353b18c2f149cb57c563003610cf9d",
+      "bytes": 19432,
+      "gitBlob": "688e6b3200384eca171b0d5570b5b5543fcd9e3d"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/initial-source-spec.json",
+      "sha256": "003b8edb0b584a6c63f1c854588644808f25216a340e9d1fc6b4cd8706f40a8a",
+      "bytes": 8978,
+      "gitBlob": "e0bdd0134a23f75c490051d62de7834c2dd1bae3"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/initial-source-standards.json",
+      "sha256": "61a03e2fe01267f2fcbeeb5814e90fe42ae0090df3d9c36e04a0b1852824e53a",
+      "bytes": 7175,
+      "gitBlob": "5ec4a86230de83fed9bddaf4808a4b250aaa235e"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ordinary-bound-spec.json",
+      "sha256": "79e9c07297cadd76a15b85744a4f3b23df097bafff3172e9d0a5d5a6bbf86950",
+      "bytes": 48684,
+      "gitBlob": "de297120473bf6b26f6235f36fcbb87a32440991"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ordinary-bound-standards.json",
+      "sha256": "6a61b5dcfa99adb58d0e4ab2a64d15b312a6667aeffd2ae72a756d325a95ff74",
+      "bytes": 13691,
+      "gitBlob": "cb49d0cb9ee39e93b9af4351e26636b07068aeac"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ordinary-original-spec.json",
+      "sha256": "6d8aa73c63e8da89a24fdf3b03d2d18153f3e1033c263dd9425649b162645f70",
+      "bytes": 34787,
+      "gitBlob": "8038e3422334a140f1a8385dc02abd1f3307613c"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ordinary-original-standards.json",
+      "sha256": "c35eac630f8fd669cd6c25a50b5809623210381b8bb7ec3f9460854352de6aa8",
+      "bytes": 11919,
+      "gitBlob": "70f6bdf4882e0dbd1171b7aa2bcaf2142248a1f1"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ordinary-typed-spec.json",
+      "sha256": "023b902e715cea85a9195744b05664702f942162f272059e11588ffca2405483",
+      "bytes": 30509,
+      "gitBlob": "a55dbfa8576ffeafcab2ae4b405fb1d4a41a57f1"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ordinary-typed-standards.json",
+      "sha256": "24a5f812d7bc0a8876c30c25bb7c4e4defae622b966477caabf21843eb4c2943",
+      "bytes": 19072,
+      "gitBlob": "dd25d107ed98bb20592a32fa18bca485da32cd5a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/owned-worktree-cleanup.json",
+      "sha256": "5157bf40cf83c05474afcab63a184dbe75bf65ed6be895fb3ec037a8675546ed",
+      "bytes": 7414,
+      "gitBlob": "6799f8c1caf816b74715072ae494405e4b0e27f2"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/retention-factory-final-spec.json",
+      "sha256": "e33f2a70d786d2d82ebf439d18191e72cd855a5cf29906fab2268ff2980d1cc0",
+      "bytes": 64803,
+      "gitBlob": "d91d5eea2df96c378109df839091eaeea0fc8ba2"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/retention-factory-final-standards.json",
+      "sha256": "670bc5f44543e4ea975857b6b430b894f0fcf6cea61af52cd20b21735ac9fd76",
+      "bytes": 91836,
+      "gitBlob": "9d4e900825f84e0f5092fc01ced84982f02857c6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/retention-factory-independent-readhash.json",
+      "sha256": "4cbb8b8145faf7d0978b8d467845f091de6e8f4c5c9da3beabda5b2800eb0dd6",
+      "bytes": 59223,
+      "gitBlob": "c68644a3268f2fa88bb1990291bb9b1368ee59cc"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/retention-fixes-independent-readhash.json",
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea",
+      "bytes": 8702,
+      "gitBlob": "b8dd6f4192e5e53d83f78916882f417c4af909b6"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/retention-fixes-original-spec.json",
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2",
+      "bytes": 61301,
+      "gitBlob": "69cfb7d210416a8651c39b503ad3c6c42e12fabd"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/retention-fixes-original-standards.json",
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020",
+      "bytes": 80933,
+      "gitBlob": "7ecae9e400f5cfb72b1d049d399066e1c1fe3b2a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/review-files.json",
+      "sha256": "b65d3aec5649461d9fd7855bbdf9679365d39354430c9bd240f0540e955d8717",
+      "bytes": 5354,
+      "gitBlob": "cbb10ad558fe056ba6403d5264bc66ee1ea1ad1b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/reviewed-worker-integration.json",
+      "sha256": "35db11d6c540c107245496105b071de30e145fbe89ae9e07ede66b6b9f2168c4",
+      "bytes": 231885,
+      "gitBlob": "3f971dce5b5ea8d3d3e2da0487a52d67e09cc4fa"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/source-byte-equality-operator.py.txt",
+      "sha256": "87ad900175d73ac50d85a3c798f32a5a428c62bce69986ce46daf852317dd7d8",
+      "bytes": 3391,
+      "gitBlob": "b7b4b499ef697c9ccd4fcf3ed24c5936c1835e19"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-docs-spec.json",
+      "sha256": "a96ee09c272ec31ebbce8d22df15661d773c55c6ef7c26be245de6d557c29e46",
+      "bytes": 10535,
+      "gitBlob": "416f5ab35ab1df0958db0f2410e2c3e294775ead"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-docs-standards.json",
+      "sha256": "bf4dc9db1eb1d547a03367eb49895e07c7fbf4e212c72e46886e939a8a8e278f",
+      "bytes": 27537,
+      "gitBlob": "bee43921ab30a522a61c9be4bcfa4f8eff9fe298"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-retention-independent-readhash.json",
+      "sha256": "c11813b0dccbd7a3effcc17d0c71e4c3802e2504fb32a4b50752c640f148deeb",
+      "bytes": 82008,
+      "gitBlob": "fc95a6c27a8df25413b3734f92b6b647e7c7c869"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-retention-original-spec.json",
+      "sha256": "c48bb886349ca00e4d8dd08b078752e73eb292223fd5683cfe91a91470e3adf3",
+      "bytes": 130302,
+      "gitBlob": "949b18ea9bb7e76b84b6b238bd565c951d9cbd40"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-retention-original-standards.json",
+      "sha256": "25162878a0cb7f5e771757a413dc716d8281f5195869f197948639b2b0db4242",
+      "bytes": 20617,
+      "gitBlob": "0ac936c08573a6aedac0bdbc89163522193f49e8"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-source-spec.json",
+      "sha256": "8bea06a62b2ea9e8622db80cef4f36118010f311987aa9e308b04a807eb067fd",
+      "bytes": 22345,
+      "gitBlob": "3efd75c9666a0c7bd50c2fbb03fc608fc2091c0b"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/final-closure/ticket17-source-standards.json",
+      "sha256": "fa5d7b937d3a8376246e83403bf9c0291cd4995cb2288195dd4a26528c8da573",
+      "bytes": 12610,
+      "gitBlob": "ec22b8b552b34b44d9f9912b8f2a59da0226229a"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-09/international-delivery-status.json",
+      "sha256": "b2b0a5edd51fe86125efdc46af47528e880e39a5ea6acac399f3eec5c681eaf1",
+      "bytes": 13856,
+      "gitBlob": "a69ffe8733b808f97315bde1c4113a9040baa385"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-15/pre-fixed6-delivery-status.json",
+      "sha256": "3098d8715f59ff912ffdc554a7b9777c4ed2cd4929c9f2e482a9bc9cb97413f6",
+      "bytes": 7353,
+      "gitBlob": "7dfd853dc5aa7d2f457490e348a56d7c94ad6df5"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-15/pre-fixed6-delivery-status.md",
+      "sha256": "6be9ede63952c7c4d2069cdb9372ce92ba18ac8cf5263436cb4656864bb4e5ac",
+      "bytes": 5558,
+      "gitBlob": "f890a39a4cd20ca0834d728e6ec8bddcf5b2ea19"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/09-integrated-acceptance-review.md",
+      "sha256": "e6d86bae2ad27dd56bcc92a195fccf4dab52bbd5da19dbb05ecb193111ba045c",
+      "bytes": 6218,
+      "gitBlob": "846bb3c0732030ad004ea4f3c46d08e303ea88f3"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/10-formal-catalog-support.md",
+      "sha256": "8dfb24804d289a51d1095ea69a32a52e43d1a071a667d7a931547d210d7e1251",
+      "bytes": 10802,
+      "gitBlob": "9460e40604cb83368f549d5a49d5ba17fe1014c7"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/12-glm-corrective-1.md",
+      "sha256": "dd5bc68e26f3ede77eb55df2afa75448a6b471a60e5958b5674206a11a665c6d",
+      "bytes": 7000,
+      "gitBlob": "8bd724513c3e04e5b4a31b8c01fecddb77fd4992"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/15-source-scoped-revalidation.md",
+      "sha256": "158bf8c4af39a320265324c31a9536ae3f49961a36ed383ee0eb8079f8acfaec",
+      "bytes": 7091,
+      "gitBlob": "0cc1adae8899b831d1d944db8e3f754f7b8d6948"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/issues/17-final-payload-review-gaps.md",
+      "sha256": "d1aecba7cba5a1c8d9b8050ceaf736997a9321a3d9249acc6876b731331a8b5f",
+      "bytes": 6045,
+      "gitBlob": "0d9e67243815c98ffc51d6709cb710264a9725d1"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/map.md",
+      "sha256": "ea6131f11830c2136bc5fe50e5f43adb873f2bd69038455e29b9a21312f6bccf",
+      "bytes": 14674,
+      "gitBlob": "dde4dc2a62c6329548c246ddff6831436a5c9c13"
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/spec.md",
+      "sha256": "279175b94b1e1602d430f30ed604e01a34b8d3606e8764fbd64bf721ad67b1a5",
+      "bytes": 59323,
+      "gitBlob": "a87e2cc47e7e5098ab696bb2b60d94817588b052"
+    }
+  ],
+  "releaseCertified": false,
+  "specClosed": false,
+  "nativeQualificationRenewed": false,
+  "paidAuthorityGranted": false,
+  "reviewerExecution": {
+    "projectCodeExecuted": false,
+    "retainedOperatorCodeExecuted": false,
+    "verifiersRun": false,
+    "testsRun": false,
+    "GoCommandsRun": false,
+    "credentialsRead": false,
+    "networkCalls": 0,
+    "paidCalls": 0,
+    "hugeArchiveScansRepeated": false,
+    "repositoryOrRawWrites": false
+  },
+  "rootObserved": {
+    "head": "955567d0dd686001a9f8fbdfa1bcd3a0b9b1a807",
+    "branch": "codex/minimax-global",
+    "status": [
+      "?? .scratch/barness-ai-minimax/session-analysis/",
+      "?? .scratch/jev-1.14-multimodal-box/human-review/"
+    ]
+  }
+}

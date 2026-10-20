@@ -1,0 +1,123 @@
+{
+  "source": "Immutable own Messages public Client wire exploration 2026-10-17; not formal acceptance",
+  "cases": [
+    {
+      "name": "glm-5.2-thinking-enabled",
+      "source": "03-tools-thinking/glm-5.2-thinking-enabled",
+      "sse": "glm-5.2-thinking-enabled-response.sse",
+      "sha256": "9a76049f761c73a6fa61e59a090f6f82e02439e07d9cb34c63af83584166a3f4",
+      "request": "glm-5.2-thinking-enabled-request.json",
+      "content": [
+        {
+          "thinking": "The problem asks for the smallest positive integer $n$ such that:\n$n \\equiv 3 \\pmod 7$\n$n \\equiv 5 \\pmod{11}$\n$n \\equiv 8 \\pmod{13}$\n\nWe want to find the smallest positive integer $n$ satisfying this system of congruences.\nNotice that $n \\equiv 3 \\pmod 7$, $n \\equiv 5 \\pmod{11}$, and $n \\equiv 8 \\pmod{13}$.\nNotice that $3 - 7 = -4$, $5 - 11 = -6$, $8 - 13 = -5$. Doesn't seem to have a simple pattern like $n \\equiv -4 \\pmod{91}$.\n\nLet's use the Chinese Remainder Theorem.\nFirst, solve the first two congruences:\n$n \\equiv 3 \\pmod 7 \\implies n = 7k + 3$ for some integer $k$.\nSubstitute this into the second congruence:\n$7k + 3 \\equiv 5 \\pmod{11}$\n$7k \\equiv 2 \\pmod{11}$\nMultiply by 8 (since $7 \\times 8 = 56 \\equiv 1 \\pmod{11}$):\n$k \\equiv 16 \\equiv 5 \\pmod{11}$\nSo $k = 11m + 5$ for some integer $m$.\nThen $n = 7(11m + 5) + 3 = 77m + 35 + 3 = 77m + 38$.\nSo $n \\equiv 38 \\pmod{77}$.\nCheck: $38 \\pmod 7 = 3$, $38 \\pmod{11} = 5$. Correct.\n\nNow we have the system:\n$n \\equiv 38 \\pmod{77}$\n$n \\equiv 8 \\pmod{13}$\nSubstitute $n = 77m + 38$ into the third congruence:\n$77m + 38 \\equiv 8 \\pmod{13}$\n$77 = 13 \\times 5 + 12 \\equiv 12 \\equiv -1 \\pmod{13}$\n$38 = 13 \\times 2 + 12 \\equiv 12 \\equiv -1 \\pmod{13}$\nSo:\n$-m - 1 \\equiv 8 \\pmod{13}$\n$-m \\equiv 9 \\pmod{13}$\n$m \\equiv -9 \\equiv 4 \\pmod{13}$\nSo $m = 13j + 4$ for some integer $j$.\n\nThen $n = 77(13j + 4) + 38 = 1001j + 308 + 38 = 1001j + 346$.\nFor $j=0$, $n = 346$.\n\nLet's double check.\n$346 / 7 = 49$ remainder $3$. (49*7 = 343, 346-343 = 3). Correct.\n$346 / 11 = 31$ remainder $5$. (31*11 = 341, 346-341 = 5). Correct.\n$346 / 13 = 26$ remainder $8$. (26*13 = 338, 346-338 = 8). Correct.\n\nThe question asks to reply *only* with $n$.\nSo the answer should be 346.",
+          "thinkingSignature": "270da1bb02d74ea3b8821955"
+        },
+        {
+          "text": "346"
+        }
+      ],
+      "responseId": "msg_20261017204149438a78c80a864a72",
+      "input": 49,
+      "output": 760,
+      "stopReason": "stop"
+    },
+    {
+      "name": "glm-5.2-thinking-continuation",
+      "source": "03-tools-thinking/glm-5.2-thinking-continuation",
+      "sse": "glm-5.2-thinking-continuation-response.sse",
+      "sha256": "c6ef7d70629e6a2ea3fafee88ee94a32f6d2b2e192e652a52a158d4e1cb90843",
+      "request": "glm-5.2-thinking-continuation-request.json",
+      "content": [
+        {
+          "thinking": "1.  **Analyze the Request:** The user is asking for the integer $n$ (from the previous response) plus 1. They want *only* the integer as the output.\n2.  **Retrieve Previous Value:** In the previous turn, I answered \"346\" to the prompt \"Find the smallest positive integer n satisfying n modulo 7 = 3, n modulo 11 = 5, and n modulo 13 = 8. Reply only with n.\"\n3.  **Verify the previous value (optional but good practice for reasoning):**\n    *   $346 \\pmod 7$: $346 = 49 \\times 7 + 3 = 343 + 3 \\implies 3$. Correct.\n    *   $346 \\pmod{11}$: $346 = 31 \\times 11 + 5 = 341 + 5 \\implies 5$. Correct.\n    *   $346 \\pmod{13}$: $346 = 26 \\times 13 + 8 = 338 + 8 \\implies 8$. Correct.\n    *   Is it the smallest? $7 \\times 11 \\times 13 = 1001$. So $n$ must be less than 1001. 346 is the unique solution in this range. Let's quickly re-verify:\n        *   $x \\equiv 3 \\pmod 7$\n        *   $x \\equiv 5 \\pmod{11} \\implies x = 11k + 5$\n        *   $11k + 5 \\equiv 3 \\pmod 7 \\implies 4k \\equiv -2 \\equiv 5 \\pmod 7 \\implies k \\equiv 3 \\pmod 7$ (since $4 \\times 2 = 8 \\equiv 1$, so $k = 5 \\times 2 = 10 \\equiv 3$)\n        *   $x = 11(3) + 5 = 38 \\pmod{77} \\implies x = 77m + 38$\n        *   $77m + 38 \\equiv 8 \\pmod{13} \\implies 12m + 12 \\equiv 8 \\pmod{13} \\implies 12m \\equiv -4 \\equiv 9 \\pmod{13}$\n        *   $-m \\equiv 9 \\pmod{13} \\implies m \\equiv -9 \\equiv 4 \\pmod{13}$\n        *   $m = 4 \\implies x = 77(4) + 38 = 308 + 38 = 346$. Correct.\n4.  **Perform the Calculation:** $346 + 1 = 347$.\n5.  **Format the Output:** The user requested \"Reply only with the integer.\" So the response must be strictly \"347\".",
+          "thinkingSignature": "b95b5005eb824784ad0de6fd"
+        },
+        {
+          "text": "347"
+        }
+      ],
+      "responseId": "msg_20261017204159666f1d3103f14e85",
+      "input": 69,
+      "output": 634,
+      "stopReason": "stop"
+    },
+    {
+      "name": "glm-5.2-tool",
+      "source": "03-tools-thinking/glm-5.2-tool",
+      "sse": "glm-5.2-tool-response.sse",
+      "sha256": "e4b9ec2e4737acb76ce285c2097197ab4f2af1053666af6cffff3b79a9584d7e",
+      "request": "glm-5.2-tool-request.json",
+      "content": [
+        {
+          "id": "call_b16314a952dc4c33989043e2",
+          "name": "lookup_probe_code",
+          "arguments": {
+            "label": "alpha"
+          },
+          "rawArguments": "{\"label\": \"alpha\"}"
+        }
+      ],
+      "responseId": "msg_2026101720414299208f2bf22344a8",
+      "input": 238,
+      "output": 11,
+      "stopReason": "toolUse"
+    },
+    {
+      "name": "glm-5.2-tool-continuation",
+      "source": "03-tools-thinking/glm-5.2-tool-continuation",
+      "sse": "glm-5.2-tool-continuation-response.sse",
+      "sha256": "35b064235b4716ff72ae38691de4ae9aab66a23030ad06eeedc6bec2e3e3c29f",
+      "request": "glm-5.2-tool-continuation-request.json",
+      "content": [
+        {
+          "text": "BRN42"
+        }
+      ],
+      "responseId": "msg_20261017204147839700de41774db2",
+      "input": 258,
+      "output": 3,
+      "stopReason": "stop"
+    },
+    {
+      "name": "glm-5.3-tool",
+      "source": "03-tools-thinking/glm-5.3-tool",
+      "sse": "glm-5.3-tool-response.sse",
+      "sha256": "1558fd2b64327dab8c2818d8ead36177a2f5697608a964f91038e169ccd8a35b",
+      "request": "glm-5.3-tool-request.json",
+      "content": [
+        {
+          "thinking": "The user wants me to call the lookup_probe_code tool with label \"alpha\" and then reply only with the code returned by the tool.",
+          "thinkingSignature": "895f5bcc2bf14466a87127ed"
+        },
+        {
+          "id": "call_5dcafab4e82b452391492acf",
+          "name": "lookup_probe_code",
+          "arguments": {
+            "label": "alpha"
+          },
+          "rawArguments": "{\"label\":\"alpha\"}"
+        }
+      ],
+      "responseId": "msg_20261017204133ce37fbd055e04ece",
+      "input": 244,
+      "output": 41,
+      "stopReason": "toolUse"
+    },
+    {
+      "name": "glm-5.3-tool-continuation",
+      "source": "03-tools-thinking/glm-5.3-tool-continuation",
+      "sse": "glm-5.3-tool-continuation-response.sse",
+      "sha256": "8f5c5e5dbee5352d03b3bac65e036ac1f80d9991f4446801629572e6918892d7",
+      "request": "glm-5.3-tool-continuation-request.json",
+      "content": [
+        {
+          "text": "BRN42"
+        }
+      ],
+      "responseId": "msg_202610172041377485437043a441c6",
+      "input": 292,
+      "output": 5,
+      "stopReason": "stop"
+    }
+  ]
+}

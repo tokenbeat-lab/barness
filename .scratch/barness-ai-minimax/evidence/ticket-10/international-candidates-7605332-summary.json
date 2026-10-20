@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "sourceCommit": "760533299b71736998e15cdd027a53ae069aff9e",
+  "sourceFiles": 1026,
+  "scope": "complete actual candidates; no formal support certification",
+  "candidates": [
+    {
+      "job": "mm-global-candidate-m3-chat",
+      "bundle": ".evidence/minimax-global-candidate-complete/mm-global-candidate-m3-chat/20261018T025534.477214000Z",
+      "identity": {
+        "route": "chat",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "openai-completions",
+        "endpoint": "https://api.minimax.io/v1"
+      },
+      "sourceCommit": "760533299b71736998e15cdd027a53ae069aff9e",
+      "reportSHA256": "321b762ce676f005c8e9650b009e11fd843165db5c5f5dca5bd6171805e13105",
+      "sealSHA256": "044ac8aa0ed20bc62f0cb99e2ae78d23a7cd03655d5ebe2f091151fd83d9b5f1",
+      "canonicalReceiptSHA256": "940a2f7bf9f389ef684c988f8b8c35c4889e81aa22adf147a1311f8f7e38524b",
+      "outcome": "PASS",
+      "complete": true,
+      "kind": "minimax-candidate-only",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 30365
+      },
+      "cumulativeSlotBudget": {
+        "calls": 17,
+        "reservedAttempts": 17,
+        "attempts": 16,
+        "requestedOutput": 27650,
+        "reservedInput": 38557
+      },
+      "actualOriginPinned": true,
+      "launcherAuditPassed": true
+    },
+    {
+      "job": "mm-global-candidate-m3-responses",
+      "bundle": ".evidence/minimax-global-candidate-complete/mm-global-candidate-m3-responses/20261018T025604.488119000Z",
+      "identity": {
+        "route": "responses",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "openai-responses",
+        "endpoint": "https://api.minimax.io/v1"
+      },
+      "sourceCommit": "760533299b71736998e15cdd027a53ae069aff9e",
+      "reportSHA256": "a11459019ee341a99652f9c350a38fd0405c50469cb7bdc41d3e19a43faf920e",
+      "sealSHA256": "4791c11ac745c673402e0a86a6aef8ff0af5c82c6f3f831387b90a1ad6927ae1",
+      "canonicalReceiptSHA256": "0713630e161fa15d914fb1e32b1f518b299471361f9c677ebff6be2d9d72f917",
+      "outcome": "PASS",
+      "complete": true,
+      "kind": "minimax-candidate-only",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 31420
+      },
+      "cumulativeSlotBudget": {
+        "calls": 16,
+        "reservedAttempts": 16,
+        "attempts": 14,
+        "requestedOutput": 24578,
+        "reservedInput": 39070
+      },
+      "actualOriginPinned": true,
+      "launcherAuditPassed": true
+    },
+    {
+      "job": "mm-global-candidate-m3-messages",
+      "bundle": ".evidence/minimax-global-candidate-complete/mm-global-candidate-m3-messages/20261018T025623.432954000Z",
+      "identity": {
+        "route": "messages",
+        "model": "MiniMax-M3",
+        "purpose": "standard",
+        "api": "anthropic-messages",
+        "endpoint": "https://api.minimax.io/anthropic"
+      },
+      "sourceCommit": "760533299b71736998e15cdd027a53ae069aff9e",
+      "reportSHA256": "0381b1c2f9b4b6bbc197b3cf15d0814ef69a41b12faaaf65371e57bb21c43314",
+      "sealSHA256": "0925614cd38e796940d706beca0c3e62a47426594e9b03206efc8d8788f23c3f",
+      "canonicalReceiptSHA256": "f57dab023bca39053162df3cb36ebceea1cafed39d6409e90eab47c032150fe2",
+      "outcome": "PASS",
+      "complete": true,
+      "kind": "minimax-candidate-only",
+      "budget": {
+        "calls": 13,
+        "reservedAttempts": 13,
+        "attempts": 12,
+        "requestedOutput": 17410,
+        "reservedInput": 30055
+      },
+      "cumulativeSlotBudget": {
+        "calls": 16,
+        "reservedAttempts": 16,
+        "attempts": 15,
+        "requestedOutput": 24578,
+        "reservedInput": 36942
+      },
+      "actualOriginPinned": true,
+      "launcherAuditPassed": true
+    }
+  ],
+  "candidateStage": {
+    "stage": "candidate",
+    "maxCalls": 120,
+    "maxAttempts": 144,
+    "conservativeCalls": 49,
+    "conservativeAttempts": 45,
+    "conservativeRequestedOutput": 76806,
+    "conservativeReservedInput": 114569,
+    "budgetSlots": {
+      "chat/MiniMax-M3/standard": {
+        "calls": 17,
+        "attempts": 16,
+        "requestedOutput": 27650,
+        "reservedInput": 38557,
+        "unknown": false
+      },
+      "responses/MiniMax-M3/standard": {
+        "calls": 16,
+        "attempts": 14,
+        "requestedOutput": 24578,
+        "reservedInput": 39070,
+        "unknown": false
+      },
+      "messages/MiniMax-M3/standard": {
+        "calls": 16,
+        "attempts": 15,
+        "requestedOutput": 24578,
+        "reservedInput": 36942,
+        "unknown": false
+      },
+      "chat/MiniMax-M3.1-Flash-Preview/mplan": {
+        "calls": 0,
+        "attempts": 0,
+        "requestedOutput": 0,
+        "reservedInput": 0,
+        "unknown": false
+      },
+      "responses/MiniMax-M3.1-Flash-Preview/mplan": {
+        "calls": 0,
+        "attempts": 0,
+        "requestedOutput": 0,
+        "reservedInput": 0,
+        "unknown": false
+      },
+      "messages/MiniMax-M3.1-Flash-Preview/mplan": {
+        "calls": 0,
+        "attempts": 0,
+        "requestedOutput": 0,
+        "reservedInput": 0,
+        "unknown": false
+      }
+    }
+  },
+  "promotionReceiptSHA256": "45caa84dfd7e7f5895e2f9129a4205bb9054f700baba5e4ab8ef52c1902d4783",
+  "dataOnlyCheck": {
+    "schema": 1,
+    "beforeSource": "760533299b71736998e15cdd027a53ae069aff9e",
+    "credentialsRead": false,
+    "vendorCalls": 0,
+    "oldChatModelsPreserved": 93,
+    "newM3Identities": 3,
+    "M31Active": false,
+    "oldImageClassifierModelsIdentical": true,
+    "catalogVersion": "2026-10-18.1-minimax",
+    "catalogHash": "sha256:3718603f6ad6cee8a5b66251bede572b62e58fd290b3d7fc7a49504a1d274e4f",
+    "chineseConfigs": [
+      {
+        "file": "ai/examples/chineseeval/testdata/jev-route-v1.json",
+        "noncatalogFieldsIdentical": true
+      },
+      {
+        "file": "ai/examples/chineseeval/testdata/luna-route-v1.json",
+        "noncatalogFieldsIdentical": true
+      },
+      {
+        "file": "ai/examples/chineseeval/testdata/jev-1.13.0-v1.json",
+        "noncatalogFieldsIdentical": true
+      }
+    ],
+    "usageNoncatalogFieldsIdentical": true,
+    "usageOriginalFormattingPreserved": true
+  },
+  "fullRawCapsule": "curation pending; immutable originals remain in common-root collection"
+}

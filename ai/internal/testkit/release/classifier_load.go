@@ -2,10 +2,8 @@ package release
 
 import (
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"math"
-	"path/filepath"
 	"reflect"
 	"time"
 
@@ -56,12 +54,12 @@ type classifierLoadBatch struct {
 // actual Host example; report counters are cross-checked against wire captures.
 func classifierImageLoadProblem(b Bundle, name string, index int) error {
 	id := "E08-mixed-pressure-" + name + "-classifier-images-design-load"
-	dir := b.caseDirs[id]
-	if dir == "" || !loadCasePassed(b, id) {
+	files := b.caseFiles[id]
+	if files.bundle == nil || !loadCasePassed(b, id) {
 		return fmt.Errorf("classifier-image design-load case missing or not PASS")
 	}
 	var r classifierImageLoad
-	if err := readLoadJSON(dir, "classifier-images-pressure.json", &r); err != nil {
+	if err := readLoadJSON(files, "classifier-images-pressure.json", &r); err != nil {
 		return fmt.Errorf("classifier-image capacity report missing or invalid")
 	}
 	want := localassembly.MixedPolicy()
@@ -76,11 +74,11 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 		return fmt.Errorf("classifier-image design load changed")
 	}
 	var policy ai.ResourcePolicy
-	if readLoadJSON(dir, "policy.json", &policy) != nil || !reflect.DeepEqual(r.Policy, *want) || !reflect.DeepEqual(policy, *want) {
+	if readLoadJSON(files, "policy.json", &policy) != nil || !reflect.DeepEqual(r.Policy, *want) || !reflect.DeepEqual(policy, *want) {
 		return fmt.Errorf("classifier-image Host policy changed")
 	}
 	var cat ai.Catalog
-	if readLoadJSON(dir, "catalog.json", &cat) != nil {
+	if readLoadJSON(files, "catalog.json", &cat) != nil {
 		return fmt.Errorf("classifier-image catalog missing")
 	}
 	hash, err := cat.Hash()
@@ -121,7 +119,7 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 		Status int
 		Chunks [][]byte
 	}
-	if readLoadJSON(dir, "response-script.json", &script) != nil || script.Status != 200 || len(script.Chunks) != 1 || int64(len(script.Chunks[0])) != r.ProviderSharedResponseScriptBytes {
+	if readLoadJSON(files, "response-script.json", &script) != nil || script.Status != 200 || len(script.Chunks) != 1 || int64(len(script.Chunks[0])) != r.ProviderSharedResponseScriptBytes {
 		return fmt.Errorf("classifier-image response script missing or inconsistent")
 	}
 	for i, kind := range []string{"design", "cancel", "recovery"} {
@@ -153,12 +151,12 @@ func classifierImageLoadProblem(b Bundle, name string, index int) error {
 		if err != nil || d <= 0 || batch.CallsPerSecond <= 0 || math.IsInf(batch.CallsPerSecond, 0) || math.IsNaN(batch.CallsPerSecond) || math.Abs(batch.CallsPerSecond-rate) > rate*1e-9 || !loadResourcesReleased(batch.Resources) {
 			return fmt.Errorf("classifier-image throughput or release proof invalid")
 		}
-		if err := classifierCaptureProblem(dir, r, batch); err != nil {
+		if err := classifierCaptureProblem(files, r, batch); err != nil {
 			return err
 		}
 	}
 	var resources map[string]*int64
-	if readLoadJSON(dir, "resources.json", &resources) != nil || !loadResourcesReleased(resources) {
+	if readLoadJSON(files, "resources.json", &resources) != nil || !loadResourcesReleased(resources) {
 		return fmt.Errorf("classifier-image final resources missing or nonzero")
 	}
 	return nil
@@ -184,10 +182,6 @@ func loadCasePassed(b Bundle, id string) bool {
 	}
 	return false
 }
-func readLoadJSON(dir, name string, v any) error {
-	raw, err := readArtifact(filepath.Join(dir, name), 16<<20)
-	if err != nil {
-		return err
-	}
-	return json.Unmarshal(raw, v)
+func readLoadJSON(files verifiedCase, name string, v any) error {
+	return files.json(name, 16<<20, v)
 }

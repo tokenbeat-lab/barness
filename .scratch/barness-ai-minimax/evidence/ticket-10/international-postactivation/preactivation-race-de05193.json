@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "name": "preactivation-race-de05193",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "preactivation-race-de05193.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-race-de05193.tar.gz",
+  "archiveBytes": 2525750,
+  "archiveSha256": "9da7dac043ad07e9e8de9da3b9d8d9d3b5bda0df1b392af484cf03e41fef5f07",
+  "files": 10177,
+  "negativeSymlinkFixtures": 0,
+  "entries": 10177,
+  "expandedBytes": 88569736,
+  "inventory": "preactivation-race-de05193-files.json.gz",
+  "inventorySha256": "4840bb95ea52b0ff5c01ed731338deca35806ce795c15c2799c0c95c2297a685",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "race",
+      "manifest": "race/20261018T022652.364726000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 1340
+      },
+      "artifactReferences": 10539,
+      "auditFindings": 0,
+      "executionGitCommit": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35"
+    }
+  ],
+  "fixCheckpoint": "de051931b8d4e30fb6adf5cc5b2a3672f243ba35",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation",
+  "commandSourceFiles": [
+    {
+      "path": "mm-source-at-start.json",
+      "sha256": "8536825a27ccc42c8aae28b7fcd635131d83e03c8c2227451133b79c67f76cc0"
+    },
+    {
+      "path": "mm-race-command.json",
+      "sha256": "29fc1bb6bf9dcf551e2385d19b883ac6a4de8c03bfeaa7feb384fb22276a62db"
+    },
+    {
+      "path": "mm-race-source-guard.json",
+      "sha256": "3596442c5f80c7ecac0e1c9b41ab60f27451187e9654bd76e513dbf38c321d8b"
+    },
+    {
+      "path": "mm-race.log",
+      "sha256": "9b6e452c9b500804ab2eaa6ca5a0e9d01cd78d707cfce8e76f7ee7e4cbe77cc2"
+    }
+  ]
+}

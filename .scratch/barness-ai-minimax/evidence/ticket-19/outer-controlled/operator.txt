@@ -1,0 +1,26 @@
+Run from the repository root. This executes only the unchanged hash-pinned reader, never archive programs.
+
+python3 -B - <<'PY'
+import hashlib,json,subprocess,types
+from pathlib import Path
+root=Path.cwd().resolve()
+base=root/'.scratch/barness-ai-minimax/evidence/ticket-19/outer-controlled'
+helper=root/'.scratch/barness-ai-minimax/evidence/ticket-13/implementation/verify.py'
+import os,stat
+fd=os.open(helper,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+with os.fdopen(fd,'rb') as stream:
+    info=os.fstat(stream.fileno())
+    if not stat.S_ISREG(info.st_mode) or info.st_size>65536:raise ValueError('fixed bounded helper required')
+    raw=stream.read(65537)
+if len(raw)>65536 or hashlib.sha256(raw).hexdigest()!='b280863f49f4a56cb507ee7e6ba753c73e38c9162236592e9f886ed9a64c3c2f':raise ValueError('helper pin')
+b=types.ModuleType('bounded');b.__file__=str(helper);exec(compile(raw,str(helper),'exec'),b.__dict__);b.BASE=base
+for line in b.read(base,'SHA256SUMS',1<<20).decode().splitlines():
+    expected,name=line.split('  ',1)
+    if b.sha(b.read(base,name,8<<20))!=expected:raise ValueError('frontdoor pin')
+index=b.doc(b.read(base,'index.json',1<<20))
+common=Path(subprocess.check_output(['git','rev-parse','--git-common-dir'],text=True).strip()).resolve().parent
+checked,observed=b.verify_archive(common,index['capsule'])
+summary=b.doc(observed['summary.json']);receipt=b.doc(observed['raw/final-complete/all-tools-command.json'])
+if type(receipt.get('exitCode')) is not int or receipt['exitCode']!=0 or summary['pythonTests']!=80 or not observed['raw/final-complete/all-tools.log'].rstrip().endswith(b'OK'):raise ValueError('numeric closed80 suite required')
+print(json.dumps(dict(verified=True,custody=checked,observed=len(observed),pythonTests=80,paidAuthority='PENDING',formalVendorQualification=False),indent=2))
+PY

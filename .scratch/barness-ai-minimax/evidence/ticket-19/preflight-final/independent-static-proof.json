@@ -1,0 +1,86 @@
+{
+  "sourceCommit": "d2354144570da8aeda56862bbcaffe323061f986",
+  "selectedFiles": 1074,
+  "fullCurrentSetAndCommittedBytesMatch": true,
+  "comparedWith": "fbbdea4c321fe4368879845d5e6f224dac289c9a",
+  "reviewedSingleSourceFix": "a25737aeb605b4d5ede11aafeb60916e5c5c701e",
+  "onlyChangedSelectedFile": [
+    "ai/live/minimax_renewal_process_test.go"
+  ],
+  "unchangedPythonFiles": 30,
+  "broadToolsReceipt": {
+    "state": "COMPLETED",
+    "name": "all-tools",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      ".scratch/barness-ai-minimax/tools",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "$REPO",
+    "timeoutSeconds": 1800,
+    "credentialsInherited": false,
+    "sourceVariable": null,
+    "injectedCredential": null,
+    "credentialsRead": false,
+    "startedAt": "2026-10-19T05:23:48.246732+00:00",
+    "exitCode": 0,
+    "environmentKeys": [
+      "BARNESS_REPAIR_TEST_ARTIFACT_DIR",
+      "HOME",
+      "PATH",
+      "TMPDIR"
+    ],
+    "seconds": 666.1716020838358,
+    "launcherAudit": {
+      "passed": true,
+      "findings": []
+    }
+  },
+  "broadToolsArchiveSHA256": "9b366f0574a79a6dbdd4c953000d416f418ec6606b9f1ebc84ad61d7566a8464",
+  "broadToolsSelectedMemberSHA256": {
+    "raw/final-complete/all-tools-command.json": "8c877cab85b00d1a5b1fb597067899da1dfa3e8668d49de8fb14b1a182f73ac1",
+    "raw/final-complete/all-tools.log": "ac780ce6615b9de6f3a837f39bc24af4964763a8ccbceb53d485f31ec44f89ba",
+    "raw/final-complete/source-after.json": "9040bb0097871f6fb16bf0457dd5ea44bd2bb7f66742a92fde44f8ccc78b9853",
+    "raw/final-complete/source-before.json": "9040bb0097871f6fb16bf0457dd5ea44bd2bb7f66742a92fde44f8ccc78b9853"
+  },
+  "broadToolsBeforeAfterSame": true,
+  "checksAtRead": {
+    "vet": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "vet-live": {
+      "state": "COMPLETED",
+      "exitCode": 0,
+      "credentialsRead": false
+    },
+    "no-key-live": {
+      "state": "STARTING",
+      "exitCode": null,
+      "credentialsRead": false
+    },
+    "no-key-visual-proxy": {
+      "state": "NOT_PRESENT"
+    },
+    "no-key-release-contracts": {
+      "state": "NOT_PRESENT"
+    },
+    "no-key-release-package": {
+      "state": "NOT_PRESENT"
+    }
+  },
+  "sourceManifestSHA256": "d3b8d8d2f2c4b1802ef8c0b8392363784c85d7af98bf9a2a330df897c44ec391",
+  "binariesManifestSHA256": "26344c05cf0e9d8defbe6bfc056ddad331685f1439229da999f0293b05e79529",
+  "binarySHA256": "55fc3a346aa4bc2d8216acfa46215da7ca11b5a2ebf60ea3da9a3c7545ffd155",
+  "planSHA256": "6535fa46a6b3bd61166a29ed6d461435851e0ad9fe24a14223e70546578a664c",
+  "readAt": "2026-10-19T05:43:18.326987+00:00",
+  "executedProjectCode": false
+}

@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "8fbd17006677774368d4d77d924a8672fd205c51",
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "scope": "Independent static review of operational compiled public gate launch repair and actual prepared pins. No source change, tests, credentials or network execution by reviewer; not a release verdict.",
+  "helper": {
+    "path": "barness-routed-final-keyless-compiled.py",
+    "sha256": "a1ecf4a0b2285732aada1a9d7026f693f7c05cef5b73ddb21b1a2bfe13226d4a"
+  },
+  "observerSHA256": "aec940df7db842009d9c977142dc35f604022b380ce383af7ce2dd85383879d7",
+  "realGoSHA256": "005640c7ff93028cb704283b0f737f2db3faf8b51b2561170c769b83905da646",
+  "compiledCLI": {
+    "sha256": "c54a7d07f5780711af334a4369dcfd1dbb2b3b8bd440f09962b88831d11a906a",
+    "bytes": 30338354,
+    "buildReceiptSHA256": "906ac6e9f540690b907eb157a4e217980c7466346c7c852295ee02be394cffaa"
+  },
+  "preparedPlan": {
+    "path": ".evidence/minimax-routed-final-compiled-1/plan.json",
+    "sha256": "3311e853c2ab5dee938e0e533ccf3e7068b5d248d72acc5fd99f6c4beb436c5a",
+    "frozenInputsSHA256": "635495fce813799ce334a0854cb0f83e75ab4901f721c4bb4f0ee5b6b54b25d2",
+    "originalPinnedFiles": 137,
+    "allOriginalPinsCurrentlyMatch": true,
+    "currentSelectedSources": 1047,
+    "allSelectedSourcesCurrentlyMatch": true,
+    "checks": 8,
+    "liveInputs": 17,
+    "adoptedBundles": false,
+    "credentialsRead": false,
+    "paidCalls": 0
+  },
+  "probe": {
+    "summarySHA256": "20565d2460ab3e572b90f9c3a00bc58055ff4d767345f32960ef60f772126507",
+    "controllerSHA256": "041c04ae3118747e2b205314d972f7176713c305d9c98ddf88f8f0a0b31a1541",
+    "red": "same public Go vet via go run: actual exit0, observer absent",
+    "green": "same compiled probe direct: actual exit0, observer recorded0",
+    "fullGateExecuted": false
+  },
+  "preservedOriginalAttempt": {
+    "summarySHA256": "8bb5b055a261189add39a8d20cd5752071954dfc96ff94e519b71138131f0b01",
+    "interruptionSHA256": "70ae41cd6f357b81cb669465dfdcd95368564f0a5486b39d06b20aa372e8ba34",
+    "gateExit": -15,
+    "releaseReportPresent": false,
+    "passVerdict": false
+  },
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "notes": [
+    "Direct execution of the compiled same public release gate keeps observer PATH intact; installed Go RunStdin/AppendPATH source and actual fixed probe reproduce the old instrumentation bypass.",
+    "Existing successful Jev derivation and temporary/default matrix import receipts are pinned and reused; eight keyless verifiers recheck evidence before the full four-command gate. No paid child, selected_secret call, derive/remerge, adopted suite override or automatic retry is present.",
+    "Canonical18 actual reports and finite245/245 consumption remain unchanged; GLM Responses FAIL is preserved and can still prevent release.",
+    "Exclusive compiled execution intent plus helper, original-input, CLI, observer and prepared metadata hashes protect the one-shot run. Success additionally requires all four numeric command exits0 and the public release-report pass=true.",
+    "Original incomplete keyless attempt remains gate=-15/pass=false/no release report and is not relabeled as completed suites."
+  ]
+}

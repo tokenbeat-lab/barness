@@ -1,0 +1,31 @@
+{
+  "state": "COMPLETED",
+  "name": "no-key-release-contracts",
+  "argv": [
+    "go",
+    "test",
+    "./ai/e2e",
+    "-count=1",
+    "-run",
+    "^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract|TestReleaseRecordedBundleDiagnosticProcess)$"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 360,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T05:30:21.638958+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 8.20550062507391,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

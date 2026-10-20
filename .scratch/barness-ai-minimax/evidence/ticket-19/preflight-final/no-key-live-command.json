@@ -1,0 +1,32 @@
+{
+  "state": "COMPLETED",
+  "name": "no-key-live",
+  "argv": [
+    "go",
+    "test",
+    "-tags",
+    "live",
+    "-count=1",
+    "-timeout=20m",
+    "./ai/live"
+  ],
+  "cwd": "$REPO",
+  "timeoutSeconds": 1260,
+  "credentialsInherited": false,
+  "sourceVariable": null,
+  "injectedCredential": null,
+  "credentialsRead": false,
+  "startedAt": "2026-10-19T05:42:01.398783+00:00",
+  "exitCode": 0,
+  "environmentKeys": [
+    "BARNESS_AI_EVIDENCE_DIR",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "seconds": 209.90143274981529,
+  "launcherAudit": {
+    "passed": true,
+    "findings": []
+  }
+}

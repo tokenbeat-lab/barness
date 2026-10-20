@@ -172,3 +172,30 @@ Google 的思考加到 Output，但是否已经包含在模态输出明细中用
 改变共同 wire model 也 pending。P10 投影保留 cost、score 详情、refusal 和 usage presence，
 P07 投影未改。来源、逐例完整 captures、实际 verdict、manifest/audit 与命令见
 [证据包](../../.scratch/barness-ai-openai-decisions/frozen-differential-evidence/README.md)。
+
+## MiniMax 国际站（工单 06/11，2026-10-18）
+
+固定 pi 1.1.0 的既有 minimax Messages M3 MINIMAX_MODELS export 现已装配进 wrapper；版本、commit、
+完整 model-data、827 dist 源码和 SDK lock pins 保持不变。M3 Messages 实际执行六条
+公共 Client / frozen pi 成对差分：full/simple 文本、带签名思考的两个工具调用及 Host
+工具结果后的完整续接。没有剪裁 request、events 或 Result 以掩盖差异。
+
+新增账本仅限这六个 case 与实际字段：默认预算512000/131072、adaptive 与冻结 Claude
+budget/display、simple 显式 disabled 与当前省略默认、原厂 beta/browser/eager/ephemeral
+自动字段、无一小时缓存写入契约的可选零值 presence、合成候选价格及独立耗时。
+每条 wire/token/cost 差异在分类前有独立固定值/算例断言；未知 case、字段、协议仍 pending。
+当前与冻结 Messages 基址同为 `api.minimax.io/anthropic`，不再登记基址差异。
+完整目录比较保留文本子集与冻结
+image/resize、保守输出上限、binary/default 元数据和候选合成费率的精确差异。
+
+Chat/Responses 在冻结 provider 数据中没有路由，登记两条 Extension Route；M3.1 在三个
+协议中均为型号扩展，不套用冻结 M3 的身份。五个独立 fixture 的四入口验收明确保存
+pidiffSkip 与 `piParity=NOT_RUN`，不计原生差分通过。Messages 整条路线没有豁免。
+源、有限 case/path 边界与重放见 [MiniMax 差分说明](../../ai/e2e/testdata/minimax-pidiff/README.md)
+和 [当前国际站证据](../../.scratch/barness-ai-minimax/evidence/ticket-11/README.md)。
+[原06证据](../../.scratch/barness-ai-minimax/evidence/ticket-06/README.md)保留中国区历史适用性，不能替代国际站观察。
+
+这些是合成受控协议比较，不是当前厂商收费调用或正式支持声明。候选价格明确为机制测试值，
+不将冻结历史美元报价自动当当前费率，也不代表 M Plan 扣费；国际站直接美元快照与
+512000保守整数估算策略见ADR-0042。正式目录/费率和各协议
+自己的真实证据仍由后续发布工单验收。既有原生差分、分类账与扩展覆盖没有减少。

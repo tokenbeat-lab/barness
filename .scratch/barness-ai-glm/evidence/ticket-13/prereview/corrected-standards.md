@@ -1,0 +1,10 @@
+Standards delta reviewed: `808d6d551408bf357ab897c93b3f9134bbb7aa2d` → clean `ee9ee51752b1a4f687c8032a326345387253b585` in `/tmp/barness-glm-13`. Original fixed baseline remains `f5cf5362610a8bdb8f3e170f408f3858c149e540`. No repository mutation, paid calls or network access.
+
+**Both prior documented-standard findings are closed.**
+
+- **GLM error parsing:** `ai/glm_failures.go` now decodes the documented direct object/one envelope once and treats deeper envelopes as unknown; `ai/http_failures.go` reuses that parsed code. Recursive subtree copying is removed. The public failure-first record reproduces approximately 1 GB allocation for a 50,015-byte body across both models/all three protocols before the fix; its GREEN record passes the independent 64 MiB allocation bound, preserves HTTP classification and verifies attempt/resource cleanup.
+- **Derived support-view traversal:** the new focused `glm_view_inventory.go` enumerates only paths/directories derived from the trusted original archive, rejects unowned paths before payload reads, limits sibling enumeration and total files to 512, and bounds metadata/actual read totals to 256 MiB. The byte-comparison pass iterates trusted names instead of reopening an unbounded walk. Public unlisted-file, 513-file and deep-directory RED records reproduce premature payload allocation; all three GREEN cases pass the early-rejection/allocation checks.
+
+The other runtime corrections preserve protocol ownership: authoritative empty reasoning is GLM-scoped, and legacy forced-tool fields are rejected at GLM's final boundary. No additional actionable documented-standard or Fowler heuristic finding was found. Trace changes retain all previous required cases and non-GLM mappings; all five prereview archive SHA-256 values match `artifacts.json`. The supplied focused GREEN log reports PASS.
+
+**Counts: 2 closed, 0 remaining, 0 new documented findings; 0 heuristic findings.** Six intentionally stale formal-positive imports remain pending fresh 3×22 captures; this report neither treats historical evidence as current nor replaces the mandatory final review after ticket 13 completes.

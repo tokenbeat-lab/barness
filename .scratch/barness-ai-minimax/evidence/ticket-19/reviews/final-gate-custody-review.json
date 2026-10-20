@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "status": "APPROVED_AND_MERGED_CUSTODY_ONLY",
+  "axis": "Independent final-gate custody",
+  "base": "83a6a4d8c03a7603aeeb623d045809a1aa8c3971",
+  "head": "7c6616dc27301d9fc3d32777beec27dffd36d033",
+  "rootBefore": {
+    "head": "83a6a4d8c03a7603aeeb623d045809a1aa8c3971",
+    "selectedFiles": 1074,
+    "sourceMapSHA256": "46a775b3914bd90c36945321c2708ce6615676f6a8f8b36b18a9ff1d03a2d973",
+    "matrixSHA256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "status": "?? .scratch/barness-ai-minimax/session-analysis/\n?? .scratch/jev-1.14-multimodal-box/human-review/"
+  },
+  "readback": {
+    "argv": [
+      "python3",
+      "-B",
+      "-"
+    ],
+    "cwd": "/private/tmp/barness-eleven-final-gate-retention",
+    "stdinSource": "final-gate/operator.txt exact pinned-reader readback",
+    "stdinSHA256": "cc208213286745f64e3d41c27cc211f1a1687c8fd330a031f7653902c23389c2",
+    "exitCode": 0,
+    "seconds": 8.553822041954845,
+    "stdout": "{\"label\": \"ordinary\", \"files\": 133915, \"entries\": 133915, \"rawBytes\": 1308362674, \"decodedTarBytes\": 1546577920, \"archiveBytes\": 114962711, \"archiveSHA256\": \"0321a2c16adc5048d1d19e521d88ee2c56e389a95616ec0acb845954313c6d9a\", \"artifactReferences\": 99113}\n{\"label\": \"race\", \"files\": 133891, \"entries\": 133891, \"rawBytes\": 1304257508, \"decodedTarBytes\": 1536931840, \"archiveBytes\": 114584263, \"archiveSHA256\": \"2c652fc0f6b0c6cc68ef1beeed90e49a0591079c816554e7e0cec01cfeafc822\", \"artifactReferences\": 99113}\n{\"label\": \"outer\", \"files\": 33, \"entries\": 33, \"rawBytes\": 35451092, \"decodedTarBytes\": 35481600, \"archiveBytes\": 12532917, \"archiveSHA256\": \"139b97005b01ef640747d1fb854c3166b676ee822f267ffd987126aa642f203a\"}\n{\"label\": \"prepared-history\", \"files\": 23, \"entries\": 23, \"rawBytes\": 56464834, \"decodedTarBytes\": 56494080, \"archiveBytes\": 21535782, \"archiveSHA256\": \"ae3c8bcb75bc25cdbe292e4a809e065f0dbf46afaac1e60fb052d498e4ba1a18\"}\n{\"label\": \"diagnostic\", \"files\": 850, \"entries\": 850, \"rawBytes\": 4245390, \"decodedTarBytes\": 5744640, \"archiveBytes\": 1242519, \"archiveSHA256\": \"22443f0d109801be5d58a870e2cc0868bc84e000e29180ab18c2dc23cb8a0b78\"}\n{\n  \"custodyVerified\": true,\n  \"capsules\": [\n    {\n      \"label\": \"ordinary\",\n      \"files\": 133915,\n      \"entries\": 133915,\n      \"rawBytes\": 1308362674,\n      \"decodedTarBytes\": 1546577920,\n      \"archiveBytes\": 114962711,\n      \"archiveSHA256\": \"0321a2c16adc5048d1d19e521d88ee2c56e389a95616ec0acb845954313c6d9a\",\n      \"artifactReferences\": 99113\n    },\n    {\n      \"label\": \"race\",\n      \"files\": 133891,\n      \"entries\": 133891,\n      \"rawBytes\": 1304257508,\n      \"decodedTarBytes\": 1536931840,\n      \"archiveBytes\": 114584263,\n      \"archiveSHA256\": \"2c652fc0f6b0c6cc68ef1beeed90e49a0591079c816554e7e0cec01cfeafc822\",\n      \"artifactReferences\": 99113\n    },\n    {\n      \"label\": \"outer\",\n      \"files\": 33,\n      \"entries\": 33,\n      \"rawBytes\": 35451092,\n      \"decodedTarBytes\": 35481600,\n      \"archiveBytes\": 12532917,\n      \"archiveSHA256\": \"139b97005b01ef640747d1fb854c3166b676ee822f267ffd987126aa642f203a\"\n    },\n    {\n      \"label\": \"prepared-history\",\n      \"files\": 23,\n      \"entries\": 23,\n      \"rawBytes\": 56464834,\n      \"decodedTarBytes\": 56494080,\n      \"archiveBytes\": 21535782,\n      \"archiveSHA256\": \"ae3c8bcb75bc25cdbe292e4a809e065f0dbf46afaac1e60fb052d498e4ba1a18\"\n    },\n    {\n      \"label\": \"diagnostic\",\n      \"files\": 850,\n      \"entries\": 850,\n      \"rawBytes\": 4245390,\n      \"decodedTarBytes\": 5744640,\n      \"archiveBytes\": 1242519,\n      \"archiveSHA256\": \"22443f0d109801be5d58a870e2cc0868bc84e000e29180ab18c2dc23cb8a0b78\"\n    }\n  ],\n  \"recordedSourceCommit\": \"01341f8df60d4787bcdbeb48a024e3873fc780f6\",\n  \"releasePass\": false,\n  \"releaseCertified\": false,\n  \"retentionPaidCalls\": 0,\n  \"retentionCredentialsRead\": false\n}\n",
+    "stderr": "",
+    "capturedProgramsExecuted": false,
+    "nativeOrProjectTestsExecuted": false,
+    "credentialsRead": false,
+    "paidCalls": 0
+  },
+  "findings": [],
+  "merged": true,
+  "scopeCoverage": {
+    "disjointRegularGate2Files": 267820,
+    "byScope": {
+      "ordinary": 133909,
+      "race": 133885,
+      "outer": 26
+    },
+    "rawTreeAndArchiveMemberSetsEqual": true
+  },
+  "nativeArtifactReferenceCheck": {
+    "ordinary": {
+      "artifactReferences": 99113,
+      "singleTrailingSeparatorNormalizations": 420,
+      "unsafeComponents": 0,
+      "nativeRuleSource": "ai/internal/testkit/release/load.go: physical=strings.TrimSuffix(c.Dir,\"/\") followed by canonicalArtifactPath; artifact leaves remain canonical"
+    },
+    "race": {
+      "artifactReferences": 99113,
+      "singleTrailingSeparatorNormalizations": 420,
+      "unsafeComponents": 0,
+      "nativeRuleSource": "ai/internal/testkit/release/load.go: physical=strings.TrimSuffix(c.Dir,\"/\") followed by canonicalArtifactPath; artifact leaves remain canonical"
+    }
+  },
+  "securityProjectionCheck": {
+    "trackedFilesAndDecodedGZIPScanned": 50,
+    "literalHOMEHits": 0,
+    "literalRootHits": 0,
+    "displayProvenancePinsVerified": 10,
+    "originalHashAndAliasTransformVerified": [
+      "display/full-gate-result.json",
+      "display/release-report.json.gz",
+      "display/full-gate-plan.json.gz",
+      "display/source-approval.json",
+      "display/prepared-only-history.json",
+      "display/diagnostic-summary.json",
+      "display/release-report.md.gz",
+      "display/original-draft-review.json",
+      "display/actual-data-spec-review.json",
+      "display/domain-addendum.json"
+    ]
+  },
+  "report": "No custody findings. The unchanged finite readers verified all five complete capsules. Ordinary/race/outer inventory scopes exactly match the disjoint267820 regular gate2 originals. Both99113-reference manifests match retained member hashes; the420 corrected joins per suite are precisely the single trailing case-directory separator allowed by the unchanged native loader, with no unsafe path components admitted. All50 tracked files and decoded GZIP metadata are free of literal HOME/root paths; display copies have explicit derivation and raw/stored hashes. Original numeric0/0/0/1, outer1/pass=false, ordinary12495PASS/audit0 and race12494PASS/1FAIL/audit1 are retained, together with17 support and4 effect PASS and derivative failed gates. Prepared-only gate1 and separate failed-packet diagnosis remain distinct. This approves custody only, not release certification, a private runtime fix, new paid calls, or refreshed qualification.",
+  "diffCommand": "git diff 83a6a4d8c03a7603aeeb623d045809a1aa8c3971...7c6616dc27301d9fc3d32777beec27dffd36d033",
+  "diffSHA256": "52b802b562caa5563f18b62137002922e1883f7624f228f8914e0b97f79d7ce7",
+  "integration": {
+    "mode": "fast-forward",
+    "tip": "7c6616dc27301d9fc3d32777beec27dffd36d033",
+    "selectedSourceFiles": 1074,
+    "selectedSourceMapSHA256": "46a775b3914bd90c36945321c2708ce6615676f6a8f8b36b18a9ff1d03a2d973",
+    "selectedSourceUnchanged": true,
+    "matrixSHA256": "5a144d8e3f1ab398dd54fcff8da039d0335dce720326e6db722b95d14b220754",
+    "matrixUnchanged": true,
+    "userUntrackedDirectoriesPreserved": true,
+    "privateRuntimeFixMerged": false,
+    "retainerWorktreePreserved": true
+  }
+}

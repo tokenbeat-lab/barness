@@ -1,0 +1,1056 @@
+{
+  "axis": "Spec",
+  "verdict": "PASS_NARROW_RETENTION_FACTORY_CORRECTION",
+  "baseCommit": "e1f3b8405f8d4dddd30f2e035597db5f15fd89b0",
+  "reviewedCommit": "6b440de18181128e082c56acc10d277fb0a721ab",
+  "sourceCommit": "230691742b731c77e8167b94646219e10f78c8f7",
+  "paidSourceCommit": "7931b163f983a8b362374163b7949d31e68bbec4",
+  "diffCommand": "git diff e1f3b8405f8d4dddd30f2e035597db5f15fd89b0...6b440de18181128e082c56acc10d277fb0a721ab",
+  "commitsCommand": "git log e1f3b8405f8d4dddd30f2e035597db5f15fd89b0..6b440de18181128e082c56acc10d277fb0a721ab --oneline",
+  "diffSHA256": "9d1571e8befe3262cd4e5e304c6f2e8f1135a8a6ce1422ae8880ba4a5270c070",
+  "findings": [],
+  "closedFindings": [
+    "RETENTION-FIXES-SPEC-01"
+  ],
+  "priorClosedFindingsRemainClosed": [
+    "T17-RETENTION-SPEC-01",
+    "B-GATE-RETENTION-SPEC-01"
+  ],
+  "originalFindingReport": {
+    "path": "/tmp/barness-repair-retention-fixes-spec-review.json",
+    "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2"
+  },
+  "report": "Spec narrow re-review: PASS, no findings. RETENTION-FIXES-SPEC-01 is CLOSED at exact6b440de; original8efe6f3c… review remains unchanged.\n\nThe coherent constructor boundary now reuses pinned readers for index1MiB, inventory8MiB compressed/40MiB decoded with SHA/length pins, bounded metadata sealing, owned relative paths and unchanged output-inventory limits. Output hashing validates the expected size on one no-follow/nonblocking regular FD, enforces initial/cumulative256MiB caps and before/after stat stability, then applies readonly mode to that FD. This satisfies T04:353 “不复制无界正文” without widening the existing full-reader or creation envelopes. Current constructor bytes exactly equal the captured GREEN/normal bytes; measurements remain e1+WIP, not a claimed postcommit run.\n\nIndependent bounded standard-library streaming verifies the sole new archive SHAefd73a8b…,165488 compressed/894973 payload/983040 decoded bytes, all108 regular members/inventory hashes and exact Git raw-v2 copies. The complete collector source and readonly sidecar agree. Its first /tmp no-follow refusal created no archive; all93 partial files are byte-identical in the complete capsule and committed original partial tree.\n\nFive real OS-open pairs retain exact numeric1 on both sides: OLD constructs and invokes downstream verification before late refusal; GREEN rejects at the intended index/compressed-inventory/decoded-inventory/seal/output boundary before verifier or seal rewrite. Seal overflow legitimately occurs after construction. These OLD exits are not native acceptance. Events, captured sources, diagnostics, receipts and unchanged-original fingerprints agree. Normal current construction exits0; its intentional counterfeit resource is publicly refused1 and its hash equals the previously fully verified false-counter capsule. Three retained readbacks exit0; reviewer did not rerun them.\n\nPrior original and both90MB negative full scans are reused after checking unchanged indexes/inventories/sources/fixture metadata pins; no repeated bulk scan. Previous exact-resource and three creator corrections remain closed. No Go/runtime/documentation or native/source-map pin refresh, scope waiver or paid authority is introduced. Source7931 MessagesFAIL/missing report, publication/assembly refusal, old matrix and full-gate0/0/1/1/reportfalse remain; source2306 controlled repair does not gain formal applicability. No project/captured program, tests/verifier, Key/network or repository mutation by reviewer.",
+  "reportBodyWords": 299,
+  "reviewedFiles": {
+    ".scratch/barness-ai-minimax/evidence/ticket-17/SHA256SUMS": {
+      "bytes": 62486,
+      "sha256": "7e7cb9a9ba3f5d597131e5ba984c17c19be3865dff280ec2f4a882c11ec49ea8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/README.md": {
+      "bytes": 6817,
+      "sha256": "c88fa44b286309ecb988f6eefc92267d0e12b42f9cf2d4a08256e2aa577bf172"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/correction-evidence.json": {
+      "bytes": 75809,
+      "sha256": "87d46d329eb2a4d71b247ce2ee366105e6f8cc5c19084d7ed8a9e3440d468e15"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/README.md": {
+      "bytes": 5102,
+      "sha256": "6abab0a459679bfaf76ad476f671eb1986ae0892a1cf3d0bd42a3a9729803490"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/capsule-index.json": {
+      "bytes": 6501,
+      "sha256": "11d6ef976961379f7c17c442b06545c18f3aa168639ab08a66e27c83c5faf7ac"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/check-factory.py": {
+      "bytes": 8276,
+      "sha256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-complete-source.json": {
+      "bytes": 339,
+      "sha256": "2bd36f1a94d416e6445253ec7b985858dbd0daceef704b93d51d24cf8b972099"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-complete.py.txt": {
+      "bytes": 7547,
+      "sha256": "2ad6fc78a726cd5d70f908a1c706e2e006a2e20f699635c46ac28a527317d0ae"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-first-refusal.json": {
+      "bytes": 14945,
+      "sha256": "3a20984fd38413916957ff8e6cf799bdf03b279d7efdd9a8ff962fa44e56dc80"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/collection-first.py.txt": {
+      "bytes": 7390,
+      "sha256": "318665dc56456f8184c6753b2baf8cdcc71518bab3838afefcc32d9f7c3bed3a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/completed.json": {
+      "bytes": 793,
+      "sha256": "c0c0fccc2c9a57993d52f44e77befb9836df306c47ec541c2f33a7646e63e74a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/failure-inventory.md": {
+      "bytes": 2683,
+      "sha256": "8f0bf62b0c005b0bc05d8f7011afef00d902e746fc38f1e39680ded16d2c37ca"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/inventory.json.gz": {
+      "bytes": 3646,
+      "sha256": "fbd505a9f41b781983c1f4631cc4bcf5086b011e5d0ac9df84b109776345e446"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/barness-repair-retention-fixes-independent-readhash.json": {
+      "bytes": 8702,
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/barness-repair-retention-fixes-spec-review.json": {
+      "bytes": 61301,
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/barness-repair-retention-fixes-standards-review.json": {
+      "bytes": 80933,
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/e1-correction-evidence.json": {
+      "bytes": 35431,
+      "sha256": "1ee53d2486f9b2f8e8999a32608bbf7a29f984dd6bc917ca42a146559ba31c31"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/originals/e1-resource-probe.py.txt": {
+      "bytes": 6660,
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/collection-first-refusal.json": {
+      "bytes": 14945,
+      "sha256": "3a20984fd38413916957ff8e6cf799bdf03b279d7efdd9a8ff962fa44e56dc80"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/collection-first.py.txt": {
+      "bytes": 7390,
+      "sha256": "318665dc56456f8184c6753b2baf8cdcc71518bab3838afefcc32d9f7c3bed3a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/controllers/check-factory.py": {
+      "bytes": 8276,
+      "sha256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/controllers/run-legitimate.py": {
+      "bytes": 1913,
+      "sha256": "4b8bef5dde4eb03abcbc41b3b2078a9363313315dcd6978e3e8352d2084b8583"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/receipt.json": {
+      "bytes": 3353,
+      "sha256": "7b671c5a11be111739eed50ee93e2ff8987d0649439f700077cf8b48f0ec2885"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/stdout.log": {
+      "bytes": 620,
+      "sha256": "3e127b7b8efb98d8f15ea716fbb0a47e85b26fd83483632bfadc857652aefe69"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/verification.json": {
+      "bytes": 660,
+      "sha256": "8938f90a95ce4f62dfc64a0df911cb051f2e609cd0486b62b274adc65e348c20"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/verification.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/legitimate/verification.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/barness-repair-retention-fixes-independent-readhash.json": {
+      "bytes": 8702,
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/barness-repair-retention-fixes-spec-review.json": {
+      "bytes": 61301,
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/barness-repair-retention-fixes-standards-review.json": {
+      "bytes": 80933,
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/e1-correction-evidence.json": {
+      "bytes": 35431,
+      "sha256": "1ee53d2486f9b2f8e8999a32608bbf7a29f984dd6bc917ca42a146559ba31c31"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/originals/e1-resource-probe.py.txt": {
+      "bytes": 6660,
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-index-size.log": {
+      "bytes": 5765,
+      "sha256": "42d973b783bf168425d0d3a5f6155da2e5a656c391f6374b5f785233576533e6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-inventory-compressed.log": {
+      "bytes": 6238,
+      "sha256": "644f6ee02ae83d3e38b9e0a320acbe254b52f251ce1c2cc22c4ff8a2dcec8e8d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-inventory-decoded.log": {
+      "bytes": 6032,
+      "sha256": "9bc546360e43cd7e54aacf09754aadcd6a309e846b448582c3be4685a17f38ea"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-output-grow.log": {
+      "bytes": 5197,
+      "sha256": "0951abb6befea29a193890b57891465f3a3a6b6a7c5ad4d4ec41e76aa009c0a9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-green-seal-metadata.log": {
+      "bytes": 7824,
+      "sha256": "26309e6701581cde3ecbba0011ff58596462c62b91bc573151d6adfe09c952e5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-legitimate.log": {
+      "bytes": 2891,
+      "sha256": "b92d3abc01205c25fb76b6448c07d0f3cdaa9616b155defdc1a7307fa07938fc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-index-size.log": {
+      "bytes": 7502,
+      "sha256": "3dd356a2f59df2d6a4bca3b573a46a6a3b7af89fd152a164375865e41896b7ce"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-inventory-compressed.log": {
+      "bytes": 7601,
+      "sha256": "6d1c36b45b395f0fd4467c3b21b4d3d4f6e66330bb06e84c899be47941f28197"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-inventory-decoded.log": {
+      "bytes": 7572,
+      "sha256": "7262f16c73db087e1f5bf417be3152669be9da7526845574670cf7c4f542f2f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-output-grow.log": {
+      "bytes": 7362,
+      "sha256": "aa524dc53ee11ab7fea914b96ef1486dd2e374f1c54639c9d68840b359b9e111"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/public-probe-logs/barness-factory-red-seal-metadata.log": {
+      "bytes": 7531,
+      "sha256": "99f0879699cc541cb3f7aa699bd0abac5b480de6cf1825a5813841fccbe6ce50"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/source-proof.json": {
+      "bytes": 580,
+      "sha256": "e17a587f5afbc61aa71e4f83f45b016fb25812693746a6872be88b1fcf88b0b4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/sources/green-resource-probe.py.txt": {
+      "bytes": 8173,
+      "sha256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/sources/red-resource-probe.py.txt": {
+      "bytes": 6660,
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/summary.json": {
+      "bytes": 4278,
+      "sha256": "4e5230c9505679ce49ba24ff473385f0940db6b2aa5c0c7b3797dd93f59b2258"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/events.jsonl": {
+      "bytes": 457,
+      "sha256": "43efc239c3e5134c128609efbdb7206dec621712d7124c1a33b1f1a107572dee"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/receipt.json": {
+      "bytes": 5765,
+      "sha256": "42d973b783bf168425d0d3a5f6155da2e5a656c391f6374b5f785233576533e6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/stderr.log": {
+      "bytes": 3673,
+      "sha256": "c91bcf40ab91078de9d94415341c999b4570cd2973cd81dc385ca0ba5938b989"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-index-size/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/events.jsonl": {
+      "bytes": 896,
+      "sha256": "d91110a80bb20a1f05294c7f7131cec262c914ba457efaa14f18634cfb082379"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/receipt.json": {
+      "bytes": 6238,
+      "sha256": "644f6ee02ae83d3e38b9e0a320acbe254b52f251ce1c2cc22c4ff8a2dcec8e8d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/stderr.log": {
+      "bytes": 4091,
+      "sha256": "6b026ef6a5bb6740383a045eb95638507b33be0789c18c48af492dfa76d25852"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-compressed/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/events.jsonl": {
+      "bytes": 903,
+      "sha256": "350d0ee3d90bac8768265b90cae722a73bf25188b74612f2b29fdaecd11de6ff"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/receipt.json": {
+      "bytes": 6032,
+      "sha256": "9bc546360e43cd7e54aacf09754aadcd6a309e846b448582c3be4685a17f38ea"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/stderr.log": {
+      "bytes": 3905,
+      "sha256": "bc79b57691b0a30daa67f184c96ac9b371c256abf9bb3b1ba6fdfa68746910e8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-inventory-decoded/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/events.jsonl": {
+      "bytes": 471,
+      "sha256": "acc665c31503161199bdab950afb552cf88930c556cf9bdace1214ad1512d52b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/receipt.json": {
+      "bytes": 5197,
+      "sha256": "0951abb6befea29a193890b57891465f3a3a6b6a7c5ad4d4ec41e76aa009c0a9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/stderr.log": {
+      "bytes": 3106,
+      "sha256": "08267e1311551715433ea3c4bb8c7714dee5fa07f9053ad25f9e691d0b8de91b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-output-grow/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/events.jsonl": {
+      "bytes": 468,
+      "sha256": "26744d767b09e784b593ed07579e435a19c4d30d33f240721422fb87be00992f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/receipt.json": {
+      "bytes": 7824,
+      "sha256": "26309e6701581cde3ecbba0011ff58596462c62b91bc573151d6adfe09c952e5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/stderr.log": {
+      "bytes": 5557,
+      "sha256": "888ebb80ce46f540e7fb56496bcb237c06418fc741415bea06b9b8c27a7e92be"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/green-seal-metadata/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/events.jsonl": {
+      "bytes": 913,
+      "sha256": "0fdc75563a59689ed284ea84a7bd0c7156b185e2e6472832a31fa7a3fe47f03e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/receipt.json": {
+      "bytes": 7502,
+      "sha256": "3dd356a2f59df2d6a4bca3b573a46a6a3b7af89fd152a164375865e41896b7ce"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/red.json": {
+      "bytes": 668,
+      "sha256": "2ce05c73ad9c49732d68825a2fedca7b2b529ca6c6c89441e9a8bacc3b27470f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/red.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/stderr.log": {
+      "bytes": 4548,
+      "sha256": "660783fce38e804fa96ae18dfea72942ad55192ac5269e0fb02f9408dc414bdc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-index-size/stdout.log": {
+      "bytes": 628,
+      "sha256": "6a69a12e3f238a3b49777ef01b185c00588c7605a445a85db46385a29971b6e4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/events.jsonl": {
+      "bytes": 1307,
+      "sha256": "d3c0b447daf76e3be46acd33d283e462b13fac19986bff851bd77a44e667928a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/receipt.json": {
+      "bytes": 7601,
+      "sha256": "6d1c36b45b395f0fd4467c3b21b4d3d4f6e66330bb06e84c899be47941f28197"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/red.json": {
+      "bytes": 688,
+      "sha256": "549d312845347a94226af27b569d1cea7e84e75e25911510747742e29014c4d6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/red.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/stderr.log": {
+      "bytes": 4578,
+      "sha256": "bcb9385849200eaf6869cced9475b4e96d3e9a4f23d643244e01c744b8e5eefd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-compressed/stdout.log": {
+      "bytes": 648,
+      "sha256": "b9e1a9f0aa90333d1ab7d52b85291e7c82f085a9e126b50147de63633e66f6b9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/events.jsonl": {
+      "bytes": 1308,
+      "sha256": "e1868f79f868e57368877533833b086df88fe0cca8c2ae150e781d73008655ed"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/receipt.json": {
+      "bytes": 7572,
+      "sha256": "7262f16c73db087e1f5bf417be3152669be9da7526845574670cf7c4f542f2f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/red.json": {
+      "bytes": 682,
+      "sha256": "4c428ddfc34e06933c1173e244853f2e17296f6906e9f2403e0f848665bd2bc1"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/red.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/stderr.log": {
+      "bytes": 4569,
+      "sha256": "02574e49ab02e0ac331d47fe8676ac99cd391bfd0e0bd72c55a84baf94ee58fd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-inventory-decoded/stdout.log": {
+      "bytes": 642,
+      "sha256": "d883e1aeca654cddca5cfe241ac79891c3c8bd206b8d984c9fafa0d6e7a4e9ec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/construction.json": {
+      "bytes": 1689,
+      "sha256": "3ef26ec501818c6282d63b1e2639d0540bc60849a2b1dfbee3366722d454362c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/events.jsonl": {
+      "bytes": 698,
+      "sha256": "71fb16c60c5693b2108626c914d1cbb413019da14b20408061ce53cc82e2e195"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/receipt.json": {
+      "bytes": 7362,
+      "sha256": "aa524dc53ee11ab7fea914b96ef1486dd2e374f1c54639c9d68840b359b9e111"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/red.json": {
+      "bytes": 670,
+      "sha256": "b79b7f394f8adb43874ea7934f6842817344a76c3ba3cc86cdde37072b5c27f7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/red.stderr": {
+      "bytes": 54,
+      "sha256": "dec224fee2ca7bd34dc91f782514fccc1da77675325de662c78bcac4b7d322b7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/stderr.log": {
+      "bytes": 4551,
+      "sha256": "0f1d7030d6889c21db4dde06b27f913bbbcae7c75d40e4adf0f9ef47101a235e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-output-grow/stdout.log": {
+      "bytes": 630,
+      "sha256": "a2da6fb341118e08855ddb324d6e286ead1ecfc2d83ce78c4ec0f9853fbe6b8a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/events.jsonl": {
+      "bytes": 465,
+      "sha256": "bb4ebc48ca6b1016afc42cd51d97fa2fd592976c2ffd1bab562d1a452bebac4c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/receipt.json": {
+      "bytes": 7531,
+      "sha256": "99f0879699cc541cb3f7aa699bd0abac5b480de6cf1825a5813841fccbe6ce50"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/red.json": {
+      "bytes": 674,
+      "sha256": "90a91fc83244454614cdbb44c2a9747e4dcf64a627d4de3093fad8a7ae59bb89"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/red.stderr": {
+      "bytes": 41,
+      "sha256": "8246396c3309ea1ea07ce8390421d7d71366456beea29a1bd9d637c7fe58e6af"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/stderr.log": {
+      "bytes": 4557,
+      "sha256": "51a68b8a01e5c466313cdf1eee25298026ce193725a886275cca983debcfe96d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw-v2/tdd/red-seal-metadata/stdout.log": {
+      "bytes": 634,
+      "sha256": "b919abfe9dc2384dcc567d7e27600311a11cd1a71bb3c9704dab0bfa467acafe"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/controllers/check-factory.py": {
+      "bytes": 8276,
+      "sha256": "82da61891ec1e0afc1191139170d63b0a1cfe9d8078d5e4d191d4c45591dea30"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/controllers/run-legitimate.py": {
+      "bytes": 1913,
+      "sha256": "4b8bef5dde4eb03abcbc41b3b2078a9363313315dcd6978e3e8352d2084b8583"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/receipt.json": {
+      "bytes": 3353,
+      "sha256": "7b671c5a11be111739eed50ee93e2ff8987d0649439f700077cf8b48f0ec2885"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/stdout.log": {
+      "bytes": 620,
+      "sha256": "3e127b7b8efb98d8f15ea716fbb0a47e85b26fd83483632bfadc857652aefe69"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/verification.json": {
+      "bytes": 660,
+      "sha256": "8938f90a95ce4f62dfc64a0df911cb051f2e609cd0486b62b274adc65e348c20"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/verification.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/legitimate/verification.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/barness-repair-retention-fixes-independent-readhash.json": {
+      "bytes": 8702,
+      "sha256": "de2bff76c61fcaee55c0cf8b0b951a745bcfdd79793dfafa9e0a3eb91a9404ea"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/barness-repair-retention-fixes-spec-review.json": {
+      "bytes": 61301,
+      "sha256": "8efe6f3cd1528803a5597b8de01c01d291b6b40b185466ce0c61a2b94760b3c2"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/barness-repair-retention-fixes-standards-review.json": {
+      "bytes": 80933,
+      "sha256": "c14c9e1ad4bd1b14218764c23bb02bd293b97040477ae7de1d15f06a74ccd020"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/e1-correction-evidence.json": {
+      "bytes": 35431,
+      "sha256": "1ee53d2486f9b2f8e8999a32608bbf7a29f984dd6bc917ca42a146559ba31c31"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/originals/e1-resource-probe.py.txt": {
+      "bytes": 6660,
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/sources/green-resource-probe.py.txt": {
+      "bytes": 8173,
+      "sha256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/sources/red-resource-probe.py.txt": {
+      "bytes": 6660,
+      "sha256": "deefa73e0c74c05ce075e5359d970d1c13df22453e172efac0974fe82e17569c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/events.jsonl": {
+      "bytes": 457,
+      "sha256": "43efc239c3e5134c128609efbdb7206dec621712d7124c1a33b1f1a107572dee"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/receipt.json": {
+      "bytes": 5765,
+      "sha256": "42d973b783bf168425d0d3a5f6155da2e5a656c391f6374b5f785233576533e6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/stderr.log": {
+      "bytes": 3673,
+      "sha256": "c91bcf40ab91078de9d94415341c999b4570cd2973cd81dc385ca0ba5938b989"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-index-size/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/events.jsonl": {
+      "bytes": 896,
+      "sha256": "d91110a80bb20a1f05294c7f7131cec262c914ba457efaa14f18634cfb082379"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/receipt.json": {
+      "bytes": 6238,
+      "sha256": "644f6ee02ae83d3e38b9e0a320acbe254b52f251ce1c2cc22c4ff8a2dcec8e8d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/stderr.log": {
+      "bytes": 4091,
+      "sha256": "6b026ef6a5bb6740383a045eb95638507b33be0789c18c48af492dfa76d25852"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-compressed/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/events.jsonl": {
+      "bytes": 903,
+      "sha256": "350d0ee3d90bac8768265b90cae722a73bf25188b74612f2b29fdaecd11de6ff"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/receipt.json": {
+      "bytes": 6032,
+      "sha256": "9bc546360e43cd7e54aacf09754aadcd6a309e846b448582c3be4685a17f38ea"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/stderr.log": {
+      "bytes": 3905,
+      "sha256": "bc79b57691b0a30daa67f184c96ac9b371c256abf9bb3b1ba6fdfa68746910e8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-inventory-decoded/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/events.jsonl": {
+      "bytes": 471,
+      "sha256": "acc665c31503161199bdab950afb552cf88930c556cf9bdace1214ad1512d52b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/receipt.json": {
+      "bytes": 5197,
+      "sha256": "0951abb6befea29a193890b57891465f3a3a6b6a7c5ad4d4ec41e76aa009c0a9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/stderr.log": {
+      "bytes": 3106,
+      "sha256": "08267e1311551715433ea3c4bb8c7714dee5fa07f9053ad25f9e691d0b8de91b"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-output-grow/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/events.jsonl": {
+      "bytes": 468,
+      "sha256": "26744d767b09e784b593ed07579e435a19c4d30d33f240721422fb87be00992f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/receipt.json": {
+      "bytes": 7824,
+      "sha256": "26309e6701581cde3ecbba0011ff58596462c62b91bc573151d6adfe09c952e5"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/stderr.log": {
+      "bytes": 5557,
+      "sha256": "888ebb80ce46f540e7fb56496bcb237c06418fc741415bea06b9b8c27a7e92be"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/green-seal-metadata/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/events.jsonl": {
+      "bytes": 913,
+      "sha256": "0fdc75563a59689ed284ea84a7bd0c7156b185e2e6472832a31fa7a3fe47f03e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/receipt.json": {
+      "bytes": 7502,
+      "sha256": "3dd356a2f59df2d6a4bca3b573a46a6a3b7af89fd152a164375865e41896b7ce"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/red.json": {
+      "bytes": 668,
+      "sha256": "2ce05c73ad9c49732d68825a2fedca7b2b529ca6c6c89441e9a8bacc3b27470f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/red.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/stderr.log": {
+      "bytes": 4548,
+      "sha256": "660783fce38e804fa96ae18dfea72942ad55192ac5269e0fb02f9408dc414bdc"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-index-size/stdout.log": {
+      "bytes": 628,
+      "sha256": "6a69a12e3f238a3b49777ef01b185c00588c7605a445a85db46385a29971b6e4"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/events.jsonl": {
+      "bytes": 1307,
+      "sha256": "d3c0b447daf76e3be46acd33d283e462b13fac19986bff851bd77a44e667928a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/receipt.json": {
+      "bytes": 7601,
+      "sha256": "6d1c36b45b395f0fd4467c3b21b4d3d4f6e66330bb06e84c899be47941f28197"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/red.json": {
+      "bytes": 688,
+      "sha256": "549d312845347a94226af27b569d1cea7e84e75e25911510747742e29014c4d6"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/red.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/stderr.log": {
+      "bytes": 4578,
+      "sha256": "bcb9385849200eaf6869cced9475b4e96d3e9a4f23d643244e01c744b8e5eefd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-compressed/stdout.log": {
+      "bytes": 648,
+      "sha256": "b9e1a9f0aa90333d1ab7d52b85291e7c82f085a9e126b50147de63633e66f6b9"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/events.jsonl": {
+      "bytes": 1308,
+      "sha256": "e1868f79f868e57368877533833b086df88fe0cca8c2ae150e781d73008655ed"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/receipt.json": {
+      "bytes": 7572,
+      "sha256": "7262f16c73db087e1f5bf417be3152669be9da7526845574670cf7c4f542f2f3"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/red.json": {
+      "bytes": 682,
+      "sha256": "4c428ddfc34e06933c1173e244853f2e17296f6906e9f2403e0f848665bd2bc1"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/red.stderr": {
+      "bytes": 62,
+      "sha256": "39cca206a59b348b47aeee2a4516d1df31af6006ef58adc9fad86833d2011a5d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/stderr.log": {
+      "bytes": 4569,
+      "sha256": "02574e49ab02e0ac331d47fe8676ac99cd391bfd0e0bd72c55a84baf94ee58fd"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-inventory-decoded/stdout.log": {
+      "bytes": 642,
+      "sha256": "d883e1aeca654cddca5cfe241ac79891c3c8bd206b8d984c9fafa0d6e7a4e9ec"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/construction.json": {
+      "bytes": 1689,
+      "sha256": "3ef26ec501818c6282d63b1e2639d0540bc60849a2b1dfbee3366722d454362c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/events.jsonl": {
+      "bytes": 698,
+      "sha256": "71fb16c60c5693b2108626c914d1cbb413019da14b20408061ce53cc82e2e195"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/receipt.json": {
+      "bytes": 7362,
+      "sha256": "aa524dc53ee11ab7fea914b96ef1486dd2e374f1c54639c9d68840b359b9e111"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/red.json": {
+      "bytes": 670,
+      "sha256": "b79b7f394f8adb43874ea7934f6842817344a76c3ba3cc86cdde37072b5c27f7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/red.stderr": {
+      "bytes": 54,
+      "sha256": "dec224fee2ca7bd34dc91f782514fccc1da77675325de662c78bcac4b7d322b7"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/stderr.log": {
+      "bytes": 4551,
+      "sha256": "0f1d7030d6889c21db4dde06b27f913bbbcae7c75d40e4adf0f9ef47101a235e"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-output-grow/stdout.log": {
+      "bytes": 630,
+      "sha256": "a2da6fb341118e08855ddb324d6e286ead1ecfc2d83ce78c4ec0f9853fbe6b8a"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/construction.json": {
+      "bytes": 1689,
+      "sha256": "21f1b9834436adf00c5afbbcb8d18e1d26d93761e07c9485aba2e0ecf1aca8d8"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/events.jsonl": {
+      "bytes": 465,
+      "sha256": "bb4ebc48ca6b1016afc42cd51d97fa2fd592976c2ffd1bab562d1a452bebac4c"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/mutated-manifest.json": {
+      "bytes": 54323,
+      "sha256": "27dbba36820fe5bd65b86da4ff6d9b78c18fb7111d6ce7a2b15dc8eb1b30a71d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/mutated-resource.json": {
+      "bytes": 78,
+      "sha256": "ba09c6b39195d85ffb854fbadfb9a42fc7773c9e05fc647fef1a918f6c1fe17f"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/receipt.json": {
+      "bytes": 7531,
+      "sha256": "99f0879699cc541cb3f7aa699bd0abac5b480de6cf1825a5813841fccbe6ce50"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/red.json": {
+      "bytes": 674,
+      "sha256": "90a91fc83244454614cdbb44c2a9747e4dcf64a627d4de3093fad8a7ae59bb89"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/red.stderr": {
+      "bytes": 41,
+      "sha256": "8246396c3309ea1ea07ce8390421d7d71366456beea29a1bd9d637c7fe58e6af"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/red.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/stderr.log": {
+      "bytes": 4557,
+      "sha256": "51a68b8a01e5c466313cdf1eee25298026ce193725a886275cca983debcfe96d"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/raw/tdd/red-seal-metadata/stdout.log": {
+      "bytes": 634,
+      "sha256": "b919abfe9dc2384dcc567d7e27600311a11cd1a71bb3c9704dab0bfa467acafe"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/barness-factory-current-original-readback.json.gz": {
+      "bytes": 1743,
+      "sha256": "3b2e33d3516e9f9aaa34d0458e4d7030a77b827188e907e131daf76e2899e662"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/barness-factory-original-negatives-readback.json.gz": {
+      "bytes": 439,
+      "sha256": "d4e244e139a53a7d626b86d5568840dad71c1dbe442c7dfcdd387d3392dc4f30"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/barness-factory-public-verification.json.gz": {
+      "bytes": 335,
+      "sha256": "788506802ba0a500fdd662287110417cde87e0e61163fc00f7ef6dce25204026"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/readbacks/receipts.json": {
+      "bytes": 844,
+      "sha256": "a943a04322c7817445300de27d3bb50b2d408c29a7fa5de15029107d0b905411"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/run-legitimate.py.txt": {
+      "bytes": 1913,
+      "sha256": "4b8bef5dde4eb03abcbc41b3b2078a9363313315dcd6978e3e8352d2084b8583"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/source-proof.json.gz": {
+      "bytes": 392,
+      "sha256": "e4a65b6046ea51c1e3ee2fef0e219c5985c9c967d81f921de6e4c8a088ccc146"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/factory-correction/verify-factory.py": {
+      "bytes": 4034,
+      "sha256": "5cbaf441e135d4834860754d2d91368ac0f63958b80b912cf15171f1c8ba1669"
+    },
+    ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/resource-probe.py": {
+      "bytes": 8173,
+      "sha256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac"
+    }
+  },
+  "capsule": {
+    "archive": {
+      "file": ".evidence/minimax-retained/ticket-17-final-payload/resource-factory-correction-raw.tar.gz",
+      "bytes": 165488,
+      "sha256": "efd73a8b8d1d6c35c64d48e138511df3a90e9a849f29393f23f12ea4825686c5",
+      "prefix": "resource-factory-correction"
+    },
+    "members": 108,
+    "payloadBytes": 894973,
+    "decodedTarBytes": 983040,
+    "inventory": {
+      "file": "inventory.json.gz",
+      "compressedSHA256": "fbd505a9f41b781983c1f4631cc4bcf5086b011e5d0ac9df84b109776345e446",
+      "decodedBytes": 14164,
+      "decodedSHA256": "085771db8017c55ae224cfc5f4d394746f2e045f162cb9889f5938a64248ecf0",
+      "files": 108
+    },
+    "creationBounds": {
+      "files": 256,
+      "memberBytes": 8388608,
+      "payloadBytes": 67108864,
+      "compressedBytes": 33554432
+    },
+    "readerLimits": {
+      "compressedBytes": 268435456,
+      "decodedTarBytes": 2147483648,
+      "files": 160000,
+      "entries": 200000,
+      "memberBytes": 67108864,
+      "observedMetadataBytes": 16777216,
+      "observedTotalBytes": 67108864,
+      "inventoryDecodedBytes": 41943040,
+      "inventoryCompressedBytes": 8388608,
+      "rawMemberBytes": 1677721600
+    }
+  },
+  "currentFactorySHA256": "d0578a2e778aa139253748bcdf24201d8986c359061daea1448ba007867f85ac",
+  "actualPairs": 5,
+  "oldActualConstructorExits": [
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "greenActualConstructorExits": [
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "oldOutcomesAreLateRefusalsNotAcceptance": true,
+  "normalFactoryExit": 0,
+  "counterfeitVerifierExit": 1,
+  "readbackExits": [
+    0,
+    0,
+    0
+  ],
+  "actualRawCustodyVerified": true,
+  "priorProofReused": {
+    "path": "/tmp/barness-repair-retention-fixes-independent-proof.json",
+    "sha256": "7837036f14ea7a33dfa311bb567611bf8a36ccd3598c4ed7d1f0f2e256067358",
+    "unchangedNegativeMetadataFiles": [
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/construction.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/green.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/green.stderr",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/green.stdout",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/inventory.json.gz",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/mutated-manifest.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/mutated-resource.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/original-private-index.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/red.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/red.stderr",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/red.stdout",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/source-proof.json.gz",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/false/stream-index.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/construction.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/green.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/green.stderr",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/green.stdout",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/inventory.json.gz",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/mutated-manifest.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/mutated-resource.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/original-private-index.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/red.json",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/red.stderr",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/red.stdout",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/source-proof.json.gz",
+      ".scratch/barness-ai-minimax/evidence/ticket-17/retention-fixes/negative-fixtures/float/stream-index.json"
+    ],
+    "originalAndNegativeFullArchivesRescanned": false
+  },
+  "independentProof": {
+    "path": "/tmp/barness-resource-factory-independent-proof.json",
+    "sha256": "97b69f90221f4f3e9d1ea2da626cd6be6efbd5edce60397a7d064067616fbcbe",
+    "readerSHA256": "ea525ded15ec3a1f63a91d01b70b7ee34e62d8cde8d723ea2026cdb892549828"
+  },
+  "additionalMetadataChecks": {
+    "exactNumericObservedExits": true,
+    "originalPartialGitRawFilesMatchingCompleteCapsule": 93,
+    "oldSpecReportRetainedUnchanged": true
+  },
+  "releaseCertified": false,
+  "sourceQualificationRenewed": false,
+  "newPaidAuthority": false,
+  "remainingActualAcceptanceGaps": [
+    "GLM Messages source7931 cancelFAIL120001ms; no own live-report",
+    "Strict publication/four-row assembly refused; old matrix unchanged",
+    "First full B numeric0/0/1/1 and reportfalse",
+    "Source2306 formal applicability not renewed by retention or controlled runtime repair"
+  ],
+  "scopeConstraints": {
+    "exactImmutableGitTipOnly": true,
+    "closedWindowConfirmedBeforeRead": true,
+    "projectCapturedCodeTestsVerifiersExecuted": false,
+    "keyRead": false,
+    "network": false,
+    "repositoryMutation": false
+  }
+}

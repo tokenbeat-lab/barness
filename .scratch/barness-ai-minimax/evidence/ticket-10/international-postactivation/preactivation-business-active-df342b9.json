@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "name": "preactivation-business-active-df342b9",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "actualSupport": false,
+  "archive": "preactivation-business-active-df342b9.tar.gz",
+  "commonRetention": "$COMMON/.evidence/minimax-retained/preactivation-business-active-df342b9.tar.gz",
+  "archiveBytes": 1508224,
+  "archiveSha256": "b7b0e6e397c8024ae3134f2c97b762b579f30cbfd59eebde15662ff064f8133c",
+  "files": 277,
+  "negativeSymlinkFixtures": 0,
+  "entries": 277,
+  "expandedBytes": 9355492,
+  "inventory": "preactivation-business-active-df342b9-files.json.gz",
+  "inventorySha256": "56ee8ee02f7dfbe4361d9c1b8ab3ef87482e674bffb2097ced7c76c285b97e7e",
+  "byteVerified": true,
+  "results": [
+    {
+      "group": "business-green",
+      "manifest": "business-green/e2e/20261018T024156.620164000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 24
+      },
+      "artifactReferences": 131,
+      "auditFindings": 0,
+      "executionGitCommit": "688b1e6364f9af7ffd0622f63b62043780feaf2c"
+    },
+    {
+      "group": "business-race",
+      "manifest": "business-race/e2e/20261018T024346.427740000Z/manifest.json",
+      "caseOutcomes": {
+        "PASS": 24
+      },
+      "artifactReferences": 131,
+      "auditFindings": 0,
+      "executionGitCommit": "2f0ce8f49efe02e921a0cf46374fe89d1ceedad8"
+    }
+  ],
+  "fixCheckpoint": "df342b9",
+  "executionSourceAuthority": "per-run original manifest, command and source receipts; red states may contain new tests with original implementation"
+}

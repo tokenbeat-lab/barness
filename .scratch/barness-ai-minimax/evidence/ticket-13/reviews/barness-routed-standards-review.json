@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "axis": "Standards",
+  "decision": "APPROVED",
+  "reviewedSource": "83ff7d6be971694987de3363f0202030eb088f6e",
+  "fixedPoint": "a86005bcfe5ae0d03ce6e89e9f22151c54351272",
+  "diffCommand": "git diff a86005b...83ff7d6",
+  "diffSHA256": "1c2dea5277403e17830e4521086b0cf8cb0e49c0cf1b112215764ae710c5f26e",
+  "commitList": [
+    "83ff7d6 Add fixed region-routed validation and explicit visual proxy",
+    "b327fc4 docs: link routed validation into remaining acceptance frontier",
+    "abb7eaa docs: preserve routed connectivity diagnostics and validation contract",
+    "2731aaa docs: bound region-routed validation requested by user"
+  ],
+  "standardsSources": [
+    "AGENTS.md",
+    "docs/agents/domain.md",
+    "GLOSSARY.md",
+    "docs/adr/0045-glm-corrective-capture-round.md",
+    "docs/adr/0046-region-routed-validation-round.md",
+    ".scratch/barness-ai-minimax/issues/13-routed-validation.md"
+  ],
+  "baseline": [
+    "Mysterious Name",
+    "Duplicated Code",
+    "Feature Envy",
+    "Data Clumps",
+    "Primitive Obsession",
+    "Repeated Switches",
+    "Shotgun Surgery",
+    "Divergent Change",
+    "Speculative Generality",
+    "Message Chains",
+    "Middle Man",
+    "Refused Bequest"
+  ],
+  "helperSHA256": {
+    "/tmp/barness-routed-final-keyless.py": "913d9f2d37dff05580c34b22b6e7d0b24983298df91c3023f81aed6cbbc0754f",
+    "/tmp/barness-routed-go-recorder.py": "0cd1d2832598dde2cefa202de1a3adda51477ebf5a64db177418ce7bbe37f2de",
+    "/tmp/barness-routed-run-phase.py": "489beb838df9b3734b2672b3f81163ab46809b23ca0232764c2fa1605f3e19e8"
+  },
+  "findings": [],
+  "hardStandardBreaches": 0,
+  "possibleBaselineSmells": 0,
+  "scope": "Independent static Standards review of the pinned new delta and two operational helpers. No test, paid, credential or network execution; no fresh full-suite or release certification claim.",
+  "notes": [
+    "Explicit proxy validation rejects non-loopback/credentialed/malformed targets before credential authorization and output creation; TLS and official service targets remain fixed.",
+    "Standalone proxy parser duplication is expressly justified for independent Host lifecycles under AGENTS.md rule7.",
+    "Canonical one-shot namespace, immutable prior accounting and exact source/binary/plan/check/review/request guards preserve ADR0045 history and ADR0046 finite round.",
+    "Operational gate helper contains no selected_secret call or adopted bundle override; uses isolated c.execute environment; snapshots all four real Go command exit codes with pinned observer/real Go hashes.",
+    "Actual prepared GLM plan has exactly three canonical direct full22 jobs, unchanged TestGLMFormal selector, per-job24/32 and no proxy environment. Phase parent pre-approves all jobs before first selected-key child, keeps immutable single-use intents and performs no automatic retry."
+  ],
+  "actualPreparedGLMReview": {
+    "out": ".evidence/minimax-routed-glm-1",
+    "reviewed": true,
+    "sourceCommit": "83ff7d6be971694987de3363f0202030eb088f6e",
+    "sourceManifestSHA256": "91e00b33d179528e61d8d5af2d7bd1d481971b20fbcf8c265473881b967c3ddf",
+    "binariesManifestSHA256": "831ca7186bc14cbcb8959022aa89e32913ab9aa3de65327a03730bd3c6e166d3",
+    "planSHA256": "873f5291006054b5217e3268ee30a8e42ffe8624d62b0827779f28e5f83e88bc",
+    "authorizedRoutes": [
+      "routed-validation-1-glm-chat",
+      "routed-validation-1-glm-responses",
+      "routed-validation-1-glm-messages"
+    ],
+    "credentialScopes": {
+      "GLM_KEY": "routed-validation-1/china-direct"
+    },
+    "observedState": "PREPARED; independent no-key checks still running when inspected; this review does not mark checks passed"
+  }
+}

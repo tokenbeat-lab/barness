@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "kind": "complete-keyless-preparation-live-and-m31-not-run",
+  "sourceCommit": "e9731a4245339c0696bfad427b2d4efe500f2944",
+  "credentialsRead": false,
+  "vendorCalls": 0,
+  "paidIntentsCreated": false,
+  "checks": {
+    "passed": true,
+    "commands": {
+      "vet": 0,
+      "vet-live": 0,
+      "no-key-live": 0
+    },
+    "credentialsRead": false
+  },
+  "m31NotRun": {
+    "credentialsRead": false,
+    "entitlementConfirmed": false,
+    "paidIntentsCreated": false,
+    "routes": [
+      {
+        "route": "chat",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "status": "NOT_RUN",
+        "credentialsRead": false,
+        "calls": 0,
+        "attempts": 0
+      },
+      {
+        "route": "responses",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "status": "NOT_RUN",
+        "credentialsRead": false,
+        "calls": 0,
+        "attempts": 0
+      },
+      {
+        "route": "messages",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "status": "NOT_RUN",
+        "credentialsRead": false,
+        "calls": 0,
+        "attempts": 0
+      }
+    ]
+  },
+  "runs": [
+    {
+      "manifest": "prepared/m31-not-run-chat/20261018T013828.422480000Z/manifest.json",
+      "cases": 0,
+      "outcomes": {},
+      "auditFindings": 0
+    },
+    {
+      "manifest": "prepared/m31-not-run-messages/20261018T013828.781234000Z/manifest.json",
+      "cases": 0,
+      "outcomes": {},
+      "auditFindings": 0
+    },
+    {
+      "manifest": "prepared/m31-not-run-responses/20261018T013828.615644000Z/manifest.json",
+      "cases": 0,
+      "outcomes": {},
+      "auditFindings": 0
+    },
+    {
+      "manifest": "prepared/no-key-live/20261018T013630.347857000Z/manifest.json",
+      "cases": 390,
+      "outcomes": {
+        "PASS": 328,
+        "NOT_RUN": 62
+      },
+      "auditFindings": 0
+    },
+    {
+      "manifest": "live-race/20261018T013554.467230000Z/manifest.json",
+      "cases": 66,
+      "outcomes": {
+        "PASS": 66
+      },
+      "auditFindings": 0
+    }
+  ],
+  "excludedRegenerableBinaries": [
+    "chineseeval",
+    "live.test",
+    "visualeval"
+  ],
+  "binaryPins": {
+    "live.test": "55743a61af8970b4518e4bcb4e0b77619491fc9d8d4de3143b53c78a79d2a135",
+    "chineseeval": "b6f4a2203b350afdae7a8a2f1cb459597b24d9a9a0e6d7581bc8e60c33bb4542",
+    "visualeval": "f09ba690500780968ba64453dd5e6f616ff5689e6ee323fa4ab795a1a58d5b20"
+  },
+  "archive": ".evidence/minimax-retained/international-keyless-e9731a4.tar.gz",
+  "archiveBytes": 46387608,
+  "archiveSha256": "145696079002344ff431063fbf0e7201b603487745bb2c8a967498780b25237a",
+  "rawFiles": 25738,
+  "rawBytes": 196680562,
+  "verifiedArtifactReferences": 13572,
+  "artifactHashMismatches": 0,
+  "fileInventoryGzipSha256": "025ddce539eddb255cf50907cd4412849ac5725b5f38ab71468461a97b727d0e",
+  "rejectedFixtureLinkMetadata": [
+    {
+      "path": "prepared/no-key-live/20261018T013630.347857000Z/formal-corrupt-symlink/formal-integrity.json",
+      "type": "symlink",
+      "target": "/private/tmp/barness-minimax-11/.evidence/mm11-keyless-e9731a4/no-key-live/20261018T013630.347857000Z/formal-corrupt-symlink/seal.json",
+      "classification": "intentional rejected formal-import fixture; not followed; original metadata retained safely"
+    }
+  ],
+  "provenance": "All regular capture/fixture bytes retained. One intentional rejected-import fixture symlink is represented as exact bounded link metadata, never followed or restored as an unsafe archive member. Two additional one-case source-fixture manifests without audit inside the full no-key root are fixture inputs, not successful complete run claims. Their bytes are retained; the completed main audit covers the whole root.",
+  "retention": "Complete regular captures/metadata retained in common-root ignored .evidence/minimax-retained; this tracked index and compressed file inventory bind the archive independently of temporary worktree cleanup."
+}

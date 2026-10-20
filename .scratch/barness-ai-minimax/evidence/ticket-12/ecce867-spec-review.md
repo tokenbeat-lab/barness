@@ -1,0 +1,9 @@
+Spec-axis GLM diagnostic delta review: PASS; 0 findings. Target ecce8678dafb8dbf816539d4c958cc4dbcb7536c; base9dcf896b9bea357fd6c784acbca1b027dc96a177. Confidence: high.
+
+No blanket masking, lost diagnostic context or test weakening found. The only new redaction registers the freshly created synthetic replay temporary root, inside glmCorrectiveReplay after absolute-path resolution (glm_corrective_replay_process_test.go:36). It is reached only by selected controlled GLM tests; there is no init hook or general HOME/repository registration. The existing redactor replaces that exact root while preserving session/file suffixes as $GLM_REPLAY_ROOT/replayed/… . Shared audit rules, evidence helpers and credential redaction remain unchanged.
+
+The new executable HOME scenario requires successful controlled capture/replay, retained child evidence, zero findings from the unchanged HOME audit, the diagnostic alias with its path suffix, and absence of the controlled HOME prefix. It does not waive timeout, child exit, report or overflow failures. The prior failed/audit runs are not relabeled PASS. This follows MiniMax R23's privacy/audit boundary and T04:353's “失败历史不覆盖”, while retaining issue12's bounded synthetic-only proof.
+
+Production GLM capture/accounting/approval bytes and all MiniMax source selectors are unchanged by this two-file GLM-test delta. Each actual M3 source map still has263 pins; neither changed path intersects any map, preserving zero drift and original report authority. No new intent, credential scope, paid allowance or support claim is introduced. GLM R17 known-usage retention and the prospective corrective contract remain intact.
+
+No repository edits, tests, environment/credential reads, network or vendor calls were performed. Earlier review reports remain untouched. Additional paid scope remains PENDING HUMAN APPROVAL; whole-spec completion still requires its outstanding gates.

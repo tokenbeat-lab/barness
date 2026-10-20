@@ -1,0 +1,55 @@
+{
+  "verified": true,
+  "archive": {
+    "files": 29941,
+    "entries": 29941,
+    "rawBytes": 349808496,
+    "decodedTarBytes": 401991680,
+    "archiveBytes": 86782794,
+    "archiveSHA256": "a95ffa0ca3aba1c816a2b956048037a9578af4602f69756fc1972bf650de537b"
+  },
+  "originalRound": {
+    "native": {
+      "protocol114": {
+        "calls": 12,
+        "attempts": 12,
+        "status": "PASS",
+        "samples": 12
+      },
+      "visual-jev": {
+        "calls": 12,
+        "attempts": 12,
+        "status": "PASS",
+        "samples": 12
+      },
+      "visual-decisions": {
+        "calls": 12,
+        "attempts": 12,
+        "status": "PASS",
+        "samples": 12
+      }
+    },
+    "actualCalls": 36,
+    "actualAttempts": 36,
+    "cumulativeRenewalCalls": 873,
+    "cumulativeRenewalAttempts": 870,
+    "keylessChecks": 6,
+    "keylessFinalizationCommands": 12,
+    "changedCandidateRows": [
+      "typesafe-classifier-jev-1.14.0"
+    ],
+    "preservedRows": 16,
+    "defaultPublished": false,
+    "releaseCertified": false,
+    "independentlyHashBoundCapturedData": 23,
+    "nonauthoritativeCapturedData": [
+      "barness-ticket21-prepared-independent-proof.json",
+      "barness-ticket21-review-prepared-post.py",
+      "barness-ticket21-review-prepared.py"
+    ],
+    "capturedDataIsNotExecutionAuthority": true
+  },
+  "retentionPaidCalls": 0,
+  "retentionCredentialsRead": false,
+  "capturedProgramsExecuted": false
+}
