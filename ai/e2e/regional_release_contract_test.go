@@ -70,3 +70,41 @@ func TestRegionalProviderReleaseContract(t *testing.T) {
 		ev.Check("own exact extension "+route.Provider+"/"+route.API, slices.Contains(plan.Differential.Routes, route), "absent")
 	}
 }
+
+func TestRegionalProviderReleaseReviewFixContract(t *testing.T) {
+	ev := run.Case(t, "RP18-review-fix-contract")
+	raw, err := os.ReadFile("../release/traceability.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	plan, err := release.ParseTraceMap(raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	endpoint := []string{"regional-host-credential-zhipu-endpoint", "regional-host-credential-minimax-endpoint"}
+	security := []string{"RP18-grant-alias-copied", "RP18-grant-alias-relabeled", "RP18-grant-alias-concurrent", "RP18-grant-alias-partial"}
+	for _, combo := range []string{"zai-chat", "zai-responses", "zai-messages", "minimax-cn-chat", "minimax-cn-responses", "minimax-cn-messages"} {
+		for _, mutation := range []string{"raw-usage-missing", "raw-usage-zero", "raw-usage-partial", "raw-usage-count", "raw-text", "raw-thinking", "raw-tool", "raw-terminal"} {
+			security = append(security, "RP18-native-refusal-"+combo+"-"+mutation)
+		}
+		for _, mode := range []string{"read-ahead", "partial-frame", "wrong-text"} {
+			security = append(security, "RP18-cancel-evidence-"+combo+"-"+mode)
+		}
+	}
+	for _, group := range []struct{ items, cases []string }{{[]string{"REGIONAL-R08", "REGIONAL-R09", "REGIONAL-RP08", "REGIONAL-RP09"}, endpoint}, {[]string{"REGIONAL-R17", "REGIONAL-R18", "REGIONAL-RP18", "REGIONAL-RP20"}, security}} {
+		for _, id := range group.items {
+			at := slices.IndexFunc(plan.Items, func(i release.TraceItem) bool { return i.ID == id })
+			if !ev.Check("security trace item "+id, at >= 0, "missing") {
+				continue
+			}
+			for _, caseID := range group.cases {
+				ev.Check("required "+id+" "+caseID, slices.Contains(plan.Items[at].RequiredCases, caseID), "security boundary can be skipped")
+				changed := plan
+				changed.Items = slices.Clone(plan.Items)
+				changed.Items[at].RequiredCases = slices.DeleteFunc(slices.Clone(plan.Items[at].RequiredCases), func(v string) bool { return v == caseID })
+				ev.Check("cannot drop "+id+" "+caseID, !release.CheckReleasePlan(changed).Current, "security coverage removed")
+			}
+		}
+	}
+	ev.Record("contract", release.CheckReleasePlan(plan))
+}

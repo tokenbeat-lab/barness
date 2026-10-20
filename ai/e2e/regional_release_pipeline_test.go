@@ -30,7 +30,11 @@ func regionalChildEnvironment(extra ...string) []string {
 // native directory; controlled PASS never authorizes formal service support.
 func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 	binary := filepath.Join(t.TempDir(), "regional-live.test")
-	build := exec.CommandContext(ctxFor(t), "go", "test", "-c", "-tags", "live", "-o", binary, "./ai/live")
+	source, err := supportmatrix.RegionalExecutionSource()
+	if err != nil {
+		t.Fatal(err)
+	}
+	build := exec.CommandContext(ctxFor(t), "go", "test", "-c", "-tags", "live", "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource="+supportmatrix.RegionalSourceHash(source), "-o", binary, "./ai/live")
 	build.Dir = "../.."
 	build.Env = regionalChildEnvironment()
 	if raw, err := build.CombinedOutput(); err != nil {
@@ -58,6 +62,18 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 							reply.Chunks[i] = []byte(strings.NewReplacer("Regional text.", "REGIONAL42", "Hello MiniMax.", "REGIONAL42", "Synthetic reply.", "REGIONAL42").Replace(string(c)))
 						}
 					}
+					if kind == "full-complete" || kind == "simple-complete" {
+						mutation := "raw-usage-zero"
+						if kind == "simple-complete" {
+							mutation = "raw-usage-partial"
+						}
+						var body strings.Builder
+						for _, chunk := range reply.Chunks {
+							body.Write(chunk)
+						}
+						mutated := regionalMutateRaw(t, body.String(), mutation)
+						reply.Chunks, reply.Script = [][]byte{[]byte(mutated)}, mutated
+					}
 					reply.Header["X-Request-Id"], reply.Header["Request-Id"] = "regional-controlled", "regional-controlled"
 					srv.Enqueue(reply)
 				}
@@ -67,7 +83,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				t.Fatal(err)
 			}
 			grant.Mode = "controlled"
-			grant.ID, grant.AccountAlias, grant.RegionAlias = "synthetic-"+combo, "synthetic-account", "synthetic-region"
+			grant.ID, grant.AccountAlias, grant.RegionAlias = "synthetic-"+combo+"-"+pioracle.SHA256([]byte(run.Dir()))[:12], "synthetic-account", "synthetic-region"
 			grant.ExpiresAt = time.Now().UTC().Add(time.Hour)
 			grantPath := filepath.Join(t.TempDir(), "grant.json")
 			if err := os.WriteFile(grantPath, mustMarshal(t, grant), 0600); err != nil {
@@ -105,6 +121,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			}
 			ev.Check("reservation covers actual encoded wire", report.Budget.ReservedInputTokens == inputReserved, "reserved=%d encoded=%d", report.Budget.ReservedInputTokens, inputReserved)
 			regionalCaptureRefusals(t, dir, combo)
+			regionalCaptureCancellationPrefixes(t, dir, combo)
 
 			manifest, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
 			if err != nil {

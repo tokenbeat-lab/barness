@@ -4,7 +4,6 @@ package live
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -153,24 +152,12 @@ func regionalEntry() string {
 }
 
 func (p *regionalProcess) consumeGrant() error {
-	// Exclusive creation is the durable pre-send reservation. It remains after
-	// failure or cancellation; repeating a run requires a new human grant.
-	f, err := os.OpenFile(p.grantPath+".used", os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+	receipt, err := supportmatrix.ReserveRegionalGrant(p.grant, p.grantRaw, filepath.Base(run.Dir()), time.Now().UTC())
 	if err != nil {
-		return fmt.Errorf("regional authorization already consumed or receipt unavailable")
-	}
-	defer f.Close()
-	raw, _ := json.Marshal(map[string]any{"schema": 1, "grantId": p.grant.ID, "grantSha256": sha256Text(p.grantRaw), "combo": p.report.Combo, "session": filepath.Base(run.Dir()), "mode": p.report.Regional.Mode, "startedAt": time.Now().UTC(), "maxCalls": 24, "maxAttempts": 24})
-	if _, err = f.Write(raw); err != nil {
-		return err
-	}
-	if err = f.Sync(); err != nil {
 		return err
 	}
 	if err = os.WriteFile(filepath.Join(run.Dir(), "regional-grant.json"), p.grantRaw, 0600); err != nil {
 		return err
 	}
-	var receipt any
-	_ = json.Unmarshal(raw, &receipt)
 	return run.Record("regional-authorization-receipt", receipt)
 }
