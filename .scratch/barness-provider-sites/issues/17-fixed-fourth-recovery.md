@@ -26,3 +26,9 @@ Type: task
 ## Acceptance
 
 先公共CLI/进程RED，覆盖伪旧PASS/FAIL/计数/父UNKNOWN、关闭索引与九native原件变动、旧3活动入口、漏人类新批准、错资金policy/预算、重复claim/不同out/并发/nonce/FIFO/路径/源码漂移拒绝；保留合法旧历史消费和当前实际资格的差别。新public流程完整24→33/46→23+4输入，Jev protocol唯一配对延期及最终强制verify不弱化。独立双轴复审清零后冻结实际源/新二进制/工具及全部输入，完成无Key检查，模板保持PENDING；由根对具体计划申请一次新增paid范围。取得新真实READY后才执行已有批准的唯一完整正式race。
+
+## Offline native implementation progress
+
+固定原生ID4/schema5已在07807a1交付；公开facts精确导出第三批21字段摘要1f346af96e867d5f5fb60621eac454cedd71c4ce415a900ae58e825742c50f21，旧recovery字段、15/closed1/closed2及真实closed3全部只读闭合。旧3活动入口永久拒绝；旧source按原grant/report/commit/archive互证，不能要求其与当前相等或复活旧资格。实际新4回复还须使用不同于旧3的requestReference。
+
+[原生永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-native-dev/index.json)SHA9ce2967938173eea9d845caf1e8409b426f41a0036fd4abafd19d4dbf78263f7固定55公共进程场景PASS（实际墙钟121.614878s）、持久binary/argv/UTC/数字退出码、目标vet、旧回归和全部中间失败。覆盖三路线新39/36、篡改/旧活动/UNKNOWN/nonce/并发/跨worktree/旧回复复用等拒绝；真实4人类记录和grant均不存在，无真实Key/调用/账本写入或race。Status继续claimed：Python完整组合、独立双轴整合复审、最终冻结及新付费批准尚PENDING；原预算/资格/race边界不变，唯一状态见[规格](../spec.md)。

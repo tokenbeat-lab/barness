@@ -22,3 +22,7 @@ Type: task
 ## Paid boundary
 
 固定恢复3已按实际批准的失败即停条件停止。本票的离线实现、普通测试和审查不授予新付费调用。新的完整有限范围、全部历史/UNKNOWN/预留、预算分配、源码/二进制/工具及双轴审查必须成为具体计划，再取得明确批准；预算上限仍US$30。无新READY，race仍NOT_RUN，完整发布继续开放。
+
+## Offline implementation progress
+
+070b452已交付固定自身full-stream来源与严格消费者同步，生产协议/SDK/目录未改。公共Client/CLI先RED，六路线81受控场景及原生消费者最终通过，旧失败/中间失败和1012原件保留于[永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/responses-native-source-fix/index.json)。17机制并入后07807a1公开API实算Regional414/MiniMax320，GLM245逐项仍等b384；不能把六受控路线或旧真实PASS当作新来源资格。Status继续claimed，等待独立整合复审、新固定有限付费批准及完整实际验收；唯一状态见[规格](../spec.md)。
