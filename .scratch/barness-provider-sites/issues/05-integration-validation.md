@@ -2,7 +2,7 @@
 
 Status: claimed
 Type: task
-Blocked by: 01, 02, 03, 04
+Blocked by: 01, 02, 03, 04, 06
 
 ## Context
 

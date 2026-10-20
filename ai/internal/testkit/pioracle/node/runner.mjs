@@ -42,6 +42,7 @@ const APIS = {
 		catalogs: [
 			{ models: "@earendil-works/pi-ai/providers/anthropic.models", catalog: "ANTHROPIC_MODELS" },
 			{ models: "@earendil-works/pi-ai/providers/minimax.models", catalog: "MINIMAX_MODELS" },
+			{ models: "@earendil-works/pi-ai/providers/minimax-cn.models", catalog: "MINIMAX_CN_MODELS" },
 		],
 	},
 	"google-generative-ai": {
@@ -57,6 +58,7 @@ const APIS = {
 		catalogs: [
 			{ models: "@earendil-works/pi-ai/providers/openai.models", catalog: "OPENAI_MODELS", catalogApi: "openai-responses" },
 			{ models: "@earendil-works/pi-ai/providers/deepseek.models", catalog: "DEEPSEEK_MODELS" },
+			{ models: "@earendil-works/pi-ai/providers/zai.models", catalog: "ZAI_MODELS" },
 		],
 	},
 };
