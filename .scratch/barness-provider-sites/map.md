@@ -15,6 +15,10 @@
 - 01 / 02 / 03 分工并行；04 / 06 依赖前三项；05 依赖所有实现。测试接缝保持公共 Client、Host 装配和 CLI / 原生证据消费者。
 - 未增加依赖、升级 SDK 或冻结 pi，也未改 BuiltinCatalog。内部旧实现直接删除，无兼容 shim。
 
+- [07 完整 race 与最终验收](issues/07-final-acceptance.md)：完整开发 race PASS，真实候选按独立 US$5 授权完成 81 Calls / 81 HTTP，五路线 qualify PASS、一条失败；正式验收继续开放。[本轮事实](evidence/acceptance.md)。[唯一当前状态](spec.md#当前状态)。
+
+- [08 ZAI Messages GLM-5.2 原生推理资格](issues/08-zai-messages-glm52-native-qualification.md)：07 的实际真实失败；独立公共 Client 离线复现表明捕获无原生字段，保留资格缺口和后续授权边界。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。

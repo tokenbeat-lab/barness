@@ -2,6 +2,8 @@
 
 本索引记录固定来源的验证事实；唯一当前实施与正式验收状态见 [spec](../spec.md#当前状态)。集成分支 `codex/barness-provider-sites`，实现工单 01–06。原生证据保留在仓库根 `.evidence/provider-sites/`，不复制重导出旧捕获。
 
+后续人类明确选择的完整 race 与真实候选轮次另见 [2026-10-20 验收记录](acceptance.md)；本页保留此前固定范围事实，不覆盖历史未执行与失败。
+
 ## 来源与工具
 
 - 最终受测提交：`d4b63d9b2ecec3dc7fcbdadf3b849e31c83cd92e`。
@@ -23,7 +25,7 @@
 
 完整普通明确开启 `BARNESS_AI_PIDIFF=1` 与 `BARNESS_AI_PRESSURE=1`；`BARNESS_AI_EVIDENCE_DIR` 指向每次新输出目录。数字退出、UTC 起止、墙钟、原始 JSON stdout、来源前后 Hash、原生 manifest 与 audit 见各回执。父子测试节点不当成独立场景，包耗时不相加当墙钟。
 
-主 E2E manifest 有 **13,244 个原生场景，全部 PASS**，另一个 `ai` 包原生 manifest 为 23 PASS，分别计数；主包无 NOT_RUN、重复 ID 或审计发现。32 份真正原生 Run 的 audit 均为零发现。六条正常 controlled 子进程合计 81 次受控 Attempt，通过；授权复用负例刻意运行的失败子进程不合并进主包计数。Go 节点为 14,306 PASS / 4 SKIP，包为 9 PASS / 27 无测试包 SKIP。四个节点 SKIP 是两个私有子进程入口、可选旧 bundle 诊断及可选 100 轮 loopback 诊断，不是必需差分/压力跳过。
+主 E2E manifest 有 **13,244 个原生场景，全部 PASS**，另一个 `./ai/examples/visualeval` 包原生 manifest 为 23 PASS，分别计数；主包无 NOT_RUN、重复 ID 或审计发现。32 份真正原生 Run 的 audit 均为零发现。六条正常 controlled 子进程合计 81 次受控 Attempt，通过；授权复用负例刻意运行的失败子进程不合并进主包计数。Go 节点为 14,306 PASS / 4 SKIP，包为 9 PASS / 27 无测试包 SKIP。四个节点 SKIP 是两个私有子进程入口、可选旧 bundle 诊断及可选 100 轮 loopback 诊断，不是必需差分/压力跳过。
 
 主包实际产生 **889 份 pi 差分记录，全部 PASS、pending 0**，其中本功能为 18 次双侧调用与 3 次目录比较。名字含 pressure 的 204 个原生场景通过，包含实际压力及导入拒绝边界；完整记录见 [原生计数/审计汇总](../../../.evidence/provider-sites/final-v4/ordinary/native-audit-summary.json)。主包原件为 [manifest](../../../.evidence/provider-sites/final-v4/ordinary/bundles/20261020T030404.702080000Z/manifest.json)，Hash `9e5d1aa03afa2c9f96cf5d27adbf9b1284ffb62bd28852a72215b22f183cebbe`。
 

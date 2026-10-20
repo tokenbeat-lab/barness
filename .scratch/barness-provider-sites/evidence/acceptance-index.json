@@ -1,0 +1,216 @@
+{
+  "schema": "barness-provider-sites-acceptance-index/v1",
+  "authoritative_state": "../spec.md#当前状态",
+  "report": "acceptance.md",
+  "previous_ordinary_and_reviews": "verification.md",
+  "actual_source_commit": "804dc4e6f52bbe761f7ed843c19fb16659bc2ef2",
+  "complete_source_sha256": "470682d37e2d1c839bf5609f6898f9a1e4dafbd3dbfcd2cb77f2048a530f3e05",
+  "regional_execution_source_sha256": "f38486193de4d19980123968616286259eb97a6cc500a29f8eee7a18ae1a28bc",
+  "facts": {
+    "race": {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-race",
+        "./...",
+        "-count=1",
+        "-timeout=75m"
+      ],
+      "start": "2026-10-20T06:40:40.287684+00:00",
+      "end": "2026-10-20T07:23:50.234916+00:00",
+      "exit_code": 0,
+      "wall_seconds": 2589.6351315421052,
+      "source_unchanged": true,
+      "primary_native_cases": 13244,
+      "primary_native_pass": 13244,
+      "other_visualeval_native_pass": 23,
+      "native_audit_runs": 32,
+      "native_audit_findings": 0,
+      "differential_records": 889,
+      "differential_pending": 0,
+      "wire_artifacts_pass": 3077
+    },
+    "candidate_round": {
+      "sourceSha256": "f38486193de4d19980123968616286259eb97a6cc500a29f8eee7a18ae1a28bc",
+      "candidate_route_count": 6,
+      "candidate_qualification_pass": 5,
+      "candidate_qualification_fail": 1,
+      "calls": 81,
+      "http_attempts": 81,
+      "retries": 0,
+      "scenario_outcomes": {
+        "PASS": 80,
+        "FAIL": 1,
+        "NOT_RUN": 0
+      },
+      "native_audit_findings": 0,
+      "usage_reporting_counts": {
+        "unreported": 6,
+        "complete": 48,
+        "partial": 27
+      },
+      "sum_returned_model_cost_usd_estimates": 0.020954056149681294,
+      "billing_note": "Model estimates from retained Result usage, not a provider invoice; canceled or partial usage may omit billed work. Approved finite token ceilings were reserved before calls; no unused budget or grant is transferred.",
+      "authorization_budget_usd": 5,
+      "known_rate_token_reservation_ceiling_usd": "2.2826096461758528",
+      "failed_case": "REGIONAL-zai-messages-glm-5.2-native-history",
+      "formal_or_promotion_executed": false
+    },
+    "original_input_preflight": {
+      "exit_code": 1,
+      "live_generic_applicable": 10,
+      "live_strict_source_refused": 7,
+      "effect_inputs_refused": 4,
+      "old_input_trees": 21,
+      "old_pinned_files_unchanged": 3539
+    },
+    "formal_checkpoint": null,
+    "formal_promotion_executed": false,
+    "formal_release_pass": false
+  },
+  "originals": [
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/recheck.json",
+      "sha256": "93ca725cab1a56d38a00efadf8595a2b7e2fbdbe021dfad4fe5ab5a1b0e7d1ee"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate-authorization.json",
+      "sha256": "7f93809c11d945b358915100173b8fe892a61345535e6f3712955516ef39deae"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate-plan.json",
+      "sha256": "49a7255475ad1f56295a12ec5b08bc43a732d2d02c5b68ec7a38705b03b5c289"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate-results.json",
+      "sha256": "275755d8b3ac058dfb932ba93fcf8095c28a4d3f2e8e8d9d85dda15232b0f42e"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate-summary.json",
+      "sha256": "958b4087b3fa2189478d814897ba44ea721cbd3d534ef95aaacb3acab93297a7"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/regional-source.json",
+      "sha256": "4725b87830a1433b0a23c8025f993bbe3a1d543e018a6216d0f2dead3af1f0b2"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/build-verifier/receipt.json",
+      "sha256": "aba94d5438f4b2836164acb736b9e6702169980de1bb9bcb9cf0fa1778d89b28"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/build-live/receipt.json",
+      "sha256": "1ec5027c7477f1230bc9e5e18156a1e905aa49517f3e4229e9da2c568b0df38d"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/receipt.json",
+      "sha256": "740f788f1b8bc98c14025f7eddd999ce97d29cf2726938f59a98f82f83207cc3"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/process-receipt.json",
+      "sha256": "7d7b95946d8aa16b23ce0f411b8b7ce681ffc77a31495cc21cd8927d0e43cb55"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/source-before.json",
+      "sha256": "01b6c39d4b812ea591fb2df11240b23e8d50eaec896669a6f8468a0ed139b2b8"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/source-after.json",
+      "sha256": "01b6c39d4b812ea591fb2df11240b23e8d50eaec896669a6f8468a0ed139b2b8"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/native-summary.json",
+      "sha256": "7c669afe867f12b8a862d6f1a5ba6d1a995e1118b3b39fb9ed5c4fc241b4f234"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/bundles/20261020T064049.554056000Z/manifest.json",
+      "sha256": "3ac51027442dcf49b46384f03007eeb0f2cddc981b4bc06ed7fa8d31fb5f5da8"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race/bundles/20261020T064049.554056000Z/audit.json",
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race-wire-audit/receipt.json",
+      "sha256": "aee15b8fdbd994eaacd7c855fbaf1263e1bef24e8aee8f16eca6116b352b9a76"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/race-wire-audit/comparison.json",
+      "sha256": "e5cd664a51acf2b05b721082d98772dd07f29a226f1df4463d33fcbe087ca4a7"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/receipt.json",
+      "sha256": "c1b49499656ef019f97d2d71bba037bf3d651f3622010c36724330d02aa41dd9"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/report.json",
+      "sha256": "3a2e46577e3f272a78d81223cb97783a9174cc2608fbf5db2bb008ff539fc0af"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/index.json",
+      "sha256": "60e016500c85981c5c1da047a456cf9aebbbf779587e02df54c3e4cecd0afe26"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/preflight/preflight-report.json",
+      "sha256": "351d3252330b45a213a02db4d89dea9147488e708772e8211169c8301969131b"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/preflight/release-report.json",
+      "sha256": "aa031d8400eb29bbc34007bccf4d467b2f3788c3492243cba367a2b5982376ed"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/original-input-pin-comparison.json",
+      "sha256": "95fc5a44669adc3bab3c14842185b831f6c6d6b8fd95d6cdaed3d1a4f2533311"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit-retention.json",
+      "sha256": "54823d221da5b4b89001077546521065c7fcb71a61f3e9d39919777b8f5a9d28"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/diagnosis/report.md",
+      "sha256": "f5afa6cd4a2fd0d0ba636fbbe32c73b14823386a9ccf9d30cdbbcfc5ad7fea3e"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/diagnosis/diagnosis-summary.json",
+      "sha256": "702a86b25399922644fb178b9894539dbc969b3de1811fb468f71083648161d9"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/diagnosis/index.json",
+      "sha256": "6f7be19bf8b39d8de436e31eeeb51c43dbbf1c44d181ecbbd10fc0b55ef3a786"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/diagnosis-retention.json",
+      "sha256": "43b9299adc3db5b7ef17a892be0f7af549b9e76f081552cbcf863f50b1057f5e"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate/zai-chat/receipt.json",
+      "sha256": "63af21aac1a65fe1cf7c2983f5b39e89d21227b897c3a5d013c26555425c813f"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate/zai-responses/receipt.json",
+      "sha256": "5868e9b6f9001a82cca0ab7a8d1e138822ef73ebd68f0d0cb2f03a1d53022949"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate/zai-messages/receipt.json",
+      "sha256": "02b4630bb1ed2556d3af68182ebf5eb47cc02ab8d3ab834a6cfdafc8a8b22b3a"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate/minimax-cn-chat/receipt.json",
+      "sha256": "1d15f3d7931c18072255886da51ab2fe32c958f54c811ebf3028861ae07de5ba"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate/minimax-cn-responses/receipt.json",
+      "sha256": "f82465690c96e3a3a62cd4af225442ce164dc82cb2c095977712d91ee33a85a8"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/acceptance-20261020/candidate/minimax-cn-messages/receipt.json",
+      "sha256": "c52ddd43f315d65da6d3ab025631087a0acdb4842c8c68a7982514d0d3ce1eb4"
+    }
+  ],
+  "notes": [
+    "The old paid failure is retained; no rerun or grant reuse.",
+    "No runtime source, catalog snapshot, support row or pin changed in this acceptance turn.",
+    "Read-only replay and minimized synthetic derivatives are not own service qualification.",
+    "The manual development race has no formal check checkpoint; it is not a releasegate resumed race certificate."
+  ]
+}

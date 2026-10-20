@@ -13,17 +13,17 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | 项目 | 当前状态 |
 | --- | --- |
 | 架构选择 | 已确定方案 2，记录于 ADR-0049 |
-| 本次交付 | 实现与普通验证已交付；分支 `codex/barness-provider-sites`，工单 01–06 均已解决。正式验收继续开放，feature 保持 claimed |
-| 文档核验 | 实施后合同、引用、格式及 500 行检查 PASS；收尾仅文档，执行来源集合保持不变 |
+| 本次交付 | 实现与普通验证已交付；工单 01–06 已解决，[07 最终验收](issues/07-final-acceptance.md) 进行中。分支 `codex/barness-provider-sites`，feature 保持 claimed |
+| 文档核验 | 实施后合同、引用、格式及 500 行检查 PASS；本轮仅文档、索引与验收事实，执行来源集合保持不变 |
 | 生产实现与目录变更 | 四服务各三协议、12 路线 / 18 身份；缓存 v2、准入 Provider、Host 端点/用途与凭据隔离、独立候选及原生采集/消费已完成。新增九身份未晋升 BuiltinCatalog |
 | 本功能普通 E2E | 最终受测提交 `d4b63d9`；完整普通主包 13,244 原生场景全部 PASS，双 vet、差分、压力与原生审计通过；[最终验证索引](evidence/verification.md) / [机器索引](evidence/index.json) |
 | 双轴审查 | 初始及后续发现均由同一 implementer 修复，Standards 与 Spec 独立复审及测试迁移补审无剩余可操作问题；[原始与最终报告](evidence/review.md) |
-| 新身份自身真实验证 | NOT_RUN；六条新增支持路线 / 九个候选身份未取得自身 live、晋升与新 formal 证明。真实 Key 已按 ID 更新不替代独立用途、范围与预算授权 |
-| 旧真实来源适用性 | 旧 GLM 原始证明被当前执行来源检查拒绝；派生视图在 importer 来源检查精确拒绝。原件及不同拒绝阶段保留，见[验证索引](evidence/verification.md#保留的失败与范围) |
-| 正式前置 | BLOCKED（实际 exit 1）；未选旧 live / 四份效果输入，新六路线自身资格未完成；没有 READY_FOR_RACE checkpoint |
-| race | NOT_RUN；人工范围、命令、输入与预计耗时见[交接](evidence/verification.md#人工-race-与自身-live-交接) |
+| 新身份自身真实验证 | 本轮六条各一次 candidate 已完成：81 Calls / 81 HTTP、零重试，80 PASS / 1 FAIL，六份 audit 零发现。ZAI Chat / Responses 与中国 MiniMax 三协议的 qualify 通过；ZAI Messages 因 [`glm-5.2/native-history`](issues/08-zai-messages-glm52-native-qualification.md) 失败未通过。未晋升 / 未运行新 formal。[本轮汇总](../../.evidence/provider-sites/acceptance-20261020/candidate-summary.json) |
+| 旧真实来源适用性 | 对原始 17 live / 四效果执行当前 keyless preflight：10 通用路线仍 PASS；Jev1.14、GLM×3、国际 MiniMax×3 因各自严格来源校验拒绝；四效果过期。21 树 / 3,539 份原件 Hash 保持。[实际审计](../../.evidence/provider-sites/acceptance-20261020/legacy-input-audit/report.md) |
+| 正式前置 | BLOCKED（本轮实际 exit 1）；七条旧严格来源路线 / 四效果过期，新六路线尚未晋升与 formal 合并，ZAI Messages 候选有实际失败；没有 READY_FOR_RACE checkpoint |
+| race | PASS；完整命令实际 exit 0、墙钟 2589.635s，主包 13,244 原生场景全部 PASS、32 原生 audit 零发现、无 race detector 警告。来源 `470682d3…` 前后相等；这是人类选择的完整开发 race，无正式 check checkpoint。[本轮报告](evidence/acceptance.md) / [机器索引](evidence/acceptance-index.json) |
 | release.pass | false；完整正式验收继续开放 |
-| 实际厂商 / 付费调用 | 0；仅受控 loopback 与离线原生消费 |
+| 实际厂商 / 付费调用 | 81 Calls / 81 HTTP，仅获准两服务六路线 candidate；预算 US$5、零重试，不转用未花预算。Result 用量估价合计约 US$0.020954，取消 / 部分用量不代表账单上限；有限 token 预留保守估价上限约 US$2.282610 |
 | 最终执行来源 | 完整 `ai/` 与 Go 依赖文件清单 Hash 为 `470682d37e2d1c839bf5609f6898f9a1e4dafbd3dbfcd2cb77f2048a530f3e05`，命令前后逐文件相等；事实与工具身份见最终索引 |
 
 

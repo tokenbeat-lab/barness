@@ -12,7 +12,6 @@
     "ordinary_wall_seconds": 661.8834269172512,
     "primary_native_cases": 13244,
     "primary_native_pass": 13244,
-    "other_ai_package_native_pass": 23,
     "native_audit_runs": 32,
     "native_audit_findings": 0,
     "differential_records": 889,
@@ -23,7 +22,8 @@
     "actual_vendor_or_paid_calls": 0,
     "race": "NOT_RUN",
     "preflight_exit_code": 1,
-    "formal_ready_for_race_checkpoint": null
+    "formal_ready_for_race_checkpoint": null,
+    "other_visualeval_package_native_pass": 23
   },
   "originals": [
     {
@@ -96,5 +96,6 @@
     "No own live qualification, promotion or formal support is claimed. See sole current state in spec.",
     "Complete ordinary source identity and native runtime identity have different scopes.",
     "Final closure documents are outside the tested execution-source scope."
-  ]
+  ],
+  "subsequent_acceptance": "acceptance-index.json"
 }
