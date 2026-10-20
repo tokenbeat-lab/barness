@@ -48,13 +48,35 @@ func TestGLMFormalReports(t *testing.T) {
 			if e != nil {
 				t.Fatal(e)
 			}
+			currentExecution, sourceErr := supportmatrix.GLMExecutionSource()
+			capturedRaw, readErr := os.ReadFile(filepath.Join(filepath.Dir(reportPath), "original/glm-execution-source.json"))
+			var capturedExecution map[string]string
+			ev.Check("historical execution source independently differs", sourceErr == nil && readErr == nil && json.Unmarshal(capturedRaw, &capturedExecution) == nil && !reflect.DeepEqual(currentExecution, capturedExecution), "source snapshots unexpectedly equal or unavailable")
+			ev.Record("execution-source-comparison", map[string]any{"current": currentExecution, "captured": capturedExecution})
+			// The public complete source inventory also exposes the importer
+			// files. Compare that current inventory with the immutable view's
+			// original derivation record without refreshing its proof or pins.
+			selected, importerErr := supportmatrix.RegionalExecutionSource()
+			importer := map[string]string{}
+			for path, hash := range selected {
+				if filepath.Dir(path) == "ai/internal/testkit/supportmatrix" && filepath.Ext(path) == ".go" {
+					importer[filepath.Base(path)] = hash
+				}
+			}
+			importerRaw, _ := json.Marshal(importer)
+			importerHash := fmt.Sprintf("%x", sha256.Sum256(importerRaw))
+			if !ev.Check("historical importer source record present", r.GLM != nil && r.GLM.Derivation != nil, "missing original derivation") {
+				return
+			}
+			ev.Check("current importer independently differs from historical proof", importerErr == nil && len(importer) > 0 && importerHash != r.GLM.Derivation.ImporterSourceSHA256, "importer unexpectedly equal or unavailable")
+			ev.Record("importer-source-comparison", map[string]any{"currentFiles": importer, "currentSHA256": importerHash, "capturedSHA256": r.GLM.Derivation.ImporterSourceSHA256})
 			m := supportmatrix.Matrix{Schema: supportmatrix.SchemaVersion, Rows: []supportmatrix.Row{{Combo: r.Combo, Operation: "chat", Provider: "zhipu", API: r.API}, {Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions"}}}
 			// The existing matrix may retain this immutable historical pass;
 			// refusing current applicability must neither clear nor refresh it.
 			m.Rows[0].AllPassedAt = &r.FinishedAt
 			beforeMatrix, _ := json.Marshal(m)
 			_, e = supportmatrix.Merge(m, r)
-			ev.Check("historical own capture refuses changed current execution source", glmExecutionSourceDrift(e), "%v", e)
+			ev.Check("historical support view refuses changed current importer source", glmImporterSourceDrift(e), "%v", e)
 			afterMatrix, _ := json.Marshal(m)
 			ev.Check("stale execution source cannot update caller matrix", bytes.Equal(beforeMatrix, afterMatrix), "matrix mutated")
 			_, overwriteError := supportmatrix.CreateGLMSupportView(route, filepath.Dir(reportPath))
@@ -62,7 +84,7 @@ func TestGLMFormalReports(t *testing.T) {
 			ev.Check("historical own22 model-qualified cases retained", len(r.Expected) == 22 && len(r.Scenarios) == 22 && r.Provider == "zhipu", "incomplete historical report")
 			ev.Check("other row and caller untouched", reflect.DeepEqual(m.Rows[1], supportmatrix.Row{Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions"}) && len(m.Rows[0].Capabilities) == 0, "mutation")
 			audit := release.AuditBundle(filepath.Dir(reportPath), nil)
-			ev.Check("release audit refuses same stale execution source", audit.Err == "live artifact integrity verification failed" && audit.Live != nil && glmExecutionSourceDrift(e), "%s", audit.Err)
+			ev.Check("release audit refuses same stale importer source", audit.Err == "live artifact integrity verification failed" && audit.Live != nil && glmImporterSourceDrift(e), "%s", audit.Err)
 			for _, name := range []string{"stale-hash", "candidate", "controlled", "replay", "wrong-api", "wrong-provider", "wrong-model", "narrow", "unsupported", "fake-counters", "fake-provider-id", "fake-known-usage", "fake-unknown-usage", "billing-claim"} {
 				bad := r
 				bad.Expected = append([]string{}, r.Expected...)
@@ -213,4 +235,10 @@ func TestGLMFormalReports(t *testing.T) {
 // a malformed report, or any unrelated consumer failure.
 func glmExecutionSourceDrift(err error) bool {
 	return errors.Is(err, supportmatrix.ErrInvalidReport) && err.Error() == "supportmatrix: invalid report: GLM execution source drift"
+}
+
+// Derived support views validate their own importer before original model
+// execution source. Keep this exact refusal separate from direct raw captures.
+func glmImporterSourceDrift(err error) bool {
+	return errors.Is(err, supportmatrix.ErrInvalidReport) && err.Error() == "supportmatrix: invalid report: GLM consumer/importer source drift"
 }
