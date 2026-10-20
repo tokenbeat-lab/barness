@@ -172,7 +172,9 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 [新容量证据与重放](../../.scratch/barness-ai-openai-decisions/classifier-load-evidence/README.md)。
 
 
-## 当前支持矩阵
+## 支持矩阵入口与历史十四身份记录
+
+当前完整目标集合见机器可读的[支持矩阵](../../ai/live/support-matrix.json)；地区服务的实施与正式资格见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)。下面保留 2026-10-18 十四身份的原支持记录，后续源码是否仍适用由当前原生消费者判定。
 
 | 身份 | 操作 | Provider / API | 型号 | 状态 |
 | --- | --- | --- | --- | --- |
