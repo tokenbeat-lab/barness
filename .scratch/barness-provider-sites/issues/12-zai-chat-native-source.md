@@ -1,6 +1,8 @@
 # 12 ZAI Chat 原生续接的固定消息来源
 
 Status: claimed
+
+2026-10-20：独立worktree已在公共CLI用当前真实原始SSE重现17/18，随后固定zai-chat full-stream来源并保留完整工具链、独立consumer来源/请求/actual wire核对；源无native仍失败且禁止fallback。普通实施与全部中间FAIL、最终六路线受控cohort、21个实际Frozen PiDiff、消费者与双vet事实见[实施记录](../evidence/zai-chat-native-source.md)。未发新真实请求；继续claimed，等待整合复审与新授权真实候选。
 Type: task
 
 ## Context

@@ -50,7 +50,9 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			for _, model := range supportmatrix.RegionalModels(combo) {
 				for _, kind := range []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"} {
 					var reply provider.Reply
-					if kind == "tool-call" {
+					if combo == "zai-chat" && (kind == "full-stream" || kind == "tool-call") {
+						reply, _, _, _ = zaiChatSource(t, model, kind)
+					} else if kind == "tool-call" {
 						reply = regionalPipelineToolReply(t, ai.ProviderID(route.Provider), ai.API(route.API), model)
 					} else if kind == "cancel" {
 						reply = regionalPipelinePrefix(t, ai.API(route.API))
@@ -137,6 +139,15 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				}
 			}
 			ev.Record("native-report", report)
+			if combo == "zai-chat" {
+				var source struct {
+					Regional struct{ NativeSourceCases map[string]string }
+				}
+				mustUnmarshal(t, mustMarshal(t, report), &source)
+				for _, model := range supportmatrix.RegionalModels(combo) {
+					ev.Check("native source predeclared independently of tool output", source.Regional.NativeSourceCases[model] == supportmatrix.RegionalCaseID(combo, model+"/full-stream"), "model=%s", model)
+				}
+			}
 			replay := exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/regionalverify", "-controlled", dir)
 			replay.Dir, replay.Env = "../..", regionalChildEnvironment()
 			replayRaw, replayErr := replay.CombinedOutput()
@@ -160,6 +171,10 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			ev.Check("controlled capture never becomes own live proof", err != nil, "controlled qualification accepted")
 			_, err = supportmatrix.NewRegionalReport(dir)
 			ev.Check("candidate never becomes formal support", err != nil, "candidate certified")
+			if combo == "zai-chat" {
+				regionalMissingNativeSource(t, binary)
+				regionalNativeSourceRefusals(t, dir)
+			}
 			// The pre-send durable reservation is consumed even in a successful
 			// controlled run. Reusing it must fail before any additional HTTP.
 			again := exec.CommandContext(ctxFor(t), cmd.Path, cmd.Args[1:]...)
