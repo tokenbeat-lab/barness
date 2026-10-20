@@ -21,33 +21,36 @@ const requiredGLMItems = `GLM-R01 GLM-R02 GLM-R03 GLM-R04 GLM-R05 GLM-R06 GLM-R0
 // Hash of the approved normalized evidence mappings in traceability.json.
 // Editorial text and ordering are excluded. Changing a regex or requirement's
 // evidence selection is a release-contract revision, not a way to fill a gap.
-const approvedMappingHash = "e2a81850d9082571cb1cd5033415a442cf96a138c50d82c12997736bcca6c5d4"
+const approvedMappingHash = "e41a59cb56c01855afd355cb4a5204c51c2c62aa2ac5cc42d0ff3eab1d29a2d1"
 
-// CheckReleasePlan validates the complete seventeen own live identities and eight differentials acceptance plan before
+// CheckReleasePlan validates the complete own live identities and frozen differential acceptance plan before
 // the command collects evidence. Like CheckSnapshot, it returns a verified
 // input for Evaluate rather than allowing a mapping to assert its own status.
 func CheckReleasePlan(m TraceMap) Snapshot {
 	s := Snapshot{Name: "release-plan"}
 	var problems []string
-	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0 zhipu-chat zhipu-responses zhipu-messages minimax-chat minimax-responses minimax-messages") {
+	for _, combo := range strings.Fields("openai-responses anthropic-messages google-gemini openai-chat deepseek-responses deepseek-chat typesafe-classifier openai-images google-interactions-image openai-decisions typesafe-classifier-jev-1.14.0 zhipu-chat zhipu-responses zhipu-messages minimax-chat minimax-responses minimax-messages zai-chat zai-responses zai-messages minimax-cn-chat minimax-cn-responses minimax-cn-messages") {
 		if count(m.LiveCombos, combo) != 1 {
 			problems = append(problems, "required live combo "+combo)
 		}
 	}
-	if len(m.LiveCombos) != 17 {
-		problems = append(problems, "want exactly seventeen live identities")
+	if len(m.LiveCombos) != 23 {
+		problems = append(problems, "want exactly twenty-three live identities")
 	}
-	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC GLM-CHAT GLM-RESPONSES GLM-MESSAGES GLM-ACCEPTANCE MM-CHAT MM-RESPONSES MM-MESSAGES MM-ACCEPTANCE") {
+	for _, scenario := range strings.Fields("E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 P01 P02 P03 P04 P05 P06 P07 P08 P09 P10 D1 D2 PRESSURE UC GLM-CHAT GLM-RESPONSES GLM-MESSAGES GLM-ACCEPTANCE MM-CHAT MM-RESPONSES MM-MESSAGES MM-ACCEPTANCE RP-ACCEPTANCE RP-ZAI-CHAT RP-MINIMAX-CN-MESSAGES RP-EXTENSIONS") {
 		if count(m.P0, scenario) != 1 {
 			problems = append(problems, "required P0 "+scenario)
 		}
 	}
-	for _, scenario := range strings.Fields("P01 P02 P03 P04 P06 P07 P10 MM-MESSAGES") {
+	for _, scenario := range strings.Fields("P01 P02 P03 P04 P06 P07 P10 MM-MESSAGES RP-ZAI-CHAT RP-MINIMAX-CN-MESSAGES") {
 		if count(m.Differential.Required, scenario) != 1 {
 			problems = append(problems, "required differential "+scenario)
 		}
 	}
-	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}, {Scenario: "GLM-CHAT", Provider: "zhipu", API: "openai-completions"}, {Scenario: "GLM-RESPONSES", Provider: "zhipu", API: "openai-responses"}, {Scenario: "GLM-MESSAGES", Provider: "zhipu", API: "anthropic-messages"}, {Scenario: "MM-CHAT", Provider: "minimax", API: "openai-completions"}, {Scenario: "MM-RESPONSES", Provider: "minimax", API: "openai-responses"}} {
+	if len(m.Differential.Required) != 10 {
+		problems = append(problems, "want exactly ten frozen differentials")
+	}
+	for _, route := range []RouteRef{{Scenario: "P05", Provider: "deepseek", API: "openai-responses"}, {Scenario: "P08", Provider: "openai", API: "openai-images"}, {Scenario: "P09", Provider: "google", API: "google-interactions"}, {Scenario: "GLM-CHAT", Provider: "zhipu", API: "openai-completions"}, {Scenario: "GLM-RESPONSES", Provider: "zhipu", API: "openai-responses"}, {Scenario: "GLM-MESSAGES", Provider: "zhipu", API: "anthropic-messages"}, {Scenario: "MM-CHAT", Provider: "minimax", API: "openai-completions"}, {Scenario: "MM-RESPONSES", Provider: "minimax", API: "openai-responses"}, {Scenario: "RP-EXTENSIONS", Provider: "zai", API: "openai-responses"}, {Scenario: "RP-EXTENSIONS", Provider: "zai", API: "anthropic-messages"}, {Scenario: "RP-EXTENSIONS", Provider: "minimax-cn", API: "openai-completions"}, {Scenario: "RP-EXTENSIONS", Provider: "minimax-cn", API: "openai-responses"}} {
 		if !slices.Contains(m.Differential.Routes, route) {
 			problems = append(problems, "required extension route "+route.Scenario)
 		}
@@ -67,6 +70,15 @@ func CheckReleasePlan(m TraceMap) Snapshot {
 		}
 	}
 
+	for _, prefix := range []string{"REGIONAL-R", "REGIONAL-RP"} {
+		for n := 1; n <= 20; n++ {
+			id := fmt.Sprintf("%s%02d", prefix, n)
+			at := slices.IndexFunc(m.Items, func(i TraceItem) bool { return i.ID == id })
+			if at < 0 || len(m.Items[at].RequiredCases) == 0 {
+				problems = append(problems, "required finite regional trace item "+id)
+			}
+		}
+	}
 	if mappingHash(m) != approvedMappingHash {
 		problems = append(problems, "approved evidence mappings changed")
 	}

@@ -71,6 +71,7 @@ type Report struct {
 	MiniMax   *MiniMaxEvidence   `json:"minimax,omitempty"`
 	GLM       *GLMEvidence       `json:"glm,omitempty"`
 	Jev       *JevEvidence       `json:"jev,omitempty"`
+	Regional  *RegionalEvidence  `json:"regional,omitempty"`
 	// File ownership is supplied by LoadReport, never accepted from JSON.
 	evidenceDir string
 }
@@ -307,6 +308,9 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, err
 	}
 	if err := checkMiniMax(r); err != nil {
+		return 0, err
+	}
+	if err := checkRegional(r); err != nil {
 		return 0, err
 	}
 	if err := checkJev(r); err != nil {

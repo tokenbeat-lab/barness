@@ -3,6 +3,9 @@ package supportmatrix
 // ValidIdentity checks the published route, independent of a report's own
 // claims. Two equally incorrect records cannot validate each other.
 func (r Row) ValidIdentity() bool {
+	if route, ok := RegionalRouteOf(r.Combo); ok {
+		return r.Operation == "chat" && r.Provider == route.Provider && r.API == route.API
+	}
 	var operation, provider, api string
 	switch r.Combo {
 	case "openai-responses":

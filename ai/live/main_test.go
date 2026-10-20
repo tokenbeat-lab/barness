@@ -45,8 +45,10 @@ var (
 func TestMain(m *testing.M) {
 	var err error
 	// Select the isolated mode before legacy configuration can enable a route.
-	// An MM process never resolves or executes a legacy live combination.
-	if glmDiagnosticSelected() {
+	// An isolated qualification process never executes a legacy live combination.
+	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
+		cfg = processConfig{notRun: "isolated new regional authorization"}
+	} else if glmDiagnosticSelected() {
 		cfg = processConfig{notRun: "isolated one-case GLM diagnostic"}
 	} else if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated MiniMax identity"}
@@ -64,6 +66,9 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_GLM_ROUTE") != "" || os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
 	}
+	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
+		packageArgs = "-tags live -timeout 1800s ./ai/live"
+	}
 	if glmDiagnosticSelected() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
@@ -71,7 +76,9 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if glmDiagnosticSelected() {
+	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
+		initializeRegional()
+	} else if glmDiagnosticSelected() {
 		initializeGLM()
 	} else if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		initializeMiniMax()
@@ -103,7 +110,7 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if glmReportState == nil && minimaxReport == nil {
+	if glmReportState == nil && minimaxReport == nil && regionalState == nil {
 		run.SetVersion("model_catalog_version", catalog.Version)
 		run.SetVersion("model_catalog_hash", catalogHash)
 	}
@@ -117,7 +124,10 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if minimaxReport != nil && flag.Lookup("test.run").Value.String() != minimaxEntry() {
+	if regionalState != nil && flag.Lookup("test.run").Value.String() != regionalEntry() {
+		regionalState.problem = "exact isolated regional entry required"
+		code = 1
+	} else if minimaxReport != nil && flag.Lookup("test.run").Value.String() != minimaxEntry() {
 		minimaxFail("exact isolated entry selection required")
 		code = 1
 	} else if glmReportState != nil && flag.Lookup("test.run").Value.String() != glmSelectedEntry() {
@@ -156,6 +166,12 @@ func TestMain(m *testing.M) {
 			code = 1
 		}
 	}
+	if regionalState != nil {
+		regionalState.report.FinishedAt = time.Now().UTC()
+		if err := run.Record("regional-report", regionalState.report); err != nil {
+			code = 1
+		}
+	}
 	if err := run.Finish(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		code = 1
@@ -185,6 +201,9 @@ func TestMain(m *testing.M) {
 	}
 	if minimaxReport != nil {
 		code = finishMiniMax(code, auditOK)
+	}
+	if regionalState != nil {
+		code = finishRegional(code, auditOK)
 	}
 	os.Exit(code)
 }

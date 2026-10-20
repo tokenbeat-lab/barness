@@ -75,6 +75,9 @@ func VerifyMiniMaxReport(r Report) error {
 	return nil
 }
 func checkMiniMax(r Report) error {
+	if _, regional := RegionalRouteOf(r.Combo); regional {
+		return nil // independently validated by checkRegional, never international proof
+	}
 	if !strings.HasPrefix(r.Combo, "minimax-") {
 		if r.MiniMax != nil {
 			return refuse("foreign report carries MiniMax proof")
