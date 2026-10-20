@@ -37,3 +37,6 @@ Host / 候选实现完成；功能当前状态仍唯一见 [spec](../spec.md#当
 - `go vet ./ai/examples/glmhost ./ai/examples/minimaxhost ./ai/examples/internal/hostconfig ./ai/internal/testkit/regional`：[回执](../../../.evidence/provider-sites/host/final-vet-host/receipt.json) 退出0。文档19处本地引用存在，新增文本/代码文件均不超过500行。
 
 `race: NOT_RUN`，自身新增 live / 付费验证 `NOT_RUN`，`release.pass: false`。九身份的 INCOMPLETE / NOT_RUN 与来源冲突仍明确保留，候选可供另行授权的真实资格验证；普通通过不授予晋升或完整发布资格。未读取真实 key 文件、未调用模型服务。
+
+
+票02 runtime 整合后复验：已合并 integration `11475c697948942caf6c15ba85f5e776198c7072`，执行来源 `03ea9ca574528fccf4eaafa5fcedef6c00375361` 的同一组合命令实际退出0，626测试节点 /603原生 case 全PASS，audit findings为空。[最终 runtime 整合回执](../../../.evidence/provider-sites/host/final-runtime-integrated-host/receipt.json)、[原生 manifest](../../../.evidence/provider-sites/host/final-runtime-integrated-host/bundle/20261020T014808.432636000Z/manifest.json) 固定更新后的完整源码集合；前述旧来源的失败/通过原件全部保留，未改时间或标签。
