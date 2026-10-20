@@ -42,3 +42,14 @@ ID3 三个 M3 进程39/36及地区 Chat18/18已完成，ZAI Responses18/18中的
 新增24各一次，最多506/518，累计领取1070/1130；旧实际378/374、领取564/612、整笔12.60USD和三UNKNOWN原样保留。未来17.30USD加旧12.60为29.90≤30，仅Google interactions图片由4.50改为2.60，其余恢复3分配不动。正常固定两次发送的保守界2.592832，但第三次已发送尝试固定项至少3.052032；2.60是可能让有界重试分支提前停止的硬cap，不是完整分支或厂商账单保证。原生三M3仍60/72、每身份20/24、4096、40000/120000；USD-policy2的Go guard及GLM245不改变。
 
 先执行预先固定的ZAI Responses完整18场景并完成原生消费，成功后才发放同一新批准覆盖的native4grant；其余23保留恢复3相对顺序。每项FAIL/UNKNOWN或额度耗尽即停，无自动完整进程重跑。新human/review额外绑定第三批seal及历史摘要，nativehuman还绑定canonical新实际回复；PENDING、重复或大小写别名均不能领取nonce或读Key。最终33角色只选六历史candidate、三保留GLM及新24，46份R2/R3/R4实际记录及更早关闭事实完整保留。实现、合成测试和审查均不授予新增付费权限；实际状态仍见[唯一规格](../../.scratch/barness-provider-sites/spec.md)及[工单17](../../.scratch/barness-provider-sites/issues/17-fixed-fourth-recovery.md)。
+
+
+## 已消费 ID4 关闭后的固定恢复 5
+
+ID4 已真实完成十八个进程：十七成功，第十八个 OpenAI Decisions 在底层 transport 前被美元 guard 拒绝。原生 recorder 的九 Calls/九 HTTP attempts 与美元 guard 零 reservation/零 transport reservation分开保存；父 UNKNOWN 不改成 PASS，也不能由 guard0/0推断厂商账单。停止索引2032项与第四批seal、原生九 authority 文件、三已用nonce、75行39/36账本和十八父claim均只读校验，实际591/584、领取980/1040、28.80USD整笔与四UNKNOWN不退款。
+
+采用固定 `provider-sites-final-acceptance-5` / schema6，旧 `recovery` 与 `thirdCohort` 嵌套事实原样保留，另增独立 `fourthCohort`25字段。旧schema1/3/4/5拒绝该新增事实；旧4活动入口关闭，历史只读校验将原grant/report/source-at-start与原08提交的Git archive互证，不要求过期来源等于当前，也不恢复旧资格。共同的完整native report、consumer和归档读取接缝在两个真实关闭历史间共享；固定批次的语义仍独立，不能由调用方选择任意新轮次。
+
+分类器预算修复会改变资金 guard 源码，因此新human/source-review/grant显式绑定当前guard.go与estimate.go两个SHA，不能把selector仍为2解释为字节未变。新5审批还需独立requestReference，不能把旧4回复改标签。拟定十九完整进程每项最多一次，378/414，累计1358/1454；旧28.80加新6.90合计35.70≤拟请求36USD。此处是离线设计，不构成任何新调用或预算批准。三M3自身仍60/72、每路线20/24、4096/40000/120000。
+
+新原生grant的 `firstRouteProof` 精确绑定首ZAI Responses完整十八场景的canonical父claim、原生报告及消费命令三个path→SHA。原生消费者要求同当前源码及冻结binary的18/18、原生来源固定为两个型号各自full-stream，检查真实 `regionalverify -formal` 命令、数字exit0、无Key继承及审计；Python控制器仍须实际完成严格原生消费。该proof在实际首PASS后才能生成；只读 `-recovery5-source` 不依赖新human/grant/proof，可用于首claim前历史核验。三个M3 preflight只读，不领取子进程nonce；任何新阶段失败/UNKNOWN或额度耗尽即停。实际授权、资格和最终十项门禁状态仍仅见[规格](../../.scratch/barness-provider-sites/spec.md)与[工单19](../../.scratch/barness-provider-sites/issues/19-recovery5-native-authority.md)。
