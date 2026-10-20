@@ -23,7 +23,7 @@ func TestRegionalProviderReleaseGrantAliases(t *testing.T) {
 	if raw, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("build: %v %s", err, regionalSafeOutput(raw))
 	}
-	for _, mode := range []string{"copied", "relabeled", "concurrent", "partial"} {
+	for _, mode := range []string{"copied", "relabeled", "concurrent", "partial", "offset"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "RP18-grant-alias-"+mode)
 			srv := provider.New(map[string]string{"synthetic-regional-controlled": "key:regional-controlled"})
@@ -39,8 +39,13 @@ func TestRegionalProviderReleaseGrantAliases(t *testing.T) {
 			grant.ExpiresAt = time.Now().UTC().Add(time.Hour)
 			paths := []string{filepath.Join(t.TempDir(), "original.json"), filepath.Join(t.TempDir(), "alias.json")}
 			first := mustMarshal(t, grant)
-			if mode == "relabeled" {
+			if mode == "relabeled" || mode == "offset" {
 				grant.ID += "-alias"
+			}
+			if mode == "offset" {
+				// Same approved instant, different RFC3339 offset spelling.
+				// A new label and representation must not create more budget.
+				grant.ExpiresAt = grant.ExpiresAt.In(time.FixedZone("synthetic-offset", 8*60*60))
 			}
 			for i, path := range paths {
 				raw := first
@@ -82,6 +87,11 @@ func TestRegionalProviderReleaseGrantAliases(t *testing.T) {
 			}
 			commands := make([]*exec.Cmd, 2)
 			bases := make([]string, 2)
+			if mode == "offset" {
+				// Same approved instant, different RFC3339 offset spelling.
+				// A new label and representation must not create more budget.
+				grant.ExpiresAt = grant.ExpiresAt.In(time.FixedZone("synthetic-offset", 8*60*60))
+			}
 			for i, path := range paths {
 				bases[i] = filepath.Join(filepath.Dir(run.Dir()), "regional-grant-alias-native", filepath.Base(run.Dir()), mode, []string{"first", "alias"}[i])
 				c := exec.CommandContext(ctxFor(t), binary, "-test.run=^TestRegionalCandidate$", "-test.timeout=120s")

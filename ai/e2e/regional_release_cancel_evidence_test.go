@@ -14,7 +14,7 @@ import (
 // A canceled Result describes emitted content, while the recorder can retain
 // valid read-ahead or an incomplete final frame. It cannot invent a prefix.
 func regionalCaptureCancellationPrefixes(t *testing.T, original, combo string) {
-	for _, mode := range []string{"read-ahead", "partial-frame", "wrong-text"} {
+	for _, mode := range []string{"read-ahead", "partial-frame", "wrong-text", "malformed-before-content"} {
 		t.Run("cancel-"+mode, func(t *testing.T) {
 			ev := run.Case(t, "RP18-cancel-evidence-"+combo+"-"+mode)
 			dir := filepath.Join(t.TempDir(), filepath.Base(original))
@@ -33,6 +33,16 @@ func regionalCaptureCancellationPrefixes(t *testing.T, original, combo string) {
 			}
 			body := xs[0]["responseBody"].(string)
 			switch mode {
+			case "malformed-before-content":
+				route, _ := supportmatrix.RegionalRouteOf(combo)
+				first := `{"choices":[{"index":0,"delta":{"role":"assistant"}}]}`
+				if route.API == "openai-responses" {
+					first = `{"type":"response.created","response":{"id":"synthetic-cancel","status":"in_progress","output":[]}}`
+				}
+				if route.API == "anthropic-messages" {
+					first = `{"type":"ping"}`
+				}
+				body = "data: " + first + "\n\ndata: {broken}\n\n" + body
 			case "wrong-text":
 				body = strings.ReplaceAll(body, "known-content", "synthetic incorrect prefix")
 			case "partial-frame":
@@ -72,7 +82,7 @@ func regionalCaptureCancellationPrefixes(t *testing.T, original, combo string) {
 			}
 			_, err = supportmatrix.VerifyRegionalControlledCapture(dir)
 			ev.Record("synthetic-cancel-evidence", map[string]any{"mode": mode, "refused": err != nil, "error": err, "originalRetained": true})
-			ev.Check("observed cancellation prefix", (err != nil) == (mode == "wrong-text"), "mode=%s error=%v", mode, err)
+			ev.Check("observed cancellation prefix", (err != nil) == (mode == "wrong-text" || mode == "malformed-before-content"), "mode=%s error=%v", mode, err)
 		})
 	}
 }
