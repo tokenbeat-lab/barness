@@ -1,6 +1,6 @@
 # 13 智谱 Responses GLM-5.2 原生续接缺少最终文本
 
-Status: needs-triage
+Status: claimed
 Type: task
 
 ## Context
@@ -24,3 +24,7 @@ Type: task
 ## Answer
 
 离线诊断完成，未发现可证明的解析或请求结构回归；本轮上游实际输出不满足最终可见文本合同。未修改运行代码、断言、原件或账本，未新增厂商调用。完整验收仍受这条真实失败阻断。
+
+## Comments
+
+2026-10-20：用户直接明确批准“智谱中国 Responses 完整22场景再跑一次，保留失败原件，总预算仍为 US$30；通过后继续剩余验收和最终完整 race”。[实际追加授权](../../../.evidence/provider-sites/final-acceptance-20261020/responses-retry-authorization.json)保留原文；仅固定一次补充进程，旧失败/UNKNOWN/整笔预留不变。通过真实b384隔离checkout、冻结原二进制及完整245来源，复用已成功Chat；不改Go/请求/断言或原报告提交。固定控制器追加入口须先公共流程RED/GREEN和独立复审，再由根任务执行；当前结果只在spec维护。
