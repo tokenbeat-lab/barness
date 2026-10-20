@@ -241,9 +241,10 @@ func TestRegionalProviderCatalogInvalidMetadata(t *testing.T) {
 	}
 }
 
-// No retained Z.AI source/own wire qualification grants China's exact
-// Messages budget1024/max4096 pair. Host metadata and hooks cannot grant it.
-func TestRegionalProviderCatalogCannotGrantChinaBudget(t *testing.T) {
+// Own 2026-10-20 ZAI research now grants exactly 1024/max4096. Preserve the
+// historical case IDs as metadata-override regressions, now for unverified 2048;
+// they no longer claim the independently evidenced 1024 shape is rejected.
+func TestRegionalProviderCatalogCannotGrantUnverifiedBudget(t *testing.T) {
 	for _, hooked := range []bool{false, true} {
 		t.Run(fmt.Sprint(hooked), func(t *testing.T) {
 			ev := run.Case(t, fmt.Sprintf("RP04-RP13-zai-cannot-grant-China-budget-hooks-%t", hooked))
@@ -252,21 +253,21 @@ func TestRegionalProviderCatalogCannotGrantChinaBudget(t *testing.T) {
 				m := &cat.Models[i]
 				if m.Provider == ai.ProviderZAI && m.API == ai.APIAnthropicMessages {
 					m.MaxTokens = 4096
-					m.Compat.MessagesThinkingBudgetTokens = 1024
+					m.Compat.MessagesThinkingBudgetTokens = 2048
 				}
 			}
 			w := regionalMetadataWorld(t, &cat)
 			b := regionalMetadataBinding(w, ai.ProviderZAI, ai.APIAnthropicMessages)
 			target := ai.Target{BindingID: b.BindingID, ModelID: "glm-5.2"}
 			id := fmt.Sprintf("zai-budget-%t", hooked)
-			opts := ai.AnthropicOptions{MaxTokens: ai.Value(4096), ThinkingEnabled: ai.Value(true), ThinkingBudgetTokens: 1024}
+			opts := ai.AnthropicOptions{MaxTokens: ai.Value(4096), ThinkingEnabled: ai.Value(true), ThinkingBudgetTokens: 2048}
 			var caller regionalCaller = w.client
 			phase := ai.PhaseCapability
 			if hooked {
 				opts = ai.AnthropicOptions{MaxTokens: ai.Value(4096)}
 				phase = ai.PhaseRequest
 				caller = w.client.WithHooks(ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, payload *ai.Payload) (ai.PayloadDecision, error) {
-					payload.Body["thinking"] = map[string]any{"type": "enabled", "budget_tokens": 1024}
+					payload.Body["thinking"] = map[string]any{"type": "enabled", "budget_tokens": 2048}
 					return ai.KeepPayload(), nil
 				}})
 			}
@@ -275,7 +276,7 @@ func TestRegionalProviderCatalogCannotGrantChinaBudget(t *testing.T) {
 			ev.Record("resolver-reads", w.host.ReadsFor(id))
 			ev.Record("requests", w.provider.Requests())
 			failure, ok := err.(*ai.Error)
-			ev.Check("ZAI has no independently qualified exact-budget subset", ok && failure.Code == ai.CodeInvalidRequest && failure.Phase == phase && len(r.Metadata.Attempts) == 0 && len(w.provider.Requests()) == 0, "err=%v attempts=%+v", err, r.Metadata.Attempts)
+			ev.Check("metadata cannot grant the unverified 2048 budget", ok && failure.Code == ai.CodeInvalidRequest && failure.Phase == phase && len(r.Metadata.Attempts) == 0 && len(w.provider.Requests()) == 0, "err=%v attempts=%+v", err, r.Metadata.Attempts)
 			if !hooked {
 				ev.Check("unsupported full budget fails before credential", w.host.ReadsFor(id).Credentials == 0, "reads=%+v", w.host.ReadsFor(id))
 			}
