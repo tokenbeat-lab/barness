@@ -32,3 +32,10 @@ Type: task
 恢复5整合66f3e50的独立Spec初审0；Standards两项P2由单一implementer先建立持久公共RED，再作最小修复：已知typed嵌套字段的alias/冲突不再覆写失败审计，合法描述扩展仍允许；canonical intent收尾读取复用现有非阻塞有界JSON读取。定向六原生preflight场景及两个FIFO场景均已GREEN。没有修改排除的actual approval疑点、guard字节/价格/SDK/生产协议或历史原件。
 
 [统一修复永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-review-fix-dev/index.json)记录精确源码、RED/中间失败、最终普通组合与退出；[控制器原48/48事实](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-controller-dev/index.json)为319.891s、clean66来源，不冒充本次新源码结果。票据保持claimed等待最终整合审查/各自验收边界；实际冻结、根检查与新增付费状态见[准备索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-preparation/index.json)，唯一功能当前状态见[规格](../spec.md#当前状态)。截至本次离线修复阶段，新US36/19进程尚无实际批准，READY/race NOT_RUN、release.pass=false；旧28.80与UNKNOWN4不退款。后续实际状态由准备索引记录。
+
+
+## Root keyless artifact follow-up
+
+ebb98e6的184原生/50 Python普通PASS与双轴0/0原件保留；首次根完整无Key检查仍实际exit1，三条预算pipeline的process/assertions共六HOME audit发现，原目录封存不覆盖。公共进程先重现真实checkout位于合成HOME的同六失败，再仅alias各自证据根，保留完整stdout/argv/route/session与环境审计。四个预算测试仍绑定精确Git来源，任意新test漂移继续拒绝；guard/价格/wire与原84兼容证明不改。
+
+[本次永久开发索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-home-audit-fix-dev/index.json)关联RED/GREEN、84请求精确不变与受影响普通范围，不能代替新根完整检查；后续实际状态只见[规格唯一当前状态](../spec.md#当前状态)及其准备索引。本票和07继续claimed，不把无Key工件修复当作新增付费资格。

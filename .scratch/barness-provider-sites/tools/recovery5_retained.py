@@ -4,7 +4,9 @@ from pathlib import Path
 import recovery5_history as h
 from recovery_flow_source import SourceFreeze
 r=h.r;c=r.c
-BUDGET_SOURCE_COMMIT='c0b065819c0b1341fe2be9ba57dafcb1e63d05c1'
+# Exact four reviewed budget-test blobs; the HOME fix only aliases its owned
+# classifier evidence roots. Guard/wire/ledger compatibility stays pinned below.
+BUDGET_SOURCE_COMMIT='8cbaea6c689f264afcb17e3b97fd0de3d8458c25'
 COMPAT_SHA256='f5d37cc92abc7d9f4db844e73ad8e00efc63d7c316824ae43afff917280907a7'
 BUDGET_TESTS={'ai/live/final_budget_process_test.go','ai/live/final_budget_pipeline_test.go','ai/live/final_budget_plan_replay_test.go','ai/examples/visualeval/final_budget_test.go'}
 
