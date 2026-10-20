@@ -1,0 +1,2072 @@
+{
+  "scope": "2026-10-18 06:02:53 to 2026-10-19 20:10:02 Asia/Shanghai",
+  "method": {
+    "unit": "seconds",
+    "counting": "Actual command elapsed time; duplicate archives excluded; embedded gates not additive. Semantic gates are not separate command launches.",
+    "limitations": [
+      "Five full pipelines launched; first aborted during LoadBundle without a release report, remaining four produced reports. Do not claim ten verdicts evaluated five times.",
+      "First full ordinary/race only retain ai/e2e package timing.",
+      "Preflight and online receipts are a retained-evidence lower bound, not an exhaustive ledger.",
+      "No independent timers for review/freeze/audit/traceability/snapshots/custody; unknown is not zero.",
+      "Full ordinary total excludes development and review focused ordinary tests."
+    ]
+  },
+  "summary": {
+    "calendarSeconds": 137228.633,
+    "fullPipelineRuns": 5,
+    "fullPipelineSeconds": 16557.206677708775,
+    "fullOrdinaryRecordedSeconds": 3159.581514291,
+    "fullRaceRecordedSeconds": 12643.891323998763,
+    "allRace": {
+      "totalRuns": 76,
+      "totalRecordedSeconds": 18540.048307472473,
+      "categories": {
+        "full": {
+          "runs": 5,
+          "seconds": 12643.891323998763
+        },
+        "targeted": {
+          "runs": 71,
+          "seconds": 5896.1569834737065
+        }
+      },
+      "replacedShellWindows": 4
+    },
+    "preflightRecordedBatches": 16,
+    "preflightRecordedCommands": 69,
+    "preflightRecordedSeconds": 2775.6433442519046,
+    "onlineRecordedProcesses": 69,
+    "onlineRecordedSeconds": 3556.633918051608,
+    "postLastGateCalendarSeconds": 4566.558002
+  },
+  "fullPipelines": [
+    {
+      "directory": ".evidence/minimax-global-final-keyless",
+      "startedAt": "2026-10-18T04:56:41.752637+00:00",
+      "startedAtShanghai": "2026-10-18T12:56:41.752637+08:00",
+      "outerSeconds": 2825.3296018340625,
+      "outerExitCode": 1,
+      "releasePass": null,
+      "ordinarySeconds": 588.256,
+      "ordinaryDurationBasis": "Go ai/e2e package duration only; no child wall receipt",
+      "raceSeconds": 2219.942,
+      "raceDurationBasis": "Go ai/e2e package duration; child wall receipt unavailable",
+      "vetRecordedSeconds": null,
+      "receipt": ".evidence/minimax-global-final-keyless/actual-releasegate-command.json",
+      "receiptSHA256": "a4959fe77f114633f705663f9e27aa15d45f25333b2277d0db5a3c1cf497a3b3",
+      "formalGates": null
+    },
+    {
+      "directory": ".evidence/minimax-routed-final-compiled-1",
+      "startedAt": "2026-10-18T08:42:46.761145+00:00",
+      "startedAtShanghai": "2026-10-18T16:42:46.761145+08:00",
+      "outerSeconds": 3083.885105374735,
+      "outerExitCode": 1,
+      "releasePass": false,
+      "ordinarySeconds": 611.293667958,
+      "ordinaryDurationBasis": "release-report command duration",
+      "raceSeconds": 2292.1957237077877,
+      "raceDurationBasis": "child command receipt",
+      "vetRecordedSeconds": 1.078159917,
+      "receipt": ".evidence/minimax-routed-final-compiled-1/actual-releasegate-command.json",
+      "receiptSHA256": "bd7746b424f9a743fbbf43cfea210c8cd9a3c8f247c552c37440991d5c9f0902",
+      "formalGates": [
+        {
+          "id": "go-test",
+          "name": "go test ./... (offline, differential on)",
+          "pass": false,
+          "problems": [
+            "go-test: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 -timeout=20m ./...)"
+          ]
+        },
+        {
+          "id": "go-test-race",
+          "name": "go test -race ./...",
+          "pass": false,
+          "problems": [
+            "go-test-race: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 -timeout=75m ./...)"
+          ]
+        },
+        {
+          "id": "go-vet",
+          "name": "go vet ./... (with and without the live tag)",
+          "pass": true
+        },
+        {
+          "id": "p0-offline",
+          "name": "every offline P0 case passes",
+          "pass": false,
+          "problems": [
+            "case GLM12-formal-import-chat=FAIL",
+            "case GLM12-formal-import-messages=FAIL",
+            "case GLM12-formal-import-responses=FAIL",
+            "case GLM12-reported-known-usage-chat=FAIL",
+            "case GLM12-reported-known-usage-messages=FAIL",
+            "case GLM12-reported-known-usage-responses=FAIL",
+            "case MM10-release-contract=FAIL",
+            "case OD57-release-recorded-bundle-diagnostic=NOT_RUN",
+            "case P0-GLM13-release-trace-complete=FAIL"
+          ]
+        },
+        {
+          "id": "differential",
+          "name": "frozen pi differential: no pending difference",
+          "pass": true
+        },
+        {
+          "id": "live",
+          "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+          "pass": false,
+          "problems": [
+            "zhipu-responses: failing now: glm-5.3/tool-call=FAIL assertion, glm-5.3/tool-result=FAIL assertion, glm-5.3/control-max=FAIL assertion"
+          ]
+        },
+        {
+          "id": "redaction-audit",
+          "name": "redaction audit: no key, Authorization or real content in any bundle",
+          "pass": true
+        },
+        {
+          "id": "traceability",
+          "name": "traceability: research item → scenario → evidence",
+          "pass": false,
+          "problems": [
+            "UC-current-live (Jev integration ticket 14 / ADR-0031) is FAIL",
+            "V6-live (research-traceability §4 V§6) is FAIL",
+            "TS-R11 (.scratch/barness-ai-thinking-sampling/spec.md#r11) is FAIL",
+            "OD-R17 (OpenAI Decisions spec R17) is FAIL",
+            "GLM-R03 (.scratch/barness-ai-glm/spec.md R03) is FAIL",
+            "GLM-R06 (.scratch/barness-ai-glm/spec.md R06) is FAIL",
+            "GLM-R17 (.scratch/barness-ai-glm/spec.md R17) is FAIL",
+            "GLM-R21 (.scratch/barness-ai-glm/spec.md R21) is FAIL",
+            "GLM-A01 (.scratch/barness-ai-glm/spec.md A01) is FAIL",
+            "GLM-A02 (.scratch/barness-ai-glm/spec.md A02) is FAIL",
+            "GLM-A09 (.scratch/barness-ai-glm/spec.md A09) is FAIL",
+            "GLM-A12 (.scratch/barness-ai-glm/spec.md A12) is FAIL",
+            "GLM-A15 (.scratch/barness-ai-glm/spec.md A15) is FAIL",
+            "GLM-US13 (.scratch/barness-ai-glm/spec.md US13) is FAIL",
+            "GLM-US14 (.scratch/barness-ai-glm/spec.md US14) is FAIL",
+            "GLM-US15 (.scratch/barness-ai-glm/spec.md US15) is FAIL",
+            "GLM-US16 (.scratch/barness-ai-glm/spec.md US16) is FAIL",
+            "GLM-US36 (.scratch/barness-ai-glm/spec.md US36) is FAIL",
+            "GLM-US37 (.scratch/barness-ai-glm/spec.md US37) is FAIL",
+            "GLM-US38 (.scratch/barness-ai-glm/spec.md US38) is FAIL",
+            "GLM-US39 (.scratch/barness-ai-glm/spec.md US39) is FAIL",
+            "GLM-US51 (.scratch/barness-ai-glm/spec.md US51) is FAIL",
+            "GLM-US52 (.scratch/barness-ai-glm/spec.md US52) is FAIL",
+            "GLM-US53 (.scratch/barness-ai-glm/spec.md US53) is FAIL",
+            "GLM-US54 (.scratch/barness-ai-glm/spec.md US54) is FAIL",
+            "GLM-US55 (.scratch/barness-ai-glm/spec.md US55) is FAIL",
+            "GLM-US56 (.scratch/barness-ai-glm/spec.md US56) is FAIL",
+            "GLM-US59 (.scratch/barness-ai-glm/spec.md US59) is FAIL",
+            "MM-R06 (.scratch/barness-ai-minimax/spec.md R06) is FAIL",
+            "MM-R26 (.scratch/barness-ai-minimax/spec.md R26) is FAIL",
+            "MM-R27 (.scratch/barness-ai-minimax/spec.md R27) is FAIL",
+            "MM-T04 (.scratch/barness-ai-minimax/spec.md T04) is FAIL",
+            "MM-A20 (.scratch/barness-ai-minimax/spec.md A20) is FAIL",
+            "MM-US15 (.scratch/barness-ai-minimax/spec.md US15) is FAIL",
+            "MM-US67 (.scratch/barness-ai-minimax/spec.md US67) is FAIL",
+            "MM-US69 (.scratch/barness-ai-minimax/spec.md US69) is FAIL",
+            "MM-US74 (.scratch/barness-ai-minimax/spec.md US74) is FAIL",
+            "MM-US75 (.scratch/barness-ai-minimax/spec.md US75) is FAIL",
+            "MM-US76 (.scratch/barness-ai-minimax/spec.md US76) is FAIL",
+            "MM-US80 (.scratch/barness-ai-minimax/spec.md US80) is FAIL"
+          ]
+        },
+        {
+          "id": "snapshots",
+          "name": "checked-in snapshots match the code",
+          "pass": false,
+          "problems": [
+            "release-plan: stale: release acceptance contract incomplete: approved evidence mappings changed"
+          ]
+        },
+        {
+          "id": "required-artifacts",
+          "name": "mixed image design loads and independent text/visual business evaluation",
+          "pass": false,
+          "problems": [
+            "race-offline: FAIL case GLM12-formal-import-chat=FAIL; case GLM12-formal-import-messages=FAIL; case GLM12-formal-import-responses=FAIL; case GLM12-reported-known-usage-chat=FAIL; case GLM12-reported-known-usage-messages=FAIL; case GLM12-reported-known-usage-responses=FAIL; case MM10-release-contract=FAIL; case OD57-release-recorded-bundle-diagnostic=NOT_RUN; case P0-GLM13-release-trace-complete=FAIL"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": ".evidence/minimax-release-repair-incomplete-gate-1",
+      "startedAt": "2026-10-18T12:03:58.083462+00:00",
+      "startedAtShanghai": "2026-10-18T20:03:58.083462+08:00",
+      "outerSeconds": 3113.9211304998025,
+      "outerExitCode": 1,
+      "releasePass": false,
+      "ordinarySeconds": 644.3554735,
+      "ordinaryDurationBasis": "release-report command duration",
+      "raceSeconds": 2286.9994075000286,
+      "raceDurationBasis": "child command receipt",
+      "vetRecordedSeconds": 1.140364833,
+      "receipt": ".evidence/minimax-release-repair-incomplete-gate-1/actual-current-releasegate-command.json",
+      "receiptSHA256": "52d49b8cca3dba89bdb4eaf32bbcd94cc8bd64f70e639bc11a0cda7999b5a83c",
+      "formalGates": [
+        {
+          "id": "go-test",
+          "name": "go test ./... (offline, differential on)",
+          "pass": false,
+          "problems": [
+            "go-test: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -count=1 -timeout=20m ./...)"
+          ]
+        },
+        {
+          "id": "go-test-race",
+          "name": "go test -race ./...",
+          "pass": false,
+          "problems": [
+            "go-test-race: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 -timeout=75m ./...)"
+          ]
+        },
+        {
+          "id": "go-vet",
+          "name": "go vet ./... (with and without the live tag)",
+          "pass": true
+        },
+        {
+          "id": "p0-offline",
+          "name": "every offline P0 case passes",
+          "pass": false,
+          "problems": [
+            "case GLM12-formal-import-chat=FAIL",
+            "case GLM12-formal-import-messages=FAIL",
+            "case GLM12-formal-import-responses=FAIL",
+            "case GLM12-reported-known-usage-chat=FAIL",
+            "case GLM12-reported-known-usage-messages=FAIL",
+            "case GLM12-reported-known-usage-responses=FAIL"
+          ]
+        },
+        {
+          "id": "differential",
+          "name": "frozen pi differential: no pending difference",
+          "pass": true
+        },
+        {
+          "id": "live",
+          "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+          "pass": false,
+          "problems": [
+            "typesafe-classifier-jev-1.14.0: live report does not match the current complete matrix run",
+            "zhipu-chat: live report does not match the current complete matrix run",
+            "zhipu-responses: failing now: glm-5.3/tool-call=FAIL assertion, glm-5.3/tool-result=FAIL assertion, glm-5.3/control-max=FAIL assertion",
+            "zhipu-messages: no live evidence bundle of this combination was audited (pass its current report with -live)"
+          ]
+        },
+        {
+          "id": "redaction-audit",
+          "name": "redaction audit: no key, Authorization or real content in any bundle",
+          "pass": true
+        },
+        {
+          "id": "traceability",
+          "name": "traceability: research item → scenario → evidence",
+          "pass": false,
+          "problems": [
+            "UC-current-live (Jev integration ticket 14 / ADR-0031) is FAIL",
+            "V6-live (research-traceability §4 V§6) is FAIL",
+            "TS-R11 (.scratch/barness-ai-thinking-sampling/spec.md#r11) is FAIL",
+            "OD-R17 (OpenAI Decisions spec R17) is FAIL",
+            "GLM-R03 (.scratch/barness-ai-glm/spec.md R03) is FAIL",
+            "GLM-R06 (.scratch/barness-ai-glm/spec.md R06) is FAIL",
+            "GLM-R17 (.scratch/barness-ai-glm/spec.md R17) is FAIL",
+            "GLM-R21 (.scratch/barness-ai-glm/spec.md R21) is FAIL",
+            "GLM-A01 (.scratch/barness-ai-glm/spec.md A01) is FAIL",
+            "GLM-A02 (.scratch/barness-ai-glm/spec.md A02) is FAIL",
+            "GLM-A09 (.scratch/barness-ai-glm/spec.md A09) is FAIL",
+            "GLM-A12 (.scratch/barness-ai-glm/spec.md A12) is FAIL",
+            "GLM-A15 (.scratch/barness-ai-glm/spec.md A15) is FAIL",
+            "GLM-US13 (.scratch/barness-ai-glm/spec.md US13) is FAIL",
+            "GLM-US14 (.scratch/barness-ai-glm/spec.md US14) is FAIL",
+            "GLM-US15 (.scratch/barness-ai-glm/spec.md US15) is FAIL",
+            "GLM-US16 (.scratch/barness-ai-glm/spec.md US16) is FAIL",
+            "GLM-US36 (.scratch/barness-ai-glm/spec.md US36) is FAIL",
+            "GLM-US37 (.scratch/barness-ai-glm/spec.md US37) is FAIL",
+            "GLM-US38 (.scratch/barness-ai-glm/spec.md US38) is FAIL",
+            "GLM-US39 (.scratch/barness-ai-glm/spec.md US39) is FAIL",
+            "GLM-US51 (.scratch/barness-ai-glm/spec.md US51) is FAIL",
+            "GLM-US52 (.scratch/barness-ai-glm/spec.md US52) is FAIL",
+            "GLM-US53 (.scratch/barness-ai-glm/spec.md US53) is FAIL",
+            "GLM-US54 (.scratch/barness-ai-glm/spec.md US54) is FAIL",
+            "GLM-US55 (.scratch/barness-ai-glm/spec.md US55) is FAIL",
+            "GLM-US56 (.scratch/barness-ai-glm/spec.md US56) is FAIL",
+            "GLM-US59 (.scratch/barness-ai-glm/spec.md US59) is FAIL",
+            "MM-R06 (.scratch/barness-ai-minimax/spec.md R06) is FAIL",
+            "MM-R26 (.scratch/barness-ai-minimax/spec.md R26) is FAIL",
+            "MM-R27 (.scratch/barness-ai-minimax/spec.md R27) is FAIL",
+            "MM-T04 (.scratch/barness-ai-minimax/spec.md T04) is FAIL",
+            "MM-A20 (.scratch/barness-ai-minimax/spec.md A20) is FAIL",
+            "MM-US15 (.scratch/barness-ai-minimax/spec.md US15) is FAIL",
+            "MM-US69 (.scratch/barness-ai-minimax/spec.md US69) is FAIL",
+            "MM-US74 (.scratch/barness-ai-minimax/spec.md US74) is FAIL",
+            "MM-US75 (.scratch/barness-ai-minimax/spec.md US75) is FAIL",
+            "MM-US76 (.scratch/barness-ai-minimax/spec.md US76) is FAIL",
+            "MM-US80 (.scratch/barness-ai-minimax/spec.md US80) is FAIL"
+          ]
+        },
+        {
+          "id": "snapshots",
+          "name": "checked-in snapshots match the code",
+          "pass": true
+        },
+        {
+          "id": "required-artifacts",
+          "name": "mixed image design loads and independent text/visual business evaluation",
+          "pass": false,
+          "problems": [
+            "race-offline: FAIL case GLM12-formal-import-chat=FAIL; case GLM12-formal-import-messages=FAIL; case GLM12-formal-import-responses=FAIL; case GLM12-reported-known-usage-chat=FAIL; case GLM12-reported-known-usage-messages=FAIL; case GLM12-reported-known-usage-responses=FAIL"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": ".evidence/minimax-current-eleven-gate-2",
+      "startedAt": "2026-10-19T06:48:39.907696+00:00",
+      "startedAtShanghai": "2026-10-19T14:48:39.907696+08:00",
+      "outerSeconds": 3770.7171571250074,
+      "outerExitCode": 1,
+      "releasePass": false,
+      "ordinarySeconds": 647.827079,
+      "ordinaryDurationBasis": "release-report command duration",
+      "raceSeconds": 2932.2393203331158,
+      "raceDurationBasis": "child command receipt",
+      "vetRecordedSeconds": 1.331132124,
+      "receipt": ".evidence/minimax-current-eleven-gate-2/full-releasegate-command.json",
+      "receiptSHA256": "d107ed04ed5fc0addef2b0b60a22117b86b4959a354c59dc785f6276c9c543a4",
+      "formalGates": [
+        {
+          "id": "go-test",
+          "name": "go test ./... (offline, differential on)",
+          "pass": true
+        },
+        {
+          "id": "go-test-race",
+          "name": "go test -race ./...",
+          "pass": false,
+          "problems": [
+            "go-test-race: failed (BARNESS_AI_PIDIFF=1 BARNESS_AI_PRESSURE=1 go test -race -count=1 -timeout=75m ./...)"
+          ]
+        },
+        {
+          "id": "go-vet",
+          "name": "go vet ./... (with and without the live tag)",
+          "pass": true
+        },
+        {
+          "id": "p0-offline",
+          "name": "every offline P0 case passes",
+          "pass": true
+        },
+        {
+          "id": "differential",
+          "name": "frozen pi differential: no pending difference",
+          "pass": true
+        },
+        {
+          "id": "live",
+          "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+          "pass": true
+        },
+        {
+          "id": "redaction-audit",
+          "name": "redaction audit: no key, Authorization or real content in any bundle",
+          "pass": false,
+          "problems": [
+            "/Users/cyber/RestoX/barness/.evidence/minimax-current-eleven-gate-2/gate/race/20261019T065939.629010000Z: evidence bundle failed redaction audit",
+            "/Users/cyber/RestoX/barness/.evidence/minimax-current-eleven-gate-2/gate/race/20261019T065939.629010000Z: visual-failure-decisions-plain-deadline/samples/v08/request.json [unparseable] not JSON (invalid): JSON rules not applied",
+            "/Users/cyber/RestoX/barness/.evidence/minimax-current-eleven-gate-2/gate/race/20261019T065939.629010000Z: visual-failure-decisions-plain-deadline/samples/v08/request.json [unparseable] recorded by the run: not JSON (invalid): JSON rules not applied"
+          ]
+        },
+        {
+          "id": "traceability",
+          "name": "traceability: research item → scenario → evidence",
+          "pass": false,
+          "problems": [
+            "TS-R11 (.scratch/barness-ai-thinking-sampling/spec.md#r11) is FAIL"
+          ]
+        },
+        {
+          "id": "snapshots",
+          "name": "checked-in snapshots match the code",
+          "pass": true
+        },
+        {
+          "id": "required-artifacts",
+          "name": "mixed image design loads and independent text/visual business evaluation",
+          "pass": false,
+          "problems": [
+            "race-minimax-design-load-local-chat: evidence package lacks a clean audit",
+            "race-minimax-design-load-local-responses: evidence package lacks a clean audit",
+            "race-minimax-design-load-local-messages: evidence package lacks a clean audit",
+            "race-minimax-design-load-cloud-chat: evidence package lacks a clean audit",
+            "race-minimax-design-load-cloud-responses: evidence package lacks a clean audit",
+            "race-minimax-design-load-cloud-messages: evidence package lacks a clean audit",
+            "race-offline: FAIL case VQ12-failure-decisions-plain-deadline=FAIL",
+            "race-offline: evidence package lacks a clean audit",
+            "race-differential: evidence package lacks a clean audit",
+            "race-mixed-pressure-local: evidence package lacks a clean audit",
+            "race-mixed-pressure-cloud: evidence package lacks a clean audit",
+            "race-authorization-revocation: evidence package lacks a clean audit",
+            "race-multimodal-images-plain: evidence package lacks a clean audit",
+            "race-multimodal-images-hooked: evidence package lacks a clean audit"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": ".evidence/minimax-current-visual-gate-1",
+      "startedAt": "2026-10-19T09:51:12.088315+00:00",
+      "startedAtShanghai": "2026-10-19T17:51:12.088315+08:00",
+      "outerSeconds": 3763.3536828751676,
+      "outerExitCode": 0,
+      "releasePass": true,
+      "ordinarySeconds": 667.849293833,
+      "ordinaryDurationBasis": "release-report command duration",
+      "raceSeconds": 2912.514872457832,
+      "raceDurationBasis": "child command receipt",
+      "vetRecordedSeconds": 1.217323666,
+      "receipt": ".evidence/minimax-current-visual-gate-1/full-releasegate-command.json",
+      "receiptSHA256": "f37ecc39aa553f30ce019715fb16c359bd7bb12b44e9c7f67f49ffd179cba175",
+      "formalGates": [
+        {
+          "id": "go-test",
+          "name": "go test ./... (offline, differential on)",
+          "pass": true
+        },
+        {
+          "id": "go-test-race",
+          "name": "go test -race ./...",
+          "pass": true
+        },
+        {
+          "id": "go-vet",
+          "name": "go vet ./... (with and without the live tag)",
+          "pass": true
+        },
+        {
+          "id": "p0-offline",
+          "name": "every offline P0 case passes",
+          "pass": true
+        },
+        {
+          "id": "differential",
+          "name": "frozen pi differential: no pending difference",
+          "pass": true
+        },
+        {
+          "id": "live",
+          "name": "every combination fully passed its live smoke (PASS or explicit UNSUPPORTED)",
+          "pass": true
+        },
+        {
+          "id": "redaction-audit",
+          "name": "redaction audit: no key, Authorization or real content in any bundle",
+          "pass": true
+        },
+        {
+          "id": "traceability",
+          "name": "traceability: research item → scenario → evidence",
+          "pass": true
+        },
+        {
+          "id": "snapshots",
+          "name": "checked-in snapshots match the code",
+          "pass": true
+        },
+        {
+          "id": "required-artifacts",
+          "name": "mixed image design loads and independent text/visual business evaluation",
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "formalGates": [
+    {
+      "id": "go-test",
+      "content": "全仓普通测试，包含单元与 E2E，开启差分和压力",
+      "trigger": "完整 releasegate 四命令中的第3条",
+      "duration": "5次全量，累计约52分40秒；开发/审查中的定向普通测试未完整汇总"
+    },
+    {
+      "id": "go-test-race",
+      "content": "完整现有测试加 Go 数据竞争检测，独立产物",
+      "trigger": "当前CLI在普通测试之后自动运行，即使普通失败也继续",
+      "duration": "全程76次约5小时9分；其中5次全量约3小时30分44秒、71次定向约1小时38分16秒"
+    },
+    {
+      "id": "go-vet",
+      "content": "go vet ./... 和 go vet -tags live ./...",
+      "trigger": "每次完整门禁开头；另在预检及开发中重复",
+      "duration": "4轮正式报告8条命令约4.77秒，首轮内部缺单计时；预检32条约17.87秒；其他开发vet未完整汇总"
+    },
+    {
+      "id": "p0-offline",
+      "content": "每个必需P0场景有通过的离线证据",
+      "trigger": "普通测试生成结果，发布Evaluate时验收",
+      "duration": "测试部分包含在普通/race时长内；语义汇总未单计时"
+    },
+    {
+      "id": "differential",
+      "content": "冻结pi对照、差异账本无pending、场景与扩展路线完整",
+      "trigger": "BARNESS_AI_PIDIFF=1生成对照；发布Evaluate核对",
+      "duration": "包含在普通/race及发布消费内，未独立计时"
+    },
+    {
+      "id": "live",
+      "content": "必需Provider/API/model身份具备有效真实支持报告与原件审计",
+      "trigger": "真实收集后，支持矩阵导入和发布Evaluate时",
+      "duration": "判定未单计时；已追回69个真实在线进程约59分17秒，属不完整下界，含业务效果和一次诊断，不能全部归给此单项"
+    },
+    {
+      "id": "redaction-audit",
+      "content": "普通、race、live及四项效果全部包无Key/Authorization/真实敏感内容泄露",
+      "trigger": "每包收尾、外层发布、封存及读回时重复",
+      "duration": "包含在测试/发布/封存内，未独立计时"
+    },
+    {
+      "id": "traceability",
+      "content": "研究条款/用户故事/验收项→场景→实际通过的证据",
+      "trigger": "发布Evaluate时，来源或map改变需重新核对",
+      "duration": "未独立计时"
+    },
+    {
+      "id": "snapshots",
+      "content": "目录快照、release-plan映射hash、classifier扩展登记及压力约束一致",
+      "trigger": "CLI先准备检查结果，发布Evaluate判定",
+      "duration": "未独立计时"
+    },
+    {
+      "id": "required-artifacts",
+      "content": "混合图像设计负载、撤权、本地/云端、多模态、MiniMax负载、两项中文与两项视觉效果及独立race证据",
+      "trigger": "各生产者生成原件，CLI加载并验证，Evaluate必须全通过",
+      "duration": "生产包含在普通/race/在线进程内；加载、哈希、审计未单计时"
+    }
+  ],
+  "workflowChecks": [
+    {
+      "name": "开发失败先行/定向验证",
+      "content": "公共Client E2E、必要隔离测试和工具负例先RED后GREEN；修复后回归",
+      "trigger": "每项行为实现及修复",
+      "duration": "定向race71次约1小时38分16秒；定向普通/工具测试尚未有完整分账"
+    },
+    {
+      "name": "独立双轴审查",
+      "content": "Standards和Spec；运行源码、执行工具、证据工具、文档及实际数据反复复审",
+      "trigger": "集成、付费前精确冻结、修复和最终关闭",
+      "duration": "未统一计时，无法独立汇总；并行审查的历时不能直接相加"
+    },
+    {
+      "name": "来源冻结/构建/guard",
+      "content": "HEAD、来源文件、二进制、计划与review pins一致；执行前后守卫",
+      "trigger": "prepare；每次受控执行前后；冻结内字节变更使其失效",
+      "duration": "散落于prepare/执行命令；源码哈希与guard未独立计时"
+    },
+    {
+      "name": "付费前无Key预检",
+      "content": "最终为双vet、no-key-live、visual proxy、release contracts、release package六项；早期实际批次为3/4项",
+      "trigger": "新轮冻结后、读取凭证/建立付费intent前；失败拒绝进入paid",
+      "duration": "已追回至少16批69条命令，累计约46分16秒；未含独立开发检查"
+    },
+    {
+      "name": "人工授权/资格/预算/一次性intent",
+      "content": "明确区域、代理、模型用途和凭据资格；绑定source/binary/plan/checks及预算；持久intent防重复执行",
+      "trigger": "每个新付费轮次及每个选定任务读取Key之前",
+      "duration": "没有统一独立计时；授权等待包含在38小时7分的日历跨度内，无法剥离"
+    },
+    {
+      "name": "真实研究/候选/正式/续期及公开消费",
+      "content": "三协议、旧Provider、GLM、protocol114、中文/视觉业务效果；失败完整保留，当前来源资格不能用旧PASS替代",
+      "trigger": "获得指定轮授权后；来源失效或实际失败且再次获批后补验",
+      "duration": "已追回69个在线进程，累计约59分17秒，非全覆盖下界；与formal live/required-artifacts重叠"
+    },
+    {
+      "name": "目录激活/来源资格/支持矩阵",
+      "content": "自身正式报告、canonical origin、价格与资格符合规则；17身份原子审计导入；保留M3.1 NOT_RUN",
+      "trigger": "候选转正式、报告导入、来源修改后的续期及发布前",
+      "duration": "未独立汇总；部分包含公开消费命令与发布CLI"
+    },
+    {
+      "name": "证据封存/有界读取/负向检查/公开读回",
+      "content": "文件库存、hash、路径授权、有限资源读取、不可变失败记录；实际原件和portable reader可消费",
+      "trigger": "每轮归档、工具修正后、交付前独立复核",
+      "duration": "未统一计时；不能将最后单次复制或单个verify视为全程总耗时"
+    },
+    {
+      "name": "最终集成/状态/关闭",
+      "content": "当前源码、11组严格证明、17身份、四效果、完整门禁和双轴审查一致，原件指针可复核",
+      "trigger": "全部必要检查完成后关闭票10/09/spec并清理工作树",
+      "duration": "最后一次完整门禁结束到关闭历时76分7秒；包含多种活动，不是该关卡独占执行时间"
+    }
+  ],
+  "preflightReceipts": {
+    "note": "Lower bound from retained named checks batches; excludes standalone keyless development tests and repeated copies.",
+    "uniqueCommandCount": 69,
+    "uniqueSeconds": 2775.6433442519046,
+    "byName": {
+      "vet": {
+        "commands": 16,
+        "seconds": 9.568287747912109
+      },
+      "vet-live": {
+        "commands": 16,
+        "seconds": 8.29836245905608
+      },
+      "no-key-live": {
+        "commands": 16,
+        "seconds": 2441.766461128369
+      },
+      "no-key-visual-proxy": {
+        "commands": 9,
+        "seconds": 59.36847637454048
+      },
+      "no-key-release-contracts": {
+        "commands": 6,
+        "seconds": 44.76355641754344
+      },
+      "no-key-release-package": {
+        "commands": 6,
+        "seconds": 211.87820012448356
+      }
+    },
+    "batches": [
+      {
+        "path": ".evidence/minimax-global-legacy-final/checks.json",
+        "passed": true,
+        "seconds": 114.96922566648573,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T04:34:54.520577+00:00"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/checks.json",
+        "passed": true,
+        "seconds": 263.01193825062364,
+        "uniqueCommands": 6,
+        "firstStartedAt": "2026-10-19T08:58:18.890209+00:00"
+      },
+      {
+        "path": ".evidence/minimax-routed-glm-1-pre-review-83ff7d6/checks.json",
+        "passed": true,
+        "seconds": 128.97849541530013,
+        "uniqueCommands": 4,
+        "firstStartedAt": "2026-10-18T07:55:46.831409+00:00"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/checks.json",
+        "passed": true,
+        "seconds": 257.6518737487495,
+        "uniqueCommands": 6,
+        "firstStartedAt": "2026-10-19T06:14:17.501908+00:00"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/checks.json",
+        "passed": true,
+        "seconds": 257.6315424591303,
+        "uniqueCommands": 6,
+        "firstStartedAt": "2026-10-19T05:41:59.709412+00:00"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/checks.json",
+        "passed": true,
+        "seconds": 139.40106608346105,
+        "uniqueCommands": 4,
+        "firstStartedAt": "2026-10-18T08:20:27.709006+00:00"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1/checks.json",
+        "passed": false,
+        "seconds": 116.50209141802043,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T03:51:57.360356+00:00"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/checks.json",
+        "passed": true,
+        "seconds": 125.86448620865121,
+        "uniqueCommands": 4,
+        "firstStartedAt": "2026-10-18T08:04:23.413200+00:00"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/checks.json",
+        "passed": true,
+        "seconds": 119.53048520768061,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T03:00:01.625558+00:00"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/checks.json",
+        "passed": true,
+        "seconds": 118.67679270775989,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T02:53:08.782413+00:00"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/checks.json",
+        "passed": true,
+        "seconds": 116.67011825134978,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T01:47:17.425387+00:00"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/checks.json",
+        "passed": true,
+        "seconds": 118.2178361248225,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T04:07:53.918804+00:00"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/checks.json",
+        "passed": true,
+        "seconds": 263.5964828338474,
+        "uniqueCommands": 6,
+        "firstStartedAt": "2026-10-18T11:44:33.506980+00:00"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/checks.json",
+        "passed": false,
+        "seconds": 263.5407270002179,
+        "uniqueCommands": 6,
+        "firstStartedAt": "2026-10-19T05:26:39.470831+00:00"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/checks.json",
+        "passed": true,
+        "seconds": 261.28643545880914,
+        "uniqueCommands": 6,
+        "firstStartedAt": "2026-10-18T11:09:29.447762+00:00"
+      },
+      {
+        "path": ".evidence/minimax-retained/cleaned-worktrees/minimax-11/.evidence/mm11-keyless-e9731a4/checks.json",
+        "passed": true,
+        "seconds": 110.11374741699547,
+        "uniqueCommands": 3,
+        "firstStartedAt": "2026-10-18T01:36:27.587965+00:00"
+      }
+    ],
+    "commands": [
+      {
+        "path": ".evidence/minimax-global-legacy-final/vet-command.json",
+        "name": "vet",
+        "seconds": 0.44818033277988434,
+        "startedAt": "2026-10-18T04:34:54.520577+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "083ec237db4206ae6e2e0cf48ef330bf7203e706b9f235de87c84a895ec08082"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.33449829183518887,
+        "startedAt": "2026-10-18T04:34:54.980836+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "16c21278ee6d3b669d0e7b6ce0d9e6d7f58844eebe78755bcc8e9c8c5f4a4fb3"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 114.18654704187065,
+        "startedAt": "2026-10-18T04:34:55.315940+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "1dff632a8deb77fc182c35fd63f1eafabce4ad9c6dd67eb55f95fb88a87f8249"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.4986097919754684,
+        "startedAt": "2026-10-19T08:58:18.890209+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "1eb5bb3812ff6b78b097b1c43deb3dbc8f19709b262736c9673931e690f812b8"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.3422770001925528,
+        "startedAt": "2026-10-19T08:58:20.001421+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "cdff35c41785679ad8799f1ff3c3c19dcafb13ed14f11b26db50591b3b7999e1"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 211.25352816702798,
+        "startedAt": "2026-10-19T08:58:20.953630+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "cf6606d37216312cd104afd07080e9a37c2c84be54b594c0be34140c67a75435"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.365113082807511,
+        "startedAt": "2026-10-19T09:01:52.985561+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "987049ed26d907d2252d95ded8a875cff82c6f38db4c3239ae9592772919b9df"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/no-key-release-contracts-command.json",
+        "name": "no-key-release-contracts",
+        "seconds": 6.924008458852768,
+        "startedAt": "2026-10-19T09:02:00.016599+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "8ef807784b0a679162556886541eb22d14124c9c73f9d8b89e100be7c62afc57"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/no-key-release-package-command.json",
+        "name": "no-key-release-package",
+        "seconds": 37.62840174976736,
+        "startedAt": "2026-10-19T09:02:07.948770+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "b852e332a2a169d8f9659a9172a0a19c7c8737fa4293de86cda6e6ddb69d300f"
+      },
+      {
+        "path": ".evidence/minimax-routed-glm-1-pre-review-83ff7d6/vet-command.json",
+        "name": "vet",
+        "seconds": 0.706877457909286,
+        "startedAt": "2026-10-18T07:55:46.831409+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "523fc5fb60c761d6d608c761cdf712cb233ddb6eba0363a8b3d5ff144fc4ceb5"
+      },
+      {
+        "path": ".evidence/minimax-routed-glm-1-pre-review-83ff7d6/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.6006604167632759,
+        "startedAt": "2026-10-18T07:55:47.539459+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "929bbe9d94c1fc633cd2da431b5a18e696b70284851f4b8fb0f527a0260de6d8"
+      },
+      {
+        "path": ".evidence/minimax-routed-glm-1-pre-review-83ff7d6/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 120.75826645782217,
+        "startedAt": "2026-10-18T07:55:48.140757+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "b342df435a53cc80de85b065ef19a92a9930f6d847aa1de740d6409d4f8b9779"
+      },
+      {
+        "path": ".evidence/minimax-routed-glm-1-pre-review-83ff7d6/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.912691082805395,
+        "startedAt": "2026-10-18T07:57:49.188913+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "837a8ee1a2452de95a65a4f5795d6bbb3a4a43686011aa734888b94f105c8d06"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.3389631658792496,
+        "startedAt": "2026-10-19T06:14:17.501908+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "acd42b4ae8ff0448a4dce1da17399e484ff7e98514299616fbe6865a1d2a1b34"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.3397572082467377,
+        "startedAt": "2026-10-19T06:14:18.622563+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "b4d6f617270010216a6de4dd0a52044003c38d06b9bbc992913014f3d529c330"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 208.52339712530375,
+        "startedAt": "2026-10-19T06:14:19.761346+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "73177bf96d32695ca6cb8ad828a217f89c8d8281cd628c2a08e1528a22a16dea"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.465391291305423,
+        "startedAt": "2026-10-19T06:17:49.307262+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "5381bd515b47a9d747eeaa750966aa75865b7e87445168d90d688bd7c48e862b"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/no-key-release-contracts-command.json",
+        "name": "no-key-release-contracts",
+        "seconds": 7.45483783306554,
+        "startedAt": "2026-10-19T06:17:56.604961+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "29bc34478951325477701691b44f3e8a5ac8859a95ff7e9653171b47d13b1304"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/no-key-release-package-command.json",
+        "name": "no-key-release-package",
+        "seconds": 34.5295271249488,
+        "startedAt": "2026-10-19T06:18:04.851842+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "1ddb276c82bd163d9b7d74e4901315adc3830e9b39d1a18ac1d77077a4bd13ad"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/vet-command.json",
+        "name": "vet",
+        "seconds": 0.4718731250613928,
+        "startedAt": "2026-10-19T05:41:59.709412+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "ee0346c110382b179771b33f13a570b628905be216b6ba92f91e70975f9463e8"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.4185041249729693,
+        "startedAt": "2026-10-19T05:42:00.580373+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "6e5cda0be2171dbd96c3b1eacd2e997264a0700a227cff869049ca59d2e4edbe"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 209.90143274981529,
+        "startedAt": "2026-10-19T05:42:01.398783+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "ba2b1ecb89602649d3beae9aed592a02a61e35a4df390d574e0ef1c7056c5007"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.3420395837165415,
+        "startedAt": "2026-10-19T05:45:31.864914+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "8eb05ee67298d650d7d3c094feb0d56cb2815667f430d04d267e5fedc817ed08"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/no-key-release-contracts-command.json",
+        "name": "no-key-release-contracts",
+        "seconds": 6.8843451254069805,
+        "startedAt": "2026-10-19T05:45:38.615198+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "b19e325318ab215f3320948af8d8259e9151e4f226ca6e1e7d66e2bbd14d6541"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/no-key-release-package-command.json",
+        "name": "no-key-release-package",
+        "seconds": 33.61334775015712,
+        "startedAt": "2026-10-19T05:45:45.901781+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "89963943fdbe3f5cd91ad0e491b9b165c88839ef126762a70e182aaf5758313b"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.41488483315333724,
+        "startedAt": "2026-10-18T08:20:27.709006+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "56b1dd91d233137e28c1e0492e6562fae7831ddfbce9b26e89eafa93ab3ff5a7"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.3472592909820378,
+        "startedAt": "2026-10-18T08:20:28.124789+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "4cc962bd850173bc969d527f52986afa6842ae4f3519f5d2869ba496977fb66f"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 130.7708288752474,
+        "startedAt": "2026-10-18T08:20:28.472635+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "ae38daad7b6aede2e3259bd1ef3138b4777b13f433a3b99c5bea47ac069fe5fe"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 7.868093084078282,
+        "startedAt": "2026-10-18T08:22:39.541604+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "7dec906ad004ec91eebc5f19902859a2a17cc63870927ea370201d445765bfe0"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.4115994586609304,
+        "startedAt": "2026-10-18T03:51:57.360356+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "08e3605f308a041b706d5f75fc90bee1d6a1eedb13787f87ad0373442e2b0ebf"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.4026215001940727,
+        "startedAt": "2026-10-18T03:51:57.773187+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "59fdc78f6853424237285fb0c055e5d46560e677fc3625fef247c0712a8de8b7"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 115.68787045916542,
+        "startedAt": "2026-10-18T03:51:58.176610+00:00",
+        "state": "COMPLETED",
+        "exitCode": 1,
+        "receiptSHA256": "0efc438d8f0e8a8c92014a9b8544092f9809cd21509fb377e2ff1c024757b38b"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/vet-command.json",
+        "name": "vet",
+        "seconds": 0.5265088747255504,
+        "startedAt": "2026-10-18T08:04:23.413200+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "6c35fae541db599282c62d9a07796d4586dc68a834ef15c8d46244db9d7c6919"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.35229466715827584,
+        "startedAt": "2026-10-18T08:04:23.940828+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "98b4b647ed446e5e814c418bb54a9919fa321cf094050ac28a83d061828330ad"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 119.1442593340762,
+        "startedAt": "2026-10-18T08:04:24.293814+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "1f5c743e022bcd505fcc90353b65e7bf441b8cee32e04acb06ca56f1accb8be1"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 5.841423332691193,
+        "startedAt": "2026-10-18T08:06:23.665384+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "40714096ba50ce24fcae50cc843c29259c76f59ec06df4a622183638d9dbddb9"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/vet-command.json",
+        "name": "vet",
+        "seconds": 0.9125462081283331,
+        "startedAt": "2026-10-18T03:00:01.625558+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "7b7c45660ad0d78d0611a8fda57dae714a09bd97b2124750cf73b972c7e1cac1"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.7806611247360706,
+        "startedAt": "2026-10-18T03:00:02.554188+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "b00cecd7766c1502ea4d404b78e705469d5b4f9948065300b67512bb8c046003"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 117.83727787481621,
+        "startedAt": "2026-10-18T03:00:03.335516+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "96714414891a4e6c8fe95d4c1372bff9dfd965d6e24bb1bdf62568cb664e3fc5"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/vet-command.json",
+        "name": "vet",
+        "seconds": 0.7825696249492466,
+        "startedAt": "2026-10-18T02:53:08.782413+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "4137bdec6378d50ac3a170326db09a9540de8abaebc389f363f8a3a46a558017"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.7796356249600649,
+        "startedAt": "2026-10-18T02:53:09.579120+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "bea1af29e26750611146056d7b30d8a2f03b1505b19392a69d921580bbba432a"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 117.11458745785058,
+        "startedAt": "2026-10-18T02:53:10.359374+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "3ad9369981a9cfb0834ef4c126e332a3103342c5cc8cd4a3659897429cc6c303"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/vet-command.json",
+        "name": "vet",
+        "seconds": 0.7858533342368901,
+        "startedAt": "2026-10-18T01:47:17.425387+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "398cf92b6a8e05c71044874baf20051ec9f3093282c610a2ce110c575cdaa21b"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.7822885001078248,
+        "startedAt": "2026-10-18T01:47:18.225666+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "c435aac77cc1ccf8249ff7d68e113468b7413df029ee2b505c59cf53c2c22aab"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 115.10197641700506,
+        "startedAt": "2026-10-18T01:47:19.008658+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "17c95d247a357325b7b92b1347631c878f86b8e3562c936b5d537b1d6abed190"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/vet-command.json",
+        "name": "vet",
+        "seconds": 0.36357345758005977,
+        "startedAt": "2026-10-18T04:07:53.918804+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "b0dc407232bd4889ab26ff8e0b3264b0c7721883b7cba4de71c507209a67b164"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.4237879579886794,
+        "startedAt": "2026-10-18T04:07:54.283818+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "8b95b4843512e7ad6e72cc63fc49ac8c7a5bb8ca1cf786307192e66113062c35"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 117.43047470925376,
+        "startedAt": "2026-10-18T04:07:54.708325+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "a7b2703fcd95a06b72a0a67fea65f91260f019ae9b8793d19bdc994411de4329"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.6057595838792622,
+        "startedAt": "2026-10-18T11:44:33.506980+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "59fc48812161807b0f19b7ebee9d87e100af8715026bbdff0d7eea69c3453e91"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.3951259171590209,
+        "startedAt": "2026-10-18T11:44:34.787304+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "71b83ec9810eb3505fa74471e2f4556e853e10d05df6d1b2be91c90a5897962d"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 213.41895154071972,
+        "startedAt": "2026-10-18T11:44:35.846941+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "92cdc198a9e1ce3ec83e2035fe1ab468a7ed40f6eac914260e4e86dc9ba47474"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.391452124807984,
+        "startedAt": "2026-10-18T11:48:10.111515+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "bcea65682a4d1c7040fb63f2d75ab2f8f50e224f6ed6b5b666e4590dc83407a5"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/no-key-release-contracts-command.json",
+        "name": "no-key-release-contracts",
+        "seconds": 7.049761667381972,
+        "startedAt": "2026-10-18T11:48:17.146155+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "fdbd76d0eb70f532df7b59b65aa952e7d5e002db70846076c1e2f1c9c2abb588"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/no-key-release-package-command.json",
+        "name": "no-key-release-package",
+        "seconds": 35.73543199989945,
+        "startedAt": "2026-10-18T11:48:24.847462+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "e85ed5e9aa83ffdb26549b2b0025f5040c2e94473ca94e0790e4d6b5572a912a"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.9129590829834342,
+        "startedAt": "2026-10-19T05:26:39.470831+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "75d59481682f7c184f48d9c2ca8399efabd5937f074e2698af5e46150069ead9"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.8677652501501143,
+        "startedAt": "2026-10-19T05:26:40.803207+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "01dc63d872f612b0815fddbe7c856cb300f5ec553ed38ab4a05f4b6ee95a1e7b"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 212.24139341711998,
+        "startedAt": "2026-10-19T05:26:42.109580+00:00",
+        "state": "COMPLETED",
+        "exitCode": 1,
+        "receiptSHA256": "8bed32ee69ed760616f9c5ba516d4e8212963eb499d52371fc2e16516ecfbaf6"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.228136625140905,
+        "startedAt": "2026-10-19T05:30:14.934808+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "83c0666cc86527e7b984f3e3ca94f49eb92cee266d8d109d9634fc51f0f50658"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/no-key-release-contracts-command.json",
+        "name": "no-key-release-contracts",
+        "seconds": 8.20550062507391,
+        "startedAt": "2026-10-19T05:30:21.638958+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "a30a7fcd23e20550dfa88fb993e799883bfc3093b1de25793d55a6cb2d1d7a05"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-1/no-key-release-package-command.json",
+        "name": "no-key-release-package",
+        "seconds": 35.08497199974954,
+        "startedAt": "2026-10-19T05:30:30.292403+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "5f9ba065c69ba6493e3ff364410a47027d3e56f48af712eecd0160a159d45e46"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/vet-command.json",
+        "name": "vet",
+        "seconds": 0.8683866248466074,
+        "startedAt": "2026-10-18T11:09:29.447762+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "12878c28e206a1b64d7c4f147248d8cdb86cbd455ab3caade074ed21edebd27b"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.5792930419556797,
+        "startedAt": "2026-10-18T11:09:30.877046+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "968809a0c7799137d15d706b98ac2622e015f0c395bfe3047ea655456d5fa74e"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 209.35299741709605,
+        "startedAt": "2026-10-18T11:09:32.004361+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "fddec32ca6dcf7a2f4d8e488c4be48baa69704b831c04586c03af8f63ae9ceb8"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/no-key-visual-proxy-command.json",
+        "name": "no-key-visual-proxy",
+        "seconds": 6.954136167187244,
+        "startedAt": "2026-10-18T11:13:02.181369+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "faaa4e69aa68b9e5420d0a349b3fd91537f30cac08f2ff096898a50a36aed08e"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/no-key-release-contracts-command.json",
+        "name": "no-key-release-contracts",
+        "seconds": 8.245102707762271,
+        "startedAt": "2026-10-18T11:13:09.749678+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "fd42b91d37ed33f5b888e6202d102c68fded51a3c0598f71d5e4a2733b354f87"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/no-key-release-package-command.json",
+        "name": "no-key-release-package",
+        "seconds": 35.28651949996129,
+        "startedAt": "2026-10-18T11:13:18.611576+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "1515282b57554512ca43f8debde3e7505c08449182328f6c2027aa3bdf07c928"
+      },
+      {
+        "path": ".evidence/minimax-retained/cleaned-worktrees/minimax-11/.evidence/mm11-keyless-e9731a4/vet-command.json",
+        "name": "vet",
+        "seconds": 0.5191427911631763,
+        "startedAt": "2026-10-18T01:36:27.587965+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "6a0d2b098835dae481f79d462416b09e086e4097feff0b44e5a240385c8d7d19"
+      },
+      {
+        "path": ".evidence/minimax-retained/cleaned-worktrees/minimax-11/.evidence/mm11-keyless-e9731a4/vet-live-command.json",
+        "name": "vet-live",
+        "seconds": 0.5519325416535139,
+        "startedAt": "2026-10-18T01:36:28.120192+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "4547e1c2ec61999b00399d5eab2f442cafcf992a7a9035454c9db33405f09198"
+      },
+      {
+        "path": ".evidence/minimax-retained/cleaned-worktrees/minimax-11/.evidence/mm11-keyless-e9731a4/no-key-live-command.json",
+        "name": "no-key-live",
+        "seconds": 109.04267208417878,
+        "startedAt": "2026-10-18T01:36:28.672757+00:00",
+        "state": "COMPLETED",
+        "exitCode": 0,
+        "receiptSHA256": "9db8478cb8055272b5ab13af6838637525a4c1c45d2f26351538d6983cc708f5"
+      }
+    ]
+  },
+  "onlineReceipts": {
+    "note": "Retained credential-reading actual command receipts only; metadata copies deduplicated by startedAt/name/seconds. Not an exhaustive process ledger.",
+    "pathsScanned": 613,
+    "skippedLarge": 0,
+    "processes": 69,
+    "seconds": 3556.633918051608,
+    "runs": [
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/mm-global-research-m3-chat-command.json",
+        "name": "mm-global-research-m3-chat",
+        "seconds": 3.57755329227075,
+        "startedAt": "2026-10-18T01:49:38.792103+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "2988dbe91b03558e69ca28619f7b648bee3be36ddfc49a281f68895d809f7111"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/mm-global-research-m3-responses-command.json",
+        "name": "mm-global-research-m3-responses",
+        "seconds": 2.631928625050932,
+        "startedAt": "2026-10-18T01:51:19.661342+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "d241382cbf0c1a61b6ce50328102de9dcad541f32624c061b05fd3a6460bb0c7"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-4e8c59a/mm-global-research-m3-messages-command.json",
+        "name": "mm-global-research-m3-messages",
+        "seconds": 3.9295546668581665,
+        "startedAt": "2026-10-18T01:52:16.380600+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "7dec75885b0cf1efe3c0cad7448e7e3ca632058ed745e5f1772afdc5c5410ec5"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/mm-global-candidate-m3-chat-command.json",
+        "name": "mm-global-candidate-m3-chat",
+        "seconds": 22.3113023750484,
+        "startedAt": "2026-10-18T02:55:33.191103+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "c1802e84b2d56ef413b271f4837f428bab321b2357e81cb0f4ab5756ffd2cf19"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/mm-global-candidate-m3-responses-command.json",
+        "name": "mm-global-candidate-m3-responses",
+        "seconds": 11.681260374840349,
+        "startedAt": "2026-10-18T02:56:04.475875+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "cbcd0a0149c890357d2f339615181dd5e5f98d16b681608ceaa2fd6caf13fd32"
+      },
+      {
+        "path": ".evidence/minimax-global-candidate-complete/mm-global-candidate-m3-messages-command.json",
+        "name": "mm-global-candidate-m3-messages",
+        "seconds": 11.20727216731757,
+        "startedAt": "2026-10-18T02:56:23.419310+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "dd4be579bb16f1d32f703b11a43d9d04eb6fdedc2907159cd2371c61c27a70ac"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-chat-command.json",
+        "name": "mm-global-formal-m3-chat",
+        "seconds": 24.944011834450066,
+        "startedAt": "2026-10-18T03:02:33.579931+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "f8a05a5f56f4bbec8ab132d616396ce61cc7e9ebee257be8f18a99c2e1026084"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-responses-command.json",
+        "name": "mm-global-formal-m3-responses",
+        "seconds": 11.536162124946713,
+        "startedAt": "2026-10-18T03:03:08.573792+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "d52dfa82ecf112e295c37ca8769c54f5ea2329f3f417d013d1eee8c80bc77cb9"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/mm-global-formal-m3-messages-command.json",
+        "name": "mm-global-formal-m3-messages",
+        "seconds": 16.125061917118728,
+        "startedAt": "2026-10-18T03:03:35.611475+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "556e7d7289b451401fc179715174ac37624c2b432e8e5618ab3fbe73237ae637"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/glm-chat-command.json",
+        "name": "glm-chat",
+        "seconds": 115.22714341571555,
+        "startedAt": "2026-10-18T03:04:07.460203+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "8e77c23fe2284287a1ab863115b00288c4be76b57a33e1a19907669f04dd543d"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/glm-responses-command.json",
+        "name": "glm-responses",
+        "seconds": 158.67494666716084,
+        "startedAt": "2026-10-18T03:06:09.267753+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "dc5f34a122ff0c5b6a11729426112998b35c05e45b9b8646c993e2557d7336db"
+      },
+      {
+        "path": ".evidence/minimax-global-formal-glm/glm-messages-command.json",
+        "name": "glm-messages",
+        "seconds": 60.47105212509632,
+        "startedAt": "2026-10-18T03:10:44.332766+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "02e52e44785ce54d040cbcf16e9805c628e160524ac5f3e3248248016cd0283f"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-chat-command.json",
+        "name": "glm-corrective-1-chat",
+        "seconds": 114.93079383391887,
+        "startedAt": "2026-10-18T04:19:50.025656+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "ee40284246905e7689f9751a9d2ebdfab026aa66ab29e1e1faa4b289b17a413e"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-responses-command.json",
+        "name": "glm-corrective-1-responses",
+        "seconds": 95.78653770778328,
+        "startedAt": "2026-10-18T04:22:02.453078+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "a386a0bdc3bcbcd67683ce5c28fc056b9c13801ea666684918045c2dbbc79a40"
+      },
+      {
+        "path": ".evidence/minimax-global-glm-corrective-1-reviewed/glm-corrective-1-messages-command.json",
+        "name": "glm-corrective-1-messages",
+        "seconds": 74.38580133393407,
+        "startedAt": "2026-10-18T04:25:27.006036+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "e10991eafa4403f912c572c8b7b677260bc75ffe20a189a992f56e0faa78bb62"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/openai-responses-command.json",
+        "name": "openai-responses",
+        "seconds": 261.64206962520257,
+        "startedAt": "2026-10-18T04:36:59.353676+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "aa5e778bdb8261ab35c554b3e47b0cecaa967dde869cf2d7deba0c567fc33047"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/openai-chat-command.json",
+        "name": "openai-chat",
+        "seconds": 295.1475130417384,
+        "startedAt": "2026-10-18T04:41:21.499003+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "0224b9117e4485c43276447f7ab6e2e24d1680c351f3071a90d2aefe09bc3d30"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/anthropic-messages-command.json",
+        "name": "anthropic-messages",
+        "seconds": 4.19546516565606,
+        "startedAt": "2026-10-18T04:46:17.195890+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "ANTHROPIC_KEY",
+        "receiptSHA256": "33abd7f5ce64bd77eb42cec5e70897758d0bfa5159b4de1ab7d1f990afaf6b73"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/google-gemini-command.json",
+        "name": "google-gemini",
+        "seconds": 190.16003537504002,
+        "startedAt": "2026-10-18T04:46:21.822911+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "GEMINI_KEY",
+        "receiptSHA256": "19e6536d6d8b34143eb997635ca1bf493fdffd8d2125c9375cac5bb3de5ae741"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/deepseek-responses-command.json",
+        "name": "deepseek-responses",
+        "seconds": 6.583463542163372,
+        "startedAt": "2026-10-18T04:49:32.520178+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "DEEPSEEK_KEY",
+        "receiptSHA256": "645040f439e262e7ea2be2094568580dce617aa34a01827e4ed5b8465f1db076"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/deepseek-chat-command.json",
+        "name": "deepseek-chat",
+        "seconds": 9.819318250287324,
+        "startedAt": "2026-10-18T04:49:39.514422+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "DEEPSEEK_KEY",
+        "receiptSHA256": "e94d0a581a6b023a67155884996477f68a07faab2c99842b6464fba358aa8ead"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/openai-images-command.json",
+        "name": "openai-images",
+        "seconds": 35.092151707969606,
+        "startedAt": "2026-10-18T04:49:49.734994+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "ccd30346f4c363a72621b9c5d6302084481d379f8386ad6450c6c9fdaee28b38"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/google-interactions-image-command.json",
+        "name": "google-interactions-image",
+        "seconds": 70.12678816681728,
+        "startedAt": "2026-10-18T04:50:25.337259+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "GEMINI_KEY",
+        "receiptSHA256": "d5f7cbe816249d1bfb2c4c10f1f03b15695404b75c16af7734a4754127d18cf2"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/openai-decisions-command.json",
+        "name": "openai-decisions",
+        "seconds": 90.1786576253362,
+        "startedAt": "2026-10-18T04:51:35.978762+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "9a69d7fa8960a7073727585b5717e729bb5d989519794748ae3deb8efbdd3ab5"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/typesafe-classifier-command.json",
+        "name": "typesafe-classifier",
+        "seconds": 1.7657474162988365,
+        "startedAt": "2026-10-18T04:53:06.622348+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "d763056b31133fa2839118295df76e215784b142d3726a314d1c18c2ca3e65d9"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/protocol114-command.json",
+        "name": "protocol114",
+        "seconds": 2.870972541626543,
+        "startedAt": "2026-10-18T04:53:08.777241+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "902b5e8bc45b8581c8af9a2d062c4ae05eae9e66d1c6e951d4620b374a0cbfde"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/text-jev-command.json",
+        "name": "text-jev",
+        "seconds": 8.872767583001405,
+        "startedAt": "2026-10-18T04:53:12.067269+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "65b62a9b9036a1b8818afe1ba3cd01e6ae6012738a391755e03c4e8a5a3b63b3"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/text-luna-command.json",
+        "name": "text-luna",
+        "seconds": 120.24945633439347,
+        "startedAt": "2026-10-18T04:53:21.309607+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "09106a2e2c4afa6828e8d8a0d3c0ad86c323b2a471f219bb8bbc9db53134a9d9"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/visual-jev-command.json",
+        "name": "visual-jev",
+        "seconds": 8.070185584016144,
+        "startedAt": "2026-10-18T04:55:21.977391+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "28609335c1576bc8b28e8fde22d08ce04ce3df504b6989029b6fdc972361ca72"
+      },
+      {
+        "path": ".evidence/minimax-global-legacy-final/visual-decisions-command.json",
+        "name": "visual-decisions",
+        "seconds": 60.27923291688785,
+        "startedAt": "2026-10-18T04:55:30.500057+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "1763b21853e8ff04e4148185bf814fc3f84e4ae8bf79b68309a4d3f86e91e4d0"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/glm-chat-command.json",
+        "name": "glm-chat",
+        "seconds": 132.67575270868838,
+        "startedAt": "2026-10-18T08:07:35.532411+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "d94962b45eeb4252b2a445be673f271412510f1a36b6b26b710dcf63705bc59c"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/glm-responses-command.json",
+        "name": "glm-responses",
+        "seconds": 314.88463274994865,
+        "startedAt": "2026-10-18T08:09:48.949289+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "9e7c0a04a17e7d7959507e588214ed302da6670adcd4b87c613bbf4c4656ac1b"
+      },
+      {
+        "path": ".evidence/minimax-retained/ticket-13-actual-glm/raw/frozen/glm-messages-command.json",
+        "name": "glm-messages",
+        "seconds": 102.92889729235321,
+        "startedAt": "2026-10-18T08:15:04.508433+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "0b980b68249efbe803f28a534acb8bd183b6abcbe7f0f66648a683227ab7fbf6"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/openai-responses-command.json",
+        "name": "openai-responses",
+        "seconds": 22.546736458316445,
+        "startedAt": "2026-10-18T08:23:51.949979+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "d9b2cb40788ebcdd02dc32a1dba98435aa75b096b70c29c72134d4f46cc2797f"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/openai-chat-command.json",
+        "name": "openai-chat",
+        "seconds": 16.784928500186652,
+        "startedAt": "2026-10-18T08:24:15.336316+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "704c8e7570f1bbaff498d882675b6cba66e4277bcacd176fc84526b1d4f95467"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/anthropic-messages-command.json",
+        "name": "anthropic-messages",
+        "seconds": 27.191594957839698,
+        "startedAt": "2026-10-18T08:24:32.951899+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "ANTHROPIC_KEY",
+        "receiptSHA256": "68716cab8f798433df5c37aea78520ac2d0fe3af4965bfae9653c24668681713"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/google-gemini-command.json",
+        "name": "google-gemini",
+        "seconds": 17.92678929073736,
+        "startedAt": "2026-10-18T08:25:00.979716+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GEMINI_KEY",
+        "receiptSHA256": "30c6beacc015023765ed84fe7e960fc762da3a1e87847122b6c872eb7d9dc796"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/deepseek-responses-command.json",
+        "name": "deepseek-responses",
+        "seconds": 9.964129750151187,
+        "startedAt": "2026-10-18T08:25:19.727534+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "DEEPSEEK_KEY",
+        "receiptSHA256": "e52e2d3b4b4f5f14ea81a38e406d79f6d21b6754793c6dec7639bd5ec462cda6"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/deepseek-chat-command.json",
+        "name": "deepseek-chat",
+        "seconds": 12.979864499997348,
+        "startedAt": "2026-10-18T08:25:30.533211+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "DEEPSEEK_KEY",
+        "receiptSHA256": "57425db556169b88ac2f45da27de1c52b37147c48fb3ccddc9c656f93c0dc217"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/openai-images-command.json",
+        "name": "openai-images",
+        "seconds": 28.295111583080143,
+        "startedAt": "2026-10-18T08:25:44.311976+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "b14b7b332278b06a38836c4630a0d58679bc1d46d792f4d97023d67e215a84d6"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/google-interactions-image-command.json",
+        "name": "google-interactions-image",
+        "seconds": 29.22677745902911,
+        "startedAt": "2026-10-18T08:26:13.517429+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GEMINI_KEY",
+        "receiptSHA256": "dca47f90bb1d9c6bb491e96ebfd91b3d1964ae2e6417a836276853fc3fb00401"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/openai-decisions-command.json",
+        "name": "openai-decisions",
+        "seconds": 4.295452625025064,
+        "startedAt": "2026-10-18T08:26:43.720761+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "3ce0543c3241f1a08ea2453d9815643e53f4ef14732830b6f68283e31d6d3893"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/typesafe-classifier-command.json",
+        "name": "typesafe-classifier",
+        "seconds": 1.900079000275582,
+        "startedAt": "2026-10-18T08:26:48.873281+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "197530caec7bd58fbb0f63670281a602558a1b58441c1dcd7b521093a2708bdf"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/protocol114-command.json",
+        "name": "protocol114",
+        "seconds": 4.873429709114134,
+        "startedAt": "2026-10-18T08:26:51.613500+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "534a286e22a233b3375f7b0f561691e2d0fdf11ed5a1004547ceef058bb016e3"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/text-jev-command.json",
+        "name": "text-jev",
+        "seconds": 8.54507187474519,
+        "startedAt": "2026-10-18T08:26:57.314526+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "f6705827c6c651124fee8b824296fb8b5e5a89927683a152f2344f8a3696d832"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/text-luna-command.json",
+        "name": "text-luna",
+        "seconds": 8.435062250122428,
+        "startedAt": "2026-10-18T08:27:06.808275+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "a6ebfb3ed97edaf4cf46cef20631b85a2ce691b0e0ab70e1fdef0c4f4e320726"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/visual-jev-command.json",
+        "name": "visual-jev",
+        "seconds": 4.626703625079244,
+        "startedAt": "2026-10-18T08:27:16.115142+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "f87ef78a6356c4e57c3e03f17be678626cdcdb45447f1107601957db6364ce11"
+      },
+      {
+        "path": ".evidence/minimax-routed-legacy-1/visual-decisions-command.json",
+        "name": "visual-decisions",
+        "seconds": 5.99274054216221,
+        "startedAt": "2026-10-18T08:27:21.646916+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "3e43c230bee561ad394154379bfbe7e029bb10b0b1cf3a4cfa0df1fd499c3d76"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/glm-chat-command.json",
+        "name": "glm-chat",
+        "seconds": 128.80244508385658,
+        "startedAt": "2026-10-18T11:34:40.176542+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "f5a37688609c9d5f7806de28eeebbf2ae54ed03cccbef407dc3ca6241e75e432"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/glm-responses-command.json",
+        "name": "glm-responses",
+        "seconds": 108.70452262507752,
+        "startedAt": "2026-10-18T11:37:07.342971+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "3f6b86a9936a6e6ef5dee409ff0c24281d5478ea07737cded8a480ccd09de96b"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-glm-1/glm-messages-command.json",
+        "name": "glm-messages",
+        "seconds": 210.5548922503367,
+        "startedAt": "2026-10-18T11:39:21.100947+00:00",
+        "exitCode": 1,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "39bc82cafced13095eb4a2264c2ea2eec5596a1f081c04e05d0efcd790205737"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/protocol114-command.json",
+        "name": "protocol114",
+        "seconds": 4.84352104132995,
+        "startedAt": "2026-10-18T11:50:20.613606+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "199f2b8c5aec5d366c30f35d2a2935d9beb0193423d9fcd1737628b022beb343"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/visual-jev-command.json",
+        "name": "visual-jev",
+        "seconds": 6.238815333228558,
+        "startedAt": "2026-10-18T11:50:40.432424+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "8fdd3e4213222d72bbbd51242359cf761489a0d301ebb1f921cd80a260014eaa"
+      },
+      {
+        "path": ".evidence/minimax-release-repair-effects-1/visual-decisions-command.json",
+        "name": "visual-decisions",
+        "seconds": 7.3456415412947536,
+        "startedAt": "2026-10-18T11:51:06.368954+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "a1c6dc76aea8bda080a670cc24b81a5eeb9e05f03caa2cadc9afedabed7b83e7"
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/evidence/ticket-18/actual-command.json",
+        "name": "actual",
+        "seconds": 0.9927180409431458,
+        "startedAt": "2026-10-18T23:02:18.528108+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "a23936d88decb4575959b18811a963f725c8d2ac2fe2b9d0da05c3e08c826129"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/glm-chat-command.json",
+        "name": "glm-chat",
+        "seconds": 102.09492304222658,
+        "startedAt": "2026-10-19T06:05:11.313928+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "732ee2052fcb910d507227921baaf0b794680dfe8296338be3fc2368670761fa"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/glm-responses-command.json",
+        "name": "glm-responses",
+        "seconds": 91.43722708383575,
+        "startedAt": "2026-10-19T06:07:24.257170+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "addd8c739ed886bed29ab4f33514f6ff0531f4364cb5f0c31160203d5da468d5"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-glm-2/glm-messages-command.json",
+        "name": "glm-messages",
+        "seconds": 122.41965091740713,
+        "startedAt": "2026-10-19T06:09:29.021633+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "GLM_KEY",
+        "receiptSHA256": "ee0cf7daff383f7596a1f2d2ad23f04c2b038b4e402b3ae621063fadef29f0bb"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-chat-command.json",
+        "name": "mm-global-formal-m3-chat",
+        "seconds": 31.734762417152524,
+        "startedAt": "2026-10-19T06:21:27.219996+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "74662a1dc63ad3e4acf1e0ece263572def6d35c97d7a93a4fb230175aeb1ba74"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-responses-command.json",
+        "name": "mm-global-formal-m3-responses",
+        "seconds": 22.968913208227605,
+        "startedAt": "2026-10-19T06:23:07.705266+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "30072d1901c71d56c797482d2e797133919bffbe4a9821d0ed1e53e090c6b616"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/mm-global-formal-m3-messages-command.json",
+        "name": "mm-global-formal-m3-messages",
+        "seconds": 20.002739207819104,
+        "startedAt": "2026-10-19T06:23:40.870907+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "MINIMAX_KEY",
+        "receiptSHA256": "14fc1c96dff5ec86683cef6bf538e94b986e848dd14133da22c423e7db830c5c"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/text-jev-command.json",
+        "name": "text-jev",
+        "seconds": 8.185079875402153,
+        "startedAt": "2026-10-19T06:24:18.184772+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "205ff0c6f65d0019fda3d2e1acb409301960355091e1d9fa1e76794c522127d9"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/text-luna-command.json",
+        "name": "text-luna",
+        "seconds": 9.606458167079836,
+        "startedAt": "2026-10-19T06:25:20.202986+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "eb48b55b0453930cbe3846bc29349954e3b17a8d11c88b36838ae567a9aacb07"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/protocol114-command.json",
+        "name": "protocol114",
+        "seconds": 5.000868958886713,
+        "startedAt": "2026-10-19T06:26:21.938071+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "59e53c73869fb41e1cf3772376c895842d4290d9cc4d063f4369269384ca3ed8"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/visual-jev-command.json",
+        "name": "visual-jev",
+        "seconds": 4.826582208275795,
+        "startedAt": "2026-10-19T06:26:48.859594+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "c19d86633ce714b4b5c08cf85e852ab920fba47a2247f6fc9ad02f31402c710c"
+      },
+      {
+        "path": ".evidence/minimax-current-eleven-remaining-1/visual-decisions-command.json",
+        "name": "visual-decisions",
+        "seconds": 7.194371917285025,
+        "startedAt": "2026-10-19T06:28:22.488355+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "f84aeea8802c654af621e842377fb00655ad2b84c0e3b4cf476c63b910b53526"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/protocol114-command.json",
+        "name": "protocol114",
+        "seconds": 5.32062733406201,
+        "startedAt": "2026-10-19T09:17:22.742127+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "a75ba2803f0738c658ad9343faa0cd99fdf4f046ee9a5e0dc8d916b9d9a462b2"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/visual-jev-command.json",
+        "name": "visual-jev",
+        "seconds": 5.908275790978223,
+        "startedAt": "2026-10-19T09:18:34.358670+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "TYPESAFE_KEY",
+        "receiptSHA256": "d1c97ae0cf71d45180019dc3310803335083a931bf2625a47019ab2336827bec"
+      },
+      {
+        "path": ".evidence/minimax-current-visual-renewal-1/visual-decisions-command.json",
+        "name": "visual-decisions",
+        "seconds": 5.9029197921045125,
+        "startedAt": "2026-10-19T09:19:33.182561+00:00",
+        "exitCode": 0,
+        "state": "COMPLETED",
+        "credentialKind": "OPENAI_KEY",
+        "receiptSHA256": "1b990dec269b9c5479cb8c56f873f0c8a391642c478a49ac035a7188651adc4f"
+      }
+    ]
+  }
+}

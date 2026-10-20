@@ -1,0 +1,1341 @@
+{
+  "scope": "2026-10-18 06:02:53 to 2026-10-19 20:10:02 Asia/Shanghai",
+  "counting": "One outer go test -race invocation is one run, including failures/timeouts. Do not count packages, repeated archive copies, log readers, compilation-only commands, or nested processes again. -count=3 is one invocation.",
+  "durationCaveat": "Approximate cumulative command elapsed time, not CPU time or exclusive user wait. Some early commands combine setup/vet/ordinary work; original full gate uses package duration; one timed-out command lacks a precise final child-exit timestamp.",
+  "summary": {
+    "totalRuns": 76,
+    "totalRecordedSeconds": 18540.048307472473,
+    "categories": {
+      "full": {
+        "runs": 5,
+        "seconds": 12643.891323998763
+      },
+      "targeted": {
+        "runs": 71,
+        "seconds": 5896.1569834737065
+      }
+    },
+    "replacedShellWindows": 4
+  },
+  "runs": [
+    {
+      "identity": "exec-6aebd178-9627-465f-b209-bb81ee668fac",
+      "kind": "targeted",
+      "start": 1792274946.399,
+      "seconds": 20.13,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMax",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-6aebd178-9627-465f-b209-bb81ee668fac",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:09:06.399000+08:00"
+    },
+    {
+      "identity": "exec-ffef0048-9c75-49fb-bda8-a2b62e0f2ef6",
+      "kind": "targeted",
+      "start": 1792275533.291,
+      "seconds": 17.53,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxChat",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-ffef0048-9c75-49fb-bda8-a2b62e0f2ef6",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:18:53.291000+08:00"
+    },
+    {
+      "identity": "exec-93dd58be-fdbb-4752-aa3d-32e91e55cdd5",
+      "kind": "targeted",
+      "start": 1792275535.566,
+      "seconds": 11.008,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxResponses",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-93dd58be-fdbb-4752-aa3d-32e91e55cdd5",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:18:55.566000+08:00"
+    },
+    {
+      "identity": "exec-7d2098ca-be56-4114-8115-241579caf209",
+      "kind": "targeted",
+      "start": 1792275565.469,
+      "seconds": 16.749,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxChat",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-7d2098ca-be56-4114-8115-241579caf209",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:19:25.469000+08:00"
+    },
+    {
+      "identity": "exec-e6afb4ac-6b8c-4b73-87a3-a1b70159273d",
+      "kind": "targeted",
+      "start": 1792275637.846,
+      "seconds": 11.98,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxResponses",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-e6afb4ac-6b8c-4b73-87a3-a1b70159273d",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:20:37.846000+08:00"
+    },
+    {
+      "identity": "exec-721ccd45-81d7-4ad4-88d6-e567bbf268ca",
+      "kind": "targeted",
+      "start": 1792275642.697,
+      "seconds": 16.371,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxChat",
+        "-count=1",
+        "-v"
+      ],
+      "exitCode": 0,
+      "source": "exec-721ccd45-81d7-4ad4-88d6-e567bbf268ca",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:20:42.697000+08:00"
+    },
+    {
+      "identity": "exec-86fc4082-c2a5-423e-bd5d-ecd6207ae754",
+      "kind": "targeted",
+      "start": 1792275657.913,
+      "seconds": 11.016,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxMessages",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-86fc4082-c2a5-423e-bd5d-ecd6207ae754",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:20:57.913000+08:00"
+    },
+    {
+      "identity": "exec-86b7ed3e-d387-4928-b54a-72f67fe134e8",
+      "kind": "targeted",
+      "start": 1792275711.245,
+      "seconds": 19.78,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxResponses",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-86b7ed3e-d387-4928-b54a-72f67fe134e8",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:21:51.245000+08:00"
+    },
+    {
+      "identity": "exec-da74a3f1-74e7-4be5-b9a5-193bbd0218b2",
+      "kind": "targeted",
+      "start": 1792275960.051,
+      "seconds": 11.812,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-v",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMax(Messages|ThinkingSwitchOnlyMetadata)",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-da74a3f1-74e7-4be5-b9a5-193bbd0218b2",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:26:00.051000+08:00"
+    },
+    {
+      "identity": "exec-54bcde88-ce22-4eee-8b85-35c320b6ed11",
+      "kind": "targeted",
+      "start": 1792276604.092,
+      "seconds": 12.744,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMax(Pi|ExtensionRoutes)",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-54bcde88-ce22-4eee-8b85-35c320b6ed11",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:36:44.092000+08:00"
+    },
+    {
+      "identity": "exec-3a156dad-689b-4d6e-b632-c087a45130aa",
+      "kind": "targeted",
+      "start": 1792276837.249,
+      "seconds": 64.103,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxShared",
+        "-count=1",
+        "-v"
+      ],
+      "exitCode": 0,
+      "source": "exec-3a156dad-689b-4d6e-b632-c087a45130aa",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:40:37.249000+08:00"
+    },
+    {
+      "identity": "exec-ce9ab527-5dc2-4250-806e-7917872b7ba0",
+      "kind": "targeted",
+      "start": 1792276967.708,
+      "seconds": 63.359,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxShared",
+        "-count=1",
+        "-v"
+      ],
+      "exitCode": 0,
+      "source": "exec-ce9ab527-5dc2-4250-806e-7917872b7ba0",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:42:47.708000+08:00"
+    },
+    {
+      "identity": "exec-cc7531ce-6598-4dfc-9a26-92a3284aadde",
+      "kind": "targeted",
+      "start": 1792277234.355,
+      "seconds": 5.283,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/internal/testkit/supportmatrix"
+      ],
+      "exitCode": 0,
+      "source": "exec-cc7531ce-6598-4dfc-9a26-92a3284aadde",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:47:14.355000+08:00"
+    },
+    {
+      "identity": "exec-735b8e20-0972-438d-ac27-b651a217b2e8",
+      "kind": "targeted",
+      "start": 1792277291.778,
+      "seconds": 67.007,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestMiniMax"
+      ],
+      "exitCode": 1,
+      "source": "exec-735b8e20-0972-438d-ac27-b651a217b2e8",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:48:11.778000+08:00"
+    },
+    {
+      "identity": "exec-350f21d3-8cb5-4109-a56c-5a9a969acde7",
+      "kind": "targeted",
+      "start": 1792277416.095,
+      "seconds": 78.657,
+      "argv": [
+        "go",
+        "test",
+        "-count=1",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestMiniMax"
+      ],
+      "exitCode": 0,
+      "source": "exec-350f21d3-8cb5-4109-a56c-5a9a969acde7",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:50:16.095000+08:00"
+    },
+    {
+      "identity": "exec-cede2172-bc40-46a7-b239-32540d7a907a",
+      "kind": "targeted",
+      "start": 1792277532.422,
+      "seconds": 86.366,
+      "argv": [
+        "go",
+        "test",
+        "-count=1",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestMiniMax"
+      ],
+      "exitCode": 0,
+      "source": "exec-cede2172-bc40-46a7-b239-32540d7a907a",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:52:12.422000+08:00"
+    },
+    {
+      "identity": "exec-8f4cf758-e78c-4c0b-9bf2-d338bafd6c4b",
+      "kind": "targeted",
+      "start": 1792277533.579,
+      "seconds": 3.714,
+      "argv": [
+        "go",
+        "test",
+        "-count=1",
+        "-race",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/internal/testkit/supportmatrix"
+      ],
+      "exitCode": 0,
+      "source": "exec-8f4cf758-e78c-4c0b-9bf2-d338bafd6c4b",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:52:13.579000+08:00"
+    },
+    {
+      "identity": "exec-c33c4c62-cfed-4ebd-8d30-c907727f6a15",
+      "kind": "targeted",
+      "start": 1792277838.441,
+      "seconds": 12.277,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxHost",
+        "-count=1",
+        "-v"
+      ],
+      "exitCode": 0,
+      "source": "exec-c33c4c62-cfed-4ebd-8d30-c907727f6a15",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:57:18.441000+08:00"
+    },
+    {
+      "identity": "exec-33784468-4637-474f-ae98-2cefc3420366",
+      "kind": "targeted",
+      "start": 1792277861.251,
+      "seconds": 6.898,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^(TestLocalAssemblyExample|TestHostIntegrationExample|TestHostIntegrationStreams|TestMixedHosts|TestClassifierHostMigration)$",
+        "-count=1",
+        "-v"
+      ],
+      "exitCode": 0,
+      "source": "exec-33784468-4637-474f-ae98-2cefc3420366",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:57:41.251000+08:00"
+    },
+    {
+      "identity": "exec-da36bc1b-9b47-40ba-a269-6660bb9d9c67",
+      "kind": "targeted",
+      "start": 1792277880.948,
+      "seconds": 20.782,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^(TestMiniMaxFullRollback|TestGLMFullRollback)$",
+        "-count=1",
+        "-v"
+      ],
+      "exitCode": 0,
+      "source": "exec-da36bc1b-9b47-40ba-a269-6660bb9d9c67",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T06:58:00.948000+08:00"
+    },
+    {
+      "identity": "exec-b95fe59c-a31d-4def-94fa-16ba7e368efb",
+      "kind": "targeted",
+      "start": 1792278875.31,
+      "seconds": 4.824,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/internal/testkit/minimax"
+      ],
+      "exitCode": 0,
+      "source": "exec-b95fe59c-a31d-4def-94fa-16ba7e368efb",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T07:14:35.310000+08:00"
+    },
+    {
+      "identity": "exec-0a9c9f26-5c85-4ec8-8c1e-c09d6b882fcf",
+      "kind": "targeted",
+      "start": 1792279245.433,
+      "seconds": 108.558,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=5m",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMax(AdditiveReleaseContract|ReleaseRequiresOwnDesignLoads|ReleaseLoadConsumer|SharedDesignLoad|PiMessages)$"
+      ],
+      "exitCode": 0,
+      "source": "exec-0a9c9f26-5c85-4ec8-8c1e-c09d6b882fcf",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T07:20:45.433000+08:00"
+    },
+    {
+      "identity": "exec-732138c2-e942-4212-a9c9-d7afb5528537",
+      "kind": "targeted",
+      "start": 1792279636.007,
+      "seconds": 9.786,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/minimaxlive"
+      ],
+      "exitCode": 0,
+      "source": "exec-732138c2-e942-4212-a9c9-d7afb5528537",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T07:27:16.007000+08:00"
+    },
+    {
+      "identity": "exec-19c66280-99ce-4781-aa41-9192ce3965db",
+      "kind": "targeted",
+      "start": 1792280798.967,
+      "seconds": 13.179,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "TestMiniMax(ChatMixedReasoningFrames|ResponsesFunctionIdentityFrozen|FinalSamplingExactRanges|ResponsesSamplingMapExactRanges|ChatFinalToolIntegrity|NativeCallIDsAreDistinct|WritePriceUsesSelectedTier|OneHourWriteHasNoNativeAnthropicPrice|MessagesUsage|PromotionBoundary)$",
+        "-count=1",
+        "-timeout=4m"
+      ],
+      "exitCode": 0,
+      "source": "exec-19c66280-99ce-4781-aa41-9192ce3965db",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T07:46:38.967000+08:00"
+    },
+    {
+      "identity": "exec-55480b0f-3758-419d-a347-46204b61ed02",
+      "kind": "targeted",
+      "start": 1792282053.592,
+      "seconds": 12.945,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestMiniMaxProcess$/(tool-auth401|tool-permanent429|tool-stream-error|success-rerun-tool)$",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-55480b0f-3758-419d-a347-46204b61ed02",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T08:07:33.592000+08:00"
+    },
+    {
+      "identity": "exec-ae331147-2cf1-4439-bce3-3f1aee2d5355",
+      "kind": "targeted",
+      "start": 1792282080.083,
+      "seconds": 12.165,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-run",
+        "^TestMiniMaxProcess$/(tool-auth401|tool-permanent429|tool-stream-error|success-rerun-tool)$",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-ae331147-2cf1-4439-bce3-3f1aee2d5355",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T08:08:00.083000+08:00"
+    },
+    {
+      "identity": "exec-6f9140f5-9b4a-44ce-8ec6-22b1ee5b5ddf/repaired families",
+      "kind": "targeted",
+      "start": 1792282978.445,
+      "seconds": 35.28809604188427,
+      "argv": "repaired families",
+      "source": "exec-6f9140f5-9b4a-44ce-8ec6-22b1ee5b5ddf",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T08:22:58.445000+08:00"
+    },
+    {
+      "identity": "exec-8cdc94c5-817f-41f0-a874-04c8ff891d8c/fixed MiniMax",
+      "kind": "targeted",
+      "start": 1792283111.623,
+      "seconds": 152.73585224989802,
+      "argv": "fixed MiniMax",
+      "source": "exec-8cdc94c5-817f-41f0-a874-04c8ff891d8c",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T08:25:11.623000+08:00"
+    },
+    {
+      "identity": "exec-57951baf-f520-4abb-8c5a-9448c3e53411/international MiniMax",
+      "kind": "targeted",
+      "start": 1792287134.027,
+      "seconds": 160.73840666608885,
+      "argv": "international MiniMax",
+      "source": "exec-57951baf-f520-4abb-8c5a-9448c3e53411",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T09:32:14.027000+08:00"
+    },
+    {
+      "identity": "exec-b7ebfe66-616e-46b3-86df-bcd982271a18/international harness",
+      "kind": "targeted",
+      "start": 1792287340.046,
+      "seconds": 154.15874429093674,
+      "argv": "international harness",
+      "source": "exec-b7ebfe66-616e-46b3-86df-bcd982271a18",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T09:35:40.046000+08:00"
+    },
+    {
+      "identity": "exec-1220e209-85dc-4e49-8442-3cc645c94941/observed protocol fixes",
+      "kind": "targeted",
+      "start": 1792288886.944,
+      "seconds": 49.90825366601348,
+      "argv": "observed protocol fixes",
+      "source": "exec-1220e209-85dc-4e49-8442-3cc645c94941",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T10:01:26.944000+08:00"
+    },
+    {
+      "identity": "exec-e242765d-bff5-4537-b079-ee036ef77996/global full MiniMax",
+      "kind": "targeted",
+      "start": 1792289060.429,
+      "seconds": 158.4020781251602,
+      "argv": "global full MiniMax",
+      "source": "exec-e242765d-bff5-4537-b079-ee036ef77996",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T10:04:20.429000+08:00"
+    },
+    {
+      "identity": "exec-a6fcf7e8-2979-429f-b38a-a8af0f2f37f1/postactivation MiniMax",
+      "kind": "targeted",
+      "start": 1792290333.466,
+      "seconds": 168.26125925034285,
+      "argv": "postactivation MiniMax",
+      "source": "exec-a6fcf7e8-2979-429f-b38a-a8af0f2f37f1",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T10:25:33.466000+08:00"
+    },
+    {
+      "identity": "exec-b742a987-ff04-4040-9e8d-149a332d8e23/retained live replays",
+      "kind": "targeted",
+      "start": 1792290627.415,
+      "seconds": 305.57959862519056,
+      "argv": "retained live replays",
+      "source": "exec-b742a987-ff04-4040-9e8d-149a332d8e23",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T10:30:27.415000+08:00"
+    },
+    {
+      "identity": "exec-9fc175e9-ffaa-4bb1-ab2c-18b93ae18de0/postactivation business inactive",
+      "kind": "targeted",
+      "start": 1792291403.652,
+      "seconds": 22.04146679211408,
+      "argv": "postactivation business inactive",
+      "source": "exec-9fc175e9-ffaa-4bb1-ab2c-18b93ae18de0",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T10:43:23.652000+08:00"
+    },
+    {
+      "identity": "exec-c87529a7-d6f7-4715-9d9b-bee4f8a41d30/postactivation business",
+      "kind": "targeted",
+      "start": 1792291405.031,
+      "seconds": 59.321,
+      "argv": "postactivation business",
+      "source": "exec-c87529a7-d6f7-4715-9d9b-bee4f8a41d30",
+      "durationBasis": "launcher record",
+      "startShanghai": "2026-10-18T10:43:25.031000+08:00"
+    },
+    {
+      "identity": "exec-38822d8d-c314-4cea-997e-9046177c6476/GLM corrective offline",
+      "kind": "targeted",
+      "start": 1792293987.929,
+      "seconds": 373.79965366609395,
+      "argv": "GLM corrective offline",
+      "source": "exec-38822d8d-c314-4cea-997e-9046177c6476",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T11:26:27.929000+08:00"
+    },
+    {
+      "identity": "exec-33d3b153-ec1e-4329-9e29-2966428e5c91/GLM corrective interrupted",
+      "kind": "targeted",
+      "start": 1792294552.206,
+      "seconds": 229.14772999985144,
+      "argv": "GLM corrective interrupted",
+      "source": "exec-33d3b153-ec1e-4329-9e29-2966428e5c91",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T11:35:52.206000+08:00"
+    },
+    {
+      "identity": "exec-254f1c3f-52de-4cf6-99fb-04784b5511f0/GLM corrective final",
+      "kind": "targeted",
+      "start": 1792294820.29,
+      "seconds": 139.25709470827132,
+      "argv": "GLM corrective final",
+      "source": "exec-254f1c3f-52de-4cf6-99fb-04784b5511f0",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T11:40:20.290000+08:00"
+    },
+    {
+      "identity": "exec-0bf5a5f0-8662-4d36-ac86-f4178ffd1bfe/GLM HOME diagnostic",
+      "kind": "targeted",
+      "start": 1792295996.186,
+      "seconds": 156.70734112523496,
+      "argv": "GLM HOME diagnostic",
+      "source": "exec-0bf5a5f0-8662-4d36-ac86-f4178ffd1bfe",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T11:59:56.186000+08:00"
+    },
+    {
+      "identity": "initial-full-3d3",
+      "kind": "full",
+      "start": 1792300004.512932,
+      "seconds": 2219.942,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./..."
+      ],
+      "exitCode": 1,
+      "source": ".evidence/minimax-global-final-keyless/actual-releasegate.log",
+      "durationBasis": "Go ai/e2e package duration; child wall receipt unavailable",
+      "startShanghai": "2026-10-18T13:06:44.512932+08:00"
+    },
+    {
+      "identity": "exec-1c68ffca-0ef1-4658-9e99-dec00ba05370",
+      "kind": "targeted",
+      "start": 1792303209.839,
+      "seconds": 74.779,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "./ai/internal/testkit/release",
+        "-count=1",
+        "-run",
+        "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete)$"
+      ],
+      "exitCode": 0,
+      "source": "exec-1c68ffca-0ef1-4658-9e99-dec00ba05370",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T14:00:09.839000+08:00"
+    },
+    {
+      "identity": "exec-3ff3c68e-e5a4-4cea-b9c4-949a420681ec",
+      "kind": "targeted",
+      "start": 1792303646.39,
+      "seconds": 131.313,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "./ai/internal/testkit/release",
+        "-count=1",
+        "-run",
+        "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|BundlePostLoadIsolation|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete|TestInventoryIteratorRejectsDuplicateNames|TestMiniMaxReleaseLoadConsumer|TestCurrentReleaseLoadImport)$"
+      ],
+      "exitCode": 0,
+      "source": "exec-3ff3c68e-e5a4-4cea-b9c4-949a420681ec",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T14:07:26.390000+08:00"
+    },
+    {
+      "identity": "exec-792b4f2e-4865-4e40-b586-29994c47e490",
+      "kind": "targeted",
+      "start": 1792303917.969,
+      "seconds": 91.076,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-race",
+        "./ai/e2e",
+        "./ai/internal/testkit/release",
+        "-count=1",
+        "-run",
+        "^(TestRelease(ProducerNestedEmptyEffortDirectories|BundleDirectoryIsolation|BundleInventoryFiniteBounds|BundlePostLoadIsolation|BundleRootSelection|OfflineInventoryCannotOmitFile|RollbackArtifacts|RevocationSemanticIntegrity|LiveInventoryCannotOmitProof|ExecutionSourceDrift)|TestImportedDifferentialRejectsWrongOracle|TestDesignLoadReportCannotBeMissingOrIncomplete|TestInventoryIteratorRejectsDuplicateNames|TestMiniMaxReleaseLoadConsumer|TestCurrentReleaseLoadImport)$"
+      ],
+      "exitCode": 0,
+      "source": "exec-792b4f2e-4865-4e40-b586-29994c47e490",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T14:11:57.969000+08:00"
+    },
+    {
+      "identity": "exec-38bdc3a4-e489-4301-8b7d-115baa31851a",
+      "kind": "targeted",
+      "start": 1792305106.249,
+      "seconds": 10.25,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-race",
+        "./ai/e2e",
+        "./ai/internal/testkit/release",
+        "-count=1",
+        "-run",
+        "^(TestMiniMaxCatalogReleaseAdmission|TestImportedDifferentialRejectsWrongOracle)$"
+      ],
+      "exitCode": 0,
+      "source": "exec-38bdc3a4-e489-4301-8b7d-115baa31851a",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T14:31:46.249000+08:00"
+    },
+    {
+      "identity": "exec-ee858910-b24b-40e8-a0c2-8f31d55ee843",
+      "kind": "targeted",
+      "start": 1792309615.616,
+      "seconds": 15.525,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestVisualEvaluationProxyProcess$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "exitCode": 0,
+      "source": "exec-ee858910-b24b-40e8-a0c2-8f31d55ee843",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T15:46:55.616000+08:00"
+    },
+    {
+      "identity": "exec-a365543d-ba4e-4480-b6f2-8c9e46536a74",
+      "kind": "targeted",
+      "start": 1792309668.06,
+      "seconds": 19.196,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestVisualEvaluationProxyProcess$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "exitCode": 0,
+      "source": "exec-a365543d-ba4e-4480-b6f2-8c9e46536a74",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T15:47:48.060000+08:00"
+    },
+    {
+      "identity": "exec-280f0c8a-b027-4dcb-a1d8-fb59911ea551",
+      "kind": "targeted",
+      "start": 1792309770.301,
+      "seconds": 24.041,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-run",
+        "^TestVisualEvaluationProxyProcess$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "exitCode": 0,
+      "source": "exec-280f0c8a-b027-4dcb-a1d8-fb59911ea551",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T15:49:30.301000+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-routed-final-compiled-1/gate-command-exits/race.json",
+      "kind": "full",
+      "start": 1792313580.584904,
+      "seconds": 2292.1957237077877,
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=75m",
+        "./..."
+      ],
+      "exitCode": 1,
+      "source": ".evidence/minimax-routed-final-compiled-1/gate-command-exits/race.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T16:53:00.584904+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-retained/ticket-14-release-mapping-pin/ticket14-repair-raw.tar.gz::release-mapping-repair/tdd/race-public-contracts-command.json",
+      "kind": "targeted",
+      "start": 1792314336.988435,
+      "seconds": 12.826874332968146,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMaxAdditiveReleaseContract|TestGLMReleaseTraceContract)$"
+      ],
+      "exitCode": 0,
+      "source": ".evidence/minimax-retained/ticket-14-release-mapping-pin/ticket14-repair-raw.tar.gz::release-mapping-repair/tdd/race-public-contracts-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T17:05:36.988435+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz::offline-gap2/tdd/race-release-package-command.json",
+      "kind": "targeted",
+      "start": 1792316561.144754,
+      "seconds": 360.01656516687945,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/release",
+        "-count=1"
+      ],
+      "exitCode": 1,
+      "source": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz::offline-gap2/tdd/race-release-package-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T17:42:41.144754+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz::offline-gap2/tdd/race-diagnostic-process-command.json",
+      "kind": "targeted",
+      "start": 1792316561.144885,
+      "seconds": 12.394733000081033,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^TestReleaseRecordedBundleDiagnosticProcess$"
+      ],
+      "exitCode": 0,
+      "source": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz::offline-gap2/tdd/race-diagnostic-process-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T17:42:41.144885+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz::offline-gap2/tdd/race-release-package-complete-command.json",
+      "kind": "targeted",
+      "start": 1792316970.351977,
+      "seconds": 358.5500322501175,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/internal/testkit/release",
+        "-count=1"
+      ],
+      "exitCode": 0,
+      "source": ".evidence/minimax-retained/ticket-14-offline-gap2/gap2-raw.tar.gz::offline-gap2/tdd/race-release-package-complete-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T17:49:30.351977+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-retained/ticket-16-glm-header-alignment/deadline-alignment-raw.tar.gz::glm-header-alignment/tdd/race-host-cancel-command.json",
+      "kind": "targeted",
+      "start": 1792318288.973822,
+      "seconds": 24.373766000382602,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestGLMSharedLimitsAndTimeouts|TestGLMSharedCancellation|TestGLMSharedResponsesSettlement|TestProtocolTimeouts)$"
+      ],
+      "exitCode": 0,
+      "source": ".evidence/minimax-retained/ticket-16-glm-header-alignment/deadline-alignment-raw.tar.gz::glm-header-alignment/tdd/race-host-cancel-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T18:11:28.973822+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-release-repair-incomplete-gate-1/gate-command-exits/race.json",
+      "kind": "full",
+      "start": 1792325685.687616,
+      "seconds": 2286.9994075000286,
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=75m",
+        "./..."
+      ],
+      "exitCode": 1,
+      "source": ".evidence/minimax-release-repair-incomplete-gate-1/gate-command-exits/race.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-18T20:14:45.687616+08:00"
+    },
+    {
+      "identity": "exec-581a0fc1-e41d-4d90-9869-43ac7048f1be",
+      "kind": "targeted",
+      "start": 1792327687.674,
+      "seconds": 155.676,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMax|TestAnthropic|TestGLMMessages|TestGLMReleaseTraceContract)",
+        "-timeout=20m",
+        "-exec",
+        "/usr/bin/env BARNESS_MINIMAX_CATALOG_CHILD_RACE=1"
+      ],
+      "exitCode": 0,
+      "source": "exec-581a0fc1-e41d-4d90-9869-43ac7048f1be",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T20:48:07.674000+08:00"
+    },
+    {
+      "identity": "exec-d04fb253-a167-45e0-9276-80b9e8a0cbdf",
+      "kind": "targeted",
+      "start": 1792327853.614,
+      "seconds": 71.126,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-run",
+        "^(TestMiniMaxSharedDesignLoad|TestMiniMaxPiCatalog|TestMiniMaxPiCatalogDifferences)$",
+        "-exec",
+        "/usr/bin/env BARNESS_AI_PRESSURE=1 BARNESS_AI_PIDIFF=1",
+        "-timeout=20m"
+      ],
+      "exitCode": 0,
+      "source": "exec-d04fb253-a167-45e0-9276-80b9e8a0cbdf",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-18T20:50:53.614000+08:00"
+    },
+    {
+      "identity": "exec-d4550ffe-6bd9-4516-bdc8-c30d0550d767",
+      "kind": "targeted",
+      "start": 1792364185.192,
+      "seconds": 9.995,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "-tags",
+        "live",
+        "./ai/live",
+        "-count=1",
+        "-run",
+        "^TestGLMMessagesCancelDiagnosticProcess$",
+        "-timeout=90s"
+      ],
+      "exitCode": 0,
+      "source": "exec-d4550ffe-6bd9-4516-bdc8-c30d0550d767",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T06:56:25.192000+08:00"
+    },
+    {
+      "identity": "exec-d3fd1fac-0135-4e15-8196-e0d028b649c6/native renewal API",
+      "kind": "targeted",
+      "start": 1792386252.972,
+      "seconds": 59.78448987007141,
+      "argv": "native renewal API",
+      "source": "exec-d3fd1fac-0135-4e15-8196-e0d028b649c6",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T13:04:12.972000+08:00"
+    },
+    {
+      "identity": "exec-d3fd1fac-0135-4e15-8196-e0d028b649c6/native renewal harness",
+      "kind": "targeted",
+      "start": 1792386252.972,
+      "seconds": 152.79004907608032,
+      "argv": "native renewal harness",
+      "source": "exec-d3fd1fac-0135-4e15-8196-e0d028b649c6",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T13:04:12.972000+08:00"
+    },
+    {
+      "identity": "exec-94ac5fb9-4539-4b89-9809-b3c247619804/renewal HOME redaction",
+      "kind": "targeted",
+      "start": 1792388033.309,
+      "seconds": 5.145092964172363,
+      "argv": "renewal HOME redaction",
+      "source": "exec-94ac5fb9-4539-4b89-9809-b3c247619804",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T13:33:53.309000+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-current-eleven-gate-2/gate-command-exits/race.json",
+      "kind": "full",
+      "start": 1792393170.504441,
+      "seconds": 2932.2393203331158,
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=75m",
+        "./..."
+      ],
+      "exitCode": 1,
+      "source": ".evidence/minimax-current-eleven-gate-2/gate-command-exits/race.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T14:59:30.504441+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-visual-deadline-diagnostic-1/replay-race-once-command.json",
+      "kind": "targeted",
+      "start": 1792394919.379295,
+      "seconds": 5.823114250320941,
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=120s",
+        "./ai/e2e",
+        "-run",
+        "^TestVisualEvaluationFailureRetention$/^decisions$/^plain$/^deadline$"
+      ],
+      "exitCode": 1,
+      "source": ".evidence/minimax-visual-deadline-diagnostic-1/replay-race-once-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T15:28:39.379295+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-visual-deadline-diagnostic-1/replay-race-three-command.json",
+      "kind": "targeted",
+      "start": 1792394962.600141,
+      "seconds": 7.878723250236362,
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=3",
+        "-timeout=120s",
+        "./ai/e2e",
+        "-run",
+        "^TestVisualEvaluationFailureRetention$/^decisions$/^plain$/^deadline$"
+      ],
+      "exitCode": 0,
+      "source": ".evidence/minimax-visual-deadline-diagnostic-1/replay-race-three-command.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T15:29:22.600141+08:00"
+    },
+    {
+      "identity": "exec-bf7d39fc-77b4-4516-af76-1f92b3ba25f2",
+      "kind": "targeted",
+      "start": 1792395768.3438342,
+      "seconds": 52.23405981063843,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/examples/visualeval",
+        "-count=1",
+        "-run",
+        "^TestVisualUnsentCancellation$"
+      ],
+      "exitCode": 1,
+      "source": "exec-bf7d39fc-77b4-4516-af76-1f92b3ba25f2",
+      "durationBasis": "archived child command receipt",
+      "additionalSource": ".evidence/minimax-retained/ticket-20-visual-unsent/core.tar.gz::ticket20-core/raw/red-race/command.json",
+      "startShanghai": "2026-10-19T15:42:48.343834+08:00"
+    },
+    {
+      "identity": "exec-069ec7e3-5ed8-44e3-9e46-08d0ce948ac3",
+      "kind": "targeted",
+      "start": 1792395964.0294678,
+      "seconds": 83.19579124450684,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/examples/visualeval",
+        "-count=1",
+        "-run",
+        "^TestVisualUnsentCancellation$"
+      ],
+      "exitCode": 0,
+      "source": "exec-069ec7e3-5ed8-44e3-9e46-08d0ce948ac3",
+      "durationBasis": "archived child command receipt",
+      "additionalSource": ".evidence/minimax-retained/ticket-20-visual-unsent/core.tar.gz::ticket20-core/raw/green-race/command.json",
+      "startShanghai": "2026-10-19T15:46:04.029468+08:00"
+    },
+    {
+      "identity": "exec-6ebd88f1-6adb-4262-a074-f25f63bc4b17",
+      "kind": "targeted",
+      "start": 1792396071.260572,
+      "seconds": 380.15201711654663,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=8m",
+        "-run",
+        "^TestVisualEvaluation(FixedWorkflow|FailureRetention|NotRun|CancelledAccounting)$"
+      ],
+      "exitCode": 1,
+      "source": "exec-6ebd88f1-6adb-4262-a074-f25f63bc4b17",
+      "durationBasis": "archived child command receipt",
+      "additionalSource": ".evidence/minimax-retained/ticket-20-visual-unsent/race.tar.gz::ticket20-race/raw/visual-e2e-race/command.json",
+      "startShanghai": "2026-10-19T15:47:51.260572+08:00"
+    },
+    {
+      "identity": "exec-dfab8fe4-1388-4345-b856-614ddff0176f",
+      "kind": "targeted",
+      "start": 1792396959.18,
+      "seconds": 104.019,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/examples/visualeval",
+        "-count=1",
+        "-run",
+        "^TestVisualUnsent"
+      ],
+      "exitCode": 0,
+      "source": "exec-dfab8fe4-1388-4345-b856-614ddff0176f",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:02:39.180000+08:00"
+    },
+    {
+      "identity": "exec-798900dd-ee5b-44ad-bd55-d56bc8248c1e",
+      "kind": "targeted",
+      "start": 1792396959.183,
+      "seconds": 378.948,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=8m",
+        "-run",
+        "^TestVisualEvaluation(FixedWorkflow|FailureRetention|NotRun|CancelledAccounting)$"
+      ],
+      "exitCode": 0,
+      "source": "exec-798900dd-ee5b-44ad-bd55-d56bc8248c1e",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:02:39.183000+08:00"
+    },
+    {
+      "identity": "exec-521af07b-10da-48a0-8f3d-4ca63290f88f",
+      "kind": "targeted",
+      "start": 1792397410.639,
+      "seconds": 29.631,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=180s",
+        "-run",
+        "^TestVisualEvaluationFailureRetention$/^(jev|decisions)$/^(plain|hooked)$/^deadline$"
+      ],
+      "exitCode": 1,
+      "source": "exec-521af07b-10da-48a0-8f3d-4ca63290f88f",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:10:10.639000+08:00"
+    },
+    {
+      "identity": "exec-60c38ca0-f7ed-4997-bc00-9560bf561079",
+      "kind": "targeted",
+      "start": 1792397410.64,
+      "seconds": 97.648,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/examples/visualeval",
+        "-count=1",
+        "-run",
+        "^TestVisualUnsent"
+      ],
+      "exitCode": 0,
+      "source": "exec-60c38ca0-f7ed-4997-bc00-9560bf561079",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:10:10.640000+08:00"
+    },
+    {
+      "identity": "exec-3c6608e7-9cd7-4570-a91a-e53211d7bf98",
+      "kind": "targeted",
+      "start": 1792397750.071,
+      "seconds": 21.919,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=180s",
+        "-run",
+        "^TestVisualEvaluationCancelledAccounting$"
+      ],
+      "exitCode": 0,
+      "source": "exec-3c6608e7-9cd7-4570-a91a-e53211d7bf98",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:15:50.071000+08:00"
+    },
+    {
+      "identity": "exec-51e485a8-e9cf-42ce-a8ef-eef175bd845b",
+      "kind": "targeted",
+      "start": 1792397750.071,
+      "seconds": 31.223,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=180s",
+        "-run",
+        "^TestVisualEvaluationFailureRetention$/^(jev|decisions)$/^(plain|hooked)$/^deadline$"
+      ],
+      "exitCode": 0,
+      "source": "exec-51e485a8-e9cf-42ce-a8ef-eef175bd845b",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:15:50.071000+08:00"
+    },
+    {
+      "identity": "exec-f04807f0-3451-40c0-98f6-a8722b2e3c3c",
+      "kind": "targeted",
+      "start": 1792397750.071,
+      "seconds": 109.07,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/examples/visualeval",
+        "-count=1",
+        "-run",
+        "^TestVisual(Unsent|SentCancellationBeforeDecode)"
+      ],
+      "exitCode": 0,
+      "source": "exec-f04807f0-3451-40c0-98f6-a8722b2e3c3c",
+      "durationBasis": "shell command record; may include small setup/vet overhead",
+      "startShanghai": "2026-10-19T16:15:50.071000+08:00"
+    },
+    {
+      "identity": "exec-ae03063e-6d8e-48fb-b512-3cb1775edec0",
+      "kind": "targeted",
+      "start": 1792398124.441133,
+      "seconds": 121.18709993362427,
+      "argv": [
+        "go",
+        "test",
+        "-race",
+        "./ai/examples/visualeval",
+        "-count=1",
+        "-run",
+        "^TestVisual(Unsent|SentCancellationBeforeDecode)"
+      ],
+      "exitCode": 0,
+      "source": "exec-ae03063e-6d8e-48fb-b512-3cb1775edec0",
+      "durationBasis": "archived child command receipt",
+      "additionalSource": ".evidence/minimax-retained/ticket-20-visual-unsent/core.tar.gz::ticket20-core/raw/null-final-race/command.json",
+      "startShanghai": "2026-10-19T16:22:04.441133+08:00"
+    },
+    {
+      "identity": ".evidence/minimax-current-visual-gate-1/gate-command-exits/race.json",
+      "kind": "full",
+      "start": 1792404142.593395,
+      "seconds": 2912.514872457832,
+      "argv": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=75m",
+        "./..."
+      ],
+      "exitCode": 0,
+      "source": ".evidence/minimax-current-visual-gate-1/gate-command-exits/race.json",
+      "durationBasis": "child command receipt",
+      "startShanghai": "2026-10-19T18:02:22.593395+08:00"
+    }
+  ]
+}
