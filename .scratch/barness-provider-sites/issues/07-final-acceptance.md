@@ -2,7 +2,7 @@
 
 Status: claimed
 Type: task
-Blocked by: 05, 08, 09, 10, 11, 12, 14, 15
+Blocked by: 05, 08, 09, 10, 11, 12, 16
 
 ## Context
 
@@ -17,6 +17,8 @@ Blocked by: 05, 08, 09, 10, 11, 12, 14, 15
 先重核完整普通事实、源码与工具；差分 / 压力开启的完整 `go test -json -race ./... -count=1 -timeout=75m` 写入新目录；保留实际数字退出、UTC、墙钟、原生 manifest / audit、来源前后清单与全部失败。不得将开发 race 冒充未取得的正式 `READY_FOR_RACE` checkpoint。当前真实资格、目录晋升、新 formal、23 份自身支持与四份效果必须全部符合现有原生消费者，才可宣称完整发布通过。
 
 ## Comments
+
+2026-10-20：固定恢复3获实际批准并执行；来源6b87a584三M3各13 PASS、ZAI Chat18 PASS，随后ZAI Responses17 PASS/1 FAIL。已按约停止，后19进程未启动。14/15本身范围完成；16处理ZAI Responses将无推理的tool-call固定为原生源的问题及严格消费者同步。实际停止证据、金额和资格边界见spec唯一当前状态，不启动最终race。
 
 2026-10-20：13的新完整重验22 PASS，Messages22 PASS及三路新raw/views发布通过；六新增formal81 PASS。随后国际MiniMax Chat实际13/12、thinking-on无reasoning导致真实FAIL，转14；17进程未启动，ID2 nonce已消费不可完整重启。15只准备固定恢复机制和具体新付费计划，尚无新授权。用户最新明确所有国际站使用本地127.0.0.1:7890，后续ZAI也按此执行；本次失败国际MiniMax已走该代理。实际状态只见spec。
 

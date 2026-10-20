@@ -1,8 +1,7 @@
 # 14 MiniMax 国际 Chat 原生推理真实验收失败
 
-Status: claimed
+Status: resolved
 Type: task
-Blocked by: 15
 
 ## Context
 
@@ -17,3 +16,7 @@ Blocked by: 15
 ## Acceptance
 
 若新增完整进程，先落实15固定恢复授权/源码及预算，再取得具体新付费范围批准；不能重用已消费nonce、原grant、剩余7calls或历史ID冒充完整重跑。新完整自身证明及剩余23支持/四效果齐备后才继续07。保留原失败，不从一次无reasoning推断永久不支持或已证实随机根因。
+
+## Answer
+
+已在实际批准的固定恢复3、来源6b87a584下完成国际M3三路各完整13/13 PASS，合计39 Calls/36 HTTP，三原生正式消费者均exit0；Chat原失败的thinking-on本次完整通过。没有修改parser或断言，原失败永久保留。此结果只证明其自身来源的实际新资格；后续ZAI Responses阻断转[16](16-zai-responses-native-source.md)，完整发布仍由07验收。[固定事实](../../../.evidence/provider-sites/final-acceptance-20261020/recovery3-stopped/index.json)。

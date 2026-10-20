@@ -1,6 +1,6 @@
 # 15 固定恢复3授权、累计预算与证据续行
 
-Status: claimed
+Status: resolved
 Type: task
 
 ## Context
@@ -20,3 +20,9 @@ Type: task
 ## Acceptance
 
 先公共CLI/进程RED再实现与定向普通；覆盖关闭旧ID/错误源/伪旧失败/超预算/错误policy映射/缺新实际批准/重复claim/隔离/nonce/并发/旧proof替代拒绝。原授权、旧native历史、所有真实FAIL和原process缺失状态均固定。独立双轴复审清零后冻结实际源码/新二进制/工具/选定输入；新human仅PENDING，具体付费24计划准备和无Key检查完成后由根申请一次明确新范围批准。此前九服务资格和新READY后一次完整race选择保持，不重复询问；批准前禁止新增真实调用/研究/整进程重跑。
+
+## Answer
+
+固定ID3/schema4及独立Python控制器在6b87a584完成；[原生开发证据](../../../.evidence/provider-sites/final-acceptance-20261020/recovery3-native-dev/index.json)、[控制器与修复证据](../../../.evidence/provider-sites/final-acceptance-20261020/recovery3-controller-dev/index.json)、[双轴复审](../../../.evidence/provider-sites/final-acceptance-20261020/recovery3-preparation/review/index.json)均留原件，最终两轴0剩余。十新二进制、双vet、完整ai/live无Key检查通过。实际人类批准“批准固定恢复3，总预算仍为 US$30”单独封存，[准备索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery3-preparation/index.json)保持批准前的真实状态不重写。
+
+真实执行三M3与ZAI Chat四进程全PASS，随后ZAI Responses一个原生来源断言FAIL，控制器按合同停止后19进程。未自动重跑、未退款或改旧UNKNOWN；[停止索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery3-stopped/index.json)记录新75/72、累计378/374、claimed564/612及整笔12.60USD。机制本票完成，新的harness修复与资格缺口由16和07继续处理，不据此宣称完整验收通过。

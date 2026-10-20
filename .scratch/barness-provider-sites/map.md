@@ -25,6 +25,8 @@
 
 - [12 ZAI Chat 固定原生来源](issues/12-zai-chat-native-source.md)：本轮上游工具响应未返回 reasoning，预先固定同轮 full-stream 原生阳性消息并保留工具链；受控修复与新的有限重验准备由 spec 记录。
 
+- [14 MiniMax Chat](issues/14-minimax-global-chat-native-thinking.md)、[15固定恢复3](issues/15-fixed-recovery-authority.md)：各自范围已解决；实际6b87a584三M3各完整13 PASS，授权机制及失败即停已验证。后续阻断是[16 ZAI Responses固定自身推理来源](issues/16-zai-responses-native-source.md)，具体当前验收/金额只见spec。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。
