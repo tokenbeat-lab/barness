@@ -13,6 +13,8 @@ def main():
     p.add_argument('out',nargs='?');p.add_argument('route',nargs='?');p.add_argument('--inputs');a=p.parse_args()
     if a.mode=='inventory':result=r.inventory(c.ROOT/'.evidence/provider-sites/unprepared-recovery3')
     else:
+        closed=c.common_root()/r.BASE/'closed-cohort-3/seal.json'
+        if a.mode!='summarize' and (closed.exists() or closed.is_symlink()):raise RuntimeError('recovery3 permanently closed; history only')
         import recovery_state as s
         import recovery_execute as e
         if a.mode=='summarize':result=e.summarize()

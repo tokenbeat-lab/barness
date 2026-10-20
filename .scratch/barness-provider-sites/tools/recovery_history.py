@@ -78,3 +78,7 @@ def actual_approval(prepared):
     for k in ('sourceCommit','sourceManifestSHA256','binariesManifestSHA256','planSHA256','secondCohortSealSHA256','spendingGuardSourceSHA256'):
         if value.get(k)!=prepared[k]:raise RuntimeError('actual new human reply must bind this source/binary/plan/policy')
     return value
+
+# No new metadata is retroactively added to the approved fixed3 contract.
+def prepare_metadata(prior):return {}
+def scope_metadata(prepared):return {}

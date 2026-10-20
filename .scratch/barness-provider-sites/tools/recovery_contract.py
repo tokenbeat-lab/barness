@@ -32,3 +32,14 @@ def inventory(out):
 
 # The23 public support identities remain the same; collection authority does not.
 live_identities=old.live_identities
+
+# Fixed-context metadata for the two reviewed recovery workflows.
+RETAINED_ACTUAL_CALLS,RETAINED_ACTUAL_ATTEMPTS=303,302
+ORIGINAL_PROCESS_COUNT,UNKNOWN_PROCESSES=17,2
+PREDECESSOR_SEAL_FIELD='secondCohortSealSHA256'
+ACTUAL_HUMAN_LEAF='recovery3-authorization.json'
+REGIONAL_GRANT_PREFIX='ps-final-3-'
+NATIVE_PREFLIGHT_FLAG='-recovery-preflight='
+FINAL_SELECTION_FILE='effective33-retained41.json'
+
+PHASE='recovery3'

@@ -1,6 +1,6 @@
-# provider-sites-final-acceptance-2
+# Fixed provider-site acceptance collections
 
-This is one concrete finite collection, not a reusable round scheduler. The authoritative feature state remains [spec](../spec.md). Old launchers, grants, ledgers, raw archives and failed evidence remain closed and unchanged. The operator never starts research or race automatically.
+The current fixed entry is `recovery4_round.py`; see the authoritative [spec](../spec.md). The R2/R3 sections below describe closed historical contracts. These are concrete finite collections, not a reusable round scheduler. The authoritative feature state remains [spec](../spec.md). Old launchers, grants, ledgers, raw archives and failed evidence remain closed and unchanged. The operator never starts research or race automatically.
 
 The first cohort is closed after its second candidate genuinely failed. Prepare validates the canonical `closed-cohort-1/seal.json`, all indexed immutable originals and archived control source into `predecessor-disclosure.json`. Its actual40 Calls/40 HTTP, claimed52/52 and whole1.5USD reservation remain occupied. The33 new complete processes are bounded at722 Calls/758 HTTP and28.4USD. Aggregate claimed scope is774/810, with29.9USD whole reservations within the original30USD ceiling. The unused12 old claimed calls do not authorize another process. No research runs in this continuation; its existing4/4 is already inside the closed40/40. Original eligibility and the unique final race approval are linked by their immutable authorization SHA; new paid scope requires its own exact user reply. Query `summarize` for existing claims. Started, failed or unknown claims cannot relaunch from another output directory/worktree.
 
@@ -67,7 +67,7 @@ python3 -B .scratch/barness-provider-sites/tools/final_round.py run-selected .ev
 
 Only a native-consumed complete22 retry may replace the failed Responses dependency. Summary retains both original UNKNOWN and new retry counters; finalization uses33 effective successful processes with all34 original/additional claims still counted. Raw publication receives original successful Chat, new retry Responses and new Messages directories. It pins the new canonical retry receipt and all originals; it never rewrites the failed report. The M3 grant's schema3 campaign fields remain the original R2 approval sub-scope, with explicit metadata linking the separate retry approval and actual798/842 whole-campaign ceiling. Nine-service qualifications and the existing one final race authorization remain linked to the original human record.
 
-固定恢复3当前入口为 `recovery_round.py`；旧 `final_round.py` 的R2 paid/prepare入口在 `closed-cohort-2/seal.json` 出现后永久关闭，旧GLM publisher作为历史只读消费者保持。新scope是24进程506/518，旧303/302实际、456/492领取和US$10.70整笔保持；未来US$19.20、合计US$29.90。33有效角色必须从41个真实R2/R3记录选出，不能删除两份旧UNKNOWN、六份被新source替代的formal或首cohort。
+已关闭恢复3的历史入口为 `recovery_round.py`；旧 `final_round.py` 的R2 paid/prepare入口在 `closed-cohort-2/seal.json` 出现后永久关闭，旧GLM publisher作为历史只读消费者保持。新scope是24进程506/518，旧303/302实际、456/492领取和US$10.70整笔保持；未来US$19.20、合计US$29.90。33有效角色必须从41个真实R2/R3记录选出，不能删除两份旧UNKNOWN、六份被新source替代的formal或首cohort。
 
 `python3 -B .scratch/barness-provider-sites/tools/recovery_round.py prepare .evidence/provider-sites/final-acceptance-20261020/recovery3` 只构建十binary、源/工具/模板和PENDING授权，不产生实际批准或原生grant。执行目录使用Git common owner checkout。根依据具体源码/计划/独立复审和直接人类回复，另行创建唯一 `recovery3-authorization.json`；新机器授权必须逐字绑定它，旧九服务资格及一次fresh READY后的完整race仅作为原批准引用。实际回复缺失/PENDING时 `native-grant` 与 `run-selected` 在claim/Key前拒绝。
 
@@ -76,3 +76,23 @@ Only a native-consumed complete22 retry may replace the failed Responses depende
 按plan的固定顺序手工选择一次：三M3(Chat先行完整native PASS)、六formal、十generic、protocol、四效果。每个前项须完整成功且原生消费；唯一延期例外是 `protocol114` 的 `paired-jevformal-pending`：它在自身成功后等待独立 `visual-jev`，最终必须以同一新3两份原件经 `jevformal -require-live` 配对验证后才可取得Jev支持资格，任一方缺失/失败都阻断最终发布。任何FAIL/UNKNOWN立即阻断全部后项；没有run-all或自动整进程重启。国际站包括ZAI都显式走 `http://127.0.0.1:7890`，中国站及DeepSeek直连。Anthropic1.80为硬停止额度，Images仍3.50，其余保持原分配；不能保证所有签名/历史/既有局部重试分支完整，耗尽不追加、不退款、不缩场景。
 
 完成后以冻结 `jevformal -protocol <新protocol bundle> -effects <新visual-jev> -out <新derived support> -require-live` 派生Jev，再提供23 live与四effects给 `final-plan`/`finalize`。GLM三原件及其完整245集合保持b384/R2，六candidate保留已发生ca033晋升lineage；R3只接受三新M3及六新formal作为正式资格。所有27输入和实际canonical receipt精确相符后，公共importer先私有合并23行，再原子发布tracked矩阵；提交合法派生数据，重建最终CLI及CompleteSource/input freeze，通过ordinary取得新READY，最后执行原已选的一次完整race。R3工具不会自动启动race。
+
+
+## 固定恢复4（当前准备入口）
+
+当前状态只见[spec](../spec.md)与[工单17](../issues/17-fixed-fourth-recovery.md)。`recovery4_round.py`固定ID4/schema5；closed3出现后，旧3的prepare/preview/check/native-grant/run-selected/final-plan/finalize均在Key前永久拒绝，inventory/summarize仅保留原合同历史读取。共享私有3/4流程只复用有界文件IO、完整freeze、canonical一次claim、实际子进程及原生消费者/矩阵发布机制；历史2/3授权数值不改，无任意round参数、全局ID切换或动态轮次注册表。
+
+```sh
+python3 -B .scratch/barness-provider-sites/tools/recovery4_round.py inventory
+python3 -B .scratch/barness-provider-sites/tools/recovery4_round.py prepare .evidence/provider-sites/final-acceptance-20261020/recovery4
+python3 -B .scratch/barness-provider-sites/tools/recovery4_round.py check .evidence/provider-sites/final-acceptance-20261020/recovery4
+python3 -B .scratch/barness-provider-sites/tools/recovery4_round.py preview .evidence/provider-sites/final-acceptance-20261020/recovery4 formal-zai-responses
+```
+
+prepare只写PENDING模板，构建十binary并冻结真实完整来源/工具/plan/closed3历史；check顺序执行双vet和完整ai/live无Key普通验证。成功各exit0；真实新 `recovery4-authorization.json` 在直接新回复前必须不存在。实际新human须绑定24完整范围、精确来源/二进制/计划和关闭历史，不允许PENDING、旧3回复reference或重新标号的旧批准。scope为506 Calls/518 HTTP，外层1070/1130；旧actual378/374、claimed564/612、整笔12.60及3UNKNOWN保持，新整笔17.30、合计29.90≤原30。
+
+先手工选唯一 `formal-zai-responses`，自身完整18/18与当前原生formal消费PASS后才允许 `native-grant <out>`。该keyless操作投影同一已明确批准的完整24范围，调用新 `minimaxverify -recovery4-source/-recovery4-preflight=<route>`，一次发行schema5；提前发行、重复发行、旧nonce/额外native intent均拒绝。其后按plan执行三M3、余五formal、十generic、protocol和四effects。任一FAIL/UNKNOWN或资金耗尽立即停止；无自动完整重启。每项前序须自身完整消费，protocol114唯一延期为paired-jevformal-pending，最终仍必须与同轮visual-jev经 `jevformal -require-live`实际配对后才可发布。
+
+执行授权、人类回复、operator、canonical claim、command的ID都是真实4；财务policy与USD文件格式仍明确为2，绑定未变Go guard SHA、原US30批准、新4回复和新的独立USD路径。旧2/3 ledger和claims不写入。国际站包括ZAI全部显式代理7890，中国站和DeepSeek直连。仅Google interactions image整笔4.50→2.60，其余保持恢复3分配；固定正常两请求有保守reserve2.592832支撑，但任意第三次已发送attempt固定项即至少3.052032，将由原guard预发送硬停。保留原场景/重试/模型/fixture/wire，不能承诺有已发送重试时仍完整，也不是厂商账单保证；失败/取消/UNKNOWN不退款、不加额。
+
+最终33有效角色仅选六历史candidate＋三保留b384 GLM＋新4完整24；46份实际R2/R3/R4记录(17+5+24)和三UNKNOWN、首cohort全部保留。旧candidate只读原sealed PASS/原consumer/promotion lineage历史，不用当前 `-qualify` 重新授予其旧来源资格；新六formal均须当前自身资格。三个GLM完整245集合及原raw/derived ZIP须逐项相等。最终 `final-plan/finalize <out> --inputs <json>` 仍精确23live+四effects，不提供自动inputs生成器；新4Jev派生必须含本轮protocol/visual两棵原件树。公共consumer、全部23行私有importer与前后input pins通过才原子发布tracked矩阵。保留 `finalization/effective33-retained46.json`；提交派生数据后重建最终releasegate、freeze CompleteSource与27输入、fresh check取得真实READY，最后才执行已另行明确选择的一次完整race。旧prepublication releasegate/checkpoint不复用，不自动启动race。
