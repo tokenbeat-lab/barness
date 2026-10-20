@@ -74,6 +74,11 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if e = os.Mkdir(lock, 0700); e != nil {
 		return Receipt{}, fmt.Errorf("MiniMax stage ledger locked")
 	}
+	if renewal != "" {
+		if e = syncLedgerDirectory(filepath.Dir(l.Path)); e != nil {
+			return Receipt{}, e
+		}
+	}
 	defer os.Remove(lock)
 	var receipts []Receipt
 	if _, e = os.Lstat(l.Path); e == nil {
@@ -131,7 +136,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 		return Receipt{}, fmt.Errorf("unreserved actual attempt")
 	}
 	if renewal != "" {
-		if e = l.claimRenewal(grantPin, receipts); e != nil {
+		if e = l.claimRenewal(renewal, grantPin, receipts); e != nil {
 			return Receipt{}, e
 		}
 	}
@@ -149,6 +154,9 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	closeErr := f.Close()
 	if e == nil {
 		e = closeErr
+	}
+	if e == nil && renewal != "" {
+		e = syncLedgerDirectory(filepath.Dir(l.Path))
 	}
 	return r, e
 }

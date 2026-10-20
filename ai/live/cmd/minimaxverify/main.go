@@ -14,8 +14,29 @@ import (
 func main() {
 	formal := flag.Bool("formal", false, "require current own M3 formal live evidence")
 	publish := flag.Bool("publish", false, "exclusively publish own formal support projection after trusted origin")
-	facts := flag.Bool("renewal-source", false, "read-only fixed formal-renewal source and original39/36 history facts")
+	facts := flag.Bool("renewal-source", false, "read-only current final-renewal source and complete closed history facts")
+	preflight := flag.String("renewal-preflight", "", "read-only current final-renewal authority and unclaimed route guard")
 	flag.Parse()
+	if *preflight != "" {
+		if flag.NArg() != 0 || *formal || *publish || *facts {
+			fmt.Fprintln(os.Stderr, "renewal-preflight cannot verify or publish")
+			os.Exit(2)
+		}
+		g, pin, e := minimaxlive.RenewalPreflight(*preflight)
+		if e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		f, e := minimaxlive.RenewalFacts()
+		if e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		if e = json.NewEncoder(os.Stdout).Encode(map[string]any{"route": *preflight, "grant": g, "grantSha256": pin, "facts": f}); e != nil {
+			os.Exit(1)
+		}
+		return
+	}
 	if *facts {
 		if flag.NArg() != 0 || *formal || *publish {
 			fmt.Fprintln(os.Stderr, "renewal-source cannot verify or publish")

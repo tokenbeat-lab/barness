@@ -10,8 +10,13 @@ import (
 	"strings"
 )
 
-// One explicitly approved source renewal; this is not a selectable round API.
+// FormalRenewalID identifies the closed first renewal. Its evidence remains
+// readable, but it can never acquire new execution authority.
 const FormalRenewalID = "current-source-eleven-renewal-1"
+
+// FinalAcceptanceRenewalID is the only additional, explicitly bounded round.
+// Neither ID is a caller-defined round namespace.
+const FinalAcceptanceRenewalID = "provider-sites-final-acceptance-1"
 
 type RenewalGrant struct {
 	Schema                   int    `json:"schema"`
@@ -36,24 +41,37 @@ type RenewalGrant struct {
 	SourceManifestSHA256     string `json:"sourceManifestSha256"`
 	BinariesManifestSHA256   string `json:"binariesManifestSha256"`
 	PlanSHA256               string `json:"planSha256"`
+	PreviousRenewalID        string `json:"previousRenewalId,omitempty"`
+	PreviousLedgerSHA256     string `json:"previousLedgerSha256,omitempty"`
+	PreviousLedgerTailSHA256 string `json:"previousLedgerTailSha256,omitempty"`
+	PreviousCalls            int    `json:"previousCalls,omitempty"`
+	PreviousAttempts         int    `json:"previousAttempts,omitempty"`
+	ClosedHistorySHA256      string `json:"closedHistorySha256,omitempty"`
 }
 type RenewalSourceFacts struct {
-	RenewalID                string `json:"renewalId"`
-	CommonRootSHA256         string `json:"commonRootSha256"`
-	SourceCommit             string `json:"sourceCommit"`
-	ExecutionSourceSHA256    string `json:"executionSourceSha256"`
-	OriginalLedgerSHA256     string `json:"originalLedgerSha256"`
-	OriginalLedgerTailSHA256 string `json:"originalLedgerTailSha256"`
-	OriginalCalls            int    `json:"originalCalls"`
-	OriginalAttempts         int    `json:"originalAttempts"`
+	RenewalID                string            `json:"renewalId"`
+	CommonRootSHA256         string            `json:"commonRootSha256"`
+	SourceCommit             string            `json:"sourceCommit"`
+	ExecutionSourceSHA256    string            `json:"executionSourceSha256"`
+	OriginalLedgerSHA256     string            `json:"originalLedgerSha256"`
+	OriginalLedgerTailSHA256 string            `json:"originalLedgerTailSha256"`
+	OriginalCalls            int               `json:"originalCalls"`
+	OriginalAttempts         int               `json:"originalAttempts"`
+	PreviousRenewalID        string            `json:"previousRenewalId,omitempty"`
+	PreviousLedgerSHA256     string            `json:"previousLedgerSha256,omitempty"`
+	PreviousLedgerTailSHA256 string            `json:"previousLedgerTailSha256,omitempty"`
+	PreviousCalls            int               `json:"previousCalls,omitempty"`
+	PreviousAttempts         int               `json:"previousAttempts,omitempty"`
+	ClosedHistorySHA256      string            `json:"closedHistorySha256,omitempty"`
+	ClosedHistory            map[string]string `json:"closedHistory,omitempty"`
 }
 
-func renewalBase() (string, error) {
+func renewalBase(id string) (string, error) {
 	old, e := originalStageLedgerPath("formal")
 	if e != nil {
 		return "", e
 	}
-	return filepath.Join(filepath.Dir(filepath.Dir(old)), "minimax-renewals", FormalRenewalID), nil
+	return filepath.Join(filepath.Dir(filepath.Dir(old)), "minimax-renewals", id), nil
 }
 func currentCommit() (string, error) {
 	root, e := Root()
@@ -67,9 +85,7 @@ func currentCommit() (string, error) {
 	return strings.TrimSpace(string(b)), e
 }
 
-// RenewalFacts exports the native selector, not a Python approximation. It
-// neither creates an authority nor changes original stage accounting.
-func RenewalFacts() (RenewalSourceFacts, error) {
+func closedRenewalFacts() (RenewalSourceFacts, error) {
 	f := RenewalSourceFacts{RenewalID: FormalRenewalID}
 	old, e := originalStageLedgerPath("formal")
 	if e != nil {
@@ -117,11 +133,25 @@ func RenewalFacts() (RenewalSourceFacts, error) {
 	return f, nil
 }
 func approvedRenewal(id string, active bool) (RenewalGrant, string, error) {
+	if id == FinalAcceptanceRenewalID {
+		return approvedFinalRenewal(active)
+	}
+	if active && id == FormalRenewalID {
+		return RenewalGrant{}, "", fmt.Errorf("closed MiniMax renewal cannot execute again")
+	}
+	return approvedClosedRenewal(id)
+}
+
+// Historical verification retains the original schema and pins. It never
+// reopens the closed round or transfers any of its unused budget.
+// Keep its approval checks independent: final-round fields and caps must not
+// silently broaden the already closed schema-1 evidence contract.
+func approvedClosedRenewal(id string) (RenewalGrant, string, error) {
 	var g RenewalGrant
 	if id != FormalRenewalID {
 		return g, "", fmt.Errorf("unknown fixed MiniMax formal renewal")
 	}
-	base, e := renewalBase()
+	base, e := renewalBase(id)
 	if e != nil {
 		return g, "", e
 	}
@@ -143,11 +173,11 @@ func approvedRenewal(id string, active bool) (RenewalGrant, string, error) {
 	if !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) {
 		return g, "", fmt.Errorf("renewal source commit invalid")
 	}
-	f, e := RenewalFacts()
+	f, e := closedRenewalFacts()
 	if e != nil {
 		return g, "", e
 	}
-	if g.Schema != 1 || g.RenewalID != id || g.Decision != "APPROVED" || g.CommonRootSHA256 != f.CommonRootSHA256 || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || g.OriginalLedgerSHA256 != f.OriginalLedgerSHA256 || g.OriginalLedgerTailSHA256 != f.OriginalLedgerTailSHA256 || g.OriginalCalls != 39 || g.OriginalAttempts != 36 || g.MaxCalls != 60 || g.MaxAttempts != 72 || g.PerIdentityCalls != 20 || g.PerIdentityAttempts != 24 || g.MaxOutputTokens != 4096 || g.MaxRequestedOutput != 40000 || g.MaxReservedInput != 120000 || active && g.SourceCommit != f.SourceCommit {
+	if g.Schema != 1 || g.RenewalID != id || g.Decision != "APPROVED" || g.CommonRootSHA256 != f.CommonRootSHA256 || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || g.OriginalLedgerSHA256 != f.OriginalLedgerSHA256 || g.OriginalLedgerTailSHA256 != f.OriginalLedgerTailSHA256 || g.OriginalCalls != 39 || g.OriginalAttempts != 36 || g.MaxCalls != 60 || g.MaxAttempts != 72 || g.PerIdentityCalls != 20 || g.PerIdentityAttempts != 24 || g.MaxOutputTokens != 4096 || g.MaxRequestedOutput != 40000 || g.MaxReservedInput != 120000 || !closedGrantOnly(g) {
 		return g, "", fmt.Errorf("fixed renewal source/history/caps differ")
 	}
 	if e = renewalCommittedSource(g.SourceCommit); e != nil {
@@ -190,10 +220,10 @@ func RenewalAuthority(id string, active bool) (RenewalGrant, string, error) {
 	return approvedRenewal(id, active)
 }
 func RenewalLedgerPath(id string) (string, error) {
-	if id != FormalRenewalID {
+	if id != FormalRenewalID && id != FinalAcceptanceRenewalID {
 		return "", fmt.Errorf("unknown renewal")
 	}
-	base, e := renewalBase()
+	base, e := renewalBase(id)
 	return filepath.Join(base, "formal.jsonl"), e
 }
 

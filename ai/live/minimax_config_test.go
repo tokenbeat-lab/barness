@@ -59,32 +59,9 @@ func initializeMiniMax() {
 		}
 		r.Kind = "minimax-research-only"
 	}
-	minimaxKey = strings.TrimSpace(os.Getenv("BARNESS_MINIMAX_KEY"))
-	if minimaxKey != "" {
-		run.RedactSecret(minimaxKey, "[MINIMAX-CREDENTIAL]")
-	}
 	r.AccountAlias = os.Getenv("BARNESS_MINIMAX_ACCOUNT_ALIAS")
 	r.RegionAlias = os.Getenv("BARNESS_MINIMAX_REGION_ALIAS")
 	r.Entitlement = os.Getenv("BARNESS_MINIMAX_ENTITLEMENT")
-	alias := regexp.MustCompile(`^[a-zA-Z0-9_-]{1,64}$`)
-	if minimaxKey != "" && (!alias.MatchString(r.AccountAlias) || !alias.MatchString(r.RegionAlias)) {
-		minimaxConfigError = "nonsecret account and region aliases required"
-	}
-	for _, kv := range os.Environ() {
-		n, v, _ := strings.Cut(kv, "=")
-		if v == "" {
-			continue
-		}
-		if n == "BARNESS_GLM_ROUTE" || n == "BARNESS_MM_ROUTE" || n == envCombo || strings.HasPrefix(n, envKeyBase) || strings.HasSuffix(n, "_BASE_URL") || n == "BARNESS_AI_LIVE_ENDPOINT" || n == "OPENAI_API_BASE" || n == "BARNESS_AI_LIVE_PROXY" {
-			minimaxConfigError = "mixed route, credential or endpoint override forbidden"
-		}
-		if n != "BARNESS_MINIMAX_KEY" && (strings.HasSuffix(n, "_KEY") || strings.HasSuffix(n, "_TOKEN") || strings.HasSuffix(n, "_SECRET")) {
-			minimaxConfigError = "ambient vendor credential forbidden"
-		}
-	}
-	if r.Mode == "replay" && (minimaxKey != "" || os.Getenv(envLive) == "1") {
-		minimaxConfigError = "replay forbids credentials and live switch"
-	}
 	minimaxSelected = &combo{name: "minimax-" + id.Route, operation: ai.OperationChat, provider: ai.ProviderMiniMax, api: id.API, endpoint: id.Endpoint, model: id.Model, sdk: openAISDK}
 	if id.Route == "messages" {
 		minimaxSelected.sdk = anthropicSDK
@@ -119,7 +96,7 @@ func initializeMiniMax() {
 	}
 	if renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL"); renewal != "" {
 		r.FormalRenewalID = renewal
-		r.Unknown = append(r.Unknown, "fixed formal source renewal has independent60/72 cap; original formal39/36 history remains immutable and is pinned by the canonical grant")
+		r.Unknown = append(r.Unknown, "fixed final source renewal has independent60/72 cap; original formal39/36 and closed first renewal39/36 remain immutable and are pinned by the canonical grant")
 		if r.Mode != "live" || r.Stage != "formal" || r.Identity.Model != minimaxlive.M3 {
 			minimaxConfigError = "fixed formal renewal requires actual M3 formal live"
 		} else if _, pin, e := minimaxlive.RenewalAuthority(renewal, true); e != nil {
@@ -144,12 +121,48 @@ func initializeMiniMax() {
 	}
 
 	minimaxLedger = minimaxlive.Ledger{Path: path, Stage: r.Stage, Session: r.Session, Identity: id}
+	// Renewals require the canonical process claim before even reading this
+	// child's selected credential. A failed begin is consumed, never resumable.
+	if r.FormalRenewalID != "" && minimaxConfigError == "" {
+		if e = minimaxLedger.BeginRenewal(); e != nil {
+			minimaxConfigError = e.Error()
+		}
+	}
+	if minimaxConfigError == "" {
+		readMiniMaxCredential(r)
+	}
 	run.SetVersion("minimax_mode", r.Mode)
 	run.SetVersion("minimax_kind", r.Kind)
 	run.SetVersion("model_catalog_version", r.CatalogVersion)
 	run.SetVersion("model_catalog_hash", r.CatalogHash)
 	run.SetVersion("minimax_plan_hash", r.PlanHash)
 	run.SetVersion("minimax_source_hash", r.SourceHash)
+}
+
+func readMiniMaxCredential(r *minimaxlive.Report) {
+	minimaxKey = strings.TrimSpace(os.Getenv("BARNESS_MINIMAX_KEY"))
+	if minimaxKey != "" {
+		run.RedactSecret(minimaxKey, "[MINIMAX-CREDENTIAL]")
+	}
+	alias := regexp.MustCompile(`^[a-zA-Z0-9_-]{1,64}$`)
+	if minimaxKey != "" && (!alias.MatchString(r.AccountAlias) || !alias.MatchString(r.RegionAlias)) {
+		minimaxConfigError = "nonsecret account and region aliases required"
+	}
+	for _, kv := range os.Environ() {
+		n, v, _ := strings.Cut(kv, "=")
+		if v == "" {
+			continue
+		}
+		if n == "BARNESS_GLM_ROUTE" || n == "BARNESS_MM_ROUTE" || n == envCombo || strings.HasPrefix(n, envKeyBase) || strings.HasSuffix(n, "_BASE_URL") || n == "BARNESS_AI_LIVE_ENDPOINT" || n == "OPENAI_API_BASE" || n == "BARNESS_AI_LIVE_PROXY" {
+			minimaxConfigError = "mixed route, credential or endpoint override forbidden"
+		}
+		if n != "BARNESS_MINIMAX_KEY" && (strings.HasSuffix(n, "_KEY") || strings.HasSuffix(n, "_TOKEN") || strings.HasSuffix(n, "_SECRET")) {
+			minimaxConfigError = "ambient vendor credential forbidden"
+		}
+	}
+	if r.Mode == "replay" && (minimaxKey != "" || os.Getenv(envLive) == "1") {
+		minimaxConfigError = "replay forbids credentials and live switch"
+	}
 }
 func minimaxEntry() string {
 	if minimaxReport.Kind == "minimax-research-only" {
