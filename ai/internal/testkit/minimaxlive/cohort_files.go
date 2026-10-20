@@ -66,7 +66,11 @@ func cohortFileHash(root *os.Root, name string, remaining int64) (string, int64,
 }
 
 func cohortJSON(root *os.Root, name string, value any) ([]byte, error) {
-	file, before, err := cohortOpen(root, name, 2<<20)
+	return cohortJSONLimit(root, name, value, 2<<20)
+}
+
+func cohortJSONLimit(root *os.Root, name string, value any, limit int64) ([]byte, error) {
+	file, before, err := cohortOpen(root, name, limit)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,10 @@ const fifthCollection = ".evidence/provider-sites/final-acceptance-20261020/reco
 // regional process. These pins bind real receipts, not an invented PASS field;
 // the Python launcher remains responsible for running regionalverify itself.
 func recovery5FirstRoute(g RenewalGrant, humanPin string) error {
+	return recoveryFirstRoute(g, humanPin, Recovery5RenewalID, fifthCollection)
+}
+
+func recoveryFirstRoute(g RenewalGrant, humanPin, round, collection string) error {
 	owner, e := evidenceOwner()
 	if e != nil {
 		return e
@@ -24,32 +28,32 @@ func recovery5FirstRoute(g RenewalGrant, humanPin string) error {
 		return e
 	}
 	defer root.Close()
-	parentPath := ".evidence/minimax-launches/" + Recovery5RenewalID + "-formal-zai-responses.json"
-	consumerPath := fifthCollection + "formal-zai-responses-consume-command.json"
+	parentPath := ".evidence/minimax-launches/" + round + "-formal-zai-responses.json"
+	consumerPath := collection + "formal-zai-responses-consume-command.json"
 	reportPath := ""
 	if len(g.FirstRouteProof) != 3 || !regexpHex64(g.FirstRouteProof[parentPath]) || !regexpHex64(g.FirstRouteProof[consumerPath]) {
-		return fmt.Errorf("recovery5 first18 proof requires exact three pins")
+		return fmt.Errorf("fixed recovery first18 proof requires exact three pins")
 	}
 	for name, pin := range g.FirstRouteProof {
 		if !regexpHex64(pin) {
-			return fmt.Errorf("recovery5 first proof pin invalid")
+			return fmt.Errorf("fixed recovery first proof pin invalid")
 		}
 		if name != parentPath && name != consumerPath {
 			reportPath = name
 		}
 	}
-	prefix := fifthCollection + "formal-zai-responses/"
+	prefix := collection + "formal-zai-responses/"
 	if !strings.HasPrefix(reportPath, prefix) || !strings.HasSuffix(reportPath, "/regional-report.json") {
-		return fmt.Errorf("recovery5 first report path differs")
+		return fmt.Errorf("fixed recovery first report path differs")
 	}
 	session := strings.TrimSuffix(strings.TrimPrefix(reportPath, prefix), "/regional-report.json")
 	if session == "" || strings.Contains(session, "/") {
-		return fmt.Errorf("recovery5 first report session invalid")
+		return fmt.Errorf("fixed recovery first report session invalid")
 	}
 	for name, pin := range g.FirstRouteProof {
 		got, _, e := cohortFileHash(root, name, maxCohortFile)
 		if e != nil || got != pin {
-			return fmt.Errorf("recovery5 first proof changed: %s", name)
+			return fmt.Errorf("fixed recovery first proof changed: %s", name)
 		}
 	}
 	var parent struct {
@@ -72,8 +76,8 @@ func recovery5FirstRoute(g RenewalGrant, humanPin string) error {
 		SpendingGuardPolicyID     string            `json:"spendingGuardPolicyId"`
 	}
 	_, e = cohortJSONProjection(root, parentPath, &parent, "exitCode", "credentialsRead")
-	if e != nil || parent.State != "COMPLETED" || parent.BaseName != "formal-zai-responses" || parent.Route != Recovery5RenewalID+"-formal-zai-responses" || parent.ValidationRound != Recovery5RenewalID || parent.NativeRenewalID != Recovery5RenewalID || parent.SourceCommit != g.SourceCommit || parent.ExitCode != 0 || !parent.CredentialsRead || !reportedParentBudget(parent.Budget, 18, 18) || parent.SourceManifestSHA256 != g.SourceManifestSHA256 || parent.BinariesManifestSHA256 != g.BinariesManifestSHA256 || parent.PlanSHA256 != g.PlanSHA256 || parent.ActualHumanApprovalSHA256 != humanPin || parent.ReportSHA256 != g.FirstRouteProof[reportPath] || parent.ConsumerSHA256 != g.FirstRouteProof[consumerPath] || parent.SpendingGuardPolicyID != FinalAcceptanceRenewalID || !reflect.DeepEqual(parent.SpendingGuardSourceSHA256, g.SpendingGuardSourceSHA256) {
-		return fmt.Errorf("recovery5 first canonical PASS18 source/authority differs: %v", e)
+	if e != nil || parent.State != "COMPLETED" || parent.BaseName != "formal-zai-responses" || parent.Route != round+"-formal-zai-responses" || parent.ValidationRound != round || parent.NativeRenewalID != round || parent.SourceCommit != g.SourceCommit || parent.ExitCode != 0 || !parent.CredentialsRead || !reportedParentBudget(parent.Budget, 18, 18) || parent.SourceManifestSHA256 != g.SourceManifestSHA256 || parent.BinariesManifestSHA256 != g.BinariesManifestSHA256 || parent.PlanSHA256 != g.PlanSHA256 || parent.ActualHumanApprovalSHA256 != humanPin || parent.ReportSHA256 != g.FirstRouteProof[reportPath] || parent.ConsumerSHA256 != g.FirstRouteProof[consumerPath] || parent.SpendingGuardPolicyID != FinalAcceptanceRenewalID || !reflect.DeepEqual(parent.SpendingGuardSourceSHA256, g.SpendingGuardSourceSHA256) {
+		return fmt.Errorf("fixed recovery first canonical PASS18 source/authority differs: %v", e)
 	}
 	var consumer struct {
 		State                string   `json:"state"`
@@ -89,22 +93,22 @@ func recovery5FirstRoute(g RenewalGrant, humanPin string) error {
 		} `json:"launcherAudit"`
 	}
 	_, e = cohortJSONProjection(root, consumerPath, &consumer, "state", "name", "argv", "cwd", "exitCode", "credentialsRead", "credentialsInherited", "launcherAudit")
-	expectedArgv := []string{"$REPO/" + fifthCollection + "regionalverify", "-formal", "$REPO/" + strings.TrimSuffix(reportPath, "/regional-report.json")}
+	expectedArgv := []string{"$REPO/" + collection + "regionalverify", "-formal", "$REPO/" + strings.TrimSuffix(reportPath, "/regional-report.json")}
 	if e != nil || consumer.State != "COMPLETED" || consumer.Name != "formal-zai-responses-consume" || consumer.ExitCode != 0 || consumer.CredentialsRead || consumer.CredentialsInherited || consumer.Cwd != "$REPO" || !reflect.DeepEqual(consumer.Argv, expectedArgv) || !consumer.LauncherAudit.Passed || len(consumer.LauncherAudit.Findings) != 0 {
-		return fmt.Errorf("recovery5 first native consumer command differs")
+		return fmt.Errorf("fixed recovery first native consumer command differs")
 	}
 	var binaries map[string]string
-	raw, e := cohortJSON(root, fifthCollection+"binaries.json", &binaries)
+	raw, e := cohortJSON(root, collection+"binaries.json", &binaries)
 	if e != nil || Hash(raw) != g.BinariesManifestSHA256 || !regexpHex64(binaries["regionalverify"]) || !regexpHex64(binaries["live.test"]) {
-		return fmt.Errorf("recovery5 first frozen binaries differ")
+		return fmt.Errorf("fixed recovery first frozen binaries differ")
 	}
-	pin, _, e := cohortFileHash(root, fifthCollection+"regionalverify", maxCohortFile)
+	pin, _, e := cohortFileHash(root, collection+"regionalverify", maxCohortFile)
 	if e != nil || pin != binaries["regionalverify"] {
-		return fmt.Errorf("recovery5 first consumer binary changed")
+		return fmt.Errorf("fixed recovery first consumer binary changed")
 	}
-	return recovery5FirstReport(root, g, reportPath, binaries["live.test"])
+	return recoveryFirstReport(root, g, reportPath, binaries["live.test"], collection)
 }
-func recovery5FirstReport(root *os.Root, g RenewalGrant, path, binaryPin string) error {
+func recoveryFirstReport(root *os.Root, g RenewalGrant, path, binaryPin, collection string) error {
 	var r struct {
 		Schema    int      `json:"schema"`
 		Combo     string   `json:"combo"`
@@ -137,7 +141,7 @@ func recovery5FirstReport(root *os.Root, g RenewalGrant, path, binaryPin string)
 	}
 	_, e := cohortJSONProjection(root, path, &r)
 	if e != nil || r.Schema != 3 || r.Combo != "zai-responses" || r.Provider != "zai" || r.GitCommit != g.SourceCommit || r.Budget.Calls != 18 || r.Budget.Attempts != 18 || len(r.Scenarios) != 18 || len(r.Expected) != 18 || r.Regional.Schema != 1 || r.Regional.Mode != "live" || r.Regional.Stage != "formal" || r.Regional.Purpose != "standard" || r.Regional.CredentialProvider != "zai" || !r.Regional.Complete || !r.Regional.AuditPassed || r.Regional.BinarySHA256 != binaryPin || r.Regional.SourceSHA256 != r.Regional.BuildSourceSHA256 {
-		return fmt.Errorf("recovery5 first native formal18 report differs: %v", e)
+		return fmt.Errorf("fixed recovery first native formal18 report differs: %v", e)
 	}
 	wanted := []string{}
 	for _, model := range []string{"glm-5.3", "glm-5.2"} {
@@ -146,33 +150,33 @@ func recovery5FirstReport(root *os.Root, g RenewalGrant, path, binaryPin string)
 		}
 	}
 	if !slices.Equal(r.Expected, wanted) {
-		return fmt.Errorf("recovery5 first expected18 changed")
+		return fmt.Errorf("fixed recovery first expected18 changed")
 	}
 	expected := map[string]bool{}
 	for _, id := range r.Expected {
 		if id == "" || expected[id] {
-			return fmt.Errorf("recovery5 first duplicate expected case")
+			return fmt.Errorf("fixed recovery first duplicate expected case")
 		}
 		expected[id] = true
 	}
 	for _, s := range r.Scenarios {
 		if !expected[s.ID] || s.Outcome != "PASS" || s.Calls != 1 || s.Attempts != 1 {
-			return fmt.Errorf("recovery5 first scenario PASS18 differs")
+			return fmt.Errorf("fixed recovery first scenario PASS18 differs")
 		}
 		delete(expected, s.ID)
 	}
 	want := map[string]string{"glm-5.2": "REGIONAL-zai-responses-glm-5.2-full-stream", "glm-5.3": "REGIONAL-zai-responses-glm-5.3-full-stream"}
 	if !reflect.DeepEqual(r.Regional.NativeSourceCases, want) {
-		return fmt.Errorf("recovery5 first native case selection differs")
+		return fmt.Errorf("fixed recovery first native case selection differs")
 	}
 	var source map[string]string
 	_, e = cohortJSON(root, strings.TrimSuffix(path, "regional-report.json")+"regional-execution-source.json", &source)
 	encoded, _ := json.Marshal(source)
 	if e != nil || len(source) == 0 || Hash(encoded) != r.Regional.SourceSHA256 {
-		return fmt.Errorf("recovery5 first report source pin differs")
+		return fmt.Errorf("fixed recovery first report source pin differs")
 	}
 	if e = committedArchive(g.SourceCommit, source); e != nil {
 		return e
 	}
-	return closedHistoricalSource(root, map[string]string{fifthCollection + "source-at-start.json": g.SourceManifestSHA256}, fifthCollection, g)
+	return closedHistoricalSource(root, map[string]string{collection + "source-at-start.json": g.SourceManifestSHA256}, collection, g)
 }

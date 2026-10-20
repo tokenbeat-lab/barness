@@ -22,7 +22,20 @@ func main() {
 	recovery4Preflight := flag.String("recovery4-preflight", "", "read-only recovery4 authority and unclaimed route guard")
 	recovery5Facts := flag.Bool("recovery5-source", false, "read-only fixed recovery5 source and closed fourth cohort facts")
 	recovery5Preflight := flag.String("recovery5-preflight", "", "read-only recovery5 authority and unclaimed route guard")
+	recovery6Facts := flag.Bool("recovery6-source", false, "read-only fixed recovery6 source and closed fifth cohort facts")
+	recovery6Preflight := flag.String("recovery6-preflight", "", "read-only recovery6 authority and unclaimed route guard")
 	flag.Parse()
+	if *recovery6Facts || *recovery6Preflight != "" {
+		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts || *recoveryPreflight != "" || *recovery4Facts || *recovery4Preflight != "" || *recovery5Facts || *recovery5Preflight != "" || *recovery6Facts && *recovery6Preflight != "" {
+			fmt.Fprintln(os.Stderr, "recovery6-source/preflight cannot verify or publish")
+			os.Exit(2)
+		}
+		if e := recovery6(*recovery6Facts, *recovery6Preflight); e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		return
+	}
 	if *recovery5Facts || *recovery5Preflight != "" {
 		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts || *recoveryPreflight != "" || *recovery4Facts || *recovery4Preflight != "" || *recovery5Facts && *recovery5Preflight != "" {
 			fmt.Fprintln(os.Stderr, "recovery5-source/preflight cannot verify or publish")
@@ -183,6 +196,25 @@ func recovery5(facts bool, route string) error {
 		return e
 	}
 	f, e := minimaxlive.Recovery5Facts()
+	if e != nil {
+		return e
+	}
+	return json.NewEncoder(os.Stdout).Encode(map[string]any{"route": route, "grant": g, "grantSha256": pin, "facts": f})
+}
+
+func recovery6(facts bool, route string) error {
+	if facts {
+		f, e := minimaxlive.Recovery6Facts()
+		if e != nil {
+			return e
+		}
+		return json.NewEncoder(os.Stdout).Encode(f)
+	}
+	g, pin, e := minimaxlive.Recovery6Preflight(route)
+	if e != nil {
+		return e
+	}
+	f, e := minimaxlive.Recovery6Facts()
 	if e != nil {
 		return e
 	}

@@ -233,5 +233,5 @@ func fourthNativeHistory(root *os.Root, owner string, stop fourthStop, f Renewal
 // This shape check additionally protects the old source grant from new guard
 // fields; schema5 never authorized a changed spending implementation.
 func oldFourthGrantOnly(g RenewalGrant) bool {
-	return g.FourthCohort == nil && len(g.SpendingGuardSourceSHA256) == 0
+	return g.FifthCohort == nil && g.FourthCohort == nil && len(g.SpendingGuardSourceSHA256) == 0
 }
