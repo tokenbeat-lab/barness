@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -48,17 +49,20 @@ func TestGLMFormalReports(t *testing.T) {
 				t.Fatal(e)
 			}
 			m := supportmatrix.Matrix{Schema: supportmatrix.SchemaVersion, Rows: []supportmatrix.Row{{Combo: r.Combo, Operation: "chat", Provider: "zhipu", API: r.API}, {Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions"}}}
-			merged, e := supportmatrix.Merge(m, r)
-			ev.Check("own full current-hash report accepted", e == nil, "%v", e)
-			if e != nil {
-				return
-			}
+			// The existing matrix may retain this immutable historical pass;
+			// refusing current applicability must neither clear nor refresh it.
+			m.Rows[0].AllPassedAt = &r.FinishedAt
+			beforeMatrix, _ := json.Marshal(m)
+			_, e = supportmatrix.Merge(m, r)
+			ev.Check("historical own capture refuses changed current execution source", glmExecutionSourceDrift(e), "%v", e)
+			afterMatrix, _ := json.Marshal(m)
+			ev.Check("stale execution source cannot update caller matrix", bytes.Equal(beforeMatrix, afterMatrix), "matrix mutated")
 			_, overwriteError := supportmatrix.CreateGLMSupportView(route, filepath.Dir(reportPath))
 			ev.Check("existing support view is never overwritten", overwriteError != nil, "existing destination changed")
-			ev.Check("own22 model capabilities", merged.Rows[0].AllPassedAt != nil && len(merged.Rows[0].Capabilities) == 22, "incomplete row")
-			ev.Check("other row and caller untouched", reflect.DeepEqual(merged.Rows[1], m.Rows[1]) && len(m.Rows[0].Capabilities) == 0, "mutation")
+			ev.Check("historical own22 model-qualified cases retained", len(r.Expected) == 22 && len(r.Scenarios) == 22 && r.Provider == "zhipu", "incomplete historical report")
+			ev.Check("other row and caller untouched", reflect.DeepEqual(m.Rows[1], supportmatrix.Row{Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions"}) && len(m.Rows[0].Capabilities) == 0, "mutation")
 			audit := release.AuditBundle(filepath.Dir(reportPath), nil)
-			ev.Check("release import verifies same evidence", audit.Err == "" && audit.Live != nil, "%s", audit.Err)
+			ev.Check("release audit refuses same stale execution source", audit.Err == "live artifact integrity verification failed" && audit.Live != nil && glmExecutionSourceDrift(e), "%s", audit.Err)
 			for _, name := range []string{"stale-hash", "candidate", "controlled", "replay", "wrong-api", "wrong-provider", "wrong-model", "narrow", "unsupported", "fake-counters", "fake-provider-id", "fake-known-usage", "fake-unknown-usage", "billing-claim"} {
 				bad := r
 				bad.Expected = append([]string{}, r.Expected...)
@@ -183,7 +187,7 @@ func TestGLMFormalReports(t *testing.T) {
 				_, e = supportmatrix.Merge(m, originalReport)
 			}
 			want := known.Routes[route]
-			ev.Check("fresh immutable raw report retains independently pinned known totals", e == nil && originalReport.GitCommit == known.SourceCommit && originalReport.Budget.InputTokensUsed == want.InputSide && originalReport.Budget.OutputTokensUsed == want.Output && r.GLM.Derivation.RawArchiveSHA256 == want.ArchiveSHA256 && r.GLM.Derivation.OriginalFormalReportSHA256 == want.ReportSHA256, "err=%v budget=%+v expected=%+v", e, originalReport.Budget, want)
+			ev.Check("historical raw totals survive while current execution acceptance refuses", glmExecutionSourceDrift(e) && originalReport.GitCommit == known.SourceCommit && originalReport.Budget.InputTokensUsed == want.InputSide && originalReport.Budget.OutputTokensUsed == want.Output && r.GLM.Derivation.RawArchiveSHA256 == want.ArchiveSHA256 && r.GLM.Derivation.OriginalFormalReportSHA256 == want.ReportSHA256, "err=%v budget=%+v expected=%+v", e, originalReport.Budget, want)
 			zero := originalReport
 			zero.Budget.InputTokensUsed, zero.Budget.OutputTokensUsed = 0, 0
 			_, zeroError := supportmatrix.Merge(m, zero)
@@ -193,13 +197,20 @@ func TestGLMFormalReports(t *testing.T) {
 			// when a rejected newer substituted report is submitted.
 			newer := r
 			newer.FinishedAt = r.FinishedAt.Add(time.Second)
-			_, err := supportmatrix.Merge(merged, newer)
-			ev.Check("history cannot be replaced by fabricated newer metadata", err != nil && merged.Rows[0].AllPassedAt.Equal(r.FinishedAt), "history lost")
+			_, err := supportmatrix.Merge(m, newer)
+			ev.Check("history cannot be replaced by fabricated newer metadata", err != nil && len(m.Rows[0].Capabilities) == 0 && m.Rows[0].AllPassedAt.Equal(r.FinishedAt), "history lost")
 			cat := ai.BuiltinCatalog()
 			hash, _ := cat.Hash()
-			ev.Check("formal price snapshot exact", r.CatalogHash == hash && r.CatalogVersion == cat.Version, "stale")
-			ev.Record("verified-report", r)
-			ev.Record("merged-own-row", merged.Rows[0])
+			ev.Check("historical catalog snapshot still exact despite changed execution source", r.CatalogHash == hash && r.CatalogVersion == cat.Version, "stale")
+			ev.Record("historical-report-current-source-refused", r)
+			ev.Record("unchanged-own-row", m.Rows[0])
 		})
 	}
+}
+
+// Shared implementation/cache changes invalidate old own live execution bytes.
+// Exact classification distinguishes source staleness from missing archives,
+// a malformed report, or any unrelated consumer failure.
+func glmExecutionSourceDrift(err error) bool {
+	return errors.Is(err, supportmatrix.ErrInvalidReport) && err.Error() == "supportmatrix: invalid report: GLM execution source drift"
 }
