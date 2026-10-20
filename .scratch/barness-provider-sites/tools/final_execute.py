@@ -138,7 +138,8 @@ def require_checks(out):
 def report_path(out, job):
     if 'combo' in job:
         from renewal_common import bundle
-        return bundle(job['evidenceRoot'], 'live-report.json') / 'live-report.json'
+        # Candidates have only their native report; formal support is a later projection.
+        return bundle(job['evidenceRoot'], 'regional-report.json') / 'regional-report.json'
     return r.old.report_path(out, job)
 
 

@@ -135,7 +135,7 @@ def promote(out):
             receipt.get('budget',{}).get('status')!='PASS' or not receipt.get('nativeConsumerReceiptSha256') or
             receipt.get('sourceCommit')!=prepared['sourceCommit']):
             raise RuntimeError('all six own native-consumed current candidate processes must PASS')
-        paths.append(bundle(out/name,'live-report.json'))
+        paths.append(bundle(out/name,'regional-report.json'))
     before=s.sources()
     receipt_root=c.ROOT/'.evidence/provider-sites/final-acceptance-20261020/promotion'
     receipt_root.mkdir(parents=True,exist_ok=True,mode=0o700)
