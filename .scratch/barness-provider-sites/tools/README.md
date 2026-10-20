@@ -48,3 +48,21 @@ go test -tags live ./ai/live -run '^Test(FinalRoundBudget(Process|Fixture)|GLMFi
 ```
 
 Retained RED/GREEN logs, native manifests/audits and source/argv/numeric exit/UTC receipts live outside the disposable worker worktree. No test result grants paid permission or starts race.
+
+## One explicitly approved Responses retry
+
+The human reply in `responses-retry-authorization.json` adds exactly one complete22 Responses process,24 Calls/32 HTTP and500000 microUSD. Its fixed canonical name is `glm-responses-retry-1`. The stopped8 process original files, failed Responses claim/UNKNOWN, its1000000 reserve and original R2 global authority remain byte-for-byte unchanged. All original R2 sub-scope limits stay722/758 and774/810; the independent amendment yields798/842 whole-campaign limits. Unstarted Messages is limited to500000 microUSD, keeping all planned whole reservations29.9USD within the same30USD. A failed/unknown retry keeps its entire reserve and blocks continuation. No additional retry selector exists.
+
+Prepare the reviewed controller in the common-owner repository. The separate clean same-owner checkout must retain the original measured commit from `round2-stopped/index.json`. The frozen original `glm-round2/live.test` is copied exactly; the original `glmformal -source` re-exports its complete245-file selector from both current and execution roots. Original binary hashes, embedded catalog inputs and the native source must all match. The child actually runs with that checkout's `ai/live` cwd, while its new absolute evidence directory belongs to the controller. `sourceCommit` remains the actual measured commit; `controlSourceCommit`, current manifests and `executionContextSHA256` identify the reviewed Python controller separately. Three native reports therefore retain their honest common measured commit required by the unchanged Go publisher.
+
+```sh
+python3 -B .scratch/barness-provider-sites/tools/final_round.py prepare-responses-retry .evidence/provider-sites/final-acceptance-20261020/responses-retry --execution-root /tmp/barness-regional/glm-fixed-b384
+python3 -B .scratch/barness-provider-sites/tools/final_round.py check .evidence/provider-sites/final-acceptance-20261020/responses-retry
+# Retain exact-source independent reviews; project the existing R2 approval into
+# execution-authorization.json for Messages at.5, and the exact new user record
+# into retry-authorization.json. Both remain PENDING until the real projection.
+python3 -B .scratch/barness-provider-sites/tools/final_round.py run-responses-retry .evidence/provider-sites/final-acceptance-20261020/responses-retry
+python3 -B .scratch/barness-provider-sites/tools/final_round.py run-selected .evidence/provider-sites/final-acceptance-20261020/responses-retry glm-messages
+```
+
+Only a native-consumed complete22 retry may replace the failed Responses dependency. Summary retains both original UNKNOWN and new retry counters; finalization uses33 effective successful processes with all34 original/additional claims still counted. Raw publication receives original successful Chat, new retry Responses and new Messages directories. It pins the new canonical retry receipt and all originals; it never rewrites the failed report. The M3 grant's schema3 campaign fields remain the original R2 approval sub-scope, with explicit metadata linking the separate retry approval and actual798/842 whole-campaign ceiling. Nine-service qualifications and the existing one final race authorization remain linked to the original human record.

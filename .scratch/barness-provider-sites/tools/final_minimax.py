@@ -31,6 +31,14 @@ def create(out):
         planSHA256=prepared['planSHA256'],provider='minimax',model='MiniMax-M3',purpose='standard',routes=list(r.ROUTES),
         renewalMaxCalls=60,renewalMaxAttempts=72,firstCohortSealSHA256=facts['firstCohortSealSha256'],
         campaignMaxCalls=r.CAMPAIGN_CALLS,campaignMaxAttempts=r.CAMPAIGN_ATTEMPTS,newReservedMicrousd=r.NEW_RESERVED)
+    # Native schema3 retains the already-approved R2 sub-scope fields. The
+    # separate one-process reply changes whole-campaign totals, not M3 caps.
+    import final_retry,final_retry_execute
+    if final_retry_execute.present():
+        if not final_retry_execute.success():raise RuntimeError('the approved whole22 retry must pass before remaining native authority')
+        amendment=final_retry.facts()
+        human.update(scopeBasis='Original R2 sub-scope only:722/758 and774/810; separate expressly approved Responses retry adds24/32 globally.',
+            separateResponsesRetryApprovalSHA256=amendment['approvalSHA256'],actualWholeCampaignMaxCalls=798,actualWholeCampaignMaxAttempts=842)
     review=c.doc(out/'prerelease-source-review.json')|dict(historySHA256=facts['closedHistorySha256'],firstCohortSealSHA256=facts['firstCohortSealSha256'])
     with e.locked() as base:
         for leaf in ('human-approval.json','source-review.json','grant.json'):

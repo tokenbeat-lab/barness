@@ -52,7 +52,9 @@ def plan(out, selected):
 def finalize(out, selected):
     result=plan(out,selected)
     summary=e.summarize()
-    if len(summary['routes'])!=33 or any(v['state']!='COMPLETED' or v.get('budget',{}).get('status')!='PASS' for v in summary['routes']):
+    import final_retry_execute
+    effective=final_retry_execute.effective(summary['routes'])
+    if len(effective)!=33 or any(v['state']!='COMPLETED' or v.get('budget',{}).get('status')!='PASS' for v in effective):
         raise RuntimeError('all33 own full-process facts must PASS; no capture or scenario splicing')
     import final_publication
     final_publication.validate(u.json_doc(c.ROOT/'ai/live/testdata/glm-formal/live-captures.json'))

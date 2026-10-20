@@ -75,6 +75,9 @@ def dependencies(job):
     if job['phase'] == 'remaining':
         names += ['glm-' + route for route in r.ROUTES]
     for name in names:
+        if name=='glm-responses':
+            import final_retry
+            name=final_retry.selected_name('responses')
         value = c.doc(e.marker(name))
         if (value.get('state') != 'COMPLETED' or value.get('exitCode') != 0 or
             value.get('budget', {}).get('status') != 'PASS' or not value.get('nativeConsumerReceiptSha256')):
@@ -90,31 +93,39 @@ def dependencies(job):
 
 def publication_receipt(route):
     """Read-only strict current historical launcher check after later commits."""
-    name = 'glm-' + route
+    import final_retry
+    name=final_retry.selected_name(route)
     value = c.doc(e.marker(name))
     out = s.path(value['collectionRoot'].replace('$REPO/', ''))
     prepared = c.doc(out / 'prepared.json')
     command = c.doc(out / (name + '-command.json'))
-    expected = r.jobs(out)[name]
+    expected = final_retry.jobs(out)[name] if (out/'execution-context.json').exists() else r.jobs(out)[name]
+    if name==final_retry.NAME and value.get('authorizationFile')!='retry-authorization.json':raise RuntimeError('fixed retry authorization leaf required')
     fields = dict(sourceManifestSha256='sourceManifestSHA256', binariesManifestSha256='binariesManifestSHA256', planSha256='planSHA256')
     if (value.get('validationRound') != r.ROUND or value.get('baseName') != name or value.get('phase') != 'glm' or
         value.get('state') != 'COMPLETED' or value.get('exitCode') != 0 or value.get('credentialsRead') is not True or
         value.get('sourceVariable') != 'ZHIPU_KEY' or value.get('networkRoute') != 'direct' or
         value.get('automaticReruns') is not False or value.get('maxCalls') != 24 or value.get('maxAttempts') != 32 or
         value.get('budget') != dict(state='REPORTED', status='PASS', calls=22, attempts=22) or
-        value.get('sourceCommit') != prepared.get('sourceCommit') or command.get('argv') != c.redact(expected['argv']) or
+        value.get('sourceCommit') != expected.get('measuredCommit',prepared.get('sourceCommit')) or command.get('argv') != c.redact(expected['argv']) or
         command.get('state') != 'COMPLETED' or command.get('exitCode') != 0 or command.get('credentialsRead') is not True or
         c.digest(out / (name + '-command.json')) != value.get('commandReceiptSha256') or
         value.get('launcherAudit', {}).get('passed') is not True):
         raise RuntimeError('new own reviewed direct full22 canonical launcher receipt required')
     for leaf, field in [('source-at-start.json', 'sourceManifestSha256'), ('binaries.json', 'binariesManifestSha256'),
-        ('plan.json', 'planSha256'), ('prerelease-source-review.json', 'sourceReviewSha256'), ('execution-authorization.json', 'authorizationSha256')]:
+        ('plan.json', 'planSha256'), ('prerelease-source-review.json', 'sourceReviewSha256'), ('retry-authorization.json' if name==final_retry.NAME else 'execution-authorization.json', 'authorizationSha256')]:
         if c.digest(out / leaf) != value.get(field):
             raise RuntimeError('new canonical source/binary/review/approval/plan bytes changed')
     if any(value[k] != prepared[v] for k, v in fields.items()):
         raise RuntimeError('new canonical prepared source binding changed')
     e.require_checks(out)
-    s.approved_metadata(out, expected, prepared)
+    if 'executionContextSHA256' in value:
+        final_retry.load(out)
+        if value['executionContextSHA256']!=final_retry.local_pin(out,'execution-context.json') or value.get('controlSourceCommit')!=prepared['sourceCommit']:raise RuntimeError('measured/controller provenance changed')
+    if name==final_retry.NAME:
+        import final_retry_execute
+        final_retry_execute.approved(out,prepared,expected)
+    else:s.approved_metadata(out, expected, prepared)
     receipt_path = out / (name + '-consume-command.json')
     consumer = c.doc(receipt_path)
     if (c.digest(receipt_path) != value.get('nativeConsumerReceiptSha256') or consumer.get('state') != 'COMPLETED' or

@@ -11,3 +11,5 @@
 原始封存及原生历史是只读事实；本轮源码替换后，旧1执行工具仍保留在不可重写的封存中。新控制器只接受固定2，不提供轮次注册表或兼容执行入口。
 
 复审补充：静态FIFO JSON与lstat后、open前替换为FIFO均必须在有界时间拒绝，零新claim/Key/HTTP；固定前序的JSON、流式散列及native树读取统一走O_NOFOLLOW/O_NONBLOCK与regular/fstat/前后身份检查。
+
+固定Responses补充入口失败方式：未取得实际独立一次重跑批准、原8进程/失败/1USD/6.5USD前缀漂移、重跑claim已存在、伪造成功替代、未全22或原生消费失败、原冻结binary/完整执行源码/catalog/checkouts HEAD/common owner漂移、Messages超过.5、减少失败预留或伪造budget reset。原R2子范围与补充24/32各自保留，不能借改全局authority放行。新增只读源核对与进程E2E均不读取真实Key/联网/race。

@@ -55,7 +55,8 @@ def capture(out,values,round_name='original'):
                 import sys
                 sys.path.insert(0,str(c.ROOT/'.scratch/barness-provider-sites/tools'))
                 import final_publication
-                final_publication.require(route)
+                receipt,receipt_pin=final_publication.require(route)
+                launch=receipt['route'];receipt_path=c.common_root()/'.evidence/minimax-launches'/(launch+'.json')
             if (receipt.get('state')!='COMPLETED' or receipt.get('exitCode')!=0 or receipt.get('credentialsRead') is not True or
                 receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!=launch or
                 receipt.get('sourceCommit')!=report['gitCommit']):

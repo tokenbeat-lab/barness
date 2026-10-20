@@ -21,7 +21,7 @@ def validate(index, views=None):
         if index['launcherReceiptSHA256'][route]!=sha:
             raise RuntimeError('new canonical GLM receipt bytes changed')
         root=receipt['collectionRoot'].replace('$REPO/','')
-        base=u.bundle(root+'/glm-'+route,'formal-glm-report.json');files=u.tree(base)
+        base=u.bundle(root+'/'+receipt['baseName'],'formal-glm-report.json');files=u.tree(base)
         captured={'schema':1,**{key:u.sha(files[leaf]) for key,leaf in FIELDS.items()}}
         if receipt.get('capturePins')!=captured:
             raise RuntimeError('new original capture changed after actual launcher')

@@ -46,13 +46,17 @@ def run(out, name, argv, **kwargs):
     return code
 
 
-def prepare(out, phase):
+def prepare(out, phase, execution_root=None):
     frozen = freeze()
     out.mkdir(parents=True, exist_ok=False, mode=0o700)
     c.dump(out / 'source-at-start.json', frozen)
     import final_predecessor
     predecessor=final_predecessor.disclosure()
     c.dump(out/'predecessor-disclosure.json',predecessor)
+    if execution_root is not None:
+        if phase!='glm':raise RuntimeError('fixed measured checkout is only for the GLM amendment')
+        import final_retry
+        c.dump(out/'execution-context.json',final_retry.context(execution_root))
     if run(out,'go-version',['go','version'])!=0:
         raise RuntimeError('build toolchain identity unavailable')
     toolchain=dict(goVersion=(out/'go-version.log').read_text().strip(),pythonVersion=sys.version,
@@ -78,6 +82,9 @@ def prepare(out, phase):
         chineseeval='./ai/examples/chineseeval/cmd/chineseeval', visualeval='./ai/examples/visualeval', releasegate='./ai/release/cmd/releasegate')
     builds += [(n, ['go', 'build', '-o', out / n, package]) for n, package in packages.items()]
     for name, argv in builds:
+        if name=='live.test' and execution_root is not None:
+            ctx=final_retry.local_doc(out,'execution-context.json');final_retry.copy_live(out);(out/name).chmod(0o700)
+            c.dump(out/'frozen-live-copy.json',dict(kind='EXCLUSIVE_FROZEN_BINARY_COPY',source=ctx['live.test'],destinationSHA256=c.digest(out/name),credentialsRead=False));continue
         if run(out, 'build-' + name, argv, timeout=600) != 0:
             raise RuntimeError('credential-free reviewed binary build failed')
     c.dump(out / 'binaries.json', {name: c.digest(out / name) for name, _ in builds})
@@ -85,12 +92,14 @@ def prepare(out, phase):
     component_templates = final_grants.templates(out,phase)
     c.dump(out/'component-templates.json',component_templates)
     all_jobs = r.jobs(out)
-    plan = r.inventory(out) | dict(phase=phase, routes={n: j for n, j in all_jobs.items() if j['phase'] == phase})
+    plan = phase_plan(out,phase)
     c.dump(out / 'plan.json', c.redact(plan))
     prepared = dict(schema=1, round=r.ROUND, phase=phase, credentialsRead=False,
         nativeSourceManifestSHA256=c.digest(out/'regional-source.json'), predecessorDisclosureSHA256=c.digest(out/'predecessor-disclosure.json'), componentTemplatesSHA256=c.digest(out/'component-templates.json'), toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
         binariesManifestSHA256=c.digest(out / 'binaries.json'), planSHA256=c.digest(out / 'plan.json'))
+    if execution_root is not None:prepared['executionContextSHA256']=final_retry.local_pin(out,'execution-context.json')
     c.dump(out / 'prepared.json', prepared)
+    if execution_root is not None:c.dump(out/'retry-authorization.template.json',final_retry.template(out,prepared))
     c.dump(out / 'prerelease-source-review.template.json', prepared | dict(decision='PENDING', reviewedBy='',
         standardsReview=dict(path='', sha256=''), specReview=dict(path='', sha256=''), authorizedRoutes=[]))
     c.dump(out / 'execution-authorization.template.json', prepared | dict(decision='PENDING', requestText='',
@@ -136,7 +145,11 @@ def guard(out):
     current = json.loads(subprocess.check_output([str(out/'regionalverify'), '-source'], cwd=c.ROOT, env=c.ENV, timeout=30))
     if current != c.doc(out/'regional-source.json'):
         raise RuntimeError('complete native execution source set changed before key')
-    expected = c.redact(r.inventory(out) | dict(phase=prepared['phase'], routes={n: j for n, j in r.jobs(out).items() if j['phase'] == prepared['phase']}))
+    if 'executionContextSHA256' in prepared:
+        import final_retry
+        if prepared['executionContextSHA256']!=final_retry.local_pin(out,'execution-context.json'):raise RuntimeError('fixed measured execution context changed')
+        final_retry.load(out)
+    expected = c.redact(phase_plan(out,prepared['phase']))
     if c.doc(out / 'plan.json') != expected:
         raise RuntimeError('fixed reconstructed job plan changed')
     return prepared
@@ -185,4 +198,15 @@ def approved_metadata(out, job, prepared):
     reserve = auth.get('processReservationsMicrousd', {}).get(job['name'])
     if type(reserve) is not int or reserve <= 0:
         raise RuntimeError('positive conservative process USD reservation required')
+    import final_retry_execute
+    if job['name']=='glm-messages' and ((out/'execution-context.json').exists() or final_retry_execute.present()):
+        if not (out/'execution-context.json').exists():raise RuntimeError('Messages continuation requires the fixed measured checkout')
+        if reserve!=500000:raise RuntimeError('unstarted Messages retains the amended .5USD ceiling')
     return prepared, auth, scope, reserve
+
+
+def phase_plan(out,phase):
+    if (out/'execution-context.json').exists():
+        import final_retry
+        return final_retry.plan(out)
+    return r.inventory(out)|dict(phase=phase,routes={n:j for n,j in r.jobs(out).items() if j['phase']==phase})
