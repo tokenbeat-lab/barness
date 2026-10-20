@@ -72,12 +72,32 @@ class FinalRound(unittest.TestCase):
         self.assertEqual(result.returncode == 0, ok, result.stderr[-1000:] + result.stdout[:300])
         return result
 
-    def fake_build(self):
+    def fake_build(self, regional_reports=False):
         bindir = self.root / 'bin'
         bindir.mkdir()
         go = bindir / 'go'
         native_source = '\nif "-source" in sys.argv[1:]:\n import hashlib\n files={p.as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in pathlib.Path("ai/internal/testkit/regional").rglob("*") if p.is_file()};print(json.dumps(dict(sourceSha256="a"*64,files=files)))\n'
         producer = '#!' + sys.executable + '\nimport sys,json,os,pathlib\nif os.getenv("BARNESS_REGIONAL_KEY"): print(json.dumps(dict(environmentKeys=sorted(os.environ))));pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"]).parent.joinpath("selected-child-started").touch()\na=sys.argv[1:]\nif "-grant-template" in a:\n c=a[a.index("-grant-template")+1];s=a[a.index("-stage")+1];print(json.dumps(dict(schema=1,mode="live",id="<new>",accountAlias="<own>",regionAlias="<own>",expiresAt="0001-01-01T00:00:00Z",combo=c,stage=s)))\n'
+        if regional_reports:
+            # This controlled executable tests operator filename/phase wiring;
+            # the real native validator has independent capture/authority E2E.
+            producer += r'''
+if os.getenv("BARNESS_REGIONAL_KEY"):
+ import subprocess
+ base=pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"])/"controlled-session";base.mkdir(parents=True)
+ combo=os.environ["BARNESS_REGIONAL_ROUTE"];count=18 if combo.startswith("zai-") else 9
+ report=dict(combo=combo,gitCommit=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),budget=dict(callsUsed=count,httpAttempts=count),expected=[str(i) for i in range(count)],scenarios=[dict(id=str(i),outcome="PASS") for i in range(count)])
+ (base/"regional-report.json").write_text(json.dumps(report))
+ usd=pathlib.Path(os.environ["BARNESS_FINAL_BUDGET"]);value=json.loads(usd.read_text());value.update(reservedMicrousd=1000,attempts=count);usd.write_text(json.dumps(value))
+if "-qualify" in a:
+ base=pathlib.Path(a[-1]);assert (base/"regional-report.json").is_file() and not (base/"live-report.json").exists()
+ print((base/"regional-report.json").read_text())
+if "-receipt" in a:
+ assert len(a)==8 and all((pathlib.Path(p)/"regional-report.json").is_file() for p in a[2:])
+ pathlib.Path(a[1]).write_text(json.dumps(dict(kind="controlled-operator-fixture")))
+ pathlib.Path("ai/catalog_regional.json").write_text(json.dumps(dict(active=True)))
+'''
+            (self.root/'ai/catalog_regional.json').write_text(json.dumps(dict(active=False)))
         producer += native_source
         go.write_text('#!' + sys.executable + '\nimport sys,json,pathlib\na=sys.argv[1:]\nif "-o" in a:\n p=pathlib.Path(a[a.index("-o")+1]);p.write_text(' + repr(producer) + ');p.chmod(0o755)\n' + native_source)
         go.chmod(0o755)
@@ -178,6 +198,23 @@ class FinalRound(unittest.TestCase):
         self.assertEqual(summary['reservedMicrousd'], 1200000)
         self.assertEqual(summary['claimedCalls'], 28)
         self.assertTrue((self.root / '.env').is_dir())
+
+    def test_candidate_native_report_settlement_and_six_route_promotion(self):
+        self.fake_build(regional_reports=True)
+        self.runcli('prepare','.evidence/provider-sites/current','--phase','candidate')
+        base=self.root/'.evidence/provider-sites/current'
+        self.runcli('check','.evidence/provider-sites/current');self.approve(base)
+        (self.root/'.env').rmdir();(self.root/'.env').write_text('ZAI_KEY=SYNTHETIC-ZAI\nMINIMAX_CN_KEY=SYNTHETIC-CN\n')
+        for combo in ('zai-chat','zai-responses','zai-messages','minimax-cn-chat','minimax-cn-responses','minimax-cn-messages'):
+            name='candidate-'+combo
+            result=json.loads(self.runcli('run-selected','.evidence/provider-sites/current',name).stdout)
+            count=18 if combo.startswith('zai-') else 9
+            self.assertEqual(result['budget'],dict(state='REPORTED',status='PASS',calls=count,attempts=count))
+            self.assertFalse(list((base/name).rglob('live-report.json')))
+        result=json.loads(self.runcli('promote','.evidence/provider-sites/current').stdout)
+        self.assertEqual(result['activatedFile'],'ai/catalog_regional.json')
+        self.assertEqual(json.loads((self.root/'ai/catalog_regional.json').read_text()),dict(active=True))
+        self.assertTrue((self.root/'.evidence/provider-sites/final-acceptance-20261020/promotion/regional-promotion-lineage.json').is_file())
 
     def test_final_plan_requires_all23_own_inputs_and_four_effects(self):
         self.fake_build()
