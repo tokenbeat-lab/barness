@@ -1,6 +1,6 @@
 # 04 自身证据与发布追加门禁
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Blocked by: 01, 02, 03
 

@@ -27,18 +27,18 @@ func TestMiniMaxAdditiveReleaseContract(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	ev.Check("seventeen own formal support identities", len(plan.LiveCombos) == 17 && release.CheckReleasePlan(plan).Current, "count=%d contract=%+v", len(plan.LiveCombos), release.CheckReleasePlan(plan))
+	ev.Check("twenty-three own formal support identities", len(plan.LiveCombos) == 23 && release.CheckReleasePlan(plan).Current, "count=%d contract=%+v", len(plan.LiveCombos), release.CheckReleasePlan(plan))
 	matrix, e := supportmatrix.LoadMatrix("../live/support-matrix.json")
 	if e != nil {
 		t.Fatal(e)
 	}
-	ev.Check("seventeen own rows preserve old identities", len(matrix.Rows) == 17, "rows=%d", len(matrix.Rows))
+	ev.Check("twenty-three own rows preserve old identities", len(matrix.Rows) == 23, "rows=%d", len(matrix.Rows))
 	routes := map[string]bool{}
 	for _, row := range matrix.Rows {
 		routes[row.Operation+"/"+row.Provider+"/"+row.API] = true
 	}
-	ev.Check("sixteen distinct protocol routes", len(routes) == 16, "routes=%d", len(routes))
-	ev.Check("eighth frozen differential is own M3 Messages", len(plan.Differential.Required) == 8 && slices.Contains(plan.Differential.Required, "MM-MESSAGES"), "%v", plan.Differential.Required)
+	ev.Check("twenty-two distinct protocol routes", len(routes) == 22, "routes=%d", len(routes))
+	ev.Check("original eighth frozen differential remains own M3 Messages", len(plan.Differential.Required) == 10 && slices.Contains(plan.Differential.Required, "MM-MESSAGES"), "%v", plan.Differential.Required)
 	for _, route := range []string{"chat", "responses", "messages"} {
 		combo := "minimax-" + route
 		i := slices.IndexFunc(matrix.Rows, func(r supportmatrix.Row) bool { return r.Combo == combo })

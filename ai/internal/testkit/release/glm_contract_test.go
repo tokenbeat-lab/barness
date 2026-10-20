@@ -18,8 +18,8 @@ func TestGLMReleaseContract(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(plan.LiveCombos) != 17 || !CheckReleasePlan(plan).Current {
-		t.Fatal("complete seventeen-identity formal plan absent")
+	if len(plan.LiveCombos) != 23 || !CheckReleasePlan(plan).Current {
+		t.Fatal("complete twenty-three-identity formal plan absent")
 	}
 	for _, combo := range []string{"zhipu-chat", "zhipu-responses", "zhipu-messages", "typesafe-classifier-jev-1.14.0"} {
 		t.Run("missing-"+combo, func(t *testing.T) {

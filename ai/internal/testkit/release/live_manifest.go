@@ -11,6 +11,9 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report) error {
+	if _, ok := supportmatrix.RegionalRouteOf(r.Combo); ok {
+		return supportmatrix.VerifyRegionalReport(r)
+	}
 	if strings.HasPrefix(r.Combo, "minimax-") {
 		return supportmatrix.VerifyMiniMaxReport(r)
 	}

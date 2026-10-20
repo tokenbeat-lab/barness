@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"fmt"
 	"os"
 	"slices"
 	"testing"
@@ -39,9 +40,33 @@ func TestRegionalProviderReleaseContract(t *testing.T) {
 	for _, provider := range []string{"zai", "minimax-cn"} {
 		for _, route := range []struct{ name, api string }{{"chat", "openai-completions"}, {"responses", "openai-responses"}, {"messages", "anthropic-messages"}} {
 			at := slices.IndexFunc(matrix.Rows, func(row supportmatrix.Row) bool { return row.Combo == provider+"-"+route.name })
-			ok := at >= 0 && matrix.Rows[at].ValidIdentity() && matrix.Rows[at].Provider == provider && matrix.Rows[at].API == route.api && matrix.Rows[at].AllPassedAt == nil
-			ev.Check("own pending row "+provider+"-"+route.name, ok, "missing, relabeled or prematurely certified")
+			ok := at >= 0 && matrix.Rows[at].ValidIdentity() && matrix.Rows[at].Provider == provider && matrix.Rows[at].API == route.api
+			ev.Check("own row "+provider+"-"+route.name, ok, "missing or relabeled")
+			if _, err := supportmatrix.RegionalFormalCatalog(provider + "-" + route.name); err != nil && at >= 0 {
+				ev.Check("unpromoted model cannot certify support", matrix.Rows[at].AllPassedAt == nil, "premature support")
+			}
 		}
 	}
-	ev.Check("all eight frozen differentials retained", len(plan.Differential.Required) == 8 && slices.Contains(plan.Differential.Required, "MM-MESSAGES"), "%v", plan.Differential.Required)
+	ev.Check("ten frozen differentials", len(plan.Differential.Required) == 10, "%v", plan.Differential.Required)
+	for _, id := range []string{"P01", "P02", "P03", "P04", "P06", "P07", "P10", "MM-MESSAGES", "RP-ZAI-CHAT", "RP-MINIMAX-CN-MESSAGES"} {
+		ev.Check("mandatory differential "+id, slices.Contains(plan.Differential.Required, id), "missing %s", id)
+	}
+	for _, prefix := range []string{"REGIONAL-R", "REGIONAL-RP"} {
+		for n := 1; n <= 20; n++ {
+			id := fmt.Sprintf("%s%02d", prefix, n)
+			at := slices.IndexFunc(plan.Items, func(i release.TraceItem) bool { return i.ID == id })
+			finite := at >= 0 && len(plan.Items[at].RequiredCases) > 0
+			ev.Check("finite complete item "+id, finite, "missing finite set")
+			if !finite {
+				continue
+			}
+			changed := plan
+			changed.Items = slices.Clone(plan.Items)
+			changed.Items[at].RequiredCases = nil
+			ev.Check("cannot shrink acceptance "+id, !release.CheckReleasePlan(changed).Current, "finite set removed")
+		}
+	}
+	for _, route := range []release.RouteRef{{Scenario: "RP-EXTENSIONS", Provider: "zai", API: "openai-responses"}, {Scenario: "RP-EXTENSIONS", Provider: "zai", API: "anthropic-messages"}, {Scenario: "RP-EXTENSIONS", Provider: "minimax-cn", API: "openai-completions"}, {Scenario: "RP-EXTENSIONS", Provider: "minimax-cn", API: "openai-responses"}} {
+		ev.Check("own exact extension "+route.Provider+"/"+route.API, slices.Contains(plan.Differential.Routes, route), "absent")
+	}
 }
