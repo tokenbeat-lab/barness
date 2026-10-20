@@ -1,0 +1,117 @@
+{
+  "source": "Independent Python 3 hashlib.sha256 + struct.pack(>Q) implementation of spec R11 / design section 8.2. UTF-8 byte lengths; exact case and decomposed Unicode preserved. Synthetic fixed vectors; not computed by Go production code.",
+  "vectors": [
+    {
+      "id": "zhipu",
+      "tenant": "regional-a",
+      "provider": "zhipu",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "717f0b3bdad332c68654d342aeb99902135379b57679fb398aefda29fc998fca"
+    },
+    {
+      "id": "zai",
+      "tenant": "regional-a",
+      "provider": "zai",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "ede1d6841b24afdeb095ac7ce6e8e343598f01284da86a670de461173e29a19b"
+    },
+    {
+      "id": "minimax",
+      "tenant": "regional-a",
+      "provider": "minimax",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "c8ae24282a59b603a4b13cb8f22649b6c1cbfbfef47a70b3a69f0a32c5e12c8e"
+    },
+    {
+      "id": "minimax-cn",
+      "tenant": "regional-a",
+      "provider": "minimax-cn",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "eef83c5dde815d8bf90616e2fa1a6905476a1df8e9de72a79193fb1625779b5e"
+    },
+    {
+      "id": "openai",
+      "tenant": "regional-a",
+      "provider": "openai",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "5efbf5a9ddf9f843551c699a6d833d2662301e33c5d1529dc314268eef9793ac"
+    },
+    {
+      "id": "deepseek",
+      "tenant": "regional-a",
+      "provider": "deepseek",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "f4c96c6ff3f499b27fb1af997380f8e7bc3b5ccc60c01578c34000fc158e3cd2"
+    },
+    {
+      "id": "encoding-0",
+      "tenant": "a|b",
+      "provider": "zhipu",
+      "account": "c",
+      "session": "d",
+      "key": "ea861a723abf7c7679702a45fd76e1a9726e84b34c2f586936d43d13bdda0fc1"
+    },
+    {
+      "id": "encoding-1",
+      "tenant": "a",
+      "provider": "zhipu",
+      "account": "b|c",
+      "session": "d",
+      "key": "712b57e4ec5af5185ea5456f362c9bcfa06f8aaffb82a357b5d29e60b7346106"
+    },
+    {
+      "id": "encoding-2",
+      "tenant": "租户é",
+      "provider": "zhipu",
+      "account": "账戶",
+      "session": "🌏|会话",
+      "key": "2c7a902cf5d62b921833e595c4acc8f1431b439f401e0b121b4bbc48782e03ee"
+    },
+    {
+      "id": "encoding-3",
+      "tenant": "租户é",
+      "provider": "zhipu",
+      "account": "账戶",
+      "session": "🌏|会话",
+      "key": "8a3256133e5e47b4d38691eb2f1a514e7d001ddedde2c08352c95cff20e7c077"
+    },
+    {
+      "id": "encoding-4",
+      "tenant": "Regional-A",
+      "provider": "zhipu",
+      "account": "same-account",
+      "session": "same-session",
+      "key": "faafb76c2843b4a20df335ae5b1a8078f99bc187351922dafcbf9f949142e32c"
+    },
+    {
+      "id": "encoding-5",
+      "tenant": "regional-a",
+      "provider": "zhipu",
+      "account": "same-account",
+      "session": "Same-Session",
+      "key": "e268c66a9df92d77ef103f216c90a8802adbe18ecb4074466943daf0edd4c93b"
+    },
+    {
+      "id": "separator-collision-0",
+      "tenant": "a",
+      "provider": "zhipu",
+      "account": "b|c",
+      "session": "d",
+      "key": "712b57e4ec5af5185ea5456f362c9bcfa06f8aaffb82a357b5d29e60b7346106"
+    },
+    {
+      "id": "separator-collision-1",
+      "tenant": "a",
+      "provider": "zhipu",
+      "account": "b",
+      "session": "c|d",
+      "key": "c88b105879389db34ebf70bd996ce1437acb2a7b5f3927adc0716b8539ad6927"
+    }
+  ]
+}

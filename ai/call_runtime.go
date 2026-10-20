@@ -135,7 +135,7 @@ func (r *callRuntime) pin(ctx context.Context, modelID string, hooks Hooks) (Cre
 	r.hooks = boundHooks{hooks: hooks, scope: r.scope, identity: m.CallAttribution}
 	r.initial = &initialRequest{policy: b.Retry, clock: c.clock, requestID: r.scope.RequestID, observe: c.observations.attempts(*m),
 		admit: func(ctx context.Context, attemptID string) (func(), *Error) {
-			return c.admission.admit(ctx, AdmissionRequest{TenantID: r.scope.TenantID, AccountScopeID: b.AccountScopeID, AttemptID: attemptID})
+			return c.admission.admit(ctx, AdmissionRequest{TenantID: r.scope.TenantID, ProviderID: b.ProviderID, AccountScopeID: b.AccountScopeID, AttemptID: attemptID})
 		}}
 	return cred, nil
 }
