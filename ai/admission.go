@@ -12,7 +12,8 @@ import (
 // Admission is a trusted host's admission for the attempts of every call,
 // consulted in addition to the Client's built-in per-tenant and process
 // concurrency limits, after they granted a permit (spec I9). It is where a
-// host aggregates concurrency per vendor account (AccountScopeID) or across
+// host aggregates concurrency per service and vendor account
+// (ProviderID, AccountScopeID), or across
 // processes; the built-in limits only bound this process. Cross-instance
 // quotas, hard cost budgets and their reconciliation are the host's.
 //
@@ -34,6 +35,9 @@ type Admission interface {
 type AdmissionRequest struct {
 	// TenantID owns the call's resources.
 	TenantID string
+	// ProviderID is the actual service fixed by the binding snapshot. The
+	// same account alias at another Provider is a separate account scope.
+	ProviderID ProviderID
 	// AccountScopeID is the vendor account the attempt is billed to; several
 	// tenants and keys may share one. It is never an API key.
 	AccountScopeID string

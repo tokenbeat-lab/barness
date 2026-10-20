@@ -199,8 +199,8 @@ func TestAdmission(t *testing.T) {
 				got := admission.Requests()
 				ev.Record("admission_requests", got)
 				want := []ai.AdmissionRequest{
-					{TenantID: tenantA.tenant, AccountScopeID: "acct-" + tenantA.tenant, AttemptID: scope + "#1"},
-					{TenantID: tenantA.tenant, AccountScopeID: "acct-" + tenantA.tenant, AttemptID: scope + "#2"},
+					{TenantID: tenantA.tenant, ProviderID: ai.ProviderOpenAI, AccountScopeID: "acct-" + tenantA.tenant, AttemptID: scope + "#1"},
+					{TenantID: tenantA.tenant, ProviderID: ai.ProviderOpenAI, AccountScopeID: "acct-" + tenantA.tenant, AttemptID: scope + "#2"},
 				}
 				ev.Check("the host's admission sees each attempt with tenant and account", len(got) == 2 && got[0] == want[0] && got[1] == want[1],
 					"got %+v want %+v", got, want)
@@ -213,7 +213,7 @@ func TestAdmission(t *testing.T) {
 				checkTextSucceeded(ev, aw.text, o)
 				got = admission.Requests()
 				ev.Check("tenant B's attempt is attributed to B's tenant and account", len(got) == 3 &&
-					got[2] == ai.AdmissionRequest{TenantID: tenantB.tenant, AccountScopeID: "acct-" + tenantB.tenant, AttemptID: "req-host-b-" + e.name + "#1"},
+					got[2] == ai.AdmissionRequest{TenantID: tenantB.tenant, ProviderID: ai.ProviderOpenAI, AccountScopeID: "acct-" + tenantB.tenant, AttemptID: "req-host-b-" + e.name + "#1"},
 					"got %+v", got)
 				checkAdmissionReleased(ev, aw)
 			})

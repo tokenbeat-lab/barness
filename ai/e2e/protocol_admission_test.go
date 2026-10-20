@@ -285,8 +285,8 @@ func testProtocolAdmission(t *testing.T, s *protocolSuite) {
 				got := admission.Requests()
 				ev.Record("admission_requests", got)
 				want := []ai.AdmissionRequest{
-					{TenantID: tenantA.tenant, AccountScopeID: s.proto.account, AttemptID: id + "#1"},
-					{TenantID: tenantA.tenant, AccountScopeID: s.proto.account, AttemptID: id + "#2"},
+					{TenantID: tenantA.tenant, ProviderID: s.proto.provider, AccountScopeID: s.proto.account, AttemptID: id + "#1"},
+					{TenantID: tenantA.tenant, ProviderID: s.proto.provider, AccountScopeID: s.proto.account, AttemptID: id + "#2"},
 				}
 				ev.Check("the host's admission sees each attempt with tenant and the protocol's account", len(got) == 2 && got[0] == want[0] && got[1] == want[1],
 					"got %+v want %+v", got, want)
