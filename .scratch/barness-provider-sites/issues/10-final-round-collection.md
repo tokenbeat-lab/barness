@@ -2,11 +2,12 @@
 
 Status: claimed
 Type: task
-Blocked by: 09
 
 ## Context
 
 [07 最终验收](07-final-acceptance.md)、[规格 R16 / R18 / R20](../spec.md)；具体待批准的有限计划在根 `.evidence/provider-sites/final-acceptance-20261020/plan/plan.md`。旧操作脚本及其 grant 均为关闭轮次，不能重新执行旧权限或改写旧原件。九身份晋升后目录 Hash 改变，最终需 23 条自身支持和四份效果。
+
+实现可按已约定的固定轮次接口与 09 并行；实际国际 MiniMax 采集仍依赖 09 的原生授权通过，最终执行统一由 07 阻断和调度。
 
 ## Required behavior
 
