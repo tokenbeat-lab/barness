@@ -1,6 +1,6 @@
 # 13 智谱 Responses GLM-5.2 原生续接缺少最终文本
 
-Status: claimed
+Status: resolved
 Type: task
 
 ## Context
@@ -23,7 +23,7 @@ Type: task
 
 ## Answer
 
-离线诊断完成，未发现可证明的解析或请求结构回归；本轮上游实际输出不满足最终可见文本合同。未修改运行代码、断言、原件或账本，未新增厂商调用。完整验收仍受这条真实失败阻断。
+离线诊断未发现可证明的解析或请求结构回归；原失败上游输出缺少最终可见文本的事实保留。用户随后明确批准的单次完整重验已真实22/22 PASS、22 Calls/22 HTTP、零重试，进程与独立原生消费者exit0；未改Go、协议或最终文本断言。原成功Chat、新Responses及后续Messages三路各完整22 PASS，共同实际b384951，raw归档和派生支持视图公开消费通过。[重验结果](../../../.evidence/provider-sites/final-acceptance-20261020/responses-retry-preparation/responses-result.json)与[三路索引](../../../.evidence/provider-sites/final-acceptance-20261020/responses-retry-preparation/glm-three-routes.json)固定证据。原失败、父UNKNOWN及整笔US$1保留；本票解除当前资格阻断，07和feature继续开放，不将一次新通过解释为已查明上游失败原因。
 
 ## Comments
 
