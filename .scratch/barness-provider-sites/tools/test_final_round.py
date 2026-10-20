@@ -102,6 +102,50 @@ if "-receipt" in a:
         self.env['PATH'] = str(bindir) + os.pathsep + self.env['PATH']
         self.commit()
 
+    def bounded_predecessor_process(self, fault=None):
+        import time
+        argv=self.cli+['summarize']
+        if fault is not None:argv=[sys.executable,'-B','-c',fault,str(self.tools/'final_round.py')]
+        began=time.monotonic()
+        try:
+            result=subprocess.run(argv,cwd=self.root,env=self.env,text=True,capture_output=True,timeout=2)
+        except subprocess.TimeoutExpired:
+            self.journal.append(dict(argv=argv,exitCode=None,state='TIMEOUT',seconds=time.monotonic()-began,credentialsRead=False))
+            self.fail('public predecessor import blocked on FIFO instead of bounded refusal')
+        self.journal.append(dict(argv=argv,exitCode=result.returncode,stdout=result.stdout,stderr=result.stderr,seconds=time.monotonic()-began,credentialsRead=False))
+        self.assertEqual(result.returncode,1,result.stdout+result.stderr)
+        self.assertIn('REFUSED:',result.stderr)
+        if fault is not None:self.assertIn('FIFO_SWAP_INJECTED',result.stderr)
+        self.assertFalse((self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-2').exists())
+        self.assertFalse(list((self.root/'.evidence/minimax-launches').glob('provider-sites-final-acceptance-2-*')))
+        self.assertTrue((self.root/'.env').is_dir())
+
+    def test_closed_document_fifo_refuses_with_bounded_public_process(self):
+        seal=self.root/'.evidence/provider-sites/final-acceptance-20261020/closed-cohort-1/seal.json'
+        seal.unlink();os.mkfifo(seal)
+        self.bounded_predecessor_process()
+
+    def test_closed_hash_open_fifo_swap_refuses_with_bounded_public_process(self):
+        # Inject a filesystem replacement at the public OS open boundary. The
+        # actual CLI and its importer execute unchanged; no private function is
+        # mocked and no timing guess is needed to hit lstat→open precisely.
+        fault=r'''
+import os,pathlib,runpy,sys
+victim=pathlib.Path('.evidence/provider-sites/final-acceptance-20261020/closed-cohort-1/source/operator.py').resolve()
+original_os_open=os.open;original_path_open=pathlib.Path.open;fired=False
+def replace(path):
+ global fired
+ if not fired and pathlib.Path(path).resolve()==victim:
+  fired=True;victim.unlink();os.mkfifo(victim);print("FIFO_SWAP_INJECTED",file=sys.stderr)
+def os_open(path,flags,*args,**kwargs):
+ replace(path);return original_os_open(path,flags,*args,**kwargs)
+def path_open(path,*args,**kwargs):
+ replace(path);return original_path_open(path,*args,**kwargs)
+os.open=os_open;pathlib.Path.open=path_open
+cli=sys.argv[1];sys.path.insert(0,str(pathlib.Path(cli).parent));sys.argv=[cli,'summarize'];runpy.run_path(cli,run_name='__main__')
+'''
+        self.bounded_predecessor_process(fault)
+
     def test_closed_cohort_absence_and_fingerprint_guard_before_secret(self):
         self.fake_build()
         self.runcli('prepare','.evidence/provider-sites/current','--phase','candidate')
