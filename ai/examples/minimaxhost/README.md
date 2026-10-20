@@ -18,6 +18,7 @@ at a time. A different entitled model set requires an explicit reviewed Host gra
 
 ```go
 bindings, err := minimaxhost.Bindings(minimaxhost.Authorization{
+    ProviderID: ai.ProviderMiniMax, // explicit international service; China: ai.ProviderMiniMaxCN
     TenantID: "tenant-from-authentication", AccountScopeID: "actual-provider-account",
     CredentialRef: "minimax-standard-vault-reference", Version: "config-17",
     Purpose: minimaxhost.Standard,
@@ -239,3 +240,33 @@ contains replayable configuration/software proofs and redaction audits. It does 
 renew historical real-provider evidence or bypass the final ticket09/10 release gates.
 
 Ticket08 captures retain their historical CN target. [Ticket11 evidence](../../../.scratch/barness-ai-minimax/evidence/ticket-11/README.md) records current international offline observations; neither grants real-service support.
+
+
+## Independent China service
+
+`Authorization.ProviderID` is required: `ProviderMiniMax` keeps international
+semantics; `ProviderMiniMaxCN` selects China with `api.minimax.cn`, independent
+`minimax-cn-standard-*` BindingIDs and credential records. China standard M3 is a
+new candidate; existing international qualification never authenticates China.
+China M Plan is not granted by this example's international Preview entitlement.
+
+`Endpoints` validates exact official service/protocol bases. Set
+`TrustedGateway: true` only for explicitly reviewed nonofficial HTTPS/loopback
+routes; Client loopback opt-in is separately required. No URL credentials, query,
+fragment, official cross-market route or automatic endpoint fallback is accepted.
+
+`minimaxhost.Credentials` validates its independent `CredentialRecord` (Provider,
+Tenant, AccountScope, Purpose, allowed APIs, Active and both versions) against
+trusted `Authorization` before invoking `ReadSecret(ctx, ref)`. Purpose/ownership
+mismatch returns ErrAccessDenied without reading secrets; version conflict returns
+ErrSnapshotConflict. Store record metadata independently of incoming Bindings.
+The immutable example snapshot does not replace a Host backend's atomic updates.
+Same service/account/purpose can share one tenant-owned record across its allowed
+protocols; different services require separate records. Secrets are never inspected
+to infer region or entitlement.
+
+[Regional candidates and frozen prices](../../internal/testkit/regional/README.md)
+retain nine new full identities, own source hashes, CNY conversion and incomplete
+qualification. Software rollback first disables the new bindings and removes the
+new catalog identities before an old process loads its catalog. No history rewriting
+or sibling-service fallback. Ordinary proof: `go test ./ai/e2e -count=1 -run '^TestRegionalProvider'`.

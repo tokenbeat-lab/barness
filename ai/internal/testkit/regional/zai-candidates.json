@@ -1,0 +1,355 @@
+{
+  "version": "regional-candidates-2026-10-20.1",
+  "candidates": [
+    {
+      "model": {
+        "provider": "zai",
+        "api": "openai-completions",
+        "id": "glm-5.3",
+        "name": "Z.AI glm-5.3 openai-completions own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 1.4,
+          "output": 4.4,
+          "cacheRead": 0.26,
+          "cacheWrite": 0
+        },
+        "defaultThinkingLevel": "max"
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific wire and native-state acceptance"
+      ],
+      "sources": [
+        "zai-price",
+        "zai-glm-53",
+        "zai-chat",
+        "zai-keys"
+      ],
+      "price": {
+        "currency": "USD",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 1.4,
+        "output": 4.4,
+        "cacheRead": 0.26,
+        "cacheWrite": null,
+        "source": "zai-price",
+        "fx": null,
+        "note": "Cached input storage promotion is not a cache-write token rate; no inferred free writes."
+      }
+    },
+    {
+      "model": {
+        "provider": "zai",
+        "api": "openai-completions",
+        "id": "glm-5.2",
+        "name": "Z.AI glm-5.2 openai-completions own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": "none",
+          "minimal": "minimal",
+          "low": "high",
+          "medium": "high",
+          "high": "high",
+          "xhigh": "max",
+          "max": "max"
+        },
+        "compat": {
+          "supportsLongCacheRetention": false
+        },
+        "cost": {
+          "input": 1.4,
+          "output": 4.4,
+          "cacheRead": 0.26,
+          "cacheWrite": 0
+        },
+        "defaultThinkingLevel": "max"
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific wire and native-state acceptance"
+      ],
+      "sources": [
+        "zai-price",
+        "zai-glm-52",
+        "zai-chat",
+        "zai-keys"
+      ],
+      "price": {
+        "currency": "USD",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 1.4,
+        "output": 4.4,
+        "cacheRead": 0.26,
+        "cacheWrite": null,
+        "source": "zai-price",
+        "fx": null,
+        "note": "Cached input storage promotion is not a cache-write token rate; no inferred free writes."
+      }
+    },
+    {
+      "model": {
+        "provider": "zai",
+        "api": "openai-responses",
+        "id": "glm-5.3",
+        "name": "Z.AI glm-5.3 openai-responses own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 128000,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 1.4,
+          "output": 4.4,
+          "cacheRead": 0.26,
+          "cacheWrite": 0
+        },
+        "defaultThinkingLevel": "max"
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific wire and native-state acceptance"
+      ],
+      "sources": [
+        "zai-price",
+        "zai-glm-53",
+        "zai-chat",
+        "zai-keys"
+      ],
+      "price": {
+        "currency": "USD",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 1.4,
+        "output": 4.4,
+        "cacheRead": 0.26,
+        "cacheWrite": null,
+        "source": "zai-price",
+        "fx": null,
+        "note": "Cached input storage promotion is not a cache-write token rate; no inferred free writes."
+      }
+    },
+    {
+      "model": {
+        "provider": "zai",
+        "api": "openai-responses",
+        "id": "glm-5.2",
+        "name": "Z.AI glm-5.2 openai-responses own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 128000,
+        "thinkingLevelMap": {
+          "off": "none",
+          "minimal": "minimal",
+          "low": "high",
+          "medium": "high",
+          "high": "high",
+          "xhigh": "max",
+          "max": "max"
+        },
+        "compat": {
+          "supportsLongCacheRetention": false
+        },
+        "cost": {
+          "input": 1.4,
+          "output": 4.4,
+          "cacheRead": 0.26,
+          "cacheWrite": 0
+        },
+        "defaultThinkingLevel": "max"
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific wire and native-state acceptance"
+      ],
+      "sources": [
+        "zai-price",
+        "zai-glm-52",
+        "zai-chat",
+        "zai-keys"
+      ],
+      "price": {
+        "currency": "USD",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 1.4,
+        "output": 4.4,
+        "cacheRead": 0.26,
+        "cacheWrite": null,
+        "source": "zai-price",
+        "fx": null,
+        "note": "Cached input storage promotion is not a cache-write token rate; no inferred free writes."
+      }
+    },
+    {
+      "model": {
+        "provider": "zai",
+        "api": "anthropic-messages",
+        "id": "glm-5.3",
+        "name": "Z.AI glm-5.3 anthropic-messages own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 128000,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": null,
+          "medium": null,
+          "high": null,
+          "xhigh": null,
+          "max": null
+        },
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "supportsTemperature": false
+        },
+        "cost": {
+          "input": 1.4,
+          "output": 4.4,
+          "cacheRead": 0.26,
+          "cacheWrite": 0
+        }
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific wire and native-state acceptance"
+      ],
+      "sources": [
+        "zai-price",
+        "zai-glm-53",
+        "zai-chat",
+        "zai-keys"
+      ],
+      "price": {
+        "currency": "USD",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 1.4,
+        "output": 4.4,
+        "cacheRead": 0.26,
+        "cacheWrite": null,
+        "source": "zai-price",
+        "fx": null,
+        "note": "Cached input storage promotion is not a cache-write token rate; no inferred free writes."
+      }
+    },
+    {
+      "model": {
+        "provider": "zai",
+        "api": "anthropic-messages",
+        "id": "glm-5.2",
+        "name": "Z.AI glm-5.2 anthropic-messages own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 128000,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": null,
+          "medium": null,
+          "high": null,
+          "xhigh": null,
+          "max": null
+        },
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "supportsTemperature": false
+        },
+        "cost": {
+          "input": 1.4,
+          "output": 4.4,
+          "cacheRead": 0.26,
+          "cacheWrite": 0
+        }
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific wire and native-state acceptance"
+      ],
+      "sources": [
+        "zai-price",
+        "zai-glm-52",
+        "zai-chat",
+        "zai-keys"
+      ],
+      "price": {
+        "currency": "USD",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 1.4,
+        "output": 4.4,
+        "cacheRead": 0.26,
+        "cacheWrite": null,
+        "source": "zai-price",
+        "fx": null,
+        "note": "Cached input storage promotion is not a cache-write token rate; no inferred free writes."
+      }
+    }
+  ]
+}

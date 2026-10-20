@@ -1,0 +1,263 @@
+{
+  "version": "regional-candidates-2026-10-20.1",
+  "candidates": [
+    {
+      "model": {
+        "provider": "minimax-cn",
+        "api": "openai-completions",
+        "id": "MiniMax-M3",
+        "name": "MiniMax China M3 openai-completions own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 2048,
+        "thinkingLevelMap": {
+          "off": "disabled",
+          "minimal": null,
+          "low": null,
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        },
+        "defaultThinkingLevel": "high",
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "thinkingSwitchOnly": true
+        },
+        "cost": {
+          "input": 0.3124070217,
+          "output": 1.2496280869,
+          "cacheRead": 0.0624814043,
+          "cacheWrite": 0,
+          "tiers": [
+            {
+              "inputTokensAbove": 512000,
+              "input": 0.6248140434,
+              "output": 2.4992561738,
+              "cacheRead": 0.1249628087,
+              "cacheWrite": 0
+            }
+          ]
+        }
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific output ceiling qualification"
+      ],
+      "sources": [
+        "minimax-cn-price",
+        "minimax-cn-models",
+        "minimax-cn-chat",
+        "minimax-cn-messages",
+        "minimax-cn-responses",
+        "minimax-cn-schema-chat",
+        "fx-2026-10-16"
+      ],
+      "price": {
+        "currency": "CNY",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 2.1,
+        "output": 8.4,
+        "cacheRead": 0.42,
+        "cacheWrite": null,
+        "tiers": [
+          {
+            "inputTokensAbove": 512000,
+            "input": 4.2,
+            "output": 16.8,
+            "cacheRead": 0.84,
+            "cacheWrite": null
+          }
+        ],
+        "source": "minimax-cn-price",
+        "fx": {
+          "source": "fx-2026-10-16",
+          "date": "2026-10-16",
+          "direction": "CNY per USD",
+          "rate": 6.722,
+          "formula": "USD rate = CNY rate / 6.7220; round half-even to ten decimal places"
+        },
+        "note": "Priority is excluded. Text-only scope deliberately narrows vendor multimodality. maxTokens=2048 is a conservative catalog support ceiling based on the current China Chat schema description, which conflicts with China Messages examples using4096 and omits protocol-specific model maxima. It is not a measured vendor maximum or a paid-call budget. Revisit each independent protocol record after its own current limit qualification resolves the source conflict. Tests separately request64 tokens."
+      }
+    },
+    {
+      "model": {
+        "provider": "minimax-cn",
+        "api": "openai-responses",
+        "id": "MiniMax-M3",
+        "name": "MiniMax China M3 openai-responses own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 2048,
+        "thinkingLevelMap": {
+          "off": "none",
+          "minimal": null,
+          "low": null,
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        },
+        "defaultThinkingLevel": "off",
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "thinkingSwitchOnly": true
+        },
+        "cost": {
+          "input": 0.3124070217,
+          "output": 1.2496280869,
+          "cacheRead": 0.0624814043,
+          "cacheWrite": 0,
+          "tiers": [
+            {
+              "inputTokensAbove": 512000,
+              "input": 0.6248140434,
+              "output": 2.4992561738,
+              "cacheRead": 0.1249628087,
+              "cacheWrite": 0
+            }
+          ]
+        }
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific output ceiling qualification"
+      ],
+      "sources": [
+        "minimax-cn-price",
+        "minimax-cn-models",
+        "minimax-cn-chat",
+        "minimax-cn-messages",
+        "minimax-cn-responses",
+        "minimax-cn-schema-chat",
+        "fx-2026-10-16"
+      ],
+      "price": {
+        "currency": "CNY",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 2.1,
+        "output": 8.4,
+        "cacheRead": 0.42,
+        "cacheWrite": null,
+        "tiers": [
+          {
+            "inputTokensAbove": 512000,
+            "input": 4.2,
+            "output": 16.8,
+            "cacheRead": 0.84,
+            "cacheWrite": null
+          }
+        ],
+        "source": "minimax-cn-price",
+        "fx": {
+          "source": "fx-2026-10-16",
+          "date": "2026-10-16",
+          "direction": "CNY per USD",
+          "rate": 6.722,
+          "formula": "USD rate = CNY rate / 6.7220; round half-even to ten decimal places"
+        },
+        "note": "Priority is excluded. Text-only scope deliberately narrows vendor multimodality. maxTokens=2048 is a conservative catalog support ceiling based on the current China Chat schema description, which conflicts with China Messages examples using4096 and omits protocol-specific model maxima. It is not a measured vendor maximum or a paid-call budget. Revisit each independent protocol record after its own current limit qualification resolves the source conflict. Tests separately request64 tokens."
+      }
+    },
+    {
+      "model": {
+        "provider": "minimax-cn",
+        "api": "anthropic-messages",
+        "id": "MiniMax-M3",
+        "name": "MiniMax China M3 anthropic-messages own candidate",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000,
+        "maxTokens": 2048,
+        "thinkingLevelMap": {
+          "off": "disabled",
+          "minimal": null,
+          "low": null,
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        },
+        "defaultThinkingLevel": "off",
+        "compat": {
+          "supportsLongCacheRetention": false,
+          "thinkingSwitchOnly": true
+        },
+        "cost": {
+          "input": 0.3124070217,
+          "output": 1.2496280869,
+          "cacheRead": 0.0624814043,
+          "cacheWrite": 0,
+          "tiers": [
+            {
+              "inputTokensAbove": 512000,
+              "input": 0.6248140434,
+              "output": 2.4992561738,
+              "cacheRead": 0.1249628087,
+              "cacheWrite": 0
+            }
+          ]
+        }
+      },
+      "status": "INCOMPLETE",
+      "ownLive": "NOT_RUN",
+      "missing": [
+        "own full-identity live acceptance",
+        "cache-write token rate",
+        "protocol-specific output ceiling qualification"
+      ],
+      "sources": [
+        "minimax-cn-price",
+        "minimax-cn-models",
+        "minimax-cn-chat",
+        "minimax-cn-messages",
+        "minimax-cn-responses",
+        "minimax-cn-schema-chat",
+        "fx-2026-10-16"
+      ],
+      "price": {
+        "currency": "CNY",
+        "unit": "per-million-tokens",
+        "serviceTier": "standard",
+        "input": 2.1,
+        "output": 8.4,
+        "cacheRead": 0.42,
+        "cacheWrite": null,
+        "tiers": [
+          {
+            "inputTokensAbove": 512000,
+            "input": 4.2,
+            "output": 16.8,
+            "cacheRead": 0.84,
+            "cacheWrite": null
+          }
+        ],
+        "source": "minimax-cn-price",
+        "fx": {
+          "source": "fx-2026-10-16",
+          "date": "2026-10-16",
+          "direction": "CNY per USD",
+          "rate": 6.722,
+          "formula": "USD rate = CNY rate / 6.7220; round half-even to ten decimal places"
+        },
+        "note": "Priority is excluded. Text-only scope deliberately narrows vendor multimodality. maxTokens=2048 is a conservative catalog support ceiling based on the current China Chat schema description, which conflicts with China Messages examples using4096 and omits protocol-specific model maxima. It is not a measured vendor maximum or a paid-call budget. Revisit each independent protocol record after its own current limit qualification resolves the source conflict. Tests separately request64 tokens."
+      }
+    }
+  ]
+}

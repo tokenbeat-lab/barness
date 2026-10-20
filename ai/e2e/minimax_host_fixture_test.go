@@ -80,7 +80,7 @@ func newMiniMaxHostWorld(t *testing.T) *miniMaxHostWorld {
 			key := miniMaxHostKey(k, purpose)
 			account := "acct-mm08-" + k.tenant + "-" + string(purpose)
 			ref := "cred-mm08-" + k.tenant + "-" + string(purpose)
-			bindings, err := minimaxhost.Bindings(minimaxhost.Authorization{TenantID: k.tenant, AccountScopeID: account, CredentialRef: ref, Version: "mm08-v1", Purpose: purpose})
+			bindings, err := minimaxhost.Bindings(minimaxhost.Authorization{ProviderID: ai.ProviderMiniMax, TenantID: k.tenant, AccountScopeID: account, CredentialRef: ref, Version: "mm08-v1", Purpose: purpose})
 			if err != nil {
 				t.Fatal(err)
 			}

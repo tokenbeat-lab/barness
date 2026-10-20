@@ -1,6 +1,6 @@
 # 03 Host 装配与独立候选目录
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Blocked by: none
 
