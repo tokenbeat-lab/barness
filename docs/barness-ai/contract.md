@@ -13,7 +13,7 @@
 | `Credentials CredentialResolver` | 是 | 宿主按绑定解析凭据快照；秘密值以 `ai.Secret` 传入，不进入任何输出。 |
 | `Catalog *Catalog` | 否 | 默认 `BuiltinCatalog()`（快照见 [catalog-snapshot.json](../../ai/release/catalog-snapshot.json)）；三类型号分别存放，完整身份不得重复，能力与模态须自洽，价格有限且非负，图像声明的每个模态须有费率。 |
 | `Transport http.RoundTripper` | 否 | 构造时固定，没有每调用覆盖。nil 选择不读代理环境变量的 transport；无 CookieJar，不跟随重定向。 |
-| `Admission Admission` | 否 | 宿主注入的准入（按厂商账户聚合、分布式配额），在内置的单租户/全进程并发限制之后对每次尝试调用，参数含 TenantID、AccountScopeID、AttemptID。 |
+| `Admission Admission` | 否 | 宿主注入的准入（按厂商账户聚合、分布式配额），在内置的单租户/全进程并发限制之后对每次尝试调用，参数含 TenantID、ProviderID、AccountScopeID、AttemptID。 |
 | `Observer Observer` | 否 | 异步、有界（`MaxQueuedObservations`）的调用/尝试记录；需要正的 `MaxQueuedObservations`。 |
 | `AllowLoopbackHTTP` | — | 仅测试装配使用，允许绑定指向回环 http。生产必须为 false，所有 endpoint 为 https。 |
 
@@ -348,7 +348,7 @@ GLM三个可信回调的panic按callback_failed结算，Provider判断来自冻�
 
 ## MiniMax 国际站目录与验收边界
 
-当前唯一身份是 ProviderMiniMax/minimax，三条协议分别绑定 api.minimax.io/v1 或
+国际站身份保持 ProviderMiniMax/minimax，三条协议分别绑定 api.minimax.io/v1 或
 api.minimax.io/anthropic；Host显式提供国际站账户和standard/M Plan用途，不推断地区、
 套餐资格或跨区fallback。原CN失败捕获和2 calls/2 Attempts只占用共同预算槽，不授予
 国际站原生续接、实际候选或正式证明。历史Provider/账户封套与当前目标不匹配时必须降级。
@@ -364,7 +364,12 @@ M3标准价格快照直接使用有日期的USD/M费率，不依赖FX；官方51
 均为PASS；这不等于整体发布通过。M3.1仍为未推广候选，自身NOT_RUN，M Plan权益、
 正式费率和当前正式资格未知，不由M3继承。
 
-当前MiniMax交付已COMPLETE，来源资格与发布依据见[当前交付](../../.scratch/barness-ai-minimax/delivery-status.md)及[最终闭合](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。M3三协议、GLM三协议、文本两路线、protocol114及两份视觉共11组均具当前来源资格，17份自身支持与4项独立效果PASS。测量来源78843的双vet/完整普通/race实际退出0/0/0/0、CLI0、报告true；两套主包各12495PASS、audit0，最终矩阵17PASS。GLM Messages cancel在完整22场景报告中1146ms PASS。后续文档/证据提交保持1078份选定源码；原source7931取消超时、票17修复前映射、旧失败及账本仍保留历史，未重写为新证明。M3.1线上三个候选保持NOT_RUN0/0，不授予M Plan资格或正式支持。
+2026-10-19 历史 MiniMax交付已COMPLETE，该受测源码的来源资格与发布依据见[当前交付](../../.scratch/barness-ai-minimax/delivery-status.md)及[最终闭合](../../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)。M3三协议、GLM三协议、文本两路线、protocol114及两份视觉共11组均具当前来源资格，17份自身支持与4项独立效果PASS。测量来源78843的双vet/完整普通/race实际退出0/0/0/0、CLI0、报告true；两套主包各12495PASS、audit0，最终矩阵17PASS。GLM Messages cancel在完整22场景报告中1146ms PASS。后续文档/证据提交保持1078份选定源码；原source7931取消超时、票17修复前映射、旧失败及账本仍保留历史，未重写为新证明。M3.1线上三个候选保持NOT_RUN0/0，不授予M Plan资格或正式支持。
 宿主装配见
 [国际站示例](../../ai/examples/minimaxhost/README.zh-CN.md)；决策见
 [ADR-0042](../adr/0042-barness-ai-minimax-international-target.md)。
+
+
+## 地区服务身份与当前验证
+
+新增 `ProviderZAI=zai` 与 `ProviderMiniMaxCN=minimax-cn`；既有国际 MiniMax 与中国智谱的含义保持原义。四服务显式选择自己的型号、价格、Binding、用途与凭据记录，协议形状由各协议内部配置选择，原生来源仍按实际 Provider 精确比较。缓存派生统一 v2 并加入 Provider，账户准入参数也保留实际服务。迁移、端点与回滚见[地区服务说明](regional-providers.md)；唯一当前实施与验收见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)。上节历史完整通过不认证共享源码变化后的当前版本。
