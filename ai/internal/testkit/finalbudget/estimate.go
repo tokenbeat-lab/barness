@@ -47,14 +47,9 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 	}
 	estimate := reservation{Model: model, InputReserve: int64(len(raw) + 1024), OutputReserve: output}
 	found := false
-	for _, m := range cat.Models {
-		if m.Provider == provider && m.ID == model {
-			found = true
-			rates(&estimate, m.Cost, hasLongCache(body))
-		}
-	}
+	// Model IDs can be shared across operations with different price contracts.
+	// Select the native operation's directory before accumulating highest tiers.
 	if strings.Contains(req.URL.Path, "/decisions") || provider == ai.ProviderTypeSafe {
-		found = false
 		estimate.OutputReserve = 0
 		for _, m := range cat.ClassifierModels {
 			if m.Provider == provider && m.ID == model {
@@ -63,7 +58,6 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 			}
 		}
 	} else if strings.Contains(req.URL.Path, "/images/") || req.URL.Path == "/v1beta/interactions" {
-		found = false
 		for _, m := range cat.ImageModels {
 			if m.Provider == provider && m.ID == model {
 				found = true
@@ -95,6 +89,13 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 		// New-round engineering reserve: each inline reference/mask adds65536
 		// input units even when a highly compressible PNG has few wire bytes.
 		// This is a conservative project allowance, not a tokenization claim.
+	} else {
+		for _, m := range cat.Models {
+			if m.Provider == provider && m.ID == model {
+				found = true
+				rates(&estimate, m.Cost, hasLongCache(body))
+			}
+		}
 	}
 	estimate.InputReserve += int64(imageOccurrences(body)) * 65536
 	if !found || estimate.InputRate <= 0 || estimate.OutputRate < 0 || estimate.OutputRate > 0 && estimate.OutputReserve <= 0 {
