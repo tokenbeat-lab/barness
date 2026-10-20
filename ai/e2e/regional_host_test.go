@@ -42,7 +42,7 @@ func TestRegionalProviderHostEndpoints(t *testing.T) {
 			}
 			trailing, err := assemble(want[service][0]+"/", false)
 			ev.Check("trailing slash canonicalized", err == nil && len(trailing) == 3 && trailing[0].Endpoint == want[service][0], "err=%v", err)
-			invalid := []string{"https://api.openai.com/v1", "https://api.z.ai/api/v1", "https://api.minimax.cn/anthropic", "https://synthetic:secret@api.minimax.cn/v1", want[service][0] + "?api_key=synthetic", want[service][0] + "#fragment", want[service][0] + "/chat/completions", "http://gateway.example/v1", "https://api.minimax.cn:444/v1"}
+			invalid := []string{"https://api.openai.com/v1", "https://api.z.ai/api/v1", "https://api.minimax.cn/anthropic", "https://synthetic:secret@api.minimax.cn/v1", want[service][0] + "?api_key=synthetic", want[service][0] + "#fragment", want[service][0] + "#", want[service][0] + "/chat/completions", "http://gateway.example/v1", "https://api.minimax.cn:444/v1"}
 			for _, endpoint := range invalid {
 				bindings, err := assemble(endpoint, false)
 				ev.Check("wrong service path or URL extras refused before calls", err != nil && len(bindings) == 0, "accepted endpoint")

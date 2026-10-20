@@ -1,5 +1,5 @@
 // Package minimaxhost assembles explicit MiniMax market Host bindings. It
-// reads no credentials and does not discover entitlements or select fallbacks.
+// validates trusted account/credential purpose before selected secret access.
 package minimaxhost
 
 import (
@@ -29,7 +29,7 @@ type Authorization struct {
 	Purpose                                          Purpose
 }
 
-var ErrAuthorization = errors.New("minimaxhost: explicit tenant, account, credential, version and purpose are required")
+var ErrAuthorization = errors.New("minimaxhost: explicit service, tenant, account, credential, version and purpose are required")
 
 // Bindings keeps the three protocols and two purposes independently revocable.
 // Standard in either market grants only M3; the international M Plan candidate

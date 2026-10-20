@@ -72,14 +72,23 @@ authorization := glmhost.Authorization{
 }
 bindings, err := glmhost.Bindings(authorization)
 if err != nil { return err }
-// Atomically store these and independent credential backend snapshot(s):
-credential := ai.Credential{
-    OwnerTenantID: principal.TenantID, CredentialID: "standard-glm",
+// Load this secret-free record from the same backend transaction as the
+// authorization. Its BindingVersion is stored independently of incoming b.
+record := glmhost.CredentialRecord{
+    ProviderID: ai.ProviderZhipu, TenantID: principal.TenantID,
+    CredentialRef: "standard-glm", AccountScopeID: approvedAccount,
+    Purpose: glmhost.Standard, Active: true,
     Version: "secret-v3", BindingVersion: "binding-v7",
-    AccountScopeID: approvedAccount, Active: true, APIKey: ai.NewSecret(selectedKey),
+    AllowedAPIs: []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses,
+        ai.APIAnthropicMessages},
 }
-// secretResolver must return its stored BindingVersion, never copy the incoming
-// binding.Version. A mixed rotation fails consistency before a request.
+secretResolver := glmhost.Credentials{
+    Authorization: authorization, Record: record,
+    ReadSecret: func(ctx context.Context, ref string) (ai.Secret, error) {
+        return tenantSecretStore.Read(ctx, principal.TenantID, ref)
+    },
+}
+// Ownership, purpose, API and version checks precede tenantSecretStore.Read.
 client, err := ai.NewClient(ai.Config{
     Policy: hostintegration.CloudInteractivePolicy(),
     Bindings: tenantBindingResolver, Credentials: secretResolver,

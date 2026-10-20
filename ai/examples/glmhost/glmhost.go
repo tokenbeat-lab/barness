@@ -1,7 +1,8 @@
 // Package glmhost demonstrates three explicit standard GLM routes for the
 // chosen China or international service.
 // The Host owns authentication, versioned resolvers, key purpose, policy and
-// tool execution. No key is read here and no fallback route is selected.
+// tool execution. Credential metadata is checked before the selected secret
+// callback is invoked.
 package glmhost
 
 import (

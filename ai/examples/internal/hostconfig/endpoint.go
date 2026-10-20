@@ -30,7 +30,7 @@ func Endpoint(official, configured string, trustedGateway bool) (string, error) 
 		return official, nil
 	}
 	u, err := url.Parse(configured)
-	if err != nil || u.Opaque != "" || u.User != nil || u.RawQuery != "" || u.ForceQuery || u.Fragment != "" || u.RawFragment != "" || u.Hostname() == "" || u.RawPath != "" {
+	if err != nil || u.Opaque != "" || u.User != nil || u.RawQuery != "" || u.ForceQuery || u.Fragment != "" || u.RawFragment != "" || strings.Contains(configured, "#") || u.Hostname() == "" || u.RawPath != "" {
 		return "", ErrEndpoint
 	}
 	if u.Scheme != "https" {
