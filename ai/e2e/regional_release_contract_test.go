@@ -82,12 +82,12 @@ func TestRegionalProviderReleaseReviewFixContract(t *testing.T) {
 		t.Fatal(err)
 	}
 	endpoint := []string{"regional-host-credential-zhipu-endpoint", "regional-host-credential-minimax-endpoint"}
-	security := []string{"RP18-grant-alias-copied", "RP18-grant-alias-relabeled", "RP18-grant-alias-concurrent", "RP18-grant-alias-partial"}
+	security := []string{"RP18-grant-alias-copied", "RP18-grant-alias-relabeled", "RP18-grant-alias-concurrent", "RP18-grant-alias-partial", "RP18-grant-alias-offset"}
 	for _, combo := range []string{"zai-chat", "zai-responses", "zai-messages", "minimax-cn-chat", "minimax-cn-responses", "minimax-cn-messages"} {
 		for _, mutation := range []string{"raw-usage-missing", "raw-usage-zero", "raw-usage-partial", "raw-usage-count", "raw-text", "raw-thinking", "raw-tool", "raw-terminal"} {
 			security = append(security, "RP18-native-refusal-"+combo+"-"+mutation)
 		}
-		for _, mode := range []string{"read-ahead", "partial-frame", "wrong-text"} {
+		for _, mode := range []string{"read-ahead", "partial-frame", "wrong-text", "malformed-before-content"} {
 			security = append(security, "RP18-cancel-evidence-"+combo+"-"+mode)
 		}
 	}

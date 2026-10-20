@@ -52,6 +52,9 @@ func regionalReservationStore() (string, error) {
 func regionalReservationKeys(g RegionalGrant) (string, string) {
 	id := glmHash([]byte(g.ID))
 	g.ID = ""
+	// RFC3339 offsets describe an instant, not a different approval. Normalize
+	// its representation before deriving the semantic reservation identity.
+	g.ExpiresAt = g.ExpiresAt.UTC()
 	raw, _ := json.Marshal(g)
 	return "id-" + id + ".json", "scope-" + glmHash(raw) + ".json"
 }

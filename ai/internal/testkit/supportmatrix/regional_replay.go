@@ -130,7 +130,10 @@ func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regiona
 	for n := 0; decoder.Next() && n < 4096; n++ {
 		event := decoder.Event()
 		if !json.Valid(event.Data) {
-			continue
+			// The real codec cannot reach later events after malformed JSON.
+			// A valid earlier cancellation prefix has already been accepted;
+			// an incomplete trailing frame cannot justify later content.
+			break
 		}
 		prefix.WriteString("event: " + event.Type + "\ndata: " + string(event.Data) + "\n\n")
 		got, _ := replay(prefix.String())
