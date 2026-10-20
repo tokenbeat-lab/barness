@@ -29,7 +29,13 @@ def main():
             if a.phase is None:
                 raise RuntimeError('prepare requires one fixed phase')
             result = state.prepare(out, a.phase)
-        elif a.mode in ('final-plan', 'finalize', 'native-grant', 'promote'):
+        elif a.mode == 'native-grant':
+            import final_minimax
+            result = final_minimax.create(out)
+        elif a.mode == 'promote':
+            import final_native
+            result = final_native.promote(out)
+        elif a.mode in ('final-plan', 'finalize'):
             if not a.inputs:
                 raise RuntimeError('all23+four exact inputs required')
             import final_finalize

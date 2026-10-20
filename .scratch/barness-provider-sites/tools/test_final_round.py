@@ -118,6 +118,23 @@ class FinalRound(unittest.TestCase):
         self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat')
         self.assertTrue((self.root/'.env').is_dir())
 
+    def test_native_grant_and_promotion_dispatch_without_final_matrix_inputs(self):
+        self.fake_build()
+        self.runcli('prepare','.evidence/provider-sites/candidate','--phase','candidate')
+        result=self.runcli('native-grant','.evidence/provider-sites/candidate',ok=False)
+        self.assertIn('requires the final remaining-source freeze',result.stderr)
+        result=self.runcli('promote','.evidence/provider-sites/candidate',ok=False)
+        self.assertIn('minimax-launches',result.stderr)
+        self.assertNotIn('all23+four',result.stderr)
+        self.runcli('prepare','.evidence/provider-sites/remaining','--phase','remaining')
+        result=self.runcli('promote','.evidence/provider-sites/remaining',ok=False)
+        self.assertIn('requires this frozen six-candidate phase',result.stderr)
+        result=self.runcli('native-grant','.evidence/provider-sites/remaining',ok=False)
+        self.assertIn('prerelease-source-review.json',result.stderr)
+        self.assertFalse((self.root/'.evidence/provider-sites/candidate/finalization').exists())
+        self.assertFalse((self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-1/grant.json').exists())
+        self.assertTrue((self.root/'.env').is_dir())
+
     def approve(self, base, reserve=1000000):
         import hashlib
         plan = json.loads((base / 'plan.json').read_text())
