@@ -19,6 +19,9 @@ type anthropicCapabilities struct {
 	// while the new Z.AI contract rejects unsupported options in preflight.
 	optionsBeforeCredential bool
 	promptCache             bool
+	// Compatible services retain explicitly reported TTL usage for diagnosis;
+	// this grants neither native cache controls nor a native TTL price.
+	reportedCacheWriteTTL bool
 	// Adaptive thinking is independent of native display, beta headers and
 	// managed per-turn controls. Compatible Providers opt in separately.
 	adaptiveThinking    bool
@@ -32,13 +35,13 @@ type anthropicCapabilities struct {
 func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
 	switch provider {
 	case ProviderMiniMax:
-		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true}
+		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true, reportedCacheWriteTTL: true}
 	case ProviderMiniMaxCN:
-		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true}
+		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true, reportedCacheWriteTTL: true}
 	case ProviderZhipu:
 		return anthropicCapabilities{implementation: anthropicGLM}
 	case ProviderZAI:
-		return anthropicCapabilities{implementation: anthropicGLM, optionsBeforeCredential: true}
+		return anthropicCapabilities{implementation: anthropicGLM, optionsBeforeCredential: true, reportedCacheWriteTTL: true}
 	default:
 		return anthropicCapabilities{implementation: anthropicStandard, promptCache: true, adaptiveThinking: true, nativeThinking: true,
 			eagerInputStreaming: true, browserAccess: true}
