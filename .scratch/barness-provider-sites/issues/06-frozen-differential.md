@@ -1,6 +1,6 @@
 # 06 冻结基线地区差分与缓存 v2 账本
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Blocked by: 01, 02, 03
 

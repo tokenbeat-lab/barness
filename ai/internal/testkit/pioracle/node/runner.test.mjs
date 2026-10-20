@@ -147,3 +147,17 @@ test("credentials, non-loopback destinations and redirected loopback are refused
 		await Promise.all([new Promise((r) => redirect.close(r)), new Promise((r) => target.close(r))]);
 	}
 });
+
+test("regional routes select existing frozen exports without altering identities", async () => {
+ const keys = [
+  {provider:"zai",api:"openai-completions",id:"glm-5.3"},
+  {provider:"zai",api:"openai-completions",id:"glm-5.2"},
+  {provider:"minimax-cn",api:"anthropic-messages",id:"MiniMax-M3"},
+ ];
+ const out = await run({entry:"models",models:keys});
+ assert.equal(out.status,0,out.stderr);
+ const models=JSON.parse(out.stdout).results;
+ keys.forEach((key,i)=>{assert.notEqual(models[i],null);for(const field of ["provider","api","id"]) assert.equal(models[i][field],key[field]);});
+ assert.equal(models[0].baseUrl,"https://api.z.ai/api/coding/paas/v4");
+ assert.equal(models[2].baseUrl,"https://api.minimaxi.com/anthropic");
+});
