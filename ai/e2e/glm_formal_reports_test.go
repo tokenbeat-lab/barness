@@ -62,7 +62,7 @@ func TestGLMFormalReports(t *testing.T) {
 			ev.Check("historical own22 model-qualified cases retained", len(r.Expected) == 22 && len(r.Scenarios) == 22 && r.Provider == "zhipu", "incomplete historical report")
 			ev.Check("other row and caller untouched", reflect.DeepEqual(m.Rows[1], supportmatrix.Row{Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions"}) && len(m.Rows[0].Capabilities) == 0, "mutation")
 			audit := release.AuditBundle(filepath.Dir(reportPath), nil)
-			ev.Check("release audit refuses same stale execution source", audit.Err == "supportmatrix: invalid report: GLM execution source drift", "%s", audit.Err)
+			ev.Check("release audit refuses same stale execution source", audit.Err == "live artifact integrity verification failed" && audit.Live != nil && glmExecutionSourceDrift(e), "%s", audit.Err)
 			for _, name := range []string{"stale-hash", "candidate", "controlled", "replay", "wrong-api", "wrong-provider", "wrong-model", "narrow", "unsupported", "fake-counters", "fake-provider-id", "fake-known-usage", "fake-unknown-usage", "billing-claim"} {
 				bad := r
 				bad.Expected = append([]string{}, r.Expected...)
