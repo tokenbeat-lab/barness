@@ -29,3 +29,20 @@ No material scope creep identified. Pending own live, promotion, race and final 
 
 
 Standards：2 项 P1、1 项非阻断维护判断；Spec：2 项 P1。每轴最高等级均为 P1。
+
+## 第一次复审
+
+修复来源 `6833018...2d89c45`；原始四项 P1 与 recovery-policy 均已有修复及定向绿例，复审尚未通过。Spec 独立复审原文如下；新取消前缀问题继续交同一 implementer。
+
+Independent Spec re-review of `6833018...2d89c454f5bb2af01b153a41cdbdd0b67f887430`.
+
+- **RESOLVED — original P1 raw-terminal finding.** `/Users/cyber/RestoX/barness/ai/internal/testkit/supportmatrix/regional_replay.go:110–121` replays completed responses through the public Client and requires successful Stop/ToolUse plus exact consumed-message agreement. Independent offline mutation `stop → error` now exits 1 with `upstream_error/stream`.
+
+- **RESOLVED — original P1 raw-usage/output finding.** `regional_replay.go:119–122` compares actual decoded usage/reporting/content/native fields; `regional_totals.go:59–69` uses decoded usage for totals. Independent removal of raw usage and changing raw prompt tokens to 999 both exit 1. All six retained controlled native bundles independently verified successfully, including legitimate partial/explicit-zero and cancellation cases. The final parent manifest retains 66 passing raw-mutation/cancellation assertions.
+
+- **REMAINING [P1] — malformed complete frames can be skipped before cancellation content.** `/Users/cyber/RestoX/barness/ai/internal/testkit/supportmatrix/regional_replay.go:130–136` uses `continue` for a decoded event whose JSON is invalid. This permits later bytes to justify content the real parser could never reach. Reproduction: clone the final `zai-chat` controlled bundle; prepend to `glm-5.3/cancel` a valid empty assistant-role frame, then `data: {broken}\n\n`, followed by the original `known-content` frame. Update only exchange inventory and seal. `regionalverify -controlled` exits **0**, although real consumption fails at the malformed event before emitting known-content. Stop searching beyond a malformed complete event; continue accepting valid pre-cancellation prefixes, read-ahead and genuinely incomplete trailing frames. Spec R06 line 91 requires “失败终态和取消”; R18 line 169 requires actual report/evidence agreement. Probe and unchanged-metadata clone: `/tmp/barness-regional/spec-rereview-probes/cancel-malformed-before-content.json`.
+
+Original captures/source pins were preserved. Only offline consumers and synthetic temporary copies were used; no live/vendor/paid/race execution. Own live qualification, promotion and race remain legitimately open.
+
+
+Standards 复审指出：同一 `ExpiresAt` instant 的不同 UTC offset 经 time.Time JSON 编码可能得到不同 scope hash；应规范 UTC 后再生成 semantic scope。该回合未完成最终报告（工具内容过滤），未计为复审通过；由公共 E2E 红绿与后续独立复审继续验证。
