@@ -1,8 +1,9 @@
 package e2e
 
 import (
-	"github.com/tokenbeat-lab/barness/ai"
 	"testing"
+
+	"github.com/tokenbeat-lab/barness/ai"
 )
 
 // A host aggregates real service/account identity, independently of protocol
@@ -11,7 +12,7 @@ func TestRegionalProviderAdmission(t *testing.T) {
 	for _, p := range regionalRuntimeProviders {
 		for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
 			t.Run(string(p)+"/"+string(api), func(t *testing.T) {
-				ev := run.Case(t, "RP14-admission-"+string(p)+"-"+string(api))
+				ev := run.Case(t, "RP15-admission-"+string(p)+"-"+string(api))
 				w := newRegionalRuntimeWorld(t, nil)
 				for _, tenant := range []string{"regional-a", "regional-b"} {
 					reply := regionalRuntimeReply(t, api)

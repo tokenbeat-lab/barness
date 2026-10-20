@@ -20,7 +20,7 @@ import (
 func TestRegionalProviderConcurrentFrozenRetries(t *testing.T) {
 	for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
 		t.Run(string(api), func(t *testing.T) {
-			ev := run.Case(t, "RP13-frozen-"+string(api))
+			ev := run.Case(t, "RP14-frozen-"+string(api))
 			var source *ai.Catalog
 			w := newRegionalRuntimeWorld(t, func(c *ai.Config) { source = c.Catalog })
 			hash := catalogHash(t, w.client.Catalog())

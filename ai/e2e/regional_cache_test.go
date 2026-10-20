@@ -3,10 +3,11 @@ package e2e
 import (
 	"context"
 	"encoding/json"
-	"github.com/tokenbeat-lab/barness/ai"
 	"net/http"
 	"os"
 	"testing"
+
+	"github.com/tokenbeat-lab/barness/ai"
 )
 
 // Failure modes (before implementation): v1 lacks Provider; fields may use
@@ -19,7 +20,7 @@ func TestRegionalProviderCacheV2(t *testing.T) {
 			continue
 		}
 		t.Run(v.ID, func(t *testing.T) {
-			ev := run.Case(t, "RP11-cache-v2-"+v.ID)
+			ev := run.Case(t, "RP12-cache-v2-"+v.ID)
 			ev.Fixture("independent-vectors.json", raw)
 			w := newRegionalRuntimeWorld(t, nil)
 			p := ai.ProviderID(v.Provider)
@@ -76,7 +77,7 @@ func TestRegionalProviderCacheEligibilityAndRotation(t *testing.T) {
 	for _, p := range append(append([]ai.ProviderID{}, regionalRuntimeProviders...), ai.ProviderOpenAI, ai.ProviderDeepSeek) {
 		for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses} {
 			t.Run(string(p)+"/"+string(api), func(t *testing.T) {
-				ev := run.Case(t, "RP11-cache-eligibility-"+string(p)+"-"+string(api))
+				ev := run.Case(t, "RP12-cache-eligibility-"+string(p)+"-"+string(api))
 				ev.Fixture("independent-vectors.json", raw)
 				w := newRegionalRuntimeWorld(t, nil)
 				tenant := "regional-a"

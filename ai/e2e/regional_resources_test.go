@@ -20,7 +20,7 @@ func TestRegionalProviderResources(t *testing.T) {
 		for _, r := range miniMaxSharedRoutes {
 			for _, mode := range []string{"queue-count", "queue-bytes", "malformed", "truncated", "cancel-before-headers", "cancel-after-content", "cancel-retry"} {
 				t.Run(string(p)+"/"+r.name+"/"+mode, func(t *testing.T) {
-					ev := run.Case(t, "RP14-resource-"+string(p)+"-"+r.name+"-"+mode)
+					ev := run.Case(t, "RP16-resource-"+string(p)+"-"+r.name+"-"+mode)
 					fake := clock.NewFake(time.Unix(1790000000, 0), 0)
 					retryWait := fake.HoldSleeps()
 					w := newRegionalRuntimeWorld(t, func(c *ai.Config) {
