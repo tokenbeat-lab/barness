@@ -35,28 +35,30 @@ func reportedParentBudget(raw []byte, calls, attempts int) bool {
 	}
 	return StrictJSON(raw, &b) == nil && b.State == "REPORTED" && b.Status == "PASS" && b.Calls == calls && b.Attempts == attempts
 }
-func thirdConsumer(root *os.Root, stop thirdStop, p thirdProcess) error {
-	name := thirdCollection + p.Name + "-consume-command.json"
+func closedConsumer(root *os.Root, files map[string]string, collection string, p thirdProcess) error {
+	name := collection + p.Name + "-consume-command.json"
 	var c struct {
 		State           string `json:"state"`
 		ExitCode        int    `json:"exitCode"`
 		CredentialsRead bool   `json:"credentialsRead"`
 	}
-	var envelope map[string]json.RawMessage
-	raw, e := cohortJSON(root, name, &envelope)
-	if e != nil || Hash(raw) != p.NativeConsumerReceiptSHA256 || stop.Files[name] != Hash(raw) || decodeRecoveryApproval(raw, &c) != nil || c.State != "COMPLETED" || c.ExitCode != 0 || c.CredentialsRead {
+	raw, e := cohortJSONProjection(root, name, &c, "exitCode", "credentialsRead")
+	if e != nil || Hash(raw) != p.NativeConsumerReceiptSHA256 || files[name] != Hash(raw) || c.State != "COMPLETED" || c.ExitCode != 0 || c.CredentialsRead {
 		return fmt.Errorf("closed third native consumer receipt differs")
 	}
 	return nil
 }
-func thirdMiniMaxProcess(root *os.Root, stop thirdStop, p thirdProcess, g RenewalGrant, pin string, claim renewalClaim, b Budget, rows []Receipt) error {
-	if p.Name != "mm-global-formal-m3-"+claim.Identity.Route || p.ExitCode != 0 || p.ReservedMicrousd != 200000 || p.NativeOutcome != "PASS" || !p.NativeComplete || !p.NativeAuditPassed || p.ActualCalls != 13 || p.ActualHTTP != 12 || !reportedParentBudget(p.ParentBudget, 13, 12) || p.NetworkRoute != "http://127.0.0.1:7890" || p.NativeBundle != thirdCollection+p.Name+"/"+claim.Session {
+func closedMiniMaxProcess(root *os.Root, files map[string]string, collection string, p thirdProcess, g RenewalGrant, pin string, claim renewalClaim, b Budget, rows []Receipt) error {
+	if g.RenewalID == RecoveryRenewalID && (p.NativeOutcome != "PASS" || !p.NativeComplete || !p.NativeAuditPassed) {
+		return fmt.Errorf("closed third native qualification differs")
+	}
+	if p.Name != "mm-global-formal-m3-"+claim.Identity.Route || p.ExitCode != 0 || p.ReservedMicrousd != 200000 || p.ActualCalls != 13 || p.ActualHTTP != 12 || !reportedParentBudget(p.ParentBudget, 13, 12) || p.NetworkRoute != "http://127.0.0.1:7890" || p.NativeBundle != collection+p.Name+"/"+claim.Session {
 		return fmt.Errorf("closed third native PASS13/12 differs")
 	}
 	var r Report
 	raw, e := cohortJSON(root, p.NativeBundle+"/minimax-report.json", &r)
 	source, _ := json.Marshal(r.ExecutionSource)
-	if e != nil || Hash(raw) != p.NativeReportSHA256 || stop.Files[p.NativeBundle+"/minimax-report.json"] != Hash(raw) || r.Schema != 1 || r.Mode != "live" || r.Stage != "formal" || r.Kind != "minimax-formal" || r.Outcome != "PASS" || !r.Complete || !r.AuditPassed || r.Identity != claim.Identity || r.Session != claim.Session || r.GitCommit != g.SourceCommit || r.FormalRenewalID != RecoveryRenewalID || r.FormalRenewalGrantSHA256 != pin || r.Budget != b || r.Cumulative != b || Hash(source) != g.ExecutionSourceSHA256 {
+	if e != nil || Hash(raw) != p.NativeReportSHA256 || files[p.NativeBundle+"/minimax-report.json"] != Hash(raw) || r.Schema != 1 || r.Mode != "live" || r.Stage != "formal" || r.Kind != "minimax-formal" || r.Outcome != "PASS" || !r.Complete || !r.AuditPassed || r.Identity != claim.Identity || r.Session != claim.Session || r.GitCommit != g.SourceCommit || r.FormalRenewalID != g.RenewalID || r.FormalRenewalGrantSHA256 != pin || r.Budget != b || r.Cumulative != b || Hash(source) != g.ExecutionSourceSHA256 {
 		return fmt.Errorf("closed third original native report/source differs: %v", e)
 	}
 	plan := Plan(claim.Identity)
@@ -89,7 +91,7 @@ func thirdMiniMaxProcess(root *os.Root, stop thirdStop, p thirdProcess, g Renewa
 	if e = committedArchive(g.SourceCommit, r.ExecutionSource); e != nil {
 		return e
 	}
-	return thirdConsumer(root, stop, p)
+	return closedConsumer(root, files, collection, p)
 }
 func thirdParent(root *os.Root, stop thirdStop, p thirdProcess, g RenewalGrant, pin string, i int) error {
 	var parent struct {
@@ -188,7 +190,7 @@ func thirdRegionalProcesses(root *os.Root, stop thirdStop, g RenewalGrant) error
 			return fmt.Errorf("closed third regional failure count differs")
 		}
 		if !failed {
-			if e = thirdConsumer(root, stop, p); e != nil {
+			if e = closedConsumer(root, stop.Files, thirdCollection, p); e != nil {
 				return e
 			}
 		}

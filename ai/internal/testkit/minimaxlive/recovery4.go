@@ -69,6 +69,10 @@ func Recovery4Facts() (RenewalSourceFacts, error) {
 func thirdHistoryPin(h *ThirdCohortHistory) string { raw, _ := json.Marshal(h); return Hash(raw) }
 
 func approvedRecovery4(active bool) (RenewalGrant, string, error) {
+	if !active && fourthCohortClosed() {
+		return closedFourthAuthority()
+	}
+
 	g, pin, base, e := loadCanonicalRenewalGrant(Recovery4RenewalID)
 	if e != nil {
 		return g, "", e
@@ -77,7 +81,7 @@ func approvedRecovery4(active bool) (RenewalGrant, string, error) {
 	if e != nil {
 		return g, "", e
 	}
-	if g.Schema != 5 || g.RenewalID != Recovery4RenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !reflect.DeepEqual(g.ThirdCohort, f.ThirdCohort) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
+	if g.FourthCohort != nil || g.Schema != 5 || g.RenewalID != Recovery4RenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !reflect.DeepEqual(g.ThirdCohort, f.ThirdCohort) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
 		return g, "", fmt.Errorf("fixed recovery4 source/history/caps differ")
 	}
 	if e = renewalCommittedSource(g.SourceCommit); e != nil {

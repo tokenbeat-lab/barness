@@ -126,7 +126,7 @@ func secondNativeHistory(root *os.Root, stop secondStop, f RenewalSourceFacts, h
 	}
 	var g RenewalGrant
 	raw, e := cohortJSON(root, base+"grant.json", &g)
-	if e != nil || g.ThirdCohort != nil || g.Schema != 3 || g.Recovery != nil || g.RenewalID != FinalAcceptanceRenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
+	if e != nil || g.FourthCohort != nil || g.ThirdCohort != nil || g.Schema != 3 || g.Recovery != nil || g.RenewalID != FinalAcceptanceRenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
 		return fmt.Errorf("closed failed ID2 original grant/history differs: %v", e)
 	}
 	h.SecondGrantSHA256 = Hash(raw)

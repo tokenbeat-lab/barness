@@ -114,7 +114,7 @@ func thirdNativeHistory(root *os.Root, owner string, stop thirdStop, f RenewalSo
 	}
 	var g RenewalGrant
 	raw, e := cohortJSON(root, base+"grant.json", &g)
-	if e != nil || g.Schema != 4 || g.ThirdCohort != nil || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || !reflect.DeepEqual(g.Recovery, f.Recovery) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
+	if e != nil || g.FourthCohort != nil || g.Schema != 4 || g.ThirdCohort != nil || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || !reflect.DeepEqual(g.Recovery, f.Recovery) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
 		return fmt.Errorf("closed third original schema4 grant/history differs: %v", e)
 	}
 	pin := Hash(raw)
@@ -137,7 +137,7 @@ func thirdNativeHistory(root *os.Root, owner string, stop thirdStop, f RenewalSo
 	if e = thirdCanonicalParents(root, stop); e != nil {
 		return e
 	}
-	if e = thirdHistoricalSource(root, stop, g); e != nil {
+	if e = closedHistoricalSource(root, stop.Files, thirdCollection, g); e != nil {
 		return e
 	}
 	rows, e := ReadLedger(filepath.Join(owner, base, "formal.jsonl"))
@@ -165,7 +165,7 @@ func thirdNativeHistory(root *os.Root, owner string, stop thirdStop, f RenewalSo
 		if b.Calls != 13 || b.Attempts != 12 || b.ReservedAttempts != 13 || b.RequestedOutput < 1 || b.RequestedOutput > 40000 || b.ReservedInput < 1 || b.ReservedInput > 120000 {
 			return fmt.Errorf("closed third per-route13/12 differs")
 		}
-		if e = thirdMiniMaxProcess(root, stop, stop.Processes[i], g, pin, claim, b, rows); e != nil {
+		if e = closedMiniMaxProcess(root, stop.Files, thirdCollection, stop.Processes[i], g, pin, claim, b, rows); e != nil {
 			return e
 		}
 	}

@@ -3,6 +3,7 @@ package minimaxlive
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"io"
 	"os"
@@ -127,4 +128,20 @@ func cohortArchive(root *os.Root, prefix string, files map[string]string) error 
 		return fmt.Errorf("closed source archive selection differs")
 	}
 	return nil
+}
+
+// Reports and launcher receipts carry descriptive envelopes; validate duplicate
+// JSON and canonical field spellings before projecting their semantic subset.
+func cohortJSONProjection(root *os.Root, name string, target any, required ...string) ([]byte, error) {
+	var envelope map[string]json.RawMessage
+	raw, e := cohortJSON(root, name, &envelope)
+	if e == nil {
+		for _, key := range required {
+			if value, ok := envelope[key]; !ok || strings.TrimSpace(string(value)) == "null" {
+				return raw, fmt.Errorf("required receipt field missing: %s", key)
+			}
+		}
+		e = decodeRecoveryApproval(raw, target)
+	}
+	return raw, e
 }

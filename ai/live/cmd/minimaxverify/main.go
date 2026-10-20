@@ -20,7 +20,20 @@ func main() {
 	recoveryPreflight := flag.String("recovery-preflight", "", "read-only recovery3 authority and unclaimed route guard")
 	recovery4Facts := flag.Bool("recovery4-source", false, "read-only fixed recovery4 source and closed third cohort facts")
 	recovery4Preflight := flag.String("recovery4-preflight", "", "read-only recovery4 authority and unclaimed route guard")
+	recovery5Facts := flag.Bool("recovery5-source", false, "read-only fixed recovery5 source and closed fourth cohort facts")
+	recovery5Preflight := flag.String("recovery5-preflight", "", "read-only recovery5 authority and unclaimed route guard")
 	flag.Parse()
+	if *recovery5Facts || *recovery5Preflight != "" {
+		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts || *recoveryPreflight != "" || *recovery4Facts || *recovery4Preflight != "" || *recovery5Facts && *recovery5Preflight != "" {
+			fmt.Fprintln(os.Stderr, "recovery5-source/preflight cannot verify or publish")
+			os.Exit(2)
+		}
+		if e := recovery5(*recovery5Facts, *recovery5Preflight); e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		return
+	}
 	if *recovery4Facts || *recovery4Preflight != "" {
 		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts || *recoveryPreflight != "" || *recovery4Facts && *recovery4Preflight != "" {
 			fmt.Fprintln(os.Stderr, "recovery4-source/preflight cannot verify or publish")
@@ -151,6 +164,25 @@ func recovery4(facts bool, route string) error {
 		return e
 	}
 	f, e := minimaxlive.Recovery4Facts()
+	if e != nil {
+		return e
+	}
+	return json.NewEncoder(os.Stdout).Encode(map[string]any{"route": route, "grant": g, "grantSha256": pin, "facts": f})
+}
+
+func recovery5(facts bool, route string) error {
+	if facts {
+		f, e := minimaxlive.Recovery5Facts()
+		if e != nil {
+			return e
+		}
+		return json.NewEncoder(os.Stdout).Encode(f)
+	}
+	g, pin, e := minimaxlive.Recovery5Preflight(route)
+	if e != nil {
+		return e
+	}
+	f, e := minimaxlive.Recovery5Facts()
 	if e != nil {
 		return e
 	}

@@ -15,14 +15,14 @@ import (
 
 // Historical source has its own committed archive. Never call the current-source
 // verifier here: changed authority/harness code is precisely why recovery4 exists.
-func thirdHistoricalSource(root *os.Root, stop thirdStop, g RenewalGrant) error {
+func closedHistoricalSource(root *os.Root, files map[string]string, collection string, g RenewalGrant) error {
 	var archive struct {
 		SourceCommit string            `json:"sourceCommit"`
 		Files        map[string]string `json:"files"`
 	}
-	name := thirdCollection + "source-at-start.json"
+	name := collection + "source-at-start.json"
 	raw, e := cohortJSON(root, name, &archive)
-	if e != nil || stop.Files[name] != Hash(raw) || Hash(raw) != g.SourceManifestSHA256 || archive.SourceCommit != g.SourceCommit || len(archive.Files) == 0 || len(archive.Files) > 8192 {
+	if e != nil || files[name] != Hash(raw) || Hash(raw) != g.SourceManifestSHA256 || archive.SourceCommit != g.SourceCommit || len(archive.Files) == 0 || len(archive.Files) > 8192 {
 		return fmt.Errorf("closed third complete source archive differs: %v", e)
 	}
 	return committedArchive(archive.SourceCommit, archive.Files)

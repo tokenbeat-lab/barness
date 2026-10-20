@@ -19,71 +19,78 @@ const FormalRenewalID = "current-source-eleven-renewal-1"
 const FinalAcceptanceRenewalID = "provider-sites-final-acceptance-2"
 
 type RenewalGrant struct {
-	ThirdCohort                 *ThirdCohortHistory `json:"thirdCohort,omitempty"`
-	Recovery                    *RecoveryHistory    `json:"recovery,omitempty"`
-	Schema                      int                 `json:"schema"`
-	RenewalID                   string              `json:"renewalId"`
-	Decision                    string              `json:"decision"`
-	CommonRootSHA256            string              `json:"commonRootSha256"`
-	SourceCommit                string              `json:"sourceCommit"`
-	ExecutionSourceSHA256       string              `json:"executionSourceSha256"`
-	OriginalLedgerSHA256        string              `json:"originalLedgerSha256"`
-	OriginalLedgerTailSHA256    string              `json:"originalLedgerTailSha256"`
-	OriginalCalls               int                 `json:"originalCalls"`
-	OriginalAttempts            int                 `json:"originalAttempts"`
-	MaxCalls                    int                 `json:"maxCalls"`
-	MaxAttempts                 int                 `json:"maxAttempts"`
-	PerIdentityCalls            int                 `json:"perIdentityCalls"`
-	PerIdentityAttempts         int                 `json:"perIdentityAttempts"`
-	MaxOutputTokens             int                 `json:"maxOutputTokens"`
-	MaxRequestedOutput          int                 `json:"maxRequestedOutput"`
-	MaxReservedInput            int                 `json:"maxReservedInput"`
-	HumanApprovalSHA256         string              `json:"humanApprovalSha256"`
-	SourceReviewSHA256          string              `json:"sourceReviewSha256"`
-	SourceManifestSHA256        string              `json:"sourceManifestSha256"`
-	BinariesManifestSHA256      string              `json:"binariesManifestSha256"`
-	PlanSHA256                  string              `json:"planSha256"`
-	PreviousRenewalID           string              `json:"previousRenewalId,omitempty"`
-	PreviousLedgerSHA256        string              `json:"previousLedgerSha256,omitempty"`
-	PreviousLedgerTailSHA256    string              `json:"previousLedgerTailSha256,omitempty"`
-	PreviousCalls               int                 `json:"previousCalls,omitempty"`
-	PreviousAttempts            int                 `json:"previousAttempts,omitempty"`
-	ClosedHistorySHA256         string              `json:"closedHistorySha256,omitempty"`
-	FirstCohortSealSHA256       string              `json:"firstCohortSealSha256,omitempty"`
-	FirstCohortActualCalls      int                 `json:"firstCohortActualCalls,omitempty"`
-	FirstCohortActualAttempts   int                 `json:"firstCohortActualAttempts,omitempty"`
-	FirstCohortClaimedCalls     int                 `json:"firstCohortClaimedCalls,omitempty"`
-	FirstCohortClaimedAttempts  int                 `json:"firstCohortClaimedAttempts,omitempty"`
-	FirstCohortReservedMicrousd int64               `json:"firstCohortReservedMicrousd,omitempty"`
-	NativeRound1NeverIssued     bool                `json:"nativeRound1NeverIssued,omitempty"`
+	RequestReference            string               `json:"requestReference,omitempty"`
+	FirstRouteProof             map[string]string    `json:"firstRouteProof,omitempty"`
+	FourthCohort                *FourthCohortHistory `json:"fourthCohort,omitempty"`
+	SpendingGuardSourceSHA256   map[string]string    `json:"spendingGuardSourceSha256,omitempty"`
+	ThirdCohort                 *ThirdCohortHistory  `json:"thirdCohort,omitempty"`
+	Recovery                    *RecoveryHistory     `json:"recovery,omitempty"`
+	Schema                      int                  `json:"schema"`
+	RenewalID                   string               `json:"renewalId"`
+	Decision                    string               `json:"decision"`
+	CommonRootSHA256            string               `json:"commonRootSha256"`
+	SourceCommit                string               `json:"sourceCommit"`
+	ExecutionSourceSHA256       string               `json:"executionSourceSha256"`
+	OriginalLedgerSHA256        string               `json:"originalLedgerSha256"`
+	OriginalLedgerTailSHA256    string               `json:"originalLedgerTailSha256"`
+	OriginalCalls               int                  `json:"originalCalls"`
+	OriginalAttempts            int                  `json:"originalAttempts"`
+	MaxCalls                    int                  `json:"maxCalls"`
+	MaxAttempts                 int                  `json:"maxAttempts"`
+	PerIdentityCalls            int                  `json:"perIdentityCalls"`
+	PerIdentityAttempts         int                  `json:"perIdentityAttempts"`
+	MaxOutputTokens             int                  `json:"maxOutputTokens"`
+	MaxRequestedOutput          int                  `json:"maxRequestedOutput"`
+	MaxReservedInput            int                  `json:"maxReservedInput"`
+	HumanApprovalSHA256         string               `json:"humanApprovalSha256"`
+	SourceReviewSHA256          string               `json:"sourceReviewSha256"`
+	SourceManifestSHA256        string               `json:"sourceManifestSha256"`
+	BinariesManifestSHA256      string               `json:"binariesManifestSha256"`
+	PlanSHA256                  string               `json:"planSha256"`
+	PreviousRenewalID           string               `json:"previousRenewalId,omitempty"`
+	PreviousLedgerSHA256        string               `json:"previousLedgerSha256,omitempty"`
+	PreviousLedgerTailSHA256    string               `json:"previousLedgerTailSha256,omitempty"`
+	PreviousCalls               int                  `json:"previousCalls,omitempty"`
+	PreviousAttempts            int                  `json:"previousAttempts,omitempty"`
+	ClosedHistorySHA256         string               `json:"closedHistorySha256,omitempty"`
+	FirstCohortSealSHA256       string               `json:"firstCohortSealSha256,omitempty"`
+	FirstCohortActualCalls      int                  `json:"firstCohortActualCalls,omitempty"`
+	FirstCohortActualAttempts   int                  `json:"firstCohortActualAttempts,omitempty"`
+	FirstCohortClaimedCalls     int                  `json:"firstCohortClaimedCalls,omitempty"`
+	FirstCohortClaimedAttempts  int                  `json:"firstCohortClaimedAttempts,omitempty"`
+	FirstCohortReservedMicrousd int64                `json:"firstCohortReservedMicrousd,omitempty"`
+	NativeRound1NeverIssued     bool                 `json:"nativeRound1NeverIssued,omitempty"`
 }
 type RenewalSourceFacts struct {
-	ThirdCohortHistorySHA256    string              `json:"thirdCohortHistorySha256,omitempty"`
-	ThirdCohort                 *ThirdCohortHistory `json:"thirdCohort,omitempty"`
-	RecoveryHistorySHA256       string              `json:"recoveryHistorySha256,omitempty"`
-	Recovery                    *RecoveryHistory    `json:"recovery,omitempty"`
-	RenewalID                   string              `json:"renewalId"`
-	CommonRootSHA256            string              `json:"commonRootSha256"`
-	SourceCommit                string              `json:"sourceCommit"`
-	ExecutionSourceSHA256       string              `json:"executionSourceSha256"`
-	OriginalLedgerSHA256        string              `json:"originalLedgerSha256"`
-	OriginalLedgerTailSHA256    string              `json:"originalLedgerTailSha256"`
-	OriginalCalls               int                 `json:"originalCalls"`
-	OriginalAttempts            int                 `json:"originalAttempts"`
-	PreviousRenewalID           string              `json:"previousRenewalId,omitempty"`
-	PreviousLedgerSHA256        string              `json:"previousLedgerSha256,omitempty"`
-	PreviousLedgerTailSHA256    string              `json:"previousLedgerTailSha256,omitempty"`
-	PreviousCalls               int                 `json:"previousCalls,omitempty"`
-	PreviousAttempts            int                 `json:"previousAttempts,omitempty"`
-	ClosedHistorySHA256         string              `json:"closedHistorySha256,omitempty"`
-	ClosedHistory               map[string]string   `json:"closedHistory,omitempty"`
-	FirstCohortSealSHA256       string              `json:"firstCohortSealSha256,omitempty"`
-	FirstCohortActualCalls      int                 `json:"firstCohortActualCalls,omitempty"`
-	FirstCohortActualAttempts   int                 `json:"firstCohortActualAttempts,omitempty"`
-	FirstCohortClaimedCalls     int                 `json:"firstCohortClaimedCalls,omitempty"`
-	FirstCohortClaimedAttempts  int                 `json:"firstCohortClaimedAttempts,omitempty"`
-	FirstCohortReservedMicrousd int64               `json:"firstCohortReservedMicrousd,omitempty"`
-	NativeRound1NeverIssued     bool                `json:"nativeRound1NeverIssued,omitempty"`
+	FourthCohortHistorySHA256   string               `json:"fourthCohortHistorySha256,omitempty"`
+	FourthCohort                *FourthCohortHistory `json:"fourthCohort,omitempty"`
+	SpendingGuardSourceSHA256   map[string]string    `json:"spendingGuardSourceSha256,omitempty"`
+	ThirdCohortHistorySHA256    string               `json:"thirdCohortHistorySha256,omitempty"`
+	ThirdCohort                 *ThirdCohortHistory  `json:"thirdCohort,omitempty"`
+	RecoveryHistorySHA256       string               `json:"recoveryHistorySha256,omitempty"`
+	Recovery                    *RecoveryHistory     `json:"recovery,omitempty"`
+	RenewalID                   string               `json:"renewalId"`
+	CommonRootSHA256            string               `json:"commonRootSha256"`
+	SourceCommit                string               `json:"sourceCommit"`
+	ExecutionSourceSHA256       string               `json:"executionSourceSha256"`
+	OriginalLedgerSHA256        string               `json:"originalLedgerSha256"`
+	OriginalLedgerTailSHA256    string               `json:"originalLedgerTailSha256"`
+	OriginalCalls               int                  `json:"originalCalls"`
+	OriginalAttempts            int                  `json:"originalAttempts"`
+	PreviousRenewalID           string               `json:"previousRenewalId,omitempty"`
+	PreviousLedgerSHA256        string               `json:"previousLedgerSha256,omitempty"`
+	PreviousLedgerTailSHA256    string               `json:"previousLedgerTailSha256,omitempty"`
+	PreviousCalls               int                  `json:"previousCalls,omitempty"`
+	PreviousAttempts            int                  `json:"previousAttempts,omitempty"`
+	ClosedHistorySHA256         string               `json:"closedHistorySha256,omitempty"`
+	ClosedHistory               map[string]string    `json:"closedHistory,omitempty"`
+	FirstCohortSealSHA256       string               `json:"firstCohortSealSha256,omitempty"`
+	FirstCohortActualCalls      int                  `json:"firstCohortActualCalls,omitempty"`
+	FirstCohortActualAttempts   int                  `json:"firstCohortActualAttempts,omitempty"`
+	FirstCohortClaimedCalls     int                  `json:"firstCohortClaimedCalls,omitempty"`
+	FirstCohortClaimedAttempts  int                  `json:"firstCohortClaimedAttempts,omitempty"`
+	FirstCohortReservedMicrousd int64                `json:"firstCohortReservedMicrousd,omitempty"`
+	NativeRound1NeverIssued     bool                 `json:"nativeRound1NeverIssued,omitempty"`
 }
 
 func renewalBase(id string) (string, error) {
@@ -153,7 +160,13 @@ func closedRenewalFacts() (RenewalSourceFacts, error) {
 	return f, nil
 }
 func approvedRenewal(id string, active bool) (RenewalGrant, string, error) {
+	if id == Recovery5RenewalID {
+		return approvedRecovery5(active)
+	}
 	if id == Recovery4RenewalID {
+		if active && fourthCohortClosed() {
+			return RenewalGrant{}, "", fmt.Errorf("closed fourth campaign cannot execute again")
+		}
 		return approvedRecovery4(active)
 	}
 	if id == RecoveryRenewalID {
@@ -252,7 +265,7 @@ func RenewalAuthority(id string, active bool) (RenewalGrant, string, error) {
 	return approvedRenewal(id, active)
 }
 func RenewalLedgerPath(id string) (string, error) {
-	if id != FormalRenewalID && id != FinalAcceptanceRenewalID && id != RecoveryRenewalID && id != Recovery4RenewalID {
+	if id != FormalRenewalID && id != FinalAcceptanceRenewalID && id != RecoveryRenewalID && id != Recovery4RenewalID && id != Recovery5RenewalID {
 		return "", fmt.Errorf("unknown renewal")
 	}
 	base, e := renewalBase(id)
