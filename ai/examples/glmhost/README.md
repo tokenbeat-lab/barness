@@ -1,7 +1,8 @@
-# China standard GLM Host example
+# Explicit GLM market Host example
 
-`glmhost.Bindings` returns three independent `OperationChat / ProviderZhipu`
-allowlists for both `glm-5.3` and `glm-5.2`. Each SDK base is complete: Responses
+`glmhost.Bindings` requires an explicit `ProviderID` (`ProviderZhipu` China or
+`ProviderZAI` international), standard purpose and account authorization. It returns
+three independent `OperationChat` allowlists for both `glm-5.3` and `glm-5.2`. Each SDK base is complete: Responses
 `https://open.bigmodel.cn/api/v1` adds `/responses`; Chat
 `https://open.bigmodel.cn/api/paas/v4` adds `/chat/completions`; Messages
 `https://open.bigmodel.cn/api/anthropic` adds `/v1/messages`. Responses/Chat use
@@ -22,7 +23,12 @@ provider environment variables. `localassembly` reads this explicitly named
 source once during assembly. `Operations.Scope()` generates a fresh RequestID.
 
 ```go
-bindings := glmhost.Bindings("local-tenant", "approved-account", "standard-glm", "local")
+bindings, err := glmhost.Bindings(glmhost.Authorization{
+    ProviderID: ai.ProviderZhipu, Purpose: glmhost.Standard,
+    TenantID: "local-tenant", AccountScopeID: "approved-account",
+    CredentialRef: "standard-glm", Version: "local",
+})
+if err != nil { return err }
 local, err := localassembly.OpenOperations(localassembly.OperationsConfig{
     TenantID: "local-tenant", Bindings: bindings,
     Keys: map[string]localassembly.KeySource{
@@ -59,15 +65,30 @@ credential reference, or hooks as authority from a public DTO. Persist each
 returned binding under `(TenantID, BindingID)` with an actual backend version:
 
 ```go
-bindings := glmhost.Bindings(principal.TenantID, approvedAccount, "standard-glm", "binding-v7")
-// Atomically store these and independent credential backend snapshot(s):
-credential := ai.Credential{
-    OwnerTenantID: principal.TenantID, CredentialID: "standard-glm",
-    Version: "secret-v3", BindingVersion: "binding-v7",
-    AccountScopeID: approvedAccount, Active: true, APIKey: ai.NewSecret(selectedKey),
+authorization := glmhost.Authorization{
+    ProviderID: ai.ProviderZhipu, Purpose: glmhost.Standard,
+    TenantID: principal.TenantID, AccountScopeID: approvedAccount,
+    CredentialRef: "standard-glm", Version: "binding-v7",
 }
-// secretResolver must return its stored BindingVersion, never copy the incoming
-// binding.Version. A mixed rotation fails consistency before a request.
+bindings, err := glmhost.Bindings(authorization)
+if err != nil { return err }
+// Load this secret-free record from the same backend transaction as the
+// authorization. Its BindingVersion is stored independently of incoming b.
+record := glmhost.CredentialRecord{
+    ProviderID: ai.ProviderZhipu, TenantID: principal.TenantID,
+    CredentialRef: "standard-glm", AccountScopeID: approvedAccount,
+    Purpose: glmhost.Standard, Active: true,
+    Version: "secret-v3", BindingVersion: "binding-v7",
+    AllowedAPIs: []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses,
+        ai.APIAnthropicMessages},
+}
+secretResolver := glmhost.Credentials{
+    Authorization: authorization, Record: record,
+    ReadSecret: func(ctx context.Context, ref string) (ai.Secret, error) {
+        return tenantSecretStore.Read(ctx, principal.TenantID, ref)
+    },
+}
+// Ownership, purpose, API and version checks precede tenantSecretStore.Read.
 client, err := ai.NewClient(ai.Config{
     Policy: hostintegration.CloudInteractivePolicy(),
     Bindings: tenantBindingResolver, Credentials: secretResolver,
@@ -85,8 +106,9 @@ turn, err := glmhost.Turn(ctx, client, scope,
 ```
 
 A shared CredentialRef is deliberate only for the same authorized tenant,
-Provider and account. The catalog is the formal `BuiltinCatalog`; no synthetic
-Host override is needed. A bounded distributed Admission can be supplied by
+Provider, account and purpose, with each API explicitly present in the credential
+record. China uses the formal `BuiltinCatalog`; Z.AI requires its independently
+reviewed Host candidate catalog and has no new live qualification in this feature. A bounded distributed Admission can be supplied by
 the Host. Neither resolver nor hooks select another endpoint on failure.
 `ResourcePolicy` values must fit the deployment's documented load; the cloud
 and local examples have different measured load assumptions.
@@ -139,3 +161,31 @@ go test ./ai/e2e -run '^TestGLMHost' -count=1
 The retained artifact includes both models/three APIs/four entries/hooks,
 Host tools, disable/in-flight/other-tenant/restore behavior, own final captures,
 formal catalog/price identity, usage, Observer lifecycle and resource cleanup.
+
+
+## New market configuration and secret ownership
+
+Z.AI uses `ProviderZAI` and its own `zai-chat`, `zai-responses`, `zai-messages`
+bindings, credential records and catalog identities. Its three official bases use
+`https://api.z.ai` with the same documented protocol paths. No identity is inferred
+from a URL. `Endpoints` may override exact official bases; an explicit
+`TrustedGateway: true` permits reviewed nonofficial HTTPS or loopback test targets.
+URL credentials, query parameters, fragments, another official market, and wrong
+protocol paths fail assembly. HTTP loopback also requires Client opt-in. Gateways
+never change service identity or authorize a fallback.
+
+`glmhost.Credentials` implements the public CredentialResolver with separate
+`Authorization`, secret-free `CredentialRecord`, and `ReadSecret(ctx, ref)` callback.
+The record carries Provider, Tenant, AccountScope, Purpose, allowed APIs, Active,
+credential Version and independently stored BindingVersion. All ownership and
+purpose checks precede the callback; mismatch returns ErrAccessDenied, while
+version conflict returns ErrSnapshotConflict before reading the secret. Never
+construct record metadata from the Binding handed to the resolver. Resolve current
+backend snapshots atomically; these example values are immutable during use.
+The callback must read exactly the selected tenant-owned record, never search keys.
+
+The candidate data and source gaps are documented in
+[regional candidates](../../internal/testkit/regional/README.md). Before software
+rollback disable new-market bindings and remove their catalog identities from the
+snapshot loaded by the old process. Retain original history without rewriting its
+Provider. New-market ordinary proofs: `go test ./ai/e2e -count=1 -run '^TestRegionalProvider'`.

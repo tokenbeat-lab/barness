@@ -13,7 +13,7 @@ func TestMiniMaxHostBindings(t *testing.T) {
 	for _, purpose := range []minimaxhost.Purpose{minimaxhost.Standard, minimaxhost.MPlan} {
 		t.Run(string(purpose), func(t *testing.T) {
 			ev := run.Case(t, "MM08-bindings-"+string(purpose))
-			cfg := minimaxhost.Authorization{TenantID: "example-tenant", AccountScopeID: "example-account-" + string(purpose), CredentialRef: "credential-" + string(purpose), Version: "b7", Purpose: purpose}
+			cfg := minimaxhost.Authorization{ProviderID: ai.ProviderMiniMax, TenantID: "example-tenant", AccountScopeID: "example-account-" + string(purpose), CredentialRef: "credential-" + string(purpose), Version: "b7", Purpose: purpose}
 			got, err := minimaxhost.Bindings(cfg)
 			ev.Record("bindings", got)
 			if !ev.Check("three separately authorized protocol routes", err == nil && len(got) == 3, "%v", err) {
