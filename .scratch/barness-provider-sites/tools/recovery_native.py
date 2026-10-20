@@ -1,14 +1,13 @@
-"""Native current3 facts, exact component grants and full-process consumers."""
-import datetime as dt
+"""Fixed3 native facts and schema4 issuance; historical authority stays unchanged."""
 import json
-from pathlib import Path
 import recovery_contract as r
 import recovery_history as h
-import recovery_state as s
 c = r.c
 
 def facts(out):
-    verified(out, 'native-recovery-facts', [out / 'minimaxverify', '-recovery-source'])
+    from recovery_flow import fixed3
+    flow=fixed3();s=flow.s
+    flow.n.verified(out, 'native-recovery-facts', [out / 'minimaxverify', '-recovery-source'])
     value = json.loads((out / 'native-recovery-facts.log').read_text())
     prior = h.facts()
     recovery = value.get('recovery', {})
@@ -21,7 +20,8 @@ def facts(out):
     return value
 
 def create(out):
-    import recovery_execute as e
+    from recovery_flow import fixed3
+    flow=fixed3();s=flow.s;e=flow.e
     prepared = s.guard(out)
     for route in r.ROUTES:
         _, auth, _, _ = s.approved(out, r.jobs(out)['mm-global-formal-m3-' + route])
@@ -41,32 +41,8 @@ def create(out):
         c.dump(base / 'grant.json', grant, exclusive=True)
         e.sync_dir(base)
     for route in r.ROUTES:
-        verified(out, 'native-grant-preflight-' + route, [out / 'minimaxverify', '-recovery-preflight=' + route])
+        flow.n.verified(out, 'native-grant-preflight-' + route, [out / 'minimaxverify', '-recovery-preflight=' + route])
     return dict(credentialsRead=False, renewalId=r.ROUND, grantSHA256=s.pin(base / 'grant.json'), maxCalls=60, maxAttempts=72)
-
-def templates(out):
-    from recovery_flow import fixed3
-    return fixed3().n.templates(out)
-
-def verified(out, name, argv):
-    from recovery_flow import fixed3
-    return fixed3().n.verified(out,name,argv)
-
-def require_component(out, job, auth, scope):
-    from recovery_flow import fixed3
-    return fixed3().n.require_component(out,job,auth,scope)
-
-def preflight(out, job, record):
-    from recovery_flow import fixed3
-    return fixed3().n.preflight(out,job,record)
-
-def consume(out, job, record):
-    from recovery_flow import fixed3
-    return fixed3().n.consume(out,job,record)
-
-def require_consumed(out, job, value):
-    from recovery_flow import fixed3
-    return fixed3().n.require_consumed(out,job,value)
 
 # Fixed3 issuance had no preceding regional probe; its historical contract stays so.
 def before_claim(out,job):return None

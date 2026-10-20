@@ -15,19 +15,17 @@ def main():
     else:
         closed=c.common_root()/r.BASE/'closed-cohort-3/seal.json'
         if a.mode!='summarize' and (closed.exists() or closed.is_symlink()):raise RuntimeError('recovery3 permanently closed; history only')
-        import recovery_state as s
-        import recovery_execute as e
+        from recovery_flow import fixed3
+        flow=fixed3();s=flow.s;e=flow.e
         if a.mode=='summarize':result=e.summarize()
         else:
             out=s.path(a.out)
             if a.mode=='prepare':result=s.prepare(out)
             elif a.mode=='check':result=s.checks(out)
             elif a.mode=='native-grant':
-                import recovery_native
-                result=recovery_native.create(out)
+                result=flow.authority.create(out)
             elif a.mode in ('final-plan','finalize'):
-                import recovery_finalize as f
-                result=f.plan(out,a.inputs) if a.mode=='final-plan' else f.finalize(out,a.inputs)
+                result=flow.f.plan(out,a.inputs) if a.mode=='final-plan' else flow.f.finalize(out,a.inputs)
             else:
                 s.guard(out)
                 if a.route not in r.jobs(out):raise RuntimeError('one exact fixed recovery3 job required')

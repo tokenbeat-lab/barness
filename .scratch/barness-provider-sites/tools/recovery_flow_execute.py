@@ -69,7 +69,7 @@ class Execution:
         import final_execute
         final_execute.require_checks(out)
 
-    def claim(self, out, job, prepared, auth):
+    def claim(self, out, job, prepared, auth, admission):
         with self.locked() as base:
             if self.marker(job['name']).exists() or self.marker(job['name']).is_symlink():
                 raise RuntimeError('fixed3 job already claimed in any output or checkout')
@@ -93,6 +93,7 @@ class Execution:
             record = dict(state='STARTING', route=self.flow.r.ROUND + '-' + job['name'], baseName=job['name'], validationRound=self.flow.r.ROUND, nativeRenewalId=self.flow.r.ROUND, phase=self.flow.r.PHASE, sourceCommit=prepared['sourceCommit'], sourceVariable=job['sourceVariable'], credentialsRead=False, maxCalls=job['maxCalls'], maxAttempts=job['maxAttempts'], reservedMicrousd=job['reservedMicrousd'], automaticReruns=False, collectionRoot=str(out), networkRoute=job['networkRoute'], budget=UNKNOWN.copy(), **self.flow.r.policy(), originalCampaignApprovalSHA256=auth['eligibilityAuthorizationSHA256'], actualHumanApprovalSHA256=auth['actualHumanApprovalSHA256'], usdLedger=str(out / (job['name'] + '-usd.json')))
             for field, key in [('sourceManifestSha256', 'sourceManifestSHA256'), ('binariesManifestSha256', 'binariesManifestSHA256'), ('planSha256', 'planSHA256')]:
                 record[field] = prepared[key]
+            record.update(admission)
             record.update(sourceReviewSha256=self.flow.s.pin(out / 'prerelease-source-review.json'), authorizationSha256=self.flow.s.pin(out / 'execution-authorization.json'))
             self.flow.r.c.dump(self.marker(job['name']), self.flow.r.c.redact(record), exclusive=True)
             self.sync_dir(self.marker(job['name']).parent)
@@ -106,8 +107,8 @@ class Execution:
         self.flow.n.require_component(out, job, auth, scope)
         if Path(job['evidenceRoot']).exists() or (out / (job['name'] + '-command.json')).exists() or (out / (job['name'] + '-usd.json')).exists():
             raise RuntimeError('fresh recovery output required; no process restart')
-        self.flow.authority.before_claim(out,job)
-        intent = self.claim(out, job, prepared, auth)
+        admission=self.flow.authority.before_claim(out,job) or {}
+        intent = self.claim(out, job, prepared, auth, admission)
         record = self.flow.n.preflight(out, job, self.flow.s.doc(intent))
         self.flow.r.c.dump(intent, record)
         usd = out / (job['name'] + '-usd.json')
@@ -122,6 +123,7 @@ class Execution:
                 env['BARNESS_REGIONAL_PROXY' if 'combo' in job else 'BARNESS_MINIMAX_PROXY' if job['name'].startswith('mm-') else 'BARNESS_AI_LIVE_PROXY'] = proxy
         env.update(BARNESS_AI_LIVE_ACCOUNT_ALIAS=scope['accountAlias'] + '@' + scope['regionAlias'], BARNESS_MINIMAX_ACCOUNT_ALIAS=scope['accountAlias'], BARNESS_MINIMAX_REGION_ALIAS=scope['regionAlias'], BARNESS_AI_CHINESE_EVAL_ACCOUNT_ALIAS=scope['accountAlias'] + '@' + scope['regionAlias'])
         job = job | dict(executionProvenance={k: record[k] for k in ('validationRound', 'nativeRenewalId', 'spendingGuardPolicyId', 'spendingGuardSourceSHA256', 'usdLedger', 'originalCampaignApprovalSHA256', 'actualHumanApprovalSHA256')})
+        job['executionProvenance'].update(admission)
         self.flow.s.guard(out)
         code = final_process.run(out, job, argv, env, intent)
         record = self.flow.s.doc(intent)

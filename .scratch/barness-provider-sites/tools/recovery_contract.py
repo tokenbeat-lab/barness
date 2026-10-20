@@ -1,6 +1,7 @@
 """Fixed recovery3 execution scope; the unchanged USD guard is policy2 only."""
 from pathlib import Path
 import final_contract as old
+from recovery_flow_source import SourceFreeze
 c=old.c
 ROUND='provider-sites-final-acceptance-3'
 SPENDING_GUARD_POLICY_SELECTOR=old.ROUND
@@ -18,7 +19,7 @@ GUARD_FILES=('ai/internal/testkit/finalbudget/guard.go','ai/internal/testkit/fin
 RESERVES=dict(zip([v[0] for v in old.old.GENERIC],(1500000,1500000,1800000,500000,500000,500000,3500000,4500000,200000,100000)))
 RESERVES.update(protocol114=200000,**{'mm-global-formal-m3-'+r:200000 for r in ROUTES},**{n:100000 if n.startswith('text-') else 300000 for n in EFFECTS},**{'formal-'+p+'-'+r:650000 if p=='zai' else 350000 for p in ('zai','minimax-cn') for r in ROUTES})
 
-def policy():return dict(spendingGuardPolicyId=SPENDING_GUARD_POLICY_SELECTOR,spendingGuardSourceSHA256={n:c.digest(c.ROOT/n) for n in GUARD_FILES})
+def policy():return dict(spendingGuardPolicyId=SPENDING_GUARD_POLICY_SELECTOR,spendingGuardSourceSHA256={n:SourceFreeze(c).digest(c.ROOT/n) for n in GUARD_FILES})
 def jobs(out):
     result={n:j for n,j in old.jobs(out).items() if j['phase']=='remaining'}
     for name,j in result.items():
@@ -28,7 +29,7 @@ def jobs(out):
     return {n:result[n] for n in EXECUTION_ORDER}
 
 def inventory(out):
-    return dict(schema=1,round=ROUND,validationRound=ROUND,nativeRenewalId=ROUND,maxCalls=MAX_CALLS,maxAttempts=MAX_ATTEMPTS,campaignMaxCalls=CAMPAIGN_CALLS,campaignMaxAttempts=CAMPAIGN_ATTEMPTS,newReservedMicrousd=NEW_USD,retainedReservedMicrousd=RETAINED_USD,maxMicrousd=30000000,automaticProcessReruns=False,credentialsRead=False,originalCampaignApprovalSHA256=c.digest(c.common_root()/BASE/'authorization.json'),executionOrder=list(EXECUTION_ORDER),**policy(),jobs=jobs(out))
+    return dict(schema=1,round=ROUND,validationRound=ROUND,nativeRenewalId=ROUND,maxCalls=MAX_CALLS,maxAttempts=MAX_ATTEMPTS,campaignMaxCalls=CAMPAIGN_CALLS,campaignMaxAttempts=CAMPAIGN_ATTEMPTS,newReservedMicrousd=NEW_USD,retainedReservedMicrousd=RETAINED_USD,maxMicrousd=30000000,automaticProcessReruns=False,credentialsRead=False,originalCampaignApprovalSHA256=SourceFreeze(c).digest(c.common_root()/BASE/'authorization.json'),executionOrder=list(EXECUTION_ORDER),**policy(),jobs=jobs(out))
 
 # The23 public support identities remain the same; collection authority does not.
 live_identities=old.live_identities

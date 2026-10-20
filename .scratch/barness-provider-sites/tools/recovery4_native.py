@@ -1,13 +1,14 @@
 """Fixed schema5 projection; M3 authority follows the first own ZAI Responses PASS."""
+import hashlib
 import json
 import recovery4_contract as r
 import recovery4_history as h
 c=r.c
 
-def facts(out):
+def facts(out,name='native-recovery4-facts'):
     from recovery_flow import fixed4
-    flow=fixed4();flow.n.verified(out,'native-recovery4-facts',[out/'minimaxverify','-recovery4-source'])
-    value=h.strict((out/'native-recovery4-facts.log').read_bytes());prior=h.facts();old=prior['previousCohort']
+    flow=fixed4();flow.n.verified(out,name,[out/'minimaxverify','-recovery4-source'])
+    value=h.strict(flow.files.read(out/(name+'.log'),2<<20));prior=h.facts();old=prior['previousCohort']
     if value.get('renewalId')!=r.ROUND or value.get('sourceCommit')!=c.git('rev-parse','HEAD') or len(value.get('closedHistory',{}))!=15 or any(value.get(k)!=v for k,v in dict(originalCalls=39,originalAttempts=36,previousCalls=39,previousAttempts=36).items()):raise RuntimeError('exact native4 current source and original15 history required')
     if value.get('thirdCohort')!=prior['thirdCohort'] or value.get('thirdCohortHistorySha256')!=prior['thirdCohortHistorySHA256']:raise RuntimeError('native4 exact21 closed3 fields and digest required')
     recovery=value.get('recovery',{})
@@ -18,10 +19,21 @@ def facts(out):
         if recovery.get(key)!=h.pin(native/leaf):raise RuntimeError('old2 exact native authority pin differs')
     return value
 
+def initial_proof(out,value=None):
+    from recovery_flow import fixed4
+    flow=fixed4();name='initial-native-history'
+    raw=flow.files.read(out/(name+'.log'),2<<20);command_raw=flow.files.read(out/(name+'-command.json'),2<<20)
+    actual=h.strict(raw);command=h.strict(command_raw);prior=flow.s.doc(out/'predecessor.json');prepared=flow.s.doc(out/'prepared.json')
+    if value is not None and actual!=value:raise RuntimeError('initial native history facts changed before binding')
+    if actual.get('renewalId')!=r.ROUND or actual.get('sourceCommit')!=prepared['sourceCommit'] or actual.get('thirdCohort')!=prior['thirdCohort'] or actual.get('thirdCohortHistorySha256')!=prior['thirdCohortHistorySHA256']:raise RuntimeError('initial native full history/source differs')
+    if command.get('state')!='COMPLETED' or command.get('exitCode')!=0 or command.get('credentialsRead') is not False or command.get('argv')!=c.redact([str(out/'minimaxverify'),'-recovery4-source']):raise RuntimeError('actual successful keyless full-history command required')
+    return dict(nativeHistoryFactsReceiptSha256=hashlib.sha256(command_raw).hexdigest(),nativeHistoryFactsSha256=hashlib.sha256(raw).hexdigest(),nativeHistoryThirdCohortSha256=actual['thirdCohortHistorySha256'])
+
 def first_pass(out):
     from recovery_flow import fixed4
     flow=fixed4();name=r.EXECUTION_ORDER[0];job=r.jobs(out)[name]
     value=flow.s.doc(flow.e.marker(name));flow.n.require_consumed(out,job,value)
+    if any(value.get(k)!=v for k,v in initial_proof(out).items()):raise RuntimeError('first process must bind immutable pre-Key native history facts')
     if value['budget']!=dict(state='REPORTED',status='PASS',calls=18,attempts=18):raise RuntimeError('first new4 ZAI Responses full18/18 required before native issue')
     report=flow.s.doc(flow.p.own_base(out,name)/'regional-report.json')
     if len(report.get('expected',[]))!=18 or len(report.get('scenarios',[]))!=18 or any(v['outcome']!='PASS' for v in report['scenarios']):raise RuntimeError('first new4 ZAI Responses18 genuine native PASS required')
@@ -32,6 +44,8 @@ def before_claim(out,job):
     if job['name']==r.EXECUTION_ORDER[0]:
         if native.exists() or native.is_symlink():raise RuntimeError('native4 must remain unissued before the first ZAI Responses')
         if native.parent.exists() and {p.relative_to(native.parent).as_posix() for p in h.f.native_files(native.parent)}-{'operator-authority.json','launch.lock'}:raise RuntimeError('unexpected native4 intent/nonce before first ZAI Responses')
+        # Full Go historical-source semantics run before this first claim or Key.
+        return initial_proof(out,facts(out,'initial-native-history'))
     elif job['name'].startswith('mm-'):
         first_pass(out);grant=h.doc(native)
         if grant.get('schema')!=5 or grant.get('renewalId')!=r.ROUND:raise RuntimeError('new own schema5 grant required before M3 claim')
