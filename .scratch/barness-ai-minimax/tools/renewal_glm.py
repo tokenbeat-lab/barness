@@ -30,7 +30,7 @@ def known_usage(files,report):
 
 
 def capture(out,values,round_name='original'):
-    if round_name not in ('original','corrective-1','routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1'):raise RuntimeError('fixed explicit GLM collection round required')
+    if round_name not in ('original','corrective-1','routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1','provider-sites-final-acceptance-1'):raise RuntimeError('fixed explicit GLM collection round required')
     snapshot=u.json_doc(c.ROOT/'ai/release/catalog-snapshot.json')
     source=u.sha(u.file_bytes(c.ROOT/'ai/live/testdata/glm-candidate/sources.json'))
     code=u.file_bytes(c.ROOT/'ai/internal/testkit/supportmatrix/glm.go').decode()
@@ -47,10 +47,15 @@ def capture(out,values,round_name='original'):
                 report.get('catalogHash')!=snapshot['hash'] or report.get('catalogVersion')!=snapshot['catalog']['version'] or
                 re.fullmatch(r'[a-f0-9]{40}',report.get('gitCommit','')) is None):
                 raise RuntimeError('fresh own current GLM formal identity/source/catalog required')
-            launch=(round_name+'-glm-' if round_name in ('routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1') else
+            launch=(round_name+'-glm-' if round_name in ('routed-validation-1','release-repair-validation-1','current-source-eleven-renewal-1','provider-sites-final-acceptance-1') else
                 'glm-'+('corrective-1-' if round_name=='corrective-1' else ''))+route
             receipt_path=c.common_root()/'.evidence/minimax-launches'/(launch+'.json')
             receipt=u.json_doc(receipt_path)
+            if round_name=='provider-sites-final-acceptance-1':
+                import sys
+                sys.path.insert(0,str(c.ROOT/'.scratch/barness-provider-sites/tools'))
+                import final_publication
+                final_publication.require(route)
             if (receipt.get('state')!='COMPLETED' or receipt.get('exitCode')!=0 or receipt.get('credentialsRead') is not True or
                 receipt.get('launcherAudit',{}).get('passed') is not True or receipt.get('route')!=launch or
                 receipt.get('sourceCommit')!=report['gitCommit']):
@@ -144,6 +149,11 @@ def views(out):
     if index.get('collectionRound') in ('release-repair-validation-1','current-source-eleven-renewal-1'):
         import repair_publication,eleven_contract,repair_contract
         repair_publication.validate(index,view,contract=eleven_contract if index['collectionRound']==eleven_contract.ROUND else repair_contract)
+    if index.get('collectionRound')=='provider-sites-final-acceptance-1':
+        import sys
+        sys.path.insert(0,str(c.ROOT/'.scratch/barness-provider-sites/tools'))
+        import final_publication
+        final_publication.validate(index,view)
     c.dump(target,view)
     result=dict(credentialsRead=False,routes=entries,next='commit support-view selectors before fresh complete legacy/Jev source freeze')
     c.dump(out/'views-published.json',result);return result

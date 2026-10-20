@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/finalbudget"
 	"io"
 	"net/http"
 	"sync"
@@ -110,6 +111,9 @@ func (c *capture) RoundTrip(r *http.Request) (*http.Response, error) {
 	c.mu.Lock()
 	c.wire = wire{Method: r.Method, Path: r.URL.Path, Request: raw, Headers: map[string]string{"Content-Type": r.Header.Get("Content-Type"), "Typesafe-Danger-Zone-Images": r.Header.Get("Typesafe-Danger-Zone-Images")}, ResponseHeaders: map[string]string{}}
 	c.mu.Unlock()
+	if err := finalbudget.Reserve(r); err != nil {
+		return nil, err
+	}
 	res, err := c.next.RoundTrip(r)
 	if err != nil {
 		return nil, err

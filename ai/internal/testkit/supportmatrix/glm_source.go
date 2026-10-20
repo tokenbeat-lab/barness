@@ -42,11 +42,14 @@ func GLMExecutionSource() (map[string]string, error) {
 		for _, file := range []string{"ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/decisions_config_test.go", "ai/live/decisions_sources_test.go", "ai/live/session_test.go"} {
 			capture = capture || name == file
 		}
-		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/glm/"} {
+		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/glm/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/"} {
 			if strings.HasPrefix(name, prefix) && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go") {
 				capture = true
 			}
 		}
+		// The fixed round guard loads the independently pinned regional candidate
+		// catalog and its embedded source bytes before pricing a request.
+		capture = capture || strings.HasPrefix(name, "ai/internal/testkit/regional/")
 		if !runtime && !capture {
 			return nil
 		}

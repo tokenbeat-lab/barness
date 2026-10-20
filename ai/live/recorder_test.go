@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/finalbudget"
 	"io"
 	"net/http"
 	"regexp"
@@ -98,6 +99,9 @@ func (r *recorder) RoundTrip(req *http.Request) (*http.Response, error) {
 	r.exchanges = append(r.exchanges, e)
 	r.mu.Unlock()
 
+	if err := finalbudget.Reserve(req); err != nil {
+		return nil, err
+	}
 	res, err := r.next.RoundTrip(req)
 	r.mu.Lock()
 	defer r.mu.Unlock()
