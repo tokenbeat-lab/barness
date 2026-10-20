@@ -1,6 +1,6 @@
 # 02 缓存 v2 与准入隔离
 
-Status: ready-for-agent
+Status: claimed
 Type: task
 Blocked by: none
 

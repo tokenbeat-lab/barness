@@ -115,7 +115,7 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 		model:    model,
 		history:  history,
 		options:  options,
-		cache:    cacheScope{tenant: cl.scope.TenantID, account: binding.AccountScopeID},
+		cache:    cacheScope{tenant: cl.scope.TenantID, provider: binding.ProviderID, account: binding.AccountScopeID},
 		// Copied so a resolver that reuses its slice cannot change the
 		// pinned snapshot.
 		hostedTools: slices.Clone(binding.AllowedHostedTools),
