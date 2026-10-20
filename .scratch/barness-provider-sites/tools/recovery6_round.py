@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The fixed fifth recovery only; pending approval is never paid permission."""
+"""The fixed sixth recovery only; pending approval is never paid permission."""
 import argparse
 import json
 import sys

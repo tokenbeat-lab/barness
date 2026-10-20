@@ -1,4 +1,4 @@
-"""Public fixed5 CLI processes; synthetic repositories only, no vendor sockets."""
+"""Public fixed6 CLI processes; synthetic repositories only, no vendor sockets."""
 import json
 import subprocess
 import sys
