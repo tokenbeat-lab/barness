@@ -30,9 +30,16 @@ state1M context/128K output and text inputs; Chat's schema independently specifi
 131072 output. Candidate Responses/Messages conservatively cap at128000 from the
 model pages pending own route qualification. Chat/Responses GLM-5.3 uses the own
 low/high/max mapping and default max; GLM-5.2 keeps its own documented remaps.
-Messages does not invent an international1024 thinking budget from China proof.
-Protocol-specific wire/default/native-state acceptance remains a gap; public
-sources do not establish account entitlement or actual captured behavior.
+Messages does not inherit a thinking budget from China proof. Version.3 opts
+only its own GLM-5.2 into the exact enabled/budget1024/max4096 full shape observed
+in the independent 2026-10-20 standard API research. GLM-5.3 and unspecified
+options keep omission; simple canonical levels remain unsupported. This is
+acceptance of one request shape, not proof of budget enforcement or a canonical
+intensity mapping. The immutable research-only originals and public Client
+replay are in `ai/e2e/testdata/zai-messages-research`; a synthetic follow-up does
+not establish actual native-history continuation. The official source originals
+stay unchanged. Own full-identity candidate and formal acceptance remain gaps;
+public sources do not establish account entitlement or captured behavior.
 
 China MiniMax's own standard table supplies CNY per million token2.10 input,
 8.40 output,0.42 cache-read up to512k input; above512k these are4.20/16.80/0.84.

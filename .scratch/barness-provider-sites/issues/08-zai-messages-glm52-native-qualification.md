@@ -25,6 +25,10 @@ Type: task
 
 ## Comments
 
+2026-10-20：公共 Client / CLI 的 exact形状与采集请求、simple replay options 均已实际 RED→GREEN；自身原件、原生保留 / 受控续接、负向 metadata / hook / pre-secret 边界及有限 trace 完成，未发新真实调用。[实施证据](../evidence/zai-thinking-fix.md) 分别列出中间FAIL、最终普通 / 差分 / 双 vet实际结果。08继续 claimed，须独立复审、冻结后由根任务采新的整条真实 candidate 才能完成资格。
+
+2026-10-20：用户已批准完整有限轮次 US$30。四次真实 ZAI 对照完成：GLM-5.2 omitted 无原生块，精确 enabled/budget1024/max4096 返回 thinking97 / signature24；GLM-5.3 两形状均有原生块。4 Calls / 4 HTTP、零重试、合法终态，[完整自身研究](../evidence/zai-thinking-research.md)。这只证实窄控制形状，不表示 native-history 或候选资格完成；下一步公共 Client RED→GREEN、快照与 full 请求更新、独立复审后再采新候选。
+
 2026-10-20：用户要求继续解决本项后完成最终验收。已固定 ZAI 自身两型号 × 两形状（省略 / enabled-budget1024-max4096）的四个原始 Messages 研究请求及原工具 prompt；研究只区分默认/控制形状，不认证原生历史。工具经独立审查修正 redirect、响应头秘密与首建 claim 持久化边界；本轮预算尚待具体批准，没有读取 Key、发请求或修改生产协议。原失败与离线 RED 继续有效。
 
 2026-10-20：离线诊断已完成；资格缺口继续开放，没有执行任何付费重跑。

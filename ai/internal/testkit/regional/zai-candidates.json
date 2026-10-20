@@ -1,5 +1,5 @@
 {
-  "version": "regional-candidates-2026-10-20.2",
+  "version": "regional-candidates-2026-10-20.3",
   "candidates": [
     {
       "model": {
@@ -316,7 +316,8 @@
         },
         "compat": {
           "supportsLongCacheRetention": false,
-          "supportsTemperature": false
+          "supportsTemperature": false,
+          "messagesThinkingBudgetTokens": 1024
         },
         "cost": {
           "input": 1.4,
