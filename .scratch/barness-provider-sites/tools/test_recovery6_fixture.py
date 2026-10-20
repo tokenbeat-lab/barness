@@ -61,7 +61,7 @@ def seed(test):
             wire=json.loads((root/row[phase+'WireFile']).read_text());wire[0]['requestHeaders']={'accept':'application/json'}
             target=put(BASE/'controlled6-compat'/phase/(str(i)+'-wire.json'),wire);row[phase+'WireFile']=str(target.relative_to(root));row[phase+'WireFileSHA256']=sha(target)
     dest=put(BASE/'recovery6-preparation/compatibility-eight.json',proof)
-    path=test.tools/'recovery6_retained.py';path.write_text(path.read_text().replace('PENDING_FINAL_ROOT_84_REPROOF',sha(dest)));test.commit()
+    path=test.tools/'recovery6_retained.py';path.write_text(path.read_text().replace('0b5c158568df468574cca2e835c41a16079bcebad03d0e7ede6bd6ea13b58306',sha(dest)));test.commit()
 
 def builder(test):
     builder5(test);go=test.root/'bin/go';text=go.read_text();tree=ast.parse(text)

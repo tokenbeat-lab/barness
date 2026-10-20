@@ -7,7 +7,7 @@ import recovery5_retained as old
 from recovery_flow_source import SourceFreeze
 r=h.r;c=r.c
 COMPAT=r.BASE/'recovery6-preparation/compatibility-eight.json'
-COMPAT_SHA256='PENDING_FINAL_ROOT_84_REPROOF'
+COMPAT_SHA256='0b5c158568df468574cca2e835c41a16079bcebad03d0e7ede6bd6ea13b58306'
 REPAIR_FILES={'ai/live/regional_harness_test.go','ai/internal/testkit/supportmatrix/regional_contract.go'}
 BASELINE_COMMIT='8c8342606390d37dff041f11de7ff3b8d82d12d5'
 
