@@ -32,7 +32,7 @@ def require_component(out,job,auth,scope):
         mutable={'id','accountAlias','regionAlias','expiresAt'}
         if (set(value)!=set(template) or {k:v for k,v in value.items() if k not in mutable}!={k:v for k,v in template.items() if k not in mutable} or
             value.get('mode')!='live' or value.get('accountAlias')!=scope['accountAlias'] or value.get('regionAlias')!=scope['regionAlias'] or
-            not value.get('id','').startswith('ps-final-1-')):
+            not value.get('id','').startswith('ps-final-2-')):
             raise RuntimeError('new exact own native grant/scope required before selected key')
         expires=dt.datetime.fromisoformat(value['expiresAt'].replace('Z','+00:00'));now=dt.datetime.now(dt.timezone.utc)
         if expires<=now or expires-now>dt.timedelta(hours=24):

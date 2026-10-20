@@ -14,3 +14,11 @@ date: 2026-10-20
 活动执行必须匹配冻结 HEAD 和完整执行来源；历史消费仅允许未选中数据提交后的完整集合相等性。调用所依赖的固定美元 guard 及其区域候选价格目录均进入 MiniMax 执行来源集合。新授权机制和离线合成测试不授予真实请求、账户资格或付费预算。实际批准、证据与发布状态只记录在[规格当前状态](../../.scratch/barness-provider-sites/spec.md)；[工单 09](../../.scratch/barness-provider-sites/issues/09-final-round-minimax-authority.md)保留实现与验证指针。
 
 直接替换旧常量或重封旧 grant 会复活已消费的权限；无限轮次注册表则会扩大目前只有两个真实用例的授权面，因此均不采用。
+
+## 首个候选批次关闭后的固定续验 2
+
+首个地区候选批次发生真实失败，`provider-sites-final-acceptance-1` 的原生 M3 grant/账本/nonce 从未发放。固定活动入口改为 `provider-sites-final-acceptance-2`，旧1显式选择和无 selector 的 canonical 账本路径均永久拒绝。旧1只允许已封存的 operator authority 和空锁；任何新 grant、nonce、账本或其他 intent 都令新原生预检失败。
+
+schema3在上述15份原生历史之外，单独绑定 canonical `closed-cohort-1/seal.json`。grant、人类批准和独立审查各自 pin 该摘要，并保留旧批次实际40/40、已认领52/52及1.5USD整笔占用。新33进程仅722/758、28.4USD，跨轮774/810、全额29.9USD，不增加原30USD。原生 M3自身60/72和原15份历史39/36×2不变。固定路径从 common Git owner解析，合成独立owner可形成自身封存；不把真实本机SHA常量写进SDK。
+
+封存中的旧二进制以稳定文件流式散列验证，限制4096文件、64MiB/文件、512MiB总量，源码归档遍历限制8192条目、深度32；禁止符号链接和未pin的归档文件。该具体历史校验与一般运行时授权分离，避免为一次续验引入通用轮次框架。

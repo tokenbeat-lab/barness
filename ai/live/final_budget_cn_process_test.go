@@ -25,7 +25,7 @@ func TestFinalRoundCNBudgetProcess(t *testing.T) {
 			cs := run.Case(t, "REGIONAL-final-round-cn-usd-"+route)
 			base := t.TempDir()
 			budget := filepath.Join(base, "budget.json")
-			raw := []byte(`{"schema":1,"round":"provider-sites-final-acceptance-1","maxMicrousd":1000000,"reservedMicrousd":0,"attempts":0}`)
+			raw := []byte(`{"schema":1,"round":"provider-sites-final-acceptance-2","maxMicrousd":1000000,"reservedMicrousd":0,"attempts":0}`)
 			if err := os.WriteFile(budget, raw, 0600); err != nil {
 				t.Fatal(err)
 			}
@@ -35,7 +35,7 @@ func TestFinalRoundCNBudgetProcess(t *testing.T) {
 					cmd.Env = append(cmd.Env, name+"="+value)
 				}
 			}
-			cmd.Env = append(cmd.Env, "BARNESS_CN_BUDGET_FIXTURE="+route, "BARNESS_FINAL_ROUND=provider-sites-final-acceptance-1", "BARNESS_FINAL_BUDGET="+budget, "BARNESS_AI_EVIDENCE_DIR="+filepath.Join(base, "native"))
+			cmd.Env = append(cmd.Env, "BARNESS_CN_BUDGET_FIXTURE="+route, "BARNESS_FINAL_ROUND=provider-sites-final-acceptance-2", "BARNESS_FINAL_BUDGET="+budget, "BARNESS_AI_EVIDENCE_DIR="+filepath.Join(base, "native"))
 			output, err := cmd.CombinedOutput()
 			code := 0
 			if err != nil {

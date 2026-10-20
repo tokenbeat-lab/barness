@@ -12,10 +12,16 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
-const finalRenewalID = "provider-sites-final-acceptance-1"
+const finalRenewalID = "provider-sites-final-acceptance-2"
 
 // This independent process owns a separate Git repository and only synthetic
 // approval/history. It cannot authorize the shared real repository or HTTP.
+func TestSecondRenewalClosedFirstProcess(t *testing.T) {
+	for _, mode := range []string{"closed-unused-active", "closed-unused-path", "unused-native-intent", "unused-native-grant", "unused-native-nonce", "cohort-seal", "cohort-human", "cohort-review", "cohort-archive-extra", "cohort-large"} {
+		t.Run(mode, func(t *testing.T) { testFinalRenewalFixture(t, mode) })
+	}
+}
+
 func TestFinalRenewalAuthorityProcess(t *testing.T) {
 	for _, mode := range []string{"valid-three", "facts", "closed-active", "missing", "pending", "history-missing", "history-added", "history-modified", "history-linked", "history-parent-linked", "history-launcher", "history-open", "human-missing", "human-pending", "human-plan", "human-history", "human-purpose", "human-routes", "caps", "wrong-id", "candidate", "source-stale", "source-uncommitted", "source-option", "foreign-owner", "arbitrary-path", "unregistered", "new-session", "deleted-ledger", "partial-ledger", "partial-claim", "changed-grant", "duplicate", "excess-output", "excess-input", "linked-worktree", "concurrent", "same-session-process", "preflight-claim", "preflight-crash", "budget-source", "regional-price-source", "launcher-preflight", "preflight-purpose"} {
 		t.Run(mode, func(t *testing.T) { testFinalRenewalFixture(t, mode) })
@@ -196,7 +202,7 @@ func newFinalRenewalFixture(t *testing.T) *finalRenewalFixture {
 			f.writeHistory(t, "minimax-launches/"+name+".json", map[string]any{"state": "COMPLETED", "route": name, "sourceCommit": f.commit, "exitCode": 0, "credentialsRead": true, "launcherAudit": map[string]any{"passed": true}, "origin": origin})
 		}
 	}
-	f.grant["schema"], f.grant["renewalId"] = 2, finalRenewalID
+	f.grant["schema"], f.grant["renewalId"] = 3, finalRenewalID
 	f.grant["previousRenewalId"] = renewalID
 	f.grant["previousLedgerSha256"] = minimaxlive.Hash(ledger)
 	f.grant["previousLedgerTailSha256"] = f.previous[len(f.previous)-1].Hash
@@ -207,13 +213,14 @@ func newFinalRenewalFixture(t *testing.T) *finalRenewalFixture {
 	}
 	pinsRaw, _ := json.Marshal(pins)
 	f.grant["closedHistorySha256"] = minimaxlive.Hash(pinsRaw)
+	f.seedFirstCohort(t, pins)
 	return f
 }
 
 func (f *finalRenewalFixture) installGrant(t *testing.T) {
 	t.Helper()
-	human := map[string]any{"decision": "APPROVED", "renewalId": finalRenewalID, "maxCalls": 726, "maxAttempts": 762, "requestReference": "synthetic-private-no-paid", "requestText": "synthetic fixture only", "historySHA256": f.grant["closedHistorySha256"], "planSHA256": f.grant["planSha256"], "provider": "minimax", "model": minimaxlive.M3, "purpose": "standard", "routes": []string{"chat", "responses", "messages"}, "renewalMaxCalls": 60, "renewalMaxAttempts": 72}
-	review := map[string]any{"decision": "APPROVED", "sourceCommit": f.commit, "sourceManifestSHA256": f.grant["sourceManifestSha256"], "binariesManifestSHA256": f.grant["binariesManifestSha256"], "planSHA256": f.grant["planSha256"], "historySHA256": f.grant["closedHistorySha256"]}
+	human := map[string]any{"decision": "APPROVED", "renewalId": finalRenewalID, "maxCalls": 722, "maxAttempts": 758, "campaignMaxCalls": 774, "campaignMaxAttempts": 810, "newReservedMicrousd": 28400000, "firstCohortSealSHA256": f.grant["firstCohortSealSha256"], "requestReference": "synthetic-private-no-paid", "requestText": "synthetic fixture only", "historySHA256": f.grant["closedHistorySha256"], "planSHA256": f.grant["planSha256"], "provider": "minimax", "model": minimaxlive.M3, "purpose": "standard", "routes": []string{"chat", "responses", "messages"}, "renewalMaxCalls": 60, "renewalMaxAttempts": 72}
+	review := map[string]any{"decision": "APPROVED", "sourceCommit": f.commit, "sourceManifestSHA256": f.grant["sourceManifestSha256"], "binariesManifestSHA256": f.grant["binariesManifestSha256"], "planSHA256": f.grant["planSha256"], "historySHA256": f.grant["closedHistorySha256"], "firstCohortSealSHA256": f.grant["firstCohortSealSha256"]}
 	h, r := f.write(t, "human-approval.json", human), f.write(t, "source-review.json", review)
 	f.grant["humanApprovalSha256"], f.grant["sourceReviewSha256"] = minimaxlive.Hash(h), minimaxlive.Hash(r)
 	f.grantPin = minimaxlive.Hash(f.write(t, "grant.json", f.grant))

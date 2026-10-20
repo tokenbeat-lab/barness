@@ -39,6 +39,66 @@ func finalRenewalVariant(t *testing.T, f *finalRenewalFixture, mode string) bool
 		}
 	}
 	switch mode {
+	case "closed-unused-active":
+		os.Setenv("BARNESS_MINIMAX_FORMAL_RENEWAL", "provider-sites-final-acceptance-1")
+		if _, e := minimaxlive.StageLedgerPath("formal"); e == nil {
+			t.Fatal("unused closed final1 acquired new execution authority")
+		}
+		return true
+	case "closed-unused-path":
+		os.Unsetenv("BARNESS_MINIMAX_FORMAL_RENEWAL")
+		id, _ := minimaxlive.Select("chat", minimaxlive.M3, "standard")
+		l := minimaxlive.Ledger{Path: filepath.Join(f.root, ".evidence/minimax-renewals/provider-sites-final-acceptance-1/formal.jsonl"), Stage: "formal", Session: "closed-unused", Identity: id}
+		if _, e := l.Reserve("full-stream", 1024, 2048); e == nil {
+			t.Fatal("implicit closed native1 ledger path bypassed explicit selector")
+		}
+		return true
+	case "unused-native-intent", "unused-native-grant", "unused-native-nonce":
+		base := filepath.Join(f.root, ".evidence/minimax-renewals/provider-sites-final-acceptance-1")
+		os.MkdirAll(base, 0700)
+		name := "unexpected-intent.json"
+		if mode == "unused-native-grant" {
+			name = "grant.json"
+		}
+		if mode == "unused-native-nonce" {
+			name = "chat.json"
+		}
+		os.WriteFile(filepath.Join(base, name), []byte("{}"), 0600)
+		if _, e := minimaxlive.RenewalFacts(); e == nil {
+			t.Fatal("native1 unexpected intent retained new source facts")
+		}
+		os.Setenv("BARNESS_MINIMAX_FORMAL_RENEWAL", finalRenewalID)
+		if _, _, e := minimaxlive.RenewalPreflight("chat"); e == nil {
+			t.Fatal("native1 consumption bypassed new preflight")
+		}
+		if _, e := os.Stat(filepath.Join(f.base, "chat.json")); !os.IsNotExist(e) {
+			t.Fatal("rejected preflight acquired child claim")
+		}
+		return true
+	case "cohort-seal", "cohort-human", "cohort-review", "cohort-archive-extra", "cohort-large":
+		closed := filepath.Join(f.root, ".evidence/provider-sites/final-acceptance-20261020/closed-cohort-1")
+		switch mode {
+		case "cohort-human":
+			mutate(filepath.Join(f.base, "human-approval.json"), "firstCohortSealSHA256", strings.Repeat("0", 64))
+		case "cohort-review":
+			mutate(filepath.Join(f.base, "source-review.json"), "firstCohortSealSHA256", strings.Repeat("0", 64))
+		case "cohort-archive-extra":
+			os.WriteFile(filepath.Join(closed, "source/extra"), []byte("new"), 0600)
+		case "cohort-seal":
+			mutate(filepath.Join(closed, "seal.json"), "campaignWholeReservedMicrousd", 0)
+		case "cohort-large":
+			file, e := os.OpenFile(filepath.Join(closed, "source/archived.json"), os.O_WRONLY, 0600)
+			if e != nil {
+				t.Fatal(e)
+			}
+			file.Truncate(65 << 20)
+			file.Close()
+		}
+		os.Setenv("BARNESS_MINIMAX_FORMAL_RENEWAL", finalRenewalID)
+		if _, _, e := minimaxlive.RenewalPreflight("chat"); e == nil {
+			t.Fatal("changed closed-cohort pin retained authority")
+		}
+		return true
 	case "budget-source", "regional-price-source":
 		path := filepath.Join(f.root, "ai/internal/testkit/finalbudget/guard.go")
 		if mode == "regional-price-source" {

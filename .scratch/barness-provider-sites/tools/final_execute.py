@@ -33,43 +33,42 @@ def locked():
 
 
 def summarize():
-    auth_path = authority_root() / 'operator-authority.json'
-    if not auth_path.exists():
-        import final_research
-        research=final_research.disclosure();done=research['state']=='COMPLETED'
-        return dict(round=r.ROUND,research=research,reservedMicrousd=research['reservedMicrousd'] if done else 0,
-            claimedCalls=4 if done else 0,claimedAttempts=4 if done else 0,actualResearchCalls=research['calls'],
-            actualResearchAttempts=research['attempts'],routes=[],credentialsRead=False)
-    auth = c.doc(auth_path)
-    rows = []
-    for name, job in r.jobs(c.ROOT / '.evidence/unused-final-summary').items():
-        p = marker(name)
-        if not p.exists():
-            continue
-        receipt = c.doc(p)
-        if receipt.get('validationRound') != r.ROUND or receipt.get('baseName') != name:
+    import final_predecessor
+    prior=final_predecessor.disclosure()
+    auth_path=authority_root()/'operator-authority.json'
+    auth=c.doc(auth_path) if auth_path.exists() else None
+    if auth is not None and auth.get('predecessor')!=prior:
+        raise RuntimeError('fixed prior cohort changed after new authority')
+    rows=[]
+    for name,job in r.jobs(c.ROOT/'.evidence/unused-final-summary').items():
+        p=marker(name)
+        if not p.exists():continue
+        receipt=c.doc(p)
+        if receipt.get('validationRound')!=r.ROUND or receipt.get('baseName')!=name:
             raise RuntimeError('canonical fixed-round claim changed')
-        rows.append(dict(name=name, reservedMicrousd=receipt['reservedMicrousd'], maxCalls=job['maxCalls'],
-            maxAttempts=job['maxAttempts'], state=receipt.get('state'), budget=receipt.get('budget')))
-    return dict(round=r.ROUND, research=auth['research'], actualResearchCalls=4, actualResearchAttempts=4, maxMicrousd=auth['maxMicrousd'],
-        reservedMicrousd=auth['diagnosticReservedMicrousd'] + sum(v['reservedMicrousd'] for v in rows),
-        claimedCalls=4 + sum(v['maxCalls'] for v in rows), claimedAttempts=4 + sum(v['maxAttempts'] for v in rows),
-        knownReportedCalls=4+sum((v.get('budget') or {}).get('calls') or 0 for v in rows),
-        knownReportedAttempts=4+sum((v.get('budget') or {}).get('attempts') or 0 for v in rows),
-        unknownProcesses=sum((v.get('budget') or {}).get('state')=='UNKNOWN' for v in rows),
-        routes=rows, credentialsRead=False, basis='Conservative known-rate operational reservations; unknown/failed/cancelled consumption never releases an allowance; not an invoice guarantee.')
+        rows.append(dict(name=name,reservedMicrousd=receipt['reservedMicrousd'],maxCalls=job['maxCalls'],maxAttempts=job['maxAttempts'],state=receipt.get('state'),budget=receipt.get('budget')))
+    own_calls=sum(v['maxCalls'] for v in rows);own_attempts=sum(v['maxAttempts'] for v in rows)
+    own_usd=sum(v['reservedMicrousd'] for v in rows)
+    return dict(round=r.ROUND,predecessor=prior,paidApproved=auth is not None,maxMicrousd=30000000,
+        newReservedMicrousd=own_usd,reservedMicrousd=prior['reservedMicrousd']+own_usd,
+        ownClaimedCalls=own_calls,ownClaimedAttempts=own_attempts,
+        claimedCalls=prior['claimedCalls']+own_calls,claimedAttempts=prior['claimedAttempts']+own_attempts,
+        knownReportedCalls=prior['actualCalls']+sum((v.get('budget') or {}).get('calls') or 0 for v in rows),
+        knownReportedAttempts=prior['actualAttempts']+sum((v.get('budget') or {}).get('attempts') or 0 for v in rows),
+        unknownProcesses=sum((v.get('budget') or {}).get('state')=='UNKNOWN' for v in rows),routes=rows,credentialsRead=False,
+        basis='Prior40/40 actual and52/52 claimed plus entire1.5USD stay closed; new722/758 and28.4USD, aggregate774/810 and at most30USD; no refund or process rerun.')
 
 
 def claim(out, job, prepared, auth, reserve):
-    diagnostic = auth.get('diagnosticReservedMicrousd')
-    disclosure=c.doc(out/'research-disclosure.json')
-    if disclosure.get('state')!='COMPLETED' or disclosure.get('calls')!=4 or disclosure.get('attempts')!=4:
-        raise RuntimeError('original one-shot four-call research must be imported; never launch it again')
-    if type(diagnostic) is not int or diagnostic != 200000:
-        raise RuntimeError('already consumed research keeps its full200000 microusd allocation')
-    identity = dict(round=r.ROUND, requestText=auth['requestText'], requestReference=auth['requestReference'],
-        maxMicrousd=int(Decimal(str(auth['maxUSD'])) * 1000000), diagnosticReservedMicrousd=diagnostic,
-        maxCalls=r.MAX_CALLS, maxAttempts=r.MAX_ATTEMPTS, automaticProcessReruns=False, research=disclosure)
+    import final_predecessor
+    prior=c.doc(out/'predecessor-disclosure.json')
+    if prior!=final_predecessor.disclosure() or auth.get('predecessor')!=prior:
+        raise RuntimeError('fixed closed original cohort required before new claim')
+    identity=dict(round=r.ROUND,requestText=auth['requestText'],requestReference=auth['requestReference'],
+        maxMicrousd=int(Decimal(str(auth['maxUSD']))*1000000),newMaxMicrousd=r.NEW_RESERVED,
+        maxCalls=r.MAX_CALLS,maxAttempts=r.MAX_ATTEMPTS,campaignMaxCalls=r.CAMPAIGN_CALLS,campaignMaxAttempts=r.CAMPAIGN_ATTEMPTS,
+        eligibilityAuthorizationSHA256=auth['eligibilityAuthorizationSHA256'],raceAuthorizationSHA256=auth['raceAuthorizationSHA256'],
+        automaticProcessReruns=False,predecessor=prior)
     with locked() as root:
         proof = root / 'operator-authority.json'
         if proof.exists():
@@ -78,15 +77,15 @@ def claim(out, job, prepared, auth, reserve):
         else:
             c.dump(proof, identity, exclusive=True)
         summary = summarize()
-        if (summary['reservedMicrousd'] + reserve > identity['maxMicrousd'] or
-            summary['claimedCalls'] + job['maxCalls'] > r.MAX_CALLS or
-            summary['claimedAttempts'] + job['maxAttempts'] > r.MAX_ATTEMPTS):
+        if (summary['reservedMicrousd']+reserve>identity['maxMicrousd'] or summary['newReservedMicrousd']+reserve>r.NEW_RESERVED or
+            summary['ownClaimedCalls']+job['maxCalls']>r.MAX_CALLS or summary['ownClaimedAttempts']+job['maxAttempts']>r.MAX_ATTEMPTS or
+            summary['claimedCalls']+job['maxCalls']>r.CAMPAIGN_CALLS or summary['claimedAttempts']+job['maxAttempts']>r.CAMPAIGN_ATTEMPTS):
             raise RuntimeError('remaining round USD/call/attempt reservation exhausted before key')
         if any(v.get('state') != 'COMPLETED' or v.get('budget', {}).get('status') != 'PASS' for v in summary['routes']):
             raise RuntimeError('previous failed/unknown process retains full allowance and blocks dependent continuation')
         record = dict(state='STARTING', route=r.ROUND + '-' + job['name'], baseName=job['name'],
             validationRound=r.ROUND, phase=job['phase'], sourceCommit=prepared['sourceCommit'],
-            sourceVariable=job['sourceVariable'], credentialsRead=False, maxCalls=job['maxCalls'], maxAttempts=job['maxAttempts'],
+            predecessorSealSHA256=prior['sealSHA256'], sourceVariable=job['sourceVariable'], credentialsRead=False, maxCalls=job['maxCalls'], maxAttempts=job['maxAttempts'],
             reservedMicrousd=reserve, automaticReruns=False, collectionRoot=str(out), networkRoute=auth['networkRoutes'][job['name']],
             sourceManifestSha256=prepared['sourceManifestSHA256'], binariesManifestSha256=prepared['binariesManifestSHA256'],
             planSha256=prepared['planSHA256'], sourceReviewSha256=c.digest(out / 'prerelease-source-review.json'),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fixed provider-sites-final-acceptance-1 operator; no old authority is reused."""
+"""Fixed provider-sites-final-acceptance-2 operator; no old authority is reused."""
 import argparse
 import json
 from pathlib import Path
