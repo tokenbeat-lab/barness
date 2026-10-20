@@ -16,7 +16,20 @@ func main() {
 	publish := flag.Bool("publish", false, "exclusively publish own formal support projection after trusted origin")
 	facts := flag.Bool("renewal-source", false, "read-only current final-renewal source and complete closed history facts")
 	preflight := flag.String("renewal-preflight", "", "read-only current final-renewal authority and unclaimed route guard")
+	recoveryFacts := flag.Bool("recovery-source", false, "read-only fixed recovery3 source and closed failed second cohort facts")
+	recoveryPreflight := flag.String("recovery-preflight", "", "read-only recovery3 authority and unclaimed route guard")
 	flag.Parse()
+	if *recoveryFacts || *recoveryPreflight != "" {
+		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts && *recoveryPreflight != "" {
+			fmt.Fprintln(os.Stderr, "recovery-source/preflight cannot verify or publish")
+			os.Exit(2)
+		}
+		if e := recovery(*recoveryFacts, *recoveryPreflight); e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		return
+	}
 	if *preflight != "" {
 		if flag.NArg() != 0 || *formal || *publish || *facts {
 			fmt.Fprintln(os.Stderr, "renewal-preflight cannot verify or publish")
@@ -91,4 +104,23 @@ func main() {
 		}
 	}
 	fmt.Printf("PASS: %s %s mode=%s kind=%s calls=%d attempts=%d cumulativeCalls=%d\n", r.Identity.Route, r.Identity.Model, r.Mode, r.Kind, r.Budget.Calls, r.Budget.Attempts, r.Cumulative.Calls)
+}
+
+func recovery(facts bool, route string) error {
+	if facts {
+		f, e := minimaxlive.RecoveryFacts()
+		if e != nil {
+			return e
+		}
+		return json.NewEncoder(os.Stdout).Encode(f)
+	}
+	g, pin, e := minimaxlive.RecoveryPreflight(route)
+	if e != nil {
+		return e
+	}
+	f, e := minimaxlive.RecoveryFacts()
+	if e != nil {
+		return e
+	}
+	return json.NewEncoder(os.Stdout).Encode(map[string]any{"route": route, "grant": g, "grantSha256": pin, "facts": f})
 }

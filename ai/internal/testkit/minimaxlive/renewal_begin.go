@@ -13,7 +13,16 @@ var pendingRenewalRoutes sync.Map
 // still owns its exclusive intent before reading a credential; this check
 // cannot consume or stand in for the child's process-bound BeginRenewal.
 func RenewalPreflight(route string) (RenewalGrant, string, error) {
-	g, pin, e := approvedRenewal(FinalAcceptanceRenewalID, true)
+	return renewalPreflight(FinalAcceptanceRenewalID, route)
+}
+
+// RecoveryPreflight checks the fixed recovery without claiming a process nonce.
+func RecoveryPreflight(route string) (RenewalGrant, string, error) {
+	return renewalPreflight(RecoveryRenewalID, route)
+}
+
+func renewalPreflight(renewal, route string) (RenewalGrant, string, error) {
+	g, pin, e := approvedRenewal(renewal, true)
 	if e != nil {
 		return g, "", e
 	}
@@ -21,7 +30,7 @@ func RenewalPreflight(route string) (RenewalGrant, string, error) {
 	if e != nil {
 		return g, "", e
 	}
-	path, e := RenewalLedgerPath(FinalAcceptanceRenewalID)
+	path, e := RenewalLedgerPath(renewal)
 	if e != nil {
 		return g, "", e
 	}
@@ -52,7 +61,7 @@ func unclaimedRenewalRoute(path string, id Identity, pin string) ([]Receipt, err
 	stage := Budget{}
 	identities := map[Identity]Budget{}
 	for _, r := range rows {
-		if r.RenewalID != FinalAcceptanceRenewalID || r.RenewalGrantSHA256 != pin || r.Stage != "formal" || r.Identity.Model != M3 || r.Identity.Purpose != "standard" || r.Identity == id {
+		if r.RenewalID != filepath.Base(filepath.Dir(path)) || r.RenewalGrantSHA256 != pin || r.Stage != "formal" || r.Identity.Model != M3 || r.Identity.Purpose != "standard" || r.Identity == id {
 			return nil, fmt.Errorf("final renewal ledger has changed authority or hidden route consumption")
 		}
 		addBudget(&stage, r)
@@ -73,7 +82,8 @@ func unclaimedRenewalRoute(path string, id Identity, pin string) ([]Receipt, err
 // credential. No Logical Call is invented. A failed or crashed begin remains
 // consumed; only this process may write the first reservation into its ledger.
 func (l Ledger) BeginRenewal() error {
-	if os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL") != FinalAcceptanceRenewalID {
+	renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL")
+	if renewal != FinalAcceptanceRenewalID && renewal != RecoveryRenewalID {
 		return fmt.Errorf("only current fixed final renewal can begin")
 	}
 	id, e := Select(l.Identity.Route, M3, "standard")
@@ -96,7 +106,7 @@ func (l Ledger) BeginRenewal() error {
 	if e != nil {
 		return e
 	}
-	if e = l.claimRenewal(FinalAcceptanceRenewalID, pin, rows); e != nil {
+	if e = l.claimRenewal(renewal, pin, rows); e != nil {
 		return e
 	}
 	nonce, e := renewalProcessNonce()

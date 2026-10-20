@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 )
 
@@ -207,7 +208,7 @@ func ReadFile(path string, max int64) ([]byte, error) {
 	if !before.Mode().IsRegular() {
 		return nil, fmt.Errorf("unsafe artifact")
 	}
-	f, e := os.Open(path)
+	f, e := os.OpenFile(path, os.O_RDONLY|syscall.O_NONBLOCK|syscall.O_NOFOLLOW, 0)
 	if e != nil {
 		return nil, e
 	}
@@ -225,6 +226,10 @@ func ReadFile(path string, max int64) ([]byte, error) {
 	}
 	if int64(len(raw)) > max {
 		return nil, fmt.Errorf("artifact grew beyond read budget")
+	}
+	after, statErr := os.Lstat(path)
+	if statErr != nil || !after.Mode().IsRegular() || !os.SameFile(before, after) || after.Size() != info.Size() || !after.ModTime().Equal(info.ModTime()) || int64(len(raw)) != info.Size() {
+		return nil, fmt.Errorf("artifact changed during bounded read")
 	}
 	return raw, nil
 }
