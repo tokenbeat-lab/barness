@@ -79,6 +79,10 @@ func initializeRegional() {
 		return
 	}
 	p.report = supportmatrix.Report{Schema: supportmatrix.SchemaVersion, Combo: combo, Operation: "chat", Provider: route.Provider, API: route.API, Endpoint: route.Endpoint, Model: supportmatrix.RegionalModels(combo)[0], SDK: sdk, GitCommit: evidence.GitCommit(), CatalogVersion: p.cat.Version, CatalogHash: hash, StartedAt: started, Expected: supportmatrix.RegionalExpected(combo), Regional: &supportmatrix.RegionalEvidence{Schema: 1, Mode: mode, Stage: stage, Purpose: "standard", CredentialProvider: route.Provider, Contract: supportmatrix.RegionalAuthorization(combo), SourceSHA256: supportmatrix.RegionalSourceHash(p.source)}, Budget: supportmatrix.Budget{MaxCalls: 24, MaxAttempts: 24, MaxRetries: 0, MaxOutputTokens: 4096, MaxRequestedOutputTokens: 98304, MaxReservedInputTokens: 120000, CallSeconds: 120, ProcessSeconds: 1800}}
+	p.report.Regional.NativeSourceCases = map[string]string{}
+	for _, model := range supportmatrix.RegionalModels(combo) {
+		p.report.Regional.NativeSourceCases[model] = supportmatrix.RegionalNativeSourceCase(combo, model)
+	}
 	binaryHash, e := regionalBinaryHash()
 	if e != nil {
 		p.problem = "regional executable identity unavailable"

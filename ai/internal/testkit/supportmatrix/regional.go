@@ -33,6 +33,8 @@ type RegionalEvidence struct {
 	BinarySHA256       string `json:"binarySha256"`
 	Complete           bool   `json:"complete"`
 	AuditPassed        bool   `json:"auditPassed"`
+	// NativeSourceCases is predeclared per identity, not a fallback lookup.
+	NativeSourceCases map[string]string `json:"nativeSourceCases"`
 }
 
 func VerifyRegionalQualification(dir string) (Report, error) {
@@ -60,6 +62,9 @@ func regionalReport(dir string, formal bool, mode string) (Report, error) {
 	}
 	if r.GitCommit == "" || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > 1800*time.Second {
 		return Report{}, refuse("regional execution time/source missing")
+	}
+	if !reflect.DeepEqual(e.NativeSourceCases, regionalNativeSources(r.Combo)) {
+		return Report{}, refuse("regional native source case selection differs")
 	}
 	sdk, err := RegionalSDK(r.Combo)
 	if err != nil || r.SDK != sdk {

@@ -123,7 +123,7 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 		if m.NativeStateDowngrades != (ai.NativeStateDowngrades{}) {
 			return refuse("regional native history was downgraded")
 		}
-		if err := verifyRegionalNative(root, r, s, x.RequestBody); err != nil {
+		if err := verifyRegionalNative(root, r, s, x.RequestBody, m); err != nil {
 			return err
 		}
 	}
@@ -158,8 +158,8 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 
 func mustRegionalJSON(v any) []byte { raw, _ := json.Marshal(v); return raw }
 
-func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string) error {
-	source := RegionalCaseID(r.Combo, s.Model+"/tool-call")
+func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string, current ai.CallMetadata) error {
+	source := RegionalNativeSourceCase(r.Combo, s.Model)
 	raw, err := regionalRead(root, source+"/result.json")
 	if err != nil {
 		return err
@@ -167,6 +167,13 @@ func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string
 	var first regionalResult
 	if json.Unmarshal(raw, &first) != nil || first.Message.Provider != ai.ProviderID(r.Provider) || first.Message.API != ai.API(r.API) || first.Message.Model != s.Model {
 		return refuse("regional native source is another service/model")
+	}
+	m := first.Metadata
+	if !m.Resolved || m.Operation != ai.OperationChat || m.Operation != current.Operation || m.TenantID == "" || m.TenantID != current.TenantID || m.AccountScopeID != current.AccountScopeID || m.BindingID != r.Combo || string(m.ProviderID) != r.Provider || string(m.API) != r.API || m.ModelID != s.Model || m.CatalogVersion != r.CatalogVersion || m.CatalogHash != r.CatalogHash || m.RequestID == "" || m.RequestID == current.RequestID {
+		return refuse("regional native source scope differs")
+	}
+	if err := verifyRegionalNativeRequest(root, source, s.CaseID, raw); err != nil {
+		return err
 	}
 
 	firstMessage, err := first.Message.assistant()
@@ -186,10 +193,21 @@ func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string
 			}
 		}
 	} else {
-		for _, raw := range regionalArray(body["messages"]) {
+		for i, raw := range regionalArray(body["messages"]) {
 			message, _ := raw.(map[string]any)
 			if message["role"] != "assistant" {
 				continue
+			}
+			if r.Combo == "zai-chat" {
+				var text strings.Builder
+				for _, block := range firstMessage.Content {
+					if b, ok := block.(ai.Text); ok {
+						text.WriteString(b.Text)
+					}
+				}
+				if i != 1 || message["content"] != text.String() {
+					continue
+				}
 			}
 			if r.API == "openai-completions" {
 				native = append(native, message)
@@ -226,6 +244,37 @@ func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string
 		}
 	}
 	return refuse("regional own reasoning/signature was not replayed in a native wire container")
+}
+
+// The recorded domain request must extend that exact predeclared turn. Wire
+// comparison below separately proves native data was actually sent; a copied
+// reasoning string or another successful response cannot become the source.
+func verifyRegionalNativeRequest(root *os.Root, source, next string, firstResult []byte) error {
+	type request struct {
+		SystemPrompt string
+		Messages     []json.RawMessage
+	}
+	var before, after request
+	raw, err := regionalRead(root, source+"/request.json")
+	if err != nil || json.Unmarshal(raw, &before) != nil {
+		return refuse("regional native source request missing")
+	}
+	raw, err = regionalRead(root, next+"/request.json")
+	if err != nil || json.Unmarshal(raw, &after) != nil || before.SystemPrompt != after.SystemPrompt || len(before.Messages) == 0 || len(after.Messages) <= len(before.Messages) {
+		return refuse("regional native continuation request missing")
+	}
+	var sourceMessage struct{ Message json.RawMessage }
+	if json.Unmarshal(firstResult, &sourceMessage) != nil {
+		return refuse("regional native source message missing")
+	}
+	want := append(before.Messages, sourceMessage.Message)
+	for i, raw := range want {
+		var a, b any
+		if json.Unmarshal(raw, &a) != nil || json.Unmarshal(after.Messages[i], &b) != nil || !reflect.DeepEqual(a, b) {
+			return refuse("regional native continuation does not extend fixed source")
+		}
+	}
+	return nil
 }
 
 func regionalArray(value any) []any { out, _ := value.([]any); return out }
