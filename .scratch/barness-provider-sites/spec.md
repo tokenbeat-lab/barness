@@ -14,7 +14,7 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | --- | --- |
 | 架构选择 | 已确定方案 2，记录于 ADR-0049 |
 | 本次交付 | 实现与普通验证已交付；工单 01–06 已解决，[07 最终验收](issues/07-final-acceptance.md) 进行中。分支 `codex/barness-provider-sites`，feature 保持 claimed |
-| 文档核验 | 实施后合同、引用、格式及 500 行检查 PASS；本轮仅文档、索引与验收事实，执行来源集合保持不变 |
+| 文档核验 | 本轮收尾静态检查 exit 0，固定合同、格式 / 500 行及 334 处本地引用 PASS；执行源码集合保持不变 |
 | 生产实现与目录变更 | 四服务各三协议、12 路线 / 18 身份；缓存 v2、准入 Provider、Host 端点/用途与凭据隔离、独立候选及原生采集/消费已完成。新增九身份未晋升 BuiltinCatalog |
 | 本功能普通 E2E | 最终受测提交 `d4b63d9`；完整普通主包 13,244 原生场景全部 PASS，双 vet、差分、压力与原生审计通过；[最终验证索引](evidence/verification.md) / [机器索引](evidence/index.json) |
 | 双轴审查 | 初始及后续发现均由同一 implementer 修复，Standards 与 Spec 独立复审及测试迁移补审无剩余可操作问题；[原始与最终报告](evidence/review.md) |

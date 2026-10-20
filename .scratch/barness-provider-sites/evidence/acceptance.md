@@ -59,3 +59,5 @@ race 的旧 HTTP 工件比较 **3,077 / 3,077 PASS**，覆盖 2,480 个实际 HT
 Snapshot 与 difference-ledger 通过；新增六条路线尚未晋升 / formal 合并，矩阵保留 NOT_RUN。candidate 通过不认证 formal；上述七旧路线 / 四效果不在本次两服务 candidate 授权内。完整验收要求先解决 08、独立晋升并取得新 formal，以及补齐这些旧严格来源和效果的当前证明，再取得新来源下完整原生发布门禁。 晋升改变目录 / 执行来源后，必须重新消费全部所选旧输入；本轮十通用路线的适用性不能预先替代晋升后的核验，也不能预先抵扣其可能需要的新调用。工单 07、08 和 feature 继续开放，`release.pass: false`。
 
 [本轮机器索引](acceptance-index.json) 绑定原始回执与审计 Hash；早先普通失败、审查 red/green、旧来源与本次付费失败全部保留。收尾仅文档与索引，不改变已测源码。
+
+收尾文档提交 `5ae6814` 后的 [实际静态回执](../../../.evidence/provider-sites/acceptance-20261020/closure-static/receipt.json) 通过全部固定合同、格式、500 行与 334 处本地引用检查。完整执行来源仍为 `470682d3…`，后续仅补本段和索引链接，没有重跑 Go、刷新原生证明或改变执行源码。
