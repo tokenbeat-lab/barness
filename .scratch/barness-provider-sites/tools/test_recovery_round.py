@@ -164,6 +164,26 @@ cli=sys.argv[1];sys.path.insert(0,str(pathlib.Path(cli).parent));sys.argv=[cli,'
 """
         p=subprocess.run([sys.executable,'-B','-c',code,str(self.tools/'recovery_round.py')],cwd=self.root,env=self.env,capture_output=True,text=True,timeout=5);self.assertEqual(p.returncode,1);self.assertIn('REFUSED',p.stderr);self.assertTrue((self.root/'.env').is_dir())
 
+    def test_recovery_component_and_final_selected_fifos_are_bounded_before_key(self):
+        import os,subprocess
+        base=self.ready();self.approve_recovery(base)
+        cases=[('protocol114',base/'protocol-authorization.json'),('visual-jev',base/'visual-jev-authorization.json'),('visual-decisions',base/'visual-decisions-authorization.json'),('selected',base/'selected-fifo.json')]
+        for name,victim in cases:
+            with self.subTest(name=name):
+                raw=victim.read_bytes() if victim.exists() else None
+                if victim.exists():victim.unlink()
+                os.mkfifo(victim)
+                args=['final-plan','.evidence/provider-sites/recovery3','--inputs',str(victim.relative_to(self.root))] if name=='selected' else ['run-selected','.evidence/provider-sites/recovery3',name]
+                try:
+                    try:p=subprocess.run([*self.cli,*args],cwd=self.root,env=self.env,capture_output=True,text=True,timeout=2)
+                    except subprocess.TimeoutExpired:
+                        self.journal.append(dict(argv=args,state='TIMEOUT',exitCode=None));self.fail('FIFO import blocked before claim/key')
+                    self.journal.append(dict(argv=args,exitCode=p.returncode,stderr=p.stderr));self.assertEqual(p.returncode,1);self.assertIn('REFUSED',p.stderr)
+                finally:
+                    victim.unlink()
+                    if raw is not None:victim.write_bytes(raw)
+        self.assertFalse(list((self.root/'.evidence/minimax-launches').glob('provider-sites-final-acceptance-3-*')));self.assertTrue((self.root/'.env').is_dir())
+
 def load_tests(loader,tests,pattern):
     import unittest
     return unittest.TestSuite(RecoveryRound(n) for n in loader.getTestCaseNames(RecoveryRound) if n.startswith('test_recovery_'))

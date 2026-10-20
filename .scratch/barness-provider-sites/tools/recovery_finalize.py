@@ -15,7 +15,7 @@ c=r.c
 
 def plan(out, selected):
     prepared=s.guard(out)
-    value=u.json_doc(s.path(selected))
+    value=s.doc(s.path(selected))
     if set(value)!= {'live','effects'} or set(value['live'])!=set(r.live_identities()) or set(value['effects'])!=set(r.EFFECTS):
         raise RuntimeError('exactly23 own identities and four effects required; old17-row finalizer is closed')
     live={};seen=set();effects={}

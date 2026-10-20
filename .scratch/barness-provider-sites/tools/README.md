@@ -73,6 +73,6 @@ Only a native-consumed complete22 retry may replace the failed Responses depende
 
 新plan的 `validationRound/nativeRenewalId=provider-sites-final-acceptance-3` 表示执行与原生权限；`spendingGuardPolicyId=provider-sites-final-acceptance-2` 只表示复用原US$30的未改Go final-wire资金政策。env `BARNESS_FINAL_ROUND` 和新独立USD文件内 `round` 如实保持2；source/hash、原US$30批准、新3实际回复及新3USD路径在plan/claim/command中显式记录。旧2 grant/nonce/ledger/任何USD文件都不写入或复活。
 
-按plan的固定顺序手工选择一次：三M3(Chat先行完整native PASS)、六formal、十generic、protocol、四效果。每个前项须完整成功且原生消费，任何FAIL/UNKNOWN立即阻断全部后项；没有run-all或自动整进程重启。国际站包括ZAI都显式走 `http://127.0.0.1:7890`，中国站及DeepSeek直连。Anthropic1.80为硬停止额度，Images仍3.50，其余保持原分配；不能保证所有签名/历史/既有局部重试分支完整，耗尽不追加、不退款、不缩场景。
+按plan的固定顺序手工选择一次：三M3(Chat先行完整native PASS)、六formal、十generic、protocol、四效果。每个前项须完整成功且原生消费；唯一延期例外是 `protocol114` 的 `paired-jevformal-pending`：它在自身成功后等待独立 `visual-jev`，最终必须以同一新3两份原件经 `jevformal -require-live` 配对验证后才可取得Jev支持资格，任一方缺失/失败都阻断最终发布。任何FAIL/UNKNOWN立即阻断全部后项；没有run-all或自动整进程重启。国际站包括ZAI都显式走 `http://127.0.0.1:7890`，中国站及DeepSeek直连。Anthropic1.80为硬停止额度，Images仍3.50，其余保持原分配；不能保证所有签名/历史/既有局部重试分支完整，耗尽不追加、不退款、不缩场景。
 
 完成后以冻结 `jevformal -protocol <新protocol bundle> -effects <新visual-jev> -out <新derived support> -require-live` 派生Jev，再提供23 live与四effects给 `final-plan`/`finalize`。GLM三原件及其完整245集合保持b384/R2，六candidate保留已发生ca033晋升lineage；R3只接受三新M3及六新formal作为正式资格。所有27输入和实际canonical receipt精确相符后，公共importer先私有合并23行，再原子发布tracked矩阵；提交合法派生数据，重建最终CLI及CompleteSource/input freeze，通过ordinary取得新READY，最后执行原已选的一次完整race。R3工具不会自动启动race。

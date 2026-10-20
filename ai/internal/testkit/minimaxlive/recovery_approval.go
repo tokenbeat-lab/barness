@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 	"reflect"
+	"strings"
 )
 
 // Explicit execution IDs prevent the unchanged ID2 USD-policy selector from
@@ -45,7 +46,7 @@ func recoveryApproval(base string, g RenewalGrant) error {
 		RenewalMaxAttempts       int      `json:"renewalMaxAttempts"`
 	}
 	raw, e := ReadFile(filepath.Join(base, "human-approval.json"), 1<<20)
-	if e != nil || Hash(raw) != g.HumanApprovalSHA256 || json.Unmarshal(raw, &human) != nil || !human.matches(g) || human.MaxCalls != 506 || human.MaxAttempts != 518 || human.CampaignMaxCalls != 962 || human.CampaignMaxAttempts != 1010 || human.NewReservedMicrousd != 19200000 || human.RetainedReservedMicrousd != 10700000 || human.CampaignMaximumMicrousd != 30000000 || human.RequestReference == "" || human.RequestText == "" || human.Provider != "minimax" || human.Model != M3 || human.Purpose != "standard" || !reflect.DeepEqual(human.Routes, []string{"chat", "responses", "messages"}) || human.RenewalMaxCalls != 60 || human.RenewalMaxAttempts != 72 {
+	if e != nil || Hash(raw) != g.HumanApprovalSHA256 || decodeRecoveryApproval(raw, &human) != nil || !human.matches(g) || human.MaxCalls != 506 || human.MaxAttempts != 518 || human.CampaignMaxCalls != 962 || human.CampaignMaxAttempts != 1010 || human.NewReservedMicrousd != 19200000 || human.RetainedReservedMicrousd != 10700000 || human.CampaignMaximumMicrousd != 30000000 || human.RequestReference == "" || human.RequestText == "" || human.Provider != "minimax" || human.Model != M3 || human.Purpose != "standard" || !reflect.DeepEqual(human.Routes, []string{"chat", "responses", "messages"}) || human.RenewalMaxCalls != 60 || human.RenewalMaxAttempts != 72 {
 		return fmt.Errorf("own recovery506/518,962/1010 actual human approval required")
 	}
 	var review struct {
@@ -55,8 +56,35 @@ func recoveryApproval(base string, g RenewalGrant) error {
 		BinariesManifestSHA256 string `json:"binariesManifestSHA256"`
 	}
 	raw, e = ReadFile(filepath.Join(base, "source-review.json"), 1<<20)
-	if e != nil || Hash(raw) != g.SourceReviewSHA256 || json.Unmarshal(raw, &review) != nil || !review.matches(g) || review.SourceCommit != g.SourceCommit || review.SourceManifestSHA256 != g.SourceManifestSHA256 || review.BinariesManifestSHA256 != g.BinariesManifestSHA256 {
+	if e != nil || Hash(raw) != g.SourceReviewSHA256 || decodeRecoveryApproval(raw, &review) != nil || !review.matches(g) || review.SourceCommit != g.SourceCommit || review.SourceManifestSHA256 != g.SourceManifestSHA256 || review.BinariesManifestSHA256 != g.BinariesManifestSHA256 {
 		return fmt.Errorf("exact recovery source/history review required")
 	}
 	return nil
+}
+
+// Human/review envelopes allow descriptive fields, but their interpretation
+// must be unambiguous before projecting the native authorization fields.
+func decodeRecoveryApproval(raw []byte, target any) error {
+	var envelope map[string]json.RawMessage
+	if err := StrictJSON(raw, &envelope); err != nil {
+		return err
+	}
+	shape, err := json.Marshal(target)
+	if err != nil {
+		return err
+	}
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(shape, &fields); err != nil {
+		return err
+	}
+	// encoding/json accepts case-insensitive struct aliases. Descriptions may
+	// extend the envelope, but may not supply a second spelling of authority.
+	for name := range envelope {
+		for field := range fields {
+			if name != field && strings.EqualFold(name, field) {
+				return fmt.Errorf("noncanonical recovery approval field")
+			}
+		}
+	}
+	return json.Unmarshal(raw, target)
 }

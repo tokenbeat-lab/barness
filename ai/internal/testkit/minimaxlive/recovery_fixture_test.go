@@ -97,6 +97,8 @@ func (f *finalRenewalFixture) installRecoveryGrant(t *testing.T, facts map[strin
 	r := facts["recovery"].(map[string]any)
 	human := map[string]any{"decision": "APPROVED", "renewalId": recoveryID, "validationRound": recoveryID, "nativeRenewalId": recoveryID, "spendingGuardPolicyId": finalRenewalID, "maxCalls": 506, "maxAttempts": 518, "campaignMaxCalls": 962, "campaignMaxAttempts": 1010, "newReservedMicrousd": 19200000, "retainedReservedMicrousd": 10700000, "campaignMaximumMicrousd": 30000000, "firstCohortSealSHA256": facts["firstCohortSealSha256"], "secondCohortSealSHA256": r["secondCohortSealSha256"], "historySHA256": facts["closedHistorySha256"], "recoveryHistorySHA256": minimaxlive.Hash(recovery), "planSHA256": f.grant["planSha256"], "requestReference": "synthetic-private-no-paid", "requestText": "synthetic fixture only", "provider": "minimax", "model": minimaxlive.M3, "purpose": "standard", "routes": []string{"chat", "responses", "messages"}, "renewalMaxCalls": 60, "renewalMaxAttempts": 72}
 	review := map[string]any{"decision": "APPROVED", "renewalId": recoveryID, "validationRound": recoveryID, "nativeRenewalId": recoveryID, "spendingGuardPolicyId": finalRenewalID, "sourceCommit": f.commit, "sourceManifestSHA256": f.grant["sourceManifestSha256"], "binariesManifestSHA256": f.grant["binariesManifestSha256"], "planSHA256": f.grant["planSha256"], "historySHA256": facts["closedHistorySha256"], "firstCohortSealSHA256": facts["firstCohortSealSha256"], "secondCohortSealSHA256": r["secondCohortSealSha256"], "recoveryHistorySHA256": minimaxlive.Hash(recovery)}
+	human["operatorDescription"] = map[string]any{"note": "synthetic extension, no extra authority"}
+	review["operatorDescription"] = map[string]any{"note": "synthetic extension, no extra authority"}
 	f.grant["humanApprovalSha256"] = minimaxlive.Hash(f.write(t, "human-approval.json", human))
 	f.grant["sourceReviewSha256"] = minimaxlive.Hash(f.write(t, "source-review.json", review))
 	f.grantPin = minimaxlive.Hash(f.write(t, "grant.json", f.grant))
@@ -127,6 +129,23 @@ func recoveryMutation(t *testing.T, f *finalRenewalFixture, mode string) bool {
 	case "human-missing":
 		os.Remove(human)
 		return true
+	case "human-case-alias", "review-case-alias":
+		path := human
+		if mode == "review-case-alias" {
+			path = review
+		}
+		mutate(path, "decision", "PENDING")
+		b, _ := os.ReadFile(path)
+		b = append(b[:len(b)-1], []byte(`,"Decision":"APPROVED"}`)...)
+		os.WriteFile(path, b, 0600)
+	case "human-duplicate":
+		b, _ := os.ReadFile(human)
+		b = append([]byte(`{"decision":"PENDING",`), b[1:]...)
+		os.WriteFile(human, b, 0600)
+	case "review-duplicate":
+		b, _ := os.ReadFile(review)
+		b = append([]byte(`{"decision":"PENDING",`), b[1:]...)
+		os.WriteFile(review, b, 0600)
 	case "human-pending":
 		mutate(human, "decision", "PENDING")
 	case "human-scope":

@@ -29,8 +29,14 @@ def facts(out):
 def require_component(out,job,auth,scope):
     name=job['name']
     if 'combo' not in job:
-        import final_grants
-        return final_grants.require_component(out,job,auth,scope)
+        if name!='protocol114' and not name.startswith('visual-'):return
+        leaf='protocol-authorization.json' if name=='protocol114' else name+'-authorization.json'
+        p=out/leaf;value=s.doc(p);template=s.doc(out/(leaf+'.template.json'));mutable={'accountAlias','regionAlias'}
+        if (set(value)!=set(template) or {k:v for k,v in value.items() if k not in mutable}!={k:v for k,v in template.items() if k not in mutable} or
+            value.get('accountAlias')!=scope['accountAlias'] or value.get('regionAlias')!=scope['regionAlias'] or value.get('dedicatedCredential') is not True or
+            value.get('maxCalls')!=12 or value.get('maxAttempts')!=12 or s.pin(p)!=auth['componentAuthorizationSHA256'].get(name)):
+            raise RuntimeError('new own bounded protocol/effect authorization required')
+        return
     p=Path(job['environment']['BARNESS_REGIONAL_GRANT']);template=s.doc(out/'grants'/(name+'.template.json'));value=s.doc(p);mutable={'id','accountAlias','regionAlias','expiresAt'}
     if set(value)!=set(template) or {k:v for k,v in value.items() if k not in mutable}!={k:v for k,v in template.items() if k not in mutable} or value.get('mode')!='live' or value.get('accountAlias')!=scope['accountAlias'] or value.get('regionAlias')!=scope['regionAlias'] or not value.get('id','').startswith('ps-final-3-'):raise RuntimeError('new own exact3 regional grant required')
     expires=dt.datetime.fromisoformat(value['expiresAt'].replace('Z','+00:00'));now=dt.datetime.now(dt.timezone.utc)
