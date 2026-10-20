@@ -93,7 +93,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
-		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMax {
+		if chatCompatOf(ac.model.Provider).implementation == chatGLM || chatCompatOf(ac.model.Provider).implementation == chatMiniMax {
 			failure.HTTPStatus = res.StatusCode
 		}
 		return failure
@@ -101,7 +101,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 
 	out.start()
 	reasoningExpected := opts.reasoningExpected(ac.model, chatCompatOf(ac.model.Provider))
-	if ac.model.Provider == ProviderMiniMax {
+	if chatCompatOf(ac.model.Provider).implementation == chatMiniMax {
 		kind, _ := jsonparser.GetString(body, "thinking", "type")
 		reasoningExpected = ac.model.Reasoning && kind != "disabled"
 	}
@@ -110,7 +110,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
-		if ac.model.Provider == ProviderZhipu || ac.model.Provider == ProviderMiniMax {
+		if chatCompatOf(ac.model.Provider).implementation == chatGLM || chatCompatOf(ac.model.Provider).implementation == chatMiniMax {
 			failure.HTTPStatus = res.StatusCode
 		}
 	}
@@ -124,10 +124,10 @@ type chatFailures struct{ httpFailures }
 
 func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest) chatFailures {
 	f := httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}
-	if provider == ProviderMiniMax {
+	if chatCompatOf(provider).implementation == chatMiniMax {
 		f.minimax = APIOpenAICompletions
 	}
-	if provider == ProviderZhipu {
+	if chatCompatOf(provider).implementation == chatGLM {
 		f.glm = APIOpenAICompletions
 	}
 	return chatFailures{f}

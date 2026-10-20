@@ -26,8 +26,8 @@ type ResponsesOptions struct {
 	// empty is "short".
 	CacheRetention CacheRetention `json:"cacheRetention,omitempty"`
 	// SessionID, unless retention is none, sends the provider's supported
-	// cache key and session affinity headers, derived from it, the tenant
-	// and the vendor account rather than the raw value. Cache routing does
+	// cache key and session affinity headers, derived from it, the tenant,
+	// actual Provider and vendor account rather than the raw value. Cache routing does
 	// not imply retention or affinity support.
 	SessionID string `json:"sessionId,omitempty"`
 	// ReasoningEffort is sent as reasoning.effort through the model's level
@@ -163,7 +163,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
 		body.MaxOutputTokens = n
-		if m.Provider != ProviderZhipu && m.Provider != ProviderMiniMax {
+		if responsesCapabilitiesOf(m.Provider).implementation != responsesGLM && responsesCapabilitiesOf(m.Provider).implementation != responsesMiniMax {
 			body.MaxOutputTokens = max(n, responsesMinOutputTokens)
 		}
 	}
@@ -190,7 +190,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 		if caps.encryptedReasoning {
 			body.Include = []string{"reasoning.encrypted_content"}
 		}
-	case m.Provider == ProviderZhipu || m.Provider == ProviderMiniMax:
+	case responsesCapabilitiesOf(m.Provider).implementation == responsesGLM || responsesCapabilitiesOf(m.Provider).implementation == responsesMiniMax:
 		// Omission keeps GLM's documented service default, including mandatory
 		// thinking on 5.3; never synthesize an off request.
 	case !m.ThinkingLevelMap.Off.IsNull():

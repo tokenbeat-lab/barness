@@ -50,9 +50,15 @@ const (
 	// ProviderZhipu is Zhipu's China-region service. Protocol and credential
 	// purpose remain explicit Host binding choices; Coding Plan is separate.
 	ProviderZhipu ProviderID = "zhipu"
+	// ProviderZAI is Z.AI's international service, with independent accounts,
+	// catalog data and authorization from Zhipu's China service.
+	ProviderZAI ProviderID = "zai"
 	// ProviderMiniMax is MiniMax's international service. Protocol,
 	// account and standard/M Plan credential purpose remain Host choices.
 	ProviderMiniMax ProviderID = "minimax"
+	// ProviderMiniMaxCN is MiniMax's China service, independently authorized
+	// and evidenced from the international service.
+	ProviderMiniMaxCN ProviderID = "minimax-cn"
 )
 
 // API identifies a wire protocol. Values match the frozen pi-ai API names.

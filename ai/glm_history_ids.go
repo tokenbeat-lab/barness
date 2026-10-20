@@ -14,12 +14,12 @@ import (
 // Inspect the complete transcript before renaming so calls from separate
 // assistant turns share one collision domain with their matching results.
 func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules) historyRules {
-	if rules.normalizeToolCallID == nil || (target.Provider == ProviderZhipu && target.API == APIOpenAIResponses) {
+	if rules.normalizeToolCallID == nil || (target.API == APIOpenAIResponses && responsesCapabilitiesOf(target.Provider).implementation == responsesGLM) {
 		return rules
 	}
 	if !slices.ContainsFunc(messages, func(message Message) bool {
 		a, ok := message.(AssistantMessage)
-		return ok && a.Provider == ProviderZhipu
+		return ok && glmHistoryIDSource(a)
 	}) {
 		return rules
 	}
@@ -60,7 +60,7 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 			// overwritten by a replacement assigned to a GLM source call.
 			reserve(call.ID, call.ID)
 			reserve(normalized, call.ID)
-			if assistant.Provider == ProviderZhipu {
+			if glmHistoryIDSource(assistant) {
 				candidates = append(candidates, candidate{call.ID, normalized, assistant})
 			}
 		}
@@ -94,7 +94,7 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 		return rules
 	}
 	rules.normalizeToolCallID = func(id string, source AssistantMessage) string {
-		if source.Provider == ProviderZhipu {
+		if glmHistoryIDSource(source) {
 			if replacement, ok := replacements[id]; ok {
 				return replacement
 			}
@@ -102,4 +102,18 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 		return normalize(id, source)
 	}
 	return rules
+}
+
+// Each source grammar belongs to its protocol. Codec equality only identifies
+// opaque ID syntax; replayOrigin still compares the exact real Provider.
+func glmHistoryIDSource(source AssistantMessage) bool {
+	switch source.API {
+	case APIOpenAICompletions:
+		return chatCompatOf(source.Provider).implementation == chatGLM
+	case APIOpenAIResponses:
+		return responsesCapabilitiesOf(source.Provider).implementation == responsesGLM
+	case APIAnthropicMessages:
+		return anthropicCapabilitiesOf(source.Provider).implementation == anthropicGLM
+	}
+	return false
 }

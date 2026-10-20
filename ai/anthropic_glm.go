@@ -11,7 +11,7 @@ import (
 // or arbitrary Claude extension fields. Model metadata only narrows the
 // provider's exact proven basic budget subset (ADR-0035).
 func validateGLMMessagesOptions(m Model, o AnthropicOptions) *Error {
-	if m.Provider != ProviderZhipu {
+	if anthropicCapabilitiesOf(m.Provider).implementation != anthropicGLM {
 		return nil
 	}
 	var problem string
@@ -53,7 +53,7 @@ func glmMessagesThinkingShape(m Model, budget, output int) bool {
 // vendor-side state reference. Header transforms and betas extracted from a
 // replacement payload are checked at the same final boundary.
 func validateGLMMessagesBody(m Model, raw []byte, header http.Header, beta string, authorize func(map[string]any) string) *Error {
-	if m.Provider != ProviderZhipu {
+	if anthropicCapabilitiesOf(m.Provider).implementation != anthropicGLM {
 		return nil
 	}
 	var body map[string]any
