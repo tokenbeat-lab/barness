@@ -17,15 +17,16 @@ import (
 
 // The predeclared full-stream source lacks native reasoning while tool-call
 // has it. The complete real process must fail; searching another turn is banned.
-func regionalMissingNativeSource(t *testing.T, binary string) {
+func regionalMissingNativeSource(t *testing.T, binary, combo string) {
 	t.Run("native-source-absent", func(t *testing.T) {
-		ev := run.Case(t, "RP18-zai-chat-native-source-absent")
+		ev := run.Case(t, "RP18-"+combo+"-native-source-absent")
 		srv := provider.New(map[string]string{"synthetic-regional-controlled": "key:regional-controlled"})
 		defer srv.Close()
-		for _, model := range supportmatrix.RegionalModels("zai-chat") {
+		route, _ := supportmatrix.RegionalRouteOf(combo)
+		for _, model := range supportmatrix.RegionalModels(combo) {
 			for _, kind := range []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"} {
-				reply := regionalTextReply(t, ai.ProviderZAI, ai.APIOpenAICompletions, model)
-				if kind == "full-stream" {
+				reply := regionalTextReply(t, ai.ProviderZAI, ai.API(route.API), model)
+				if kind == "full-stream" && combo == "zai-chat" {
 					reply = chatEvents(t, []json.RawMessage{
 						json.RawMessage(`{"id":"source-without-native","model":"` + model + `","choices":[{"delta":{"content":"Synthetic source without reasoning."}}]}`),
 						json.RawMessage(`{"choices":[{"delta":{},"finish_reason":"stop"}]}`),
@@ -33,10 +34,10 @@ func regionalMissingNativeSource(t *testing.T, binary string) {
 					}, "")
 				}
 				if kind == "tool-call" {
-					reply = regionalPipelineToolReply(t, ai.ProviderZAI, ai.APIOpenAICompletions, model)
+					reply = regionalPipelineToolReply(t, ai.ProviderZAI, ai.API(route.API), model)
 				}
 				if kind == "cancel" {
-					reply = regionalPipelinePrefix(t, ai.APIOpenAICompletions)
+					reply = regionalPipelinePrefix(t, ai.API(route.API))
 					reply.End = provider.EndHold
 				}
 				if kind == "tool-result" || kind == "native-history" {
@@ -48,19 +49,19 @@ func regionalMissingNativeSource(t *testing.T, binary string) {
 				srv.Enqueue(reply)
 			}
 		}
-		grant, err := supportmatrix.RegionalGrantSnapshot("zai-chat", "candidate")
+		grant, err := supportmatrix.RegionalGrantSnapshot(combo, "candidate")
 		if err != nil {
 			t.Fatal(err)
 		}
-		grant.Mode, grant.ID = "controlled", "absent-native-"+pioracle.SHA256([]byte(run.Dir()))[:12]
+		grant.Mode, grant.ID = "controlled", "absent-native-"+combo+"-"+pioracle.SHA256([]byte(run.Dir()))[:12]
 		grant.AccountAlias, grant.RegionAlias, grant.ExpiresAt = "synthetic-account", "synthetic-region", time.Now().UTC().Add(time.Hour)
 		path := filepath.Join(t.TempDir(), "grant.json")
 		if err := os.WriteFile(path, mustMarshal(t, grant), 0600); err != nil {
 			t.Fatal(err)
 		}
-		base := filepath.Join(filepath.Dir(run.Dir()), "regional-source-absent-native", filepath.Base(run.Dir()))
+		base := filepath.Join(filepath.Dir(run.Dir()), "regional-source-absent-native", filepath.Base(run.Dir()), combo)
 		cmd := exec.CommandContext(ctxFor(t), binary, "-test.run=^TestRegionalCandidate$", "-test.timeout=1800s")
-		cmd.Dir, cmd.Env = "../..", regionalChildEnvironment("BARNESS_REGIONAL_ROUTE=zai-chat", "BARNESS_REGIONAL_CONTROLLED="+srv.URL(), "BARNESS_REGIONAL_SERVICE=zai", "BARNESS_REGIONAL_GRANT="+path, "BARNESS_AI_EVIDENCE_DIR="+base)
+		cmd.Dir, cmd.Env = "../..", regionalChildEnvironment("BARNESS_REGIONAL_ROUTE="+combo, "BARNESS_REGIONAL_CONTROLLED="+srv.URL(), "BARNESS_REGIONAL_SERVICE=zai", "BARNESS_REGIONAL_GRANT="+path, "BARNESS_AI_EVIDENCE_DIR="+base)
 		raw, err := cmd.CombinedOutput()
 		ev.Record("process", map[string]any{"failed": err != nil, "output": regionalSafeOutput(raw), "argv": cmd.Args[1:], "vendorCalls": 0})
 		paths, _ := filepath.Glob(filepath.Join(base, "*", "manifest.json"))
@@ -100,6 +101,10 @@ func regionalMissingNativeSource(t *testing.T, binary string) {
 		}
 		_, err = supportmatrix.VerifyRegionalControlledCapture(dir)
 		ev.Check("consumer cannot certify absent native source", err != nil, "accepted")
-		ev.Record("original-native-manifest", paths[0])
+		relative, relErr := filepath.Rel(run.Dir(), paths[0])
+		if relErr != nil {
+			t.Fatal(relErr)
+		}
+		ev.Record("original-native-manifest", relative)
 	})
 }

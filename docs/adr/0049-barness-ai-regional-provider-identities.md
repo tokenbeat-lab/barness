@@ -26,3 +26,15 @@ AdmissionRequest 同时增加实际 Provider，供 Host 在账户级准入中区
 2026-10-20 的自身 standard API 四请求对照中，GLM-5.2 的省略形状没有原生 thinking/signature，精确 `enabled/budget1024/max4096` 工具回合返回完整原生块；GLM-5.3 两形状均返回原生块。这为 ZAI 自己的内部 Messages profile 建立 opt-in，并只为自身 GLM-5.2 候选设置 `MessagesThinkingBudgetTokens=1024`，不借用中国站证据。Provider 限定精确形状，Model 只能收紧；其他预算、输出配对及额外 thinking 字段仍被拒绝。
 
 无选项仍省略，GLM-5.3 保留已证默认。单回合研究不证明预算被服务端强制执行，也不证明 canonical intensity 或实际 native-history 续接。Simple 不推导该形状；原始 SSE 在公共 Client 离线重放保持原字段，同源第二轮为明确标注的受控响应。候选资格和晋升后 formal 仍分别需要新来源、新授权的一次完整真实过程，原失败不改写。[研究与原件](../../.scratch/barness-provider-sites/evidence/zai-thinking-research.md)。
+
+## ZAI Chat / Responses 的预定原生推理来源
+
+ZAI 自身 Chat 与 Responses 的合法工具响应都可能只有工具调用、没有 reasoning；要求两种证据来自同一个工具回合会把原生续接与工具执行混为一项。两条路线在任何请求前按完整型号身份固定 `full-stream` 为 `native-history` 的来源，沿用该文本回合的真实用户／助手前缀，再保留独立的工具用户／助手、Host 工具结果与最终用户提示。其他四条地区路线保持各自已定义来源。
+
+这项选择不根据返回内容变化。固定源缺少原生推理时仍须失败，即使另一工具回合含有推理也不能替代；工具响应中缺失的 Thinking 不由 Host 合成。报告声明每型号固定 sourceCase，独立消费者按同一合同核对来源、完整身份与租户／账户、确切前缀及真实 native wire，工具往返与零降级断言继续分别成立。代价是续接请求多保存一个自身文本回合，并按最终编码重新计量输入预留。实际失败原件与实施依据见[工单16](../../.scratch/barness-provider-sites/issues/16-zai-responses-native-source.md)，自身正式支持仍需当前来源的完整真实证据。
+
+## 原生来源合同变化后的资格边界
+
+上述 ZAI Responses 固定来源合同将原生推理来源扩展到自身 `full-stream`；harness 与 `RegionalNativeSourceCase` 消费者同步。消费者属于国际 MiniMax 执行来源，因此这项验收设计变化同时使三条 M3 与六条地区 formal 的旧来源资格过期；不能通过刷新旧报告或缩小选择器继续使用。GLM 的保留取决于其完整245项执行来源逐项相等。此前真实 PASS／FAIL、父 UNKNOWN、grant／nonce／账本与美元占用均保留各自事实。
+
+离线受控流程只验证新来源合同、独立工具链及拒绝边界；新的真实执行必须另行形成完整有限计划、冻结来源与二进制、保留此前消费并经过明确批准。[工单16](../../.scratch/barness-provider-sites/issues/16-zai-responses-native-source.md)不新增实际轮次、执行授权或付费预算，实际状态继续只由[规格](../../.scratch/barness-provider-sites/spec.md)记录。

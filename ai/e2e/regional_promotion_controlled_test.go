@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 // This success proves only the offline consumer and data proposal. Its mode,
@@ -29,6 +30,14 @@ func regionalControlledPromotion(t *testing.T, dirs []string) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	var current struct {
+		Active bool `json:"active"`
+	}
+	if err := json.Unmarshal(before, &current); err != nil {
+		t.Fatal(err)
+	}
+	_, liveErr := supportmatrix.RegionalPromotionProposal(dirs)
+	ev.Check("controlled originals fail the live candidate consumer", liveErr != nil && strings.Contains(liveErr.Error(), "regional own service, grant, stage or mode invalid"), "%v", liveErr)
 	raw, err := invoke(out, dirs, false)
 	if !ev.Check("complete own controlled proposal", err == nil, "%v %s", err, raw) {
 		return
@@ -85,7 +94,13 @@ func regionalControlledPromotion(t *testing.T, dirs []string) {
 		}
 		raw, err := invoke(rejected, test.inputs, test.live)
 		if test.live {
-			ev.Check("live refusal reaches own mode consumer", strings.Contains(string(raw), "regional own service, grant, stage or mode invalid"), "%s", regionalSafeOutput(raw))
+			// An already promoted catalog is rejected before candidate consumption.
+			// The public live consumer above independently proves mode isolation.
+			want := "regional own service, grant, stage or mode invalid"
+			if current.Active {
+				want = "regional inactive catalog target changed"
+			}
+			ev.Check("live CLI refuses at the frozen catalog boundary", strings.Contains(string(raw), want), "%s", regionalSafeOutput(raw))
 		}
 		ev.Check("reject "+test.name, err != nil, "%s", raw)
 		_, err = os.Lstat(rejected)

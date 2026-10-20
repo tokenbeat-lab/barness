@@ -13,10 +13,14 @@ import (
 
 // These are resealed synthetic controlled copies. Their lineage statements,
 // domain request prefix and native wire must agree independently.
-func regionalNativeSourceRefusals(t *testing.T, original string) {
-	for _, mode := range []string{"case", "model", "tenant", "request", "wire", "wire-visible"} {
+func regionalNativeSourceRefusals(t *testing.T, original, combo string) {
+	modes := []string{"case", "model", "tenant", "request", "wire"}
+	if combo == "zai-chat" {
+		modes = append(modes, "wire-visible")
+	}
+	for _, mode := range modes {
 		t.Run("native-source-"+mode, func(t *testing.T) {
-			ev := run.Case(t, "RP18-zai-chat-native-source-"+mode)
+			ev := run.Case(t, "RP18-"+combo+"-native-source-"+mode)
 			dir := filepath.Join(t.TempDir(), filepath.Base(original))
 			if err := os.CopyFS(dir, os.DirFS(original)); err != nil {
 				t.Fatal(err)
@@ -50,14 +54,14 @@ func regionalNativeSourceRefusals(t *testing.T, original string) {
 					t.Fatal(err)
 				}
 			}
-			source := supportmatrix.RegionalCaseID("zai-chat", "glm-5.3/full-stream")
-			next := supportmatrix.RegionalCaseID("zai-chat", "glm-5.3/native-history")
+			source := supportmatrix.RegionalCaseID(combo, "glm-5.3/full-stream")
+			next := supportmatrix.RegionalCaseID(combo, "glm-5.3/native-history")
 			switch mode {
 			case "case", "model":
 				value := read(supportmatrix.RegionalReportFile).(map[string]any)
-				wrong := supportmatrix.RegionalCaseID("zai-chat", "glm-5.3/tool-call")
+				wrong := supportmatrix.RegionalCaseID(combo, "glm-5.3/tool-call")
 				if mode == "model" {
-					wrong = supportmatrix.RegionalCaseID("zai-chat", "glm-5.2/full-stream")
+					wrong = supportmatrix.RegionalCaseID(combo, "glm-5.2/full-stream")
 				}
 				value["regional"].(map[string]any)["nativeSourceCases"].(map[string]any)["glm-5.3"] = wrong
 				write(supportmatrix.RegionalReportFile, value)
@@ -81,7 +85,21 @@ func regionalNativeSourceRefusals(t *testing.T, original string) {
 				x := value[0].(map[string]any)
 				var wire map[string]any
 				mustUnmarshal(t, []byte(x["requestBody"].(string)), &wire)
-				assistant := wire["messages"].([]any)[1].(map[string]any)
+				var assistant map[string]any
+				if combo == "zai-chat" {
+					assistant = wire["messages"].([]any)[1].(map[string]any)
+				} else {
+					for _, raw := range wire["input"].([]any) {
+						item := raw.(map[string]any)
+						if item["type"] == "reasoning" {
+							assistant = item
+							break
+						}
+					}
+					if assistant == nil {
+						t.Fatal("native wire reasoning item absent")
+					}
+				}
 				changeLetter := func(value string) string {
 					raw := []byte(value)
 					for i, b := range raw {
@@ -93,7 +111,10 @@ func regionalNativeSourceRefusals(t *testing.T, original string) {
 					t.Fatal("synthetic wire mutation needs one ASCII letter")
 					return ""
 				}
-				if mode == "wire" {
+				if combo == "zai-responses" {
+					content := assistant["content"].(map[string]any)
+					content["text"] = changeLetter(content["text"].(string))
+				} else if mode == "wire" {
 					assistant["reasoning_content"] = changeLetter(assistant["reasoning_content"].(string))
 				} else {
 					assistant["content"] = changeLetter(assistant["content"].(string))

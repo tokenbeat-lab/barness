@@ -52,6 +52,8 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 					var reply provider.Reply
 					if combo == "zai-chat" && (kind == "full-stream" || kind == "tool-call") {
 						reply, _, _, _ = zaiChatSource(t, model, kind)
+					} else if combo == "zai-responses" && (kind == "full-stream" || kind == "tool-call") {
+						reply = regionalZAIResponsesSource(t, model, kind)
 					} else if kind == "tool-call" {
 						reply = regionalPipelineToolReply(t, ai.ProviderID(route.Provider), ai.API(route.API), model)
 					} else if kind == "cancel" {
@@ -139,7 +141,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				}
 			}
 			ev.Record("native-report", report)
-			if combo == "zai-chat" {
+			if combo == "zai-chat" || combo == "zai-responses" {
 				var source struct {
 					Regional struct{ NativeSourceCases map[string]string }
 				}
@@ -171,9 +173,12 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			ev.Check("controlled capture never becomes own live proof", err != nil, "controlled qualification accepted")
 			_, err = supportmatrix.NewRegionalReport(dir)
 			ev.Check("candidate never becomes formal support", err != nil, "candidate certified")
-			if combo == "zai-chat" {
-				regionalMissingNativeSource(t, binary)
-				regionalNativeSourceRefusals(t, dir)
+			if combo == "zai-responses" {
+				regionalResponsesNativeOriginals(t, dir)
+			}
+			if combo == "zai-chat" || combo == "zai-responses" {
+				regionalMissingNativeSource(t, binary, combo)
+				regionalNativeSourceRefusals(t, dir, combo)
 			}
 			// The pre-send durable reservation is consumed even in a successful
 			// controlled run. Reusing it must fail before any additional HTTP.
