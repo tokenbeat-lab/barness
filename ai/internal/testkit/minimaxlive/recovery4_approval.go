@@ -57,6 +57,10 @@ func recovery4Approval(base string, g RenewalGrant) error {
 	if e != nil || a.SourceCommit != g.SourceCommit || a.SourceManifestSHA256 != g.SourceManifestSHA256 || a.BinariesManifestSHA256 != g.BinariesManifestSHA256 || a.PlanSHA256 != g.PlanSHA256 || a.RequestReference != human.RequestReference || a.RequestText != human.RequestText {
 		return fmt.Errorf("canonical actual recovery4 human record differs: %v", e)
 	}
+	previous, e := readActualRecoveryApproval(filepath.Join(owner, thirdActualApproval), g.ThirdCohort.ActualHumanApprovalSHA256, RecoveryRenewalID, 962, 1010, 19200000, 10700000)
+	if e != nil || a.RequestReference == previous.RequestReference {
+		return fmt.Errorf("recovery4 requires a new direct human response reference")
+	}
 	return nil
 }
 

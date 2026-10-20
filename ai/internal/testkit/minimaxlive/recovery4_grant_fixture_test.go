@@ -22,7 +22,7 @@ func (f *finalRenewalFixture) installRecovery4Grant(t *testing.T, facts map[stri
 	f.grant["decision"] = "APPROVED"
 	recovery, _ := json.Marshal(facts["recovery"])
 	r := facts["recovery"].(map[string]any)
-	human := map[string]any{"decision": "APPROVED", "renewalId": recovery4ID, "validationRound": recovery4ID, "nativeRenewalId": recovery4ID, "spendingGuardPolicyId": finalRenewalID, "maxCalls": 506, "maxAttempts": 518, "campaignMaxCalls": 1070, "campaignMaxAttempts": 1130, "newReservedMicrousd": 17300000, "retainedReservedMicrousd": 12600000, "campaignMaximumMicrousd": 30000000, "firstCohortSealSHA256": facts["firstCohortSealSha256"], "secondCohortSealSHA256": r["secondCohortSealSha256"], "historySHA256": facts["closedHistorySha256"], "recoveryHistorySHA256": minimaxlive.Hash(recovery), "planSHA256": f.grant["planSha256"], "requestReference": "synthetic-private-no-paid", "requestText": "synthetic fixture only", "provider": "minimax", "model": minimaxlive.M3, "purpose": "standard", "routes": []string{"chat", "responses", "messages"}, "renewalMaxCalls": 60, "renewalMaxAttempts": 72}
+	human := map[string]any{"decision": "APPROVED", "renewalId": recovery4ID, "validationRound": recovery4ID, "nativeRenewalId": recovery4ID, "spendingGuardPolicyId": finalRenewalID, "maxCalls": 506, "maxAttempts": 518, "campaignMaxCalls": 1070, "campaignMaxAttempts": 1130, "newReservedMicrousd": 17300000, "retainedReservedMicrousd": 12600000, "campaignMaximumMicrousd": 30000000, "firstCohortSealSHA256": facts["firstCohortSealSha256"], "secondCohortSealSHA256": r["secondCohortSealSha256"], "historySHA256": facts["closedHistorySha256"], "recoveryHistorySHA256": minimaxlive.Hash(recovery), "planSHA256": f.grant["planSha256"], "requestReference": "synthetic-private-new4-no-paid", "requestText": "synthetic fixture only", "provider": "minimax", "model": minimaxlive.M3, "purpose": "standard", "routes": []string{"chat", "responses", "messages"}, "renewalMaxCalls": 60, "renewalMaxAttempts": 72}
 	review := map[string]any{"decision": "APPROVED", "renewalId": recovery4ID, "validationRound": recovery4ID, "nativeRenewalId": recovery4ID, "spendingGuardPolicyId": finalRenewalID, "sourceCommit": f.commit, "sourceManifestSHA256": f.grant["sourceManifestSha256"], "binariesManifestSHA256": f.grant["binariesManifestSha256"], "planSHA256": f.grant["planSha256"], "historySHA256": facts["closedHistorySha256"], "firstCohortSealSHA256": facts["firstCohortSealSha256"], "secondCohortSealSHA256": r["secondCohortSealSha256"], "recoveryHistorySHA256": minimaxlive.Hash(recovery)}
 	actual := map[string]any{"decision": "APPROVED", "maxUSD": 30, "round": recovery4ID, "validationRound": recovery4ID, "nativeRenewalId": recovery4ID, "spendingGuardPolicyId": finalRenewalID, "sourceCommit": f.commit, "sourceManifestSHA256": f.grant["sourceManifestSha256"], "binariesManifestSHA256": f.grant["binariesManifestSha256"], "planSHA256": f.grant["planSha256"], "maxCalls": 506, "maxAttempts": 518, "campaignMaxCalls": 1070, "campaignMaxAttempts": 1130, "newReservedMicrousd": 17300000, "retainedReservedMicrousd": 12600000, "requestReference": human["requestReference"], "requestText": human["requestText"]}
 	actualRaw, _ := json.Marshal(actual)
@@ -89,6 +89,12 @@ func recovery4Mutation(t *testing.T, f *finalRenewalFixture, mode string) bool {
 	case "human-old":
 		b, _ := os.ReadFile(filepath.Join(old, "human-approval.json"))
 		os.WriteFile(human, b, 0600)
+	case "human-reference":
+		mutate(human, "requestReference", "synthetic-private-no-paid")
+		actual := filepath.Join(f.root, ".evidence/provider-sites/final-acceptance-20261020/recovery4-authorization.json")
+		mutate(actual, "requestReference", "synthetic-private-no-paid")
+		b, _ := os.ReadFile(actual)
+		mutate(human, "actualHumanApprovalSHA256", minimaxlive.Hash(b))
 	case "human-source":
 		mutate(human, "nativeRenewalId", finalRenewalID)
 	case "policy":

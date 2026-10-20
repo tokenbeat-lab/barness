@@ -30,7 +30,7 @@ func TestRecovery4AuthorityProcess(t *testing.T) {
 	if out, err := c.CombinedOutput(); err != nil {
 		t.Fatalf("build: %v %s", err, out)
 	}
-	for _, mode := range strings.Fields("facts valid-three historical-source human-duplicate review-duplicate human-case-alias review-case-alias human-nested-duplicate pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report passed-report parent-unknown old3-inactive old3-active old3-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked oversize old-source-commit archive human-record counters forged-pass old1-third old2-third old3-third unstarted-claim missing-nonce linked-worktree same-session-process") {
+	for _, mode := range strings.Fields("facts valid-three historical-source human-duplicate review-duplicate human-case-alias review-case-alias human-nested-duplicate pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report passed-report parent-unknown old3-inactive old3-active old3-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked oversize old-source-commit archive human-record counters forged-pass old1-third old2-third old3-third unstarted-claim missing-nonce linked-worktree same-session-process human-reference") {
 		t.Run(mode, func(t *testing.T) {
 			t.Parallel()
 			dir := t.TempDir()
