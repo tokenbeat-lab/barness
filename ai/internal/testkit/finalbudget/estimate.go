@@ -19,7 +19,7 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 	provider := map[string]ai.ProviderID{"api.openai.com": ai.ProviderOpenAI, "api.anthropic.com": ai.ProviderAnthropic,
 		"generativelanguage.googleapis.com": ai.ProviderGoogle, "api.deepseek.com": ai.ProviderDeepSeek,
 		"api.typesafe.ai": ai.ProviderTypeSafe, "open.bigmodel.cn": ai.ProviderZhipu, "api.z.ai": ai.ProviderZAI,
-		"api.minimax.io": ai.ProviderMiniMax, "api.minimax.chat": ai.ProviderMiniMaxCN}[req.URL.Hostname()]
+		"api.minimax.io": ai.ProviderMiniMax, "api.minimax.cn": ai.ProviderMiniMaxCN}[req.URL.Hostname()]
 	if provider == "" || req.URL.Scheme != "https" {
 		return reservation{}, fmt.Errorf("final USD requires exact official provider service")
 	}
