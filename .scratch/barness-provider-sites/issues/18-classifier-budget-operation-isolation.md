@@ -26,3 +26,9 @@ Type: task
 八条已PASS generic的全部84原final payload经公共Client/Hook/recorder/guard/合成transport，原guard基线与修后逐份method/URL/requestBody及完整owned USD ledger bytes相等。另六地区＋三M3＋三GLM十二路线183原最终请求同样精确相等，但严格执行来源包含guard，因此它们仍须新当前资格。全计划尚未成功的七流程均启用guard并完整受控成功：Decisions9、TypeSafe3、Jev图像协议12、文本两路各24、视觉两路各12；受控效果保持RealQuality NOT_RUN，不能冒充真实效果。
 
 [永久开发索引](../../../.evidence/provider-sites/final-acceptance-20261020/decisions-budget-diagnosis-dev/index.json)、[84份精确差异](../../../.evidence/provider-sites/final-acceptance-20261020/decisions-budget-diagnosis-dev/compatibility-eight.json)、[诊断与范围](../../../.evidence/provider-sites/final-acceptance-20261020/decisions-budget-diagnosis-dev/diagnosis.md)保留实际命令、退出、源、所有RED与装配中间失败。原停止2032 pins逐项一致。GLM/M3/Regional均含guard，没有不改执行源码而合法恢复此阻断的方法；禁止绕guard、重写价格或刷新旧证明。独立双轴review及新有限付费方案不在本次离线成功范围，Status继续claimed；唯一当前状态见[规格](../spec.md#当前状态)。
+
+## Integrated review follow-up
+
+恢复5整合66f3e50的独立Spec初审0；Standards两项P2由单一implementer先建立持久公共RED，再作最小修复：已知typed嵌套字段的alias/冲突不再覆写失败审计，合法描述扩展仍允许；canonical intent收尾读取复用现有非阻塞有界JSON读取。定向六原生preflight场景及两个FIFO场景均已GREEN。没有修改排除的actual approval疑点、guard字节/价格/SDK/生产协议或历史原件。
+
+[统一修复永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-review-fix-dev/index.json)记录精确源码、RED/中间失败、最终普通组合与退出；[控制器原48/48事实](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-controller-dev/index.json)为319.891s、clean66来源，不冒充本次新源码结果。票据保持claimed等待最终整合审查/各自验收边界；实际冻结、根检查与新增付费状态见[准备索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-preparation/index.json)，唯一功能当前状态见[规格](../spec.md#当前状态)。截至本次离线修复阶段，新US36/19进程尚无实际批准，READY/race NOT_RUN、release.pass=false；旧28.80与UNKNOWN4不退款。后续实际状态由准备索引记录。

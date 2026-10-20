@@ -41,7 +41,7 @@ func TestRecovery5AuthorityProcess(t *testing.T) {
 			t.Fatal(e)
 		}
 	}
-	for _, mode := range strings.Fields("facts valid-three historical-source old4-historical first-proof-missing first-proof-no-exit first-proof-null-exit first-proof-parent first-proof-report first-proof-consumer first-proof-argv first-proof-source first-proof-binary first-proof-case first-proof-path guard-source guard-human guard-actual guard-review campaign-budget review-reference grant-reference ledger-chain duplicate-nonce history-extra history-case-alias history-path history-parent-missing failed-guard failed-recorder unstarted-six human-duplicate review-duplicate human-case-alias review-case-alias human-nested-duplicate pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report passed-report parent-unknown old4-inactive old4-active old4-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked oversize old-source-commit archive human-record counters forged-pass old1-fourth old2-fourth old3-fourth old4-fourth unstarted-claim missing-nonce linked-worktree same-session-process human-reference") {
+	for _, mode := range strings.Fields("facts valid-three historical-source old4-historical first-proof-fractional-exit first-proof-nested-alias first-proof-nested-conflict first-proof-regional-alias first-proof-budget-alias first-proof-scenario-alias first-proof-descriptions first-proof-missing first-proof-no-exit first-proof-null-exit first-proof-parent first-proof-report first-proof-consumer first-proof-argv first-proof-source first-proof-binary first-proof-case first-proof-path guard-source guard-human guard-actual guard-review campaign-budget review-reference grant-reference ledger-chain duplicate-nonce history-extra history-case-alias history-path history-parent-missing failed-guard failed-recorder unstarted-six human-duplicate review-duplicate human-case-alias review-case-alias human-nested-duplicate pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report passed-report parent-unknown old4-inactive old4-active old4-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked oversize old-source-commit archive human-record counters forged-pass old1-fourth old2-fourth old3-fourth old4-fourth unstarted-claim missing-nonce linked-worktree same-session-process human-reference") {
 		t.Run(mode, func(t *testing.T) {
 			t.Parallel()
 			dir := t.TempDir()
@@ -136,6 +136,13 @@ func TestRecovery5AuthorityChild(t *testing.T) {
 		return
 	}
 	if recovery5Adversarial(t, f, mode) || recovery5Mutation(t, f, mode) {
+		if mode == "first-proof-descriptions" {
+			if out, e := command("-recovery5-preflight=chat"); e != nil {
+				t.Fatalf("descriptive extension refused: %v %s", e, out)
+			}
+			fmt.Println("PASS descriptive extensions are not authority field aliases")
+			return
+		}
 		if _, e := command("-recovery5-preflight=chat"); e == nil {
 			t.Fatal("invalid recovery preflight accepted", mode)
 		}

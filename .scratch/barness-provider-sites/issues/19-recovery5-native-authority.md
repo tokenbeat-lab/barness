@@ -29,3 +29,9 @@ Type: task
 [原生开发永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-native-dev/index.json)保留原始flag缺失RED、旧4历史误比当前source RED、缺失/null exitCode误当0 RED、所有中间结果及最终binary/argv/UTC/数字退出/完整源副本。旧08/补强前组合回归被最终507替代后，按根要求精确SIGTERM其单独进程树，实际退出-15并标记ABORTED_SUPERSEDED；它不替代最终PASS。
 
 本票Status仍claimed，等待整合审查及新5实际授权、真实资格与最终十项门禁。以上均零Key/零厂商调用，未创建真实5human/grant/claim；READY、race仍NOT_RUN，release.pass=false。唯一当前状态见[规格](../spec.md)。
+
+## Integrated review follow-up
+
+恢复5整合66f3e50的独立Spec初审0；Standards两项P2由单一implementer先建立持久公共RED，再作最小修复：已知typed嵌套字段的alias/冲突不再覆写失败审计，合法描述扩展仍允许；canonical intent收尾读取复用现有非阻塞有界JSON读取。定向六原生preflight场景及两个FIFO场景均已GREEN。没有修改排除的actual approval疑点、guard字节/价格/SDK/生产协议或历史原件。
+
+[统一修复永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-review-fix-dev/index.json)记录精确源码、RED/中间失败、最终普通组合与退出；[控制器原48/48事实](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-controller-dev/index.json)为319.891s、clean66来源，不冒充本次新源码结果。票据保持claimed等待最终整合审查/各自验收边界；实际冻结、根检查与新增付费状态见[准备索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-preparation/index.json)，唯一功能当前状态见[规格](../spec.md#当前状态)。截至本次离线修复阶段，新US36/19进程尚无实际批准，READY/race NOT_RUN、release.pass=false；旧28.80与UNKNOWN4不退款。后续实际状态由准备索引记录。

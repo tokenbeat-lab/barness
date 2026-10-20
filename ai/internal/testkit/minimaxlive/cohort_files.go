@@ -1,6 +1,7 @@
 package minimaxlive
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -8,6 +9,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"syscall"
 )
@@ -141,7 +143,101 @@ func cohortJSONProjection(root *os.Root, name string, target any, required ...st
 				return raw, fmt.Errorf("required receipt field missing: %s", key)
 			}
 		}
-		e = decodeRecoveryApproval(raw, target)
+		var document any
+		decoder := json.NewDecoder(bytes.NewReader(raw))
+		decoder.UseNumber() // Preserve typed integer rejection; never normalize 0.0 into 0.
+		if e = decoder.Decode(&document); e == nil {
+			var projected any
+			projected, e = cohortProjection(document, reflect.TypeOf(target))
+			if e == nil {
+				var encoded []byte
+				encoded, e = json.Marshal(projected)
+				if e == nil {
+					e = StrictJSON(encoded, target)
+				}
+			}
+		}
 	}
 	return raw, e
+}
+
+// Receipts carry descriptive extensions outside their typed semantic subset.
+// Drop only those extensions, reject aliases of known fields at every typed
+// level, then use StrictJSON's existing recursive canonical/type validation.
+// Map keys and custom JSON values remain data, not struct field spellings.
+func cohortProjection(value any, t reflect.Type) (any, error) {
+	if value == nil {
+		return nil, nil
+	}
+	for t.Kind() == reflect.Pointer {
+		t = t.Elem()
+	}
+	if reflect.PointerTo(t).Implements(reflect.TypeFor[json.Unmarshaler]()) {
+		return value, nil
+	}
+	switch t.Kind() {
+	case reflect.Struct:
+		object, ok := value.(map[string]any)
+		if !ok {
+			return value, nil
+		}
+		fields := map[string]reflect.Type{}
+		for i := 0; i < t.NumField(); i++ {
+			f := t.Field(i)
+			if f.PkgPath != "" {
+				continue
+			}
+			name := strings.Split(f.Tag.Get("json"), ",")[0]
+			if name == "-" {
+				continue
+			}
+			if name == "" {
+				name = f.Name
+			}
+			fields[name] = f.Type
+		}
+		out := map[string]any{}
+		for name, child := range object {
+			field, known := fields[name]
+			if !known {
+				for canonical := range fields {
+					if strings.EqualFold(name, canonical) {
+						return nil, fmt.Errorf("noncanonical projected receipt field: %s", name)
+					}
+				}
+				continue
+			}
+			projected, e := cohortProjection(child, field)
+			if e != nil {
+				return nil, e
+			}
+			out[name] = projected
+		}
+		return out, nil
+	case reflect.Map:
+		if object, ok := value.(map[string]any); ok {
+			out := map[string]any{}
+			for name, child := range object {
+				projected, e := cohortProjection(child, t.Elem())
+				if e != nil {
+					return nil, e
+				}
+				out[name] = projected
+			}
+			return out, nil
+		}
+	case reflect.Slice:
+		if items, ok := value.([]any); ok {
+			out := make([]any, len(items))
+			for i, child := range items {
+				projected, e := cohortProjection(child, t.Elem())
+				if e != nil {
+					return nil, e
+				}
+				out[i] = projected
+			}
+			return out, nil
+		}
+	}
+	return value, nil
 }

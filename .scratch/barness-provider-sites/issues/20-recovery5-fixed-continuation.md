@@ -25,3 +25,9 @@ Blocked by: 18, 19
 ## Offline progress
 
 固定5与旧3/4/shared公共组合在927b800通过45/45、320.496s、exit0；完整19→33/59→27流程及GLM21拒绝均实际通过。随后三个公共CLI有界读取缺口先真实RED（20s截止TIMEOUT、child exit-9），再以SourceFreeze与共享有界tree集中修复，三项实际GREEN（26.143s、exit0）。新5初始ledger明确修正的operation-specific guard、实际5及两SHA；旧4原件不改。最终整合/复审与更完整当前结果由开发索引关联；这些均是无厂商socket的受控进程事实。原生19票、实际新paid/US36批准、最终资格和完整门禁仍独立开放。
+
+## Integrated review follow-up
+
+恢复5整合66f3e50的独立Spec初审0；Standards两项P2由单一implementer先建立持久公共RED，再作最小修复：已知typed嵌套字段的alias/冲突不再覆写失败审计，合法描述扩展仍允许；canonical intent收尾读取复用现有非阻塞有界JSON读取。定向六原生preflight场景及两个FIFO场景均已GREEN。没有修改排除的actual approval疑点、guard字节/价格/SDK/生产协议或历史原件。
+
+[统一修复永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-review-fix-dev/index.json)记录精确源码、RED/中间失败、最终普通组合与退出；[控制器原48/48事实](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-controller-dev/index.json)为319.891s、clean66来源，不冒充本次新源码结果。票据保持claimed等待最终整合审查/各自验收边界；实际冻结、根检查与新增付费状态见[准备索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery5-preparation/index.json)，唯一功能当前状态见[规格](../spec.md#当前状态)。截至本次离线修复阶段，新US36/19进程尚无实际批准，READY/race NOT_RUN、release.pass=false；旧28.80与UNKNOWN4不退款。后续实际状态由准备索引记录。

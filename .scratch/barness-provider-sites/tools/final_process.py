@@ -75,7 +75,8 @@ def run(out,job,argv,env,intent):
             record.update(exitCode=code,seconds=time.monotonic()-began,finishedAt=dt.datetime.now(dt.timezone.utc).isoformat(),
                 launcherAudit=dict(passed=not findings,findings=findings))
             safe=c.redact(record,key);c.dump(path,safe)
-            value=c.doc(intent);value.update(state=safe['state'],exitCode=code,credentialsRead=safe['credentialsRead'],
+            from recovery_flow_files import Artifacts
+            value=Artifacts(c).doc(intent);value.update(state=safe['state'],exitCode=code,credentialsRead=safe['credentialsRead'],
                 launcherAudit=safe['launcherAudit'],finishedAt=safe['finishedAt']);c.dump(intent,value)
             childenv.pop(job['injectedCredential'],None);key=''
     return code

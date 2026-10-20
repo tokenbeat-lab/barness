@@ -48,6 +48,34 @@ func recovery5Adversarial(t *testing.T, f *finalRenewalFixture, mode string) boo
 		mutate(fourthClosure, "stopIndexSHA256", minimaxlive.Hash(b))
 	}
 	switch mode {
+	case "first-proof-fractional-exit":
+		path := filepath.Join(f.root, consumer)
+		raw := string(mustReadFixture(t, path))
+		if !strings.Contains(raw, `"exitCode":0`) {
+			t.Fatal("typed numeric fixture did not reach exitCode")
+		}
+		os.WriteFile(path, []byte(strings.Replace(raw, `"exitCode":0`, `"exitCode":0.0`, 1)), 0600)
+	case "first-proof-nested-alias", "first-proof-nested-conflict", "first-proof-regional-alias", "first-proof-budget-alias", "first-proof-scenario-alias":
+		name, before, after := consumer, `"passed":true`, `"Passed":true`
+		switch mode {
+		case "first-proof-nested-conflict":
+			after = `"passed":false,"Passed":true`
+		case "first-proof-regional-alias":
+			name, before, after = report, `"complete":true`, `"Complete":true`
+		case "first-proof-budget-alias":
+			name, before, after = report, `"callsUsed":18`, `"CallsUsed":18`
+		case "first-proof-scenario-alias":
+			name, before, after = report, `"outcome":"PASS"`, `"Outcome":"PASS"`
+		}
+		path := filepath.Join(f.root, name)
+		raw := string(mustReadFixture(t, path))
+		if !strings.Contains(raw, before) {
+			t.Fatal("nested alias fixture did not reach selected field")
+		}
+		os.WriteFile(path, []byte(strings.Replace(raw, before, after, 1)), 0600)
+	case "first-proof-descriptions":
+		mutate(consumer, "launcherAudit", map[string]any{"passed": true, "findings": []string{}, "notes": map[string]any{"passed": false, "Passed": true}})
+		mutate(report, "description", map[string]any{"complete": false, "Complete": true})
 	case "first-proof-null-exit":
 		mutate(consumer, "exitCode", nil)
 	case "first-proof-no-exit":
