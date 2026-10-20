@@ -65,7 +65,7 @@ func executionSourceName(name string) bool {
 			return true
 		}
 	}
-	for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/minimax/", "ai/internal/testkit/minimaxlive/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/supportmatrix/", "ai/live/testdata/minimax/"} {
+	for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/minimax/", "ai/internal/testkit/minimaxlive/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/supportmatrix/", "ai/live/testdata/minimax/"} {
 		if strings.HasPrefix(name, prefix) && !strings.HasSuffix(name, "_test.go") {
 			return true
 		}

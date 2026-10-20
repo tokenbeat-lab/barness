@@ -21,15 +21,18 @@ func TestMiniMaxFormalRenewalControlledRefusal(t *testing.T) {
 	// Normalize only this case's diagnostics; keep the original argv for exec
 	// and leave the shared environment audit/redactor unchanged.
 	aliases := strings.NewReplacer(run.Dir(), "$MINIMAX_RENEWAL_ROOT", exe, "$MINIMAX_RENEWAL_TEST_BINARY")
-	for _, mode := range []string{"controlled-candidate", "controlled-formal", "unknown-renewal"} {
+	for _, mode := range []string{"controlled-candidate", "controlled-formal", "unknown-renewal", "final-controlled-candidate", "final-controlled-formal"} {
 		out := filepath.Join(run.Dir(), "renewal-"+mode)
 		id := "current-source-eleven-renewal-1"
 		if mode == "unknown-renewal" {
 			id = "invented-round"
 		}
+		if strings.HasPrefix(mode, "final-") {
+			id = "provider-sites-final-acceptance-1"
+		}
 		entry := "^TestMiniMaxCandidate$"
 		formal := "0"
-		if mode == "controlled-formal" {
+		if strings.HasSuffix(mode, "controlled-formal") {
 			entry = "^TestMiniMaxFormal$"
 			formal = "1"
 		}
