@@ -27,6 +27,8 @@
 
 - [14 MiniMax Chat](issues/14-minimax-global-chat-native-thinking.md)、[15固定恢复3](issues/15-fixed-recovery-authority.md)：各自范围已解决；实际6b87a584三M3各完整13 PASS，授权机制及失败即停已验证。后续阻断是[16 ZAI Responses固定自身推理来源](issues/16-zai-responses-native-source.md)，具体当前验收/金额只见spec。
 
+- [17固定恢复4](issues/17-fixed-fourth-recovery.md)：准备完整closed3历史、固定ID4及24进程新有限计划；所有实际新增批准/来源/预算/验收仍只由spec当前状态与其原件指针记录。本票不授予新调用。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。
