@@ -35,7 +35,11 @@ def locked():
 def summarize():
     auth_path = authority_root() / 'operator-authority.json'
     if not auth_path.exists():
-        return dict(round=r.ROUND, reservedMicrousd=0, claimedCalls=0, claimedAttempts=0, routes=[], credentialsRead=False)
+        import final_research
+        research=final_research.disclosure();done=research['state']=='COMPLETED'
+        return dict(round=r.ROUND,research=research,reservedMicrousd=research['reservedMicrousd'] if done else 0,
+            claimedCalls=4 if done else 0,claimedAttempts=4 if done else 0,actualResearchCalls=research['calls'],
+            actualResearchAttempts=research['attempts'],routes=[],credentialsRead=False)
     auth = c.doc(auth_path)
     rows = []
     for name, job in r.jobs(c.ROOT / '.evidence/unused-final-summary').items():
@@ -47,19 +51,25 @@ def summarize():
             raise RuntimeError('canonical fixed-round claim changed')
         rows.append(dict(name=name, reservedMicrousd=receipt['reservedMicrousd'], maxCalls=job['maxCalls'],
             maxAttempts=job['maxAttempts'], state=receipt.get('state'), budget=receipt.get('budget')))
-    return dict(round=r.ROUND, maxMicrousd=auth['maxMicrousd'],
+    return dict(round=r.ROUND, research=auth['research'], actualResearchCalls=4, actualResearchAttempts=4, maxMicrousd=auth['maxMicrousd'],
         reservedMicrousd=auth['diagnosticReservedMicrousd'] + sum(v['reservedMicrousd'] for v in rows),
         claimedCalls=4 + sum(v['maxCalls'] for v in rows), claimedAttempts=4 + sum(v['maxAttempts'] for v in rows),
+        knownReportedCalls=4+sum((v.get('budget') or {}).get('calls') or 0 for v in rows),
+        knownReportedAttempts=4+sum((v.get('budget') or {}).get('attempts') or 0 for v in rows),
+        unknownProcesses=sum((v.get('budget') or {}).get('state')=='UNKNOWN' for v in rows),
         routes=rows, credentialsRead=False, basis='Conservative known-rate operational reservations; unknown/failed/cancelled consumption never releases an allowance; not an invoice guarantee.')
 
 
 def claim(out, job, prepared, auth, reserve):
     diagnostic = auth.get('diagnosticReservedMicrousd')
-    if type(diagnostic) is not int or diagnostic < 123700:
-        raise RuntimeError('four diagnostic calls require at least123700 microusd known-rate reservation')
+    disclosure=c.doc(out/'research-disclosure.json')
+    if disclosure.get('state')!='COMPLETED' or disclosure.get('calls')!=4 or disclosure.get('attempts')!=4:
+        raise RuntimeError('original one-shot four-call research must be imported; never launch it again')
+    if type(diagnostic) is not int or diagnostic != 200000:
+        raise RuntimeError('already consumed research keeps its full200000 microusd allocation')
     identity = dict(round=r.ROUND, requestText=auth['requestText'], requestReference=auth['requestReference'],
         maxMicrousd=int(Decimal(str(auth['maxUSD'])) * 1000000), diagnosticReservedMicrousd=diagnostic,
-        maxCalls=r.MAX_CALLS, maxAttempts=r.MAX_ATTEMPTS, automaticProcessReruns=False)
+        maxCalls=r.MAX_CALLS, maxAttempts=r.MAX_ATTEMPTS, automaticProcessReruns=False, research=disclosure)
     with locked() as root:
         proof = root / 'operator-authority.json'
         if proof.exists():

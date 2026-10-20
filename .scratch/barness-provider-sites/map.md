@@ -21,6 +21,8 @@
 
 - [11 地区目录受控晋升](issues/11-regional-catalog-promotion.md)：inactive 生产 hook、六 own candidate 严格 consumer/独占 intent、不可激活的 controlled 提案和两态 Host 组合已实现；候选正式显示名与 `.2` snapshot 固定。实际 live 晋升仍等待 08 资格及最终审查，状态见 spec。
 
+- [10 有限采集与来源发布](issues/10-final-round-collection.md)：固定 33 完整进程＋原始研究 4/4，跨阶段一次 intent/美元保留、选中 Key 隔离、最终 wire guard、原生来源闭包、GLM 新原件及 23 行公共 importer 已实现并保留普通 RED→GREEN；待父任务独立审查和真实调度。实际批准/资格/最终验收见 spec。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。

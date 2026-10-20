@@ -29,6 +29,7 @@ class FinalRound(unittest.TestCase):
         self.env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR') if k in os.environ}
         self.env.update(HTTP_PROXY='http://forbidden.invalid', OPENAI_KEY='FORBIDDEN-AMBIENT')
         self.git('init', '-q')
+        self.seed_research()
         self.commit()
         # A directory cannot be read as a credential file. Keyless operations
         # must still work; refusal before approval must not touch it.
@@ -43,6 +44,20 @@ class FinalRound(unittest.TestCase):
             p.mkdir(parents=True, exist_ok=True)
             (p / 'processes.json').write_text(json.dumps(self.journal, indent=2) + '\n')
         self.tmp.cleanup()
+
+    def seed_research(self):
+        import hashlib
+        base=self.root/'.evidence/provider-sites/final-acceptance-20261020';base.mkdir(parents=True)
+        def put(path,value):
+            path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
+            return hashlib.sha256(path.read_bytes()).hexdigest()
+        plan='a'*64
+        approval=put(base/'authorization.json',dict(decision='APPROVED',roundId='provider-sites-final-acceptance-1',researchPlanSha256=plan,requestText='Synthetic research-only fixture'))
+        command=put(base/'research-command.receipt.json',dict(exitCode=0,authorizationSha256=approval))
+        files={'authorization.json':approval,'research-command.receipt.json':command}
+        for i in range(14):files['research/'+str(i)+'.json']=put(base/'research'/(str(i)+'.json'),dict(synthetic=True))
+        put(base/'research-index.json',dict(classification='RAW_OWN_WIRE_RESEARCH_NOT_QUALIFICATION',calls=4,httpAttempts=4,retries=0,qualificationPassClaimed=False,keyAudit=dict(findings=0),budgetUSDReserved=.2,files=files))
+        put(self.root/'.git/barness-regional-research'/(plan+'.json'),dict(planSha256=plan,authorizationSha256=approval))
 
     def git(self, *argv):
         return subprocess.check_output(['git', *argv], cwd=self.root, env=self.env, stderr=subprocess.DEVNULL).decode().strip()
@@ -61,8 +76,10 @@ class FinalRound(unittest.TestCase):
         bindir = self.root / 'bin'
         bindir.mkdir()
         go = bindir / 'go'
+        native_source = '\nif "-source" in sys.argv[1:]:\n import hashlib\n files={p.as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in pathlib.Path("ai/internal/testkit/regional").rglob("*") if p.is_file()};print(json.dumps(dict(sourceSha256="a"*64,files=files)))\n'
         producer = '#!' + sys.executable + '\nimport sys,json,os,pathlib\nif os.getenv("BARNESS_REGIONAL_KEY"): print(json.dumps(dict(environmentKeys=sorted(os.environ))));pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"]).parent.joinpath("selected-child-started").touch()\na=sys.argv[1:]\nif "-grant-template" in a:\n c=a[a.index("-grant-template")+1];s=a[a.index("-stage")+1];print(json.dumps(dict(schema=1,mode="live",id="<new>",accountAlias="<own>",regionAlias="<own>",expiresAt="0001-01-01T00:00:00Z",combo=c,stage=s)))\n'
-        go.write_text('#!' + sys.executable + '\nimport sys,json,pathlib\na=sys.argv[1:]\nif "-o" in a:\n p=pathlib.Path(a[a.index("-o")+1]);p.write_text(' + repr(producer) + ');p.chmod(0o755)\nelif "-source" in a: print(json.dumps({"sourceSha256":"a"*64,"files":{}}))\n')
+        producer += native_source
+        go.write_text('#!' + sys.executable + '\nimport sys,json,pathlib\na=sys.argv[1:]\nif "-o" in a:\n p=pathlib.Path(a[a.index("-o")+1]);p.write_text(' + repr(producer) + ');p.chmod(0o755)\n' + native_source)
         go.chmod(0o755)
         self.env['PATH'] = str(bindir) + os.pathsep + self.env['PATH']
         self.commit()
@@ -82,6 +99,24 @@ class FinalRound(unittest.TestCase):
         self.assertFalse((self.root / '.evidence/minimax-launches/provider-sites-final-acceptance-1-glm-chat.json').exists())
         (self.root / 'ai/sentinel.go').write_text('package changed\n')
         self.runcli('preview', '.evidence/provider-sites/current', 'glm-chat', ok=False)
+
+    def test_native_non_json_source_add_modify_delete_refuses_before_secret(self):
+        self.fake_build()
+        source=self.root/'ai/internal/testkit/regional/capture.gz'
+        source.parent.mkdir(parents=True);source.write_bytes(b'controlled embedded original')
+        self.commit()
+        self.runcli('prepare','.evidence/provider-sites/current','--phase','candidate')
+        original=source.read_bytes()
+        source.write_bytes(b'controlled changed embedded original')
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        source.write_bytes(original)
+        extra=source.with_name('extra.gz');extra.write_bytes(b'controlled added original')
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        extra.unlink();source.unlink()
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        source.write_bytes(original)
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat')
+        self.assertTrue((self.root/'.env').is_dir())
 
     def approve(self, base, reserve=1000000):
         import hashlib

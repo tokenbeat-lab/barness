@@ -50,6 +50,8 @@ def prepare(out, phase):
     frozen = freeze()
     out.mkdir(parents=True, exist_ok=False, mode=0o700)
     c.dump(out / 'source-at-start.json', frozen)
+    import final_research
+    c.dump(out/'research-disclosure.json',final_research.disclosure())
     if run(out,'go-version',['go','version'])!=0:
         raise RuntimeError('build toolchain identity unavailable')
     toolchain=dict(goVersion=(out/'go-version.log').read_text().strip(),pythonVersion=sys.version,
@@ -62,6 +64,10 @@ def prepare(out, phase):
     source_hash = facts.get('sourceSha256', '')
     if len(source_hash) != 64 or any(v not in '0123456789abcdef' for v in source_hash):
         raise RuntimeError('native regional build source required')
+    for name, sha in facts['files'].items():
+        raw = subprocess.check_output(['git', 'show', frozen['sourceCommit'] + ':' + name], cwd=c.ROOT, env=c.ENV, stderr=subprocess.DEVNULL)
+        if hashlib.sha256(raw).hexdigest() != sha:
+            raise RuntimeError('complete native execution source must be committed before freeze')
     c.dump(out / 'regional-source.json', facts)
     builds = [('live.test', ['go', 'test', '-c', '-tags', 'live', '-ldflags',
         '-X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=' + source_hash,
@@ -81,7 +87,7 @@ def prepare(out, phase):
     plan = r.inventory(out) | dict(phase=phase, routes={n: j for n, j in all_jobs.items() if j['phase'] == phase})
     c.dump(out / 'plan.json', c.redact(plan))
     prepared = dict(schema=1, round=r.ROUND, phase=phase, credentialsRead=False,
-        componentTemplatesSHA256=c.digest(out/'component-templates.json'), toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
+        nativeSourceManifestSHA256=c.digest(out/'regional-source.json'), researchDisclosureSHA256=c.digest(out/'research-disclosure.json'), componentTemplatesSHA256=c.digest(out/'component-templates.json'), toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
         binariesManifestSHA256=c.digest(out / 'binaries.json'), planSHA256=c.digest(out / 'plan.json'))
     c.dump(out / 'prepared.json', prepared)
     c.dump(out / 'prerelease-source-review.template.json', prepared | dict(decision='PENDING', reviewedBy='',
@@ -97,6 +103,9 @@ def prepare(out, phase):
 def guard(out):
     prepared = c.doc(out / 'prepared.json')
     frozen = c.doc(out / 'source-at-start.json')
+    import final_research
+    if c.digest(out/'research-disclosure.json')!=prepared['researchDisclosureSHA256'] or c.doc(out/'research-disclosure.json')!=final_research.disclosure():
+        raise RuntimeError('already consumed original research facts changed')
     if c.digest(out/'component-templates.json')!=prepared['componentTemplatesSHA256']:
         raise RuntimeError('frozen native component template inventory changed')
     for leaf,sha in c.doc(out/'component-templates.json').items():
@@ -117,6 +126,13 @@ def guard(out):
     for name, sha in c.doc(out / 'binaries.json').items():
         if c.digest(out / name) != sha:
             raise RuntimeError('frozen binary changed')
+    if c.digest(out/'regional-source.json') != prepared['nativeSourceManifestSHA256']:
+        raise RuntimeError('frozen native execution source manifest changed')
+    # Use the actual frozen native selector as well as operator sources: it owns
+    # compressed captures and other non-Go/JSON dependencies and detects additions.
+    current = json.loads(subprocess.check_output([str(out/'regionalverify'), '-source'], cwd=c.ROOT, env=c.ENV, timeout=30))
+    if current != c.doc(out/'regional-source.json'):
+        raise RuntimeError('complete native execution source set changed before key')
     expected = c.redact(r.inventory(out) | dict(phase=prepared['phase'], routes={n: j for n, j in r.jobs(out).items() if j['phase'] == prepared['phase']}))
     if c.doc(out / 'plan.json') != expected:
         raise RuntimeError('fixed reconstructed job plan changed')
