@@ -12,6 +12,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -67,8 +68,8 @@ func TestGLMFormalKnownUsage(t *testing.T) {
 		Schema       int
 		SourceCommit string
 		Routes       map[string]struct {
-			ArchiveSHA256, ReportSHA256 string
-			InputSide, Output           int
+			ArchiveSHA256, ReportSHA256                             string
+			InputSide, Output, UnknownUsageAttempts, ActualAttempts int
 		}
 	}
 	expectationBytes, readErr := os.ReadFile("../live/testdata/glm-formal/known-usage.json")
@@ -84,11 +85,20 @@ func TestGLMFormalKnownUsage(t *testing.T) {
 			ev.Check("expectations bound to exact immutable source/report/archive", expected.SourceCommit == index.OriginalLiveSourceCommit && literal.ArchiveSHA256 == entry.ArchiveSHA256 && literal.ReportSHA256 == entry.ReportSHA256, "expectation identity drift")
 			ev.Check("independently reconciled measured totals present", want[0] > 0 && want[1] > 0, "missing measured expectations")
 			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
-			r, e := supportmatrix.NewGLMReport(filepath.Dir(filepath.Join(dir, entry.ReportPath)))
-			if !ev.Check("captured formal source accepted", e == nil, "%v", e) {
+			base := filepath.Dir(filepath.Join(dir, entry.ReportPath))
+			_, e := supportmatrix.NewGLMReport(base)
+			ev.Check("historical actual capture refuses changed execution source", glmExecutionSourceDrift(e), "%v", e)
+			// Read immutable original facts without certifying them as current.
+			// The archive and raw report remain bound to independent source pins.
+			formalBytes, readErr := os.ReadFile(filepath.Join(dir, entry.ReportPath))
+			ev.Check("historical formal report retains independent hash", readErr == nil && fmt.Sprintf("%x", sha256.Sum256(formalBytes)) == entry.ReportSHA256, "original report changed")
+			r, loadErr := supportmatrix.LoadReport(filepath.Join(base, "live-report.json"))
+			if !ev.Check("immutable historical support projection readable", loadErr == nil, "%v", loadErr) {
 				return
 			}
-			ev.Check("reported known totals retained", r.Budget.InputTokensUsed == want[0] && r.Budget.OutputTokensUsed == want[1], "got input=%d output=%d", r.Budget.InputTokensUsed, r.Budget.OutputTokensUsed)
+			input, output, attempts, unknown := glmHistoricalAttemptUsage(t, base, r)
+			ev.Check("raw Attempts independently preserve known totals and unknowns", input == want[0] && output == want[1] && attempts == literal.ActualAttempts && unknown == literal.UnknownUsageAttempts, "got input=%d output=%d attempts=%d unknown=%d", input, output, attempts, unknown)
+			ev.Check("historical projection retains same known lower bounds", r.Budget.InputTokensUsed == want[0] && r.Budget.OutputTokensUsed == want[1], "got input=%d output=%d", r.Budget.InputTokensUsed, r.Budget.OutputTokensUsed)
 			ev.Record("known-lower-bound", map[string]any{"input": want[0], "output": want[1], "note": "reported-known lower bounds; partial/cancelled/missing usage remains unknown; reasoning already within output; not billing"})
 		})
 	}
@@ -175,4 +185,34 @@ func TestGLMFormalExtraCaptures(t *testing.T) {
 			ev.Record("scope", "Synthetic copy of actual immutable bytes; extra capture is never a real vendor call")
 		})
 	}
+}
+
+// Reconcile original per-call Results against the pre-existing independent
+// Python totals; never call the current support producer to refresh old facts.
+func glmHistoricalAttemptUsage(t *testing.T, base string, r supportmatrix.Report) (input, output, attempts, unknown int) {
+	t.Helper()
+	for _, scenario := range r.Scenarios {
+		if scenario.Attempts == 0 {
+			continue
+		}
+		raw, err := os.ReadFile(filepath.Join(base, scenario.CaseID, "attempt-1-result.json"))
+		if err != nil {
+			t.Fatal("historical Attempt original unavailable")
+		}
+		var captured struct {
+			Result struct{ Metadata ai.CallMetadata }
+		}
+		if json.Unmarshal(raw, &captured) != nil {
+			t.Fatal("historical Attempt original invalid")
+		}
+		for _, a := range captured.Result.Metadata.Attempts {
+			attempts++
+			input += int(a.Usage.Input + a.Usage.CacheRead + a.Usage.CacheWrite)
+			output += int(a.Usage.Output)
+			if a.UsageReporting != ai.UsageComplete {
+				unknown++
+			}
+		}
+	}
+	return
 }

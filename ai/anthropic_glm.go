@@ -45,7 +45,7 @@ func glmMessagesThinkingOptions(m Model, o AnthropicOptions) bool {
 // into that subset. Own wire evidence covers this exact pair, not all budgets
 // below an arbitrary maximum or another protocol's canonical levels.
 func glmMessagesThinkingShape(m Model, budget, output int) bool {
-	return m.Reasoning && m.Compat.MessagesThinkingBudgetTokens == 1024 && budget == 1024 && output == 4096
+	return anthropicCapabilitiesOf(m.Provider).glmBudget1024 && m.Reasoning && m.Compat.MessagesThinkingBudgetTokens == 1024 && budget == 1024 && output == 4096
 }
 
 // Validate the final payload even without OnPayload. The checks happen after
