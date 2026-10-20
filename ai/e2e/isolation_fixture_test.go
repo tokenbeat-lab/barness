@@ -398,7 +398,7 @@ func checkAdmitted(ev *evidence.Case, iw isolationWorld, p isolationProtocol, k 
 		}
 	}
 	for i := 1; i <= attempts; i++ {
-		want = append(want, ai.AdmissionRequest{TenantID: k.tenant, AccountScopeID: p.account(k), AttemptID: fmt.Sprintf("%s#%d", scope.RequestID, i)})
+		want = append(want, ai.AdmissionRequest{TenantID: k.tenant, ProviderID: p.provider(), AccountScopeID: p.account(k), AttemptID: fmt.Sprintf("%s#%d", scope.RequestID, i)})
 	}
 	ev.Check(k.tenant+"'s attempts are admitted under its tenant and account", reflect.DeepEqual(got, want), "got %+v want %+v", got, want)
 }

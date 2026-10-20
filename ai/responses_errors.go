@@ -47,10 +47,10 @@ func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) re
 		describe: func(res *http.Response, body []byte) (string, string) {
 			return describeHTTPError(prefix, res.StatusCode, body)
 		}}
-	if provider == ProviderMiniMax {
+	if responsesCapabilitiesOf(provider).implementation == responsesMiniMax {
 		f.minimax = APIOpenAIResponses
 	}
-	if provider == ProviderZhipu {
+	if responsesCapabilitiesOf(provider).implementation == responsesGLM {
 		f.glm = APIOpenAIResponses
 	}
 	return responsesFailures{f}

@@ -146,7 +146,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		tools := make([]chatTool, len(history.tools))
 		for i, t := range history.tools {
 			tools[i] = chatTool{Type: "function", Function: chatToolFunction{Name: t.Name, Description: t.Description, Parameters: t.Parameters}}
-			if model.Compat.SupportsStrictMode && model.Provider != ProviderZhipu && model.Provider != ProviderMiniMax {
+			if model.Compat.SupportsStrictMode && chatCompatOf(model.Provider).implementation != chatGLM && chatCompatOf(model.Provider).implementation != chatMiniMax {
 				tools[i].Function.Strict = new(bool)
 			}
 		}
@@ -163,10 +163,10 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		return nil, err
 	}
 	out, err = applyModelSamplingParams(out, model, opts.ReasoningEffort, opts.SamplingParams)
-	if err == nil && model.Provider == ProviderZhipu {
+	if err == nil && chatCompatOf(model.Provider).implementation == chatGLM {
 		out, err = preserveGLMChatSamplingBudget(out, model, opts)
 	}
-	if err == nil && model.Provider == ProviderMiniMax {
+	if err == nil && chatCompatOf(model.Provider).implementation == chatMiniMax {
 		out, err = preserveMiniMaxChatSampling(out, model, opts)
 	}
 	return out, err
@@ -298,7 +298,7 @@ func chatAssistant(m replayedAssistant, model Model, compat chatCompat) (chatAss
 	}
 	var details json.RawMessage
 	for _, t := range thinking {
-		if model.Provider == ProviderMiniMax {
+		if chatCompatOf(model.Provider).implementation == chatMiniMax {
 			if d, ok := miniMaxMirroredDetails(t.Signature); ok {
 				details = d
 				mirror := t.Thinking

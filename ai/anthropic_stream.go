@@ -157,19 +157,19 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 		}
 		return p.failures.upstream(ev.data)
 	}
-	if !anthropicMessageEvents[ev.name] && p.model.Provider != ProviderMiniMax {
+	if !anthropicMessageEvents[ev.name] && anthropicCapabilitiesOf(p.model.Provider).implementation != anthropicMiniMax {
 		return nil
 	}
 	var e anthropicEvent
 	if err := decodeAnthropicEvent(ev.data, &e); err != nil {
 		return newError(CodeProtocol, PhaseStream, msgAnthropicInvalidJSON(ev.name))
 	}
-	if p.model.Provider == ProviderZhipu {
+	if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicGLM {
 		if failure := p.glmSequence(ev.name, e); failure != nil {
 			return failure
 		}
 	}
-	if p.model.Provider == ProviderMiniMax {
+	if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicMiniMax {
 		if failure := p.miniMaxSequence(ev, e); failure != nil {
 			return failure
 		}
@@ -228,7 +228,7 @@ func (p *anthropicParser) blockStart(e anthropicEvent) *Error {
 		slot = anthropicSlot{index: p.out.thinkingStart(Thinking{Thinking: "[Reasoning redacted]", Signature: b.Data, Redacted: true}), kind: blockThinking}
 	case "tool_use":
 		initial := ""
-		if p.model.Provider == ProviderMiniMax && p.miniMaxInitial[e.Index] {
+		if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicMiniMax && p.miniMaxInitial[e.Index] {
 			initial = string(b.Input)
 		}
 		slot = anthropicSlot{index: p.out.toolCallStart(b.ID, b.Name, initial), kind: blockToolCall}
@@ -377,7 +377,7 @@ func (a *anthropicUsage) start(w *anthropicWireUsage) {
 	// Compatible Providers have no verified native one-hour cache contract.
 	// Omission remains unset. MiniMax retains an explicit count, including zero;
 	// positive usage fails without inventing a native premium.
-	if anthropicCapabilitiesOf(a.model.Provider).promptCache || a.model.Provider == ProviderMiniMax && w != nil && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
+	if anthropicCapabilitiesOf(a.model.Provider).promptCache || anthropicCapabilitiesOf(a.model.Provider).reportedCacheWriteTTL && w != nil && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
 		a.u.CacheWrite1h = Value(long)
 	}
 	a.settle()
@@ -389,7 +389,7 @@ func (a *anthropicUsage) delta(w *anthropicWireUsage) {
 		a.take(w)
 		// Gateway deltas may supply or correct the TTL breakdown. This is
 		// an authoritative count, not an additional cache write (pi 1.0).
-		if (anthropicCapabilitiesOf(a.model.Provider).promptCache || a.model.Provider == ProviderMiniMax) && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
+		if (anthropicCapabilitiesOf(a.model.Provider).promptCache || anthropicCapabilitiesOf(a.model.Provider).reportedCacheWriteTTL) && w.CacheDetails != nil && w.CacheDetails.Ephemeral1h != nil {
 			a.u.CacheWrite1h = Value(*w.CacheDetails.Ephemeral1h)
 		}
 		// Anthropic reports reasoning tokens as a subset of output tokens.
@@ -414,10 +414,10 @@ func (a *anthropicUsage) take(w *anthropicWireUsage) {
 func (a *anthropicUsage) settle() {
 	a.u.TotalTokens = a.u.Input + a.u.Output + a.u.CacheRead + a.u.CacheWrite
 	a.u.Cost = a.model.Cost.estimate(a.u)
-	if a.model.Provider == ProviderMiniMax {
+	if anthropicCapabilitiesOf(a.model.Provider).reportedCacheWriteTTL {
 		if long, ok := a.u.CacheWrite1h.Get(); ok && long > 0 {
 			// This unsupported part has no verified price. Retain only known
-			// short-write cost; miniMaxUnpricedWriteFailure refuses success.
+			// short-write cost; providerUnpricedWriteFailure refuses success.
 			rates := a.model.Cost.ratesForUsage(a.u)
 			a.u.Cost.CacheWrite = rates.CacheWrite * float64(max(0, a.u.CacheWrite-long)) / 1e6
 			a.u.Cost.Total = a.u.Cost.Input + a.u.Cost.Output + a.u.Cost.CacheRead + a.u.Cost.CacheWrite

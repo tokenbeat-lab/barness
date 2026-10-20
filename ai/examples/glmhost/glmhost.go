@@ -1,6 +1,8 @@
-// Package glmhost demonstrates the three explicit China standard GLM routes.
+// Package glmhost demonstrates three explicit standard GLM routes for the
+// chosen China or international service.
 // The Host owns authentication, versioned resolvers, key purpose, policy and
-// tool execution. No key is read here and no fallback route is selected.
+// tool execution. Credential metadata is checked before the selected secret
+// callback is invoked.
 package glmhost
 
 import (
@@ -9,26 +11,6 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 )
-
-// Bindings are independent allowlisted configurations for one authorized
-// tenant/account. The Host stores each version and pairs its credential
-// snapshot atomically with that version (ADR-0003).
-func Bindings(tenant, account, credential, version string) []ai.Binding {
-	routes := []struct {
-		id       string
-		api      ai.API
-		endpoint string
-	}{
-		{"glm-chat", ai.APIOpenAICompletions, "https://open.bigmodel.cn/api/paas/v4"},
-		{"glm-responses", ai.APIOpenAIResponses, "https://open.bigmodel.cn/api/v1"},
-		{"glm-messages", ai.APIAnthropicMessages, "https://open.bigmodel.cn/api/anthropic"},
-	}
-	out := make([]ai.Binding, 0, len(routes))
-	for _, r := range routes {
-		out = append(out, ai.Binding{TenantID: tenant, BindingID: r.id, Operation: ai.OperationChat, Version: version, Enabled: true, ProviderID: ai.ProviderZhipu, API: r.api, Endpoint: r.endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: account, CredentialRef: credential, AllowedModels: []string{"glm-5.3", "glm-5.2"}})
-	}
-	return out
-}
 
 // Entry chooses an existing public Client entry; every call is one turn.
 type Entry string

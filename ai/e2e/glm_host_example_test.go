@@ -23,7 +23,10 @@ func TestGLMHostExample(t *testing.T) {
 					t.Run(fmt.Sprintf("%s/%s/%s/hooks-%t", r.name, model, entry, hooked), func(t *testing.T) {
 						ev := run.Case(t, fmt.Sprintf("P0-GLM13-host-%s-%s-%s-hooks-%t", r.name, model, entry, hooked))
 						w := newGLMSharedWorld(t, func(c *ai.Config) { c.Catalog = nil })
-						bindings := glmhost.Bindings(glmA.tenant, "acct-"+glmA.tenant, "same-credential", "b1")
+						bindings, err := glmhost.Bindings(glmhost.Authorization{ProviderID: ai.ProviderZhipu, TenantID: glmA.tenant, AccountScopeID: "acct-" + glmA.tenant, CredentialRef: "same-credential", Version: "b1", Purpose: glmhost.Standard})
+						if err != nil {
+							t.Fatal(err)
+						}
 						for _, b := range bindings {
 							if b.API == r.api {
 								b.Endpoint = w.provider.URL() + r.prefix(glmA)
@@ -98,7 +101,10 @@ func TestGLMHostExample(t *testing.T) {
 
 func TestGLMHostBindings(t *testing.T) {
 	ev := run.Case(t, "P0-GLM13-host-bindings")
-	got := glmhost.Bindings("tenant", "account", "standard-key", "v7")
+	got, assemblyErr := glmhost.Bindings(glmhost.Authorization{ProviderID: ai.ProviderZhipu, TenantID: "tenant", AccountScopeID: "account", CredentialRef: "standard-key", Version: "v7", Purpose: glmhost.Standard})
+	if assemblyErr != nil {
+		t.Fatal(assemblyErr)
+	}
 	want := map[ai.API]string{ai.APIOpenAIResponses: "https://open.bigmodel.cn/api/v1", ai.APIOpenAICompletions: "https://open.bigmodel.cn/api/paas/v4", ai.APIAnthropicMessages: "https://open.bigmodel.cn/api/anthropic"}
 	ev.Record("bindings", got)
 	for _, b := range got {

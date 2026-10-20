@@ -1,5 +1,14 @@
 package ai
 
+type responsesImplementation uint8
+
+const (
+	responsesStandard responsesImplementation = iota
+	responsesDeepSeek
+	responsesGLM
+	responsesMiniMax
+)
+
 // responsesCapabilities are the server-side Responses features a provider
 // serves beyond the protocol's core (input, tools, reasoning effort, output
 // budget). The Responses adapter derives a request field from one of them
@@ -13,6 +22,7 @@ package ai
 // that ignores it. It is a snapshot of the vendor's documentation at the
 // time of writing; a change there is updated here and in the P05 fixtures.
 type responsesCapabilities struct {
+	implementation responsesImplementation
 	// store: the request declares stateless storage (store:false), as pi
 	// always does for OpenAI.
 	store bool
@@ -40,18 +50,21 @@ type responsesCapabilities struct {
 // history is always sent as complete input. Every other provider gets the
 // OpenAI profile, which pi sends to whatever serves openai-responses.
 func responsesCapabilitiesOf(p ProviderID) responsesCapabilities {
-	if p == ProviderMiniMax {
-		return responsesCapabilities{promptCacheKey: true, serviceTier: true}
+	switch p {
+	case ProviderMiniMax:
+		return responsesCapabilities{implementation: responsesMiniMax, promptCacheKey: true, serviceTier: true}
+	case ProviderMiniMaxCN:
+		return responsesCapabilities{implementation: responsesMiniMax, promptCacheKey: true, serviceTier: true}
+	case ProviderZhipu:
+		return responsesCapabilities{implementation: responsesGLM, store: true, promptCacheKey: true}
+	case ProviderZAI:
+		return responsesCapabilities{implementation: responsesGLM, store: true, promptCacheKey: true}
+	case ProviderDeepSeek:
+		return responsesCapabilities{implementation: responsesDeepSeek, reasoningSummary: true, strictFunctionTools: true}
+	default:
+		return responsesCapabilities{implementation: responsesStandard, store: true, encryptedReasoning: true, promptCacheKey: true,
+			promptCacheRetention: true, sessionAffinity: true, reasoningSummary: true, serviceTier: true, strictFunctionTools: true}
 	}
-	if p == ProviderZhipu {
-		return responsesCapabilities{store: true, promptCacheKey: true}
-	}
-	if p == ProviderDeepSeek {
-		// DeepSeek accepts summary but does not generate one (ADR-0014).
-		return responsesCapabilities{reasoningSummary: true, strictFunctionTools: true}
-	}
-	return responsesCapabilities{store: true, encryptedReasoning: true, promptCacheKey: true,
-		promptCacheRetention: true, sessionAffinity: true, reasoningSummary: true, serviceTier: true, strictFunctionTools: true}
 }
 
 // unsupportedOption is why opts asks for something the provider does not
