@@ -25,3 +25,7 @@ def fixed4():
 def fixed5():
     import recovery5_contract,recovery5_history,recovery5_native
     return _FixedFlow(recovery5_contract,recovery5_history,recovery5_native,recovery5_history.retained)
+
+def fixed6():
+    import recovery6_contract,recovery6_history,recovery6_native
+    return _FixedFlow(recovery6_contract,recovery6_history,recovery6_native,recovery6_history.retained)

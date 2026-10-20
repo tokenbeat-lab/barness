@@ -100,6 +100,8 @@ class Recovery5Round(RecoveryRound):
         self.assertEqual(g['spendingGuardSourceSha256'],json.loads((base/'prepared.json').read_text())['spendingGuardSourceSHA256'])
         self.runcli('native-grant','.evidence/provider-sites/recovery5',ok=False)
         self.runcli('run-selected','.evidence/provider-sites/recovery5','mm-global-formal-m3-chat')
+        self.assertEqual(json.loads((base/'mm-global-formal-m3-chat-consume-command.json').read_text())['timeoutSeconds'],180)
+        self.assertEqual(json.loads((base/'formal-zai-responses-consume-command.json').read_text())['timeoutSeconds'],180)
 
     def test_five_old_reply_case_alias_and_36budget_before_key(self):
         from test_recovery5_fixture import approve,BASE

@@ -12,9 +12,10 @@ class NativeConsumer:
         import final_grants
         return final_grants.templates(out, 'remaining')
 
-    def verified(self, out, name, argv):
+    def verified(self, out, name, argv, timeout=180):
+        if type(timeout) is not int or timeout not in (180,360):raise RuntimeError('fixed native consumer resource bound required')
         if any((out/(name+suffix)).exists() or (out/(name+suffix)).is_symlink() for suffix in ('.log','-command.json')):raise RuntimeError('native command output already exists; preserve first outcome')
-        if self.flow.s.run(out, name, argv, timeout=180) != 0:
+        if self.flow.s.run(out, name, argv, timeout=timeout) != 0:
             raise RuntimeError('current native consumer refused; preserve failure')
         return self.flow.s.pin(out / (name + '-command.json'))
 
@@ -85,7 +86,9 @@ class NativeConsumer:
             matrix = out / (name + '-validation-matrix.json')
             with matrix.open('xb') as stream:stream.write(self.flow.files.read(self.flow.r.c.ROOT/'ai/live/support-matrix.json'))
             argv = [out / 'supportmatrix', '-matrix', matrix, base]
-        return record | dict(reportedFileSha256=self.flow.s.pin(report_path), nativeConsumerReceiptSha256=self.verified(out, name + '-consume', argv))
+        # Only the trusted fixed factory can assign a selected consumer bound.
+        timeout=self.flow.r.jobs(out)[name].get('consumerTimeoutSeconds',180)
+        return record | dict(reportedFileSha256=self.flow.s.pin(report_path), nativeConsumerReceiptSha256=self.verified(out, name + '-consume', argv, timeout=timeout))
 
     def require_consumed(self, out, job, value):
         import final_execute
