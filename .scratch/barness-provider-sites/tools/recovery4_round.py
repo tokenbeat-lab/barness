@@ -13,9 +13,15 @@ def main():
     parser.add_argument('out',nargs='?');parser.add_argument('route',nargs='?');parser.add_argument('--inputs');args=parser.parse_args()
     if args.mode=='inventory':result=r.inventory(c.ROOT/'.evidence/provider-sites/unprepared-recovery4')
     else:
+        closed=c.common_root()/r.BASE/'closed-cohort-4/seal.json'
+        if args.mode!='summarize' and (closed.exists() or closed.is_symlink()):raise RuntimeError('recovery4 permanently closed; history only')
         from recovery_flow import fixed4
         flow=fixed4()
-        if args.mode=='summarize':result=flow.e.summarize()
+        if args.mode=='summarize':
+            if closed.exists():
+                import recovery5_history
+                result=recovery5_history.facts()
+            else:result=flow.e.summarize()
         else:
             out=flow.s.path(args.out)
             if args.mode=='prepare':result=flow.s.prepare(out)

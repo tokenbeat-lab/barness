@@ -1,4 +1,4 @@
-"""Shared private fixed3/fixed4 native mechanics; authority values come only from compiled contexts."""
+"""Shared private fixed recovery native mechanics; authority values come only from compiled contexts."""
 import datetime as dt
 import json
 from pathlib import Path
@@ -13,6 +13,7 @@ class NativeConsumer:
         return final_grants.templates(out, 'remaining')
 
     def verified(self, out, name, argv):
+        if any((out/(name+suffix)).exists() or (out/(name+suffix)).is_symlink() for suffix in ('.log','-command.json')):raise RuntimeError('native command output already exists; preserve first outcome')
         if self.flow.s.run(out, name, argv, timeout=180) != 0:
             raise RuntimeError('current native consumer refused; preserve failure')
         return self.flow.s.pin(out / (name + '-command.json'))
@@ -46,7 +47,7 @@ class NativeConsumer:
             return record
         name = job['name'] + '-native-preflight'
         self.verified(out, name, [out / 'minimaxverify', self.flow.r.NATIVE_PREFLIGHT_FLAG + job['route']])
-        value = json.loads((out / (name + '.log')).read_text())
+        value = self.flow.s.doc(out/(name+'.log'))
         if value.get('route') != job['route'] or value.get('facts', {}).get('renewalId') != self.flow.r.ROUND:
             raise RuntimeError('native own recovery preflight identity required')
         return record | dict(nativePreflightReceiptSha256=self.flow.s.pin(out / (name + '-command.json')), renewalId=self.flow.r.ROUND, renewalGrantSha256=value['grantSha256'])
@@ -61,6 +62,12 @@ class NativeConsumer:
             raise RuntimeError('own current native measured commit required')
         if 'combo' in job:
             argv = [out / 'regionalverify', '-formal', base]
+        elif name.startswith('glm-'):
+            if report.get('mode')!='live' or report.get('kind')!='glm-formal' or report.get('route')!=job['glmRoute'] or report.get('outcome')!='PASS' or report.get('complete') is not True or report.get('auditPassed') is not True or len(report.get('scenarios',[]))!=22:raise RuntimeError('own complete current live full22 GLM raw capture required')
+            record['capturePins']=dict(schema=1,**{key:self.flow.s.pin(base/leaf) for key,leaf in (('formalReportSha256','formal-glm-report.json'),('integritySha256','glm-integrity.json'),('supportReportSha256','live-report.json'),('executionSourceSha256','glm-execution-source.json'))})
+            matrix=out/(name+'-validation-matrix.json')
+            with matrix.open('xb') as stream:stream.write(self.flow.files.read(self.flow.r.c.ROOT/'ai/live/support-matrix.json'))
+            argv=[out/'supportmatrix','-matrix',matrix,base]
         elif name.startswith('mm-'):
             grant = self.flow.r.c.common_root() / '.evidence/minimax-renewals' / self.flow.r.ROUND / 'grant.json'
             if report.get('formalRenewalId') != self.flow.r.ROUND or report.get('formalRenewalGrantSha256') != self.flow.s.pin(grant):
@@ -76,7 +83,7 @@ class NativeConsumer:
             return record | dict(reportedFileSha256=self.flow.s.pin(report_path), nativeConsumer='paired-jevformal-pending')
         else:
             matrix = out / (name + '-validation-matrix.json')
-            matrix.write_bytes((self.flow.r.c.ROOT / 'ai/live/support-matrix.json').read_bytes())
+            with matrix.open('xb') as stream:stream.write(self.flow.files.read(self.flow.r.c.ROOT/'ai/live/support-matrix.json'))
             argv = [out / 'supportmatrix', '-matrix', matrix, base]
         return record | dict(reportedFileSha256=self.flow.s.pin(report_path), nativeConsumerReceiptSha256=self.verified(out, name + '-consume', argv))
 
@@ -90,6 +97,9 @@ class NativeConsumer:
             if value.get('nativeConsumer') != 'paired-jevformal-pending':
                 raise RuntimeError('explicit paired Jev protocol consumer required')
             return
+        if name.startswith('glm-'):
+            wanted=dict(schema=1,**{key:self.flow.s.pin(report.parent/leaf) for key,leaf in (('formalReportSha256','formal-glm-report.json'),('integritySha256','glm-integrity.json'),('supportReportSha256','live-report.json'),('executionSourceSha256','glm-execution-source.json'))})
+            if value.get('capturePins')!=wanted:raise RuntimeError('current raw GLM capture pins changed')
         p = out / (name + '-consume-command.json')
         command = self.flow.s.doc(p)
         base = report.parent
@@ -103,5 +113,5 @@ class NativeConsumer:
             argv = [out / 'visualeval', '-verify', base, '-require-live']
         else:
             argv = [out / 'supportmatrix', '-matrix', out / (name + '-validation-matrix.json'), base]
-        if value.get('nativeConsumerReceiptSha256') != self.flow.s.pin(p) or command.get('state') != 'COMPLETED' or command.get('exitCode') != 0 or (command.get('credentialsRead') is not False) or (command.get('argv') != self.flow.r.c.redact(list(map(str, argv)))):
+        if value.get('nativeConsumerReceiptSha256') != self.flow.s.pin(p) or command.get('state') != 'COMPLETED' or type(command.get('exitCode')) is not int or command.get('exitCode') != 0 or command.get('launcherAudit')!=dict(passed=True,findings=[]) or (command.get('credentialsRead') is not False) or (command.get('argv') != self.flow.r.c.redact(list(map(str, argv)))):
             raise RuntimeError('prior actual own successful native consumer required')

@@ -17,7 +17,11 @@ def main():
         if a.mode!='summarize' and (closed.exists() or closed.is_symlink()):raise RuntimeError('recovery3 permanently closed; history only')
         from recovery_flow import fixed3
         flow=fixed3();s=flow.s;e=flow.e
-        if a.mode=='summarize':result=e.summarize()
+        if a.mode=='summarize':
+            if closed.exists():
+                import recovery4_history
+                result=recovery4_history.facts()
+            else:result=e.summarize()
         else:
             out=s.path(a.out)
             if a.mode=='prepare':result=s.prepare(out)

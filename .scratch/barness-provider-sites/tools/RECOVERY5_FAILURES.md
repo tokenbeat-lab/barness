@@ -1,0 +1,3 @@
+# Fixed5 public process failure cases
+
+Before implementation: missing fixed5 CLI; incorrect 19-process inventory or 378/414 caps; USD30 or old 28.80 reserve erased; old4 reopened; PENDING/old reply relabeled5; incomplete closed4 pins/source/grant/ledger/UNKNOWN; generic8 drift or missing 84-wire compatibility; source/JSON FIFO swap, symlink and case aliases; late native grant before first18 own PASS; missing current guard binding; GLM old views or incomplete22/raw captures; wrong roles33/history59/final27; whole-allocation exhaustion, prior failed/UNKNOWN continuation, repeated process or authority issuance. Every refusal occurs before selected credential read where applicable. No vendor sockets or real approval files are used by these fixtures.

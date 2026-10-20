@@ -44,3 +44,9 @@ NATIVE_PREFLIGHT_FLAG='-recovery-preflight='
 FINAL_SELECTION_FILE='effective33-retained41.json'
 
 PHASE='recovery3'
+
+MAX_USD=30
+BASE_ROLE_COUNT=9
+RETAINED_INPUT_FILE='preserved-glm.json'
+RETAINED_INPUT_FIELD='preservedGLMSHA256'
+RETAINED_GENERIC=()

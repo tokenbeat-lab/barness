@@ -1,4 +1,4 @@
-"""Shared private fixed3/fixed4 finalize mechanics; authority values come only from compiled contexts."""
+"""Shared private fixed recovery finalize mechanics; authority values come only from compiled contexts."""
 import os
 import tempfile
 from pathlib import Path
@@ -53,7 +53,7 @@ class Finalizer:
         summary = self.flow.e.summarize()
         roles = self.flow.p.bind_inputs(out, result)
         import final_publication
-        final_publication.validate(self.flow.files.doc(self.flow.r.c.ROOT / 'ai/live/testdata/glm-formal/live-captures.json'))
+        if not self.flow.r.RETAINED_GENERIC:final_publication.validate(self.flow.files.doc(self.flow.r.c.ROOT / 'ai/live/testdata/glm-formal/live-captures.json'))
         destination = out / 'finalization'
         destination.mkdir(mode=448)
         self.flow.r.c.dump(destination / 'plan.json', self.flow.r.c.redact(result))

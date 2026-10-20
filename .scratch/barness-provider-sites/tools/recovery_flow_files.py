@@ -1,4 +1,4 @@
-"""Bounded common-owner claim inventory for the two compiled fixed contexts."""
+"""Bounded common-owner claim inventory for the compiled fixed contexts."""
 import json
 import os
 from recovery_flow_source import SourceFreeze
@@ -26,8 +26,8 @@ class Artifacts:
         def pairs(items):
             value={};seen=set()
             for key,item in items:
-                if key in seen:raise RuntimeError('duplicate artifact JSON field')
-                seen.add(key);value[key]=item
+                if key.casefold() in seen:raise RuntimeError('duplicate or case-alias artifact JSON field')
+                seen.add(key.casefold());value[key]=item
             return value
         value=json.loads(self.read(path,2<<20),object_pairs_hook=pairs)
         if not isinstance(value,dict):raise RuntimeError('artifact JSON object required')

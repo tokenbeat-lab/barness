@@ -1,4 +1,4 @@
-"""Shared private fixed3/fixed4 execute mechanics; authority values come only from compiled contexts."""
+"""Shared private fixed recovery execute mechanics; authority values come only from compiled contexts."""
 from contextlib import contextmanager
 import fcntl
 import os
@@ -16,7 +16,7 @@ class Execution:
 
     def marker(self, name):
         if name not in self.flow.r.RESERVES:
-            raise RuntimeError('fixed24 own marker required')
+            raise RuntimeError('fixed own marker required')
         return self.flow.h.f.owned('.evidence/minimax-launches/' + self.flow.r.ROUND + '-' + name + '.json')
 
     def authority(self):
@@ -63,16 +63,20 @@ class Execution:
         usd = sum((v['reservedMicrousd'] for v in rows))
         if calls > self.flow.r.MAX_CALLS or attempts > self.flow.r.MAX_ATTEMPTS or usd > self.flow.r.NEW_USD:
             raise RuntimeError('fixed recovery total exceeded')
-        return dict(round=self.flow.r.ROUND, predecessor=prior, routes=rows, originalProcessCount=self.flow.r.ORIGINAL_PROCESS_COUNT, newProcessCount=len(rows), actualProcessCount=self.flow.r.ORIGINAL_PROCESS_COUNT + len(rows), effectiveRoleCount=9 + len(rows), retainedUnknownProcesses=self.flow.r.UNKNOWN_PROCESSES, claimedCalls=self.flow.r.RETAINED_CALLS + calls, claimedAttempts=self.flow.r.RETAINED_ATTEMPTS + attempts, knownReportedCalls=self.flow.r.RETAINED_ACTUAL_CALLS + sum((v['budget'].get('calls') or 0 for v in rows)), knownReportedAttempts=self.flow.r.RETAINED_ACTUAL_ATTEMPTS + sum((v['budget'].get('attempts') or 0 for v in rows)), newReservedMicrousd=usd, reservedMicrousd=self.flow.r.RETAINED_USD + usd, campaignMaxCalls=self.flow.r.CAMPAIGN_CALLS, campaignMaxAttempts=self.flow.r.CAMPAIGN_ATTEMPTS, maxMicrousd=30000000, credentialsRead=False)
+        return dict(round=self.flow.r.ROUND, predecessor=prior, routes=rows, originalProcessCount=self.flow.r.ORIGINAL_PROCESS_COUNT, newProcessCount=len(rows), actualProcessCount=self.flow.r.ORIGINAL_PROCESS_COUNT + len(rows), effectiveRoleCount=self.flow.r.BASE_ROLE_COUNT + len(rows), retainedUnknownProcesses=self.flow.r.UNKNOWN_PROCESSES, claimedCalls=self.flow.r.RETAINED_CALLS + calls, claimedAttempts=self.flow.r.RETAINED_ATTEMPTS + attempts, knownReportedCalls=self.flow.r.RETAINED_ACTUAL_CALLS + sum((v['budget'].get('calls') or 0 for v in rows)), knownReportedAttempts=self.flow.r.RETAINED_ACTUAL_ATTEMPTS + sum((v['budget'].get('attempts') or 0 for v in rows)), newReservedMicrousd=usd, reservedMicrousd=self.flow.r.RETAINED_USD + usd, campaignMaxCalls=self.flow.r.CAMPAIGN_CALLS, campaignMaxAttempts=self.flow.r.CAMPAIGN_ATTEMPTS, maxMicrousd=self.flow.r.MAX_USD*1000000, credentialsRead=False)
 
     def require_checks(self, out):
-        import final_execute
-        final_execute.require_checks(out)
+        check=self.flow.s.doc(out/'checks.json')
+        expected={'vet':['go','vet','./...'],'vet-live':['go','vet','-tags','live','./...'],'no-key-live':['go','test','-tags','live','-count=1','-timeout=20m','./ai/live']}
+        if check.get('passed') is not True or check.get('commands')!={name:0 for name in expected}:raise RuntimeError('actual keyless checks required')
+        for name,argv in expected.items():
+            path=out/(name+'-command.json');value=self.flow.s.doc(path)
+            if self.flow.s.pin(path)!=check.get('commandReceipts',{}).get(name) or value.get('argv')!=argv or value.get('state')!='COMPLETED' or type(value.get('exitCode')) is not int or value['exitCode']!=0 or value.get('credentialsRead') is not False or value.get('credentialsInherited') is not False:raise RuntimeError('exact successful credential-free check receipts required')
 
     def claim(self, out, job, prepared, auth, admission):
         with self.locked() as base:
             if self.marker(job['name']).exists() or self.marker(job['name']).is_symlink():
-                raise RuntimeError('fixed3 job already claimed in any output or checkout')
+                raise RuntimeError('fixed job already claimed in any output or checkout')
             summary = self.summarize()
             names = {v['name'] for v in summary['routes']}
             index = len(names)
@@ -82,6 +86,7 @@ class Execution:
                 raise RuntimeError('previous recovery process failed or unknown; no automatic continuation')
             for name in self.flow.r.EXECUTION_ORDER[:index]:
                 self.flow.n.require_consumed(out, self.flow.r.jobs(out)[name], self.flow.s.doc(self.marker(name)))
+            if summary['reservedMicrousd']+job['reservedMicrousd']>self.flow.r.MAX_USD*1000000 or summary['newReservedMicrousd']+job['reservedMicrousd']>self.flow.r.NEW_USD or summary['claimedCalls']+job['maxCalls']>self.flow.r.CAMPAIGN_CALLS or summary['claimedAttempts']+job['maxAttempts']>self.flow.r.CAMPAIGN_ATTEMPTS:raise RuntimeError('fixed whole-allocation caps exhausted before Key')
             identity = {k: auth[k] for k in ('round', 'validationRound', 'nativeRenewalId', 'spendingGuardPolicyId', 'spendingGuardSourceSHA256', 'requestText', 'requestReference', 'actualHumanApprovalSHA256', 'maxCalls', 'maxAttempts', 'campaignMaxCalls', 'campaignMaxAttempts', 'newReservedMicrousd', 'retainedReservedMicrousd', 'maxUSD', 'automaticProcessReruns', 'predecessor', 'eligibilityAuthorizationSHA256', 'raceAuthorizationSHA256')}
             proof = base / 'operator-authority.json'
             if proof.exists():
@@ -113,7 +118,7 @@ class Execution:
         self.flow.r.c.dump(intent, record)
         usd = out / (job['name'] + '-usd.json')
         env = job['environment'] | dict(BARNESS_FINAL_ROUND=self.flow.r.SPENDING_GUARD_POLICY_SELECTOR, BARNESS_FINAL_BUDGET=str(usd))
-        self.flow.r.c.dump(usd, dict(schema=1, round=self.flow.r.SPENDING_GUARD_POLICY_SELECTOR, maxMicrousd=reserve, reservedMicrousd=0, attempts=0, basis='Unchanged campaign2 spending policy; execution authority is explicitly bound, no refund, not invoice.'), exclusive=True)
+        self.flow.r.c.dump(usd, dict(schema=1, round=self.flow.r.SPENDING_GUARD_POLICY_SELECTOR, maxMicrousd=reserve, reservedMicrousd=0, attempts=0, basis='Bound campaign2 spending policy; execution authority is explicitly bound, no refund, not invoice.'), exclusive=True)
         argv = job['argv']
         proxy = job['networkRoute']
         if proxy != 'direct':
