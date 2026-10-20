@@ -52,14 +52,18 @@ type Catalog struct {
 // builtinDeepSeekResponsesModels).
 func BuiltinCatalog() Catalog {
 	minimax := builtinMiniMaxCatalog()
+	regional := builtinRegionalCatalog()
 	version := "2026-10-17.2"
 	if len(minimax.Models) > 0 {
 		version = minimax.Version
 	}
+	if len(regional.Models) > 0 {
+		version = regional.Version
+	}
 	return Catalog{
 		Version: version,
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
-			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models),
+			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models, regional.Models),
 		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels()),
 		ClassifierModels: slices.Concat(builtinTypeSafeModels(), builtinDecisionsModels()),
 	}

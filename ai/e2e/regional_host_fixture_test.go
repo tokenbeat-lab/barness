@@ -24,13 +24,10 @@ type regionalHostWorld struct {
 
 func newRegionalHostWorld(t *testing.T) *regionalHostWorld {
 	t.Helper()
-	candidate, err := regional.CandidateCatalog()
+	cat, err := regional.QualificationCatalog(ai.BuiltinCatalog())
 	if err != nil {
 		t.Fatal(err)
 	}
-	cat := ai.BuiltinCatalog()
-	cat.Version = "regional-host-qualified-candidate-2026-10-20.1"
-	cat.Models = append(cat.Models, candidate.Models...)
 	resolvers := map[ai.ProviderID]ai.CredentialResolver{}
 	reads := map[ai.ProviderID]int{}
 	gauges := probe.New()

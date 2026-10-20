@@ -19,6 +19,8 @@
 
 - [08 ZAI Messages GLM-5.2 原生推理资格](issues/08-zai-messages-glm52-native-qualification.md)：07 的实际真实失败；独立公共 Client 离线复现表明捕获无原生字段，保留资格缺口和后续授权边界。
 
+- [11 地区目录受控晋升](issues/11-regional-catalog-promotion.md)：inactive 生产 hook、六 own candidate 严格 consumer/独占 intent、不可激活的 controlled 提案和两态 Host 组合已实现；候选正式显示名与 `.2` snapshot 固定。实际 live 晋升仍等待 08 资格及最终审查，状态见 spec。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。

@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -18,18 +19,28 @@ func TestRegionalProviderCatalog(t *testing.T) {
 	ev.Record("candidate-catalog-hash", hash)
 	ev.Check("valid complete identity catalog", err == nil && hash != "", "%v", err)
 	ev.Check("official source hashes match retained bytes", regional.VerifySources() == nil, "source verification failed")
+	promotedCount := 0
 	for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
 		for _, id := range []string{"glm-5.3", "glm-5.2"} {
 			model, ok := cat.Lookup("zai", api, id)
+			ev.Check("production GLM display name is stable", ok && model.Name == "Z.AI GLM-"+id[4:], "name=%s", model.Name)
 			ev.Check("international GLM own direct USD rates", ok && model.Cost.Input == 1.4 && model.Cost.Output == 4.4 && model.Cost.CacheRead == 0.26 && model.Cost.CacheWrite == 0, "id=%s api=%s", id, api)
-			_, promoted := ai.BuiltinCatalog().Lookup("zai", api, id)
-			ev.Check("new identity is not prematurely promoted", !promoted, "id=%s api=%s", id, api)
+			formal, promoted := ai.BuiltinCatalog().Lookup("zai", api, id)
+			if promoted {
+				promotedCount++
+			}
+			ev.Check("promoted identity retains independent own facts", !promoted || reflect.DeepEqual(formal, model), "id=%s api=%s", id, api)
 		}
 		model, ok := cat.Lookup("minimax-cn", api, "MiniMax-M3")
+		ev.Check("production China display name is stable", ok && model.Name == "MiniMax-M3 中国站", "name=%s", model.Name)
 		ev.Check("China MiniMax uses fixed own CNY-to-USD estimate", ok && model.Cost.Input == 0.3124070217 && model.Cost.Output == 1.2496280869 && model.Cost.CacheRead == 0.0624814043 && len(model.Cost.Tiers) == 1 && model.Cost.Tiers[0].InputTokensAbove == 512000, "model=%+v", model)
-		_, promoted := ai.BuiltinCatalog().Lookup("minimax-cn", api, "MiniMax-M3")
-		ev.Check("China MiniMax candidate stays outside builtin", !promoted, "promoted=%t", promoted)
+		formal, promoted := ai.BuiltinCatalog().Lookup("minimax-cn", api, "MiniMax-M3")
+		if promoted {
+			promotedCount++
+		}
+		ev.Check("China MiniMax promotion retains independent own facts", !promoted || reflect.DeepEqual(formal, model), "promoted=%t", promoted)
 	}
+	ev.Check("formal activation is all nine identities or none", promotedCount == 0 || promotedCount == 9, "promoted=%d", promotedCount)
 	candidates := regional.Candidates()
 	ev.Record("candidate-status", candidates)
 	ev.Check("nine own source/status/price records", len(candidates) == 9, "count=%d", len(candidates))
