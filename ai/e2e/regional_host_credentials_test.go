@@ -11,7 +11,7 @@ import (
 
 func TestRegionalProviderHostCredentialOwnership(t *testing.T) {
 	for _, service := range []ai.ProviderID{ai.ProviderZhipu, ai.ProviderMiniMax} {
-		for _, failure := range []string{"provider", "tenant", "account", "purpose", "reference", "inactive", "api", "version"} {
+		for _, failure := range []string{"provider", "tenant", "account", "purpose", "reference", "inactive", "api", "version", "endpoint"} {
 			t.Run(string(service)+"/"+failure, func(t *testing.T) {
 				ev := run.Case(t, "regional-host-credential-"+string(service)+"-"+failure)
 				secretReads := 0
@@ -78,7 +78,12 @@ func TestRegionalProviderHostCredentialOwnership(t *testing.T) {
 				}
 				w := newWorldWith(t, func(c *ai.Config) { c.Credentials = credentials }, tenantA)
 				b := bindings[0]
-				b.Endpoint = w.provider.URL()
+				if failure == "endpoint" {
+					b.Endpoint = "https://api.z.ai/api/paas/v4"
+					if service == ai.ProviderMiniMax {
+						b.Endpoint = "https://api.minimax.cn/v1"
+					}
+				}
 				w.host.PutBinding(b)
 				result, err := w.client.Complete(ctxFor(t), ai.CallScope{TenantID: tenantA.tenant, RequestID: "ownership"}, ai.Target{BindingID: b.BindingID, ModelID: b.AllowedModels[0]}, ai.Request{}, ai.ChatOptions{MaxTokens: ai.Value(64)})
 				ev.Record("result", result)

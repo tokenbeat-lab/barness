@@ -56,7 +56,14 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 		}
 		requested += limit
 		reserved += max(2048, len(xs[0].RequestBody)+1024)
-		u := result.Message.Usage
+		message, err := result.Message.assistant()
+		if err != nil || len(result.Metadata.Attempts) != 1 {
+			return refuse("regional raw totals lack Result attempt")
+		}
+		u, err := verifyRegionalResponse(root, r, s, xs[0], message, result.Metadata.Attempts[0])
+		if err != nil {
+			return err
+		}
 		input += int(u.Input + u.CacheRead + u.CacheWrite)
 		output += int(u.Output)
 	}

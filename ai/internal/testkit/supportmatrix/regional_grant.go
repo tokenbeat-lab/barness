@@ -10,7 +10,7 @@ import (
 )
 
 // RegionalGrant is a new, explicit one-process authorization. The harness
-// atomically consumes a separate .used receipt before sending any request;
+// atomically consumes the trusted repository reservation before any request;
 // historical providers' grants, ledgers and remaining budgets never qualify.
 type RegionalGrant struct {
 	Mode                     string    `json:"mode"`

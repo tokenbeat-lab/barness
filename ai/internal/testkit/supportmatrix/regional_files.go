@@ -168,15 +168,8 @@ func verifyRegionalBundle(dir string, r Report) error {
 	if read("regional-execution-source.json", &recorded) != nil || err != nil || !reflect.DeepEqual(recorded, current) || r.Regional.SourceSHA256 != RegionalSourceHash(recorded) {
 		return refuse("regional execution source drift")
 	}
-	var origin struct {
-		Schema                int
-		GrantID               string `json:"grantId"`
-		GrantSHA256           string `json:"grantSha256"`
-		Combo, Session, Mode  string
-		StartedAt             time.Time `json:"startedAt"`
-		MaxCalls, MaxAttempts int
-	}
-	if read("regional-authorization-receipt.json", &origin) != nil || origin.Schema != 1 || origin.Mode != r.Regional.Mode || origin.GrantID != r.Regional.GrantID || origin.GrantSHA256 != r.Regional.GrantSHA256 || origin.Combo != r.Combo || origin.Session != filepath.Base(dir) || origin.StartedAt.Before(r.StartedAt) || origin.StartedAt.After(r.FinishedAt) || origin.MaxCalls != 24 || origin.MaxAttempts != 24 {
+	var origin RegionalReservation
+	if read("regional-authorization-receipt.json", &origin) != nil || origin.Schema != 2 || origin.Mode != r.Regional.Mode || origin.GrantID != r.Regional.GrantID || origin.GrantSHA256 != r.Regional.GrantSHA256 || origin.Combo != r.Combo || origin.Session != filepath.Base(dir) || origin.StartedAt.Before(r.StartedAt) || origin.StartedAt.After(r.FinishedAt) || origin.MaxCalls != 24 || origin.MaxAttempts != 24 {
 		return refuse("regional original authorization receipt differs")
 	}
 	grantRaw, err := regionalRead(root, "regional-grant.json")
@@ -186,6 +179,9 @@ func verifyRegionalBundle(dir string, r Report) error {
 	var grant RegionalGrant
 	if json.Unmarshal(grantRaw, &grant) != nil || grant.Check(r.Combo, r.StartedAt) != nil || grant.Stage != r.Regional.Stage || grant.Mode != r.Regional.Mode || grant.ID != r.Regional.GrantID || grant.AccountAlias != r.AccountAlias || grant.RegionAlias != r.Regional.RegionAlias {
 		return refuse("regional own authorization target differs")
+	}
+	if err := verifyRegionalReservation(grant, origin); err != nil {
+		return err
 	}
 	if err := verifyRegionalTotals(root, r); err != nil {
 		return err

@@ -34,7 +34,9 @@ go run ./ai/live/cmd/regionalverify -grant-template zai-chat
 
    默认不使用环境代理。如确需已获准的代理，只能通过 `BARNESS_REGIONAL_PROXY` 显式指定 loopback HTTP 代理；它不改变记录的官方目标。真实模式禁止 `BARNESS_REGIONAL_CONTROLLED`。禁止使用 shell trace 或将 key 放入命令行参数。
 
-4. 运行 `regionalverify -qualify <原生目录>`，保留进程退出码、argv、时间、source/build/binary SHA 和所有原件。grant 同目录的 `.used` 文件在首次发送前独占创建并持久化；失败、取消或成功后都不能重用。
+4. 运行 `regionalverify -qualify <原生目录>`，保留进程退出码、argv、时间、source/build/binary SHA 和所有原件。首次发送前在可信 Git common directory 的 `barness-regional-grants/` 账本中持锁独占保留授权的规范 scope 和 ID，并完成文件及目录同步。所有 linked worktree 共用此授权域，复制/移动 grant 或只改 ID 均不能重置预算；失败、取消或成功后都不能重用。旧 `.used` 原件保留，不迁移、不覆盖。
+
+账本属于可信 Host 的授权存储，权限仅限运行 Host；不能复制仓库建立新授权域来复用批准，也不能删除、编辑或从旧备份回滚账本。它不防范有权修改批准或 Git common directory 的管理员，也不是跨独立仓库/主机的分布式审批服务。新运行需要独立批准的新 ID 和新 scope（包括获准有效期），不能只改标签续用旧预算。中断或部分写入永久占用该批准；消费者要求两份完整保留原件与原生回执字节一致，缺失、部分或歧义保留均拒绝，Host 必须保留失败记录并重新申请批准。
 
 每进程最多 24 个逻辑调用和 24 次 HTTP Attempt，零重试；单调用最多 120 秒，进程 1800 秒。单次输出预留取 `min(4096, 自身目录 MaxTokens)`，累计上限 98304。输入按实际编码 wire 字节加 1024、至少 2048 预留，累计不超过 120000；超额在发送前拒绝。每型号固定验证 full/simple 的 stream/complete、Host 工具调用和结果、原生历史、内容后取消与恢复，共九项。ZAI 每路由两型号 18 次，MiniMaxCN 每路由一型号 9 次。未报用量、未知缓存写价、截断、错误终态或缺任一原件均不能认证通过。
 
@@ -42,6 +44,6 @@ go run ./ai/live/cmd/regionalverify -grant-template zai-chat
 
 候选资格通过后仍需独立审阅型号事实并晋升正式目录。正式阶段使用 `-grant-template <combo> -stage formal` 生成新授权，再设置 `BARNESS_REGIONAL_STAGE=formal` 并运行 `^TestRegionalFormal$`。目录尚未晋升、与自身事实不一致或原源码已变化会拒绝，候选捕获不能替代正式运行。
 
-`regional-report.json`、原始授权/回执、完整执行源码、目录与来源快照、manifest、audit 和所有型号用例必须同属一个原生 bundle。消费器重新核对实际端点/模型/账户/Provider/API/SDK、预留与用量总计、每项单次 Attempt、事件终态、Host 工具配对、原生 reasoning 和资源归零，并拒绝隐藏、缺失、额外或改动文件。只有 `-formal` 通过的 `live-report.json` 可进入支持矩阵，按该自身 row 合并，不认证兄弟站点或另一个型号。
+`regional-report.json`、原始授权/回执、完整执行源码、目录与来源快照、manifest、audit 和所有型号用例必须同属一个原生 bundle。消费器重新核对实际端点/模型/账户/Provider/API/SDK、预留与用量总计、每项单次 Attempt、事件终态、Host 工具配对、原生 reasoning 和资源归零，并拒绝隐藏、缺失、额外或改动文件。原始响应通过公共 Client 的现有 SDK/协议解析器独立重放；完成调用的正文、工具、推理/签名、原生状态、终态、用量数值/报告完整度和估算必须与保存的 Result/Attempt/Observer 相符，预算总计取独立解析用量。缺少、部分与明确零值用量保持不同。取消允许未完成帧、缺少终态/用量和已捕获但尚未发出的 read-ahead；保存的内容/原生字段必须为实际观察前缀，用量必须由该完整帧前缀支持。离线重放不发网络请求，也不产生真实服务资格。只有 `-formal` 通过的 `live-report.json` 可进入支持矩阵，按该自身 row 合并，不认证兄弟站点或另一个型号。
 
 发布计划追加六条路线到旧 17 条；原有八项冻结差分保留，并追加 ZAI Chat 与中国 MiniMax Messages 的真实冻结差分，其余四条按精确 Provider/API 注册扩展。`REGIONAL-R01..R20` 和 `REGIONAL-RP01..RP20` 各自固定完整有限 case ID 集，不能用一个匹配 PASS 替代全部验收。涉及真实资格的条目还依赖 `LIVE`。历史 GLM 捕获仍保留原件与事实；共享运行源码改变后，原生消费者应拒绝其作为当前支持，不刷新 pin 或时间掩盖过期。

@@ -53,7 +53,7 @@ func (b boundHooks) headers(ctx context.Context, merged http.Header) (http.Heade
 		}
 	}
 	err := func() (err error) {
-		if b.identity.ProviderID == ProviderZhipu || b.identity.ProviderID == ProviderZAI || b.identity.ProviderID == ProviderMiniMax || b.identity.ProviderID == ProviderMiniMaxCN {
+		if recoversCallbackPanics(b.identity.ProviderID) {
 			defer recoverCallbackPanic(&err)
 		}
 		return b.hooks.TransformHeaders(ctx, b.scope, view)
@@ -101,7 +101,7 @@ func (b boundHooks) payload(ctx context.Context, body []byte, validate func(map[
 	}
 	p := &Payload{Operation: b.identity.Operation, ProviderID: b.identity.ProviderID, API: b.identity.API, ModelID: b.identity.ModelID, Body: decoded}
 	decision, err := func() (decision PayloadDecision, err error) {
-		if b.identity.ProviderID == ProviderZhipu || b.identity.ProviderID == ProviderZAI || b.identity.ProviderID == ProviderMiniMax || b.identity.ProviderID == ProviderMiniMaxCN {
+		if recoversCallbackPanics(b.identity.ProviderID) {
 			defer recoverCallbackPanic(&err)
 		}
 		return b.hooks.OnPayload(ctx, b.scope, p)
@@ -151,7 +151,7 @@ func (b boundHooks) response(ctx context.Context, res *http.Response) *Error {
 		ModelID:    b.identity.ModelID,
 	}
 	err := func() (err error) {
-		if b.identity.ProviderID == ProviderZhipu || b.identity.ProviderID == ProviderZAI || b.identity.ProviderID == ProviderMiniMax || b.identity.ProviderID == ProviderMiniMaxCN {
+		if recoversCallbackPanics(b.identity.ProviderID) {
 			defer recoverCallbackPanic(&err)
 		}
 		return b.hooks.OnResponse(ctx, b.scope, info)
@@ -175,6 +175,12 @@ func callbackFailure(ctx context.Context, err error, msg string) *Error {
 		return failure
 	}
 	return nil
+}
+
+// One provider policy governs all three callback boundaries. The regional
+// identities share the established GLM/MiniMax failure contract.
+func recoversCallbackPanics(provider ProviderID) bool {
+	return provider == ProviderZhipu || provider == ProviderZAI || provider == ProviderMiniMax || provider == ProviderMiniMaxCN
 }
 
 // GLM and MiniMax callbacks must settle the logical call instead of crashing its stream

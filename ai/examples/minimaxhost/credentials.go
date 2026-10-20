@@ -40,7 +40,7 @@ func (c Credentials) ResolveCredential(ctx context.Context, scope ai.CallScope, 
 	}
 	authorized := false
 	for _, expected := range routes {
-		if b.BindingID == expected.BindingID && b.TenantID == expected.TenantID && b.ProviderID == expected.ProviderID && b.API == expected.API && b.Operation == expected.Operation && b.AccountScopeID == expected.AccountScopeID && b.CredentialRef == expected.CredentialRef {
+		if b.BindingID == expected.BindingID && b.TenantID == expected.TenantID && b.ProviderID == expected.ProviderID && b.API == expected.API && b.Endpoint == expected.Endpoint && b.Operation == expected.Operation && b.AccountScopeID == expected.AccountScopeID && b.CredentialRef == expected.CredentialRef {
 			authorized = true
 			break
 		}
