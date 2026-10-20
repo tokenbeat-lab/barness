@@ -114,7 +114,7 @@ func thirdNativeHistory(root *os.Root, owner string, stop thirdStop, f RenewalSo
 	}
 	var g RenewalGrant
 	raw, e := cohortJSON(root, base+"grant.json", &g)
-	if e != nil || g.FourthCohort != nil || g.Schema != 4 || g.ThirdCohort != nil || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || !reflect.DeepEqual(g.Recovery, f.Recovery) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
+	if e != nil || g.FifthCohort != nil || g.FourthCohort != nil || g.Schema != 4 || g.ThirdCohort != nil || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || !reflect.DeepEqual(g.Recovery, f.Recovery) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
 		return fmt.Errorf("closed third original schema4 grant/history differs: %v", e)
 	}
 	pin := Hash(raw)

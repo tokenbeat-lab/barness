@@ -87,7 +87,7 @@ func unclaimedRenewalRoute(path string, id Identity, pin string) ([]Receipt, err
 // consumed; only this process may write the first reservation into its ledger.
 func (l Ledger) BeginRenewal() error {
 	renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL")
-	if renewal != FinalAcceptanceRenewalID && renewal != RecoveryRenewalID && renewal != Recovery4RenewalID && renewal != Recovery5RenewalID {
+	if renewal != FinalAcceptanceRenewalID && renewal != RecoveryRenewalID && renewal != Recovery4RenewalID && renewal != Recovery5RenewalID && renewal != Recovery6RenewalID {
 		return fmt.Errorf("only current fixed final renewal can begin")
 	}
 	id, e := Select(l.Identity.Route, M3, "standard")

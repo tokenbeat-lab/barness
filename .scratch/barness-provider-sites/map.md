@@ -29,6 +29,8 @@
 
 - [17固定恢复4](issues/17-fixed-fourth-recovery.md)：准备完整closed3历史、固定ID4及24进程新有限计划；所有实际新增批准/来源/预算/验收仍只由spec当前状态与其原件指针记录。本票不授予新调用。
 
+- [21 中国MiniMax Responses固定原生来源](issues/21-minimax-cn-responses-native-source.md)：自身原SSE公共回放证实工具响应未带native；预定自身文本源与严格consumer同步，保留独立工具链和所有实际失败。来源资格、后续有限准备/预算只见[spec当前状态](spec.md#当前状态)。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。

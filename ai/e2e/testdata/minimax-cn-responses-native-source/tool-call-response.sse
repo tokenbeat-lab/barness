@@ -1,0 +1,48 @@
+event: response.created
+data: {"type":"response.created","sequence_number":0,"response":{"id":"controlled-item-0-00000000000000","object":"response","created_at":0,"model":"MiniMax-M3","status":"in_progress","output":[],"output_text":null,"usage":null,"error":null,"incomplete_details":null,"instructions":null,"metadata":{},"tools":[{"type":"function","name":"inspect_regional","description":"Return the synthetic regional probe value for label alpha.","parameters":{"type":"object","properties":{"label":{"type":"string","enum":["alpha"]}},"required":["label"],"additionalProperties":false}}],"tool_choice":"auto","temperature":1,"top_p":0.95,"text":{"format":{"type":"text"}},"reasoning":{"effort":"high","summary":null},"max_output_tokens":2048,"max_tool_calls":null,"parallel_tool_calls":true,"previous_response_id":null,"conversation":null,"store":false,"service_tier":"standard","safety_identifier":null,"truncation":"disabled"}}
+
+event: response.in_progress
+data: {"type":"response.in_progress","sequence_number":1,"response":{"id":"controlled-item-0-00000000000000","object":"response","created_at":0,"model":"MiniMax-M3","status":"in_progress","output":[],"output_text":null,"usage":null,"error":null,"incomplete_details":null,"instructions":null,"metadata":{},"tools":[{"type":"function","name":"inspect_regional","description":"Return the synthetic regional probe value for label alpha.","parameters":{"type":"object","properties":{"label":{"type":"string","enum":["alpha"]}},"required":["label"],"additionalProperties":false}}],"tool_choice":"auto","temperature":1,"top_p":0.95,"text":{"format":{"type":"text"}},"reasoning":{"effort":"high","summary":null},"max_output_tokens":2048,"max_tool_calls":null,"parallel_tool_calls":true,"previous_response_id":null,"conversation":null,"store":false,"service_tier":"standard","safety_identifier":null,"truncation":"disabled"}}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","sequence_number":2,"item":{"id":"controlled-item-1-000000000000000000","type":"message","status":"in_progress","role":"assistant","content":[]},"output_index":0}
+
+event: response.content_part.added
+data: {"type":"response.content_part.added","sequence_number":3,"part":{"type":"output_text","text":"","annotations":[]},"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","sequence_number":4,"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000","delta":"I'll"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","sequence_number":5,"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000","delta":" call the"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","sequence_number":6,"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000","delta":" tool with the"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","sequence_number":7,"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000","delta":" specified label."}
+
+event: response.output_text.done
+data: {"type":"response.output_text.done","sequence_number":8,"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000","text":"I'll call the tool with the specified label."}
+
+event: response.content_part.done
+data: {"type":"response.content_part.done","sequence_number":9,"part":{"type":"output_text","text":"I'll call the tool with the specified label.","annotations":[]},"output_index":0,"content_index":0,"item_id":"controlled-item-1-000000000000000000"}
+
+event: response.output_item.done
+data: {"type":"response.output_item.done","sequence_number":10,"item":{"status":"completed","role":"assistant","content":[{"type":"output_text","text":"I'll call the tool with the specified label.","annotations":[]}],"id":"controlled-item-1-000000000000000000","type":"message"},"output_index":0}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","sequence_number":11,"item":{"call_id":"controlled-call-2-00000000000","name":"inspect_regional","arguments":"","id":"controlled-item-3-0000000000000000000","type":"function_call","status":"in_progress"},"output_index":1}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","sequence_number":12,"output_index":1,"item_id":"controlled-item-3-0000000000000000000","delta":"{\"label\":\"alpha\"}"}
+
+event: response.function_call_arguments.done
+data: {"type":"response.function_call_arguments.done","sequence_number":13,"output_index":1,"item_id":"controlled-item-3-0000000000000000000","name":"inspect_regional","arguments":"{\"label\":\"alpha\"}"}
+
+event: response.output_item.done
+data: {"type":"response.output_item.done","sequence_number":14,"item":{"id":"controlled-item-3-0000000000000000000","type":"function_call","status":"completed","call_id":"controlled-call-2-00000000000","name":"inspect_regional","arguments":"{\"label\":\"alpha\"}"},"output_index":1}
+
+event: response.completed
+data: {"type":"response.completed","sequence_number":15,"response":{"id":"controlled-item-0-00000000000000","object":"response","created_at":0,"model":"MiniMax-M3","status":"completed","output":[{"id":"controlled-item-1-000000000000000000","type":"message","status":"completed","role":"assistant","content":[{"type":"output_text","text":"I'll call the tool with the specified label.","annotations":[]}]},{"id":"controlled-item-3-0000000000000000000","type":"function_call","status":"completed","call_id":"controlled-call-2-00000000000","name":"inspect_regional","arguments":"{\"label\":\"alpha\"}"}],"output_text":"I'll call the tool with the specified label.","usage":{"input_tokens":461,"output_tokens":38,"total_tokens":499,"input_tokens_details":{"cached_tokens":460}},"error":null,"incomplete_details":null,"instructions":null,"metadata":{},"tools":[{"type":"function","name":"inspect_regional","description":"Return the synthetic regional probe value for label alpha.","parameters":{"type":"object","properties":{"label":{"type":"string","enum":["alpha"]}},"required":["label"],"additionalProperties":false}}],"tool_choice":"auto","temperature":1,"top_p":0.95,"text":{"format":{"type":"text"}},"reasoning":{"effort":"high","summary":null},"max_output_tokens":2048,"max_tool_calls":null,"parallel_tool_calls":true,"previous_response_id":null,"conversation":null,"store":false,"service_tier":"standard","safety_identifier":null,"truncation":"disabled"}}
+

@@ -124,7 +124,7 @@ func (s *regionalSession) request(model, kind string) (ai.Request, error) {
 			return ai.Request{}, fmt.Errorf("own model tool prerequisite absent")
 		}
 		req.Messages = []ai.Message{ai.UserText("Call inspect_regional with label alpha. You must use this tool before answering. Think through the request first."), m}
-		if kind == "native-history" && (s.p.report.Combo == "zai-chat" || s.p.report.Combo == "zai-responses") {
+		if kind == "native-history" && supportmatrix.RegionalNativeSourceCase(s.p.report.Combo, model) == supportmatrix.RegionalCaseID(s.p.report.Combo, model+"/full-stream") {
 			first, ok := s.native[model]
 			if !ok {
 				return ai.Request{}, fmt.Errorf("fixed own native source prerequisite absent")
@@ -146,6 +146,7 @@ func (s *regionalSession) request(model, kind string) (ai.Request, error) {
 
 func (s *regionalSession) execute(t *testing.T, i int) {
 	row := &s.p.report.Scenarios[i]
+	sourceCase := supportmatrix.RegionalNativeSourceCase(s.p.report.Combo, row.Model)
 	_, kind, _ := strings.Cut(row.ID, "/")
 	req, err := s.request(row.Model, kind)
 	if err != nil {
@@ -252,12 +253,12 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 		cs.Check("Host validates complete own tool", valid, "tool validation")
 		if valid && err == nil {
 			s.tools[row.Model] = result.Message
-			if s.p.report.Combo != "zai-chat" && s.p.report.Combo != "zai-responses" {
+			if sourceCase == row.CaseID {
 				s.native[row.Model] = result.Message
 			}
 		}
 	}
-	if kind == "full-stream" && (s.p.report.Combo == "zai-chat" || s.p.report.Combo == "zai-responses") && err == nil {
+	if kind == "full-stream" && sourceCase == row.CaseID && err == nil {
 		s.native[row.Model] = result.Message
 	}
 	if kind == "tool-result" || kind == "native-history" {
