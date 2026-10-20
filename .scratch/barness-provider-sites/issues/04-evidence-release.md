@@ -32,3 +32,6 @@ Blocked by: 01, 02, 03
 证据索引：根工作区 `.evidence/provider-sites/release/index.json`。最终源码冻结后的三条实际 PASS 回执分别为 `27-integrated-release/receipt.json`（新 Release E2E 与原发布合同/CLI/当前目录回归）、`28-consumer-packages/receipt.json`（release 与 supportmatrix 包完整测试）、`29-live-tag-keyless/receipt.json`（live tag 编译与无 opt-in 的 NOT_RUN 行为）。六条受控原生 bundle 均位于永久证据目录，覆盖九个新型号身份的 81 次受控 HTTP Attempt；材料的 mode 保持 controlled，独立消费及篡改拒绝通过。
 
 边界：新增九个身份自身真实 live、目录晋升及晋升后的新 formal 运行均 `NOT_RUN`，新矩阵保持候选未认证；全局正式验收与 release 仍未通过。旧来源适用性由原生 freshness 检查拒绝；本票未把旧捕获重新标为当前证明。root 后续统一执行原始 checkout 的全量普通门禁与双轴审查。map.md 由 root 统一维护。
+
+
+2026-10-20 整合补记：上述 `.used` 路径记账是本票原始版本，后续双轴审查已替换为可信 Git common directory 内的持久原子 grant ID / 规范 UTC scope 预留，涵盖复制、改名、重标 ID、并发与部分写失败。原始失败和最终复审见 [审查](../evidence/review.md)；最终事实见 [整合索引](../evidence/verification.md)，不改写原轮次记录。

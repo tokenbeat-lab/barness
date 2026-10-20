@@ -46,3 +46,70 @@ Original captures/source pins were preserved. Only offline consumers and synthet
 
 
 Standards 复审指出：同一 `ExpiresAt` instant 的不同 UTC offset 经 time.Time JSON 编码可能得到不同 scope hash；应规范 UTC 后再生成 semantic scope。该回合未完成最终报告（工具内容过滤），未计为复审通过；由公共 E2E 红绿与后续独立复审继续验证。
+
+
+## 最终独立复审
+
+两轴独立复审固定 `83a7940290176b2889482fd7f58d67be07ccc0d1`；最终普通受测 `d4b63d9` 与该来源的差别仅为下述三个旧 golden 与 GLM 断言迁移，另经两轴独立补审。原四项 P1、追加两项 P1 及 maintenance 判断全部修复；各轴无剩余可操作发现。没有将未运行的真实资格或 race 计为通过。
+
+### Standards 最终报告
+
+Standards follow-up review: `83a7940290176b2889482fd7f58d67be07ccc0d1`, read-only. **No remaining concrete correctness finding in the reviewed fixes.**
+
+- **Resolved — prior P1 grant reuse, including equivalent expiry offsets.** `ai/internal/testkit/supportmatrix/regional_reservation.go:52–59` clears ID and converts `ExpiresAt` to UTC before marshaling the semantic scope. Equal instants therefore have one timestamp representation. Reservation and consumption verification use that same key derivation. The trusted Git common-directory store reserves scope and ID under an exclusive nonblocking lock; exclusive creation, file/parent-directory synchronization, retained partial records, and exact authoritative receipt bytes preserve the local fail-closed behavior (`:65–158`; `regional_files.go:183`). Retained final ordinary evidence shows copied, relabeled, concurrent and offset variants each allow one reservation and reject the other before sending; partial records reject both with zero requests. The offset case retained its earlier RED before the fix.
+
+- **Resolved — prior P1 credential target mismatch.** `ai/examples/glmhost/credentials.go:43` and `ai/examples/minimaxhost/credentials.go:43` compare the supplied endpoint against the independently authorized route before `ReadSecret`. Explicit gateways remain valid through `Authorization.Endpoints` and `TrustedGateway`. Parent evidence records both wrong-market cases passing with zero secret reads and successful legitimate Host routes.
+
+- **Resolved — maintenance judgment.** `ai/hooks_run.go:182–184` centralizes the exact existing four-provider recovery policy. All three callback boundaries use it; other providers retain their prior behavior.
+
+Independently compared traceability objects: all 394 legacy mappings are unchanged; the 40 regional items retain every old required case and change only additive `requiredCases`.
+
+Evidence inspected: `.evidence/provider-sites/review-fixes/index.json` and `followup-1/index.json`, native case summaries and source at the reviewed commit. No new process experiment, network, credential, live, paid or race execution was performed for this follow-up.
+
+The trusted Git common directory is one approval domain. Independent repositories/hosts require the Host’s shared authority; this review does not claim distributed approval enforcement or complete release qualification.
+
+
+### Spec 最终报告
+
+Independent final Spec re-review of `83a7940290176b2889482fd7f58d67be07ccc0d1` (implementation `579b461`).
+
+- **RESOLVED — P1 malformed cancellation prefix.** `/Users/cyber/RestoX/barness/ai/internal/testkit/supportmatrix/regional_replay.go:130–139` now stops at the first complete invalid JSON event. Independently rebuilt the offline consumer and repeated the prior exact bypass on a fresh controlled-copy bundle: valid role frame → `{broken}` event → saved content now exits **1**, “canceled Result lacks observed raw prefix”. A valid upstream-error-before-content variant also refuses. No source/capture refresh was used.
+
+- **RESOLVED — original P1 raw terminal.** `regional_replay.go:110–121` still requires a successful decoded terminal and exact Result agreement. Independent `stop → error` mutation exits **1** with `upstream_error/stream`.
+
+- **RESOLVED — original P1 raw usage/output/native consistency.** `regional_replay.go:119–122,147–154` and `regional_totals.go:59–69` retain real Client decoding, exact message/reporting comparison and raw-derived totals. Independent missing-usage and contradictory-token mutations both exit **1**. Retained final evidence includes 72 passing raw-content/tool/native/usage/terminal and cancellation assertions.
+
+- **Preserved legal cases.** All six fresh controlled native bundles independently verify with exit **0**. Independent cancellation read-ahead and incomplete trailing-frame mutations also exit **0**. Existing partial-usage and explicit-zero captures remain accepted. The delta retains every prior required case and all 394 legacy mappings byte-equivalently; seven required cases are additive.
+
+**Remaining actionable Spec findings: none in the reviewed implementation/delta.** Evidence: `/tmp/barness-regional/spec-rereview-final-probes/`, including the reproduced negative and legal-positive CLI receipts. Original captures remain unchanged. Only offline consumers and clearly synthetic temporary copies were used; no live/vendor/paid/race execution. Formal own live, promotion, race and full ordinary release gates retain their actual pending status.
+
+
+### 最终测试迁移补审 — Standards
+
+Supplemental Standards review of `83a7940...228cc11` (`9f3a437`, `228cc11`): **no actionable finding**.
+
+Only three fixed cache-key literals and the existing public GLM import E2E changed. Independent Python SHA-256 computation over the exact v2 domain and length-prefixed tuples confirms OpenAI `73fbbf…dd9ab` and DeepSeek `feafe4…dc6be`; both OpenAI scenarios share the documented tuple.
+
+Retained command receipts show failing old expectations before each migration and successful targeted regressions afterward. The green manifests contain 31 and 56 PASS cases. These are corrections to established E2E expectations, with no new unit tests after production code.
+
+The derived GLM view now requires the exact importer-source refusal, independently records differing execution/importer snapshots, and retains the separate exact raw execution-source refusal. It does not broaden acceptance to arbitrary integrity errors or refresh old proof/pins.
+
+The diff changes no production, native execution-map input, archive or proof file. Independently compared all 47 historical vector-artifact Git blobs: zero changes. The `f384861…` execution-map remains applicable to these test-only changes.
+
+Inspected both supplied evidence indexes and retained artifacts. No test/process rerun, network, credential access, paid call or race execution occurred. Full ordinary audit remains the parent’s separate gate.
+
+
+### 最终测试迁移补审 — Spec
+
+Spec supplement: read-only review of `83a7940...228cc11a491dea3d33b1abedac1f08bab070bff1` (including `9f3a437`).
+
+**No actionable findings.** The diff changes exactly three fixed golden cache-key literals plus GLM historical-report assertions; no production implementation, proof, pin or historical vector changes.
+
+The OpenAI and DeepSeek literals follow R11’s exact v2 domain and big-endian length-prefixed Tenant/actual Provider/Account/Session algorithm. The independent Python vectors/census retain fixed expected outputs; surrounding wire payload assertions remain unchanged. No additional wire exception is introduced.
+
+The GLM derived-view expectation now matches the actual earlier guard in `glm_derivation.go:139–141`: exact `GLM consumer/importer source drift`, still requiring `ErrInvalidReport`. Tests independently compare current/captured importer and execution inventories, preserve the immutable matrix and reject refreshing the view. Direct raw-report/known-usage checks retain exact execution-source refusal; release audit retains exact integrity failure. This distinguishes failure boundaries without accepting stale evidence or weakening R18.
+
+Reviewed retained red/green receipts and source-inventory records: runtime map remains `f384861…`; controlled facts and historical originals remain intact. No new tests, live/vendor/paid/race execution or secret access occurred during this supplement.
+
+
+补审之后完整普通通过的实际结果见 [最终验证索引](verification.md)。报告引用的临时探针原件同时保留在仓库根 [审查目录](../../../.evidence/provider-sites/review/)；可持久化使用的修复/复审原生证据见 [首轮](../../../.evidence/provider-sites/review-fixes/index.json) 与 [边界轮](../../../.evidence/provider-sites/review-fixes/followup-1/index.json)。

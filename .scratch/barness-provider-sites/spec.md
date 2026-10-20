@@ -13,14 +13,19 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | 项目 | 当前状态 |
 | --- | --- |
 | 架构选择 | 已确定方案 2，记录于 ADR-0049 |
-| 本次交付 | 实施中；集成分支 `codex/barness-provider-sites`，01–03 已合并，04/06 与整合覆盖进行中 |
-| 文档核验 | 设计阶段引用检查为历史 PASS；实施后文档检查待完成 |
-| 生产实现与目录变更 | 协议配置、缓存 v2、准入 Provider、Host 装配及新增九个独立候选已合并；未晋升 BuiltinCatalog |
-| 本功能普通 E2E | 已有定向通过；最终普通集合、差分与压力待整合。工件见[实施索引](map.md)与各票 Answer |
-| 新身份自身真实验证 | NOT_RUN，尚无本功能新增付费合同 |
-| 旧真实来源适用性 | 当前原生消费者拒绝旧 GLM 源码证明：`GLM execution source drift`；原件与实际失败保留于 `.evidence/provider-sites/legacy-source-applicability/` |
-| race | NOT_RUN |
-| release.pass | false |
+| 本次交付 | 实现与普通验证已交付；分支 `codex/barness-provider-sites`，工单 01–06 均已解决。正式验收继续开放，feature 保持 claimed |
+| 文档核验 | 实施后合同、引用、格式及 500 行检查 PASS；收尾仅文档，执行来源集合保持不变 |
+| 生产实现与目录变更 | 四服务各三协议、12 路线 / 18 身份；缓存 v2、准入 Provider、Host 端点/用途与凭据隔离、独立候选及原生采集/消费已完成。新增九身份未晋升 BuiltinCatalog |
+| 本功能普通 E2E | 最终受测提交 `d4b63d9`；完整普通主包 13,244 原生场景全部 PASS，双 vet、差分、压力与原生审计通过；[最终验证索引](evidence/verification.md) / [机器索引](evidence/index.json) |
+| 双轴审查 | 初始及后续发现均由同一 implementer 修复，Standards 与 Spec 独立复审及测试迁移补审无剩余可操作问题；[原始与最终报告](evidence/review.md) |
+| 新身份自身真实验证 | NOT_RUN；六条新增支持路线 / 九个候选身份未取得自身 live、晋升与新 formal 证明。真实 Key 已按 ID 更新不替代独立用途、范围与预算授权 |
+| 旧真实来源适用性 | 旧 GLM 原始证明被当前执行来源检查拒绝；派生视图在 importer 来源检查精确拒绝。原件及不同拒绝阶段保留，见[验证索引](evidence/verification.md#保留的失败与范围) |
+| 正式前置 | BLOCKED（实际 exit 1）；未选旧 live / 四份效果输入，新六路线自身资格未完成；没有 READY_FOR_RACE checkpoint |
+| race | NOT_RUN；人工范围、命令、输入与预计耗时见[交接](evidence/verification.md#人工-race-与自身-live-交接) |
+| release.pass | false；完整正式验收继续开放 |
+| 实际厂商 / 付费调用 | 0；仅受控 loopback 与离线原生消费 |
+| 最终执行来源 | 完整 `ai/` 与 Go 依赖文件清单 Hash 为 `470682d37e2d1c839bf5609f6898f9a1e4dafbd3dbfcd2cb77f2048a530f3e05`，命令前后逐文件相等；事实与工具身份见最终索引 |
+
 
 现有 Provider 的原始支持与消费记录保持各自适用范围；本表不撤销历史事实，也不把历史通过计为本功能通过。实施后在此维护结果及原件指针，其他文档只链接此状态。
 

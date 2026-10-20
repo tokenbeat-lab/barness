@@ -1,0 +1,88 @@
+{
+  "schema": "barness-provider-sites-verification-index/v1",
+  "authoritative_state": "../spec.md#当前状态",
+  "verification": "verification.md",
+  "review": "review.md",
+  "tested_commit": "d4b63d9b2ecec3dc7fcbdadf3b849e31c83cd92e",
+  "source_scope": "complete tracked ai tree, go.mod and go.sum",
+  "source_sha256": "470682d37e2d1c839bf5609f6898f9a1e4dafbd3dbfcd2cb77f2048a530f3e05",
+  "runtime_execution_map_sha256": "f38486193de4d19980123968616286259eb97a6cc500a29f8eee7a18ae1a28bc",
+  "facts": {
+    "ordinary_exit_code": 0,
+    "ordinary_wall_seconds": 661.8834269172512,
+    "primary_native_cases": 13244,
+    "primary_native_pass": 13244,
+    "other_ai_package_native_pass": 23,
+    "native_audit_runs": 32,
+    "native_audit_findings": 0,
+    "differential_records": 889,
+    "differential_pending": 0,
+    "new_regional_differential_records": 21,
+    "old_wire_artifacts_compared": 3077,
+    "old_wire_artifacts_pass": 3077,
+    "actual_vendor_or_paid_calls": 0,
+    "race": "NOT_RUN",
+    "preflight_exit_code": 1,
+    "formal_ready_for_race_checkpoint": null
+  },
+  "originals": [
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/ordinary/receipt.json",
+      "sha256": "d754f7d0b4299b44cdd5e877c166e36d6edb358dc598d4b55d0e2a608db4008b"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/vet/receipt.json",
+      "sha256": "9d2d42dc7594c84319b89ea8cebe745dc00e7985fb50027121cb8dedfce037b9"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/vet-live/receipt.json",
+      "sha256": "b22d3e7aae015730c4d902c4739402f067418fcf7eba146c7a09de4e3b5b3e97"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/static/receipt.json",
+      "sha256": "e2cdd9352b6a8512dbc763e1756826b7ce19a7a3de84c7036eb0a1926fe23a1e"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/build-cli/receipt.json",
+      "sha256": "e1c48e09b863709d278a891a9ea955a289e059c67dfe1d9deddd2ec48b7f3272"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/preflight/receipt.json",
+      "sha256": "ba2a393b0d502bf0c2214f992994427f34bc460cd672cae5ceba02a04fe08841"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/wire-audit/receipt.json",
+      "sha256": "b53e2f52106af9f4ca34691c4c03493bdd4c86bd338cc933add4d51962a07771"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/ordinary/native-audit-summary.json",
+      "sha256": "3a44147b3adc14c977a7f7584dd9f6bce9c88b241875bed3ff5e9c593287aa73"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/ordinary/bundles/20261020T030404.702080000Z/manifest.json",
+      "sha256": "9e5d1aa03afa2c9f96cf5d27adbf9b1284ffb62bd28852a72215b22f183cebbe"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/ordinary/bundles/20261020T030406.644809000Z/manifest.json",
+      "sha256": "a8e9a9b007df55c120fdce7ba51d95347f5acd2f2633d04de4b05d83b041d14d"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-v4/wire-audit/comparison.json",
+      "sha256": "adea5bd68af17a67501f8c7f76b29026bff8bd28173bb24aa851747211d9b249"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/final-tools/toolchain.json",
+      "sha256": "ec98e7228658af210871a94337dce50d7a68f434ae4656c5a99ca083ab3cfe6f"
+    },
+    {
+      "path": "../../../.evidence/provider-sites/review/final/reports.json",
+      "sha256": "04f50a46cbd9971928f039c0e4d9c5401fc85b5ed818843163c7fe47723e6884"
+    }
+  ],
+  "scope_notes": [
+    "Primary and child Run counts remain separate. Expected failed authorization-child processes are negative controls, not vendor/live failures.",
+    "No own live qualification, promotion or formal support is claimed. See sole current state in spec.",
+    "Complete ordinary source identity and native runtime identity have different scopes.",
+    "Final closure documents are outside the tested execution-source scope."
+  ]
+}
