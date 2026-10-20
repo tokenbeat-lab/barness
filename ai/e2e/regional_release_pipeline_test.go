@@ -44,6 +44,9 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 	for _, combo := range []string{"zai-chat", "zai-responses", "zai-messages", "minimax-cn-chat", "minimax-cn-responses", "minimax-cn-messages"} {
 		t.Run(combo, func(t *testing.T) {
 			ev := run.Case(t, "RP18-capture-pipeline-"+combo)
+			if combo == "minimax-cn-responses" {
+				regionalMissingNativeSource(t, binary, combo)
+			}
 			route, _ := supportmatrix.RegionalRouteOf(combo)
 			srv := provider.New(map[string]string{"synthetic-regional-controlled": "key:regional-controlled"})
 			defer srv.Close()
@@ -54,6 +57,8 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 						reply, _, _, _ = zaiChatSource(t, model, kind)
 					} else if combo == "zai-responses" && (kind == "full-stream" || kind == "tool-call") {
 						reply = regionalZAIResponsesSource(t, model, kind)
+					} else if combo == "minimax-cn-responses" && (kind == "full-stream" || kind == "tool-call") {
+						reply = regionalCNResponsesSource(t, kind)
 					} else if kind == "tool-call" {
 						reply = regionalPipelineToolReply(t, ai.ProviderID(route.Provider), ai.API(route.API), model)
 					} else if kind == "cancel" {
@@ -141,7 +146,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				}
 			}
 			ev.Record("native-report", report)
-			if combo == "zai-chat" || combo == "zai-responses" {
+			if combo == "zai-chat" || combo == "zai-responses" || combo == "minimax-cn-responses" {
 				var source struct {
 					Regional struct{ NativeSourceCases map[string]string }
 				}
@@ -175,6 +180,10 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			ev.Check("candidate never becomes formal support", err != nil, "candidate certified")
 			if combo == "zai-responses" {
 				regionalResponsesNativeOriginals(t, dir)
+			}
+			if combo == "minimax-cn-responses" {
+				regionalCNResponsesNativeOriginals(t, dir)
+				regionalNativeSourceRefusals(t, dir, combo)
 			}
 			if combo == "zai-chat" || combo == "zai-responses" {
 				regionalMissingNativeSource(t, binary, combo)

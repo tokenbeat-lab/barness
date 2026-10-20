@@ -25,7 +25,7 @@ func regionalMissingNativeSource(t *testing.T, binary, combo string) {
 		route, _ := supportmatrix.RegionalRouteOf(combo)
 		for _, model := range supportmatrix.RegionalModels(combo) {
 			for _, kind := range []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"} {
-				reply := regionalTextReply(t, ai.ProviderZAI, ai.API(route.API), model)
+				reply := regionalTextReply(t, ai.ProviderID(route.Provider), ai.API(route.API), model)
 				if kind == "full-stream" && combo == "zai-chat" {
 					reply = chatEvents(t, []json.RawMessage{
 						json.RawMessage(`{"id":"source-without-native","model":"` + model + `","choices":[{"delta":{"content":"Synthetic source without reasoning."}}]}`),
@@ -34,7 +34,7 @@ func regionalMissingNativeSource(t *testing.T, binary, combo string) {
 					}, "")
 				}
 				if kind == "tool-call" {
-					reply = regionalPipelineToolReply(t, ai.ProviderZAI, ai.API(route.API), model)
+					reply = regionalPipelineToolReply(t, ai.ProviderID(route.Provider), ai.API(route.API), model)
 				}
 				if kind == "cancel" {
 					reply = regionalPipelinePrefix(t, ai.API(route.API))
@@ -61,13 +61,14 @@ func regionalMissingNativeSource(t *testing.T, binary, combo string) {
 		}
 		base := filepath.Join(filepath.Dir(run.Dir()), "regional-source-absent-native", filepath.Base(run.Dir()), combo)
 		cmd := exec.CommandContext(ctxFor(t), binary, "-test.run=^TestRegionalCandidate$", "-test.timeout=1800s")
-		cmd.Dir, cmd.Env = "../..", regionalChildEnvironment("BARNESS_REGIONAL_ROUTE="+combo, "BARNESS_REGIONAL_CONTROLLED="+srv.URL(), "BARNESS_REGIONAL_SERVICE=zai", "BARNESS_REGIONAL_GRANT="+path, "BARNESS_AI_EVIDENCE_DIR="+base)
+		cmd.Dir, cmd.Env = "../..", regionalChildEnvironment("BARNESS_REGIONAL_ROUTE="+combo, "BARNESS_REGIONAL_CONTROLLED="+srv.URL(), "BARNESS_REGIONAL_SERVICE="+route.Provider, "BARNESS_REGIONAL_GRANT="+path, "BARNESS_AI_EVIDENCE_DIR="+base)
 		raw, err := cmd.CombinedOutput()
 		ev.Record("process", map[string]any{"failed": err != nil, "output": regionalSafeOutput(raw), "argv": cmd.Args[1:], "vendorCalls": 0})
 		paths, _ := filepath.Glob(filepath.Join(base, "*", "manifest.json"))
-		if !ev.Check("missing predeclared source fails actual process", err != nil && len(paths) == 1 && len(srv.Requests()) == 18, "failed=%t calls=%d", err != nil, len(srv.Requests())) {
+		if !ev.Check("one original absence bundle", len(paths) == 1, "count=%d", len(paths)) {
 			return
 		}
+		ev.Check("missing predeclared source fails actual process", err != nil && len(srv.Requests()) == len(supportmatrix.RegionalExpected(combo)), "failed=%t calls=%d", err != nil, len(srv.Requests()))
 		dir := filepath.Dir(paths[0])
 		var report supportmatrix.Report
 		data, err := os.ReadFile(filepath.Join(dir, supportmatrix.RegionalReportFile))

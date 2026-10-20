@@ -38,3 +38,12 @@ ZAI 自身 Chat 与 Responses 的合法工具响应都可能只有工具调用�
 上述 ZAI Responses 固定来源合同将原生推理来源扩展到自身 `full-stream`；harness 与 `RegionalNativeSourceCase` 消费者同步。消费者属于国际 MiniMax 执行来源，因此这项验收设计变化同时使三条 M3 与六条地区 formal 的旧来源资格过期；不能通过刷新旧报告或缩小选择器继续使用。GLM 的保留取决于其完整245项执行来源逐项相等。此前真实 PASS／FAIL、父 UNKNOWN、grant／nonce／账本与美元占用均保留各自事实。
 
 离线受控流程只验证新来源合同、独立工具链及拒绝边界；新的真实执行必须另行形成完整有限计划、冻结来源与二进制、保留此前消费并经过明确批准。[工单16](../../.scratch/barness-provider-sites/issues/16-zai-responses-native-source.md)不新增实际轮次、执行授权或付费预算，实际状态继续只由[规格](../../.scratch/barness-provider-sites/spec.md)记录。
+
+
+## 中国 MiniMax Responses 的独立固定文本源
+
+恢复5自身MiniMax-M3工具响应在相同high请求下没有reasoning事件或原生item；terminal usage省略reasoning_tokens，公共归一值为0。旧自身相同请求曾返回推理，而本轮full-stream原件保存150字Thinking。公共Client原SSE逐字回放复现差异，没有parser丢弃的证据；“请求了推理”不能替代“本回合实际提供原生推理”。
+
+仅`minimax-cn-responses/MiniMax-M3`也在请求前固定自身full-stream为native-history来源。harness按同一固定合同保存原user/assistant前缀，随后保留独立工具用户/助手、Host结果及最终提示；严格消费者核对来源、作用域、精确前缀和真实summary/native wire。工具回合无Thinking仍是合法工具响应，但不能提供原生推理证明；指定文本源若空仍失败，即使另一工具回合有native也不得替代。生产协议、SDK、模型、guard和价格不改。
+
+代价是多保存一个自身文本回合、按实际最终wire计量输入，以及消费者合同进入M3执行来源而再次使三M3/六地区formal旧资格过期。GLM245字节不受此改动；八generic保留另须明确已审来源差异与公共wire/账本不变证明，不能自动扩张旧白名单。原FAIL/UNKNOWN/消费与美元预留不改，新的真实有限范围与授权另行准备。[21实施和原件](../../.scratch/barness-provider-sites/issues/21-minimax-cn-responses-native-source.md)，唯一实际验收状态仍见spec。

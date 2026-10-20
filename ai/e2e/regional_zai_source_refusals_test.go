@@ -54,16 +54,17 @@ func regionalNativeSourceRefusals(t *testing.T, original, combo string) {
 					t.Fatal(err)
 				}
 			}
-			source := supportmatrix.RegionalCaseID(combo, "glm-5.3/full-stream")
-			next := supportmatrix.RegionalCaseID(combo, "glm-5.3/native-history")
+			model := supportmatrix.RegionalModels(combo)[0]
+			source := supportmatrix.RegionalCaseID(combo, model+"/full-stream")
+			next := supportmatrix.RegionalCaseID(combo, model+"/native-history")
 			switch mode {
 			case "case", "model":
 				value := read(supportmatrix.RegionalReportFile).(map[string]any)
-				wrong := supportmatrix.RegionalCaseID(combo, "glm-5.3/tool-call")
+				wrong := supportmatrix.RegionalCaseID(combo, model+"/tool-call")
 				if mode == "model" {
 					wrong = supportmatrix.RegionalCaseID(combo, "glm-5.2/full-stream")
 				}
-				value["regional"].(map[string]any)["nativeSourceCases"].(map[string]any)["glm-5.3"] = wrong
+				value["regional"].(map[string]any)["nativeSourceCases"].(map[string]any)[model] = wrong
 				write(supportmatrix.RegionalReportFile, value)
 			case "tenant":
 				value := read(source + "/result.json").(map[string]any)
@@ -111,8 +112,18 @@ func regionalNativeSourceRefusals(t *testing.T, original, combo string) {
 					t.Fatal("synthetic wire mutation needs one ASCII letter")
 					return ""
 				}
-				if combo == "zai-responses" {
-					content := assistant["content"].(map[string]any)
+				if combo == "zai-responses" || combo == "minimax-cn-responses" {
+					content, _ := assistant["content"].(map[string]any)
+					if combo == "minimax-cn-responses" {
+						parts, _ := assistant["summary"].([]any)
+						if len(parts) != 1 {
+							t.Fatal("fixed own CN summary source missing")
+						}
+						content, _ = parts[0].(map[string]any)
+					}
+					if content == nil {
+						t.Fatal("fixed native wire part missing")
+					}
 					content["text"] = changeLetter(content["text"].(string))
 				} else if mode == "wire" {
 					assistant["reasoning_content"] = changeLetter(assistant["reasoning_content"].(string))
