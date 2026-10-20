@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "combo": "minimax-cn-responses",
+  "model": "MiniMax-M3",
+  "originalSourceCommit": "8c8342606390d37dff041f11de7ff3b8d82d12d5",
+  "originalNativeBundle": ".evidence/provider-sites/final-acceptance-20261020/recovery5/formal-minimax-cn-responses/20261020T225703.540330000Z",
+  "cases": [
+    {
+      "kind": "full-stream",
+      "files": {
+        "full-stream-response.sse": "3a30965f34db0f1b81c9c50a25557e11b77090530c3eb7c5399ca66e30a06738"
+      },
+      "reasoningSHA256": "96ae55c00845a526e2462facc9097e62ab8a7d9a0a4530823334f19d82260c61",
+      "reasoningCharacters": 150,
+      "originalResponseSHA256": "d7efe2b3778beb982608889368ae7819d4156f8df0fa0fec545e64357cefd622"
+    },
+    {
+      "kind": "tool-call",
+      "files": {
+        "tool-call-response.sse": "877cf9f0b3d5f6310d164a4735daad9239a945fee7078c7b01f42bf45991006d"
+      },
+      "reasoningSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reasoningCharacters": 0,
+      "originalResponseSHA256": "db781e48ac66dcdc1719071cb8257c8989d5f128798e5dcf03b880d9b358ed5f"
+    }
+  ],
+  "controlledToolCallID": "controlled-call-2-00000000000",
+  "kind": "SANITIZED_OWN_RESPONSE_PROTOCOL_FIXTURES",
+  "normalization": "Synthetic response/item/tool IDs and opaque native values at original lengths; zeroed timestamps. Exact original raw/body replay is retained outside Git."
+}

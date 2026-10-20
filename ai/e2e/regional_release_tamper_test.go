@@ -211,7 +211,9 @@ func regionalMutateRaw(t *testing.T, body, mutation string) string {
 						v[key] = "synthetic changed answer"
 						changes++
 					}
-					if mutation == "raw-thinking" && text != "" && (key == "reasoning_content" || key == "thinking" || key == "signature" || key == "text" && strings.Contains(text, "reasoning")) {
+					nativeText := key == "text" && (v["type"] == "reasoning_text" || v["type"] == "summary_text" || strings.Contains(text, "reasoning"))
+					nativeDelta := key == "delta" && (v["type"] == "response.reasoning_text.delta" || v["type"] == "response.reasoning_summary_text.delta")
+					if mutation == "raw-thinking" && text != "" && (key == "reasoning_content" || key == "thinking" || key == "signature" || nativeText || nativeDelta) {
 						v[key] = "synthetic changed native"
 						changes++
 					}
