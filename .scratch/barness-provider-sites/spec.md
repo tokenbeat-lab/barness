@@ -14,7 +14,7 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | --- | --- |
 | 架构选择 | 已确定方案 2，记录于 ADR-0049 |
 | 本次交付 | 实现与普通验证已交付；工单 01–06 已解决，[07 最终验收](issues/07-final-acceptance.md) 进行中。分支 `codex/barness-provider-sites`，feature 保持 claimed |
-| 最终续验准备 | 固定恢复3在实际6b87a584执行：三M3各13/13、ZAI Chat18/18 PASS；随后ZAI Responses完整18场景17 PASS/1 FAIL（glm-5.3/native-history的预固定tool-call源无推理），后19进程按约停止。[停止索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery3-stopped/index.json)。14/15范围完成，[16来源选择修复](issues/16-zai-responses-native-source.md)处理中；没有额外重跑批准 |
+| 最终续验准备 | 固定恢复3在实际6b87a584执行：三M3各13/13、ZAI Chat18/18 PASS；随后ZAI Responses完整18场景17 PASS/1 FAIL（glm-5.3/native-history的预固定tool-call源无推理），后19进程按约停止。[停止索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery3-stopped/index.json)。14/15范围完成，[16来源选择修复](issues/16-zai-responses-native-source.md)处理中；[17固定恢复4](issues/17-fixed-fourth-recovery.md)仅离线准备，尚无额外付费范围批准 |
 | 本轮 ZAI 原生推理研究 | 四次自身真实对照实际完成，4 Calls / 4 HTTP、零重试、合法终态；GLM-5.2 omitted 为 thinking0，enabled/budget1024/max4096 为 thinking97 / signature24，GLM-5.3 两形状均有原生块。工具 source 前后相同，Key 扫描零发现；只证实窄请求形状，尚未认证 native-history / 新候选。[固定研究事实](evidence/zai-thinking-research.md) |
 | 文档核验 | 上轮收尾静态检查 exit 0，固定合同、格式 / 500 行及 334 处本地引用 PASS；该记录只证明其原来源，本轮文档与冻结将在续验准备完成后另行核对 |
 | 生产实现与目录变更 | 四服务各三协议、12路线/18身份；实现与Host隔离已完成。新增九身份已由六条真实candidate独立证明后原生晋升BuiltinCatalog，版本2026-10-20.1-regional，Hash sha256:9f00cfa579948ea506ce56eb1f901572b03ea64bfcd9ff4fcae3cb5347a674a1；晋升后formal支持仍待认证 |
