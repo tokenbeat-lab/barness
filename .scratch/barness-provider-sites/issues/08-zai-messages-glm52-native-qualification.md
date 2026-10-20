@@ -25,6 +25,8 @@ Type: task
 
 ## Comments
 
+2026-10-20：独立复审清零后，固定续验2在同源 `ca03339` 完整实测ZAI Messages两型号18/18 PASS、18 Calls/18 HTTP、零重试，GLM-5.2 native-history与独立qualify均通过、audit零发现；六候选整体81/81后已独立晋升。[实际候选与晋升](../../../.evidence/provider-sites/final-acceptance-20261020/round2-candidate-results.json)。旧失败不改写，晋升后formal仍由07认证；完整验收另被13阻断，唯一当前状态见spec。
+
 2026-10-20：公共 Client / CLI 的 exact形状与采集请求、simple replay options 均已实际 RED→GREEN；自身原件、原生保留 / 受控续接、负向 metadata / hook / pre-secret 边界及有限 trace 完成，未发新真实调用。[实施证据](../evidence/zai-thinking-fix.md) 分别列出中间FAIL、最终普通 / 差分 / 双 vet实际结果。08继续 claimed，须独立复审、冻结后由根任务采新的整条真实 candidate 才能完成资格。
 
 2026-10-20：用户已批准完整有限轮次 US$30。四次真实 ZAI 对照完成：GLM-5.2 omitted 无原生块，精确 enabled/budget1024/max4096 返回 thinking97 / signature24；GLM-5.3 两形状均有原生块。4 Calls / 4 HTTP、零重试、合法终态，[完整自身研究](../evidence/zai-thinking-research.md)。这只证实窄控制形状，不表示 native-history 或候选资格完成；下一步公共 Client RED→GREEN、快照与 full 请求更新、独立复审后再采新候选。

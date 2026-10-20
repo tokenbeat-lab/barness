@@ -24,3 +24,7 @@ ZAI implementer 在独立 worktree 负责 harness、原生消费者及公共 Cli
 ## Acceptance
 
 公共边界 RED→GREEN、来源错配与缺失原生反例通过，独立审查无剩余问题。新来源重新冻结；六候选仍要求同 commit/build/binary，付费重验须新的有限授权。旧失败、grant / claim / 预算和关闭轮次不改写；新资格及完整验收完成前保持 claimed。
+
+## Comments
+
+2026-10-20：已合入并经Standards/Spec独立复审清零；固定续验2在 `ca03339` 同源实测ZAI Chat18/18 PASS、18 Calls/18 HTTP、独立qualify exit0、audit0，固定原生来源与完整工具链均通过。六候选整体81/81后已原生晋升九身份，原17/18失败保持关闭。自身formal及整体发布仍由07认证，当前另有13真实失败阻断，见[唯一状态](../spec.md#当前状态)。

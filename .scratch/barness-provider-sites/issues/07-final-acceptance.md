@@ -2,7 +2,7 @@
 
 Status: claimed
 Type: task
-Blocked by: 05, 08, 09, 10, 11, 12
+Blocked by: 05, 08, 09, 10, 11, 12, 13
 
 ## Context
 
@@ -17,6 +17,8 @@ Blocked by: 05, 08, 09, 10, 11, 12
 先重核完整普通事实、源码与工具；差分 / 压力开启的完整 `go test -json -race ./... -count=1 -timeout=75m` 写入新目录；保留实际数字退出、UTC、墙钟、原生 manifest / audit、来源前后清单与全部失败。不得将开发 race 冒充未取得的正式 `READY_FOR_RACE` checkpoint。当前真实资格、目录晋升、新 formal、23 份自身支持与四份效果必须全部符合现有原生消费者，才可宣称完整发布通过。
 
 ## Comments
+
+2026-10-20：原完整轮次及固定续验2均已收到明确批准，九服务资格及新READY后一次完整正式race选择保留。续验2实际六candidate81/81、六原生资格通过，九身份已原生晋升；中国GLM Chat完整22通过，Responses为21 PASS/1 FAIL，交[13](13-zhipu-responses-glm52-final-text.md)保留原生续接缺少最终可见文本的真实上游输出。余25进程未启动，没有GLM新raw/selectors发布、formal或新READY/race。实际预算和来源见[停止索引](../../../.evidence/provider-sites/final-acceptance-20261020/round2-stopped/index.json)，当前状态只在spec维护。
 
 2026-10-20：用户明确继续修复 08 并重取当前证据。晋升后全局 Catalog Hash 改变，全部旧 17 自身路线都需新采集；连同新增六条 formal 与四项效果，最终为 27 个自身原生输入。新有限计划涵盖研究最多四次、六 candidate / 六 formal、旧 17 / 四效果，最大 726 Calls / 762 HTTP，US$30；前置通过后一次正式完整 race 的具体审批已发出，尚未获答。09、10 只实施离线授权/采集机制，不授予付费。旧失败、已关闭预算和所有旧原件不变；实际状态只在 spec 维护。
 

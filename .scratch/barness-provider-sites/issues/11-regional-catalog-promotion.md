@@ -38,3 +38,7 @@ Type: task
 九份候选显示名固定为 `Z.AI GLM-5.2/5.3`、`MiniMax-M3 中国站`；共同版本 `.2`，snapshot/pin 同步更新；INCOMPLETE/NOT_RUN、官方原件及 source-files 均保持。08 若增加已证兼容事实，须在此基础上另升 `.3` 后再开始 candidate。
 
 公共 Client/CLI 逐片 RED→GREEN 原件和数字退出、UTC、source、argv 保留于 [普通验证索引](../../../.evidence/provider-sites/final-acceptance-20261020/promotion-dev/index.json)。最终受影响 regional 普通 E2E 717 PASS / 4 NOT_RUN（默认未开启的 PIDiff catalog/inventory），独立审计 0 findings；另行启用冻结差分补跑 22 PASS、21 份真实 PiDiff、审计 0（原始名称断言 RED 保留）；两条既有 result.name 说明仅改已选名称，路径/kind/cases/classification/有限ID集合完整相等回执见同一索引；四条非适用 extension 的 piParity 仍保持 NOT_RUN。原目录回归和限定 vet 通过。原生 bundle 和命令细节见索引。保留中间失败和审计纠正原文。未读取凭据、未调用真实服务、未运行 race、未激活九身份。最终真实晋升及整体验收继续由 [spec 唯一当前状态](../spec.md#当前状态) 维护。
+
+## Comments
+
+2026-10-20：上述Answer记录实施准备时的inactive状态。固定续验2六条自身candidate同commit/build/binary全部81/81且原生qualify通过后，根任务已执行原生晋升及catalog-pins；独占lineage Hash `d6c6e104f51df88d77481cb243fc561774a933ab4061e398fdb2a1b7b85028c1`，目录版本2026-10-20.1-regional，九身份metadata与自身候选完全一致。数据delta两轴复核零问题，晋升后重建并完成双vet/整个ai/live检查。新formal及完整发布仍未运行，当前状态只在spec维护。
