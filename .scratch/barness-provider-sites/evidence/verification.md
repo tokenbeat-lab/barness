@@ -49,6 +49,9 @@
 - 初版 wire 审计错误纳入非 wire 工件并比较跨流调度顺序，得到 21 个审计差异；[原始比较](../../../.evidence/provider-sites/final-v3/wire-audit/comparison.json) 保留。修订审计范围后通过，未放宽其他 wire 字段。
 - 其他 red、fixture/编译失误及目录名带 green/final 但实际退出非零的轮次，在各索引逐项保留；数字退出和原件优先于目录名。受控厂商替身的预期失败子进程不计为真实资格 FAIL，也不并入主包 PASS 数。
 
+
+收尾文档提交 `6d90ec8` 后的 [最终静态回执](../../../.evidence/provider-sites/final-v4/closure-static/receipt.json) 再次通过全部合同、格式、500 行及 287 处本地引用检查，完整执行来源仍与普通受测集合逐文件相等。五个干净且全部合并的实现 worktree 已安全移除，分支和根目录原生证据保留，见 [清理回执](../../../.evidence/provider-sites/final-v4/worktree-cleanup/receipt.json)。后续仅补本段及索引链接，不改变执行来源。
+
 ## 人工 race 与自身 live 交接
 
 本轮实际 race 为 `NOT_RUN`，实际付费/厂商调用为 0。预计完整开发 race 约 30–60 分钟（估算，不是测量或执行结果）。如人类明确选择该范围，可从本索引固定来源、相同输入与工具身份开始，使用新目录执行：
