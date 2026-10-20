@@ -12,10 +12,10 @@ import (
 // before credentials. GLM's model contract rejects unsupported full efforts;
 // the other providers retain their existing full-entry behavior.
 func validateResponsesModelOptions(m Model, options Options) *Error {
-	if m.Provider == ProviderMiniMax && m.API == APIOpenAIResponses {
+	if responsesCapabilitiesOf(m.Provider).implementation == responsesMiniMax && m.API == APIOpenAIResponses {
 		return validateMiniMaxResponsesOptions(m, options)
 	}
-	if m.Provider != ProviderZhipu || m.API != APIOpenAIResponses {
+	if responsesCapabilitiesOf(m.Provider).implementation != responsesGLM || m.API != APIOpenAIResponses {
 		return nil
 	}
 	o, _ := options.(ResponsesOptions)
@@ -37,7 +37,7 @@ func validateResponsesModelOptions(m Model, options Options) *Error {
 // validateGLMResponsesFinalBody validates the actual JSON after every sampling
 // layer and the trusted hook. Raw numbers preserve exact schema integer limits.
 func validateGLMResponsesFinalBody(m Model, raw []byte, authorize func(map[string]any) string) *Error {
-	if m.Provider != ProviderZhipu {
+	if responsesCapabilitiesOf(m.Provider).implementation != responsesGLM {
 		return nil
 	}
 	var body map[string]any
