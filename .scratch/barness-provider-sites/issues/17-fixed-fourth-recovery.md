@@ -31,4 +31,12 @@ Type: task
 
 固定原生ID4/schema5已在07807a1交付；公开facts精确导出第三批21字段摘要1f346af96e867d5f5fb60621eac454cedd71c4ce415a900ae58e825742c50f21，旧recovery字段、15/closed1/closed2及真实closed3全部只读闭合。旧3活动入口永久拒绝；旧source按原grant/report/commit/archive互证，不能要求其与当前相等或复活旧资格。实际新4回复还须使用不同于旧3的requestReference。
 
-[原生永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-native-dev/index.json)SHA9ce2967938173eea9d845caf1e8409b426f41a0036fd4abafd19d4dbf78263f7固定55公共进程场景PASS（实际墙钟121.614878s）、持久binary/argv/UTC/数字退出码、目标vet、旧回归和全部中间失败。覆盖三路线新39/36、篡改/旧活动/UNKNOWN/nonce/并发/跨worktree/旧回复复用等拒绝；真实4人类记录和grant均不存在，无真实Key/调用/账本写入或race。Status继续claimed：Python完整组合、独立双轴整合复审、最终冻结及新付费批准尚PENDING；原预算/资格/race边界不变，唯一状态见[规格](../spec.md)。
+[原生永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-native-dev/index.json)SHA9ce2967938173eea9d845caf1e8409b426f41a0036fd4abafd19d4dbf78263f7固定55公共进程场景PASS（实际墙钟121.614878s）、持久binary/argv/UTC/数字退出码、目标vet、旧回归和全部中间失败。覆盖三路线新39/36、篡改/旧活动/UNKNOWN/nonce/并发/跨worktree/旧回复复用等拒绝；在该原生离线验证阶段，真实4人类记录和grant均不存在，无真实Key/调用/账本写入或race。Status继续claimed；离线实现与复审的后续固定事实见下节，唯一当前状态见[规格](../spec.md)。
+
+## Offline controller and final review progress
+
+[控制器259工件](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-controller-dev/index.json)与[集中修复138工件](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-review-fix-dev/index.json)分别保留原RED/GREEN、实际argv/UTC/数字退出和源副本；原259指纹逐项未变。最终受影响公共组合50/50 PASS，204.167s、exit0，覆盖旧R2/R3及新R4的完整24→33/46→27inputs→23行发布流程。
+
+Standards两项（policy/原批准指纹非阻塞有界读取、删除内部纯转发facade）与Spec一项（首claim/Key前完整原生历史校验及proof绑定）均由单一implementer在81e79b3集中修复。首条只读原生facts与后续grant发行采用不同独占回执；grant仍须首18/18及当前consumer PASS。最终[Standards0/Spec0双轴索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/review/index.json)SHA `8ca4aab7dcc940c481dc2fc17a27fb146029f6c8a6527ebad194ce794b9295dc`。此次修复未改Go/资金guard/GLM，执行集合GLM245/MiniMax320/Regional414保持。
+
+后续授权/运行、实际冻结及根检查状态见[准备当前状态（CURRENT_STATE）](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/index.json)及[具体计划](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/plan.md)，不以本段离线结果代替实际来源/十binary/工具/检查回执。截至81e79b3离线复审结束，实际新付费授权4/grant4均无，无真实Key/厂商调用或新race；该阶段READY/race NOT_RUN、release.pass=false，原历史数字/原件/预算/资格边界保持，Status继续claimed。
