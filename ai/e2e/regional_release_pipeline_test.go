@@ -102,6 +102,17 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			if !ev.Check("complete controlled qualification process", err == nil, "%v %s", err, regionalSafeOutput(raw)) {
 				return
 			}
+			if combo == "zai-messages" {
+				for i, request := range srv.Requests() {
+					fields := bodyFields(t, request.Body)
+					full52 := i >= 9 && i%9 != 2 && i%9 != 3
+					if full52 {
+						ev.Check("GLM-5.2 full uses independently observed exact shape", jsonEqual(fields["thinking"], []byte(`{"type":"enabled","budget_tokens":1024}`)) && string(fields["max_tokens"]) == "4096", "scenario index=%d", i)
+					} else {
+						ev.Check("GLM-5.3 and canonical simple keep thinking omitted", fields["thinking"] == nil, "scenario index=%d", i)
+					}
+				}
+			}
 			nativePaths, err := filepath.Glob(filepath.Join(base, "*", "manifest.json"))
 			if !ev.Check("one original native bundle", err == nil && len(nativePaths) == 1, "count=%d", len(nativePaths)) {
 				return
@@ -111,6 +122,19 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			var report supportmatrix.Report
 			if raw, err := os.ReadFile(filepath.Join(dir, supportmatrix.RegionalReportFile)); err != nil || json.Unmarshal(raw, &report) != nil {
 				t.Fatal("native regional report unavailable")
+			}
+			if combo == "zai-messages" {
+				for _, scene := range report.Scenarios {
+					var opts ai.AnthropicOptions
+					raw, err := os.ReadFile(filepath.Join(dir, scene.CaseID, "options.json"))
+					if err != nil || json.Unmarshal(raw, &opts) != nil {
+						t.Fatal("native request options unavailable")
+					}
+					_, kind, _ := strings.Cut(scene.ID, "/")
+					full52 := scene.Model == "glm-5.2" && kind != "simple-stream" && kind != "simple-complete"
+					enabled, _ := opts.ThinkingEnabled.Get()
+					ev.Check("saved replay options preserve actual request shape", full52 && enabled && opts.ThinkingBudgetTokens == 1024 || !full52 && opts.ThinkingEnabled.IsZero() && opts.ThinkingBudgetTokens == 0, "scenario=%s", scene.ID)
+				}
 			}
 			ev.Record("native-report", report)
 			replay := exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/regionalverify", "-controlled", dir)

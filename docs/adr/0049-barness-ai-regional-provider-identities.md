@@ -20,3 +20,9 @@ AdmissionRequest 同时增加实际 Provider，供 Host 在账户级准入中区
 仅在 Binding 增加站点能切换连接，但无法为同一完整型号身份配置不同元数据。让 Site 进入目录、授权、原生历史与观测也可满足需求，但增加贯穿全链路的身份维度；现有 Provider 已表达独立地区服务，因此选择独立 Provider。不同地区复制 adapter 会重复资源、重试与流生命周期，也不采用。
 
 [研究](../../.scratch/barness-provider-sites/research.md)、[设计](../../.scratch/barness-provider-sites/design.md)、[规格](../../.scratch/barness-provider-sites/spec.md)。
+
+## ZAI Messages 的独立窄思考形状
+
+2026-10-20 的自身 standard API 四请求对照中，GLM-5.2 的省略形状没有原生 thinking/signature，精确 `enabled/budget1024/max4096` 工具回合返回完整原生块；GLM-5.3 两形状均返回原生块。这为 ZAI 自己的内部 Messages profile 建立 opt-in，并只为自身 GLM-5.2 候选设置 `MessagesThinkingBudgetTokens=1024`，不借用中国站证据。Provider 限定精确形状，Model 只能收紧；其他预算、输出配对及额外 thinking 字段仍被拒绝。
+
+无选项仍省略，GLM-5.3 保留已证默认。单回合研究不证明预算被服务端强制执行，也不证明 canonical intensity 或实际 native-history 续接。Simple 不推导该形状；原始 SSE 在公共 Client 离线重放保持原字段，同源第二轮为明确标注的受控响应。候选资格和晋升后 formal 仍分别需要新来源、新授权的一次完整真实过程，原失败不改写。[研究与原件](../../.scratch/barness-provider-sites/evidence/zai-thinking-research.md)。

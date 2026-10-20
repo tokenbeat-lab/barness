@@ -87,16 +87,22 @@ func driveRegional(t *testing.T) {
 	}
 }
 
-func regionalOptions(api, provider string, budget int) ai.Options {
-	switch api {
-	case "openai-completions":
+func regionalOptions(model ai.Model, budget int) ai.Options {
+	switch model.API {
+	case ai.APIOpenAICompletions:
 		return ai.ChatOptions{MaxTokens: ai.Value(budget), ReasoningEffort: ai.ThinkingHigh}
-	case "openai-responses":
+	case ai.APIOpenAIResponses:
 		return ai.ResponsesOptions{MaxTokens: ai.Value(budget), ReasoningEffort: ai.ThinkingHigh}
 	default:
 		o := ai.AnthropicOptions{MaxTokens: ai.Value(budget)}
-		if provider == "minimax-cn" {
+		if model.Provider == ai.ProviderMiniMaxCN {
 			o.ThinkingEnabled = ai.Value(true)
+		}
+		// Only the independently evidenced ZAI GLM-5.2 candidate opts into
+		// this exact full shape. GLM-5.3/default and simple keep omission;
+		// this is no canonical intensity map or budget enforcement claim.
+		if model.Provider == ai.ProviderZAI && model.Compat.MessagesThinkingBudgetTokens == 1024 {
+			o.ThinkingEnabled, o.ThinkingBudgetTokens = ai.Value(true), 1024
 		}
 		return o
 	}
@@ -148,7 +154,12 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	defer cancel()
 	scope := newScope()
 	target := ai.Target{BindingID: s.p.report.Combo, ModelID: row.Model}
-	opts := regionalOptions(s.p.report.API, s.p.report.Provider, outputBudget)
+	opts := regionalOptions(modelInfo, outputBudget)
+	if s.p.report.API == "anthropic-messages" && s.p.report.Provider == "zai" && (kind == "simple-stream" || kind == "simple-complete") {
+		// options.json is the effective full shape used by independent raw
+		// replay. Simple omits thinking even when full explicitly opts in.
+		opts = ai.AnthropicOptions{MaxTokens: ai.Value(outputBudget)}
+	}
 	simple := ai.SimpleOptions{MaxTokens: ai.Value(outputBudget)}
 	if s.p.report.API != "anthropic-messages" || s.p.report.Provider == "minimax-cn" {
 		simple.Reasoning = ai.ThinkingHigh
