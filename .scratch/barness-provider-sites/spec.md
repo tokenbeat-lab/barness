@@ -14,6 +14,7 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | --- | --- |
 | 架构选择 | 已确定方案 2，记录于 ADR-0049 |
 | 本次交付 | 实现与普通验证已交付；工单 01–06 已解决，[07 最终验收](issues/07-final-acceptance.md) 进行中。分支 `codex/barness-provider-sites`，feature 保持 claimed |
+| 最终续验准备 | 用户已要求先解决 08、固定源码并补齐证据；[09 独立续验授权](issues/09-final-round-minimax-authority.md) 与 [10 有限采集发布](issues/10-final-round-collection.md) 正在独立 worktree 实施。最多四次 ZAI Messages 对照请求已固定，尚未读 Key 或调用；完整轮次 726 Calls / 762 HTTP、US$30 与一次最终正式 race 的具体审批已发出，等待答复。[有限计划](../../.evidence/provider-sites/final-acceptance-20261020/plan/plan.md) / [参数澄清](../../.evidence/provider-sites/final-acceptance-20261020/plan/clarifications.json) |
 | 文档核验 | 本轮收尾静态检查 exit 0，固定合同、格式 / 500 行及 334 处本地引用 PASS；执行源码集合保持不变 |
 | 生产实现与目录变更 | 四服务各三协议、12 路线 / 18 身份；缓存 v2、准入 Provider、Host 端点/用途与凭据隔离、独立候选及原生采集/消费已完成。新增九身份未晋升 BuiltinCatalog |
 | 本功能普通 E2E | 最终受测提交 `d4b63d9`；完整普通主包 13,244 原生场景全部 PASS，双 vet、差分、压力与原生审计通过；[最终验证索引](evidence/verification.md) / [机器索引](evidence/index.json) |

@@ -2,7 +2,7 @@
 
 Status: claimed
 Type: task
-Blocked by: 05, 08
+Blocked by: 05, 08, 09, 10
 
 ## Context
 
@@ -17,6 +17,8 @@ Blocked by: 05, 08
 先重核完整普通事实、源码与工具；差分 / 压力开启的完整 `go test -json -race ./... -count=1 -timeout=75m` 写入新目录；保留实际数字退出、UTC、墙钟、原生 manifest / audit、来源前后清单与全部失败。不得将开发 race 冒充未取得的正式 `READY_FOR_RACE` checkpoint。当前真实资格、目录晋升、新 formal、23 份自身支持与四份效果必须全部符合现有原生消费者，才可宣称完整发布通过。
 
 ## Comments
+
+2026-10-20：用户明确继续修复 08 并重取当前证据。晋升后全局 Catalog Hash 改变，全部旧 17 自身路线都需新采集；连同新增六条 formal 与四项效果，最终为 27 个自身原生输入。新有限计划涵盖研究最多四次、六 candidate / 六 formal、旧 17 / 四效果，最大 726 Calls / 762 HTTP，US$30；前置通过后一次正式完整 race 的具体审批已发出，尚未获答。09、10 只实施离线授权/采集机制，不授予付费。旧失败、已关闭预算和所有旧原件不变；实际状态只在 spec 维护。
 
 2026-10-20：用户批准“六条新增路线，预算 US$5，确认 standard API 资格”。仅授权每路线一次 candidate 进程，最大 24 调用 / 24 HTTP、零重试；其他厂商、重新运行、晋升后 formal 分别列具体范围。授权原文与绑定机器事实分别保存在根 `.evidence/provider-sites/acceptance-20261020/candidate-authorization.json` 和 `candidate-plan.json`。Key 只按本服务配置名读取并注入一个独立子进程，不保存秘密、摘要或完整环境。
 
