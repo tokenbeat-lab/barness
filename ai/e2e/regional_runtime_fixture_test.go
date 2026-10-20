@@ -14,7 +14,7 @@ import (
 // Public Client scenarios use synthetic identities and prices, never live support.
 // The same account/session aliases deliberately span services and tenants; only
 // BindingID/CredentialRef are unique per service within a tenant.
-var regionalRuntimeProviders = []ai.ProviderID{ai.ProviderZhipu, "zai", ai.ProviderMiniMax, "minimax-cn"}
+var regionalRuntimeProviders = []ai.ProviderID{ai.ProviderZhipu, ai.ProviderZAI, ai.ProviderMiniMax, ai.ProviderMiniMaxCN}
 
 func regionalRuntimeKey(tenant string, p ai.ProviderID) tenantKey {
 	return tenantKey{tenant: tenant, secret: "synthetic-regional-" + tenant + "-" + string(p), alias: "key:regional-" + tenant + "-" + string(p) + "@v1"}
