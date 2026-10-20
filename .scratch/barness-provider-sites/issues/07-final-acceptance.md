@@ -2,7 +2,7 @@
 
 Status: claimed
 Type: task
-Blocked by: 05, 08, 09, 10, 11, 12, 16, 17, 18, 19, 20
+Blocked by: 05, 08, 09, 10, 11, 12, 16, 17, 18, 19, 20, 21
 
 ## Context
 
@@ -33,3 +33,5 @@ Blocked by: 05, 08, 09, 10, 11, 12, 16, 17, 18, 19, 20
 2026-10-20：本次明确授权真实轮次已完成，81 Calls / 81 HTTP、零重试，80 PASS / 1 FAIL。五条路线 qualify PASS；ZAI Messages 的 GLM-5.2 原生推理资格失败移交 [08](08-zai-messages-glm52-native-qualification.md)。旧原始 21 输入树当前 preflight 实际 exit 1：十通用路线通过，七严格来源路线与四效果拒绝，旧 3,539 文件均未改变。两项原始诊断和失败原件永久保留，未降验收合同、晋升、刷新证据或追加调用。
 
 2026-10-20：完整 race 已结束，actual exit 0、墙钟 2589.635s；主包 13,244 原生 PASS、32 audit 零发现、889 差分 pending 0、旧 HTTP 工件 3,077 / 3,077 PASS，源码前后相等。五候选路线通过与 ZAI Messages 真实失败、旧七严格来源 / 四效果拒绝分别保存于 [本轮验收报告](../evidence/acceptance.md) / [机器索引](../evidence/acceptance-index.json)。本票的 race 范围完成；正式验收仍受 08、独立晋升 / 新 formal 与当前来源输入约束，保持 claimed，不把开发 race 改写成正式 check checkpoint。
+
+2026-10-21：恢复5在中国MiniMax Responses的自身native-history失败后已按约停止，转[21固定原生来源](21-minimax-cn-responses-native-source.md)离线处理。实际原件和唯一当前状态只见spec；后续新有限范围仍须独立准备/批准，不启动最终race。

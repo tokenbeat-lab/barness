@@ -109,6 +109,7 @@ func TestRegionalProviderReleaseReviewFixContract(t *testing.T) {
 	// Own thinking and controlled promotion cases extend the finite contract.
 	// Removing any one must invalidate the independent approved mapping pin.
 	for _, group := range []struct{ items, cases []string }{
+		{[]string{"REGIONAL-R10", "REGIONAL-R18", "REGIONAL-RP18"}, []string{"RP18-minimax-cn-responses-fixed-native-originals", "RP18-minimax-cn-responses-native-source-absent", "RP18-minimax-cn-responses-native-source-case", "RP18-minimax-cn-responses-native-source-model", "RP18-minimax-cn-responses-native-source-tenant", "RP18-minimax-cn-responses-native-source-request", "RP18-minimax-cn-responses-native-source-wire"}},
 		{[]string{"REGIONAL-R06", "REGIONAL-RP13"}, []string{"RP06-zai-exact-thinking-stream", "RP06-zai-exact-thinking-complete", "RP06-zai-exact-thinking-payload"}},
 		{[]string{"REGIONAL-R10", "REGIONAL-R18"}, []string{"RP07-zai-research-native-controlled-same", "RP07-zai-research-native-controlled-restored"}},
 		{[]string{"REGIONAL-R16", "REGIONAL-R18", "REGIONAL-RP18"}, []string{"RP18-promotion-boundary", "RP18-controlled-promotion-proposal", "RP18-qualification-catalog-composition"}},

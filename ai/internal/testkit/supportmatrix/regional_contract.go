@@ -53,12 +53,12 @@ func RegionalExpected(combo string) []string {
 }
 
 // RegionalNativeSourceCase is fixed before any request, never selected by
-// searching successful turns. ZAI Chat/Responses tool calls may omit reasoning
-// even with thinking enabled; their fixed full-stream source must contain
-// actual native reasoning. Tool-call/result remain independently required in the history.
+// searching successful turns. ZAI Chat/Responses and MiniMax CN Responses tool
+// calls may omit reasoning even when requested. Their fixed full-stream source
+// must contain actual native reasoning; the tool chain remains independent.
 func RegionalNativeSourceCase(combo, model string) string {
 	kind := "tool-call"
-	if combo == "zai-chat" || combo == "zai-responses" {
+	if combo == "zai-chat" || combo == "zai-responses" || combo == "minimax-cn-responses" && model == "MiniMax-M3" {
 		kind = "full-stream"
 	}
 	return RegionalCaseID(combo, model+"/"+kind)
