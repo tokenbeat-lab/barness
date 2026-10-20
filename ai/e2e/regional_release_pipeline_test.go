@@ -40,6 +40,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 	if raw, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("regional live binary build: %v %s", err, regionalSafeOutput(raw))
 	}
+	var promotionInputs []string
 	for _, combo := range []string{"zai-chat", "zai-responses", "zai-messages", "minimax-cn-chat", "minimax-cn-responses", "minimax-cn-messages"} {
 		t.Run(combo, func(t *testing.T) {
 			ev := run.Case(t, "RP18-capture-pipeline-"+combo)
@@ -106,6 +107,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				return
 			}
 			dir := filepath.Dir(nativePaths[0])
+			promotionInputs = append(promotionInputs, dir)
 			var report supportmatrix.Report
 			if raw, err := os.ReadFile(filepath.Join(dir, supportmatrix.RegionalReportFile)); err != nil || json.Unmarshal(raw, &report) != nil {
 				t.Fatal("native regional report unavailable")
@@ -141,6 +143,9 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			raw, err = again.CombinedOutput()
 			ev.Check("grant cannot be reused", err != nil && len(srv.Requests()) == len(report.Scenarios), "%s", regionalSafeOutput(raw))
 		})
+	}
+	if len(promotionInputs) == 6 {
+		regionalControlledPromotion(t, promotionInputs)
 	}
 }
 

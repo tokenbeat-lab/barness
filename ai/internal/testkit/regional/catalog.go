@@ -19,7 +19,7 @@ import (
 //go:embed *.json sources/*
 var files embed.FS
 
-const snapshotPin = "1e244e76976d9eb2814c4c3f2f1b6dbd725baf895f16a1eceb9466681bf07a41"
+const snapshotPin = "42eb646f5f7c6714d497207224b79faf3a969366edb63fbd94a5b9cc6a96abe2"
 
 // Price keeps missing token prices distinct from zero and freezes native
 // currency/tier/FX facts beside the USD model estimate. Storage promotions do
