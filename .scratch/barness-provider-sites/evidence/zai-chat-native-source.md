@@ -32,3 +32,5 @@ native-history 发送原 full-stream 用户/助手前缀，再保留原工具用
 有限trace仅向R06/R10/R18、RP07/RP11/RP18追加实际11个新case的对应义务；旧所有字段、case、P0、live及差分集合未删改。[严格只增差异](/tmp/barness-regional/zai-chat-native-dev/trace-additions.json) 独立复现旧normalized pin `c4daf796…`，新增literal为 `d79b29621b04b5fa46b7f907cecfa079b051dbef2ff1937d4f84b85a14f03df2`。Pi冻结、SDK/dependency、差分ledger和候选官方source/pin均未改。
 
 本修正改变执行来源，先前成功和失败保留各自事实，不将成功原件刷新为当前资格；六条路线的新真实candidate、晋升后formal与最终门禁均由根任务在新的有限授权后执行。
+
+根任务已逐字节留存全部12,687份原件于[永久目录](../../../.evidence/provider-sites/final-acceptance-20261020/zai-chat-native-dev/index.json)，无符号链接；[留存回执](../../../.evidence/provider-sites/final-acceptance-20261020/zai-chat-native-retention.json)固定原/tmp前缀与永久前缀映射、全部文件集合Hash及相等性，不重写原索引。[独立Standards / Spec复审](../../../.evidence/provider-sites/final-acceptance-20261020/round2-preparation/review/chat-source/index.json)均0 findings，范围含永久父报告路径修复。
