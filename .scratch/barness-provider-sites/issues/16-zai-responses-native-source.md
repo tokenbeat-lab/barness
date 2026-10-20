@@ -26,3 +26,9 @@ Type: task
 ## Offline implementation progress
 
 070b452已交付固定自身full-stream来源与严格消费者同步，生产协议/SDK/目录未改。公共Client/CLI先RED，六路线81受控场景及原生消费者最终通过，旧失败/中间失败和1012原件保留于[永久索引](../../../.evidence/provider-sites/final-acceptance-20261020/responses-native-source-fix/index.json)。17机制并入后07807a1公开API实算Regional414/MiniMax320，GLM245逐项仍等b384；不能把六受控路线或旧真实PASS当作新来源资格。控制器[259工件](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-controller-dev/index.json)与[138修复工件](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-review-fix-dev/index.json)保留完整公开RED/GREEN；最终50/50、204.167s、exit0。Standards两项、Spec一项经单一implementer集中修复，81e79b3最终[两轴复审](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/review/index.json)均0；GLM245/MiniMax320/Regional414未改。Status继续claimed；截至81e79b3离线复审结束，实际新付费授权4/grant4均无，该阶段READY/race NOT_RUN、release.pass=false。后续授权/运行、实际冻结及根检查状态见[准备当前状态（CURRENT_STATE）](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/index.json)与[计划](../../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/plan.md)；唯一当前状态仍见[规格](../spec.md)。
+
+## Recovery4 actual stop and budget correction
+
+恢复4实际08a3d10完成六地区formal及三M3自身完整PASS，前17进程成功；第18项OpenAI Decisions在finalbudget前发送估算失败，后六项按约未启动。原报告9Calls/9 recorderHTTP与USD guard0/0并存，不改写计数或退款。停止2032原件和closed4、跨轮native591/584、claimed980/1040、整笔28.80USD与UNKNOWN4全部保留。
+
+[18分类预算隔离](18-classifier-budget-operation-isolation.md)离线最小修复进入三类严格来源，既有GLM245/MiniMax320/Regional414成功不能作为修后当前资格。新预算E2E加入后Regional416；没有改变任何来源选择器。八generic的保留须额外绑定原件与逐份final-wire/ledger差异证明。上述只记录本票历史和依赖，唯一当前状态见[规格](../spec.md#当前状态)；本票保持claimed，新付费机制/授权与最终门禁另行完成，READY/race未运行、release.pass=false。

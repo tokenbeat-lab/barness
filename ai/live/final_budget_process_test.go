@@ -18,7 +18,7 @@ import (
 )
 
 func TestFinalRoundBudgetProcess(t *testing.T) {
-	for _, mode := range []string{"allowed", "declined", "failed-no-refund", "wrong-round", "image-openai", "image-google", "classifier", "anthropic-long"} {
+	for _, mode := range []string{"allowed", "declined", "failed-no-refund", "wrong-round", "image-openai", "image-google", "classifier", "decisions", "anthropic-long"} {
 		t.Run(mode, func(t *testing.T) {
 			cs := run.Case(t, "REGIONAL-final-round-usd-"+mode)
 			base := t.TempDir()
@@ -62,7 +62,7 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 	rec.next.(*http.Transport).CloseIdleConnections()
 	rec.next = roundTripFunc(func(req *http.Request) (*http.Response, error) {
 		count++
-		if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "anthropic-long" {
+		if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "decisions" || mode == "anthropic-long" {
 			return nil, errors.New("controlled transport failure")
 		}
 		body := `data: {"id":"chat_controlled","model":"gpt-5-mini","choices":[{"index":0,"delta":{"content":"accepted"},"finish_reason":"stop"}]}` + "\n\ndata: [DONE]\n\n"
@@ -88,6 +88,11 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		combo.endpoint = "https://api.typesafe.ai/v1"
 		combo.model = "jev-1.13.0"
 	}
+	if mode == "decisions" {
+		combo.operation = ai.OperationClassifier
+		combo.api = ai.APIOpenAIDecisions
+		combo.model = "gpt-6-luna"
+	}
 	if mode == "anthropic-long" {
 		combo.provider = ai.ProviderAnthropic
 		combo.api = ai.APIAnthropicMessages
@@ -107,6 +112,8 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		} else {
 			_, err = client.GenerateImages(context.Background(), newScope(), target, request, imageSmokeOptions("png", "low"))
 		}
+	} else if mode == "decisions" {
+		_, err = client.Classify(context.Background(), newScope(), target, singleChoiceRequest(), ai.OpenAIDecisionsOptions{})
 	} else if mode == "classifier" {
 		_, err = client.Classify(context.Background(), newScope(), target, singleChoiceRequest(), ai.TypeSafeOptions{})
 	} else if mode == "anthropic-long" {
@@ -118,7 +125,7 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		if err != nil || count != 1 {
 			t.Fatalf("allowed request %d %v", count, err)
 		}
-	} else if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "anthropic-long" {
+	} else if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "decisions" || mode == "anthropic-long" {
 		if err == nil || count != 1 {
 			t.Fatalf("failure after send %d %v", count, err)
 		}
@@ -129,16 +136,17 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		Reserved int64 `json:"reservedMicrousd"`
 		Attempts int   `json:"attempts"`
 		Last     struct {
-			Input     int64   `json:"inputReserve"`
-			Output    int64   `json:"outputReserve"`
-			InputRate float64 `json:"inputRate"`
+			Input      int64   `json:"inputReserve"`
+			Output     int64   `json:"outputReserve"`
+			InputRate  float64 `json:"inputRate"`
+			OutputRate float64 `json:"outputRate"`
 		} `json:"last"`
 	}
 	raw, _ := os.ReadFile(os.Getenv("BARNESS_FINAL_BUDGET"))
 	if json.Unmarshal(raw, &value) != nil {
 		t.Fatal("budget artifact missing")
 	}
-	if mode == "allowed" || mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "anthropic-long" {
+	if mode == "allowed" || mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "decisions" || mode == "anthropic-long" {
 		if value.Reserved <= 0 || value.Attempts != 1 {
 			t.Fatalf("sent attempts retain allowance %+v", value)
 		}
@@ -154,8 +162,11 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		if mode == "anthropic-long" && value.Last.InputRate < 2 {
 			t.Fatalf("one-hour writes reserve twice input price %+v", value)
 		}
-		if mode == "classifier" && value.Last.Output != 0 {
+		if (mode == "classifier" || mode == "decisions") && value.Last.Output != 0 {
 			t.Fatalf("classifier output remains unpriced/free %+v", value)
+		}
+		if mode == "decisions" && (value.Last.InputRate != 0.2 || value.Last.OutputRate != 0) {
+			t.Fatalf("Decisions uses its own highest input tier and free output %+v", value)
 		}
 	} else if value.Reserved != 0 || value.Attempts != 0 {
 		t.Fatalf("pre-send decline consumed allowance %+v", value)
