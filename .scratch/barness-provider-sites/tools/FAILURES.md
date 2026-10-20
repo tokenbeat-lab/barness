@@ -9,3 +9,5 @@
 续验 2 另外锁住：旧封存缺失/内容漂移/未认领路径突然出现，旧1原生 grant/nonce/intent 残留，显式旧1及未设 selector 的旧1 canonical 账本入口，伪造退款/新增研究/减少前序整笔预留，封存文件/总量/目录深度越界，grant/human/review 的封存摘要不一致，换阶段和换输出路径重置累计预算，关闭轮次 GLM publisher 回退。独立合成 owner 同时验证3MiB归档原件能够流式散列，不误用2MiB JSON上限读取二进制。
 
 原始封存及原生历史是只读事实；本轮源码替换后，旧1执行工具仍保留在不可重写的封存中。新控制器只接受固定2，不提供轮次注册表或兼容执行入口。
+
+复审补充：静态FIFO JSON与lstat后、open前替换为FIFO均必须在有界时间拒绝，零新claim/Key/HTTP；固定前序的JSON、流式散列及native树读取统一走O_NOFOLLOW/O_NONBLOCK与regular/fstat/前后身份检查。

@@ -40,4 +40,4 @@ GLM 新原件发布只扩展当前原生消费者要求的固定新轮次，不�
 
 ## 固定续验 2 实现
 
-直接活动入口已切为2；原1执行源码/原始收据/授权/研究/补全证据均在封存中保持原字节。prepare/summarize/每次claim验证完整固定封存、旧1原生未消费与31未启动路径；新同一global authority计入旧52/52与1.5USD，阶段各自冻结当前源码而不重置额度。新schema3 M3投影三重pin封存，GLM新发布只认canonical2，关闭1的archive选择及views回退均拒绝。14项普通公共控制/发布流程覆盖六candidate→晋升→提交后的新phase、一次grant、源漂移、秘密前拒绝、失败不退款及23+4输入；另有闭轮views专门RED→GREEN。实际argv/退出码/源码/原生工件由[永久开发索引](../../../.evidence/provider-sites/final-acceptance-20261020/round2-dev/index.json)关联；具体约束见[工具说明](../tools/README.md)。唯一当前状态继续在[规格](../spec.md#当前状态)，本实现及普通结果不宣称真实资格或发布PASS。
+直接活动入口已切为2；原1执行源码/原始收据/授权/研究/补全证据均在封存中保持原字节。prepare/summarize/每次claim验证完整固定封存、旧1原生未消费与31未启动路径；新同一global authority计入旧52/52与1.5USD，阶段各自冻结当前源码而不重置额度。新schema3 M3投影三重pin封存，GLM新发布只认canonical2，关闭1的archive选择及views回退均拒绝。普通公共控制/发布流程覆盖六candidate→晋升→提交后的新phase、一次grant、源漂移、秘密前拒绝、失败不退款及23+4输入；另有闭轮views及FIFO/open替换窗口专门RED→GREEN。实际argv/退出码/源码/原生工件由[永久开发索引](../../../.evidence/provider-sites/final-acceptance-20261020/round2-dev/index.json)关联；具体约束见[工具说明](../tools/README.md)。唯一当前状态继续在[规格](../spec.md#当前状态)，本实现及普通结果不宣称真实资格或发布PASS。
