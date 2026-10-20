@@ -61,7 +61,7 @@ class FinalRound(unittest.TestCase):
         bindir = self.root / 'bin'
         bindir.mkdir()
         go = bindir / 'go'
-        producer = '#!' + sys.executable + '\nimport sys,json,os,pathlib\nif os.getenv("BARNESS_REGIONAL_KEY"): pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"]).parent.joinpath("selected-child-started").touch()\na=sys.argv[1:]\nif "-grant-template" in a:\n c=a[a.index("-grant-template")+1];s=a[a.index("-stage")+1];print(json.dumps(dict(schema=1,mode="live",id="<new>",accountAlias="<own>",regionAlias="<own>",expiresAt="0001-01-01T00:00:00Z",combo=c,stage=s)))\n'
+        producer = '#!' + sys.executable + '\nimport sys,json,os,pathlib\nif os.getenv("BARNESS_REGIONAL_KEY"): print(json.dumps(dict(environmentKeys=sorted(os.environ))));pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"]).parent.joinpath("selected-child-started").touch()\na=sys.argv[1:]\nif "-grant-template" in a:\n c=a[a.index("-grant-template")+1];s=a[a.index("-stage")+1];print(json.dumps(dict(schema=1,mode="live",id="<new>",accountAlias="<own>",regionAlias="<own>",expiresAt="0001-01-01T00:00:00Z",combo=c,stage=s)))\n'
         go.write_text('#!' + sys.executable + '\nimport sys,json,pathlib\na=sys.argv[1:]\nif "-o" in a:\n p=pathlib.Path(a[a.index("-o")+1]);p.write_text(' + repr(producer) + ');p.chmod(0o755)\nelif "-source" in a: print(json.dumps({"sourceSha256":"a"*64,"files":{}}))\n')
         go.chmod(0o755)
         self.env['PATH'] = str(bindir) + os.pathsep + self.env['PATH']
@@ -163,6 +163,39 @@ class FinalRound(unittest.TestCase):
         self.assertFalse((base/'selected-child-started').exists())
         self.assertNotIn('SYNTHETIC-FIRST',result.stdout+result.stderr)
         self.assertNotIn('SYNTHETIC-SECOND',result.stdout+result.stderr)
+
+    def test_one_selected_key_starts_only_its_approved_child_and_unknown_native_stays_unknown(self):
+        self.fake_build();self.runcli('prepare','.evidence/provider-sites/current','--phase','candidate')
+        base=self.root/'.evidence/provider-sites/current'
+        self.runcli('check','.evidence/provider-sites/current');self.approve(base)
+        (self.root/'.env').rmdir();(self.root/'.env').write_text('ZAI_KEY=SYNTHETIC-ONLY-SELECTED\nMINIMAX_CN_KEY=SYNTHETIC-NOT-SELECTED\n')
+        self.runcli('run-selected','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        self.assertTrue((base/'selected-child-started').exists())
+        command=json.loads((base/'candidate-zai-chat-command.json').read_text())
+        self.assertEqual(command['exitCode'],0)
+        self.assertTrue(command['credentialsRead'])
+        self.assertIn('BARNESS_REGIONAL_KEY',command['environmentKeys'])
+        self.assertNotIn('MINIMAX_CN_KEY',command['environmentKeys'])
+        self.assertNotIn('OPENAI_KEY',command['environmentKeys'])
+        self.assertNotIn('HTTP_PROXY',command['environmentKeys'])
+        record=json.loads((self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-1-candidate-zai-chat.json').read_text())
+        self.assertEqual(record['budget']['state'],'UNKNOWN')
+        self.assertEqual(record['reservedMicrousd'],1000000)
+        log=(base/'candidate-zai-chat.log').read_text()
+        self.assertNotIn('SYNTHETIC-ONLY-SELECTED',log)
+        self.assertNotIn('SYNTHETIC-NOT-SELECTED',log)
+
+    def test_usd_exhaustion_and_wrong_provider_refuse_before_claim_or_key(self):
+        self.fake_build();self.runcli('prepare','.evidence/provider-sites/current','--phase','candidate')
+        base=self.root/'.evidence/provider-sites/current'
+        self.runcli('check','.evidence/provider-sites/current');self.approve(base,reserve=30000000)
+        self.runcli('run-selected','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        marker=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-1-candidate-zai-chat.json'
+        self.assertFalse(marker.exists());self.assertFalse((base/'candidate-zai-chat-command.json').exists())
+        auth=json.loads((base/'execution-authorization.json').read_text());auth['standardCredentialScopes']['ZAI_KEY']['provider']='zhipu'
+        (base/'execution-authorization.json').write_text(json.dumps(auth))
+        self.runcli('run-selected','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        self.assertFalse(marker.exists());self.assertTrue((self.root/'.env').is_dir())
 
     def test_inventory_is_fixed_complete_and_keyless(self):
         value = json.loads(self.runcli('inventory').stdout)

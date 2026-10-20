@@ -31,11 +31,13 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 		}
 	}
 	cat := ai.BuiltinCatalog()
-	candidates, err := regional.CandidateCatalog()
-	if err != nil {
-		return reservation{}, fmt.Errorf("final USD regional price source unavailable")
+	if provider == ai.ProviderZAI || provider == ai.ProviderMiniMaxCN {
+		candidates, err := regional.CandidateCatalog()
+		if err != nil {
+			return reservation{}, fmt.Errorf("final USD regional price source unavailable")
+		}
+		cat.Models = append(cat.Models, candidates.Models...)
 	}
-	cat.Models = append(cat.Models, candidates.Models...)
 	output := int64(0)
 	for _, name := range []string{"max_tokens", "max_output_tokens", "max_completion_tokens"} {
 		output = max(output, positive(body[name]))
@@ -48,7 +50,7 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 	for _, m := range cat.Models {
 		if m.Provider == provider && m.ID == model {
 			found = true
-			rates(&estimate, m.Cost)
+			rates(&estimate, m.Cost, hasLongCache(body))
 		}
 	}
 	if strings.Contains(req.URL.Path, "/decisions") || provider == ai.ProviderTypeSafe {
@@ -57,7 +59,7 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 		for _, m := range cat.ClassifierModels {
 			if m.Provider == provider && m.ID == model {
 				found = true
-				rates(&estimate, m.Cost)
+				rates(&estimate, m.Cost, hasLongCache(body))
 			}
 		}
 	} else if strings.Contains(req.URL.Path, "/images/") || req.URL.Path == "/v1beta/interactions" {
@@ -93,8 +95,8 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 		// New-round engineering reserve: each inline reference/mask adds65536
 		// input units even when a highly compressible PNG has few wire bytes.
 		// This is a conservative project allowance, not a tokenization claim.
-		estimate.InputReserve += int64(imageOccurrences(body)) * 65536
 	}
+	estimate.InputReserve += int64(imageOccurrences(body)) * 65536
 	if !found || estimate.InputRate <= 0 || estimate.OutputRate < 0 || estimate.OutputRate > 0 && estimate.OutputReserve <= 0 {
 		return reservation{}, fmt.Errorf("final USD exact model/output price estimate unavailable")
 	}
@@ -108,9 +110,12 @@ func estimate(req *http.Request, raw []byte) (reservation, error) {
 	return estimate, nil
 }
 
-func rates(out *reservation, cost ai.ModelCost) {
+func rates(out *reservation, cost ai.ModelCost, long bool) {
 	update := func(r ai.CostRates) {
 		out.InputRate = max(out.InputRate, r.Input, r.CacheRead, r.CacheWrite)
+		if long {
+			out.InputRate = max(out.InputRate, 2*r.Input)
+		}
 		out.OutputRate = max(out.OutputRate, r.Output)
 	}
 	update(cost.CostRates)
@@ -131,11 +136,15 @@ func imageOccurrences(value any) int {
 			total += imageOccurrences(item)
 		}
 	case map[string]any:
-		if kind, _ := v["type"].(string); kind == "image" {
-			if mime, _ := v["mime_type"].(string); strings.HasPrefix(mime, "image/") {
-				if data, _ := v["data"].(string); data != "" && !strings.HasPrefix(data, "data:image/") {
-					total++
+		for _, key := range []string{"mime_type", "media_type", "mimeType"} {
+			if mime, _ := v[key].(string); strings.HasPrefix(mime, "image/") {
+				for _, field := range []string{"data", "base64", "data_base64"} {
+					if data, _ := v[field].(string); data != "" && !strings.HasPrefix(data, "data:image/") {
+						total++
+						break
+					}
 				}
+				break
 			}
 		}
 		for _, item := range v {
@@ -143,4 +152,28 @@ func imageOccurrences(value any) int {
 		}
 	}
 	return total
+}
+
+// The SDK's existing one-hour cache write estimate is twice input cost,
+// independently of the short-write CostRates field. Inspect final cache
+// markers so only an actually encoded long request selects that premium.
+func hasLongCache(value any) bool {
+	switch v := value.(type) {
+	case map[string]any:
+		if control, ok := v["cache_control"].(map[string]any); ok && control["ttl"] == "1h" {
+			return true
+		}
+		for _, item := range v {
+			if hasLongCache(item) {
+				return true
+			}
+		}
+	case []any:
+		for _, item := range v {
+			if hasLongCache(item) {
+				return true
+			}
+		}
+	}
+	return false
 }

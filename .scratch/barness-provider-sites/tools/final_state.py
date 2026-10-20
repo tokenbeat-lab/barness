@@ -76,11 +76,12 @@ def prepare(out, phase):
     c.dump(out / 'binaries.json', {name: c.digest(out / name) for name, _ in builds})
     import final_grants
     component_templates = final_grants.templates(out,phase)
+    c.dump(out/'component-templates.json',component_templates)
     all_jobs = r.jobs(out)
     plan = r.inventory(out) | dict(phase=phase, routes={n: j for n, j in all_jobs.items() if j['phase'] == phase})
     c.dump(out / 'plan.json', c.redact(plan))
     prepared = dict(schema=1, round=r.ROUND, phase=phase, credentialsRead=False,
-        toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
+        componentTemplatesSHA256=c.digest(out/'component-templates.json'), toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
         binariesManifestSHA256=c.digest(out / 'binaries.json'), planSHA256=c.digest(out / 'plan.json'))
     c.dump(out / 'prepared.json', prepared)
     c.dump(out / 'prerelease-source-review.template.json', prepared | dict(decision='PENDING', reviewedBy='',
@@ -89,7 +90,6 @@ def prepare(out, phase):
         requestReference='', maxCalls=r.MAX_CALLS, maxAttempts=r.MAX_ATTEMPTS, maxUSD=None,
         standardCredentialScopes={}, networkRoutes={}, processReservationsMicrousd={}, componentAuthorizationSHA256={},
         diagnosticReservedMicrousd=None, automaticProcessReruns=False))
-    c.dump(out/'component-templates.json',component_templates)
     guard(out)
     return prepared
 
@@ -97,6 +97,11 @@ def prepare(out, phase):
 def guard(out):
     prepared = c.doc(out / 'prepared.json')
     frozen = c.doc(out / 'source-at-start.json')
+    if c.digest(out/'component-templates.json')!=prepared['componentTemplatesSHA256']:
+        raise RuntimeError('frozen native component template inventory changed')
+    for leaf,sha in c.doc(out/'component-templates.json').items():
+        if c.digest(out/leaf)!=sha:
+            raise RuntimeError('frozen native component template bytes changed')
     if c.digest(out/'toolchain.json')!=prepared['toolchainSHA256']:
         raise RuntimeError('frozen build-toolchain manifest changed')
     for executable,sha in c.doc(out/'toolchain.json')['executables'].items():

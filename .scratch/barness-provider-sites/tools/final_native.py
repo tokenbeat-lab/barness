@@ -16,7 +16,9 @@ def consume(out, job, record):
     report_path = e.report_path(out, job)
     report = c.doc(report_path)
     base = report_path.parent
-    if report.get('gitCommit', report.get('sourceCommit')) != record['sourceCommit']:
+    # Effects bind complete source contents through their native CodeHash /
+    # code-snapshot consumers; their schema deliberately has no GitCommit.
+    if job['name'] not in r.EFFECTS and report.get('gitCommit', report.get('sourceCommit')) != record['sourceCommit']:
         raise RuntimeError('native result must bind the reviewed actual source commit')
     name = job['name']
     if 'combo' in job:
@@ -134,7 +136,10 @@ def promote(out):
             receipt.get('sourceCommit')!=prepared['sourceCommit']):
             raise RuntimeError('all six own native-consumed current candidate processes must PASS')
         paths.append(bundle(out/name,'live-report.json'))
-    before=s.sources();lineage=out/'regional-promotion-lineage.json'
+    before=s.sources()
+    receipt_root=c.ROOT/'.evidence/provider-sites/final-acceptance-20261020/promotion'
+    receipt_root.mkdir(parents=True,exist_ok=True,mode=0o700)
+    lineage=receipt_root/'regional-promotion-lineage.json'
     verified(out,'promote-six',[out/'regionalpromote','-receipt',lineage,*paths])
     after=s.sources();allowed='ai/catalog_regional.json'
     if set(before)!=set(after) or {n for n in before if before[n]!=after[n]}!={allowed}:

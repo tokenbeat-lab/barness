@@ -18,7 +18,7 @@ import (
 )
 
 func TestFinalRoundBudgetProcess(t *testing.T) {
-	for _, mode := range []string{"allowed", "declined", "failed-no-refund", "wrong-round", "image-openai", "image-google", "classifier"} {
+	for _, mode := range []string{"allowed", "declined", "failed-no-refund", "wrong-round", "image-openai", "image-google", "classifier", "anthropic-long"} {
 		t.Run(mode, func(t *testing.T) {
 			cs := run.Case(t, "REGIONAL-final-round-usd-"+mode)
 			base := t.TempDir()
@@ -62,7 +62,7 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 	rec.next.(*http.Transport).CloseIdleConnections()
 	rec.next = roundTripFunc(func(req *http.Request) (*http.Response, error) {
 		count++
-		if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" {
+		if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "anthropic-long" {
 			return nil, errors.New("controlled transport failure")
 		}
 		body := `data: {"id":"chat_controlled","model":"gpt-5-mini","choices":[{"index":0,"delta":{"content":"accepted"},"finish_reason":"stop"}]}` + "\n\ndata: [DONE]\n\n"
@@ -88,6 +88,12 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		combo.endpoint = "https://api.typesafe.ai/v1"
 		combo.model = "jev-1.13.0"
 	}
+	if mode == "anthropic-long" {
+		combo.provider = ai.ProviderAnthropic
+		combo.api = ai.APIAnthropicMessages
+		combo.endpoint = "https://api.anthropic.com"
+		combo.model = "claude-haiku-4-5"
+	}
 	client, err := newClient(combo, "synthetic-budget-credential", rec, ai.BuiltinCatalog())
 	if err != nil {
 		t.Fatal(err)
@@ -103,6 +109,8 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		}
 	} else if mode == "classifier" {
 		_, err = client.Classify(context.Background(), newScope(), target, singleChoiceRequest(), ai.TypeSafeOptions{})
+	} else if mode == "anthropic-long" {
+		_, err = client.Complete(context.Background(), newScope(), target, ai.Request{Messages: []ai.Message{ai.UserText("Controlled long cache prompt.")}}, ai.AnthropicOptions{MaxTokens: ai.Value(1024), CacheRetention: ai.CacheRetentionLong})
 	} else {
 		_, err = client.Complete(context.Background(), newScope(), ai.Target{BindingID: combo.name, ModelID: combo.model}, ai.Request{Messages: []ai.Message{ai.UserText("Controlled final wire allowance.")}}, ai.ChatOptions{MaxTokens: ai.Value(1024)})
 	}
@@ -110,7 +118,7 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		if err != nil || count != 1 {
 			t.Fatalf("allowed request %d %v", count, err)
 		}
-	} else if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" {
+	} else if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "anthropic-long" {
 		if err == nil || count != 1 {
 			t.Fatalf("failure after send %d %v", count, err)
 		}
@@ -121,15 +129,16 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		Reserved int64 `json:"reservedMicrousd"`
 		Attempts int   `json:"attempts"`
 		Last     struct {
-			Input  int64 `json:"inputReserve"`
-			Output int64 `json:"outputReserve"`
+			Input     int64   `json:"inputReserve"`
+			Output    int64   `json:"outputReserve"`
+			InputRate float64 `json:"inputRate"`
 		} `json:"last"`
 	}
 	raw, _ := os.ReadFile(os.Getenv("BARNESS_FINAL_BUDGET"))
 	if json.Unmarshal(raw, &value) != nil {
 		t.Fatal("budget artifact missing")
 	}
-	if mode == "allowed" || mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" {
+	if mode == "allowed" || mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "anthropic-long" {
 		if value.Reserved <= 0 || value.Attempts != 1 {
 			t.Fatalf("sent attempts retain allowance %+v", value)
 		}
@@ -141,6 +150,9 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		}
 		if mode == "image-openai" && value.Last.Output != 7024 {
 			t.Fatalf("sourced calculator max quality reserve %+v", value)
+		}
+		if mode == "anthropic-long" && value.Last.InputRate < 2 {
+			t.Fatalf("one-hour writes reserve twice input price %+v", value)
 		}
 		if mode == "classifier" && value.Last.Output != 0 {
 			t.Fatalf("classifier output remains unpriced/free %+v", value)
