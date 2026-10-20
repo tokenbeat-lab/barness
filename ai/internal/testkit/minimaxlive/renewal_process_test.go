@@ -17,7 +17,7 @@ const renewalID = "current-source-eleven-renewal-1"
 // Auxiliary public authority/process seam. The fixture is a separate Git owner;
 // its grant is synthetic and can never authorize the real repository.
 func TestFormalRenewalAuthorityProcess(t *testing.T) {
-	for _, mode := range []string{"inactive-option", "data-only-commit", "uncommitted-source", "valid-three", "pending", "human-missing", "human-pending", "source-stale", "source-commit", "old-drift", "wrong-id", "candidate", "caps", "foreign-owner", "duplicate", "new-session", "deleted-ledger", "changed-grant", "arbitrary-path", "unregistered", "excess-output", "excess-input"} {
+	for _, mode := range []string{"inactive-option", "data-only-commit", "uncommitted-source", "read-only", "pending", "human-missing", "human-pending", "source-stale", "source-commit", "old-drift", "caps", "foreign-owner", "unknown-new-field"} {
 		t.Run(mode, func(t *testing.T) { testRenewalFixture(t, mode) })
 	}
 }
@@ -119,6 +119,8 @@ func TestFormalRenewalAuthorityChild(t *testing.T) {
 		grant["maxCalls"] = 61
 	case "foreign-owner":
 		grant["commonRootSha256"] = strings.Repeat("d", 64)
+	case "unknown-new-field":
+		grant["previousCalls"] = 1
 	}
 	if mode == "uncommitted-source" {
 		os.WriteFile(filepath.Join(root, "ai/runtime.go"), []byte("package ai\n// WIP\n"), 0600)
@@ -161,16 +163,8 @@ func TestFormalRenewalAuthorityChild(t *testing.T) {
 		}
 		return
 	}
-	os.Setenv("BARNESS_MINIMAX_FORMAL_RENEWAL", renewalID)
-	if mode == "wrong-id" {
-		os.Setenv("BARNESS_MINIMAX_FORMAL_RENEWAL", "invented-round")
-	}
-	stage := "formal"
-	if mode == "candidate" {
-		stage = "candidate"
-	}
-	path, e := minimaxlive.StageLedgerPath(stage)
-	invalid := map[string]bool{"pending": true, "human-missing": true, "human-pending": true, "source-stale": true, "source-commit": true, "old-drift": true, "wrong-id": true, "candidate": true, "caps": true, "foreign-owner": true, "uncommitted-source": true, "missing": true}
+	_, _, e = minimaxlive.RenewalAuthority(renewalID, false)
+	invalid := map[string]bool{"pending": true, "human-missing": true, "human-pending": true, "source-stale": true, "source-commit": true, "old-drift": true, "caps": true, "foreign-owner": true, "uncommitted-source": true, "missing": true, "unknown-new-field": true}
 	if invalid[mode] {
 		if e == nil {
 			t.Fatalf("invalid renewal acquired authority: %s", mode)
@@ -181,96 +175,12 @@ func TestFormalRenewalAuthorityChild(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	if path != filepath.Join(base, "formal.jsonl") {
-		t.Fatalf("wrong canonical path %s", path)
+	if _, _, e = minimaxlive.RenewalAuthority(renewalID, true); e == nil {
+		t.Fatal("historical verification reopened closed execution")
 	}
-	id, _ := minimaxlive.Select("chat", minimaxlive.M3, "standard")
-	l := minimaxlive.Ledger{Path: path, Stage: "formal", Session: "renewed-chat", Identity: id}
-	if mode == "arbitrary-path" {
-		l.Path = filepath.Join(root, "fresh.jsonl")
+	after, _ := os.ReadFile(old)
+	if string(original) != string(after) {
+		t.Fatal("original formal ledger changed")
 	}
-	name, output, input := "full-stream", 1024, 2048
-	if mode == "duplicate" {
-		name = "preflight-error"
-		output = 1
-	}
-	if mode == "unregistered" {
-		name = "invented"
-	}
-	if mode == "excess-output" {
-		output = 4097
-	}
-	if mode == "excess-input" {
-		input = 120001
-	}
-	_, e = l.Reserve(name, output, input)
-	if mode == "arbitrary-path" || mode == "unregistered" || mode == "excess-output" || mode == "excess-input" {
-		if e == nil {
-			t.Fatal("invalid reservation accepted")
-		}
-		return
-	}
-	if e != nil {
-		t.Fatal(e)
-	}
-	if mode == "duplicate" {
-		_, e = l.Reserve(name, output, input)
-	} else if mode == "new-session" {
-		l.Session = "new-process"
-		_, e = l.Reserve("full-complete", 1024, 2048)
-	} else if mode == "deleted-ledger" {
-		os.Remove(path)
-		_, e = l.Reserve("full-complete", 1024, 2048)
-	} else if mode == "changed-grant" {
-		grant["planSha256"] = strings.Repeat("d", 64)
-		write("grant.json", grant)
-		_, e = l.Attempt(name)
-	} else {
-		if _, e = l.Attempt(name); e != nil {
-			t.Fatal(e)
-		}
-		for _, route := range []string{"chat", "responses", "messages"} {
-			id, _ := minimaxlive.Select(route, minimaxlive.M3, "standard")
-			z := minimaxlive.Ledger{Path: path, Stage: "formal", Session: "renewed-" + route, Identity: id}
-			for i, p := range minimaxlive.Plan(id) {
-				if route == "chat" && i == 0 {
-					continue
-				}
-				if _, e = z.Reserve(p.ID, p.Output, 2048); e != nil {
-					t.Fatal(e)
-				}
-				if p.ID != "preflight-error" {
-					if _, e = z.Attempt(p.ID); e != nil {
-						t.Fatal(e)
-					}
-				}
-			}
-		}
-		all, e := minimaxlive.ReadLedger(path)
-		if e != nil {
-			t.Fatal(e)
-		}
-		if len(all) != 75 {
-			t.Fatalf("want39 reservations36HTTP got%d", len(all))
-		}
-		if _, e = l.Reserve("full-stream", 1024, 2048); e != nil {
-			t.Fatalf("registered same-session rerun rejected: %v", e)
-		}
-		if _, e = l.Attempt("full-stream"); e != nil {
-			t.Fatal(e)
-		}
-		if _, e = l.Reserve("full-stream", 1024, 2048); e == nil {
-			t.Fatal("third same-case reservation accepted")
-		}
-		after, _ := os.ReadFile(old)
-		if string(original) != string(after) {
-			t.Fatal("original ledger changed")
-		}
-		fmt.Println("PASS fixed3=39/36 original unchanged")
-		return
-	}
-	if e == nil {
-		t.Fatalf("reset/reuse accepted %s", mode)
-	}
-	fmt.Println("REJECTED", mode, e)
+	fmt.Println("PASS original renewal read-only, active permanently closed")
 }

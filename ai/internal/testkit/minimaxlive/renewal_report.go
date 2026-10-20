@@ -11,7 +11,7 @@ func verifyRenewalReport(r Report) error {
 		}
 		return nil
 	}
-	if r.FormalRenewalID != FormalRenewalID || r.Mode != "live" || r.Stage != "formal" || r.Kind != "minimax-formal" || r.Identity.Model != M3 {
+	if (r.FormalRenewalID != FormalRenewalID && r.FormalRenewalID != FinalAcceptanceRenewalID) || r.Mode != "live" || r.Stage != "formal" || r.Kind != "minimax-formal" || r.Identity.Model != M3 {
 		return fmt.Errorf("renewal requires own actual M3 formal report")
 	}
 	g, pin, e := approvedRenewal(r.FormalRenewalID, false)

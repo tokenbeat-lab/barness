@@ -22,3 +22,7 @@ Type: task
 ## Acceptance
 
 独立审查确认新轮次真正隔离且旧历史不变；普通公共进程 E2E 与旧拒绝合同通过；不弱化证据消费者，不伪造当前自身支持。该机制进入最终执行来源冻结，实际执行及最终来源审查在 07 汇总。
+
+## Implementation
+
+已在独立分支实现 schema 2 固定续期、完整 15 份 canonical 前序绑定、只读 launcher preflight、pre-secret `BeginRenewal`、持久单进程 nonce claim 与闭合的 pending 首笔预留。原正式和首轮续期各自 39/36 未变，旧 ID 活动入口永久拒绝，新上限沿用 60/72、20/24、4096、40000/120000。普通公共进程 RED→GREEN 与受影响消费者通过；未读取真实 Key、未请求厂商、未运行 race。[实现与原件记录](../evidence/ticket09/README.md)、[ADR-0050](../../../docs/adr/0050-final-acceptance-renewal-authority.md)。独立最终审查和冻结仍由 07 汇总，工单在该确认前保持 claimed。
