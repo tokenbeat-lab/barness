@@ -12,7 +12,7 @@ import (
 func (l Ledger) renewalAuthority(caseID string) (string, string, error) {
 	selected := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL")
 	if selected == "" {
-		if (filepath.Base(filepath.Dir(l.Path)) == FormalRenewalID || filepath.Base(filepath.Dir(l.Path)) == FinalAcceptanceRenewalID) && filepath.Base(l.Path) == "formal.jsonl" {
+		if (filepath.Base(filepath.Dir(l.Path)) == ClosedFinalAcceptanceRenewalID || filepath.Base(filepath.Dir(l.Path)) == FormalRenewalID || filepath.Base(filepath.Dir(l.Path)) == FinalAcceptanceRenewalID) && filepath.Base(l.Path) == "formal.jsonl" {
 			return "", "", fmt.Errorf("fixed renewal ledger requires explicit selection")
 		}
 		return "", "", nil

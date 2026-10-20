@@ -30,11 +30,11 @@ func TestFinalRoundBudgetProcess(t *testing.T) {
 			if mode == "declined" {
 				maximum = 1
 			}
-			raw, _ := json.Marshal(map[string]any{"schema": 1, "round": "provider-sites-final-acceptance-1", "maxMicrousd": maximum, "reservedMicrousd": 0, "attempts": 0})
+			raw, _ := json.Marshal(map[string]any{"schema": 1, "round": "provider-sites-final-acceptance-2", "maxMicrousd": maximum, "reservedMicrousd": 0, "attempts": 0})
 			os.WriteFile(budget, raw, 0600)
-			round := "provider-sites-final-acceptance-1"
+			round := "provider-sites-final-acceptance-2"
 			if mode == "wrong-round" {
-				round = "closed-old-round"
+				round = "provider-sites-final-acceptance-1"
 			}
 			cmd := exec.Command(os.Args[0], "-test.run=^TestFinalRoundBudgetFixture$", "-test.timeout=20s")
 			for _, name := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {

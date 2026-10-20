@@ -7,13 +7,17 @@ sys.path.insert(0, str(ROOT / '.scratch/barness-ai-minimax/tools'))
 import paid_core as c
 import paid_plan as old
 
-ROUND = 'provider-sites-final-acceptance-1'
+ROUND = 'provider-sites-final-acceptance-2'
+PREVIOUS_ROUND = 'provider-sites-final-acceptance-1'
 PHASES = ('candidate', 'glm', 'remaining')
 ROUTES = ('chat', 'responses', 'messages')
 REGIONAL = tuple(p + '-' + r for p in ('zai', 'minimax-cn') for r in ROUTES)
 OLD = tuple(n for n, _, _, _ in old.GENERIC) + ('protocol114',) + tuple('glm-' + r for r in ROUTES) + tuple('mm-global-formal-m3-' + r for r in ROUTES)
 EFFECTS = ('text-jev', 'text-luna', 'visual-jev', 'visual-decisions')
-MAX_CALLS, MAX_ATTEMPTS = 726, 762
+MAX_CALLS, MAX_ATTEMPTS = 722, 758
+CAMPAIGN_CALLS, CAMPAIGN_ATTEMPTS = 774, 810
+PRIOR_CALLS, PRIOR_ATTEMPTS, PRIOR_RESERVED = 52, 52, 1500000
+NEW_RESERVED = 28400000
 
 
 def jobs(out):
@@ -42,8 +46,8 @@ def jobs(out):
                     BARNESS_REGIONAL_GRANT=str(out / 'grants' / (name + '.json')),
                     BARNESS_AI_EVIDENCE_DIR=str(out / name)))
     for job in result.values():
-        # These are explicit missing pre-send contracts, not estimates silently
-        # promoted to invoice bounds. Unknown pricing cannot reserve a dollar.
+        # The actual final-body estimate is a pre-send reservation. It is an
+        # operational ceiling, not a claim about the provider invoice.
         job['costGuard'] = dict(state='FINAL_WIRE_RESERVATION',
             basis='Encoded bytes+1024, explicit image reservation, final max_tokens or sourced image-output estimate; exact model maximum catalog tier. Unknown usage keeps all reserved USD; this operational estimate is not an invoice guarantee.')
     return result
@@ -51,7 +55,7 @@ def jobs(out):
 
 def inventory(out):
     return dict(schema=1, round=ROUND, maxCalls=MAX_CALLS, maxAttempts=MAX_ATTEMPTS,
-        diagnosticMaxCalls=4, diagnosticMaxAttempts=4, jobs=jobs(out),
+        diagnosticMaxCalls=0, diagnosticMaxAttempts=0, campaignMaxCalls=CAMPAIGN_CALLS, campaignMaxAttempts=CAMPAIGN_ATTEMPTS, jobs=jobs(out),
         credentialsRead=False, automaticProcessReruns=False,
         dollarPolicy='Reserve the entire verified process ceiling before claim/key; never release an unknown or failed process reservation.')
 

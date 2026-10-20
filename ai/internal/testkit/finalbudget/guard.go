@@ -1,4 +1,4 @@
-// Package finalbudget is the fixed provider-sites-final-acceptance-1 Host
+// Package finalbudget is the fixed provider-sites-final-acceptance-2 Host
 // spending guard. It is test/acceptance tooling, never a production AI policy.
 package finalbudget
 
@@ -13,7 +13,7 @@ import (
 	"sync"
 )
 
-const Round = "provider-sites-final-acceptance-1"
+const Round = "provider-sites-final-acceptance-2"
 
 var mu sync.Mutex
 

@@ -19,6 +19,10 @@ class FinalPublication(unittest.TestCase):
         self.root=self.fixture.root
         shutil.copytree(HERE,self.root/'.scratch/barness-provider-sites/tools',ignore=shutil.ignore_patterns('__pycache__'))
         self.fixture.commit()
+        import test_closed_fixture
+        source_commit=self.fixture.git('rev-parse','HEAD') if hasattr(self.fixture,'git') else subprocess.check_output(['git','rev-parse','HEAD'],cwd=self.root,text=True).strip()
+        test_closed_fixture.seed(self.root,source_commit)
+        self.fixture.commit()
         self.journal=[]
     def tearDown(self):
         target=os.environ.get('BARNESS_OPERATOR_TEST_EVIDENCE')
@@ -36,7 +40,7 @@ class FinalPublication(unittest.TestCase):
 import sys,shutil
 from pathlib import Path
 sys.path.insert(0,'.scratch/barness-provider-sites/tools')
-import final_contract as r,final_state as s,final_execute as e
+import final_contract as r,final_state as s,final_execute as e,final_predecessor
 c=r.c;out=c.ROOT/'.evidence/provider-sites/glm-native';out.mkdir(parents=True)
 commit=c.git('rev-parse','HEAD');jobs={n:j for n,j in r.jobs(out).items() if j['phase']=='glm'}
 for name,job in jobs.items():
@@ -46,12 +50,14 @@ c.dump(out/'source-at-start.json',dict(sourceCommit=commit,files={}))
 c.dump(out/'binaries.json',{})
 c.dump(out/'plan.json',c.redact(r.inventory(out)|dict(phase='glm',routes=jobs)))
 prepared=dict(schema=1,round=r.ROUND,phase='glm',credentialsRead=False,sourceCommit=commit,sourceManifestSHA256=c.digest(out/'source-at-start.json'),binariesManifestSHA256=c.digest(out/'binaries.json'),planSHA256=c.digest(out/'plan.json'))
+prior=final_predecessor.disclosure();c.dump(out/'predecessor-disclosure.json',prior)
+prepared['predecessorDisclosureSHA256']=c.digest(out/'predecessor-disclosure.json')
 c.dump(out/'prepared.json',prepared)
 proofs={}
 for name in ('standardsReview','specReview'):
  path=out/(name+'.md');path.write_text('Synthetic independent source review.\n');proofs[name]=dict(path=str(path.relative_to(c.ROOT)),sha256=c.digest(path))
 c.dump(out/'prerelease-source-review.json',prepared|dict(decision='APPROVED',reviewedBy='synthetic independent reviewers',authorizedRoutes=list(jobs),**proofs))
-c.dump(out/'execution-authorization.json',prepared|dict(decision='APPROVED',requestText='Synthetic exact fixed726/762 US30 standard',requestReference='synthetic own new reply',maxCalls=726,maxAttempts=762,maxUSD='30',automaticProcessReruns=False,standardCredentialScopes={'ZHIPU_KEY':dict(provider='zhipu',purpose='standard',confirmed=True,accountAlias='own-cn',regionAlias='cn-standard')},networkRoutes={n:'direct' for n in jobs},processReservationsMicrousd={n:1000000 for n in jobs},diagnosticReservedMicrousd=200000))
+c.dump(out/'execution-authorization.json',prepared|dict(decision='APPROVED',requestText='Synthetic exact fixed722/758 under original US30 standard',requestReference='synthetic own new reply',maxCalls=722,maxAttempts=758,maxUSD='30',automaticProcessReruns=False,standardCredentialScopes=prior['credentialScopes'],networkRoutes={n:'direct' for n in jobs},processReservationsMicrousd={n:1000000 for n in jobs},predecessor=prior,newBudgetMicrousd=r.NEW_RESERVED,campaignMaxCalls=r.CAMPAIGN_CALLS,campaignMaxAttempts=r.CAMPAIGN_ATTEMPTS,eligibilityAuthorizationSHA256=prior['authorizationSHA256'],raceAuthorizationSHA256=prior['authorizationSHA256']))
 checks=dict(passed=True,commands={},commandReceipts={},credentialsRead=False)
 for name,argv in dict(vet=['go','vet','./...'],**{'vet-live':['go','vet','-tags','live','./...'],'no-key-live':['go','test','-tags','live','-count=1','-timeout=20m','./ai/live']}).items():
  c.dump(out/(name+'-command.json'),dict(argv=argv,state='COMPLETED',exitCode=0,credentialsRead=False,credentialsInherited=False));checks['commands'][name]=0;checks['commandReceipts'][name]=c.digest(out/(name+'-command.json'))
@@ -69,27 +75,43 @@ for name,job in jobs.items():
 
     def test_full_new_canonical_capture_publishes_new_archives_and_rejects_pin_changes(self):
         values=self.seed_new()
-        args=['glm-archive','.evidence/minimax-provider-sites-own','--round','provider-sites-final-acceptance-1']
+        args=['glm-archive','.evidence/minimax-provider-sites-own','--round','provider-sites-final-acceptance-2']
         for route,value in values.items():args+=['--'+route,value]
         self.invoke(*args,ok=True)
         target=self.root/'ai/live/testdata/glm-formal/live-captures.json';before=target.read_bytes()
         index=json.loads(before)
-        self.assertEqual(index['collectionRound'],'provider-sites-final-acceptance-1')
+        self.assertEqual(index['collectionRound'],'provider-sites-final-acceptance-2')
         self.assertEqual(set(index['routes']),{'chat','responses','messages'})
-        marker=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-1-glm-messages.json'
+        marker=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-2-glm-messages.json'
         value=json.loads(marker.read_text());value['sourceVariable']='GLM_KEY';marker.write_text(json.dumps(value))
         args[1]='.evidence/minimax-provider-sites-borrowed-key'
         self.invoke(*args,ok=False)
         self.assertEqual(target.read_bytes(),before)
 
+    def test_closed_first_round_cannot_publish_views_with_resealed_checkpoint(self):
+        import hashlib
+        values=self.seed_new();out='.evidence/minimax-provider-sites-own'
+        args=['glm-archive',out,'--round','provider-sites-final-acceptance-2']
+        for route,value in values.items():args+=['--'+route,value]
+        self.invoke(*args,ok=True)
+        target=self.root/'ai/live/testdata/glm-formal/live-captures.json'
+        index=json.loads(target.read_text());index['collectionRound']='provider-sites-final-acceptance-1';target.write_text(json.dumps(index))
+        (target.parent/'live-captures.sha256').write_text(hashlib.sha256(target.read_bytes()).hexdigest()+'\n')
+        checkpoint=self.root/out/'raw-published.json';state=json.loads(checkpoint.read_text())
+        state['selectorSHA256']={name:hashlib.sha256((self.root/name).read_bytes()).hexdigest() for name in state['selectorSHA256']};checkpoint.write_text(json.dumps(state))
+        self.fixture.commit()
+        view=self.root/'ai/live/testdata/glm-formal/support-views.json';before=view.read_bytes()
+        self.invoke('glm-views',out,ok=False)
+        self.assertEqual(view.read_bytes(),before)
+
     def test_new_round_never_borrows_original_or_closed_round_capture_receipts(self):
         values=self.fixture.captures()
-        args=['glm-archive','.evidence/minimax-provider-sites-new','--round','provider-sites-final-acceptance-1']
+        args=['glm-archive','.evidence/minimax-provider-sites-new','--round','provider-sites-final-acceptance-2']
         for route,value in values.items():args+=['--'+route,value]
         before=(self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes()
         result=self.invoke(*args,ok=False)
         self.assertNotIn('invalid choice',result.stderr)
-        self.assertIn('provider-sites-final-acceptance-1-glm-chat.json',result.stderr)
+        self.assertIn('provider-sites-final-acceptance-2-glm-chat.json',result.stderr)
         self.assertEqual((self.root/'ai/live/testdata/glm-formal/live-captures.json').read_bytes(),before)
 
 if __name__=='__main__':unittest.main()

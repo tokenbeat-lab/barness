@@ -29,7 +29,9 @@ class FinalRound(unittest.TestCase):
         self.env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR') if k in os.environ}
         self.env.update(HTTP_PROXY='http://forbidden.invalid', OPENAI_KEY='FORBIDDEN-AMBIENT')
         self.git('init', '-q')
-        self.seed_research()
+        self.commit()
+        from test_closed_fixture import seed
+        seed(self.root,self.git("rev-parse","HEAD"))
         self.commit()
         # A directory cannot be read as a credential file. Keyless operations
         # must still work; refusal before approval must not touch it.
@@ -45,20 +47,6 @@ class FinalRound(unittest.TestCase):
             (p / 'processes.json').write_text(json.dumps(self.journal, indent=2) + '\n')
         self.tmp.cleanup()
 
-    def seed_research(self):
-        import hashlib
-        base=self.root/'.evidence/provider-sites/final-acceptance-20261020';base.mkdir(parents=True)
-        def put(path,value):
-            path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
-            return hashlib.sha256(path.read_bytes()).hexdigest()
-        plan='a'*64
-        approval=put(base/'authorization.json',dict(decision='APPROVED',roundId='provider-sites-final-acceptance-1',researchPlanSha256=plan,requestText='Synthetic research-only fixture'))
-        command=put(base/'research-command.receipt.json',dict(exitCode=0,authorizationSha256=approval))
-        files={'authorization.json':approval,'research-command.receipt.json':command}
-        for i in range(14):files['research/'+str(i)+'.json']=put(base/'research'/(str(i)+'.json'),dict(synthetic=True))
-        put(base/'research-index.json',dict(classification='RAW_OWN_WIRE_RESEARCH_NOT_QUALIFICATION',calls=4,httpAttempts=4,retries=0,qualificationPassClaimed=False,keyAudit=dict(findings=0),budgetUSDReserved=.2,files=files))
-        put(self.root/'.git/barness-regional-research'/(plan+'.json'),dict(planSha256=plan,authorizationSha256=approval))
-
     def git(self, *argv):
         return subprocess.check_output(['git', *argv], cwd=self.root, env=self.env, stderr=subprocess.DEVNULL).decode().strip()
 
@@ -72,12 +60,22 @@ class FinalRound(unittest.TestCase):
         self.assertEqual(result.returncode == 0, ok, result.stderr[-1000:] + result.stdout[:300])
         return result
 
-    def fake_build(self, regional_reports=False):
+    def fake_build(self, regional_reports=False, native_facts=False):
         bindir = self.root / 'bin'
         bindir.mkdir()
         go = bindir / 'go'
         native_source = '\nif "-source" in sys.argv[1:]:\n import hashlib\n files={p.as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in pathlib.Path("ai/internal/testkit/regional").rglob("*") if p.is_file()};print(json.dumps(dict(sourceSha256="a"*64,files=files)))\n'
         producer = '#!' + sys.executable + '\nimport sys,json,os,pathlib\nif os.getenv("BARNESS_REGIONAL_KEY"): print(json.dumps(dict(environmentKeys=sorted(os.environ))));pathlib.Path(os.environ["BARNESS_AI_EVIDENCE_DIR"]).parent.joinpath("selected-child-started").touch()\na=sys.argv[1:]\nif "-grant-template" in a:\n c=a[a.index("-grant-template")+1];s=a[a.index("-stage")+1];print(json.dumps(dict(schema=1,mode="live",id="<new>",accountAlias="<own>",regionAlias="<own>",expiresAt="0001-01-01T00:00:00Z",combo=c,stage=s)))\n'
+        if native_facts:
+            producer += r'''
+if "-renewal-source" in a:
+ out=pathlib.Path(sys.argv[0]).parent
+ prepared=json.loads((out/"prepared.json").read_text());prior=json.loads((out/"predecessor-disclosure.json").read_text())
+ facts=dict(renewalId="provider-sites-final-acceptance-2",sourceCommit=prepared["sourceCommit"],originalCalls=39,originalAttempts=36,previousCalls=39,previousAttempts=36,closedHistory={str(i):"a"*64 for i in range(15)},closedHistorySha256=prior["nativeHistorySHA256"],firstCohortSealSha256=prior["sealSHA256"],firstCohortActualCalls=40,firstCohortActualAttempts=40,firstCohortClaimedCalls=52,firstCohortClaimedAttempts=52,firstCohortReservedMicrousd=1500000,nativeRound1NeverIssued=True)
+ print(json.dumps(facts))
+if any(v.startswith("-renewal-preflight=") for v in a):
+ grant=json.loads(pathlib.Path(".evidence/minimax-renewals/provider-sites-final-acceptance-2/grant.json").read_text());assert grant["schema"]==3
+'''
         if regional_reports:
             # This controlled executable tests operator filename/phase wiring;
             # the real native validator has independent capture/authority E2E.
@@ -104,6 +102,25 @@ if "-receipt" in a:
         self.env['PATH'] = str(bindir) + os.pathsep + self.env['PATH']
         self.commit()
 
+    def test_closed_cohort_absence_and_fingerprint_guard_before_secret(self):
+        self.fake_build()
+        self.runcli('prepare','.evidence/provider-sites/current','--phase','candidate')
+        base=self.root/'.evidence/provider-sites/current'
+        template=json.loads((base/'execution-authorization.template.json').read_text())
+        self.assertEqual(template['predecessor']['claimedCalls'],52)
+        marker=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-1-openai-chat.json'
+        marker.write_text('{}')
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        marker.unlink()
+        native=self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-1/unexpected-intent.json'
+        native.write_text('{}')
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        native.unlink()
+        seal=self.root/'.evidence/provider-sites/final-acceptance-20261020/closed-cohort-1/seal.json'
+        data=json.loads(seal.read_text());data['campaignWholeReservedMicrousd']=0;seal.write_text(json.dumps(data))
+        self.runcli('preview','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
+        self.assertTrue((self.root/'.env').is_dir())
+
     def test_prepare_freezes_current_source_and_refuses_paid_start_without_approval(self):
         self.fake_build()
         self.runcli('prepare', '.evidence/provider-sites/current', '--phase', 'glm')
@@ -112,11 +129,11 @@ if "-receipt" in a:
         self.assertEqual(set(plan['routes']), {'glm-chat', 'glm-responses', 'glm-messages'})
         template = json.loads((base / 'execution-authorization.template.json').read_text())
         self.assertEqual(template['decision'], 'PENDING')
-        self.assertEqual((template['maxCalls'], template['maxAttempts']), (726, 762))
+        self.assertEqual((template['maxCalls'], template['maxAttempts']), (722, 758))
         self.runcli('preview', '.evidence/provider-sites/current', 'glm-chat')
         self.runcli('run-selected', '.evidence/provider-sites/current', 'glm-chat', ok=False)
         self.assertTrue((self.root / '.env').is_dir())
-        self.assertFalse((self.root / '.evidence/minimax-launches/provider-sites-final-acceptance-1-glm-chat.json').exists())
+        self.assertFalse((self.root / '.evidence/minimax-launches/provider-sites-final-acceptance-2-glm-chat.json').exists())
         (self.root / 'ai/sentinel.go').write_text('package changed\n')
         self.runcli('preview', '.evidence/provider-sites/current', 'glm-chat', ok=False)
 
@@ -152,7 +169,7 @@ if "-receipt" in a:
         result=self.runcli('native-grant','.evidence/provider-sites/remaining',ok=False)
         self.assertIn('prerelease-source-review.json',result.stderr)
         self.assertFalse((self.root/'.evidence/provider-sites/candidate/finalization').exists())
-        self.assertFalse((self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-1/grant.json').exists())
+        self.assertFalse((self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-2/grant.json').exists())
         self.assertTrue((self.root/'.env').is_dir())
 
     def approve(self, base, reserve=1000000):
@@ -166,7 +183,7 @@ if "-receipt" in a:
         review.update(decision='APPROVED', reviewedBy='synthetic independent reviewers', authorizedRoutes=list(plan['routes']))
         (base / 'prerelease-source-review.json').write_text(json.dumps(review))
         auth = json.loads((base / 'execution-authorization.template.json').read_text())
-        auth.update(decision='APPROVED', requestText='Synthetic approve new fixed726/762 US30 standard only', requestReference='controlled test reply', maxUSD='30', diagnosticReservedMicrousd=200000)
+        auth.update(decision='APPROVED', requestText='Synthetic approve new fixed722/758 US30 standard only', requestReference='controlled test reply', maxUSD='30', newBudgetMicrousd=28400000,campaignMaxCalls=774,campaignMaxAttempts=810,eligibilityAuthorizationSHA256=auth['predecessor']['authorizationSHA256'],raceAuthorizationSHA256=auth['predecessor']['authorizationSHA256'])
         for name, job in plan['routes'].items():
             auth['standardCredentialScopes'][job['sourceVariable']] = dict(provider=job['provider'], purpose='standard', confirmed=True, accountAlias='controlled-own-standard', regionAlias='controlled-own-region')
             auth['networkRoutes'][name] = 'direct'
@@ -174,7 +191,7 @@ if "-receipt" in a:
             if 'combo' in job:
                 import datetime
                 value=json.loads((base/'grants'/(name+'.template.json')).read_text())
-                value.update(id='ps-final-1-'+name,accountAlias='controlled-own-standard',regionAlias='controlled-own-region',expiresAt=(datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(hours=1)).isoformat())
+                value.update(id='ps-final-2-'+name,accountAlias='controlled-own-standard',regionAlias='controlled-own-region',expiresAt=(datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(hours=1)).isoformat())
                 grant=base/'grants'/(name+'.json');grant.write_text(json.dumps(value))
                 auth['componentAuthorizationSHA256'][name]=hashlib.sha256(grant.read_bytes()).hexdigest()
         (base / 'execution-authorization.json').write_text(json.dumps(auth))
@@ -188,15 +205,15 @@ if "-receipt" in a:
         # No actual credential can be read; this deliberate acquisition failure
         # still burns the durable claim and its whole conservative allowance.
         self.runcli('run-selected', '.evidence/provider-sites/current', 'candidate-zai-chat', ok=False)
-        marker = self.root / '.evidence/minimax-launches/provider-sites-final-acceptance-1-candidate-zai-chat.json'
+        marker = self.root / '.evidence/minimax-launches/provider-sites-final-acceptance-2-candidate-zai-chat.json'
         self.assertTrue(marker.exists())
         receipt = json.loads(marker.read_text())
         self.assertEqual(receipt['reservedMicrousd'], 1000000)
         self.assertEqual(receipt['budget']['state'], 'UNKNOWN')
         self.runcli('run-selected', '.evidence/provider-sites/current', 'candidate-zai-chat', ok=False)
         summary = json.loads(self.runcli('summarize').stdout)
-        self.assertEqual(summary['reservedMicrousd'], 1200000)
-        self.assertEqual(summary['claimedCalls'], 28)
+        self.assertEqual(summary['reservedMicrousd'], 2500000)
+        self.assertEqual(summary['claimedCalls'], 76)
         self.assertTrue((self.root / '.env').is_dir())
 
     def test_candidate_native_report_settlement_and_six_route_promotion(self):
@@ -215,6 +232,38 @@ if "-receipt" in a:
         self.assertEqual(result['activatedFile'],'ai/catalog_regional.json')
         self.assertEqual(json.loads((self.root/'ai/catalog_regional.json').read_text()),dict(active=True))
         self.assertTrue((self.root/'.evidence/provider-sites/final-acceptance-20261020/promotion/regional-promotion-lineage.json').is_file())
+        authority=self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-2/operator-authority.json'
+        original=authority.read_bytes()
+        self.commit()
+        self.runcli('prepare','.evidence/provider-sites/new-phase','--phase','glm')
+        next_base=self.root/'.evidence/provider-sites/new-phase'
+        self.runcli('check','.evidence/provider-sites/new-phase');self.approve(next_base)
+        self.runcli('run-selected','.evidence/provider-sites/new-phase','glm-chat',ok=False)
+        self.assertEqual(authority.read_bytes(),original)
+        summary=json.loads(self.runcli('summarize').stdout)
+        self.assertEqual(summary['ownClaimedCalls'],168)
+        self.assertEqual(summary['claimedCalls'],220)
+        self.assertEqual(summary['reservedMicrousd'],8500000)
+
+
+    def test_native_grant_projects_same_closed_budget_and_issues_once(self):
+        self.fake_build(native_facts=True)
+        self.runcli('prepare','.evidence/provider-sites/remaining','--phase','remaining')
+        base=self.root/'.evidence/provider-sites/remaining'
+        self.runcli('check','.evidence/provider-sites/remaining');self.approve(base)
+        result=json.loads(self.runcli('native-grant','.evidence/provider-sites/remaining').stdout)
+        self.assertEqual(result['renewalId'],'provider-sites-final-acceptance-2')
+        authority=self.root/'.evidence/minimax-renewals/provider-sites-final-acceptance-2'
+        grant=json.loads((authority/'grant.json').read_text());human=json.loads((authority/'human-approval.json').read_text());review=json.loads((authority/'source-review.json').read_text())
+        self.assertEqual(grant['schema'],3)
+        self.assertEqual(grant['firstCohortReservedMicrousd'],1500000)
+        self.assertEqual(human['firstCohortSealSHA256'],grant['firstCohortSealSha256'])
+        self.assertEqual(review['firstCohortSealSHA256'],grant['firstCohortSealSha256'])
+        self.assertEqual((human['maxCalls'],human['maxAttempts'],human['campaignMaxCalls'],human['campaignMaxAttempts'],human['newReservedMicrousd']),(722,758,774,810,28400000))
+        before=(authority/'grant.json').read_bytes()
+        self.runcli('native-grant','.evidence/provider-sites/remaining',ok=False)
+        self.assertEqual((authority/'grant.json').read_bytes(),before)
+        self.assertTrue((self.root/'.env').is_dir())
 
     def test_final_plan_requires_all23_own_inputs_and_four_effects(self):
         self.fake_build()
@@ -267,7 +316,7 @@ if "-receipt" in a:
         self.assertNotIn('MINIMAX_CN_KEY',command['environmentKeys'])
         self.assertNotIn('OPENAI_KEY',command['environmentKeys'])
         self.assertNotIn('HTTP_PROXY',command['environmentKeys'])
-        record=json.loads((self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-1-candidate-zai-chat.json').read_text())
+        record=json.loads((self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-2-candidate-zai-chat.json').read_text())
         self.assertEqual(record['budget']['state'],'UNKNOWN')
         self.assertEqual(record['reservedMicrousd'],1000000)
         log=(base/'candidate-zai-chat.log').read_text()
@@ -279,7 +328,7 @@ if "-receipt" in a:
         base=self.root/'.evidence/provider-sites/current'
         self.runcli('check','.evidence/provider-sites/current');self.approve(base,reserve=30000000)
         self.runcli('run-selected','.evidence/provider-sites/current','candidate-zai-chat',ok=False)
-        marker=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-1-candidate-zai-chat.json'
+        marker=self.root/'.evidence/minimax-launches/provider-sites-final-acceptance-2-candidate-zai-chat.json'
         self.assertFalse(marker.exists());self.assertFalse((base/'candidate-zai-chat-command.json').exists())
         auth=json.loads((base/'execution-authorization.json').read_text());auth['standardCredentialScopes']['ZAI_KEY']['provider']='zhipu'
         (base/'execution-authorization.json').write_text(json.dumps(auth))
@@ -288,11 +337,13 @@ if "-receipt" in a:
 
     def test_inventory_is_fixed_complete_and_keyless(self):
         value = json.loads(self.runcli('inventory').stdout)
-        self.assertEqual(value['round'], 'provider-sites-final-acceptance-1')
-        self.assertEqual((value['maxCalls'], value['maxAttempts']), (726, 762))
+        self.assertEqual(value['round'], 'provider-sites-final-acceptance-2')
+        self.assertEqual((value['maxCalls'], value['maxAttempts']), (722, 758))
         self.assertEqual(len(value['jobs']), 33)
-        self.assertEqual(sum(j['maxCalls'] for j in value['jobs'].values()) + 4, 726)
-        self.assertEqual(sum(j['maxAttempts'] for j in value['jobs'].values()) + 4, 762)
+        self.assertEqual((value['campaignMaxCalls'],value['campaignMaxAttempts']),(774,810))
+        self.assertEqual((value['diagnosticMaxCalls'],value['diagnosticMaxAttempts']),(0,0))
+        self.assertEqual(sum(j['maxCalls'] for j in value['jobs'].values()), 722)
+        self.assertEqual(sum(j['maxAttempts'] for j in value['jobs'].values()), 758)
         self.assertEqual(value['jobs']['glm-chat']['sourceVariable'], 'ZHIPU_KEY')
         self.assertEqual(value['jobs']['google-gemini']['sourceVariable'], 'GEMINI_KEY')
         self.assertEqual(value['jobs']['candidate-minimax-cn-messages']['sourceVariable'], 'MINIMAX_CN_KEY')

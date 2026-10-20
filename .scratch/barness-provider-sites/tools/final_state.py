@@ -50,8 +50,9 @@ def prepare(out, phase):
     frozen = freeze()
     out.mkdir(parents=True, exist_ok=False, mode=0o700)
     c.dump(out / 'source-at-start.json', frozen)
-    import final_research
-    c.dump(out/'research-disclosure.json',final_research.disclosure())
+    import final_predecessor
+    predecessor=final_predecessor.disclosure()
+    c.dump(out/'predecessor-disclosure.json',predecessor)
     if run(out,'go-version',['go','version'])!=0:
         raise RuntimeError('build toolchain identity unavailable')
     toolchain=dict(goVersion=(out/'go-version.log').read_text().strip(),pythonVersion=sys.version,
@@ -87,15 +88,15 @@ def prepare(out, phase):
     plan = r.inventory(out) | dict(phase=phase, routes={n: j for n, j in all_jobs.items() if j['phase'] == phase})
     c.dump(out / 'plan.json', c.redact(plan))
     prepared = dict(schema=1, round=r.ROUND, phase=phase, credentialsRead=False,
-        nativeSourceManifestSHA256=c.digest(out/'regional-source.json'), researchDisclosureSHA256=c.digest(out/'research-disclosure.json'), componentTemplatesSHA256=c.digest(out/'component-templates.json'), toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
+        nativeSourceManifestSHA256=c.digest(out/'regional-source.json'), predecessorDisclosureSHA256=c.digest(out/'predecessor-disclosure.json'), componentTemplatesSHA256=c.digest(out/'component-templates.json'), toolchainSHA256=c.digest(out/'toolchain.json'), sourceCommit=frozen['sourceCommit'], sourceManifestSHA256=c.digest(out / 'source-at-start.json'),
         binariesManifestSHA256=c.digest(out / 'binaries.json'), planSHA256=c.digest(out / 'plan.json'))
     c.dump(out / 'prepared.json', prepared)
     c.dump(out / 'prerelease-source-review.template.json', prepared | dict(decision='PENDING', reviewedBy='',
         standardsReview=dict(path='', sha256=''), specReview=dict(path='', sha256=''), authorizedRoutes=[]))
     c.dump(out / 'execution-authorization.template.json', prepared | dict(decision='PENDING', requestText='',
-        requestReference='', maxCalls=r.MAX_CALLS, maxAttempts=r.MAX_ATTEMPTS, maxUSD=None,
+        requestReference='', eligibilityAuthorizationSHA256=predecessor['authorizationSHA256'],raceAuthorizationSHA256=predecessor['authorizationSHA256'], maxCalls=r.MAX_CALLS, maxAttempts=r.MAX_ATTEMPTS, maxUSD=None,
         standardCredentialScopes={}, networkRoutes={}, processReservationsMicrousd={}, componentAuthorizationSHA256={},
-        diagnosticReservedMicrousd=None, automaticProcessReruns=False))
+        predecessor=c.doc(out/'predecessor-disclosure.json'),newBudgetMicrousd=r.NEW_RESERVED,campaignMaxCalls=r.CAMPAIGN_CALLS,campaignMaxAttempts=r.CAMPAIGN_ATTEMPTS,automaticProcessReruns=False))
     guard(out)
     return prepared
 
@@ -103,9 +104,11 @@ def prepare(out, phase):
 def guard(out):
     prepared = c.doc(out / 'prepared.json')
     frozen = c.doc(out / 'source-at-start.json')
-    import final_research
-    if c.digest(out/'research-disclosure.json')!=prepared['researchDisclosureSHA256'] or c.doc(out/'research-disclosure.json')!=final_research.disclosure():
-        raise RuntimeError('already consumed original research facts changed')
+    if prepared.get('round')!=r.ROUND:
+        raise RuntimeError('only fixed active round2 is executable; original1 remains closed')
+    import final_predecessor
+    if c.digest(out/'predecessor-disclosure.json')!=prepared['predecessorDisclosureSHA256'] or c.doc(out/'predecessor-disclosure.json')!=final_predecessor.disclosure():
+        raise RuntimeError('closed predecessor facts changed')
     if c.digest(out/'component-templates.json')!=prepared['componentTemplatesSHA256']:
         raise RuntimeError('frozen native component template inventory changed')
     for leaf,sha in c.doc(out/'component-templates.json').items():
@@ -157,13 +160,22 @@ def approved_metadata(out, job, prepared):
             raise RuntimeError('both retained exact independent review files required')
     from decimal import Decimal
     maximum = Decimal(str(auth.get('maxUSD')))
-    if not maximum.is_finite() or maximum <= 0 or maximum > 30:
-        raise RuntimeError('new explicit finite USD approval up to30 required')
+    if not maximum.is_finite() or maximum != 30:
+        raise RuntimeError('existing30USD campaign ceiling and new bounded paid approval required')
     if (type(auth.get('maxCalls')) is not int or auth['maxCalls'] != r.MAX_CALLS or
         type(auth.get('maxAttempts')) is not int or auth['maxAttempts'] != r.MAX_ATTEMPTS or
         auth.get('automaticProcessReruns') is not False or not auth.get('requestText') or not auth.get('requestReference')):
-        raise RuntimeError('new explicit726/762 finite-round human reply required')
+        raise RuntimeError('new explicit722/758 fixed-round human reply required')
+    prior=c.doc(out/'predecessor-disclosure.json')
+    import final_predecessor
+    if prior!=final_predecessor.disclosure():raise RuntimeError('fixed immutable first-cohort history required')
+    if (auth.get('predecessor')!=prior or auth.get('newBudgetMicrousd')!=r.NEW_RESERVED or
+        auth.get('campaignMaxCalls')!=r.CAMPAIGN_CALLS or auth.get('campaignMaxAttempts')!=r.CAMPAIGN_ATTEMPTS or
+        auth.get('eligibilityAuthorizationSHA256')!=prior['authorizationSHA256'] or auth.get('raceAuthorizationSHA256')!=prior['authorizationSHA256']):
+        raise RuntimeError('same closed predecessor, original eligibility/race and new bounded paid scope required')
     scope = auth.get('standardCredentialScopes', {}).get(job['sourceVariable'], {})
+    if scope != prior['credentialScopes'].get(job['sourceVariable']):
+        raise RuntimeError('same previously confirmed own credential service/account/purpose required')
     if (scope.get('provider') != job['provider'] or scope.get('purpose') != 'standard' or
         scope.get('confirmed') is not True or not scope.get('accountAlias') or not scope.get('regionAlias')):
         raise RuntimeError('own confirmed standard provider/account/region scope required')
