@@ -18,11 +18,66 @@ import (
 
 // Exercise full unchanged classifier plans with allowance enabled, not merely
 // their guard-disabled controlled regressions. No real credential or service.
+func TestFinalBudgetClassifierHomeArtifacts(t *testing.T) {
+	cs := run.Case(t, "REGIONAL-budget-home-artifacts")
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	root := filepath.Clean(filepath.Join(cwd, "../.."))
+	// The real checkout and child cwd are inside this synthetic HOME. Only
+	// this probe's evidence root is aliased in the outer process.
+	home := filepath.Dir(root)
+	base, err := os.MkdirTemp(filepath.Join(root, ".evidence"), "budget-home-artifacts-")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(base)
+	run.RedactSecret(base, "$BUDGET_HOME_PROBE")
+	cmd := exec.Command(os.Args[0], "-test.run=^TestFinalBudgetClassifierPipelines$", "-test.timeout=90s", "-test.v")
+	cmd.Dir = cwd
+	cmd.Env = []string{"PATH=" + os.Getenv("PATH"), "TMPDIR=" + os.TempDir(), "HOME=" + home, "BARNESS_AI_EVIDENCE_DIR=" + base}
+	output, err := cmd.CombinedOutput()
+	cs.Record("process", map[string]any{"argv": cmd.Args, "exitSuccess": err == nil, "output": string(output)})
+	if !cs.Check("full public pipelines and unchanged TestMain audit pass inside HOME", err == nil, "%v %s", err, output) {
+		return
+	}
+	for _, route := range []string{"decisions", "protocol", "typesafe"} {
+		matches, _ := filepath.Glob(filepath.Join(base, "*", "REGIONAL-budget-full-"+route, "process.json"))
+		if !cs.Check("retained child diagnostic exists "+route, len(matches) == 1, "count=%d", len(matches)) {
+			continue
+		}
+		data, e := os.ReadFile(matches[0])
+		cs.Fixture(route+"-process.json", data)
+		var process struct {
+			Argv    []string `json:"argv"`
+			Success bool     `json:"exitSuccess"`
+			Output  string   `json:"output"`
+		}
+		decodeErr := json.Unmarshal(data, &process)
+		cs.Check("redacted path preserves full child diagnostics "+route, e == nil && decodeErr == nil && process.Success && len(process.Argv) == 4 && strings.Contains(process.Output, "PASS\n") && strings.Contains(process.Output, "$BUDGET_PIPELINE_ROOT/budget-pipeline-"+route+"/") && !strings.Contains(string(data), home), "read=%v decode=%v argv=%d success=%v", e, decodeErr, len(process.Argv), process.Success)
+	}
+	audits, _ := filepath.Glob(filepath.Join(base, "*", "audit.json"))
+	if cs.Check("unchanged environment audit retained", len(audits) == 1, "count=%d", len(audits)) {
+		data, e := os.ReadFile(audits[0])
+		cs.Fixture("child-audit.json", data)
+		var audit struct {
+			Findings []json.RawMessage `json:"findings"`
+		}
+		decodeErr := json.Unmarshal(data, &audit)
+		cs.Check("zero forbidden environment findings", e == nil && decodeErr == nil && len(audit.Findings) == 0, "read=%v decode=%v findings=%d", e, decodeErr, len(audit.Findings))
+	}
+}
+
 func TestFinalBudgetClassifierPipelines(t *testing.T) {
 	for _, route := range []string{"decisions", "protocol", "typesafe"} {
 		t.Run(route, func(t *testing.T) {
 			cs := run.Case(t, "REGIONAL-budget-full-"+route)
 			base := filepath.Join(run.Dir(), "budget-pipeline-"+route)
+			// Child Finish reports its evidence location. Hide only this owned
+			// pipeline root; retain route/session suffixes and the full output.
+			// HOME stays forbidden so unrelated environment leaks still fail.
+			run.RedactSecret(base, "$BUDGET_PIPELINE_ROOT/"+filepath.Base(base))
 			if err := os.MkdirAll(base, 0700); err != nil {
 				t.Fatal(err)
 			}

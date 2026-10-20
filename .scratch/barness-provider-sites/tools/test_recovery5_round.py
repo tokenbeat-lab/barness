@@ -70,6 +70,26 @@ class Recovery5Round(RecoveryRound):
         stop=json.loads((self.root/BASE/'recovery4-stopped/index.json').read_text());p=self.root/stop['processes'][-1]['nativeBundle']/'live-report.json';p.write_text('{}');self.runcli('summarize',ok=False)
         self.assertTrue((self.root/'.env').is_dir())
 
+    def test_five_reviewed_budget_test_exact_source_and_drift(self):
+        import subprocess
+        from pathlib import Path
+        from recovery5_retained import BUDGET_SOURCE_COMMIT,BUDGET_TESTS
+        from test_recovery5_fixture import seed,builder
+        seed(self);builder(self);repo=Path(__file__).resolve().parents[3]
+        # Project the actual fixed source pin into this disposable Git owner.
+        # No real history, authority, capture, or compatibility proof changes.
+        for name in BUDGET_TESTS:
+            raw=subprocess.check_output(['git','show',BUDGET_SOURCE_COMMIT+':'+name],cwd=repo)
+            p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw)
+        self.commit();pin=self.git('rev-parse','HEAD')
+        verifier=self.tools/'recovery5_retained.py';verifier.write_text(verifier.read_text().replace(BUDGET_SOURCE_COMMIT,pin))
+        name='ai/live/final_budget_pipeline_test.go';p=self.root/name;p.write_bytes((repo/name).read_bytes());self.commit()
+        self.runcli('prepare','.evidence/provider-sites/reviewed-budget')
+        p.write_bytes(p.read_bytes()+b'\n// unreviewed budget artifact source drift\n');self.commit()
+        v=self.runcli('prepare','.evidence/provider-sites/unreviewed-budget',ok=False)
+        self.assertIn('reviewed actual budget test source changed',v.stderr)
+        self.assertFalse((self.root/'.evidence/provider-sites/unreviewed-budget').exists());self.assertTrue((self.root/'.env').is_dir())
+
     def test_five_first18_then_schema6_with_three_exact_proofs_once(self):
         from test_recovery5_fixture import approve,keys
         base=self.ready();approve(self,base);self.runcli('native-grant','.evidence/provider-sites/recovery5',ok=False)
