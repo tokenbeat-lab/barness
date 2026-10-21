@@ -19,7 +19,8 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | 后续准备 | [25固定原生7](issues/25-recovery7-native-authority.md)、[26固定续验7](issues/26-recovery7-fixed-continuation.md)只做离线机制/审查/冻结/检查与具体有限计划，不授予新费用或厂商调用；旧6已关闭不重启。新范围、source/binary/plan/金额及运行资源边界必须固定并取得新的直接批准。 |
 | 保留证明 | 六历史candidate与晋升血缘保持历史角色；八generic原08自身raw与[最终84次wire/header/body/完整owned ledger相等证明](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/compatibility-eight.json)保留。新来源若要沿用仍须精确来源差异和完整原件消费，不泛放路径；三GLM必须新完整22自身raw，旧views/ZIP不代替。 |
 | 审查与普通 | 1251199双轴清零、十新binary、双vet和完整ai/live无Key检查实际通过；[不可变准备快照](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/ready-for-approval.json)及开发RED/GREEN保留原来源。24–26后续新源须重新审查、冻结、构建及适当普通验证，不套旧结论。 |
-| 正式资格 | ZAI Messages/GLM-5.2在恢复5原8c83426完整18通过；中国MiniMax Responses固定自身full-stream来源的离线修复已整合，但新当前strict formal仍待齐。恢复6仅一条当前完整ZAI Responses事实，不代替所有最终23 live+4 effects。 |
+| 正式资格 | ZAI Messages/GLM-5.2在恢复5原8c83426完整18通过；中国MiniMax Responses固定自身full-stream来源的离线修复已整合，但新当前strict formal仍待齐。恢复6仅有原1251199来源的完整ZAI Responses历史事实；24–26新来源须取得新证明，最终23 live+4 effects仍未齐。 |
+| 暂停要求 | 按最新人类要求，完成当前离线修复、复审、冻结、无Key检查和具体计划后暂停。固定恢复7尚未批准，当前不申请或执行新付费、正式race；状态与交接由当前索引维护。 |
 | READY/race/release | fresh正式READY尚未取得；正式race NOT_RUN，release.pass=false。旧开发完整race的2589.635秒PASS仅证明其原470682d3来源。九服务资格及取得新READY后一次完整正式race的人类选择保留；失败不自动重跑。 |
 
 本表不重写历史失败、来源或预算；R01–R20合同不变。
