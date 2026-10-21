@@ -15,6 +15,8 @@ import (
 // Exercise actual live.test initialization with real canonical authority in an
 // isolated synthetic Git owner. No Key or live switch is supplied to the child.
 func TestMiniMaxRecovery7HarnessDeadlineProcess(t *testing.T) {
+	t.Parallel()
+	admitRenewalOwner(t)
 	root, e := minimaxlive.Root()
 	if e != nil {
 		t.Fatal(e)
