@@ -8,7 +8,7 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 
 ## 当前状态
 
-此节是唯一当前状态入口；实际逐项状态由[恢复6当前索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/index.json)维护，历史证明仅证明其固定来源。
+此节是唯一当前状态入口；实际逐项状态由[恢复7当前索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/index.json)维护，历史证明仅证明其固定来源。
 
 | 项目 | 当前状态 |
 | --- | --- |

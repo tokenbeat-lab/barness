@@ -77,8 +77,7 @@ func driveMiniMax(t *testing.T) {
 	}
 	gate := &minimaxHTTPGate{next: rec.next}
 	rec.next = gate
-	policy := livePolicy()
-	policy.CallTimeout = 120 * time.Second
+	policy := miniMaxPolicy()
 	key := minimaxKey
 	if r.Mode == "replay" {
 		key = "synthetic-capture-replay"
@@ -124,6 +123,18 @@ func driveMiniMax(t *testing.T) {
 		}
 	}
 }
+
+func miniMaxPolicy() *ai.ResourcePolicy {
+	policy := livePolicy()
+	policy.CallTimeout = 120 * time.Second
+	// This Host transport validates the complete native authority before it
+	// dials. That local work exceeded the ordinary 15s connect clock (issue24).
+	// Keep each fresh validation in place and let the unchanged call/header
+	// limits bound the combined local and network work instead.
+	policy.ConnectTimeout = policy.CallTimeout
+	return policy
+}
+
 func miniMaxOptions(p minimaxlive.Case) ai.Options {
 	p.ID = strings.TrimPrefix(p.ID, "research-")
 	id := minimaxReport.Identity
