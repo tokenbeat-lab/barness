@@ -1,6 +1,7 @@
 package minimaxlive_test
 
 import (
+	"context"
 	"encoding/json"
 	"os"
 	"os/exec"
@@ -47,7 +48,9 @@ func TestMiniMaxRecovery7HarnessDeadlineProcess(t *testing.T) {
 		}
 	}
 	exe, _ := os.Executable()
-	c = exec.Command(exe, "-test.run=^TestMiniMaxRecovery7HarnessDeadlineChild$", "-test.v")
+	ctx, cancel := context.WithTimeout(context.Background(), 8*time.Minute)
+	defer cancel()
+	c = exec.CommandContext(ctx, exe, "-test.run=^TestMiniMaxRecovery7HarnessDeadlineChild$", "-test.v")
 	c.Dir = dir
 	c.Env = []string{"PATH=" + os.Getenv("PATH"), "BARNESS_MINIMAX_DEADLINE_CHILD=" + live, "BARNESS_MINIMAX_DEADLINE_EVIDENCE=" + os.Getenv("BARNESS_MINIMAX_DEADLINE_EVIDENCE")}
 	raw, e := c.CombinedOutput()
@@ -122,7 +125,9 @@ func TestMiniMaxRecovery7HarnessDeadlineChild(t *testing.T) {
 				env = append(env, "BARNESS_MINIMAX_RESEARCH=1")
 				entry = "^TestMiniMaxResearch$"
 			}
-			c := exec.Command(live, "-test.run="+entry, "-test.timeout=30s")
+			ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+			defer cancel()
+			c := exec.CommandContext(ctx, live, "-test.run="+entry, "-test.timeout=30s")
 			c.Env = env
 			start := time.Now().UTC()
 			log, err := c.CombinedOutput()
@@ -145,6 +150,9 @@ func TestMiniMaxRecovery7HarnessDeadlineChild(t *testing.T) {
 			code := 0
 			if err != nil {
 				code = c.ProcessState.ExitCode()
+			}
+			if tc.renewal != "" && !tc.authorized && code != 1 {
+				t.Errorf("unapproved or nonformal renewal must reject: exit=%d output=%s", code, log)
 			}
 			receipt := map[string]any{"argv": c.Args, "startedAt": start, "finishedAt": time.Now().UTC(), "exitCode": code, "report": json.RawMessage(b), "manifest": json.RawMessage(manifest), "output": string(log), "credentialsRead": false, "vendorCalls": 0, "syntheticOwner": f.root}
 			if evidence := os.Getenv("BARNESS_MINIMAX_DEADLINE_EVIDENCE"); evidence != "" {
