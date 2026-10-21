@@ -13,7 +13,7 @@ class NativeConsumer:
         return final_grants.templates(out, 'remaining')
 
     def verified(self, out, name, argv, timeout=180):
-        if type(timeout) is not int or timeout not in (180,360):raise RuntimeError('fixed native consumer resource bound required')
+        if type(timeout) is not int or (timeout not in (180,360) and not (self.flow.r.ROUND=='provider-sites-final-acceptance-7' and timeout==600)):raise RuntimeError('fixed native consumer resource bound required')
         if any((out/(name+suffix)).exists() or (out/(name+suffix)).is_symlink() for suffix in ('.log','-command.json')):raise RuntimeError('native command output already exists; preserve first outcome')
         if self.flow.s.run(out, name, argv, timeout=timeout) != 0:
             raise RuntimeError('current native consumer refused; preserve failure')

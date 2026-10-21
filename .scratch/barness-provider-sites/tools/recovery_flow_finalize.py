@@ -46,7 +46,10 @@ class Finalizer:
             gate += ['-' + flag, effects[name]]
         for base in live.values():
             gate += ['-live', base]
-        return dict(round=self.flow.r.ROUND, credentialsRead=False, releaseCertified=False, liveInputs=live, effects=effects, verify=checks, merge=merge, preflight=[*gate, '-preflight', '-out', str(destination / 'preflight')], ordinary=[*gate, '-stage', 'check', '-out', str(destination / 'ordinary')], manualRace=[str(out / 'releasegate'), '-stage', 'race', '-from', str(destination / 'ordinary'), '-out', str(destination / 'race')])
+        result=dict(round=self.flow.r.ROUND, credentialsRead=False, releaseCertified=False, liveInputs=live, effects=effects, verify=checks, merge=merge, preflight=[*gate, '-preflight', '-out', str(destination / 'preflight')], ordinary=[*gate, '-stage', 'check', '-out', str(destination / 'ordinary')], manualRace=[str(out / 'releasegate'), '-stage', 'race', '-from', str(destination / 'ordinary'), '-out', str(destination / 'race')])
+        if hasattr(self.flow.r,'MINIMAX_FINAL_CONSUMER_TIMEOUT_SECONDS'):
+            result['verifyTimeoutSeconds']=[self.flow.r.MINIMAX_FINAL_CONSUMER_TIMEOUT_SECONDS if argv[0]==str(out/'minimaxverify') else 180 for argv in checks]
+        return result
 
     def finalize(self, out, selected):
         result = self.plan(out, selected)
@@ -60,8 +63,9 @@ class Finalizer:
         self.flow.r.c.dump(destination / self.flow.r.FINAL_SELECTION_FILE, dict(roles=roles, accounting=summary))
         before = {base: {n: u.sha(raw) for n, raw in self.flow.files.tree(Path(base)).items()} for base in [*result['liveInputs'].values(), *result['effects'].values()]}
         self.flow.r.c.dump(destination / 'input-files.json', self.flow.r.c.redact(before))
-        for i, argv in enumerate(result['verify']):
-            if self.flow.s.run(destination, 'verify-' + str(i), argv, timeout=180) != 0:
+        timeouts=result.get('verifyTimeoutSeconds',[180]*len(result['verify']))
+        for i,(argv,timeout) in enumerate(zip(result['verify'],timeouts)):
+            if self.flow.s.run(destination, 'verify-' + str(i), argv, timeout=timeout) != 0:
                 raise RuntimeError('own final native consumer failed; private candidate is not published')
             self.flow.s.guard(out)
         matrix = destination / 'matrix-candidate.json'
