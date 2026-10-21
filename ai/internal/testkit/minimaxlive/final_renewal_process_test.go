@@ -17,14 +17,22 @@ const finalRenewalID = "provider-sites-final-acceptance-2"
 // This independent process owns a separate Git repository and only synthetic
 // approval/history. It cannot authorize the shared real repository or HTTP.
 func TestSecondRenewalClosedFirstProcess(t *testing.T) {
+	t.Parallel()
 	for _, mode := range []string{"closed-unused-active", "closed-unused-path", "unused-native-intent", "unused-native-grant", "unused-native-nonce", "cohort-seal", "cohort-human", "cohort-review", "cohort-archive-extra", "cohort-large"} {
-		t.Run(mode, func(t *testing.T) { testFinalRenewalFixture(t, mode) })
+		t.Run(mode, func(t *testing.T) {
+			admitRenewalOwner(t)
+			testFinalRenewalFixture(t, mode)
+		})
 	}
 }
 
 func TestFinalRenewalAuthorityProcess(t *testing.T) {
+	t.Parallel()
 	for _, mode := range []string{"valid-three", "facts", "closed-active", "missing", "pending", "history-missing", "history-added", "history-modified", "history-linked", "history-parent-linked", "history-launcher", "history-open", "human-missing", "human-pending", "human-plan", "human-history", "human-purpose", "human-routes", "caps", "wrong-id", "candidate", "source-stale", "source-uncommitted", "source-option", "foreign-owner", "arbitrary-path", "unregistered", "new-session", "deleted-ledger", "partial-ledger", "partial-claim", "changed-grant", "duplicate", "excess-output", "excess-input", "linked-worktree", "concurrent", "same-session-process", "preflight-claim", "preflight-crash", "budget-source", "regional-price-source", "launcher-preflight", "preflight-purpose"} {
-		t.Run(mode, func(t *testing.T) { testFinalRenewalFixture(t, mode) })
+		t.Run(mode, func(t *testing.T) {
+			admitRenewalOwner(t)
+			testFinalRenewalFixture(t, mode)
+		})
 	}
 }
 

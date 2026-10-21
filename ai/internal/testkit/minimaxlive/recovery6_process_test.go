@@ -17,6 +17,8 @@ import (
 // source/guard, widened caps and consumed claims. One synthetic owner retains
 // every predecessor once; mutations are restored before the next CLI process.
 func TestRecovery6AuthorityProcess(t *testing.T) {
+	t.Parallel()
+	admitRenewalOwner(t)
 	root, e := minimaxlive.Root()
 	if e != nil {
 		t.Fatal(e)
