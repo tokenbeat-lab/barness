@@ -169,6 +169,24 @@ func readMiniMaxCredential(r *minimaxlive.Report) {
 		minimaxConfigError = "replay forbids credentials and live switch"
 	}
 }
+func miniMaxContextDeadline(r *minimaxlive.Report, testDeadline time.Time) time.Time {
+	if r.Mode == "live" && r.Stage == "formal" && r.Kind == "minimax-formal" && r.Identity.Model == minimaxlive.M3 && r.FormalRenewalID == minimaxlive.Recovery7RenewalID && r.FormalRenewalGrantSHA256 != "" && r.Deadline.Equal(r.StartedAt.Add(3600*time.Second)) {
+		// initializeMiniMax assigns this bound only after active authority
+		// verification. Reserve the full uncached tail under either outer clock.
+		deadline := r.Deadline
+		if !testDeadline.IsZero() && testDeadline.Before(deadline) {
+			deadline = testDeadline
+		}
+		return deadline.Add(-120 * time.Second)
+	}
+	// Older cohorts and nonlive processes retain their original two bounds.
+	deadline := r.Deadline.Add(-20 * time.Second)
+	if !testDeadline.IsZero() && testDeadline.Before(deadline) {
+		deadline = testDeadline.Add(-time.Second)
+	}
+	return deadline
+}
+
 func minimaxEntry() string {
 	if minimaxReport.Kind == "minimax-research-only" {
 		return "^TestMiniMaxResearch$"

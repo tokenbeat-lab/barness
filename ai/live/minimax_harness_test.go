@@ -121,20 +121,6 @@ func driveMiniMax(t *testing.T) {
 	}
 }
 
-func miniMaxContextDeadline(r *minimaxlive.Report, testDeadline time.Time) time.Time {
-	reserve := 20 * time.Second
-	if r.Mode == "live" && r.Stage == "formal" && r.Kind == "minimax-formal" && r.Identity.Model == minimaxlive.M3 && r.FormalRenewalID == minimaxlive.Recovery7RenewalID && r.FormalRenewalGrantSHA256 != "" && r.Deadline.Equal(r.StartedAt.Add(3600*time.Second)) {
-		// initializeMiniMax assigns this bound only after active authority
-		// verification. Leave time for the final uncached VerifyCapture walk.
-		reserve = 120 * time.Second
-	}
-	deadline := r.Deadline.Add(-reserve)
-	if !testDeadline.IsZero() && testDeadline.Before(deadline) {
-		deadline = testDeadline.Add(-time.Second)
-	}
-	return deadline
-}
-
 func miniMaxPolicy() *ai.ResourcePolicy {
 	policy := livePolicy()
 	policy.CallTimeout = 120 * time.Second

@@ -50,7 +50,7 @@ func TestMiniMaxHarnessContextDeadline(t *testing.T) {
 			if tc.testLimit {
 				r.Deadline = now.Add(3600 * time.Second)
 				r.StartedAt = now
-				testDeadline = now.Add(time.Second + 40*time.Millisecond)
+				testDeadline = now.Add(120*time.Second + 40*time.Millisecond)
 			}
 			deadline := miniMaxContextDeadline(r, testDeadline)
 			cs.Record("bounds", map[string]any{"reportStartedAt": r.StartedAt, "reportDeadline": r.Deadline, "testDeadline": testDeadline, "actualContextDeadline": deadline, "expectedContextDeadline": want, "expectedTailSeconds": tc.tail.Seconds()})
