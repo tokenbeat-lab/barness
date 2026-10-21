@@ -11,25 +11,10 @@ import (
 
 // SixthCohortHistory keeps report-backed calls separate from the interrupted
 // ledger's reservations. Recorded HTTP allocations do not prove vendor sends.
-// Field order also defines the independent controller's canonical history pin.
+// Sorted JSON field names match the independent controller's compact digest.
 type SixthCohortHistory struct {
-	CohortSealSHA256                     string            `json:"cohortSealSha256"`
-	StopIndexSHA256                      string            `json:"stopIndexSha256"`
-	NativeSourceCommit                   string            `json:"nativeSourceCommit"`
 	ActualHumanApprovalSHA256            string            `json:"actualHumanApprovalSHA256"`
-	RetainedCompletedReportKnownCalls    int               `json:"retainedCompletedReportKnownCalls"`
-	RetainedCompletedReportKnownHTTP     int               `json:"retainedCompletedReportKnownHTTP"`
-	RetainedKnownRecordedCalls           int               `json:"retainedKnownRecordedCalls"`
-	RetainedKnownRecordedHTTPAllocations int               `json:"retainedKnownRecordedHTTPAllocations"`
-	RetainedClaimedCalls                 int               `json:"retainedClaimedCalls"`
-	RetainedClaimedAttempts              int               `json:"retainedClaimedAttempts"`
-	RetainedReservedMicrousd             int64             `json:"retainedReservedMicrousd"`
-	RetainedUnknownParentProcesses       int               `json:"retainedUnknownParentProcesses"`
-	NewCompletedReportCalls              int               `json:"newCompletedReportCalls"`
-	NewCompletedReportHTTP               int               `json:"newCompletedReportHTTP"`
-	NewClaimedCalls                      int               `json:"newClaimedCalls"`
-	NewClaimedAttempts                   int               `json:"newClaimedAttempts"`
-	NewReservedMicrousd                  int64             `json:"newReservedMicrousd"`
+	CohortSealSHA256                     string            `json:"cohortSealSha256"`
 	InterruptedNativeCalls               int               `json:"interruptedNativeCalls"`
 	InterruptedNativeHTTPAllocations     int               `json:"interruptedNativeHTTPAllocations"`
 	InterruptedNativeLedgerRows          int               `json:"interruptedNativeLedgerRows"`
@@ -37,7 +22,22 @@ type SixthCohortHistory struct {
 	InterruptedUSDReservationMicrousd    int64             `json:"interruptedUSDReservationMicrousd"`
 	InterruptedUSDTransportReservations  int               `json:"interruptedUSDTransportReservations"`
 	NativeAuthoritySHA256                map[string]string `json:"nativeAuthoritySHA256"`
+	NativeSourceCommit                   string            `json:"nativeSourceCommit"`
+	NewClaimedAttempts                   int               `json:"newClaimedAttempts"`
+	NewClaimedCalls                      int               `json:"newClaimedCalls"`
+	NewCompletedReportCalls              int               `json:"newCompletedReportCalls"`
+	NewCompletedReportHTTP               int               `json:"newCompletedReportHTTP"`
+	NewReservedMicrousd                  int64             `json:"newReservedMicrousd"`
 	ParentClaimsSHA256                   map[string]string `json:"parentClaimsSHA256"`
+	RetainedClaimedAttempts              int               `json:"retainedClaimedAttempts"`
+	RetainedClaimedCalls                 int               `json:"retainedClaimedCalls"`
+	RetainedCompletedReportKnownCalls    int               `json:"retainedCompletedReportKnownCalls"`
+	RetainedCompletedReportKnownHTTP     int               `json:"retainedCompletedReportKnownHTTP"`
+	RetainedKnownRecordedCalls           int               `json:"retainedKnownRecordedCalls"`
+	RetainedKnownRecordedHTTPAllocations int               `json:"retainedKnownRecordedHTTPAllocations"`
+	RetainedReservedMicrousd             int64             `json:"retainedReservedMicrousd"`
+	RetainedUnknownParentProcesses       int               `json:"retainedUnknownParentProcesses"`
+	StopIndexSHA256                      string            `json:"stopIndexSha256"`
 }
 
 type sixthSeal struct {
