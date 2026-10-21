@@ -37,3 +37,5 @@ Blocked by: 05, 08, 09, 10, 11, 12, 16, 17, 18, 19, 20, 21, 24, 25, 26
 2026-10-21：恢复5在中国MiniMax Responses的自身native-history失败后已按约停止，转[21固定原生来源](21-minimax-cn-responses-native-source.md)离线处理。实际原件和唯一当前状态只见spec；后续新有限范围仍须独立准备/批准，不启动最终race。
 
 2026-10-21：恢复6首ZAI Responses18/currentconsumer0后，M3 Chat最终REQUEST deadline场景FAIL，按约停止并保留-15/UNKNOWN/缺最终报告、后17NOT_RUN；离线24阶段预算与25/26固定新机制不授予新调用。实际状态只见spec索引。
+
+2026-10-21：按最新人类要求在本次完整native普通包20分钟超时后暂停，actual exit1；未自动重跑，也未继续最终冻结/新构建/付费/race。24–26和本票保持claimed，失败与未执行步骤见spec唯一当前状态关联的暂停交接。

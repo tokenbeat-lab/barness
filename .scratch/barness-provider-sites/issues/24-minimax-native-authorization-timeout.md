@@ -16,3 +16,7 @@ Type: task
 先列失败方式并建立秒级公共Client→同一recorder/gate→真实合成Ledger.Attempt的RED，精确deadline_exceeded/request、controlled vendor0及资源归零。先展示3–5可证伪候选，再单变量probe；真实harness与测试共用policy构造，按比例缩放，不能只在测试改常数制造GREEN。
 
 仅MiniMax验收harness显式ConnectTimeout=CallTimeout；Call120秒、Header90秒、Read90秒、零SDK自动重试及全部预算上限不变，Ledger.Attempt顺序/全历史校验不变，生产SDK默认不变。原症状GREEN；三协议及旧受控拒绝、zeroHTTP preflight、预算、取消、原生来源与资源回归通过。记录来源适用集合、审查与原件；不把离线通过写为真实当前资格。
+
+## Comments
+
+2026-10-21：按用户“完成当前计划后暂停”收尾；最终Go来源143a70d的一次完整native普通包触及20分钟，actual exit1、monotonic1203.444秒，266 PASS/12 SKIP但package FAIL。253 admit/252 release，panic打断后不能宣称平衡；最大并发2，所属进程组实际剩余0。未完成旧第三轮fifo、linked未运行；保留[失败原件](../../../.evidence/provider-sites/final-acceptance-20261020/recovery7-native-final-ordinary/index.json)和[独立复核](../../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/native-final-ordinary-verification.json)。本票继续claimed，不自动修复/重跑；后续最终复审、freeze/build10/双vet/根完整ai/live无Key、具体已冻结计划、paid及race均未执行。恢复入口只见[唯一当前状态](../spec.md#当前状态)与[暂停交接](../../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/pause-handoff.md)。

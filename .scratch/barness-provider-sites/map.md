@@ -33,6 +33,8 @@
 
 - [24阶段预算](issues/24-minimax-native-authorization-timeout.md)、[25原生7](issues/25-recovery7-native-authority.md)、[26固定7续验](issues/26-recovery7-fixed-continuation.md)：恢复6已按最终场景FAIL停止，后17NOT_RUN；保留中断UNKNOWN原件，三个职责独立准备并在07整合，不授权新增付费。实际状态只见spec唯一入口。
 
+- 2026-10-21：[24–26](issues/24-minimax-native-authorization-timeout.md)的离线实现已整合；一次完整native普通包因20分钟超时而失败，按最新人类要求暂停，工单继续claimed，停止后续冻结/付费/race。失败事实与未执行步骤只由[唯一当前状态](spec.md#当前状态)及其暂停交接维护。
+
 ## Fog
 
 正式资格和验收的未完成项只在 [spec 当前状态](spec.md#当前状态) 维护；Key 配置变更不授予付费或 race。后续入口与人工命令见 [验证交接](evidence/verification.md#人工-race-与自身-live-交接)。

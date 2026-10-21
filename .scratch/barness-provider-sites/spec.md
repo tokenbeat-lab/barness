@@ -16,11 +16,11 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 | 最近实际固定轮次 | 恢复6获19进程/US$39实际批准；来源1251199第一条ZAI Responses完整18/18及原生消费0。M3 Chat的full-stream允许重试后仍为REQUEST deadline最终FAIL，按约停止，后17未启动；[停止原件](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-stopped/index.json)及[关闭seal](../../.evidence/provider-sites/final-acceptance-20261020/closed-cohort-6/seal.json)保留。 |
 | 中断与记账 | M3 child由SIGTERM停止、数字退出-15，父账本UNKNOWN且无最终minimax-report；原生账本4 Calls/4 HTTP配额、USD guard12,884微美元/4运输预约独立保留，不能当作厂商确认接收或账单。跨轮完整报告已知720/710；另中断4/4记录，claimed1204/1280，整笔US$32.90，UNKNOWN父记录6，退款0。实际预算上限仍US$39。 |
 | 24本地修复 | [MiniMax原生授权阶段预算](issues/24-minimax-native-authorization-timeout.md)：默认ConnectTimeout15秒包含约25.5秒本地完整授权校验，公共Client先RED；只在MiniMax验收harness显式Connect=Call，保留Call120秒/Header90秒/Read90秒、全部原生校验和生产SDK默认。实际进展见当前索引关联的诊断原件。 |
-| 后续准备 | [25固定原生7](issues/25-recovery7-native-authority.md)、[26固定续验7](issues/26-recovery7-fixed-continuation.md)只做离线机制/审查/冻结/检查与具体有限计划，不授予新费用或厂商调用；旧6已关闭不重启。新范围、source/binary/plan/金额及运行资源边界必须固定并取得新的直接批准。 |
-| 保留证明 | 六历史candidate与晋升血缘保持历史角色；八generic原08自身raw与[最终84次wire/header/body/完整owned ledger相等证明](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/compatibility-eight.json)保留。新来源若要沿用仍须精确来源差异和完整原件消费，不泛放路径；三GLM必须新完整22自身raw，旧views/ZIP不代替。 |
-| 审查与普通 | 1251199双轴清零、十新binary、双vet和完整ai/live无Key检查实际通过；[不可变准备快照](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/ready-for-approval.json)及开发RED/GREEN保留原来源。24–26后续新源须重新审查、冻结、构建及适当普通验证，不套旧结论。 |
+| 后续准备 | [25固定原生7](issues/25-recovery7-native-authority.md)、[26固定续验7](issues/26-recovery7-fixed-continuation.md)已整合离线实现；完整native普通门禁超时，24–26继续claimed。按最新要求在失败门禁后暂停，不发行新7授权或执行后续构建/付费；旧6关闭不重启。 |
+| 保留证明 | 六历史candidate与晋升血缘保持历史角色；八generic原08自身raw与[84次最终Go回放](../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/compatibility-eight-frozen.json)保留，证明实际143a70d的61项精确Go差异，后续Python绑定Go字节不变。三GLM仍须新完整22自身raw，旧views/ZIP不代替。 |
+| 审查与普通 | Go来源143a70d双轴复审清零；83项控制器公共进程、最终证明绑定的3项公共检查及真实八路线只读核验已通过。随后同一完整native包触及20分钟硬上限，实际exit1、墙钟1203.444秒；266 PASS/12 SKIP不等于包通过。[失败原件](../../.evidence/provider-sites/final-acceptance-20261020/recovery7-native-final-ordinary/index.json)与[独立复核](../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/native-final-ordinary-verification.json)保留；新7最终冻结/十binary/双vet/根完整ai/live无Key均NOT_RUN，不套旧125结论。 |
 | 正式资格 | ZAI Messages/GLM-5.2在恢复5原8c83426完整18通过；中国MiniMax Responses固定自身full-stream来源的离线修复已整合，但新当前strict formal仍待齐。恢复6仅有原1251199来源的完整ZAI Responses历史事实；24–26新来源须取得新证明，最终23 live+4 effects仍未齐。 |
-| 暂停要求 | 按最新人类要求，完成当前离线修复、复审、冻结、无Key检查和具体计划后暂停。固定恢复7尚未批准，当前不申请或执行新付费、正式race；状态与交接由当前索引维护。 |
+| 暂停要求 | 已按最新要求，在当前计划的完整native普通门禁失败后停止后续步骤并暂停。没有自动重跑、再修复、新付费或正式race；[暂停交接](../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/pause-handoff.md)保留未执行步骤，动态状态只由当前索引维护。 |
 | READY/race/release | fresh正式READY尚未取得；正式race NOT_RUN，release.pass=false。旧开发完整race的2589.635秒PASS仅证明其原470682d3来源。九服务资格及取得新READY后一次完整正式race的人类选择保留；失败不自动重跑。 |
 
 本表不重写历史失败、来源或预算；R01–R20合同不变。
