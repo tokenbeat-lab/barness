@@ -6,8 +6,8 @@ import recovery7_history as h
 import recovery5_retained as old
 from recovery_flow_source import SourceFreeze
 r=h.r;c=r.c
-COMPAT=r.BASE/'recovery7-preparation/compatibility-eight.json'
-COMPAT_SHA256='PENDING_CURRENT_GO_84_REPROOF'
+COMPAT=r.BASE/'recovery7-preparation/compatibility-eight-frozen.json'
+COMPAT_SHA256='c1bdb5bd6be0f7b27ef82b043d02e0a0d64e7501b0cc88ca512d10aa9983a16d'
 REPAIR_FILES={'ai/live/regional_harness_test.go','ai/internal/testkit/supportmatrix/regional_contract.go','ai/live/minimax_harness_test.go','ai/live/minimax_authorization_deadline_test.go','ai/live/minimax_capture_test.go'}
 BASELINE_COMMIT='8c8342606390d37dff041f11de7ff3b8d82d12d5'
 
@@ -16,7 +16,7 @@ def reviewed_sources(proof,current):
     if baseline.get('sourceCommit')!=BASELINE_COMMIT:raise RuntimeError('exact frozen fifth source archive required')
     changes={name for name in set(baseline['files'])|set(current) if baseline['files'].get(name)!=current.get(name) and (name.startswith('ai/') or name in ('go.mod','go.sum'))}
     reviewed=proof.get('reviewedSourceDifferences')
-    if not isinstance(reviewed,dict) or set(reviewed)!=changes or not REPAIR_FILES<=changes:raise RuntimeError('new exact reviewed two-file/native7 source differences required')
+    if not isinstance(reviewed,dict) or set(reviewed)!=changes or not REPAIR_FILES<=changes:raise RuntimeError('new exact reviewed repair/native7 source differences required')
     commit=proof.get('currentSourceCommit','')
     if len(commit)!=40 or any(x not in '0123456789abcdef' for x in commit):raise RuntimeError('actual reproof source commit required')
     for name,sha in reviewed.items():

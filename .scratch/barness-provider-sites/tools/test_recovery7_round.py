@@ -81,7 +81,7 @@ class Recovery7Round(RecoveryRound):
     def test_seven_generic_compatibility_and_old_parent_raw_mutations_refuse(self):
         from test_recovery7_fixture import seed,builder,BASE
         seed(self);builder(self)
-        compat=self.root/BASE/'recovery7-preparation/compatibility-eight.json';raw=compat.read_bytes();v=json.loads(raw);v['count']=83;compat.write_text(json.dumps(v));self.runcli('prepare','.evidence/provider-sites/no-proof',ok=False);compat.write_bytes(raw)
+        compat=self.root/BASE/'recovery7-preparation/compatibility-eight-frozen.json';raw=compat.read_bytes();v=json.loads(raw);v['count']=83;compat.write_text(json.dumps(v));self.runcli('prepare','.evidence/provider-sites/no-proof',ok=False);compat.write_bytes(raw)
         stop=json.loads((self.root/BASE/'recovery6-stopped/index.json').read_text());p=self.root/stop['processes'][-1]['parent'];p.write_text('{}');self.runcli('summarize',ok=False)
         self.assertTrue((self.root/'.env').is_dir())
 
@@ -178,7 +178,7 @@ class Recovery7Round(RecoveryRound):
     def test_seven_headers_and_precise_reviewed_source_proof_required(self):
         import hashlib
         from test_recovery7_fixture import seed,builder,BASE
-        seed(self);builder(self);proof=self.root/BASE/'recovery7-preparation/compatibility-eight.json';original=proof.read_bytes();old=hashlib.sha256(original).hexdigest()
+        seed(self);builder(self);proof=self.root/BASE/'recovery7-preparation/compatibility-eight-frozen.json';original=proof.read_bytes();old=hashlib.sha256(original).hexdigest()
         for mode in ('headers','headers-content','duplicate-case','foreign-capture','unknown-source','missing-reviewed','wrong-blob'):
             v=json.loads(original);changed=None
             if mode=='headers-content':

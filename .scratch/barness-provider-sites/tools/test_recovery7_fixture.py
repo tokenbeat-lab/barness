@@ -53,7 +53,7 @@ def seed(test):
         p=root/name;p.write_text(p.read_text()+'// CONTROLLED own authorization deadline repair\n')
     test.commit();current=test.git('rev-parse','HEAD');sources=SourceFreeze(SimpleNamespace(ROOT=root)).files();reviewed={n:sha for n,sha in sources.items() if n.startswith('ai/') and baseline['files'].get(n)!=sha}
     proof=json.loads((root/BASE/'recovery6-preparation/compatibility-eight.json').read_text());proof.update(currentSourceCommit=current,reviewedSourceDifferences=reviewed)
-    dest=put(BASE/'recovery7-preparation/compatibility-eight.json',proof);path=test.tools/'recovery7_retained.py';path.write_text(path.read_text().replace('PENDING_CURRENT_GO_84_REPROOF',sha(dest)));test.commit()
+    dest=put(BASE/'recovery7-preparation/compatibility-eight-frozen.json',proof);path=test.tools/'recovery7_retained.py';path.write_text(path.read_text().replace('c1bdb5bd6be0f7b27ef82b043d02e0a0d64e7501b0cc88ca512d10aa9983a16d',sha(dest)));test.commit()
 
 def builder(test):
     builder6(test);go=test.root/'bin/go';text=go.read_text();tree=ast.parse(text)
