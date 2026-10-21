@@ -21,6 +21,7 @@ const recovery5ID = "provider-sites-final-acceptance-5"
 // authority, forged closed history, reused process identity, exhaustion, and
 // preflight acquiring execution rights. Every fixture is an independent owner.
 func TestRecovery5AuthorityProcess(t *testing.T) {
+	t.Parallel()
 	root, err := minimaxlive.Root()
 	if err != nil {
 		t.Fatal(err)
@@ -44,6 +45,7 @@ func TestRecovery5AuthorityProcess(t *testing.T) {
 	for _, mode := range strings.Fields("facts valid-three historical-source old4-historical first-proof-fractional-exit first-proof-nested-alias first-proof-nested-conflict first-proof-regional-alias first-proof-budget-alias first-proof-scenario-alias first-proof-descriptions first-proof-missing first-proof-no-exit first-proof-null-exit first-proof-parent first-proof-report first-proof-consumer first-proof-argv first-proof-source first-proof-binary first-proof-case first-proof-path guard-source guard-human guard-actual guard-review campaign-budget review-reference grant-reference ledger-chain duplicate-nonce history-extra history-case-alias history-path history-parent-missing failed-guard failed-recorder unstarted-six human-duplicate review-duplicate human-case-alias review-case-alias human-nested-duplicate pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report passed-report parent-unknown old4-inactive old4-active old4-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked oversize old-source-commit archive human-record counters forged-pass old1-fourth old2-fourth old3-fourth old4-fourth unstarted-claim missing-nonce linked-worktree same-session-process human-reference") {
 		t.Run(mode, func(t *testing.T) {
 			t.Parallel()
+			admitRenewalOwner(t)
 			dir := t.TempDir()
 			for name, raw := range map[string]string{"go.mod": "module recovery-fixture\n", "go.sum": "", "ai/runtime.go": "package ai\n", "ai/internal/testkit/finalbudget/guard.go": "package finalbudget\n", "ai/internal/testkit/finalbudget/estimate.go": "package finalbudget\n"} {
 				p := filepath.Join(dir, name)

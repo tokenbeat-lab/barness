@@ -20,6 +20,7 @@ const recovery4ID = "provider-sites-final-acceptance-4"
 // authority, forged closed history, reused process identity, exhaustion, and
 // preflight acquiring execution rights. Every fixture is an independent owner.
 func TestRecovery4AuthorityProcess(t *testing.T) {
+	t.Parallel()
 	root, err := minimaxlive.Root()
 	if err != nil {
 		t.Fatal(err)
@@ -33,6 +34,7 @@ func TestRecovery4AuthorityProcess(t *testing.T) {
 	for _, mode := range strings.Fields("facts valid-three historical-source human-duplicate review-duplicate human-case-alias review-case-alias human-nested-duplicate pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report passed-report parent-unknown old3-inactive old3-active old3-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked oversize old-source-commit archive human-record counters forged-pass old1-third old2-third old3-third unstarted-claim missing-nonce linked-worktree same-session-process human-reference") {
 		t.Run(mode, func(t *testing.T) {
 			t.Parallel()
+			admitRenewalOwner(t)
 			dir := t.TempDir()
 			for name, raw := range map[string]string{"go.mod": "module recovery-fixture\n", "go.sum": "", "ai/runtime.go": "package ai\n"} {
 				p := filepath.Join(dir, name)

@@ -20,6 +20,7 @@ const stoppedIndex = ".evidence/provider-sites/final-acceptance-20261020/remaini
 // authority, forged closed history, reused process identity, exhaustion, and
 // preflight acquiring execution rights. Every fixture is an independent owner.
 func TestRecoveryAuthorityProcess(t *testing.T) {
+	t.Parallel()
 	root, err := minimaxlive.Root()
 	if err != nil {
 		t.Fatal(err)
@@ -32,6 +33,7 @@ func TestRecoveryAuthorityProcess(t *testing.T) {
 	}
 	for _, mode := range strings.Fields("human-duplicate review-duplicate human-case-alias review-case-alias facts valid-three pending missing human-missing human-pending human-scope human-old human-source policy review-source source owner unknown-grant seal stop-pin old-ledger old-tail failed-report parent-unknown old2-inactive old2-active old2-misuse duplicate concurrent preflight preflight-no-grant preflight-claimed caps output input cancellation fifo linked") {
 		t.Run(mode, func(t *testing.T) {
+			admitRenewalOwner(t)
 			dir := t.TempDir()
 			for name, raw := range map[string]string{"go.mod": "module recovery-fixture\n", "go.sum": "", "ai/runtime.go": "package ai\n"} {
 				p := filepath.Join(dir, name)
