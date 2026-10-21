@@ -9,6 +9,7 @@ import (
 	"strings"
 	"syscall"
 	"testing"
+	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
@@ -74,11 +75,35 @@ func TestRecovery7AuthorityChild(t *testing.T) {
 	f.seedFourthCohort(t)
 	f.seedFifthCohort(t)
 	f.seedSixthCohort(t)
+	// The actual prep directory has ordinary unselected history beside the
+	// sealed actual-execution namespace. These siblings are not extra claims.
+	f.writeFifthFixture(t, ".evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/compatibility-reproof/harmless.json", map[string]any{"descriptiveHistory": true})
+	prep := ".evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/"
+	execution := prep + "actual-execution/"
+	var stop struct{ Files map[string]string }
+	if e := json.Unmarshal(mustReadFixture(t, filepath.Join(f.root, sixthStopPath)), &stop); e != nil {
+		t.Fatal(e)
+	}
+	individual := 0
+	for name, want := range stop.Files {
+		if strings.HasPrefix(name, prep) && !strings.HasPrefix(name, execution) {
+			individual++
+			if minimaxlive.Hash(mustReadFixture(t, filepath.Join(f.root, name))) != want {
+				t.Fatalf("selected preparation original differs: %s", name)
+			}
+		}
+	}
+	if individual != 16 {
+		t.Fatalf("expected16 individual selected files, got%d", individual)
+	}
 	cli := os.Getenv("BARNESS_RECOVERY7_CLI")
 	command := func(flag string) ([]byte, error) {
 		c := exec.Command(cli, flag)
 		c.Env = []string{"PATH=" + os.Getenv("PATH")}
-		return c.CombinedOutput()
+		start := time.Now().UTC()
+		raw, e := c.CombinedOutput()
+		t.Logf("public CLI argv=%q exitCode=%d start=%s finish=%s", c.Args, c.ProcessState.ExitCode(), start.Format(time.RFC3339Nano), time.Now().UTC().Format(time.RFC3339Nano))
+		return raw, e
 	}
 	out, e := command("-recovery7-source")
 	if e != nil {
@@ -97,26 +122,38 @@ func TestRecovery7AuthorityChild(t *testing.T) {
 	if os.Getenv("BARNESS_RECOVERY7_FACTS_ONLY") != "" {
 		return
 	}
-	for _, name := range []string{"unexpected.json", "unexpected-link", "unexpected-fifo", "unexpected-directory-alias"} {
-		t.Run("closed-selection-"+name, func(t *testing.T) {
-			p := filepath.Join(f.root, sixthOut+name)
-			defer os.Remove(p)
-			if name == "unexpected-fifo" {
-				if e := syscall.Mkfifo(p, 0600); e != nil {
-					t.Fatal(e)
+	for _, namespace := range []struct{ label, prefix string }{{"collection", sixthOut}, {"actual-execution", execution}} {
+		for _, name := range []string{"unexpected.json", "unexpected-link", "unexpected-fifo", "unexpected-directory-alias"} {
+			t.Run("closed-selection-"+namespace.label+"-"+name, func(t *testing.T) {
+				p := filepath.Join(f.root, namespace.prefix+name)
+				defer os.Remove(p)
+				if name == "unexpected-fifo" {
+					if e := syscall.Mkfifo(p, 0600); e != nil {
+						t.Fatal(e)
+					}
+				} else if name == "unexpected-directory-alias" {
+					os.Symlink(filepath.Join(f.root, namespace.prefix), p)
+				} else if name == "unexpected-link" {
+					os.Symlink(filepath.Join(f.root, namespace.prefix+"not-opened"), p)
+				} else {
+					os.WriteFile(p, []byte("unselected"), 0600)
 				}
-			} else if name == "unexpected-directory-alias" {
-				os.Symlink(filepath.Join(f.root, sixthOut), p)
-			} else if name == "unexpected-link" {
-				os.Symlink(filepath.Join(f.root, sixthOut+"not-opened"), p)
-			} else {
-				os.WriteFile(p, []byte("unselected"), 0600)
-			}
-			if raw, e := command("-recovery7-source"); e == nil {
-				t.Fatalf("unselected closed sixth entry admitted %s", raw)
-			}
-		})
+				if raw, e := command("-recovery7-source"); e == nil {
+					t.Fatalf("unselected closed sixth entry admitted %s", raw)
+				}
+			})
+		}
 	}
+	t.Run("individual-preparation-hash-drift", func(t *testing.T) {
+		name := prep + "fixture-17.json"
+		path := filepath.Join(f.root, name)
+		before := mustReadFixture(t, path)
+		defer os.WriteFile(path, before, 0600)
+		os.WriteFile(path, append(append([]byte(nil), before...), '\n'), 0600)
+		if raw, e := command("-recovery7-source"); e == nil || !strings.Contains(string(raw), name) {
+			t.Fatalf("selected file must retain its individual original hash: %v %s", e, raw)
+		}
+	})
 	if os.Getenv("BARNESS_RECOVERY7_SELECTION_ONLY") != "" {
 		return
 	}

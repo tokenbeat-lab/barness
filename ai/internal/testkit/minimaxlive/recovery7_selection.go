@@ -11,7 +11,9 @@ func sixthPinnedSelection(root *os.Root, owner string, stop sixthStop) error {
 	if e := sixthNonRegularHistory(root, owner, stop); e != nil {
 		return e
 	}
-	if e := cohortPinnedSelection(root, stop.Files, stop.NonRegular, map[string]int{strings.TrimSuffix(sixthCollection, "/"): 30195, ".evidence/provider-sites/final-acceptance-20261020/recovery6-preparation": 33}); e != nil {
+	// Only actual-execution was closed as a namespace. Its preparation siblings
+	// are selected individually and still hashed by closedSixthCohort below.
+	if e := cohortPinnedSelection(root, stop.Files, stop.NonRegular, map[string]int{strings.TrimSuffix(sixthCollection, "/"): 30195, ".evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/actual-execution": 17}); e != nil {
 		return e
 	}
 	dir, e := root.Open(".evidence/minimax-launches")

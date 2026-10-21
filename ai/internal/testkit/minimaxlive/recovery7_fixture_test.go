@@ -117,6 +117,9 @@ func (f *finalRenewalFixture) seedSixthCohort(t *testing.T) {
 	}
 	for i := 0; i < 33; i++ {
 		n := fmt.Sprintf(".evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/fixture-%02d.json", i)
+		if i < 17 {
+			n = fmt.Sprintf(".evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/actual-execution/fixture-%02d.json", i)
+		}
 		files[n] = minimaxlive.Hash(f.writeFifthFixture(t, n, map[string]any{"synthetic": true}))
 	}
 	for len(files) < 30238 {
