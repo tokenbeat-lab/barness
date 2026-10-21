@@ -45,6 +45,9 @@ func TestRecovery7AuthorityProcess(t *testing.T) {
 	c = exec.Command(exe, "-test.run=^TestRecovery7AuthorityChild$", "-test.v")
 	c.Dir = dir
 	c.Env = []string{"PATH=" + os.Getenv("PATH"), "BARNESS_RECOVERY7_CHILD=synthetic", "BARNESS_RECOVERY7_CLI=" + cli}
+	if os.Getenv("BARNESS_RECOVERY7_FACTS_ONLY") != "" {
+		c.Env = append(c.Env, "BARNESS_RECOVERY7_FACTS_ONLY=1")
+	}
 	if os.Getenv("BARNESS_RECOVERY7_DURATION_ONLY") != "" {
 		c.Env = append(c.Env, "BARNESS_RECOVERY7_DURATION_ONLY=1")
 	}
@@ -82,6 +85,15 @@ func TestRecovery7AuthorityChild(t *testing.T) {
 	var facts map[string]any
 	if json.Unmarshal(out, &facts) != nil || facts["renewalId"] != recovery7ID {
 		t.Fatalf("facts identity %s", out)
+	}
+	// Independent dictionary encoding matches the controller's sorted compact
+	// JSON contract, rather than copying the Go CLI's supplied history pin.
+	canonical, e := json.Marshal(facts["sixthCohort"])
+	if e != nil || minimaxlive.Hash(canonical) != facts["sixthCohortHistorySha256"] {
+		t.Fatalf("public sixth history digest differs from independent sorted dictionary: %v got=%v want=%s", e, facts["sixthCohortHistorySha256"], minimaxlive.Hash(canonical))
+	}
+	if os.Getenv("BARNESS_RECOVERY7_FACTS_ONLY") != "" {
+		return
 	}
 	for _, name := range []string{"unexpected.json", "unexpected-link", "unexpected-fifo", "unexpected-directory-alias"} {
 		t.Run("closed-selection-"+name, func(t *testing.T) {

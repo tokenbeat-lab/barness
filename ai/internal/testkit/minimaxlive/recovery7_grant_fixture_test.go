@@ -44,7 +44,8 @@ func (f *finalRenewalFixture) installRecovery7Grant(t *testing.T, facts map[stri
 	review["fifthCohortSealSHA256"] = human["fifthCohortSealSHA256"]
 	review["fifthCohortHistorySHA256"] = human["fifthCohortHistorySHA256"]
 	human["sixthCohortSealSHA256"] = facts["sixthCohort"].(map[string]any)["cohortSealSha256"]
-	human["sixthCohortHistorySHA256"] = facts["sixthCohortHistorySha256"]
+	sixthCanonical, _ := json.Marshal(facts["sixthCohort"])
+	human["sixthCohortHistorySHA256"] = minimaxlive.Hash(sixthCanonical)
 	review["sixthCohortSealSHA256"] = human["sixthCohortSealSHA256"]
 	review["sixthCohortHistorySHA256"] = human["sixthCohortHistorySHA256"]
 	human["spendingGuardSourceSHA256"] = facts["spendingGuardSourceSha256"]
