@@ -44,6 +44,7 @@ var (
 
 func TestMain(m *testing.M) {
 	var err error
+	flag.Parse()
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An isolated qualification process never executes a legacy live combination.
 	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
@@ -63,8 +64,13 @@ func TestMain(m *testing.M) {
 	if isDecisionsProcess() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
-	if os.Getenv("BARNESS_GLM_ROUTE") != "" || os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
+	}
+	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
+		// Record the actual process limit, including controlled/replay and
+		// rejected inputs. An environment round ID grants no extra lifetime.
+		packageArgs = "-tags live -timeout " + flag.Lookup("test.timeout").Value.String() + " ./ai/live"
 	}
 	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
@@ -118,7 +124,6 @@ func TestMain(m *testing.M) {
 		run.SetVersion("live_combo", cfg.combo.name)
 		run.SetVersion("live_sdk", cfg.combo.sdk())
 	}
-	flag.Parse()
 	code := 0
 	mmEntry := "^TestMultimodalCandidate$"
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {

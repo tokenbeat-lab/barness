@@ -87,11 +87,8 @@ func driveMiniMax(t *testing.T) {
 		minimaxFail("public Client assembly failed")
 		t.Fatal(e)
 	}
-	deadline := r.Deadline.Add(-20 * time.Second)
-	if d, ok := t.Deadline(); ok && d.Before(deadline) {
-		deadline = d.Add(-time.Second)
-	}
-	ctx, cancel := context.WithDeadline(context.Background(), deadline)
+	testDeadline, _ := t.Deadline()
+	ctx, cancel := context.WithDeadline(context.Background(), miniMaxContextDeadline(r, testDeadline))
 	defer cancel()
 	s := &minimaxSession{client: client, rec: rec, gate: gate, ctx: ctx}
 	for _, p := range r.Expected {
@@ -122,6 +119,20 @@ func driveMiniMax(t *testing.T) {
 			r.Outcome = "FAIL"
 		}
 	}
+}
+
+func miniMaxContextDeadline(r *minimaxlive.Report, testDeadline time.Time) time.Time {
+	reserve := 20 * time.Second
+	if r.Mode == "live" && r.Stage == "formal" && r.Kind == "minimax-formal" && r.Identity.Model == minimaxlive.M3 && r.FormalRenewalID == minimaxlive.Recovery7RenewalID && r.FormalRenewalGrantSHA256 != "" && r.Deadline.Equal(r.StartedAt.Add(3600*time.Second)) {
+		// initializeMiniMax assigns this bound only after active authority
+		// verification. Leave time for the final uncached VerifyCapture walk.
+		reserve = 120 * time.Second
+	}
+	deadline := r.Deadline.Add(-reserve)
+	if !testDeadline.IsZero() && testDeadline.Before(deadline) {
+		deadline = testDeadline.Add(-time.Second)
+	}
+	return deadline
 }
 
 func miniMaxPolicy() *ai.ResourcePolicy {

@@ -103,6 +103,11 @@ func initializeMiniMax() {
 			minimaxConfigError = e.Error()
 		} else {
 			r.FormalRenewalGrantSHA256 = pin
+			if renewal == minimaxlive.Recovery7RenewalID && r.Kind == "minimax-formal" && minimaxConfigError == "" {
+				// Only the independently verified fixed7 grant carries the
+				// reviewed one-hour process bound (issue26), never its env ID.
+				r.Deadline = started.Add(3600 * time.Second)
+			}
 		}
 	}
 	path := os.Getenv("BARNESS_MINIMAX_LEDGER")
