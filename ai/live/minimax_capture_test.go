@@ -3,6 +3,7 @@
 package live
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -17,12 +18,18 @@ type minimaxHTTPGate struct {
 	caseID   string
 	receipts []minimaxlive.Receipt
 	active   atomic.Int64
+	// A controlled process may synchronize local authorization work without
+	// replacing the actual durable Ledger.Attempt below.
+	beforeAttempt func(context.Context)
 }
 
 func (g *minimaxHTTPGate) RoundTrip(req *http.Request) (*http.Response, error) {
 	b := &minimaxReport.Budget
 	if b.Attempts >= 24 || b.Attempts >= b.ReservedAttempts {
 		return nil, fmt.Errorf("MiniMax actual attempt budget exhausted")
+	}
+	if g.beforeAttempt != nil {
+		g.beforeAttempt(req.Context())
 	}
 	r, e := minimaxLedger.Attempt(g.caseID)
 	if e != nil {

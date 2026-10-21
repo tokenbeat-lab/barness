@@ -47,3 +47,9 @@ ZAI 自身 Chat 与 Responses 的合法工具响应都可能只有工具调用�
 仅`minimax-cn-responses/MiniMax-M3`也在请求前固定自身full-stream为native-history来源。harness按同一固定合同保存原user/assistant前缀，随后保留独立工具用户/助手、Host结果及最终提示；严格消费者核对来源、作用域、精确前缀和真实summary/native wire。工具回合无Thinking仍是合法工具响应，但不能提供原生推理证明；指定文本源若空仍失败，即使另一工具回合有native也不得替代。生产协议、SDK、模型、guard和价格不改。
 
 代价是多保存一个自身文本回合、按实际最终wire计量输入，以及消费者合同进入M3执行来源而再次使三M3/六地区formal旧资格过期。GLM245字节不受此改动；八generic保留另须明确已审来源差异与公共wire/账本不变证明，不能自动扩张旧白名单。原FAIL/UNKNOWN/消费与美元预留不改，新的真实有限范围与授权另行准备。[21实施和原件](../../.scratch/barness-provider-sites/issues/21-minimax-cn-responses-native-source.md)，唯一实际验收状态仍见spec。
+
+## MiniMax 验收的本地授权与连接时限
+
+恢复6的国际M3 Chat两次REQUEST失败原件明确记录`ConnectTimeout (15s)`，各次exchange约25.5秒后返回；原生授权门禁位于Client已开始计时的Host transport内，需要在下游建连前逐次重新验证完整历史。原件的recorder／账本记录不能证明厂商已接收请求。公共Client受控门禁以有界本地阶段复现相同错误且vendor到达数为0；保持授权阶段不变、仅调整真实harness policy可恢复成功。
+
+仅MiniMax验收harness将`ConnectTimeout`设为其既有`CallTimeout=120s`；`ResponseHeaderTimeout=90s`、`ReadIdleTimeout=90s`、逻辑调用120秒、重试和次数上限不变，生产SDK及其他Provider默认值不变。连接与本地校验合计仍受90秒响应头／120秒调用时限约束，可能继续按真实失败停止；此调整不保证任何厂商延迟。每次Ledger.Attempt继续在最终请求抵达下游transport前完整校验，不迁出门禁、不缓存、不预领凭据或跳过原件。代价是MiniMax验收的连接阶段不再单独受15秒限额约束；公共回归同比例缩放同一policy工厂，核对本地授权、一次真实账本记录、vendor到达和资源释放。问题与资格影响见[工单24](../../.scratch/barness-provider-sites/issues/24-minimax-native-authorization-timeout.md)。
