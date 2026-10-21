@@ -39,7 +39,7 @@ func fifthNativeHistory(root *os.Root, owner string, stop fifthStop, f RenewalSo
 	}
 	var g RenewalGrant
 	raw, e := cohortJSON(root, base+"grant.json", &g)
-	if e != nil || g.Schema != 6 || g.FifthCohort != nil || g.RenewalID != Recovery5RenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || !reflect.DeepEqual(g.Recovery, f.Recovery) || !reflect.DeepEqual(g.ThirdCohort, f.ThirdCohort) || !reflect.DeepEqual(g.FourthCohort, f.FourthCohort) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
+	if e != nil || g.Schema != 6 || g.SixthCohort != nil || g.FifthCohort != nil || g.RenewalID != Recovery5RenewalID || g.Decision != "APPROVED" || !fixedRenewalCaps(g) || !sameRenewalHistory(g, f) || !reflect.DeepEqual(g.Recovery, f.Recovery) || !reflect.DeepEqual(g.ThirdCohort, f.ThirdCohort) || !reflect.DeepEqual(g.FourthCohort, f.FourthCohort) || g.SourceCommit != stop.SourceCommit || g.HumanApprovalSHA256 != stop.Files[base+"human-approval.json"] || g.SourceReviewSHA256 != stop.Files[base+"source-review.json"] {
 		return fmt.Errorf("closed fifth original schema6 grant/history differs: %v", e)
 	}
 	pin := Hash(raw)

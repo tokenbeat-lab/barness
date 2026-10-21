@@ -19,6 +19,7 @@ const FormalRenewalID = "current-source-eleven-renewal-1"
 const FinalAcceptanceRenewalID = "provider-sites-final-acceptance-2"
 
 type RenewalGrant struct {
+	SixthCohort                 *SixthCohortHistory  `json:"sixthCohort,omitempty"`
 	FifthCohort                 *FifthCohortHistory  `json:"fifthCohort,omitempty"`
 	RequestReference            string               `json:"requestReference,omitempty"`
 	FirstRouteProof             map[string]string    `json:"firstRouteProof,omitempty"`
@@ -63,6 +64,8 @@ type RenewalGrant struct {
 	NativeRound1NeverIssued     bool                 `json:"nativeRound1NeverIssued,omitempty"`
 }
 type RenewalSourceFacts struct {
+	SixthCohortHistorySHA256    string               `json:"sixthCohortHistorySha256,omitempty"`
+	SixthCohort                 *SixthCohortHistory  `json:"sixthCohort,omitempty"`
 	FifthCohortHistorySHA256    string               `json:"fifthCohortHistorySha256,omitempty"`
 	FifthCohort                 *FifthCohortHistory  `json:"fifthCohort,omitempty"`
 	FourthCohortHistorySHA256   string               `json:"fourthCohortHistorySha256,omitempty"`
@@ -163,7 +166,16 @@ func closedRenewalFacts() (RenewalSourceFacts, error) {
 	return f, nil
 }
 func approvedRenewal(id string, active bool) (RenewalGrant, string, error) {
+	if id == Recovery7RenewalID {
+		return approvedRecovery7(active)
+	}
 	if id == Recovery6RenewalID {
+		if sixthCohortClosed() {
+			if active {
+				return RenewalGrant{}, "", fmt.Errorf("closed recovery6 cannot execute again")
+			}
+			return closedSixthAuthority()
+		}
 		return approvedRecovery6(active)
 	}
 	if id == Recovery5RenewalID {
@@ -277,7 +289,7 @@ func RenewalAuthority(id string, active bool) (RenewalGrant, string, error) {
 	return approvedRenewal(id, active)
 }
 func RenewalLedgerPath(id string) (string, error) {
-	if id != FormalRenewalID && id != FinalAcceptanceRenewalID && id != RecoveryRenewalID && id != Recovery4RenewalID && id != Recovery5RenewalID && id != Recovery6RenewalID {
+	if id != FormalRenewalID && id != FinalAcceptanceRenewalID && id != RecoveryRenewalID && id != Recovery4RenewalID && id != Recovery5RenewalID && id != Recovery6RenewalID && id != Recovery7RenewalID {
 		return "", fmt.Errorf("unknown renewal")
 	}
 	base, e := renewalBase(id)

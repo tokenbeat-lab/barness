@@ -75,7 +75,7 @@ func approvedRecoveryRenewal(active bool) (RenewalGrant, string, error) {
 	if e != nil {
 		return g, "", e
 	}
-	if g.FifthCohort != nil || g.FourthCohort != nil || g.ThirdCohort != nil || g.Schema != 4 || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
+	if g.SixthCohort != nil || g.FifthCohort != nil || g.FourthCohort != nil || g.ThirdCohort != nil || g.Schema != 4 || g.RenewalID != RecoveryRenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
 		return g, "", fmt.Errorf("fixed recovery source/history/caps differ")
 	}
 	if e = renewalCommittedSource(g.SourceCommit); e != nil {

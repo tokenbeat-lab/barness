@@ -12,7 +12,7 @@ import (
 func (l Ledger) renewalAuthority(caseID string) (string, string, error) {
 	selected := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL")
 	if selected == "" {
-		if (filepath.Base(filepath.Dir(l.Path)) == ClosedFinalAcceptanceRenewalID || filepath.Base(filepath.Dir(l.Path)) == FormalRenewalID || filepath.Base(filepath.Dir(l.Path)) == FinalAcceptanceRenewalID || filepath.Base(filepath.Dir(l.Path)) == RecoveryRenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery4RenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery5RenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery6RenewalID) && filepath.Base(l.Path) == "formal.jsonl" {
+		if (filepath.Base(filepath.Dir(l.Path)) == ClosedFinalAcceptanceRenewalID || filepath.Base(filepath.Dir(l.Path)) == FormalRenewalID || filepath.Base(filepath.Dir(l.Path)) == FinalAcceptanceRenewalID || filepath.Base(filepath.Dir(l.Path)) == RecoveryRenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery4RenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery5RenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery6RenewalID || filepath.Base(filepath.Dir(l.Path)) == Recovery7RenewalID) && filepath.Base(l.Path) == "formal.jsonl" {
 			return "", "", fmt.Errorf("fixed renewal ledger requires explicit selection")
 		}
 		return "", "", nil
@@ -21,7 +21,7 @@ func (l Ledger) renewalAuthority(caseID string) (string, string, error) {
 	if e != nil {
 		return "", "", e
 	}
-	if (selected != FinalAcceptanceRenewalID && selected != RecoveryRenewalID && selected != Recovery4RenewalID && selected != Recovery5RenewalID && selected != Recovery6RenewalID) || l.Stage != "formal" || l.Identity.Model != M3 || l.Path != canonical {
+	if (selected != FinalAcceptanceRenewalID && selected != RecoveryRenewalID && selected != Recovery4RenewalID && selected != Recovery5RenewalID && selected != Recovery6RenewalID && selected != Recovery7RenewalID) || l.Stage != "formal" || l.Identity.Model != M3 || l.Path != canonical {
 		return "", "", fmt.Errorf("only fixed canonical formal renewal ledger permitted")
 	}
 	_, pin, e := approvedRenewal(selected, true)

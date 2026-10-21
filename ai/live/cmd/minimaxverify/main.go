@@ -24,7 +24,20 @@ func main() {
 	recovery5Preflight := flag.String("recovery5-preflight", "", "read-only recovery5 authority and unclaimed route guard")
 	recovery6Facts := flag.Bool("recovery6-source", false, "read-only fixed recovery6 source and closed fifth cohort facts")
 	recovery6Preflight := flag.String("recovery6-preflight", "", "read-only recovery6 authority and unclaimed route guard")
+	recovery7Facts := flag.Bool("recovery7-source", false, "read-only fixed recovery7 source and interrupted sixth cohort facts")
+	recovery7Preflight := flag.String("recovery7-preflight", "", "read-only recovery7 authority and unclaimed route guard")
 	flag.Parse()
+	if *recovery7Facts || *recovery7Preflight != "" {
+		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts || *recoveryPreflight != "" || *recovery4Facts || *recovery4Preflight != "" || *recovery5Facts || *recovery5Preflight != "" || *recovery6Facts || *recovery6Preflight != "" || *recovery7Facts && *recovery7Preflight != "" {
+			fmt.Fprintln(os.Stderr, "recovery7-source/preflight cannot verify or publish")
+			os.Exit(2)
+		}
+		if e := recovery7(*recovery7Facts, *recovery7Preflight); e != nil {
+			fmt.Fprintln(os.Stderr, e)
+			os.Exit(1)
+		}
+		return
+	}
 	if *recovery6Facts || *recovery6Preflight != "" {
 		if flag.NArg() != 0 || *formal || *publish || *facts || *preflight != "" || *recoveryFacts || *recoveryPreflight != "" || *recovery4Facts || *recovery4Preflight != "" || *recovery5Facts || *recovery5Preflight != "" || *recovery6Facts && *recovery6Preflight != "" {
 			fmt.Fprintln(os.Stderr, "recovery6-source/preflight cannot verify or publish")
@@ -215,6 +228,25 @@ func recovery6(facts bool, route string) error {
 		return e
 	}
 	f, e := minimaxlive.Recovery6Facts()
+	if e != nil {
+		return e
+	}
+	return json.NewEncoder(os.Stdout).Encode(map[string]any{"route": route, "grant": g, "grantSha256": pin, "facts": f})
+}
+
+func recovery7(facts bool, route string) error {
+	if facts {
+		f, e := minimaxlive.Recovery7Facts()
+		if e != nil {
+			return e
+		}
+		return json.NewEncoder(os.Stdout).Encode(f)
+	}
+	g, pin, e := minimaxlive.Recovery7Preflight(route)
+	if e != nil {
+		return e
+	}
+	f, e := minimaxlive.Recovery7Facts()
 	if e != nil {
 		return e
 	}

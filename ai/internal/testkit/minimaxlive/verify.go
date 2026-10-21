@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
+	"time"
 )
 
 type Seal struct {
@@ -72,7 +73,14 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if !reflect.DeepEqual(plan, r.Expected) || Hash(raw) != r.PlanHash || r.SourceHash != SourcePin {
 		return r, fmt.Errorf("MiniMax fixed plan/source mismatch")
 	}
-	if r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > 1800e9 || r.SDK == "" || r.AccountAlias == "" || r.RegionAlias == "" || r.Entitlement != "confirmed" {
+	// Only fixed7 has a reviewed one-hour process budget for its cumulative
+	// history verification work. verifyRenewalReport above already requires
+	// its independent canonical authority; older rounds keep their own limit.
+	maxLifetime := 1800 * time.Second
+	if r.FormalRenewalID == Recovery7RenewalID {
+		maxLifetime = 3600 * time.Second
+	}
+	if r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > maxLifetime || r.SDK == "" || r.AccountAlias == "" || r.RegionAlias == "" || r.Entitlement != "confirmed" {
 		return r, fmt.Errorf("MiniMax provenance incomplete")
 	}
 	cat := CandidateCatalog(id)

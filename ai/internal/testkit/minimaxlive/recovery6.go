@@ -56,7 +56,7 @@ func approvedRecovery6(active bool) (RenewalGrant, string, error) {
 	if e != nil {
 		return g, "", e
 	}
-	if g.Schema != 7 || g.RenewalID != Recovery6RenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !reflect.DeepEqual(g.ThirdCohort, f.ThirdCohort) || !reflect.DeepEqual(g.FourthCohort, f.FourthCohort) || !reflect.DeepEqual(g.FifthCohort, f.FifthCohort) || !reflect.DeepEqual(g.SpendingGuardSourceSHA256, f.SpendingGuardSourceSHA256) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
+	if g.SixthCohort != nil || g.Schema != 7 || g.RenewalID != Recovery6RenewalID || g.Decision != "APPROVED" || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(g.SourceCommit) || !sameRenewalHistory(g, f) || g.ExecutionSourceSHA256 != f.ExecutionSourceSHA256 || !reflect.DeepEqual(g.Recovery, f.Recovery) || !reflect.DeepEqual(g.ThirdCohort, f.ThirdCohort) || !reflect.DeepEqual(g.FourthCohort, f.FourthCohort) || !reflect.DeepEqual(g.FifthCohort, f.FifthCohort) || !reflect.DeepEqual(g.SpendingGuardSourceSHA256, f.SpendingGuardSourceSHA256) || !fixedRenewalCaps(g) || active && g.SourceCommit != f.SourceCommit {
 		return g, "", fmt.Errorf("fixed recovery6 source/history/guard/caps differ")
 	}
 	if e = renewalCommittedSource(g.SourceCommit); e != nil {
