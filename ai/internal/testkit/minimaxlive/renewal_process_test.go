@@ -17,8 +17,12 @@ const renewalID = "current-source-eleven-renewal-1"
 // Auxiliary public authority/process seam. The fixture is a separate Git owner;
 // its grant is synthetic and can never authorize the real repository.
 func TestFormalRenewalAuthorityProcess(t *testing.T) {
+	t.Parallel()
 	for _, mode := range []string{"inactive-option", "data-only-commit", "uncommitted-source", "read-only", "pending", "human-missing", "human-pending", "source-stale", "source-commit", "old-drift", "caps", "foreign-owner", "unknown-new-field"} {
-		t.Run(mode, func(t *testing.T) { testRenewalFixture(t, mode) })
+		t.Run(mode, func(t *testing.T) {
+			admitRenewalOwner(t)
+			testRenewalFixture(t, mode)
+		})
 	}
 }
 func testRenewalFixture(t *testing.T, mode string) {
