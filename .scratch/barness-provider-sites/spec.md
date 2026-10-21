@@ -8,30 +8,21 @@ GLM 与 MiniMax 的中国站、国际站使用独立 Provider；每个服务分�
 
 ## 当前状态
 
-此节是本功能唯一的当前实施与验收状态入口。实施工单按依赖图推进；实现和普通通过不表示新增服务已取得自身正式支持。
+此节是唯一当前状态入口；实际逐项状态由[恢复6当前索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/index.json)维护，历史证明仅证明其固定来源。
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 架构选择 | 已确定方案 2，记录于 ADR-0049 |
-| 本次交付 | 实现与普通验证已交付；工单 01–06 已解决，[07 最终验收](issues/07-final-acceptance.md) 进行中。分支 `codex/barness-provider-sites`，feature 保持 claimed |
-| 最终续验准备 | 恢复5已获有限19进程/US$36批准并执行，首七完整PASS，第八中国MiniMax Responses的native-history实际FAIL后停止，后11未启动；[停止原件](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-stopped/index.json)不改。[21固定原生来源](issues/21-minimax-cn-responses-native-source.md)仅离线修复harness/consumer；拟恢复6有限19/总US$39尚未获批，实际新源/审查/冻结/检查/授权只见[恢复6当前准备索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/index.json)。 |
-| 本轮 ZAI 原生推理研究 | 四次自身真实对照实际完成，4 Calls / 4 HTTP、零重试、合法终态；GLM-5.2 omitted 为 thinking0，enabled/budget1024/max4096 为 thinking97 / signature24，GLM-5.3 两形状均有原生块。工具 source 前后相同，Key 扫描零发现；只证实窄请求形状，尚未认证 native-history / 新候选。[固定研究事实](evidence/zai-thinking-research.md) |
-| 文档核验 | 历史格式/引用与来源核验原件保留；恢复5新增状态维护唯一入口，07及18–20只保留职责/历史事实并链接本表。实际固定源、十binary与根检查状态见[恢复5当前准备索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-preparation/index.json)。 |
-| 生产实现与目录变更 | 四服务各三协议、12路线/18身份；实现与Host隔离已完成。新增九身份已由六条真实candidate独立证明后原生晋升BuiltinCatalog，版本2026-10-20.1-regional，Hash sha256:9f00cfa579948ea506ce56eb1f901572b03ea64bfcd9ff4fcae3cb5347a674a1；晋升后formal支持仍待认证 |
-| 上轮完整普通 E2E | 受测提交 `d4b63d9`；完整普通主包 13,244 原生场景全部 PASS，双 vet、差分、压力与原生审计通过；[该来源验证索引](evidence/verification.md) / [机器索引](evidence/index.json)。本轮新增源码尚未执行完整普通门禁 |
-| 双轴审查 | 恢复5此前来源与审查回执保留在[恢复5准备索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-preparation/index.json)；21新来源与七个有限公共边界的普通结果和后续双轴审查分别由[诊断修复索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-cn-responses-diagnosis-dev/index.json)及恢复6当前准备索引关联，不把旧清零结论套用到新源码。 |
-| 本轮定向普通 | 18的[永久索引](../../.evidence/provider-sites/final-acceptance-20261020/decisions-budget-diagnosis-dev/index.json)固定84＋183实际请求wire/ledger相等及七完整guard-active受控流程；19的[原生索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-native-dev/index.json)和20的[控制器索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-controller-dev/index.json)保留原事实。[ebb统一修复索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-review-fix-dev/index.json)记录184原生/50 Python普通PASS，但首次根完整无Key检查实际exit1、六HOME工件audit发现，原失败已封存。预算测试仅alias各自证据根，完整stdout/argv/session及环境audit保留；新公共HOME进程、受影响普通和84精确不变核对见[HOME修复索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-home-audit-fix-dev/index.json)。这些不冒充新根完整检查PASS，实际状态只见准备索引。；21新增自身SSE公共RED、固定源空值/篡改拒绝和受影响普通见诊断修复索引，不能充当真实正式资格。 |
-| 本轮新身份自身真实验证 | 恢复5自身七完整进程实际PASS与第八中国MiniMax Responses九场景8PASS/1FAIL保留各自固定来源。21同步改变regional_contract消费者及harness，六地区formal和三国际M3的严格执行来源再次过期，必须新当前自身资格；GLM245执行字节未受本次改动，但三新GLM仍未在恢复5启动，不能借旧b384报告充数。六历史candidate和晋升血缘保持历史角色，不用当前consumer重新认证旧candidate。 |
-| 上轮新身份自身真实验证 | 六条各一次 candidate 已完成：81 Calls / 81 HTTP、零重试，80 PASS / 1 FAIL，六份 audit 零发现。ZAI Chat / Responses 与中国 MiniMax 三协议的 qualify 通过；ZAI Messages 因 [`glm-5.2/native-history`](issues/08-zai-messages-glm52-native-qualification.md) 失败未通过。未晋升 / 未运行新 formal。[固定汇总](../../.evidence/provider-sites/acceptance-20261020/candidate-summary.json) |
-| 旧真实来源适用性 | 八generic原实际恢复4 PASS、[84精确wire/ledger证明](../../.evidence/provider-sites/final-acceptance-20261020/decisions-budget-diagnosis-dev/compatibility-eight.json)及US$12.40整笔预留原件保留。21的harness/消费者/有限trace变化超出恢复5当前精确来源差异政策，不能自动沿用；恢复6若保留须另行绑定完整旧原件、明确已审变更集合与公共84不变证明，禁止泛放路径。三新GLM仍必须用新raw自身live-report直接消费，旧views/ZIP只留历史。 |
-| 正式前置 | 恢复5已按失败即停条件关闭，不自动重跑或发行新grant。21离线实现不授权新增付费；拟恢复6的具体范围/预算/固定authority与源码/十binary/工具/计划/审查须完成并取得新的明确批准。九服务资格与新READY后唯一完整race选择保留。实际准备状态只见恢复6当前准备索引；READY/race NOT_RUN、release.pass=false。 |
-| race | 上轮 `470682d3…` 完整开发 race PASS：exit 0、墙钟 2589.635s、主包 13,244 原生 PASS、32 audit 零发现、无 race detector 警告；不是正式 check checkpoint。[固定报告](evidence/acceptance.md) / [机器索引](evidence/acceptance-index.json)。本轮新增源码 race NOT_RUN，取得新 READY 后一次完整正式 race 已明确获批 |
-| release.pass | false；完整正式验收继续开放 |
-| 实际厂商 / 付费调用 | 恢复5新增native111 Calls/108 recorderHTTP，累计native702/692；claimed1160/1232，whole US$32.05（已批总上限US$36）、UNKNOWN父记录5、退款0。首七完整PASS、第八中国Responses失败、后11未启动；[停止索引](../../.evidence/provider-sites/final-acceptance-20261020/recovery5-stopped/index.json) SHA5e8014e7…固定原件。本票21仅离线回放/合成transport，无新Key/厂商/付费/race。 |
-| 上轮完整受测来源 | 上轮完整普通/开发race集合470682d37e2d1c839bf5609f6898f9a1e4dafbd3dbfcd2cb77f2048a530f3e05仅证明原来源。候选实际ca03339、三GLM实际b384951保持；恢复3实际6b87a584，Regional409/MiniMax315及完整操作来源1233文件固定。[准备记录](../../.evidence/provider-sites/final-acceptance-20261020/recovery3-preparation/index.json)。16/17离线新源07807a1为Regional414/MiniMax320，GLM245相等；81e79b3控制器与最终两轴复审已完成，这些离线事实不构成最终发布证明；实际冻结及根检查状态见[恢复4准备当前状态（CURRENT_STATE）](../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/index.json)与[计划](../../.evidence/provider-sites/final-acceptance-20261020/recovery4-preparation/plan.md) |
+| 实现与目录 | 工单01–06已交付；四服务12路线/18身份与Host隔离已实现。新增九身份已由自身candidate原生晋升，版本2026-10-20.1-regional，Catalog Hash sha256:9f00cfa579948ea506ce56eb1f901572b03ea64bfcd9ff4fcae3cb5347a674a1；[07最终验收](issues/07-final-acceptance.md)保持进行中。 |
+| 最近实际固定轮次 | 恢复6获19进程/US$39实际批准；来源1251199第一条ZAI Responses完整18/18及原生消费0。M3 Chat的full-stream允许重试后仍为REQUEST deadline最终FAIL，按约停止，后17未启动；[停止原件](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-stopped/index.json)及[关闭seal](../../.evidence/provider-sites/final-acceptance-20261020/closed-cohort-6/seal.json)保留。 |
+| 中断与记账 | M3 child由SIGTERM停止、数字退出-15，父账本UNKNOWN且无最终minimax-report；原生账本4 Calls/4 HTTP配额、USD guard12,884微美元/4运输预约独立保留，不能当作厂商确认接收或账单。跨轮完整报告已知720/710；另中断4/4记录，claimed1204/1280，整笔US$32.90，UNKNOWN父记录6，退款0。实际预算上限仍US$39。 |
+| 24本地修复 | [MiniMax原生授权阶段预算](issues/24-minimax-native-authorization-timeout.md)：默认ConnectTimeout15秒包含约25.5秒本地完整授权校验，公共Client先RED；只在MiniMax验收harness显式Connect=Call，保留Call120秒/Header90秒/Read90秒、全部原生校验和生产SDK默认。实际进展见当前索引关联的诊断原件。 |
+| 后续准备 | [25固定原生7](issues/25-recovery7-native-authority.md)、[26固定续验7](issues/26-recovery7-fixed-continuation.md)只做离线机制/审查/冻结/检查与具体有限计划，不授予新费用或厂商调用；旧6已关闭不重启。新范围、source/binary/plan/金额及运行资源边界必须固定并取得新的直接批准。 |
+| 保留证明 | 六历史candidate与晋升血缘保持历史角色；八generic原08自身raw与[最终84次wire/header/body/完整owned ledger相等证明](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/compatibility-eight.json)保留。新来源若要沿用仍须精确来源差异和完整原件消费，不泛放路径；三GLM必须新完整22自身raw，旧views/ZIP不代替。 |
+| 审查与普通 | 1251199双轴清零、十新binary、双vet和完整ai/live无Key检查实际通过；[不可变准备快照](../../.evidence/provider-sites/final-acceptance-20261020/recovery6-preparation/ready-for-approval.json)及开发RED/GREEN保留原来源。24–26后续新源须重新审查、冻结、构建及适当普通验证，不套旧结论。 |
+| 正式资格 | ZAI Messages/GLM-5.2在恢复5原8c83426完整18通过；中国MiniMax Responses固定自身full-stream来源的离线修复已整合，但新当前strict formal仍待齐。恢复6仅一条当前完整ZAI Responses事实，不代替所有最终23 live+4 effects。 |
+| READY/race/release | fresh正式READY尚未取得；正式race NOT_RUN，release.pass=false。旧开发完整race的2589.635秒PASS仅证明其原470682d3来源。九服务资格及取得新READY后一次完整正式race的人类选择保留；失败不自动重跑。 |
 
-
-现有 Provider 的原始支持与消费记录保持各自适用范围；本表不撤销历史事实，也不把历史通过计为本功能通过。实施后在此维护结果及原件指针，其他文档只链接此状态。
+本表不重写历史失败、来源或预算；R01–R20合同不变。
 
 ## Problem Statement
 
