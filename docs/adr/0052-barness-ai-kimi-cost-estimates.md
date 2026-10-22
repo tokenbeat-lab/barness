@@ -1,11 +1,11 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-22
 ---
 
 # Kimi 在共享协议中接入，未知缓存 TTL 以成本范围表达
 
-Kimi 两个市场的三协议共用 barness-ai 现有 adapter，身份沿 ADR-0049 分为 `moonshot` 与 `moonshot-cn`；首批限定 K3 文本和 131072 输出，逐协议独立目录与自身证明。沿用 ADR-0014/0015/0032 的内部 Provider 能力配置，不复制生命周期或让 Host 通过兼容开关扩大能力。完整设计与实施就绪范围见 [spec](../../.scratch/barness-ai-kimi/spec.md) 和[设计](../../.scratch/barness-ai-kimi/design.md)；本 ADR 为拟议设计，不表示实现或真实资格已完成。
+Kimi 两个市场的三协议共用 barness-ai 现有 adapter，身份沿 ADR-0049 分为 `moonshot` 与 `moonshot-cn`；首批限定 K3 文本和 131072 输出，逐协议独立目录与自身证明。沿用 ADR-0014/0015/0032 的内部 Provider 能力配置，不复制生命周期或让 Host 通过兼容开关扩大能力。完整设计与实施就绪范围见 [spec](../../.scratch/barness-ai-kimi/spec.md) 和[设计](../../.scratch/barness-ai-kimi/design.md)；本决定已随 2026-10-22 的 implement-spec 实施请求采用，身份与成本接口已进入集成分支；不表示六路线实现、真实资格或发布已完成。
 
 K3 默认有收费缓存写入，实际 TTL 可能沿用既有前缀；Chat 响应没有证明其写量属于 5m 还是 1h 的字段。请求 TTL 只能表达偏好。拒绝所有正写量会使 Chat 难以使用，猜 5m 则会把未知费率伪装为确定值。决定在 Attempt 增加可选的值类型 CostEstimate，区分 resolved、bounded、partial、unreported，保留可证明的 USD 成本范围；token 的 UsageReporting 继续独立表达上报程度。
 

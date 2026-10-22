@@ -3,7 +3,7 @@
 Status: ready-for-agent
 Updated: 2026-10-22
 
-交付契约见 [spec](spec.md)，官方事实见 [research](research.md)。本文定义可实施方案；本功能的实现、验证和发布状态只维护在 [spec 当前状态](spec.md#唯一当前状态)。本次不修改运行代码或型号目录。
+交付契约见 [spec](spec.md)，官方事实见 [research](research.md)。本文定义实施方案；本功能的实现、验证和发布状态只维护在 [spec 当前状态](spec.md#唯一当前状态)。下文的规划交付检查保留实施前的历史事实，不代表当前程序验收或型号资格。
 
 ## 1. 目标、取舍与设计依据
 

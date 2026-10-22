@@ -2,7 +2,6 @@
 
 Type: task
 Status: claimed
-Blocked by: none
 
 ## Context
 
