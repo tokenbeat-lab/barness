@@ -85,8 +85,18 @@ func usageCount(raw json.RawMessage) (int64, bool) {
 
 // report replaces the message's usage with a chunk's, as pi does for every
 // chunk that carries one, and records it on the attempt.
-func (p *chatParser) report(raw json.RawMessage) {
+func (p *chatParser) report(raw json.RawMessage) *Error {
+	if isKimi(p.model.Provider) {
+		u, reporting, estimate, failure := kimiUsage(p.model, raw, nil)
+		if failure != nil {
+			return failure
+		}
+		p.out.usage(u)
+		p.attempt.usageEstimate(reporting, u, estimate)
+		return nil
+	}
 	u, reporting := p.usage.of(raw)
 	p.out.usage(u)
 	p.attempt.usage(reporting, u)
+	return nil
 }

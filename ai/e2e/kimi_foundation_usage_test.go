@@ -41,7 +41,7 @@ func TestKimiUsagePricingBoundaries(t *testing.T) {
 			events := []json.RawMessage{json.RawMessage(`{"choices":[{"delta":{"content":"Ready."},"finish_reason":"stop"}]}`), json.RawMessage(`{"choices":[],"usage":` + sc.raw + `}`)}
 			reply := chatEvents(t, events, "")
 			enqueue(ev, w, reply)
-			result, err := w.client.Complete(ctxFor(t), textScope(sc.name), ai.Target{BindingID: b.BindingID, ModelID: "kimi-k3"}, ai.Request{}, ai.ChatOptions{})
+			result, err := w.client.Complete(ctxFor(t), textScope(sc.name), ai.Target{BindingID: b.BindingID, ModelID: "kimi-k3"}, ai.Request{Messages: []ai.Message{ai.UserText("Ready?")}}, ai.ChatOptions{})
 			ev.Record("input-usage", json.RawMessage(sc.raw))
 			ev.Record("result", result)
 			if sc.code != "" {
