@@ -25,3 +25,9 @@ Responses wrapper 已有独立红例 `20261022T142225.769705Z-czh_x1bs`，只缺
 追加公共 Client E2E `TestKimiHostConcurrentMarketsAndTenants`：一个 Client 同时持有两租户×两市场×Chat/Messages 八条调用；同账户标签/同 Session 下四份独立凭据，header 和 socket channel 屏障证明八个许可同时持有。逐调用校对归属/封套、实际 key alias/路径、四个无原始标识的不同派生 cache key、独立输入/Result/CostEstimate/Observer 快照、字面 worked USD 范围与资源归零。未发现需要修改产品代码的问题；未运行 race/压力/厂商请求。
 
 最终本片来源为提交 `e0ac913` 加此验收文件；冻结文件字节见 receipt.source.files。普通命令 `go test -json ./ai/e2e -run '^TestKimiHostConcurrentMarketsAndTenants$' -count=1`，exit0，PASS；原件 `.evidence/barness-ai-kimi-host/e2e/20261022T144043.784126Z-41wvzk80/receipt.json`，SHA-256 `43d3f323ef3a8a7eee478f6aa5f8bea5cee9c44c45086921d3c91bcc02eaabbd`。编译修正前的两个失败 attempt 和初版通过同样原样保留。票05仍等待票03合并后的六路线完整 scope。
+
+## Exact hook number investigation (no product defect)
+
+公共 Client 验收覆盖两市场 Chat/Messages 的 json.Number 与 RawMessage：分数 budget、近似固定 top_p 均在零 Attempt/HTTP 之前拒绝；合法精确数值可用，model 越权仍先报 tenant_denied。`marshalJS` 当前直接使用 json.Encoder，不存在猜测中的 float64 round-trip；产品代码无需改动。既有 OpenAI hook 同样保留原始数字拼写。
+
+初始失败 `20261022T145028.378654Z-argp7a2w` 只来自本次测试对既有 OpenAI 数值归一化的错误期待，属于测试设置错误，不作为产品缺陷红例。修正期待后的普通验收 `20261022T145208.513160Z-ga07rikd`：exit0/PASS，命令 `go test -json ./ai/e2e -run '^TestKimiHostHook(ExactNumbers|LegacyNumberPreservation)' -count=1`；receipt SHA-256 `9787a481763d4ef74964a18f3c67de834b3bc14cfd40d6b5176797fc261e5d06`。原件已复制至主工作区 `.evidence/barness-ai-kimi-host/e2e/`。后续03合并后增加 Responses 同组验收。
