@@ -1,7 +1,7 @@
 # 01 — 身份、候选目录与成本范围
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: none
 
 ## Context
@@ -23,3 +23,5 @@ R01–R03、R09–R10；K01、K02、K10–K11、K14–K15。拥有 Provider 常�
 ## Comments
 
 2026-10-22：从已批准实施的 spec/design 派生；任务依赖是集成顺序，独立协议可在同一基线并行开发，合并前同步集成分支。
+
+2026-10-22：由 foundation implementer 在 `codex/kimi-foundation` 认领；基线 `8678bc951ddaed20b0e5d16314ef791ed19ed156`。公共 Client E2E seam 及验证范围沿 spec；不启动 live/race/压力。
