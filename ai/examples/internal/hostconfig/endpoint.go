@@ -1,4 +1,4 @@
-// Package hostconfig validates URL configuration shared by two real Host
+// Package hostconfig validates URL configuration shared by the explicit Host
 // examples. It never infers a Provider from a hostname or chooses a fallback.
 package hostconfig
 
@@ -42,7 +42,7 @@ func Endpoint(official, configured string, trustedGateway bool) (string, error) 
 	u.Path = strings.TrimRight(u.Path, "/")
 	officialHost := false
 	switch strings.TrimSuffix(strings.ToLower(u.Hostname()), ".") {
-	case "open.bigmodel.cn", "api.z.ai", "api.minimax.io", "api.minimax.cn":
+	case "open.bigmodel.cn", "api.z.ai", "api.minimax.io", "api.minimax.cn", "api.moonshot.ai", "api.moonshot.cn":
 		officialHost = true
 	}
 	if (!trustedGateway || officialHost) && u.String() != official {
