@@ -60,7 +60,11 @@ func msgAnthropicInvalidJSON(event string) string {
 // as a configured anthropic-beta header does in pi.
 func (anthropicAdapter) headers(ac adapterCall) http.Header {
 	h := http.Header{}
-	h.Set("X-Api-Key", ac.apiKey.reveal())
+	if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicKimi {
+		h.Set("Authorization", "Bearer "+ac.apiKey.reveal())
+	} else {
+		h.Set("X-Api-Key", ac.apiKey.reveal())
+	}
 	h.Set("User-Agent", userAgent)
 	if anthropicCapabilitiesOf(ac.model.Provider).browserAccess {
 		h.Set("Anthropic-Dangerous-Direct-Browser-Access", "true")
@@ -104,9 +108,19 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	}
 	beta := strings.Join(betas, ",")
 	if hooked {
+		if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicKimi {
+			var fields map[string]json.RawMessage
+			_ = json.Unmarshal(body, &fields)
+			if _, present := fields["betas"]; present {
+				return newError(CodeInvalidRequest, PhaseRequest, "Kimi Messages beta controls are not supported")
+			}
+		}
 		if body, beta, failure = takeBetas(body); failure != nil {
 			return failure
 		}
+	}
+	if failure := validateKimiMessagesBody(ac.model, body, header, beta, authorizeAnthropicPayload(ac.model, ac.hostedTools)); failure != nil {
+		return failure
 	}
 	if failure := validateGLMMessagesBody(ac.model, body, header, beta, authorizeAnthropicPayload(ac.model, ac.hostedTools)); failure != nil {
 		return failure
@@ -157,8 +171,12 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 		return withoutHostDescription(r, next)
 	}))
 	svc := anthropic.NewBetaMessageService(reqOpts...)
+	stable := anthropic.NewMessageService(reqOpts...)
 	requestIDHeader := anthropicRequestIDHeaderFor(ac.model.Provider)
 	failures := httpFailures{apiKey: ac.apiKey, clock: ac.initial.clock, requestIDHeader: requestIDHeader, describe: anthropicHTTPError}
+	if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicKimi {
+		failures.kimi = APIAnthropicMessages
+	}
 	if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicMiniMax {
 		failures.minimax = APIAnthropicMessages
 	}
@@ -170,8 +188,16 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	failure = ac.initial.send(ctx, func(ctx context.Context) attemptOutcome {
 		res = nil
 		// The request body is ours; the empty params are replaced by it.
-		stream := svc.NewStreaming(ctx, anthropic.BetaMessageNewParams{}, option.WithResponseInto(&res))
-		if err := stream.Err(); err != nil {
+		var err error
+		if anthropicCapabilitiesOf(ac.model.Provider).implementation != anthropicKimi {
+			stream := svc.NewStreaming(ctx, anthropic.BetaMessageNewParams{}, option.WithResponseInto(&res))
+			err = stream.Err()
+		}
+		if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicKimi {
+			stream := stable.NewStreaming(ctx, anthropic.MessageNewParams{}, option.WithResponseInto(&res))
+			err = stream.Err()
+		}
+		if err != nil {
 			// res is nil when the SDK dropped the response as ctx ended.
 			o := failures.request(ctx, err, res)
 			closeBody(res)
@@ -193,7 +219,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	requestID := res.Header.Get(requestIDHeader)
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
-		if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicGLM || anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicMiniMax {
+		if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicGLM || anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicMiniMax || anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicKimi {
 			failure.HTTPStatus = res.StatusCode
 		}
 		return failure
@@ -205,7 +231,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	failure = p.read(ctx, newSSEDecoder(res.Body, ac.limits.frame))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
-		if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicGLM || anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicMiniMax {
+		if anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicGLM || anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicMiniMax || anthropicCapabilitiesOf(ac.model.Provider).implementation == anthropicKimi {
 			failure.HTTPStatus = res.StatusCode
 		}
 	}

@@ -134,6 +134,12 @@ func (anthropicAdapter) simpleOptions(m Model, o SimpleOptions, history []Messag
 	if c, ok := o.ToolChoice.Get(); ok {
 		full.ToolChoice = Value(AnthropicToolChoice{Mode: string(c)})
 	}
+	if anthropicCapabilitiesOf(m.Provider).implementation == anthropicKimi {
+		if o.Reasoning != "" {
+			full.Effort = anthropicEffort(m, clampThinkingLevel(m, o.Reasoning))
+		}
+		return full
+	}
 	if anthropicCapabilitiesOf(m.Provider).implementation == anthropicMiniMax {
 		if o.Reasoning != "" {
 			full.ThinkingEnabled = Value(true)
