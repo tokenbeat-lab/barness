@@ -36,7 +36,7 @@ func TestKimiChatUsage(t *testing.T) {
 				}
 				ev.Fixture("frames.json", mustMarshal(t, frames))
 				enqueue(ev, w, chatEvents(t, frames, ""))
-				scope := textScope(t.Name())
+				scope := textScope("kimi-usage-" + string(market) + "-" + sc.name)
 				o := drain(w.client.Stream(ctxFor(t), scope, kimiChatTarget(), kimiChatRequest(), nil))
 				o.record(ev)
 				obs := rec.awaitCall(ev, scope.RequestID)
@@ -52,6 +52,11 @@ func TestKimiChatUsage(t *testing.T) {
 					return
 				}
 				a := o.result.Metadata.Attempts[0]
+				if len(obs) == 4 {
+					ev.Check("observer snapshots agree before delivery", obs[1].Attempt.CostEstimate.Status == ai.CostUnreported && obs[2].Attempt.CostEstimate == a.CostEstimate && obs[3].Call.Attempts[0].CostEstimate == a.CostEstimate && obs[3].Usage == o.result.Message.Usage, "%+v", obs)
+				} else {
+					ev.Check("four lifecycle observations", false, "%d", len(obs))
+				}
 				ev.Check("presence remains distinct", a.UsageReporting == sc.report, "%+v", a)
 				var v map[string]any
 				mustUnmarshal(t, mustMarshal(t, a), &v)

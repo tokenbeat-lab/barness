@@ -144,7 +144,7 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 		if o.CacheRetention == CacheRetentionLong {
 			ttl = "1h"
 		}
-		body.PromptCacheOptions = &chatKimiCacheOptions{Type: "implicit", TTL: ttl}
+		body.PromptCacheOptions = &chatKimiCacheOptions{Mode: "implicit", TTL: ttl}
 	}
 	if compat.implementation != chatKimi && compat.promptCache && o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
 		body.PromptCacheRetention = "24h"

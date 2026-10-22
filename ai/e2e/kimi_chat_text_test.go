@@ -57,7 +57,7 @@ func TestKimiChatText(t *testing.T) {
 					for _, key := range []string{"store", "developer", "thinking", "max_tokens", "prompt_cache_retention", "reasoning_split"} {
 						ev.Check("omits "+key, len(f[key]) == 0, "%s", r.Body)
 					}
-					ev.Check("implicit five minute cache", jsonEqual(f["prompt_cache_options"], json.RawMessage(`{"type":"implicit","ttl":"5m"}`)), "%s", r.Body)
+					ev.Check("implicit five minute cache", jsonEqual(f["prompt_cache_options"], json.RawMessage(`{"mode":"implicit","ttl":"5m"}`)), "%s", r.Body)
 					ev.Check("private derived cache key", len(f["prompt_cache_key"]) > 0 && string(f["prompt_cache_key"]) != `"private-session"`, "%s", r.Body)
 					ev.Check("stream usage enabled", jsonEqual(f["stream_options"], json.RawMessage(`{"include_usage":true}`)), "%s", r.Body)
 					var msgs []map[string]any

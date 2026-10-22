@@ -54,6 +54,7 @@ type chatParser struct {
 	responseID, responseModel bool
 	finished                  bool       // a finish_reason arrived
 	stop                      StopReason // the last finish_reason's stop reason
+	kimiFinish                string     // exact previous Kimi finish reason
 	stopMessage               string     // the last error finish_reason's message
 	kimiRequired              bool       // final tool_choice requires a function on a normal stop
 	usage                     chatUsage
@@ -195,6 +196,11 @@ func (p *chatParser) event(eventType string, data []byte) *Error {
 	if raw, reported := openAIStreamError(eventType, data); reported {
 		return p.failures.inBand(raw)
 	}
+	if chatCompatOf(p.model.Provider).implementation == chatKimi {
+		if failure := p.validateKimiChatFrame(data); failure != nil {
+			return failure
+		}
+	}
 	var c chatChunk
 	if json.Unmarshal(data, &c) != nil {
 		// Non-error data that is not an object: pi skips it.
@@ -213,7 +219,9 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 		p.out.responseModel(model)
 	}
 	if rawTruthy(c.Usage) {
-		p.report(c.Usage)
+		if failure := p.report(c.Usage); failure != nil {
+			return failure
+		}
 	}
 	var choices []json.RawMessage
 	if json.Unmarshal(c.Choices, &choices) != nil || len(choices) == 0 || !rawTruthy(choices[0]) {
@@ -224,7 +232,9 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 		return nil
 	}
 	if !rawTruthy(c.Usage) && rawTruthy(choice.Usage) {
-		p.report(choice.Usage)
+		if failure := p.report(choice.Usage); failure != nil {
+			return failure
+		}
 	}
 	if rawTruthy(choice.FinishReason) {
 		p.finishReason(choice.FinishReason)
@@ -265,6 +275,9 @@ func (p *chatParser) finishReason(raw json.RawMessage) {
 		reason = compactJSON(raw)
 	}
 	p.out.rawStopReason(reason)
+	if chatCompatOf(p.model.Provider).implementation == chatKimi {
+		p.kimiFinish = reason
+	}
 	p.finished = true
 	switch reason {
 	case "stop", "end":

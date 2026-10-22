@@ -18,7 +18,7 @@ func TestKimiChatFinalGuard(t *testing.T) {
 				{"temperature", "1", true}, {"temperature", "1.00000000000000001", false}, {"temperature", "null", false}, {"top_p", "0.95", true}, {"top_p", "0.95000000000000001", false}, {"n", "1", true}, {"n", "2", false}, {"presence_penalty", "0", true}, {"frequency_penalty", "0", true}, {"frequency_penalty", "0.00000000000000000001", false},
 				{"max_completion_tokens", "131072", true}, {"max_completion_tokens", "131073", false}, {"max_completion_tokens", "0", false}, {"max_completion_tokens", "1e0", true}, {"max_completion_tokens", "1.00000000000000001", false}, {"max_completion_tokens", "null", false}, {"max_tokens", "1", false},
 				{"reasoning_effort", `"low"`, true}, {"reasoning_effort", `"high"`, true}, {"reasoning_effort", `"max"`, true}, {"reasoning_effort", `"medium"`, false}, {"reasoning_effort", `null`, false}, {"thinking", `{"type":"disabled"}`, false},
-				{"prompt_cache_options", `{"type":"implicit","ttl":"1h"}`, true}, {"prompt_cache_options", `{"type":"implicit","ttl":"30m"}`, false}, {"prompt_cache_options", `{"type":"implicit","ttl":"5m","extra":true}`, false}, {"prompt_cache_retention", `"24h"`, false},
+				{"prompt_cache_options", `{"mode":"implicit","ttl":"1h"}`, true}, {"prompt_cache_options", `{"mode":"implicit","ttl":"30m"}`, false}, {"prompt_cache_options", `{"mode":"implicit","ttl":"5m","extra":true}`, false}, {"prompt_cache_retention", `"24h"`, false},
 				{"tool_choice", `"none"`, true}, {"tool_choice", `"auto"`, true}, {"tool_choice", `null`, false}, {"tool_choice", `"required"`, false}, {"tool_choice", `{"type":"function","function":{"name":"lookup"}}`, false},
 				{"stream_options", `{"include_usage":false}`, false}, {"response_format", `{"type":"json_object"}`, false}, {"untrusted_custom_name", `true`, false},
 			} {
@@ -55,7 +55,7 @@ func TestKimiChatFinalGuard(t *testing.T) {
 							p.Body[sc.field] = v
 							if source == "repair" {
 								delete(p.Body, sc.field)
-								p.Body["prompt_cache_options"] = map[string]any{"type": "implicit", "ttl": "5m"}
+								p.Body["prompt_cache_options"] = map[string]any{"mode": "implicit", "ttl": "5m"}
 								p.Body["stream_options"] = map[string]any{"include_usage": true}
 							}
 							if source == "authorize-first" {

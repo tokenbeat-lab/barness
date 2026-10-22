@@ -15,7 +15,7 @@ import (
 // Kimi's requested cache TTL expresses a preference; it is not proof of the
 // actual paid write TTL. Chat usage therefore never derives actual TTL here.
 type chatKimiCacheOptions struct {
-	Type string `json:"type"`
+	Mode string `json:"mode"`
 	TTL  string `json:"ttl"`
 }
 
@@ -96,7 +96,7 @@ func validateKimiChatCapabilities(m Model, b map[string]any) string {
 		return "Kimi Chat requires stream_options.include_usage:true"
 	}
 	cache, ok := b["prompt_cache_options"].(map[string]any)
-	if !ok || len(cache) != 2 || cache["type"] != "implicit" || (cache["ttl"] != "5m" && cache["ttl"] != "1h") || (cache["ttl"] == "1h" && !m.supportsLongCacheRetention()) {
+	if !ok || len(cache) != 2 || cache["mode"] != "implicit" || (cache["ttl"] != "5m" && cache["ttl"] != "1h") || (cache["ttl"] == "1h" && !m.supportsLongCacheRetention()) {
 		return "Kimi Chat requires an integrated implicit cache TTL"
 	}
 	if raw, present := b["max_completion_tokens"]; present {

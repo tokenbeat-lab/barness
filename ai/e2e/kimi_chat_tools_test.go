@@ -126,3 +126,32 @@ func TestKimiChatStreamTerminals(t *testing.T) {
 		}
 	}
 }
+
+func TestKimiChatMalformedFrames(t *testing.T) {
+	for _, market := range []ai.ProviderID{"moonshot", "moonshot-cn"} {
+		for _, sc := range []struct {
+			name   string
+			frames []string
+		}{
+			{"invalid-choices", []string{`{"choices":{}}`, `{"choices":[{"delta":{},"finish_reason":"stop"}]}`}},
+			{"nonobject-event", []string{`[]`, `{"choices":[{"delta":{},"finish_reason":"stop"}]}`}},
+			{"malformed-tools", []string{`{"choices":[{"delta":{"tool_calls":{}}}]}`, `{"choices":[{"delta":{},"finish_reason":"stop"}]}`}},
+			{"malformed-tool-entry", []string{`{"choices":[{"delta":{"tool_calls":[null]}}]}`, `{"choices":[{"delta":{},"finish_reason":"stop"}]}`}},
+			{"contradictory-terminals", []string{`{"choices":[{"delta":{},"finish_reason":"stop"}]}`, `{"choices":[{"delta":{},"finish_reason":"tool_calls"}]}`}},
+			{"content-after-terminal", []string{`{"choices":[{"delta":{},"finish_reason":"stop"}]}`, `{"choices":[{"delta":{"content":"late"}}]}`}},
+		} {
+			t.Run(string(market)+"/"+sc.name, func(t *testing.T) {
+				ev := run.Case(t, kimiChatID(market, "K12-malformed-")+sc.name)
+				w := newKimiChatWorld(t, market, nil)
+				var frames []json.RawMessage
+				for _, f := range sc.frames {
+					frames = append(frames, json.RawMessage(f))
+				}
+				enqueue(ev, w, chatEvents(t, frames, ""))
+				o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), kimiChatTarget(), kimiChatRequest(), nil))
+				o.record(ev)
+				ev.Check("malformed stream cannot succeed", errors.Is(o.err, &ai.Error{Code: ai.CodeProtocol, Phase: ai.PhaseStream}), "%v", o.err)
+			})
+		}
+	}
+}

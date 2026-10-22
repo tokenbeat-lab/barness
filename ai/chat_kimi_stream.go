@@ -56,3 +56,59 @@ func (p *chatParser) validateKimiChatDelta(d chatDelta) *Error {
 	}
 	return nil
 }
+
+func (p *chatParser) validateKimiChatFrame(raw json.RawMessage) *Error {
+	bad := func() *Error {
+		return newError(CodeProtocol, PhaseStream, "Kimi Chat returned a malformed or contradictory stream frame")
+	}
+	var frame map[string]json.RawMessage
+	if json.Unmarshal(raw, &frame) != nil || frame == nil {
+		return bad()
+	}
+	var choices []json.RawMessage
+	if json.Unmarshal(frame["choices"], &choices) != nil || choices == nil || len(choices) > 1 {
+		return bad()
+	}
+	if len(choices) == 0 {
+		return nil
+	}
+	var choice map[string]json.RawMessage
+	if json.Unmarshal(choices[0], &choice) != nil || choice == nil {
+		return bad()
+	}
+	if reason := choice["finish_reason"]; len(reason) > 0 && string(reason) != "null" {
+		s, ok := rawString(reason)
+		if !ok || s == "" {
+			return bad()
+		}
+		if p.finished && s != p.kimiFinish {
+			return bad()
+		}
+	}
+	if raw := choice["delta"]; len(raw) > 0 && string(raw) != "null" {
+		var delta map[string]json.RawMessage
+		if json.Unmarshal(raw, &delta) != nil || delta == nil {
+			return bad()
+		}
+		if p.finished {
+			for _, v := range delta {
+				if rawTruthy(v) {
+					return bad()
+				}
+			}
+		}
+		if raw, present := delta["tool_calls"]; present && string(raw) != "null" {
+			var calls []json.RawMessage
+			if json.Unmarshal(raw, &calls) != nil || calls == nil {
+				return bad()
+			}
+			for _, call := range calls {
+				var obj map[string]json.RawMessage
+				if json.Unmarshal(call, &obj) != nil || obj == nil {
+					return bad()
+				}
+			}
+		}
+	}
+	return nil
+}
