@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/kimi"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"testing"
 )
@@ -10,8 +11,7 @@ import (
 // candidate catalog. They do not confer live or formal support qualification.
 func newKimiMessagesWorld(t *testing.T, market ai.ProviderID, mutate func(*ai.Catalog)) *world {
 	t.Helper()
-	cat := ai.Catalog{Version: "kimi-messages-synthetic-v1", Models: []ai.Model{{Provider: market, API: ai.APIAnthropicMessages, ID: "kimi-k3", Name: "Kimi K3", Reasoning: true, Input: []ai.Modality{ai.ModalityText}, ContextWindow: 1048576, MaxTokens: 131072, DefaultThinkingLevel: ai.ThinkingMax,
-		ThinkingLevelMap: ai.ThinkingLevelMap{Off: ai.Null[string](), Minimal: ai.Null[string](), Low: ai.Value("low"), Medium: ai.Null[string](), High: ai.Value("high"), XHigh: ai.Null[string](), Max: ai.Value("max")}, Cost: ai.ModelCost{CostRates: ai.CostRates{Input: 3, Output: 15, CacheRead: .3, CacheWrite: 3}}}}}
+	cat := kimi.ProtocolCatalog(market, ai.APIAnthropicMessages)
 	if mutate != nil {
 		mutate(&cat)
 	}

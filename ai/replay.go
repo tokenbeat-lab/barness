@@ -98,11 +98,11 @@ func carriesNativeState(m AssistantMessage) bool {
 	for _, block := range m.Content {
 		switch b := block.(type) {
 		case Thinking:
-			// GLM accepts unsigned thinking as a native thinking block, not
+			// GLM and Kimi accept unsigned thinking as a native thinking block, not
 			// text. Retaining that wire kind needs the same provenance check
 			// as a signed block; it is not a claim that visible text is opaque.
-			glmThinking := m.API == APIAnthropicMessages && anthropicCapabilitiesOf(m.Provider).implementation == anthropicGLM && !isBlank(b.Thinking)
-			if b.Signature != "" || b.Redacted || glmThinking {
+			unsignedNative := m.API == APIAnthropicMessages && anthropicCapabilitiesOf(m.Provider).unsignedThinking && !isBlank(b.Thinking)
+			if b.Signature != "" || b.Redacted || unsignedNative {
 				return true
 			}
 		case Text:

@@ -103,10 +103,10 @@ type anthropicParser struct {
 	open map[int64][]anthropicSlot
 	// GLM's observed Messages contract requires each block index once.
 	// Native Anthropic retains the pinned pi ordering behavior above.
-	glmSeen        map[int64]bool
-	miniMaxSeen    map[int64]string
-	miniMaxToolIDs map[string]bool
-	miniMaxInitial map[int64]bool
+	glmSeen       map[int64]bool
+	strictSeen    map[int64]string
+	strictToolIDs map[string]bool
+	strictInitial map[int64]bool
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
 	raw     map[int]*argumentText
 	usage   anthropicUsage
@@ -157,7 +157,8 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 		}
 		return p.failures.upstream(ev.data)
 	}
-	if !anthropicMessageEvents[ev.name] && anthropicCapabilitiesOf(p.model.Provider).implementation != anthropicMiniMax {
+	caps := anthropicCapabilitiesOf(p.model.Provider)
+	if !anthropicMessageEvents[ev.name] && caps.implementation != anthropicMiniMax && caps.implementation != anthropicKimi {
 		return nil
 	}
 	var e anthropicEvent
@@ -169,8 +170,8 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 			return failure
 		}
 	}
-	if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicMiniMax {
-		if failure := p.miniMaxSequence(ev, e); failure != nil {
+	if caps.implementation == anthropicMiniMax || caps.implementation == anthropicKimi {
+		if failure := p.strictMessagesSequence(ev, e); failure != nil {
 			return failure
 		}
 	}
@@ -228,7 +229,7 @@ func (p *anthropicParser) blockStart(e anthropicEvent) *Error {
 		slot = anthropicSlot{index: p.out.thinkingStart(Thinking{Thinking: "[Reasoning redacted]", Signature: b.Data, Redacted: true}), kind: blockThinking}
 	case "tool_use":
 		initial := ""
-		if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicMiniMax && p.miniMaxInitial[e.Index] {
+		if p.strictInitial[e.Index] {
 			initial = string(b.Input)
 		}
 		slot = anthropicSlot{index: p.out.toolCallStart(b.ID, b.Name, initial), kind: blockToolCall}

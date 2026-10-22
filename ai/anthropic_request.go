@@ -406,7 +406,7 @@ func anthropicAssistantBlocks(m replayedAssistant) ([]any, error) {
 			case b.Redacted:
 				blocks = append(blocks, anthropicRedactedThinking{Type: "redacted_thinking", Data: b.Signature})
 			case isBlank(b.Thinking) && !signed:
-			case !signed && anthropicCapabilitiesOf(m.Provider).implementation == anthropicGLM && m.API == APIAnthropicMessages && m.sameModel:
+			case !signed && anthropicCapabilitiesOf(m.Provider).unsignedThinking && m.API == APIAnthropicMessages && m.sameModel:
 				blocks = append(blocks, anthropicThinkingBlock{Type: "thinking", Thinking: b.Thinking, Signature: b.Signature})
 			case !signed:
 				blocks = append(blocks, anthropicText{Type: "text", Text: b.Thinking})

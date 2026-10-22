@@ -27,6 +27,8 @@ type anthropicCapabilities struct {
 	// Compatible services retain explicitly reported TTL usage for diagnosis;
 	// this grants neither native cache controls nor a native TTL price.
 	reportedCacheWriteTTL bool
+	// Preserving an unsigned native wire kind requires trusted provenance.
+	unsignedThinking bool
 	// Adaptive thinking is independent of native display, beta headers and
 	// managed per-turn controls. Compatible Providers opt in separately.
 	adaptiveThinking    bool
@@ -39,16 +41,16 @@ type anthropicCapabilities struct {
 // Client wire captures (ADR-0035). Native Anthropic defaults stay unchanged.
 func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
 	switch provider {
-	case "moonshot", "moonshot-cn":
-		return anthropicCapabilities{implementation: anthropicKimi, reportedCacheWriteTTL: true}
+	case ProviderMoonshot, ProviderMoonshotCN:
+		return anthropicCapabilities{implementation: anthropicKimi, reportedCacheWriteTTL: true, unsignedThinking: true}
 	case ProviderMiniMax:
 		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true, reportedCacheWriteTTL: true}
 	case ProviderMiniMaxCN:
 		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true, reportedCacheWriteTTL: true}
 	case ProviderZhipu:
-		return anthropicCapabilities{implementation: anthropicGLM, glmBudget1024: true}
+		return anthropicCapabilities{implementation: anthropicGLM, glmBudget1024: true, unsignedThinking: true}
 	case ProviderZAI:
-		return anthropicCapabilities{implementation: anthropicGLM, optionsBeforeCredential: true, glmBudget1024: true, reportedCacheWriteTTL: true}
+		return anthropicCapabilities{implementation: anthropicGLM, unsignedThinking: true, optionsBeforeCredential: true, glmBudget1024: true, reportedCacheWriteTTL: true}
 	default:
 		return anthropicCapabilities{implementation: anthropicStandard, promptCache: true, adaptiveThinking: true, nativeThinking: true,
 			eagerInputStreaming: true, browserAccess: true}
