@@ -22,11 +22,13 @@ pricing provenance, fixed nine-case order and separate one-use ledger.
 
 Each route has exactly nine logical calls and nine HTTP attempts, zero retries,
 4096 requested output tokens per call, at most 36864 requested output tokens and
-131072 input reservation tokens per process. Each call is bounded by120 seconds,
-the process by1800 seconds. Input reserves `max(2048, encoded wire bytes+1024)`
+131072 input reservation tokens per process. Each call is bounded by 120 seconds,
+the process by 1800 seconds and by the approved grant expiry. Input reserves `max(2048, encoded wire bytes+1024)`
 before transport. Dollar reservation adds requested output cost and charges the
 entire reserved input at the most expensive input/read/5m-write/1h-write rate.
 It never releases budget based on a partial, canceled or lower-point estimate.
+A failed Kimi case stops the process before later calls; the one-use grant
+remains spent and the incomplete native report cannot qualify.
 
 The fixed scenarios are: Full Stream with omitted effort/default max, Full
 Complete high, Simple Stream low, Simple Complete medium clamped high, exact
@@ -53,7 +55,7 @@ Do not infer authority from plan approval, candidate availability or an old gran
    ```
 
 2. `regionalverify -grant-template kimi-intl-messages` prints current machine
-   facts. Fill the new ID, actual own account/region aliases, UTC expiry within24
+   facts. Fill the new ID, actual own account/region aliases, UTC expiry within 24
    hours, strictly positive numeric `maxUSD` and actual frozen executable
    `binarySha256` only after the exact paid scope is approved. Templates contain
    no valid human grant or dollar allowance. Use `-stage formal` only after

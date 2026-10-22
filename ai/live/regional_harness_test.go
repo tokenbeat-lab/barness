@@ -79,12 +79,19 @@ func driveRegional(t *testing.T) {
 	if err != nil {
 		t.Fatal("regional public Client assembly failed")
 	}
-	ctx, cancel := context.WithDeadline(context.Background(), p.report.StartedAt.Add(1780*time.Second))
+	deadline := p.report.StartedAt.Add(1780 * time.Second)
+	if supportmatrix.RegionalIsKimi(p.report.Combo) && p.grant.ExpiresAt.Before(deadline) {
+		deadline = p.grant.ExpiresAt
+	}
+	ctx, cancel := context.WithDeadline(context.Background(), deadline)
 	defer cancel()
 	s := regionalSession{p: p, client: client, rec: rec, gate: gate, probe: gauges, ctx: ctx, tools: map[string]ai.AssistantMessage{}, native: map[string]ai.AssistantMessage{}}
 	for i := range p.report.Scenarios {
 		i := i
 		t.Run(p.report.Scenarios[i].ID, func(t *testing.T) { s.execute(t, i) })
+		if supportmatrix.RegionalIsKimi(p.report.Combo) && t.Failed() {
+			break
+		}
 	}
 }
 
@@ -258,6 +265,10 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	} else {
 		cs.Check("own legal turn succeeds", err == nil && (result.Message.StopReason == ai.StopReasonStop || kind == "tool-call" && result.Message.StopReason == ai.StopReasonToolUse), "stop=%s", result.Message.StopReason)
 		cs.Check("reported usage retained", len(result.Metadata.Attempts) == 1 && result.Metadata.Attempts[0].UsageReporting != ai.UsageUnreported, "attempts=%d", len(result.Metadata.Attempts))
+		if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+			priced := len(result.Metadata.Attempts) == 1 && (result.Metadata.Attempts[0].CostEstimate.Status == ai.CostResolved || result.Metadata.Attempts[0].CostEstimate.Status == ai.CostBounded)
+			cs.Check("all billable counters and independent cost state available", priced, "attempts=%d", len(result.Metadata.Attempts))
+		}
 	}
 	if kind == "tool-call" {
 		valid := false
@@ -277,6 +288,15 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 		}
 	}
 	if kind == "full-stream" && sourceCase == row.CaseID && err == nil {
+		if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+			native := false
+			for _, b := range result.Message.Content {
+				if thought, ok := b.(ai.Thinking); ok && thought.Thinking != "" {
+					native = true
+				}
+			}
+			cs.Check("fixed L01 native reasoning exists before any continuation", native, "source=%s", sourceCase)
+		}
 		s.native[row.Model] = result.Message
 	}
 	if kind == "tool-result" || kind == "native-history" && !supportmatrix.RegionalIsKimi(s.p.report.Combo) {
