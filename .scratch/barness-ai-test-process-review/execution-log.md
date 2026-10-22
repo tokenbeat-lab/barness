@@ -53,3 +53,11 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 收尾只读原件 `record-check-fixes-20261022T030635Z-a1pubf4m` 实际退出1；source/live不适用通过，E2E被Host环境审计拒绝，race/压力NOT_RUN。`audit-readonly-diagnostic.log` 的无环境审计通过；只读查明原件中有未脱敏宿主 HOME 前缀（不在日志复述值）。隔离HOME导致旧进程报告只清除新HOME。旧bundle、原receipt及拒绝报告不改写，已保存当时current-state-snapshot.md；当前状态恢复排查中。
 
 先在 `home-redaction-red-20261022T031154.374685Z` 复现 run.py → 单个现有受控 Go E2E → 原生artifact 的宿主HOME脱敏缺失；E2E TestMain在记录任何artifact前注册宿主账户HOME，保留隔离Go配置且不放松审计。`home-redaction-green-20261022T031246.145845Z` 定向exit0。另 `consumer-stream-red-20261022T030858.873010Z` 证明新消费者保存的stdout与实际进程输出不一致；修正真实stdout/stderr发出及退出结果传播，`consumer-stream-green-20261022T030923.223563Z` 40组exit0。后续需要重新冻结、普通验收与只读判定，旧fbbcab8普通回执不冒充修复后的当前证明。
+
+七项修复逐项 RED/GREEN 原件见 review-fixes.md；所有 RED、失败 GREEN 尝试及历史原件保留。实现冻结 `3aafd2d41436d222449f5b5f0e8c0596ed1154e9` 后，41 组公共进程场景 `.evidence/barness-ai-test-process-review/e2e/final-process-source-bound-20261022T031329.728119Z` exit0，执行前后完整来源相同。新消费者模式只读，不启动 Go 测试、厂商或支持矩阵写入；合成输入不是现实资格。
+
+冻结普通回执 `.evidence/barness-ai-test-process-review/e2e/20261022T031330.272540Z-x_6lvwke/receipt.json` PASS / exit0，374.97 秒，12890 实际通过节点，原生 {'PASS': 12086, 'NOT_RUN': 214}，audit0；1244 份执行文件和 8636 份选定历史输入相等，原普通 E2E 通过案例集合不变。普通命令增加 supportmatrix 包，完整原生资格规则的现有普通用例也通过。双 vet、live-tag 仅编译原件见 verification.json，均 exit0，没有运行编译出的 live 二进制。
+
+本轮没有新增 race、真实压力、付费 live 或真实证据清理；cleanup 子命令只对临时假仓库执行。未启动第2–8节。只读判定索引 `.evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/record.json` 应按实际返回落盘，race / 正式压力继续 NOT_RUN，release.pass=false；最终来源核对随收尾提交记录，不重写旧测试 SHA。
+
+最终 Host 只读判定：`record-check-fixes-20261022T032016Z-ce30sliu/report/release-report.json`，source/E2E/live不适用均通过；race与正式压力缺未跑，实际退出1，release.pass=false。命令回执 `e2e/final-readonly-record-20261022T032023.972949Z/command-receipt.json` 来源前后相等。此前 fbbcab8 的HOME审计拒绝原件保留；当前通过的是重新冻结的3aafd2d及新attempt，不刷新旧哈希。

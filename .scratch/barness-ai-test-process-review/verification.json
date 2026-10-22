@@ -1,7 +1,4 @@
 {
-  "testedCommit": "ad2ca22aad39cfc041319204687b9bd5ba6acf0b",
-  "receipt": ".evidence/barness-ai-test-process-review/e2e/20261022T022434.220792Z-qopwtw85/receipt.json",
-  "receiptSHA256": "3cc420978f6e9c99451063a086c2ba1b0d74f54e27b1e35a28655bae4bf1ea62",
   "argv": [
     "go",
     "test",
@@ -10,27 +7,106 @@
     "./ai",
     "./ai/internal/testkit/release",
     "./ai/release/cmd/releasegate",
+    "./ai/internal/testkit/supportmatrix",
     "-count=1",
     "-failfast",
     "-timeout=20m"
   ],
-  "exitCode": 0,
-  "startedAt": "2026-10-22T02:24:34.226841+00:00",
-  "finishedAt": "2026-10-22T02:30:44.798294+00:00",
-  "elapsedSeconds": 370.5733856661245,
-  "executedPassingTestNodes": 12811,
-  "sourceFiles": 1240,
-  "selectedInputs": 8636,
+  "auditFindings": 0,
   "bundle": {
     "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
-    "manifestSHA256": "09825ac974988754cbe1a27b3b67b7c4c7dc5774ab3107213b68257a339fb56e",
+    "manifestSHA256": "c5b1f4b137aac261bd1ffe192f9dd2949c773887924304014594c3463db1c662",
     "package": "./ai/e2e",
-    "path": "bundles/20261022T022435.946342000Z"
+    "path": "bundles/20261022T031332.721720000Z"
   },
+  "elapsedSeconds": 374.9719918752089,
+  "executedPassingTestNodes": 12890,
+  "exitCode": 0,
+  "finalSourceCheck": ".evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/final-source-check.json",
+  "finishedAt": "2026-10-22T03:19:45.256401+00:00",
   "nativeCaseCounts": {
-    "PASS": 12086,
-    "NOT_RUN": 214
+    "NOT_RUN": 214,
+    "PASS": 12086
   },
-  "auditFindings": 0,
-  "ordinaryCaseSetMatchesPriorPassedRun": true
+  "ordinaryCaseSetMatchesPriorPassedRun": true,
+  "previousReceipt": ".evidence/barness-ai-test-process-review/e2e/20261022T022434.220792Z-qopwtw85/receipt.json",
+  "readOnlyInvocation": {
+    "exitCode": 1,
+    "path": ".evidence/barness-ai-test-process-review/e2e/final-readonly-record-20261022T032023.972949Z/command-receipt.json",
+    "sha256": "247571cb64795cd07e209b0fc9373a5f12ca1b1e886a6b88211d9577ee34a755",
+    "sourceUnchanged": true
+  },
+  "receipt": ".evidence/barness-ai-test-process-review/e2e/20261022T031330.272540Z-x_6lvwke/receipt.json",
+  "receiptSHA256": "858b8d6f00f1127aabcce67aaac5a55a0ea9f59bf158683d1d63f69ff9e2cc45",
+  "recordedPassingTestNames": 12890,
+  "releasePass": false,
+  "releaseRecord": {
+    "path": ".evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/record.json",
+    "sha256": "28f2e12a9d7d141fdab2130d2f438924e909ae1dff320bae031675573ae8b607"
+  },
+  "releaseReport": ".evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/report/release-report.json",
+  "scope": {
+    "formalPressure": "NOT_RUN",
+    "laterPlanSections": "NOT_RUN",
+    "paidLive": "NOT_RUN",
+    "race": "NOT_RUN",
+    "realCleanup": "NOT_RUN"
+  },
+  "selectedInputs": 8636,
+  "sourceFiles": 1244,
+  "startedAt": "2026-10-22T03:13:30.287683+00:00",
+  "static": [
+    {
+      "argv": [
+        "go",
+        "vet",
+        "./ai/..."
+      ],
+      "elapsedSeconds": 1.4754674169234931,
+      "exitCode": 0,
+      "finishedAt": "2026-10-22T03:13:31.337465+00:00",
+      "receipt": ".evidence/barness-ai-test-process-review/e2e/final-vet-20261022T031329.728186Z/command-receipt.json",
+      "sha256": "9ed5bb1b38889bd59f8dda7b91c5f444c507c8801e661dcdd7a021381cd185a0",
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-22T03:13:29.862023+00:00"
+    },
+    {
+      "argv": [
+        "go",
+        "vet",
+        "-tags",
+        "live",
+        "./ai/..."
+      ],
+      "elapsedSeconds": 1.4666358749382198,
+      "exitCode": 0,
+      "finishedAt": "2026-10-22T03:13:31.328603+00:00",
+      "receipt": ".evidence/barness-ai-test-process-review/e2e/final-live-vet-20261022T031329.728150Z/command-receipt.json",
+      "sha256": "b5c72248b44208b7d7763f7d1a267fcdcc1b3c3e5aa49be391fe2552f7779057",
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-22T03:13:29.862019+00:00"
+    },
+    {
+      "argv": [
+        "python3",
+        "-c",
+        "import subprocess, tempfile; from pathlib import Path; binary = Path(tempfile.mkdtemp(prefix=\"barness-final-live-compile-\")) / \"live.test\"; result = subprocess.run([\"go\", \"test\", \"-c\", \"-tags\", \"live\", \"-o\", str(binary), \"./ai/live\"]); print(\"compiled only:\", binary); raise SystemExit(result.returncode)"
+      ],
+      "elapsedSeconds": 2.20030654175207,
+      "exitCode": 0,
+      "finishedAt": "2026-10-22T03:13:32.050446+00:00",
+      "receipt": ".evidence/barness-ai-test-process-review/e2e/final-live-compile-20261022T031329.728194Z/command-receipt.json",
+      "sha256": "0f1548e8d910675101e96a799edb7503e080be837b42a574ca2c4405cd017bb5",
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-22T03:13:29.850173+00:00"
+    }
+  ],
+  "testedCommit": "3aafd2d41436d222449f5b5f0e8c0596ed1154e9",
+  "toolProcess": {
+    "cases": 41,
+    "exitCode": 0,
+    "receipt": ".evidence/barness-ai-test-process-review/e2e/final-process-source-bound-20261022T031329.728119Z/command-receipt.json",
+    "sha256": "6410362410b491952cbab6e450f015975f49e025276069a7b4293e220599dc2f",
+    "sourceUnchanged": true
+  }
 }
