@@ -15,7 +15,7 @@ import (
 
 func TestKimiQualificationMissingCharges(t *testing.T) {
 	binary, digest := kimiQualificationBinary(t)
-	for _, mode := range []string{"missing-charge", "missing-native", "expires-during-call"} {
+	for _, mode := range []string{"missing-charge", "missing-native", "expires-during-call", "output-exceeds-reserve"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-K16-"+mode+"-stops-process")
 			combo := "kimi-intl-messages"
@@ -24,6 +24,11 @@ func TestKimiQualificationMissingCharges(t *testing.T) {
 			defer srv.Close()
 			for _, kind := range kimiQualificationKinds() {
 				reply := kimiQualificationReply(t, route.API, kind)
+				if mode == "output-exceeds-reserve" && kind == "full-stream" {
+					for i, c := range reply.Chunks {
+						reply.Chunks[i] = []byte(strings.ReplaceAll(string(c), `"output_tokens":50`, `"output_tokens":4097`))
+					}
+				}
 				if mode == "expires-during-call" && kind == "full-stream" {
 					reply.End = provider.EndHold
 				}
@@ -62,7 +67,7 @@ func TestKimiQualificationMissingCharges(t *testing.T) {
 			ev.Record("process", map[string]any{"argv": cmd.Args, "error": errString(err), "output": regionalSafeOutput(raw), "vendorCalls": 0})
 			ev.Record("requests", srv.Requests())
 			want := 2
-			if mode == "missing-native" || mode == "expires-during-call" {
+			if mode == "missing-native" || mode == "expires-during-call" || mode == "output-exceeds-reserve" {
 				want = 1
 			}
 			ev.Check("missing prerequisite refuses qualification and stops before later calls", err != nil && len(srv.Requests()) == want && (mode != "expires-during-call" || time.Since(began) < 4*time.Second), "%v requests=%d %s", err, len(srv.Requests()), regionalSafeOutput(raw))

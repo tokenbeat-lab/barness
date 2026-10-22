@@ -70,6 +70,9 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 		if err != nil {
 			return err
 		}
+		if RegionalIsKimi(r.Combo) && (u.Input+u.CacheRead+u.CacheWrite > int64(wireInput) || u.Output > int64(limit)) {
+			return refuse("Kimi actual per-call usage exceeds conservative reservation")
+		}
 		input += int(u.Input + u.CacheRead + u.CacheWrite)
 		output += int(u.Output)
 	}

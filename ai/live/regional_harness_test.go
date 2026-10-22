@@ -202,6 +202,7 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	}
 	began := time.Now()
 	before := s.gate.attempts.Load()
+	beforeInput := s.p.report.Budget.ReservedInputTokens
 	var result ai.Result
 	var events []map[string]any
 	seenCancel := false
@@ -258,6 +259,10 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	cs.Record("resources", resources)
 	for name, n := range resources {
 		cs.Check("released "+name, n == 0, "%d", n)
+	}
+	if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		u := result.Message.Usage
+		cs.Check("actual token counts fit this call reservation", u.Input+u.CacheRead+u.CacheWrite <= int64(s.p.report.Budget.ReservedInputTokens-beforeInput) && u.Output <= int64(outputBudget), "output=%d", u.Output)
 	}
 	cs.Check("actual own attempt and attribution", row.Attempts == 1 && len(result.Metadata.Attempts) == 1 && result.Metadata.ProviderID == ai.ProviderID(s.p.report.Provider) && result.Metadata.ModelID == row.Model, "attempts=%d", row.Attempts)
 	if kind == "cancel" {
