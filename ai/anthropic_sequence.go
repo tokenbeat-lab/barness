@@ -2,12 +2,18 @@ package ai
 
 import "encoding/json"
 
-// MiniMax validates its own event contract without changing the permissive
-// native Anthropic/pi parser. Synthetic protocol faults prove these guards;
+// Compatible Providers share complete-block sequencing, without changing the permissive
+// native Anthropic/pi parser. Kimi adds its narrower terminal consistency.
+// Synthetic protocol faults prove these guards;
 // they do not assert that the service has emitted those faulty sequences.
-func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error {
+func (p *anthropicParser) strictMessagesSequence(ev sseEvent, e anthropicEvent) *Error {
+	label := "MiniMax"
+	kimi := anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicKimi
+	if kimi {
+		label = "Kimi"
+	}
 	invalid := func() *Error {
-		return newError(CodeProtocol, PhaseStream, "MiniMax Messages stream has an invalid event sequence")
+		return newError(CodeProtocol, PhaseStream, label+" Messages stream has an invalid event sequence")
 	}
 	if ev.name != e.Type || p.stopped {
 		return invalid()
@@ -16,6 +22,9 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 		return nil
 	}
 	if ev.name == "message_start" {
+		if kimi && e.Message != nil && e.Message.Model != nil && *e.Message.Model != p.model.ID {
+			return invalid()
+		}
 		if p.started || e.Message == nil {
 			return invalid()
 		}
@@ -26,6 +35,15 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 	}
 	switch ev.name {
 	case "message_delta":
+		if kimi && e.Delta != nil && e.Delta.StopReason != "" {
+			reason := e.Delta.StopReason
+			if reason != "end_turn" && reason != "max_tokens" && reason != "tool_use" && reason != "refusal" {
+				return invalid()
+			}
+			if reason == "end_turn" && len(p.strictToolIDs) > 0 || reason == "tool_use" && len(p.strictToolIDs) == 0 {
+				return invalid()
+			}
+		}
 		if len(p.open) != 0 || e.Delta == nil || (p.stop != "" && e.Delta.StopReason != "") {
 			return invalid()
 		}
@@ -44,7 +62,7 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 		}
 		switch ev.name {
 		case "content_block_start":
-			if e.ContentBlock == nil || p.miniMaxSeen[e.Index] != "" || !miniMaxMessagesEventContent(ev.data, ev.name) {
+			if e.ContentBlock == nil || p.strictSeen[e.Index] != "" || !strictMessagesEventContent(ev.data, ev.name) {
 				return invalid()
 			}
 			switch e.ContentBlock.Type {
@@ -52,18 +70,21 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 			default:
 				return invalid()
 			}
-			if p.miniMaxSeen == nil {
-				p.miniMaxSeen = map[int64]string{}
+			if p.strictSeen == nil {
+				p.strictSeen = map[int64]string{}
 			}
-			p.miniMaxSeen[e.Index] = e.ContentBlock.Type
+			p.strictSeen[e.Index] = e.ContentBlock.Type
 			if e.ContentBlock.Type == "tool_use" {
-				if p.miniMaxToolIDs[e.ContentBlock.ID] {
+				if p.strictToolIDs[e.ContentBlock.ID] {
 					return invalid()
 				}
-				if p.miniMaxToolIDs == nil {
-					p.miniMaxToolIDs = map[string]bool{}
+				if p.strictToolIDs == nil {
+					p.strictToolIDs = map[string]bool{}
 				}
-				p.miniMaxToolIDs[e.ContentBlock.ID] = true
+				p.strictToolIDs[e.ContentBlock.ID] = true
+			}
+			if kimi && e.ContentBlock.Type == "tool_use" && len(e.ContentBlock.Input) == 0 {
+				return invalid()
 			}
 			if e.ContentBlock.Type == "tool_use" && len(e.ContentBlock.Input) > 0 {
 				var input map[string]json.RawMessage
@@ -71,14 +92,14 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 					return invalid()
 				}
 				if len(input) > 0 {
-					if p.miniMaxInitial == nil {
-						p.miniMaxInitial = map[int64]bool{}
+					if p.strictInitial == nil {
+						p.strictInitial = map[int64]bool{}
 					}
-					p.miniMaxInitial[e.Index] = true
+					p.strictInitial[e.Index] = true
 				}
 			}
 		case "content_block_delta":
-			if e.Delta == nil || len(p.open[e.Index]) == 0 || !miniMaxMessagesEventContent(ev.data, ev.name) {
+			if e.Delta == nil || len(p.open[e.Index]) == 0 || !strictMessagesEventContent(ev.data, ev.name) {
 				return invalid()
 			}
 			var want string
@@ -92,7 +113,7 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 			default:
 				return invalid()
 			}
-			if p.miniMaxSeen[e.Index] != want || (want == "tool_use" && p.miniMaxInitial[e.Index]) {
+			if p.strictSeen[e.Index] != want || (want == "tool_use" && p.strictInitial[e.Index]) {
 				return invalid()
 			}
 		case "content_block_stop":
@@ -118,7 +139,7 @@ func (p *anthropicParser) miniMaxSequence(ev sseEvent, e anthropicEvent) *Error 
 
 // Required payload strings must actually be present and strings; decoding a
 // JSON null into a Go string would otherwise silently produce an empty value.
-func miniMaxMessagesEventContent(raw string, name string) bool {
+func strictMessagesEventContent(raw string, name string) bool {
 	var root map[string]json.RawMessage
 	if json.Unmarshal([]byte(raw), &root) != nil {
 		return false
