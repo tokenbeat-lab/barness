@@ -151,6 +151,12 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 	explicit := m.Compat.SupportsExplicitPromptCacheMode
 	body.PromptCacheKey = cacheKey
 	switch {
+	case caps.implementation == responsesKimi:
+		ttl := "5m"
+		if retention == CacheRetentionLong {
+			ttl = "1h"
+		}
+		body.PromptCacheOptions = &responsesPromptCacheOptions{Mode: "implicit", TTL: ttl}
 	case !caps.promptCacheRetention:
 		// A routing key alone does not enable retention fields.
 	case retention == CacheRetentionLong && longRetention && !explicit:
@@ -163,7 +169,7 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {
 		body.MaxOutputTokens = n
-		if responsesCapabilitiesOf(m.Provider).implementation != responsesGLM && responsesCapabilitiesOf(m.Provider).implementation != responsesMiniMax {
+		if responsesCapabilitiesOf(m.Provider).implementation != responsesGLM && responsesCapabilitiesOf(m.Provider).implementation != responsesMiniMax && caps.implementation != responsesKimi {
 			body.MaxOutputTokens = max(n, responsesMinOutputTokens)
 		}
 	}

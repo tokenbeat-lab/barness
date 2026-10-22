@@ -3,14 +3,15 @@ package ai
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"slices"
 	"strconv"
 	"strings"
 )
 
-// Other protocols retain their existing normalization. Only GLM
-// source IDs that would collide on the target wire need a local replacement;
-// ordinary GLM histories and every history without this source stay unchanged.
+// GLM and Kimi expose opaque source IDs. Allocate replacements only when
+// the target normalization would collapse distinct provenance owners. The
+// historical function name remains local to the shared transcript boundary.
 // Inspect the complete transcript before renaming so calls from separate
 // assistant turns share one collision domain with their matching results.
 func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules) historyRules {
@@ -26,6 +27,16 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 	normalize := rules.normalizeToolCallID
 	wireID := func(id string) string {
 		if target.API == APIOpenAIResponses {
+			switch responsesCapabilitiesOf(target.Provider).implementation {
+			case responsesKimi:
+				if call, err := kimiResponsesCallID(id); err == nil {
+					return call
+				}
+			case responsesMiniMax:
+				if call, err := miniMaxResponsesCallID(id); err == nil {
+					return call
+				}
+			}
 			id, _, _ = strings.Cut(id, "|")
 		}
 		return id
@@ -41,12 +52,18 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 	}
 	type candidate struct {
 		id, normalized string
+		owner          string
 		source         AssistantMessage
 	}
 	var candidates []candidate
+	turn := 0
 	for _, message := range messages {
 		assistant, ok := message.(AssistantMessage)
-		if !ok || assistant.StopReason == StopReasonError || assistant.StopReason == StopReasonAborted {
+		if !ok {
+			continue
+		}
+		turn++
+		if assistant.StopReason == StopReasonError || assistant.StopReason == StopReasonAborted {
 			continue
 		}
 		for _, block := range assistant.Content {
@@ -58,10 +75,11 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 			// Reserve both spellings: native same-model legacy histories do
 			// not normalize, while cross-model histories do. Neither may be
 			// overwritten by a replacement assigned to a GLM source call.
-			reserve(call.ID, call.ID)
-			reserve(normalized, call.ID)
+			owner := opaqueHistoryOwner(call.ID, assistant, turn)
+			reserve(call.ID, owner)
+			reserve(normalized, owner)
 			if glmHistoryIDSource(assistant) {
-				candidates = append(candidates, candidate{call.ID, normalized, assistant})
+				candidates = append(candidates, candidate{call.ID, normalized, owner, assistant})
 			}
 		}
 	}
@@ -71,7 +89,7 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 		if wireID(c.normalized) != "" && !collisions[wireID(c.normalized)] {
 			continue
 		}
-		if _, done := replacements[c.id]; done {
+		if _, done := replacements[c.owner]; done {
 			continue
 		}
 		sum := sha256.Sum256([]byte(c.id))
@@ -87,15 +105,23 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 				}
 			}
 		}
-		replacements[c.id] = id
-		owners[wireID(id)] = c.id
+		replacements[c.owner] = id
+		owners[wireID(id)] = c.owner
 	}
 	if len(replacements) == 0 {
 		return rules
 	}
+	activeTurn := 0
+	previousBegin := rules.beginAssistant
+	rules.beginAssistant = func() {
+		if previousBegin != nil {
+			previousBegin()
+		}
+		activeTurn++
+	}
 	rules.normalizeToolCallID = func(id string, source AssistantMessage) string {
 		if glmHistoryIDSource(source) {
-			if replacement, ok := replacements[id]; ok {
+			if replacement, ok := replacements[opaqueHistoryOwner(id, source, activeTurn)]; ok {
 				return replacement
 			}
 		}
@@ -107,6 +133,9 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 // Each source grammar belongs to its protocol. Codec equality only identifies
 // opaque ID syntax; replayOrigin still compares the exact real Provider.
 func glmHistoryIDSource(source AssistantMessage) bool {
+	if isKimi(source.Provider) {
+		return source.API == APIOpenAICompletions || source.API == APIOpenAIResponses || source.API == APIAnthropicMessages
+	}
 	switch source.API {
 	case APIOpenAICompletions:
 		return chatCompatOf(source.Provider).implementation == chatGLM
@@ -116,4 +145,12 @@ func glmHistoryIDSource(source AssistantMessage) bool {
 		return anthropicCapabilitiesOf(source.Provider).implementation == anthropicGLM
 	}
 	return false
+}
+
+// Source identity is correlation context, not authorization. Native replay
+// separately compares the complete trusted envelope with the destination.
+func opaqueHistoryOwner(id string, a AssistantMessage, turn int) string {
+	env, _ := a.NativeState.Envelope()
+	key, _ := json.Marshal([7]string{string(a.Provider), string(a.API), a.Model, env.TenantID, env.AccountScopeID, id, strconv.Itoa(turn)})
+	return string(key)
 }

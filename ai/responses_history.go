@@ -24,6 +24,9 @@ func (responsesAdapter) historyRules(m Model) historyRules {
 // hash of it, since the target never issued it; and the item id always
 // starts with "fc".
 func responsesToolCallID(target Model, id string, source AssistantMessage) string {
+	if isKimi(target.Provider) {
+		return kimiResponsesHistoryToolID(id, source)
+	}
 	if responsesCapabilitiesOf(target.Provider).implementation == responsesMiniMax {
 		return miniMaxResponsesHistoryToolID(id, source)
 	}
