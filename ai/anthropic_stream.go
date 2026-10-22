@@ -108,11 +108,12 @@ type anthropicParser struct {
 	strictToolIDs map[string]bool
 	strictInitial map[int64]bool
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
-	raw     map[int]*argumentText
-	usage   anthropicUsage
-	attempt *initialRequest
-	started bool // message_start was received
-	stopped bool // message_stop was received
+	raw        map[int]*argumentText
+	kimiCounts map[string]json.RawMessage
+	usage      anthropicUsage
+	attempt    *initialRequest
+	started    bool // message_start was received
+	stopped    bool // message_stop was received
 	// stop is the mapped stop reason of the last message_delta that had one;
 	// "" while none arrived. stopMessage is an error stop reason's message.
 	stop        StopReason
@@ -151,6 +152,11 @@ func (p *anthropicParser) read(ctx context.Context, dec *sseDecoder) *Error {
 func (p *anthropicParser) handle(ev sseEvent) *Error {
 	// pi fails on an error event whatever came before, its data as the
 	// message.
+	if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicKimi {
+		if failure := p.failures.kimiProviderError(json.RawMessage(ev.data)); failure != nil {
+			return failure
+		}
+	}
 	if ev.name == "error" {
 		if p.failures.glm != "" {
 			return p.failures.providerError(json.RawMessage(ev.data))
@@ -162,7 +168,11 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 		return nil
 	}
 	var e anthropicEvent
-	if err := decodeAnthropicEvent(ev.data, &e); err != nil {
+	decode := decodeAnthropicEvent
+	if caps.implementation == anthropicKimi {
+		decode = decodeKimiMessagesEvent
+	}
+	if err := decode(ev.data, &e); err != nil {
 		return newError(CodeProtocol, PhaseStream, msgAnthropicInvalidJSON(ev.name))
 	}
 	if anthropicCapabilitiesOf(p.model.Provider).implementation == anthropicGLM {
@@ -172,6 +182,11 @@ func (p *anthropicParser) handle(ev sseEvent) *Error {
 	}
 	if caps.implementation == anthropicMiniMax || caps.implementation == anthropicKimi {
 		if failure := p.strictMessagesSequence(ev, e); failure != nil {
+			return failure
+		}
+	}
+	if caps.implementation == anthropicKimi && (ev.name == "message_start" || ev.name == "message_delta") {
+		if failure := p.kimiUsageEvent(ev); failure != nil {
 			return failure
 		}
 	}
@@ -206,8 +221,10 @@ func (p *anthropicParser) messageStart(e anthropicEvent) {
 	}
 	// pi takes the initial usage here, so an interrupted stream still
 	// reports its input.
-	p.usage.start(e.Message.Usage)
-	p.reportUsage()
+	if anthropicCapabilitiesOf(p.model.Provider).implementation != anthropicKimi {
+		p.usage.start(e.Message.Usage)
+		p.reportUsage()
+	}
 }
 
 func (p *anthropicParser) blockStart(e anthropicEvent) *Error {
@@ -319,8 +336,10 @@ func (p *anthropicParser) messageDelta(e anthropicEvent) *Error {
 			p.out.stop(stop)
 		}
 	}
-	p.usage.delta(e.Usage)
-	p.reportUsage()
+	if anthropicCapabilitiesOf(p.model.Provider).implementation != anthropicKimi {
+		p.usage.delta(e.Usage)
+		p.reportUsage()
+	}
 	return nil
 }
 

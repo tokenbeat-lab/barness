@@ -10,7 +10,9 @@ func TestKimiMessagesWire(t *testing.T) {
 		t.Run(string(market), func(t *testing.T) {
 			ev := run.Case(t, "KIMI-"+string(market)+"-MESSAGES-K03-wire")
 			w := newKimiMessagesWorld(t, market, nil)
-			enqueue(ev, w, kimiMessagesReply())
+			reply := kimiMessagesReply()
+			reply.Header["Request-Id"] = "unverified-success-header"
+			enqueue(ev, w, reply)
 			o := drain(w.client.Stream(ctxFor(t), textScope("kimi-wire"), kimiMessagesTarget, kimiMessagesRequest(), ai.AnthropicOptions{Effort: ai.AnthropicEffortHigh}))
 			o.record(ev)
 			ev.Record("requests", w.provider.Requests())
@@ -19,6 +21,7 @@ func TestKimiMessagesWire(t *testing.T) {
 			}
 			r := w.provider.Requests()[0]
 			f := bodyFields(t, r.Body)
+			ev.Check("unverified vendor ID header not inferred", o.result.Metadata.Attempts[0].ProviderRequestID == "", "%+v", o.result.Metadata.Attempts)
 			ev.Check("stable resource and version", r.Path == "/anthropic/v1/messages" && r.Query == "" && r.Header["Anthropic-Version"] == "2023-06-01", "%+v", r)
 			ev.Check("single Bearer credential", r.Header["Authorization"] != "" && r.Header["X-Api-Key"] == "", "%+v", r.Header)
 			ev.Check("no vendor native extensions", r.Header["Anthropic-Beta"] == "" && r.Header["Anthropic-Dangerous-Direct-Browser-Access"] == "" && len(f["thinking"]) == 0, "%+v %s", r.Header, r.Body)

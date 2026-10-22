@@ -68,6 +68,10 @@ func (c anthropicCapabilities) usesAdaptiveThinking(m Model) bool {
 // The China Messages endpoint returns X-Request-Id in both successful and
 // failed attempts; native Anthropic keeps Request-Id (ADR-0035).
 func anthropicRequestIDHeaderFor(provider ProviderID) string {
+	// No Kimi request-ID response header is yet independently verified.
+	if isKimi(provider) {
+		return ""
+	}
 	if anthropicCapabilitiesOf(provider).implementation == anthropicGLM {
 		return "x-request-id"
 	}

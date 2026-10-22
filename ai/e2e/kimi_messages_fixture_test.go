@@ -11,11 +11,20 @@ import (
 // candidate catalog. They do not confer live or formal support qualification.
 func newKimiMessagesWorld(t *testing.T, market ai.ProviderID, mutate func(*ai.Catalog)) *world {
 	t.Helper()
+	return newKimiMessagesConfigured(t, market, mutate, nil)
+}
+func newKimiMessagesConfigured(t *testing.T, market ai.ProviderID, mutate func(*ai.Catalog), configure func(*ai.Config)) *world {
+	t.Helper()
 	cat := kimi.ProtocolCatalog(market, ai.APIAnthropicMessages)
 	if mutate != nil {
 		mutate(&cat)
 	}
-	w := newWorldWith(t, func(c *ai.Config) { c.Catalog = &cat }, tenantA)
+	w := newWorldWith(t, func(c *ai.Config) {
+		c.Catalog = &cat
+		if configure != nil {
+			configure(c)
+		}
+	}, tenantA)
 	b := ai.Binding{TenantID: tenantA.tenant, BindingID: "kimi-messages", Version: "v1", Enabled: true, ProviderID: market, API: ai.APIAnthropicMessages, Endpoint: w.provider.URL() + "/anthropic", AuthKind: ai.AuthAPIKey, AccountScopeID: "acct-kimi-" + string(market), CredentialRef: "cred-kimi-" + string(market), AllowedModels: []string{"kimi-k3"}}
 	w.host.PutBinding(b)
 	w.host.PutCredential(ai.Credential{OwnerTenantID: tenantA.tenant, CredentialID: b.CredentialRef, Version: "v1", AccountScopeID: b.AccountScopeID, Active: true, APIKey: ai.NewSecret(anthropicA.secret)})

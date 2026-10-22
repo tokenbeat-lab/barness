@@ -65,6 +65,7 @@ func TestKimiMessagesFinalGuards(t *testing.T) {
 				p.Body["messages"].([]any)[0].(map[string]any)["content"] = []any{map[string]any{"type": "image", "source": map[string]any{"type": "base64", "data": "AA=="}}}
 			}},
 			{"beta", func(p *ai.Payload) { p.Body["betas"] = []any{"thinking-beta"} }},
+			{"beta-empty", func(p *ai.Payload) { p.Body["betas"] = []any{} }},
 			{"unknown-private-field", func(p *ai.Payload) { p.Body["sensitive-unknown-value"] = "secret-test-marker" }},
 		} {
 			t.Run(string(market)+"/"+c.name, func(t *testing.T) {

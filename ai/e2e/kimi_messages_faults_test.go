@@ -36,7 +36,7 @@ data: {"type":"content_block_delta","index":99,"delta":{"type":"text_delta","tex
 				case "mismatched-type":
 					frames[2] = strings.Replace(frames[2], "event: content_block_stop", "event: content_block_start", 1)
 				case "missing-index":
-					frames[2] = strings.ReplaceAll(frames[2], `"index":0,`, "")
+					frames[2] = strings.ReplaceAll(frames[2], `,"index":0`, "")
 				case "missing-stop":
 					frames = frames[:len(frames)-1]
 				case "invalid-json":
