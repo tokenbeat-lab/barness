@@ -78,6 +78,9 @@ func kimiResponsesAssistantItems(m replayedAssistant) ([]any, error) {
 		switch b := block.(type) {
 		case Thinking:
 			if b.Signature == "" {
+				if b.Thinking != "" {
+					out = append(out, responsesUserMessage{Role: "assistant", Content: []any{responsesInputText{Type: "output_text", Text: b.Thinking}}})
+				}
 				continue
 			}
 			item, err := kimiResponsesReasoning(b)

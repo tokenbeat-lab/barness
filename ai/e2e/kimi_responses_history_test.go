@@ -136,3 +136,29 @@ func TestKimiResponsesPlainAssistantProjection(t *testing.T) {
 		})
 	}
 }
+
+func TestKimiResponsesUnsignedVisibleHistory(t *testing.T) {
+	for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
+		t.Run(string(market), func(t *testing.T) {
+			ev := run.Case(t, kimiResponsesID(market, "K07-visible-unsigned"))
+			w := newKimiResponsesWorld(t, market, nil)
+			frames := []json.RawMessage{json.RawMessage(`{"type":"response.reasoning_summary_text.done","output_index":0,"summary_index":1,"text":"Second."}`), json.RawMessage(`{"type":"response.reasoning_summary_text.done","output_index":0,"summary_index":0,"text":"First."}`), json.RawMessage(`{"type":"response.completed","response":{"status":"completed","output":[]}}`)}
+			enqueue(ev, w, kimiResponsesReply(t, frames...))
+			enqueue(ev, w, kimiResponsesReply(t))
+			req := kimiResponsesRequest()
+			first, err := w.client.Complete(ctxFor(t), textScope("kimi-r-unsigned-first-"+string(market)), kimiResponsesTarget(), req, nil)
+			ev.Record("first", first)
+			if !ev.Check("done parts retained in order without fabricated signature", err == nil && len(first.Message.Content) == 1 && first.Message.Content[0].(ai.Thinking).Thinking == "First.\n\nSecond." && first.Message.Content[0].(ai.Thinking).Signature == "", "%v %+v", err, first.Message) {
+				return
+			}
+			req.Messages = append(req.Messages, first.Message)
+			o := drain(w.client.Stream(ctxFor(t), textScope("kimi-r-unsigned-second-"+string(market)), kimiResponsesTarget(), req, nil))
+			o.record(ev)
+			if !ev.Check("visible history continues", o.err == nil, "%v", o.err) {
+				return
+			}
+			body := w.provider.Requests()[1].Body
+			ev.Check("unsigned visible text retained without native reasoning item", strings.Contains(string(body), "First.") && strings.Contains(string(body), "Second.") && !strings.Contains(string(body), `"type":"reasoning"`), "%s", body)
+		})
+	}
+}

@@ -269,6 +269,9 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 			p.out.textDelta(i, ev.Delta)
 		}
 	case "response.output_text.done", "response.refusal.done", "response.reasoning_text.done", "response.reasoning_summary_text.done":
+		if p.kimi != nil {
+			p.kimiResponsesTextDone(ev)
+		}
 		if p.glm {
 			p.glmTextDone(ev)
 		}
