@@ -1,0 +1,148 @@
+{
+  "added": [
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/rollback-probe.txt",
+      "bytes": 2247
+    },
+    {
+      "path": ".scratch/barness-ai-minimax/evidence/ticket-08/rollback-probe.txt",
+      "bytes": 2634
+    },
+    {
+      "path": "ai/internal/testkit/minimax/pricing-source.md",
+      "bytes": 31063
+    }
+  ],
+  "removed": [
+    {
+      "path": ".evidence/barness-ai-glm/ticket-11/20261017T135338Z-chat.zip",
+      "bytes": 371189,
+      "reason": "Superseded archive path is absent from the two actual GLM route indexes; current raw/support indexes open final-round2 ZIPs."
+    },
+    {
+      "path": ".evidence/barness-ai-glm/ticket-11/20261017T135635Z-responses.zip",
+      "bytes": 408681,
+      "reason": "Superseded archive path is absent from the two actual GLM route indexes; current raw/support indexes open final-round2 ZIPs."
+    },
+    {
+      "path": ".evidence/barness-ai-glm/ticket-11/20261017T135838Z-messages.zip",
+      "bytes": 346555,
+      "reason": "Superseded archive path is absent from the two actual GLM route indexes; current raw/support indexes open final-round2 ZIPs."
+    },
+    {
+      "path": ".evidence/minimax-research-captures/mm-global-research-m3-chat/20261018T014940.090685000Z/MM07-research-full-stream/response.sse",
+      "bytes": 381,
+      "reason": "Provenance text only; current mirror/Responses tests open checked-in ai/e2e/testdata/minimax-observed bytes, without following sourceRelativePath."
+    },
+    {
+      "path": ".evidence/minimax-research-captures/mm-global-research-m3-chat/20261018T014940.090685000Z/MM07-research-tool-call/response.sse",
+      "bytes": 415,
+      "reason": "Provenance text only; current mirror/Responses tests open checked-in ai/e2e/testdata/minimax-observed bytes, without following sourceRelativePath."
+    },
+    {
+      "path": ".evidence/minimax-research-captures/mm-global-research-m3-responses/20261018T015119.674986000Z/MM07-research-tool-call/response.sse",
+      "bytes": 12870,
+      "reason": "Provenance text only; current mirror/Responses tests open checked-in ai/e2e/testdata/minimax-observed bytes, without following sourceRelativePath."
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/index.py",
+      "bytes": 10440,
+      "reason": "Not imported, copied, executed or hashed by the ordinary launcher/rollback paths; commands.sources() names five explicit script/probe files."
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/preserve-default-history.py",
+      "bytes": 4375,
+      "reason": "Not imported, copied, executed or hashed by the ordinary launcher/rollback paths; commands.sources() names five explicit script/probe files."
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/preserve-history.py",
+      "bytes": 6525,
+      "reason": "Not imported, copied, executed or hashed by the ordinary launcher/rollback paths; commands.sources() names five explicit script/probe files."
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/reconcile-rollback-history.py",
+      "bytes": 5647,
+      "reason": "Not imported, copied, executed or hashed by the ordinary launcher/rollback paths; commands.sources() names five explicit script/probe files."
+    },
+    {
+      "path": ".scratch/barness-ai-glm/evidence/ticket-13/seal.py",
+      "bytes": 18594,
+      "reason": "Not imported, copied, executed or hashed by the ordinary launcher/rollback paths; commands.sources() names five explicit script/probe files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/11-evidence.json",
+      "bytes": 11865,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/run-14-verification.py",
+      "bytes": 7383,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/seal-11-evidence.py",
+      "bytes": 6775,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/seal-12-evidence.py",
+      "bytes": 5800,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/seal-13-evidence.py",
+      "bytes": 8253,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/seal-14-evidence.py",
+      "bytes": 12506,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-02-evidence.py",
+      "bytes": 2272,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-03-evidence.py",
+      "bytes": 3806,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-04-evidence.py",
+      "bytes": 6063,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-05-evidence.py",
+      "bytes": 6892,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-06-evidence.py",
+      "bytes": 7648,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-07-evidence.py",
+      "bytes": 8896,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-08-evidence.py",
+      "bytes": 9046,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-09-evidence.py",
+      "bytes": 13224,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    },
+    {
+      "path": ".scratch/jev-1.14-multimodal-box/verify-10-evidence.py",
+      "bytes": 6908,
+      "reason": "Not opened by ordinary Go consumers or verify-11; current jevformal code pins/executes verify-11 only. Historical rollback reads baseline Git blobs, not these current working-tree files."
+    }
+  ]
+}
