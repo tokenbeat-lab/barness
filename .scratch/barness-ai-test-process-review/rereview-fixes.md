@@ -27,3 +27,5 @@
 中间 GREEN 尝试亦保留：dependency-green/green2 的新场景没有可隔离 payload，因而在 purge 阶段失败；补上无引用的成功对照目录后验证通过，未修改清理实现以放行空批次。consumer-outer-green 漏接外层 elapsedSeconds schema，原生成功但发布判定拒绝；补齐类型并保留严格未知字段拒绝。consumer-outer-green2 的文件限额只比基准小一字节，时间戳精度差异使注入不稳定；改为预留64字节差值，未放松 I/O 失败断言。RED 之后的公共进程测试全部保留，不以重跑覆盖。
 
 本轮全部临时清理和故障注入均在假仓库进行；脱敏、取消与 Go 配置隔离继续由完整工具场景验证。正式普通回执、来源冻结、只读发布判定及当前状态在收尾填写，未开展后续阶段。
+
+最终冻结 `3bce7a61cb85662e25faf13137feee723c226503`：47 组工具进程 `.evidence/barness-ai-test-process-review/e2e/rereview-final-process-20261022T035646.133488Z/command-receipt.json` exit0；完整普通 `.evidence/barness-ai-test-process-review/e2e/20261022T035647.866871Z-jvpjotru/receipt.json` PASS / exit0、12890 实际通过节点、原生 {'PASS': 12086, 'NOT_RUN': 214}、audit0。普通通过 case 集合不变，1247 份执行源码和 8636 份历史输入相等。双 vet 与 live-tag 仅编译通过；当前状态和只读判定统一见 status.md / verification.json。

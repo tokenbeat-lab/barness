@@ -61,3 +61,9 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 本轮没有新增 race、真实压力、付费 live 或真实证据清理；cleanup 子命令只对临时假仓库执行。未启动第2–8节。只读判定索引 `.evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/record.json` 应按实际返回落盘，race / 正式压力继续 NOT_RUN，release.pass=false；最终来源核对随收尾提交记录，不重写旧测试 SHA。
 
 最终 Host 只读判定：`record-check-fixes-20261022T032016Z-ce30sliu/report/release-report.json`，source/E2E/live不适用均通过；race与正式压力缺未跑，实际退出1，release.pass=false。命令回执 `e2e/final-readonly-record-20261022T032023.972949Z/command-receipt.json` 来源前后相等。此前 fbbcab8 的HOME审计拒绝原件保留；当前通过的是重新冻结的3aafd2d及新attempt，不刷新旧哈希。
+
+三项再复审修复：基线 fce5f387e375fa3f7901700f5f525fdb64c6804f；先建立失败场景，再修复相对目录依赖、普通 chat 完整资格和原生消费者收尾失败采集。RED/GREEN、失败中间尝试与设计原因见 rereview-fixes.md。实现冻结 `3bce7a61cb85662e25faf13137feee723c226503` 后，47 个工具进程场景 `.evidence/barness-ai-test-process-review/e2e/rereview-final-process-20261022T035646.133488Z/command-receipt.json` exit0，源码前后相等。
+
+新完整普通回执 `.evidence/barness-ai-test-process-review/e2e/20261022T035647.866871Z-jvpjotru/receipt.json` PASS / exit0，375.15 秒、12890 通过节点，原生 {'PASS': 12086, 'NOT_RUN': 214}、audit0，PASS case 集合与上一轮相同。1247 份执行文件与 8636 份输入固定。双 vet、live-tag 仅编译均 exit0，未执行 live 二进制；索引与工具/静态实际 argv 和原件见 verification.json。本轮未执行 race、真实压力、付费 live、真实证据清理或第2–8节。只读判定索引 `.evidence/barness-ai-test-process-review/record-check-rereview-fixes-20261022T040550Z-ndo0hwf4/record.json` 绑定当前状态；旧状态和索引另有不可变快照。
+
+本轮 Host 只读判定 `.evidence/barness-ai-test-process-review/record-check-rereview-fixes-20261022T040550Z-ndo0hwf4/report/release-report.json`：source / E2E / live 不适用均通过；race 与正式压力保持 NOT_RUN，实际退出1，release.pass=false。命令回执 `.evidence/barness-ai-test-process-review/e2e/rereview-final-readonly-20261022T040556.388745Z/command-receipt.json` 来源前后相等；不会将普通通过误写为发布通过。

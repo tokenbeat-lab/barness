@@ -15,36 +15,37 @@
   "auditFindings": 0,
   "bundle": {
     "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
-    "manifestSHA256": "c5b1f4b137aac261bd1ffe192f9dd2949c773887924304014594c3463db1c662",
+    "manifestSHA256": "ec304ea5d6d346aef959e5337a76a799abf4af63abee3f7c5320c9716b8bd01c",
     "package": "./ai/e2e",
-    "path": "bundles/20261022T031332.721720000Z"
+    "path": "bundles/20261022T035649.169674000Z"
   },
-  "elapsedSeconds": 374.9719918752089,
+  "elapsedSeconds": 375.1506132497452,
   "executedPassingTestNodes": 12890,
   "exitCode": 0,
-  "finalSourceCheck": ".evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/final-source-check.json",
-  "finishedAt": "2026-10-22T03:19:45.256401+00:00",
+  "finalSourceCheck": ".evidence/barness-ai-test-process-review/record-check-rereview-fixes-20261022T040550Z-ndo0hwf4/final-source-check.json",
+  "finishedAt": "2026-10-22T04:03:03.026733+00:00",
   "nativeCaseCounts": {
     "NOT_RUN": 214,
     "PASS": 12086
   },
   "ordinaryCaseSetMatchesPriorPassedRun": true,
-  "previousReceipt": ".evidence/barness-ai-test-process-review/e2e/20261022T022434.220792Z-qopwtw85/receipt.json",
+  "previousReceipt": ".evidence/barness-ai-test-process-review/e2e/20261022T031330.272540Z-x_6lvwke/receipt.json",
   "readOnlyInvocation": {
     "exitCode": 1,
-    "path": ".evidence/barness-ai-test-process-review/e2e/final-readonly-record-20261022T032023.972949Z/command-receipt.json",
-    "sha256": "247571cb64795cd07e209b0fc9373a5f12ca1b1e886a6b88211d9577ee34a755",
+    "path": ".evidence/barness-ai-test-process-review/e2e/rereview-final-readonly-20261022T040556.388745Z/command-receipt.json",
+    "sha256": "7117460b1f3191b461e601e5677ef27beb3a5248310625a51afa3b13f97d7b38",
     "sourceUnchanged": true
   },
-  "receipt": ".evidence/barness-ai-test-process-review/e2e/20261022T031330.272540Z-x_6lvwke/receipt.json",
-  "receiptSHA256": "858b8d6f00f1127aabcce67aaac5a55a0ea9f59bf158683d1d63f69ff9e2cc45",
+  "receipt": ".evidence/barness-ai-test-process-review/e2e/20261022T035647.866871Z-jvpjotru/receipt.json",
+  "receiptSHA256": "391e2036a21194e48a6475ce33ac52282bb81ced5a17979fa96c633c92d84bc9",
   "recordedPassingTestNames": 12890,
   "releasePass": false,
   "releaseRecord": {
-    "path": ".evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/record.json",
-    "sha256": "28f2e12a9d7d141fdab2130d2f438924e909ae1dff320bae031675573ae8b607"
+    "path": ".evidence/barness-ai-test-process-review/record-check-rereview-fixes-20261022T040550Z-ndo0hwf4/record.json",
+    "sha256": "19c00996338e27e4f105f5685e539da8d2b9a05d752c6d08262bef2713cbda1e"
   },
-  "releaseReport": ".evidence/barness-ai-test-process-review/record-check-fixes-20261022T032016Z-ce30sliu/report/release-report.json",
+  "releaseReport": ".evidence/barness-ai-test-process-review/record-check-rereview-fixes-20261022T040550Z-ndo0hwf4/report/release-report.json",
+  "releaseReportSHA256": "022cefdd859349aadeee693900985cb3323b35668580fe6615b7b88a56cc7cc0",
   "scope": {
     "formalPressure": "NOT_RUN",
     "laterPlanSections": "NOT_RUN",
@@ -53,8 +54,8 @@
     "realCleanup": "NOT_RUN"
   },
   "selectedInputs": 8636,
-  "sourceFiles": 1244,
-  "startedAt": "2026-10-22T03:13:30.287683+00:00",
+  "sourceFiles": 1247,
+  "startedAt": "2026-10-22T03:56:47.879934+00:00",
   "static": [
     {
       "argv": [
@@ -62,13 +63,13 @@
         "vet",
         "./ai/..."
       ],
-      "elapsedSeconds": 1.4754674169234931,
+      "elapsedSeconds": 1.268106708303094,
       "exitCode": 0,
-      "finishedAt": "2026-10-22T03:13:31.337465+00:00",
-      "receipt": ".evidence/barness-ai-test-process-review/e2e/final-vet-20261022T031329.728186Z/command-receipt.json",
-      "sha256": "9ed5bb1b38889bd59f8dda7b91c5f444c507c8801e661dcdd7a021381cd185a0",
+      "finishedAt": "2026-10-22T03:56:47.504720+00:00",
+      "receipt": ".evidence/barness-ai-test-process-review/e2e/rereview-final-vet-20261022T035646.133487Z/command-receipt.json",
+      "sha256": "df300c44fa305d0c555389fe6385a89f50be6412e291c8cd41608e9caafc8bb1",
       "sourceUnchanged": true,
-      "startedAt": "2026-10-22T03:13:29.862023+00:00"
+      "startedAt": "2026-10-22T03:56:46.236629+00:00"
     },
     {
       "argv": [
@@ -78,35 +79,35 @@
         "live",
         "./ai/..."
       ],
-      "elapsedSeconds": 1.4666358749382198,
+      "elapsedSeconds": 1.268119332846254,
       "exitCode": 0,
-      "finishedAt": "2026-10-22T03:13:31.328603+00:00",
-      "receipt": ".evidence/barness-ai-test-process-review/e2e/final-live-vet-20261022T031329.728150Z/command-receipt.json",
-      "sha256": "b5c72248b44208b7d7763f7d1a267fcdcc1b3c3e5aa49be391fe2552f7779057",
+      "finishedAt": "2026-10-22T03:56:47.504732+00:00",
+      "receipt": ".evidence/barness-ai-test-process-review/e2e/rereview-final-live-vet-20261022T035646.133459Z/command-receipt.json",
+      "sha256": "e068451b7ae5e12a42a8759910169ce654c87e5eb860e17740a9dbd509bd5e45",
       "sourceUnchanged": true,
-      "startedAt": "2026-10-22T03:13:29.862019+00:00"
+      "startedAt": "2026-10-22T03:56:46.236655+00:00"
     },
     {
       "argv": [
         "python3",
         "-c",
-        "import subprocess, tempfile; from pathlib import Path; binary = Path(tempfile.mkdtemp(prefix=\"barness-final-live-compile-\")) / \"live.test\"; result = subprocess.run([\"go\", \"test\", \"-c\", \"-tags\", \"live\", \"-o\", str(binary), \"./ai/live\"]); print(\"compiled only:\", binary); raise SystemExit(result.returncode)"
+        "import subprocess,tempfile; from pathlib import Path; binary=Path(tempfile.mkdtemp(prefix=\"barness-rereview-compile-\"))/\"live.test\"; result=subprocess.run([\"go\",\"test\",\"-c\",\"-tags\",\"live\",\"-o\",str(binary),\"./ai/live\"]); print(\"compiled only:\",binary); raise SystemExit(result.returncode)"
       ],
-      "elapsedSeconds": 2.20030654175207,
+      "elapsedSeconds": 2.0281163342297077,
       "exitCode": 0,
-      "finishedAt": "2026-10-22T03:13:32.050446+00:00",
-      "receipt": ".evidence/barness-ai-test-process-review/e2e/final-live-compile-20261022T031329.728194Z/command-receipt.json",
-      "sha256": "0f1548e8d910675101e96a799edb7503e080be837b42a574ca2c4405cd017bb5",
+      "finishedAt": "2026-10-22T03:56:48.258503+00:00",
+      "receipt": ".evidence/barness-ai-test-process-review/e2e/rereview-final-live-compile-20261022T035646.133476Z/command-receipt.json",
+      "sha256": "871a6d3e90e588ce4cab73a8c0c78f7410d5eac5e74cbc50979e63350901434c",
       "sourceUnchanged": true,
-      "startedAt": "2026-10-22T03:13:29.850173+00:00"
+      "startedAt": "2026-10-22T03:56:46.230426+00:00"
     }
   ],
-  "testedCommit": "3aafd2d41436d222449f5b5f0e8c0596ed1154e9",
+  "testedCommit": "3bce7a61cb85662e25faf13137feee723c226503",
   "toolProcess": {
-    "cases": 41,
+    "cases": 47,
     "exitCode": 0,
-    "receipt": ".evidence/barness-ai-test-process-review/e2e/final-process-source-bound-20261022T031329.728119Z/command-receipt.json",
-    "sha256": "6410362410b491952cbab6e450f015975f49e025276069a7b4293e220599dc2f",
+    "receipt": ".evidence/barness-ai-test-process-review/e2e/rereview-final-process-20261022T035646.133488Z/command-receipt.json",
+    "sha256": "6c85a8b55894687d315ab8b223f6f5647e99d070f7c36bf57803769ca8e16e42",
     "sourceUnchanged": true
   }
 }

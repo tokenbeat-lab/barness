@@ -1,6 +1,6 @@
 # 测试与证据清理执行方案
 
-日期：2026-10-22（Asia/Shanghai）。第 1 节入口迁移及七项 Astra 复审修复的普通验收已完成；实际来源、回执、执行偏差及未运行范围统一见 [status.md](status.md) 和 [execution-log.md](execution-log.md)。第 2–8 节未启动，真实证据清理未开始。依据：[测试过程评审](research.md)、[测试系统地图](system.md)。
+日期：2026-10-22（Asia/Shanghai）。第 1 节入口迁移、七项及后续三项 Astra 复审修复的普通验收已完成；实际来源、回执、执行偏差及未运行范围统一见 [status.md](status.md) 和 [execution-log.md](execution-log.md)。第 2–8 节未启动，真实证据清理未开始。依据：[测试过程评审](research.md)、[测试系统地图](system.md)。
 
 执行顺序：第 1 节完成入口迁移与验收，再启用第 2–5 节的新流程；第 6 节独立执行清理，观察期结束后才允许永久删除；最后按第 8 节逐项收尾。修改本计划不构成上述执行，也不授予 race、压力或付费调用权限。
 

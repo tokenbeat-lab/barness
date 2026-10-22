@@ -1,14 +1,12 @@
-# 第 1 节修复后的普通验收
+# 第 1 节三项复审修复后的普通验收
 
-唯一当前状态见 [status.md](status.md)；本轮实现冻结 `3aafd2d41436d222449f5b5f0e8c0596ed1154e9`，精确命令、数字退出、时间与哈希见 [verification.json](verification.json)。七项意见及 RED 原件见 [review-fixes.md](review-fixes.md)。旧失败、旧普通结果和历史压力偏差继续保留。
+唯一当前状态见 [status.md](status.md)，实际冻结提交 `3bce7a61cb85662e25faf13137feee723c226503`；精确回执、命令、数字退出与时间见 [verification.json](verification.json)。[三项修复及 RED/GREEN 原件](rereview-fixes.md)与[前轮七项修复](review-fixes.md)分别保留，不改写历史结论。
 
-- 普通 Go 回执 PASS / exit0，墙钟 374.97 秒，12,890 个实际通过节点；原生 12,086 PASS / 214 NOT_RUN、audit0。与上轮完整 E2E 的通过 case 集合完全相等；本轮增加 supportmatrix 普通回归，未移除旧普通案例。
-- 41 组工具进程场景 exit0，执行前后来源集合与冻结普通回执完全一致；单独保存采集脚本、实际 argv、退出、起止、工具身份、stdout/stderr 及子进程摘要。Go 配置注入仅读 go env；默认容量入口检查必须全部 NOT_RUN。
-- 完整来源 1,244 文件，外层历史输入 8,636 文件。后者仍由 git ls-files .scratch 枚举并排除本功能目录，经 runpy 将逐文件 --input 交给原采集器；不存在源/输入变化。
-- 普通及 live-tag 全 ai vet、live-tag 仅编译均 exit0，未运行 live 二进制。只读发布判定只重读现有证据，不启动下一阶段；race / 正式压力 NOT_RUN，release.pass=false。
+- 47 组工具进程场景 exit0，完整普通 Go 回执 PASS / exit0、375.15 秒、12,890 通过节点；原生 12,086 PASS / 214 NOT_RUN、audit0，与上一轮完整普通 E2E 的 PASS case 集合相同。
+- 1,247 份执行文件与 8,636 份选定历史输入在执行前后相同。外层历史输入由 git ls-files .scratch 枚举并排除本功能目录，通过 runpy 将逐文件 --input 交给原回执工具，避免操作系统 argv 长度限制。并非只凭 HEAD 判断。
+- 普通 Go 范围沿用完整 ai/e2e、ai、release、releasegate 和 supportmatrix；共享原生证据读取边界改变，重做完整普通回归，保留原有公共能力和历史资格消费者验证。没有启动压力入口或负载子进程。
+- 普通及 live-tag 全 ai vet、live-tag 仅编译均 exit0，没有运行编译出的 live 二进制。工具自测和 Go 父子进程保持 GOENV=off、空 GOFLAGS，并隔离凭据、重负载配置和普通 HOME；宿主 HOME 脱敏继续有效。
+- 新增失败回归覆盖相对目录/二进制/无扩展名依赖的传递保留，以及普通 chat 的零调用、预算、身份、捕获、结果、Observer、重复调用与计数篡改。完整合成正例仍只读，不能用作真实支持资格。
+- 原生 live CLI 只生成资格结果；公开外层 consume_live.py 实际采集唯一原生子进程的输出与退出，原子落 schema 2 回执，发布判定重验两层证据。原生最终写失败实际退出1；外层终结写失败即使子进程退出0也保留 RUNNING 非通过记录。输出直入原件及符号链接均拒绝。
 
-修复后，普通阶段固定 GOENV=off / 空 GOFLAGS 并使用独立 HOME；只读判定核对政策。管道读取不使用阻塞线程，同一时限覆盖子进程及继承的管道。普通 E2E 同时注册宿主账户 HOME 的脱敏，消费者日志与实际 stdout/stderr 和退出一致。live 原生 tag/timeout 字符串不改写；只读消费者完整复用 native qualification，回执绑定来源、全部原件、结果、实际命令和日志，拒绝自报 true。清理必须同时核对全部成功声明和 audit，未知/失败/授权内容阻止候选隔离；失败和未知原件作为传递引用根；状态原子写入。
-
-消费者新增公开只读形式为 releasegate -live-bundle <仓库相对 bundle> -out <attempt 内的新目录>，不执行厂商或写支持矩阵；发布 -record/-out 消费其 live-consumer.json 引用。受控合成文档仅验证消费机制，不产生真实资格。输出目录、符号链接和等价 flag 顺序均有进程用例，旧 argv/exit/files 消费者自报格式已删除。
-
-所有 cleanup 测试仅在临时假仓库执行，含文件大小限制导致的保存失败及公开 restore；没有扫描、隔离、恢复、删除真实证据，也没有执行第 2–8 节。race、付费 live 与正式压力没有运行；此前误跑压力的事实见执行日志，不能用本轮成功覆盖。
+普通、工具和静态验证分别保留真实命令、数字退出、起止/墙钟、日志、工具身份和来源。只读发布判定随后消费不可变索引；race / 正式压力 NOT_RUN，release.pass=false。付费 live、真实清理和后续计划未执行；此前压力误跑事实继续由执行日志保留。
