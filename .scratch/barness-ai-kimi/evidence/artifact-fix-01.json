@@ -1,0 +1,72 @@
+{
+  "testedCommit": "941ced590fe64c0542a8fba58eed648203b717be",
+  "redE2E": ".evidence/barness-ai-kimi-artifact-fix/e2e/20261022T224349.317381Z-z6t4j4u4",
+  "redE2EExit": 0,
+  "redConsumer": ".evidence/barness-ai-kimi-artifact-fix/consume-red/01",
+  "redConsumerExit": 1,
+  "greenE2E": ".evidence/barness-ai-kimi-artifact-fix/e2e/20261022T224438.282764Z-usc6qbs9",
+  "greenE2EExit": 0,
+  "greenConsumer": ".evidence/barness-ai-kimi-artifact-fix/consume-green/01",
+  "greenConsumerExit": 0,
+  "cases": 32,
+  "allPass": true,
+  "allRequiredRenamesPresent": true,
+  "renames": [
+    {
+      "oldID": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn//",
+      "newID": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn/default/",
+      "oldDir": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn//",
+      "newDir": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn/default/"
+    },
+    {
+      "oldID": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn//private-session",
+      "newID": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn/default/private-session",
+      "oldDir": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn//private-session",
+      "newDir": "KIMI-CN-CHAT-K09-TestKimiChatCache/moonshot-cn/default/private-session"
+    },
+    {
+      "oldID": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn//",
+      "newID": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn/default/",
+      "oldDir": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn//",
+      "newDir": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn/default/"
+    },
+    {
+      "oldID": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn//private-session",
+      "newID": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn/default/private-session",
+      "oldDir": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn//private-session",
+      "newDir": "KIMI-CN-RESPONSES-K09-TestKimiResponsesCache/moonshot-cn/default/private-session"
+    },
+    {
+      "oldID": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot//",
+      "newID": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot/default/",
+      "oldDir": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot//",
+      "newDir": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot/default/"
+    },
+    {
+      "oldID": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot//private-session",
+      "newID": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot/default/private-session",
+      "oldDir": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot//private-session",
+      "newDir": "KIMI-INTL-CHAT-K09-TestKimiChatCache/moonshot/default/private-session"
+    },
+    {
+      "oldID": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot//",
+      "newID": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot/default/",
+      "oldDir": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot//",
+      "newDir": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot/default/"
+    },
+    {
+      "oldID": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot//private-session",
+      "newID": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot/default/private-session",
+      "oldDir": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot//private-session",
+      "newDir": "KIMI-INTL-RESPONSES-K09-TestKimiResponsesCache/moonshot/default/private-session"
+    }
+  ],
+  "unchangedCacheBodies": 24,
+  "all32AssertionNamesAndOutcomesUnchanged": true,
+  "retainedOriginalFiles": 366,
+  "retainedBytesEqual": true,
+  "retentionProof": "/tmp/barness-kimi-implementation-notes/artifact-fix-retention.json",
+  "retentionProofSHA256": "533235ff762c2ceb1ee5e828d68451155c8435f318fe14b5b331bfadc1a45a31",
+  "selectedInputs": {},
+  "releasePass": false
+}
