@@ -58,6 +58,9 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	if failure := validateMiniMaxResponsesFinalBody(ac.model, body, authorize); failure != nil {
 		return failure
 	}
+	if failure := validateKimiResponsesFinalBody(ac.model, body, authorize); failure != nil {
+		return failure
+	}
 	if failure := ac.limits.checkRequestBody(body); failure != nil {
 		return failure
 	}
@@ -103,7 +106,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	failure = readResponsesStream(ctx, ssestream.NewDecoder(res), responsesParser{out: out, failures: failures, slots: map[responsesIndex]responsesSlot{}, reasoning: map[string]int{},
-		glm: responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && responsesCapabilitiesOf(ac.model.Provider).implementation != responsesMiniMax, requestedTier: opts.ServiceTier}, attempt: ac.initial})
+		kimi: newKimiResponsesState(ac.model.Provider), glm: responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && responsesCapabilitiesOf(ac.model.Provider).implementation != responsesMiniMax, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
 		if responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesMiniMax {
@@ -119,6 +122,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 // (grammar) tool calls and tool namespaces, which only tools barness-ai does
 // not declare produce.
 type responsesParser struct {
+	kimi        *kimiResponsesState
 	minimax     *miniMaxResponsesState
 	glm         bool
 	glmNative   map[responsesIndex]string
@@ -191,6 +195,9 @@ func (p *responsesParser) open(outputIndex responsesIndex, item responses.Respon
 		// the item id same-model replay needs.
 		s.raw = newArgumentText(item.Arguments.OfString)
 		id := item.CallID + "|" + item.ID
+		if p.kimi != nil {
+			id = kimiResponsesToolID(item.CallID, item.ID)
+		}
 		if p.minimax != nil {
 			id = miniMaxResponsesToolID(item.CallID, item.ID)
 		}
@@ -262,6 +269,9 @@ func (p *responsesParser) handle(ev responses.ResponseStreamEventUnion) *Error {
 			p.out.textDelta(i, ev.Delta)
 		}
 	case "response.output_text.done", "response.refusal.done", "response.reasoning_text.done", "response.reasoning_summary_text.done":
+		if p.kimi != nil {
+			p.kimiResponsesTextDone(ev)
+		}
 		if p.glm {
 			p.glmTextDone(ev)
 		}
@@ -329,6 +339,9 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 	if p.minimax != nil {
 		p.minimax.finished[outputIndex] = s
 	}
+	if p.kimi != nil {
+		p.kimi.finished[outputIndex] = s
+	}
 	if p.glm {
 		if p.glmFinished == nil {
 			p.glmFinished = map[responsesIndex]bool{}
@@ -377,7 +390,7 @@ func (p *responsesParser) itemDone(outputIndex responsesIndex, item responses.Re
 			native = p.glmNative[outputIndex]
 		}
 		signature := reasoningSignature(native)
-		if p.minimax != nil {
+		if p.minimax != nil || p.kimi != nil {
 			signature = native
 		}
 		p.out.thinkingEnd(i, thinking, signature)
@@ -395,7 +408,9 @@ func (p *responsesParser) finalize(r responses.Response) *Error {
 		p.out.responseModel(r.Model)
 	}
 	p.terminal = true
-	if p.minimax != nil {
+	if p.kimi != nil {
+		p.finishKimiOutput(r.Output)
+	} else if p.minimax != nil {
 		p.finishMiniMaxOutput(r.Output)
 	} else if p.glm {
 		p.finishGLMOutput(r.Output)
@@ -405,11 +420,17 @@ func (p *responsesParser) finalize(r responses.Response) *Error {
 	if r.ID != "" {
 		p.out.responseID(r.ID)
 	}
-	u, reporting, ok := p.usage.of(r)
-	if ok {
-		p.out.usage(u)
+	if p.kimi != nil {
+		if failure := p.reportKimiResponsesUsage(r); failure != nil {
+			return failure
+		}
+	} else {
+		u, reporting, ok := p.usage.of(r)
+		if ok {
+			p.out.usage(u)
+		}
+		p.attempt.usage(reporting, u)
 	}
-	p.attempt.usage(reporting, u)
 	status, reason := string(r.Status), string(r.IncompleteDetails.Reason)
 	raw := status
 	if reason != "" {

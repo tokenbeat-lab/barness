@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "./ai",
+    "-run",
+    "^Test(Kimi|Responses|DeepSeek|Chat|Anthropic|GeminiHistory|GeminiToolRoundTrip|History|GLM(Chat|Responses|Shared)|MiniMax(Chat|Responses|Messages|Shared)|Cost|ThinkingBudgets)",
+    "-count=1",
+    "-timeout=20m"
+  ],
+  "bundle": {
+    "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "manifestSHA256": "f7c8b4031f70129d06ab2e94530582e8c80dacaf1f6b2c3d29699c4841ba8caf",
+    "package": "./ai/e2e",
+    "path": "bundles/20261022T145416.690095000Z"
+  },
+  "byteEqualityVerified": true,
+  "currentCommitBeforeDocs": "fe68acee5bc0df048b70bf2b0800db123ffcc6a0",
+  "exitCode": 0,
+  "feature": "barness-ai-kimi-responses",
+  "receipt": ".evidence/barness-ai-kimi-responses/e2e/20261022T145413.628893Z-y2mcf5v7/receipt.json",
+  "receiptSHA256": "93674125e9b5109f39ecd54061c4a3beed70df333cce4ee894dcec36abe84966",
+  "retainedAt": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-responses",
+  "retainedFiles": 78793,
+  "retentionInventorySHA256": "a2a0c1edab91925cad9d3502f7f1bc653a3c4b092a3ab43768925a278d6d2446",
+  "schema": 1,
+  "selectedInputs": {},
+  "sourceFileCount": 1323,
+  "sourceSetAndHashesEqual": true,
+  "status": "PASS",
+  "testedCommit": "fe68acee5bc0df048b70bf2b0800db123ffcc6a0"
+}

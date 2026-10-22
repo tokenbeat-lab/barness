@@ -3,6 +3,9 @@ package ai
 // historyRules are the target-specific inputs of pi-ai's history transform,
 // supplied by the adapter for the call's model.
 type historyRules struct {
+	// beginAssistant scopes collision allocation to this transcript turn,
+	// including repeated opaque IDs from indistinguishable source records.
+	beginAssistant func()
 	// midConvoSystem keeps later system messages in place (pi's
 	// supportsMidConvoSystemMessages); otherwise they all fold into one
 	// leading system message.
@@ -69,6 +72,12 @@ func (o replayOrigin) prepareTranscript(req Request, rules historyRules) (transc
 			}
 			converted[i] = m
 		case AssistantMessage:
+			// Tool results answer this turn. A prior downgraded ID must not
+			// rename a later native turn that reused the same vendor spelling.
+			renamed = map[string]string{}
+			if rules.beginAssistant != nil {
+				rules.beginAssistant()
+			}
 			converted[i] = o.replayAssistant(m, rules, renamed)
 		default:
 			converted[i] = m

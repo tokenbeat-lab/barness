@@ -7,6 +7,7 @@ const (
 	responsesDeepSeek
 	responsesGLM
 	responsesMiniMax
+	responsesKimi
 )
 
 // responsesCapabilities are the server-side Responses features a provider
@@ -51,6 +52,8 @@ type responsesCapabilities struct {
 // OpenAI profile, which pi sends to whatever serves openai-responses.
 func responsesCapabilitiesOf(p ProviderID) responsesCapabilities {
 	switch p {
+	case ProviderMoonshot, ProviderMoonshotCN:
+		return responsesCapabilities{implementation: responsesKimi, promptCacheKey: true}
 	case ProviderMiniMax:
 		return responsesCapabilities{implementation: responsesMiniMax, promptCacheKey: true, serviceTier: true}
 	case ProviderMiniMaxCN:
