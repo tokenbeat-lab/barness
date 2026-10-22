@@ -11,8 +11,14 @@ func TestKimiChatCache(t *testing.T) {
 	keys := map[ai.ProviderID]string{}
 	for _, market := range []ai.ProviderID{"moonshot", "moonshot-cn"} {
 		for _, retention := range []ai.CacheRetention{"", ai.CacheRetentionShort, ai.CacheRetentionLong} {
+			// Case labels must remain canonical evidence paths; the request
+			// keeps the zero retention value to exercise protocol defaults.
+			retentionLabel := string(retention)
+			if retentionLabel == "" {
+				retentionLabel = "default"
+			}
 			for _, session := range []string{"", "private-session"} {
-				t.Run(string(market)+"/"+string(retention)+"/"+session, func(t *testing.T) {
+				t.Run(string(market)+"/"+retentionLabel+"/"+session, func(t *testing.T) {
 					ev := run.Case(t, kimiChatID(market, "K09-")+t.Name())
 					w := newKimiChatWorld(t, market, nil)
 					enqueue(ev, w, kimiChatReply(t))
