@@ -1,0 +1,36 @@
+{
+  "testedCommit": "0bbb33896c2b11d13c870aa9bbf9738e9bcaec83",
+  "receipt": ".evidence/barness-ai-test-process-review/e2e/20261022T021552.728508Z-37lnpja_/receipt.json",
+  "receiptSHA256": "0d35f4c8b440644ea32767fec3163bf8aa5e259bf5cdf6381ef956a421e19aa7",
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "./ai",
+    "./ai/internal/testkit/release",
+    "./ai/release/cmd/releasegate",
+    "-count=1",
+    "-failfast",
+    "-timeout=20m"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-10-22T02:15:52.738311+00:00",
+  "finishedAt": "2026-10-22T02:22:05.659942+00:00",
+  "elapsedSeconds": 372.8982266667299,
+  "executedPassingTestNodes": 12811,
+  "sourceFiles": 1240,
+  "selectedInputs": 8636,
+  "bundle": {
+    "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "manifestSHA256": "c16e54f06dc0820e727e5f6db1cb447e567b33525e516f57ab0d9d5291aa2195",
+    "package": "./ai/e2e",
+    "path": "bundles/20261022T021556.248864000Z"
+  },
+  "nativeCaseCounts": {
+    "PASS": 12086,
+    "NOT_RUN": 214
+  },
+  "auditFindings": 0,
+  "ordinaryCaseSetMatchesPriorPassedRun": true
+}

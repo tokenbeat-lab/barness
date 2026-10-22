@@ -27,3 +27,7 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 整包普通回归（冻结来源 e1a336de0e7d9249c3bde9ed44551f502555fa90）：`20261022T020749.741275Z-ns_hsib6/receipt.json` PASS/exit0，12811个实际通过测试节点，墙钟375.59秒；原生库存与 audit 有效。`final-static-20261022T020758Z` 普通/live-tag两种全 ai vet与live-tag只编译均exit0。
 
 复审发现live回执环境合同缺少通用路线及MiniMax授权字段、GLM/MiniMax短路由映射和Jev版本点号。先在`live-contract-red-20261022T021445Z`留下Python合成子进程失败，修复后`live-contract-green-20261022T021505Z`全套26组进程验证exit0。此测试只有临时合成原件和假凭据，不执行Go live生产者或厂商请求。随后再次冻结实现，最终普通回执显式固定仓库内外层历史输入；真实证据清理仍未开始。
+
+最终冻结普通回执：`.evidence/barness-ai-test-process-review/e2e/20261022T021552.728508Z-37lnpja_/receipt.json` PASS/exit0，受测提交 `0bbb33896c2b11d13c870aa9bbf9738e9bcaec83`，实际通过12811测试节点，原生12086 PASS / 214 NOT_RUN，audit零发现，墙钟372.9秒。完整来源1240文件及8636份外层历史输入前后哈希相等。普通通过的有限case集合与上一轮整包通过集合完全相同；没有以删除/跳过原普通用例缩小范围。
+
+外层输入枚举方式：`git ls-files .scratch`，排除本功能 `.scratch/barness-ai-test-process-review/`；为每个文件构造独立 `--input <path>` 参数，再通过同一 run.py main（Python runpy避免操作系统argv长度限制）执行回执所记原生Go argv。原件中的 selectedInputs 保存全部精确路径及哈希；不扫描或变更真实 `.evidence`。最终静态检查 `frozen-static-20261022T021650Z` 两种vet和live-tag只编译均exit0。
