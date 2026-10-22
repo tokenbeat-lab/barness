@@ -12,7 +12,7 @@ import (
 
 func TestKimiHostHookExactNumbers(t *testing.T) {
 	for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
-		for _, route := range []int{0, 2} {
+		for _, route := range []int{0, 1, 2} {
 			for _, encoding := range []string{"number", "raw"} {
 				for _, kind := range []string{"fractional-budget", "fixed-sampling", "authority-precedence"} {
 					if route == 2 && kind == "fixed-sampling" {
@@ -33,6 +33,9 @@ func TestKimiHostHookExactNumbers(t *testing.T) {
 						}
 						hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 							field := "max_completion_tokens"
+							if route == 1 {
+								field = "max_output_tokens"
+							}
 							if route == 2 {
 								field = "max_tokens"
 							}
@@ -64,7 +67,7 @@ func TestKimiHostHookExactNumbers(t *testing.T) {
 
 func TestKimiHostHookExactNumbersAccepted(t *testing.T) {
 	for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
-		for _, route := range []int{0, 2} {
+		for _, route := range []int{0, 1, 2} {
 			t.Run(fmt.Sprintf("%s/%d", market, route), func(t *testing.T) {
 				ev := run.Case(t, fmt.Sprintf("KIMI-%s-%d-K14-legal-hook-exact-number", market, route))
 				w := newKimiHostWorld(t)
@@ -74,6 +77,9 @@ func TestKimiHostHookExactNumbersAccepted(t *testing.T) {
 				w.provider.EnqueueAt(strings.TrimPrefix(b.Endpoint, w.provider.URL()), reply)
 				hooks := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
 					field := "max_completion_tokens"
+					if route == 1 {
+						field = "max_output_tokens"
+					}
 					if route == 2 {
 						field = "max_tokens"
 					}
