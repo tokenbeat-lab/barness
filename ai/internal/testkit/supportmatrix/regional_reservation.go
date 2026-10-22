@@ -19,19 +19,21 @@ import (
 // resetting a budget. A genuinely new approval has a new ID and approved scope
 // (including expiry); the trusted Host owns issuance and this repository store.
 type RegionalReservation struct {
-	Schema      int       `json:"schema"`
-	GrantID     string    `json:"grantId"`
-	GrantSHA256 string    `json:"grantSha256"`
-	ScopeSHA256 string    `json:"scopeSha256"`
-	Combo       string    `json:"combo"`
-	Session     string    `json:"session"`
-	Mode        string    `json:"mode"`
-	StartedAt   time.Time `json:"startedAt"`
-	MaxCalls    int       `json:"maxCalls"`
-	MaxAttempts int       `json:"maxAttempts"`
+	Schema       int       `json:"schema"`
+	GrantID      string    `json:"grantId"`
+	GrantSHA256  string    `json:"grantSha256"`
+	ScopeSHA256  string    `json:"scopeSha256"`
+	Combo        string    `json:"combo"`
+	Session      string    `json:"session"`
+	Mode         string    `json:"mode"`
+	StartedAt    time.Time `json:"startedAt"`
+	MaxCalls     int       `json:"maxCalls"`
+	MaxAttempts  int       `json:"maxAttempts"`
+	MaxUSD       float64   `json:"maxUSD,omitempty"`
+	BinarySHA256 string    `json:"binarySha256,omitempty"`
 }
 
-func regionalReservationStore() (string, error) {
+func regionalReservationStore(combo string) (string, error) {
 	root, err := minimaxlive.Root()
 	if err != nil {
 		return "", err
@@ -45,6 +47,9 @@ func regionalReservationStore() (string, error) {
 	common := strings.TrimSpace(string(raw))
 	if !filepath.IsAbs(common) {
 		return "", refuse("regional trusted repository path invalid")
+	}
+	if RegionalIsKimi(combo) {
+		return filepath.Join(common, "barness-kimi-grants"), nil
 	}
 	return filepath.Join(common, "barness-regional-grants"), nil
 }
@@ -64,9 +69,12 @@ func regionalReservationKeys(g RegionalGrant) (string, string) {
 // the approval, requiring a new explicitly authorized run.
 func ReserveRegionalGrant(g RegionalGrant, raw []byte, session string, at time.Time) (RegionalReservation, error) {
 	receipt := RegionalReservation{Schema: 2, GrantID: g.ID, GrantSHA256: glmHash(raw), Combo: g.Combo, Session: session, Mode: g.Mode, StartedAt: at, MaxCalls: g.MaxCalls, MaxAttempts: g.MaxAttempts}
+	if RegionalIsKimi(g.Combo) {
+		receipt.MaxUSD, receipt.BinarySHA256 = g.MaxUSD, g.BinarySHA256
+	}
 	id, scope := regionalReservationKeys(g)
 	receipt.ScopeSHA256 = strings.TrimSuffix(strings.TrimPrefix(scope, "scope-"), ".json")
-	store, err := regionalReservationStore()
+	store, err := regionalReservationStore(g.Combo)
 	if err != nil {
 		return receipt, err
 	}
@@ -130,7 +138,7 @@ func ReserveRegionalGrant(g RegionalGrant, raw []byte, session string, at time.T
 }
 
 func verifyRegionalReservation(g RegionalGrant, receipt RegionalReservation) error {
-	store, err := regionalReservationStore()
+	store, err := regionalReservationStore(g.Combo)
 	if err != nil {
 		return err
 	}

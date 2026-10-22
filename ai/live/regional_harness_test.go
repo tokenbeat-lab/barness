@@ -15,7 +15,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/probe"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
+
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -52,7 +52,7 @@ func driveRegional(t *testing.T) {
 	}
 	_ = run.Record("regional-execution-source", p.source)
 	_ = run.Record("regional-catalog", p.cat)
-	_ = run.Record("regional-candidate-facts", regional.Candidates())
+	_ = run.Record("regional-candidate-facts", supportmatrix.RegionalCandidateFacts(p.report.Combo))
 	rec := newRecorder()
 	transport := rec.next.(*http.Transport)
 	defer transport.CloseIdleConnections()
@@ -118,6 +118,14 @@ func (s *regionalSession) request(model, kind string) (ai.Request, error) {
 		req.Messages = []ai.Message{ai.UserText("Call inspect_regional with label alpha. You must use this tool before answering. Think through the request first.")}
 		req.Tools = []ai.Tool{regionalTool}
 	}
+	if kind == "native-history" && supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		first, ok := s.native[model]
+		if !ok {
+			return ai.Request{}, fmt.Errorf("fixed own native source prerequisite absent")
+		}
+		req.Messages = append(req.Messages, first, ai.UserText("Continue that exact conversation with a short answer."))
+		return req, nil
+	}
 	if kind == "tool-result" || kind == "native-history" {
 		m, ok := s.tools[model]
 		if !ok {
@@ -166,13 +174,23 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	scope := newScope()
 	target := ai.Target{BindingID: s.p.report.Combo, ModelID: row.Model}
 	opts := regionalOptions(modelInfo, outputBudget)
+	if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		opts = kimiRegionalOptions(modelInfo, outputBudget, kind)
+	}
 	if s.p.report.API == "anthropic-messages" && s.p.report.Provider == "zai" && (kind == "simple-stream" || kind == "simple-complete") {
 		// options.json is the effective full shape used by independent raw
 		// replay. Simple omits thinking even when full explicitly opts in.
 		opts = ai.AnthropicOptions{MaxTokens: ai.Value(outputBudget)}
 	}
 	simple := ai.SimpleOptions{MaxTokens: ai.Value(outputBudget)}
-	if s.p.report.API != "anthropic-messages" || s.p.report.Provider == "minimax-cn" {
+	if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		simple.Reasoning = ai.ThinkingLow
+		if kind == "simple-complete" {
+			simple.Reasoning = ai.ThinkingMedium
+		}
+		opts = kimiRegionalEffectiveOptions(modelInfo, outputBudget, kind)
+	}
+	if !supportmatrix.RegionalIsKimi(s.p.report.Combo) && (s.p.report.API != "anthropic-messages" || s.p.report.Provider == "minimax-cn") {
 		simple.Reasoning = ai.ThinkingHigh
 	}
 	began := time.Now()
@@ -261,7 +279,7 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	if kind == "full-stream" && sourceCase == row.CaseID && err == nil {
 		s.native[row.Model] = result.Message
 	}
-	if kind == "tool-result" || kind == "native-history" {
+	if kind == "tool-result" || kind == "native-history" && !supportmatrix.RegionalIsKimi(s.p.report.Combo) {
 		text := ""
 		for _, b := range result.Message.Content {
 			if b, ok := b.(ai.Text); ok {

@@ -29,11 +29,14 @@ func (g *regionalHTTPGate) RoundTrip(req *http.Request) (*http.Response, error) 
 	req.Body.Close()
 	req.Body = io.NopCloser(bytes.NewReader(raw))
 	input := max(2048, len(raw)+1024)
-	if g.process.report.Budget.ReservedInputTokens+input > 120000 {
+	if g.process.report.Budget.ReservedInputTokens+input > g.process.report.Budget.MaxReservedInputTokens {
 		return nil, fmt.Errorf("regional encoded input reservation exhausted")
 	}
+	if err := g.reserveUSD(raw, input); err != nil {
+		return nil, err
+	}
 	g.process.report.Budget.ReservedInputTokens += input
-	if g.attempts.Add(1) > 24 {
+	if g.attempts.Add(1) > int64(g.process.report.Budget.MaxAttempts) {
 		return nil, fmt.Errorf("regional own attempt budget exhausted")
 	}
 	res, err := g.next.RoundTrip(req)
@@ -57,7 +60,7 @@ func (b *regionalTrackedBody) Close() error {
 
 func (p *regionalProcess) reserve(ctx context.Context, outputBudget int) error {
 	b := &p.report.Budget
-	if ctx.Err() != nil || b.CallsUsed >= 24 || b.RequestedOutputTokens+outputBudget > 98304 {
+	if ctx.Err() != nil || b.CallsUsed >= b.MaxCalls || b.RequestedOutputTokens+outputBudget > b.MaxRequestedOutputTokens {
 		return fmt.Errorf("regional own call/token/time reservation exhausted")
 	}
 	b.CallsUsed++

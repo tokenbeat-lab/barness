@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
 )
 
 // Native captures independently determine reservations and usage. A summary
@@ -19,7 +18,7 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 		}
 		return regionalDecode(raw, v)
 	}
-	cat, err := regional.CandidateCatalog()
+	cat, err := RegionalCandidateCatalog(r.Combo)
 	if r.Regional.Stage == "formal" {
 		cat, err = RegionalFormalCatalog(r.Combo)
 	}
@@ -27,11 +26,12 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 		return err
 	}
 	var captured ai.Catalog
-	var facts []regional.Candidate
-	if read("regional-catalog.json", &captured) != nil || !reflect.DeepEqual(captured, cat) || read("regional-candidate-facts.json", &facts) != nil || !reflect.DeepEqual(facts, regional.Candidates()) {
+	var facts any
+	if read("regional-catalog.json", &captured) != nil || !reflect.DeepEqual(captured, cat) || read("regional-candidate-facts.json", &facts) != nil || !regionalSameFacts(facts, r.Combo) {
 		return refuse("regional catalog or independent source facts differ")
 	}
 	input, output, reserved, requested := 0, 0, 0, 0
+	var usd float64
 	for _, s := range r.Scenarios {
 		var result regionalResult
 		var xs []regionalExchange
@@ -55,7 +55,13 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 			return refuse("regional own encoded output reservation differs")
 		}
 		requested += limit
-		reserved += max(2048, len(xs[0].RequestBody)+1024)
+		wireInput := max(2048, len(xs[0].RequestBody)+1024)
+		reserved += wireInput
+		amount, e := RegionalReservedUSD(r.Combo, s.Model, wireInput, limit)
+		if e != nil {
+			return e
+		}
+		usd += amount
 		message, err := result.Message.assistant()
 		if err != nil || len(result.Metadata.Attempts) != 1 {
 			return refuse("regional raw totals lack Result attempt")
@@ -70,6 +76,9 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 	b := r.Budget
 	if b.ReservedInputTokens != reserved || b.RequestedOutputTokens != requested || b.InputTokensUsed != input || b.OutputTokensUsed != output || input < 0 || output < 0 || output > requested || input > reserved {
 		return refuse("regional captured usage or encoded reservations differ")
+	}
+	if RegionalIsKimi(r.Combo) && (usd != r.Regional.ReservedUSD || usd > r.Regional.MaxUSD) {
+		return refuse("Kimi conservative USD reservation differs")
 	}
 	return nil
 }

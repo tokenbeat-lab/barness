@@ -1,7 +1,7 @@
 # 06 — 六路线资格入口与证据消费
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 01
 
 ## Context
@@ -25,3 +25,5 @@ R01、R12；K16。复用原生证据设施增加六路线有限 live 入口、�
 2026-10-22：从已批准实施的 spec/design 派生；任务依赖是集成顺序，独立协议可在同一基线并行开发，合并前同步集成分支。
 
 2026-10-22：按实际模块依赖细化：资格基础设施直接依赖候选与共享运行合同，可与协议/Host 并行开发；完整六路线的受控验收和源码冻结仍由工单07阻塞，不提前声称路线完成。
+
+2026-10-22：codex/kimi-qualification 基线 d15f642，公共 Client/真实原生子进程受控 seam；实现路线化已有 regional 合同，不运行真实 live/race/压力或目录晋升。

@@ -31,7 +31,7 @@ func RegionalExecutionSource() (map[string]string, error) {
 		name, _ := filepath.Rel(root, path)
 		name = filepath.ToSlash(name)
 		runtime := filepath.Dir(name) == "ai" && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go")
-		capture := filepath.Dir(name) == "ai/live" && strings.HasSuffix(name, ".go") || strings.HasPrefix(name, "ai/internal/testkit/regional/") || strings.HasPrefix(name, "ai/internal/") && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go")
+		capture := filepath.Dir(name) == "ai/live" && strings.HasSuffix(name, ".go") || strings.HasPrefix(name, "ai/internal/testkit/regional/") || strings.HasPrefix(name, "ai/internal/testkit/kimi/") || strings.HasPrefix(name, "ai/internal/") && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go")
 		for _, exact := range []string{"ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/stream_test.go", "ai/live/session_test.go"} {
 			capture = capture || name == exact
 		}

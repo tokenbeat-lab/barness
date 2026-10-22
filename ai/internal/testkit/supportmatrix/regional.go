@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
 )
 
 const RegionalReportFile = "regional-report.json"
@@ -19,20 +18,22 @@ const RegionalReportFile = "regional-report.json"
 // RegionalEvidence retains the exact own qualification contract. Candidate
 // success remains qualification evidence, never a formal support projection.
 type RegionalEvidence struct {
-	Schema             int    `json:"schema"`
-	Mode               string `json:"mode"`
-	Stage              string `json:"stage"`
-	Purpose            string `json:"purpose"`
-	CredentialProvider string `json:"credentialProvider"`
-	RegionAlias        string `json:"regionAlias"`
-	Contract           string `json:"contract"`
-	GrantID            string `json:"grantId"`
-	GrantSHA256        string `json:"grantSha256"`
-	SourceSHA256       string `json:"sourceSha256"`
-	BuildSourceSHA256  string `json:"buildSourceSha256"`
-	BinarySHA256       string `json:"binarySha256"`
-	Complete           bool   `json:"complete"`
-	AuditPassed        bool   `json:"auditPassed"`
+	Schema             int     `json:"schema"`
+	Mode               string  `json:"mode"`
+	Stage              string  `json:"stage"`
+	Purpose            string  `json:"purpose"`
+	CredentialProvider string  `json:"credentialProvider"`
+	RegionAlias        string  `json:"regionAlias"`
+	Contract           string  `json:"contract"`
+	GrantID            string  `json:"grantId"`
+	GrantSHA256        string  `json:"grantSha256"`
+	SourceSHA256       string  `json:"sourceSha256"`
+	BuildSourceSHA256  string  `json:"buildSourceSha256"`
+	BinarySHA256       string  `json:"binarySha256"`
+	MaxUSD             float64 `json:"maxUSD,omitempty"`
+	ReservedUSD        float64 `json:"reservedUSD,omitempty"`
+	Complete           bool    `json:"complete"`
+	AuditPassed        bool    `json:"auditPassed"`
 	// NativeSourceCases is predeclared per identity, not a fallback lookup.
 	NativeSourceCases map[string]string `json:"nativeSourceCases"`
 }
@@ -70,7 +71,7 @@ func regionalReport(dir string, formal bool, mode string) (Report, error) {
 	if err != nil || r.SDK != sdk {
 		return Report{}, refuse("regional SDK differs from selected dependency")
 	}
-	cat, err := regional.CandidateCatalog()
+	cat, err := RegionalCandidateCatalog(r.Combo)
 	if e.Stage == "formal" {
 		cat, err = RegionalFormalCatalog(r.Combo)
 	}
@@ -87,8 +88,12 @@ func regionalReport(dir string, formal bool, mode string) (Report, error) {
 		}
 	}
 	b := r.Budget
-	if b.MaxCalls != 24 || b.MaxAttempts != 24 || b.MaxOutputTokens != 4096 || b.MaxRequestedOutputTokens != 98304 || b.MaxReservedInputTokens != 120000 || b.MaxRetries != 0 || b.CallSeconds != 120 || b.ProcessSeconds != 1800 || b.CallsUsed < 0 || b.CallsUsed > 24 || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts != b.CallsUsed || b.RequestedOutputTokens < b.CallsUsed || b.RequestedOutputTokens > b.CallsUsed*4096 || b.ReservedInputTokens < b.CallsUsed*2048 || b.ReservedInputTokens > b.MaxReservedInputTokens {
+	limits := RegionalBudgetFor(r.Combo)
+	if b.MaxCalls != limits.MaxCalls || b.MaxAttempts != limits.MaxAttempts || b.MaxOutputTokens != 4096 || b.MaxRequestedOutputTokens != limits.MaxRequestedOutputTokens || b.MaxReservedInputTokens != limits.MaxReservedInputTokens || b.MaxRetries != 0 || b.CallSeconds != 120 || b.ProcessSeconds != 1800 || b.CallsUsed < 0 || b.CallsUsed > limits.MaxCalls || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts != b.CallsUsed || b.RequestedOutputTokens < b.CallsUsed || b.RequestedOutputTokens > b.CallsUsed*4096 || b.ReservedInputTokens < b.CallsUsed*2048 || b.ReservedInputTokens > b.MaxReservedInputTokens {
 		return Report{}, refuse("regional own fixed budget differs")
+	}
+	if RegionalIsKimi(r.Combo) && (!regionalValidUSD(e.MaxUSD) || e.ReservedUSD < 0 || e.ReservedUSD > e.MaxUSD) {
+		return Report{}, refuse("Kimi explicit USD reservation invalid")
 	}
 	expected := RegionalExpected(r.Combo)
 	if !slices.Equal(r.Expected, expected) || len(r.Scenarios) != len(expected) || b.CallsUsed != len(expected) {
@@ -114,7 +119,7 @@ func RegionalFormalCatalog(combo string) (ai.Catalog, error) {
 		return ai.Catalog{}, refuse("unknown regional formal route")
 	}
 	formal := ai.BuiltinCatalog()
-	candidate, err := regional.CandidateCatalog()
+	candidate, err := RegionalCandidateCatalog(combo)
 	if err != nil {
 		return ai.Catalog{}, err
 	}

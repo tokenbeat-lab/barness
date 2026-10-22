@@ -26,8 +26,12 @@ func verifyRegionalToolResult(root *os.Root, r Report, s ScenarioResult, wire st
 			if r.API == "openai-responses" {
 				// Decode the persisted public identity independently at the evidence
 				// boundary; these are protocol data, not trusted domain state.
-				if r.Provider == "minimax-cn" {
-					encoded, ok := strings.CutPrefix(id, "mmr1|")
+				if r.Provider == "minimax-cn" || RegionalIsKimi(r.Combo) {
+					prefix := "mmr1|"
+					if RegionalIsKimi(r.Combo) {
+						prefix = "kmr1|"
+					}
+					encoded, ok := strings.CutPrefix(id, prefix)
 					raw, e := base64.RawURLEncoding.DecodeString(encoded)
 					var pair []string
 					if !ok || e != nil || json.Unmarshal(raw, &pair) != nil || len(pair) != 2 {

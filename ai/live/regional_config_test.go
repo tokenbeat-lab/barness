@@ -11,7 +11,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
+
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -48,7 +48,7 @@ func initializeRegional() {
 	if p.controlled != "" {
 		mode = "controlled"
 	}
-	p.cat, _ = regional.CandidateCatalog()
+	p.cat, _ = supportmatrix.RegionalCandidateCatalog(combo)
 	if stage == "formal" {
 		var err error
 		p.cat, err = supportmatrix.RegionalFormalCatalog(combo)
@@ -78,7 +78,7 @@ func initializeRegional() {
 		p.problem = "regional execution source unavailable"
 		return
 	}
-	p.report = supportmatrix.Report{Schema: supportmatrix.SchemaVersion, Combo: combo, Operation: "chat", Provider: route.Provider, API: route.API, Endpoint: route.Endpoint, Model: supportmatrix.RegionalModels(combo)[0], SDK: sdk, GitCommit: evidence.GitCommit(), CatalogVersion: p.cat.Version, CatalogHash: hash, StartedAt: started, Expected: supportmatrix.RegionalExpected(combo), Regional: &supportmatrix.RegionalEvidence{Schema: 1, Mode: mode, Stage: stage, Purpose: "standard", CredentialProvider: route.Provider, Contract: supportmatrix.RegionalAuthorization(combo), SourceSHA256: supportmatrix.RegionalSourceHash(p.source)}, Budget: supportmatrix.Budget{MaxCalls: 24, MaxAttempts: 24, MaxRetries: 0, MaxOutputTokens: 4096, MaxRequestedOutputTokens: 98304, MaxReservedInputTokens: 120000, CallSeconds: 120, ProcessSeconds: 1800}}
+	p.report = supportmatrix.Report{Schema: supportmatrix.SchemaVersion, Combo: combo, Operation: "chat", Provider: route.Provider, API: route.API, Endpoint: route.Endpoint, Model: supportmatrix.RegionalModels(combo)[0], SDK: sdk, GitCommit: evidence.GitCommit(), CatalogVersion: p.cat.Version, CatalogHash: hash, StartedAt: started, Expected: supportmatrix.RegionalExpected(combo), Regional: &supportmatrix.RegionalEvidence{Schema: 1, Mode: mode, Stage: stage, Purpose: "standard", CredentialProvider: route.Provider, Contract: supportmatrix.RegionalAuthorization(combo), SourceSHA256: supportmatrix.RegionalSourceHash(p.source)}, Budget: supportmatrix.RegionalBudgetFor(combo)}
 	p.report.Regional.NativeSourceCases = map[string]string{}
 	for _, model := range supportmatrix.RegionalModels(combo) {
 		p.report.Regional.NativeSourceCases[model] = supportmatrix.RegionalNativeSourceCase(combo, model)
@@ -129,6 +129,13 @@ func initializeRegional() {
 	if os.Getenv("BARNESS_REGIONAL_SERVICE") != route.Provider {
 		p.problem = "regional credential source Provider differs"
 		return
+	}
+	if supportmatrix.RegionalIsKimi(combo) {
+		if p.grant.BinarySHA256 != binaryHash || regionalBuildSource != p.report.Regional.SourceSHA256 {
+			p.problem = "Kimi source/binary grant binding differs"
+			return
+		}
+		p.report.Regional.MaxUSD = p.grant.MaxUSD
 	}
 	p.report.AccountAlias = p.grant.AccountAlias
 	p.report.Regional.RegionAlias, p.report.Regional.GrantID, p.report.Regional.GrantSHA256 = p.grant.RegionAlias, p.grant.ID, sha256Text(p.grantRaw)
