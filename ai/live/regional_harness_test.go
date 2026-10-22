@@ -15,7 +15,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/probe"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
+
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -52,7 +52,7 @@ func driveRegional(t *testing.T) {
 	}
 	_ = run.Record("regional-execution-source", p.source)
 	_ = run.Record("regional-catalog", p.cat)
-	_ = run.Record("regional-candidate-facts", regional.Candidates())
+	_ = run.Record("regional-candidate-facts", supportmatrix.RegionalCandidateFacts(p.report.Combo))
 	rec := newRecorder()
 	transport := rec.next.(*http.Transport)
 	defer transport.CloseIdleConnections()
@@ -79,12 +79,19 @@ func driveRegional(t *testing.T) {
 	if err != nil {
 		t.Fatal("regional public Client assembly failed")
 	}
-	ctx, cancel := context.WithDeadline(context.Background(), p.report.StartedAt.Add(1780*time.Second))
+	deadline := p.report.StartedAt.Add(1780 * time.Second)
+	if supportmatrix.RegionalIsKimi(p.report.Combo) && p.grant.ExpiresAt.Before(deadline) {
+		deadline = p.grant.ExpiresAt
+	}
+	ctx, cancel := context.WithDeadline(context.Background(), deadline)
 	defer cancel()
 	s := regionalSession{p: p, client: client, rec: rec, gate: gate, probe: gauges, ctx: ctx, tools: map[string]ai.AssistantMessage{}, native: map[string]ai.AssistantMessage{}}
 	for i := range p.report.Scenarios {
 		i := i
 		t.Run(p.report.Scenarios[i].ID, func(t *testing.T) { s.execute(t, i) })
+		if supportmatrix.RegionalIsKimi(p.report.Combo) && t.Failed() {
+			break
+		}
 	}
 }
 
@@ -117,6 +124,14 @@ func (s *regionalSession) request(model, kind string) (ai.Request, error) {
 	if kind == "tool-call" {
 		req.Messages = []ai.Message{ai.UserText("Call inspect_regional with label alpha. You must use this tool before answering. Think through the request first.")}
 		req.Tools = []ai.Tool{regionalTool}
+	}
+	if kind == "native-history" && supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		first, ok := s.native[model]
+		if !ok {
+			return ai.Request{}, fmt.Errorf("fixed own native source prerequisite absent")
+		}
+		req.Messages = append(req.Messages, first, ai.UserText("Continue that exact conversation with a short answer."))
+		return req, nil
 	}
 	if kind == "tool-result" || kind == "native-history" {
 		m, ok := s.tools[model]
@@ -166,17 +181,28 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	scope := newScope()
 	target := ai.Target{BindingID: s.p.report.Combo, ModelID: row.Model}
 	opts := regionalOptions(modelInfo, outputBudget)
+	if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		opts = kimiRegionalOptions(modelInfo, outputBudget, kind)
+	}
 	if s.p.report.API == "anthropic-messages" && s.p.report.Provider == "zai" && (kind == "simple-stream" || kind == "simple-complete") {
 		// options.json is the effective full shape used by independent raw
 		// replay. Simple omits thinking even when full explicitly opts in.
 		opts = ai.AnthropicOptions{MaxTokens: ai.Value(outputBudget)}
 	}
 	simple := ai.SimpleOptions{MaxTokens: ai.Value(outputBudget)}
-	if s.p.report.API != "anthropic-messages" || s.p.report.Provider == "minimax-cn" {
+	if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		simple.Reasoning = ai.ThinkingLow
+		if kind == "simple-complete" {
+			simple.Reasoning = ai.ThinkingMedium
+		}
+		opts = kimiRegionalEffectiveOptions(modelInfo, outputBudget, kind)
+	}
+	if !supportmatrix.RegionalIsKimi(s.p.report.Combo) && (s.p.report.API != "anthropic-messages" || s.p.report.Provider == "minimax-cn") {
 		simple.Reasoning = ai.ThinkingHigh
 	}
 	began := time.Now()
 	before := s.gate.attempts.Load()
+	beforeInput := s.p.report.Budget.ReservedInputTokens
 	var result ai.Result
 	var events []map[string]any
 	seenCancel := false
@@ -234,12 +260,20 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	for name, n := range resources {
 		cs.Check("released "+name, n == 0, "%d", n)
 	}
+	if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+		u := result.Message.Usage
+		cs.Check("actual token counts fit this call reservation", u.Input+u.CacheRead+u.CacheWrite <= int64(s.p.report.Budget.ReservedInputTokens-beforeInput) && u.Output <= int64(outputBudget), "output=%d", u.Output)
+	}
 	cs.Check("actual own attempt and attribution", row.Attempts == 1 && len(result.Metadata.Attempts) == 1 && result.Metadata.ProviderID == ai.ProviderID(s.p.report.Provider) && result.Metadata.ModelID == row.Model, "attempts=%d", row.Attempts)
 	if kind == "cancel" {
 		cs.Check("cancel after content retains classification", seenCancel && errors.Is(err, &ai.Error{Code: ai.CodeCanceled}) && result.Message.StopReason == ai.StopReasonAborted, "cancel=%t", seenCancel)
 	} else {
 		cs.Check("own legal turn succeeds", err == nil && (result.Message.StopReason == ai.StopReasonStop || kind == "tool-call" && result.Message.StopReason == ai.StopReasonToolUse), "stop=%s", result.Message.StopReason)
 		cs.Check("reported usage retained", len(result.Metadata.Attempts) == 1 && result.Metadata.Attempts[0].UsageReporting != ai.UsageUnreported, "attempts=%d", len(result.Metadata.Attempts))
+		if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+			priced := len(result.Metadata.Attempts) == 1 && (result.Metadata.Attempts[0].CostEstimate.Status == ai.CostResolved || result.Metadata.Attempts[0].CostEstimate.Status == ai.CostBounded)
+			cs.Check("all billable counters and independent cost state available", priced, "attempts=%d", len(result.Metadata.Attempts))
+		}
 	}
 	if kind == "tool-call" {
 		valid := false
@@ -259,9 +293,18 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 		}
 	}
 	if kind == "full-stream" && sourceCase == row.CaseID && err == nil {
+		if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
+			native := false
+			for _, b := range result.Message.Content {
+				if thought, ok := b.(ai.Thinking); ok && thought.Thinking != "" {
+					native = true
+				}
+			}
+			cs.Check("fixed L01 native reasoning exists before any continuation", native, "source=%s", sourceCase)
+		}
 		s.native[row.Model] = result.Message
 	}
-	if kind == "tool-result" || kind == "native-history" {
+	if kind == "tool-result" || kind == "native-history" && !supportmatrix.RegionalIsKimi(s.p.report.Combo) {
 		text := ""
 		for _, b := range result.Message.Content {
 			if b, ok := b.(ai.Text); ok {

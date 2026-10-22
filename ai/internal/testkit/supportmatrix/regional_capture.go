@@ -51,16 +51,22 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 	}
 	if r.API == "anthropic-messages" {
 		wantURL = r.Endpoint + "/v1/messages?beta=true"
+		if RegionalIsKimi(r.Combo) {
+			wantURL = r.Endpoint + "/v1/messages"
+		}
 	}
 	if x.Method != "POST" || x.URL != wantURL || x.Status != 200 || x.Truncated || x.TransportError != "" || x.ResponseBody == "" {
 		return refuse("regional own endpoint, actual response or complete capture differs")
 	}
-	if r.API == "anthropic-messages" {
+	if r.API == "anthropic-messages" && !RegionalIsKimi(r.Combo) {
 		if x.RequestHeaders["x-api-key"] != "[REDACTED]" || x.RequestHeaders["authorization"] != "" || x.RequestHeaders["anthropic-version"] != "2023-06-01" {
 			return refuse("regional Messages authentication/version differs")
 		}
 	} else if x.RequestHeaders["authorization"] != "[REDACTED]" || x.RequestHeaders["x-api-key"] != "" {
 		return refuse("regional Bearer authentication differs")
+	}
+	if RegionalIsKimi(r.Combo) && r.API == "anthropic-messages" && (x.RequestHeaders["anthropic-version"] != "2023-06-01" || x.RequestHeaders["anthropic-beta"] != "" || x.RequestHeaders["anthropic-dangerous-direct-browser-access"] != "") {
+		return refuse("Kimi stable Messages headers differ")
 	}
 	var request map[string]json.RawMessage
 	if json.Unmarshal([]byte(x.RequestBody), &request) != nil || string(request["model"]) != string(mustRegionalJSON(s.Model)) || string(request["stream"]) != "true" {
@@ -83,7 +89,11 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 	if r.API == "anthropic-messages" && r.Provider == "minimax-cn" {
 		header = "request-id"
 	}
-	if a.HTTPStatus != x.Status || a.ProviderRequestID != x.ResponseHeaders[header] || !reflect.DeepEqual(a.Usage, result.Message.Usage) || a.RetryDelay != 0 {
+	expectedRequestID := x.ResponseHeaders[header]
+	if RegionalIsKimi(r.Combo) {
+		expectedRequestID = ""
+	}
+	if a.HTTPStatus != x.Status || a.ProviderRequestID != expectedRequestID || !reflect.DeepEqual(a.Usage, result.Message.Usage) || a.RetryDelay != 0 {
 		return refuse("regional actual attempt, request ID or usage differs")
 	}
 	_, kind, _ := strings.Cut(s.ID, "/")
@@ -94,12 +104,15 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 	} else if result.Message.StopReason != ai.StopReasonStop && !(kind == "tool-call" && result.Message.StopReason == ai.StopReasonToolUse) {
 		return refuse("regional own legal terminal missing")
 	}
-	if kind != "cancel" && a.UsageReporting == ai.UsageUnreported {
+	if kind != "cancel" && (a.UsageReporting == ai.UsageUnreported || RegionalIsKimi(r.Combo) && a.CostEstimate.Status != ai.CostResolved && a.CostEstimate.Status != ai.CostBounded) {
 		return refuse("regional required usage not reported")
 	}
 	var observations []ai.Observation
 	if read("observations.json", &observations) != nil || len(observations) != 4 || observations[0].Kind != ai.ObservationCallStarted || observations[0].Call.Resolved || observations[3].Kind != ai.ObservationCallFinished || !reflect.DeepEqual(observations[3].Call, m) || !reflect.DeepEqual(observations[3].Usage, result.Message.Usage) {
 		return refuse("regional observed lifecycle differs")
+	}
+	if RegionalIsKimi(r.Combo) && (observations[1].Kind != ai.ObservationAttemptStarted || observations[1].Attempt == nil || observations[1].Attempt.CostEstimate.Status != ai.CostUnreported || observations[2].Kind != ai.ObservationAttemptFinished || observations[2].Attempt == nil || !reflect.DeepEqual(*observations[2].Attempt, a)) {
+		return refuse("Kimi observed attempt/cost lifecycle differs")
 	}
 	var events []struct{ Type string }
 	if read("events.json", &events) != nil {
@@ -114,7 +127,7 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 			return refuse("regional event terminal missing")
 		}
 	}
-	if kind == "tool-result" || kind == "native-history" {
+	if kind == "tool-result" || kind == "native-history" && !RegionalIsKimi(r.Combo) {
 		if err := verifyRegionalToolResult(root, r, s, x.RequestBody, message); err != nil {
 			return err
 		}
@@ -184,6 +197,11 @@ func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string
 	if json.Unmarshal([]byte(wire), &body) != nil {
 		return refuse("regional native request invalid")
 	}
+	if RegionalIsKimi(r.Combo) {
+		if err := verifyKimiRegionalNative(root, r, s, source, firstMessage, body); err != nil {
+			return err
+		}
+	}
 	var native []map[string]any
 	if r.API == "openai-responses" {
 		for _, raw := range regionalArray(body["input"]) {
@@ -237,7 +255,7 @@ func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string
 					return nil
 				}
 			case "anthropic-messages":
-				if item["thinking"] == b.Thinking && (b.Signature != "" && item["signature"] == b.Signature || b.Signature == "" && item["signature"] == nil && r.Provider == "zai") {
+				if item["thinking"] == b.Thinking && (b.Signature != "" && item["signature"] == b.Signature || b.Signature == "" && item["signature"] == nil && (r.Provider == "zai" || RegionalIsKimi(r.Combo))) {
 					return nil
 				}
 			}

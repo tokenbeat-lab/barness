@@ -20,7 +20,7 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	}
 	route := report.Combo
 	switch {
-	case strings.HasPrefix(route, "zai-") || strings.HasPrefix(route, "minimax-cn-"):
+	case isRegionalLiveRoute(route):
 		report, err = supportmatrix.NewRegionalReport(dir)
 	case strings.HasPrefix(route, "minimax-"):
 		report, err = supportmatrix.NewMiniMaxReport(dir)
@@ -92,3 +92,5 @@ func verifySelectedLive(root, dir, route string, stage StageRecord, source Execu
 	}
 	return verifyLiveConsumer(root, dir, stage.Consumers[0], source, report)
 }
+
+func isRegionalLiveRoute(route string) bool { _, ok := supportmatrix.RegionalRouteOf(route); return ok }

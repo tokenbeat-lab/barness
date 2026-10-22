@@ -52,6 +52,7 @@ type Catalog struct {
 func BuiltinCatalog() Catalog {
 	minimax := builtinMiniMaxCatalog()
 	regional := builtinRegionalCatalog()
+	kimi := builtinKimiCatalog()
 	version := "2026-10-17.2"
 	if len(minimax.Models) > 0 {
 		version = minimax.Version
@@ -59,10 +60,13 @@ func BuiltinCatalog() Catalog {
 	if len(regional.Models) > 0 {
 		version = regional.Version
 	}
+	if len(kimi.Models) > 0 {
+		version = kimi.Version
+	}
 	return Catalog{
 		Version: version,
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
-			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models, regional.Models),
+			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models, regional.Models, kimi.Models),
 		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels()),
 		ClassifierModels: slices.Concat(builtinTypeSafeModels(), builtinDecisionsModels()),
 	}

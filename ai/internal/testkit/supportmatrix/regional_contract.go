@@ -9,6 +9,9 @@ type RegionalRoute struct {
 }
 
 func RegionalRouteOf(combo string) (RegionalRoute, bool) {
+	if r, ok := kimiRouteOf(combo); ok {
+		return r, true
+	}
 	r := RegionalRoute{Combo: combo}
 	switch combo {
 	case "zai-chat":
@@ -34,6 +37,9 @@ func RegionalModels(combo string) []string {
 	if !ok {
 		return nil
 	}
+	if RegionalIsKimi(combo) {
+		return []string{"kimi-k3"}
+	}
 	if r.Provider == "zai" {
 		return []string{"glm-5.3", "glm-5.2"}
 	}
@@ -45,7 +51,11 @@ func RegionalModels(combo string) []string {
 func RegionalExpected(combo string) []string {
 	var out []string
 	for _, model := range RegionalModels(combo) {
-		for _, kind := range strings.Fields("full-stream full-complete simple-stream simple-complete tool-call tool-result native-history cancel recovery") {
+		kinds := "full-stream full-complete simple-stream simple-complete tool-call tool-result native-history cancel recovery"
+		if RegionalIsKimi(combo) {
+			kinds = "full-stream full-complete simple-stream simple-complete native-history tool-call tool-result cancel recovery"
+		}
+		for _, kind := range strings.Fields(kinds) {
 			out = append(out, model+"/"+kind)
 		}
 	}
@@ -57,6 +67,9 @@ func RegionalExpected(combo string) []string {
 // calls may omit reasoning even when requested. Their fixed full-stream source
 // must contain actual native reasoning; the tool chain remains independent.
 func RegionalNativeSourceCase(combo, model string) string {
+	if RegionalIsKimi(combo) {
+		return RegionalCaseID(combo, model+"/full-stream")
+	}
 	kind := "tool-call"
 	if combo == "zai-chat" || combo == "zai-responses" || combo == "minimax-cn-responses" && model == "MiniMax-M3" {
 		kind = "full-stream"
@@ -74,4 +87,9 @@ func regionalNativeSources(combo string) map[string]string {
 
 // New namespace prevents an old brand/market authorization or remaining
 // budget from silently authorizing a new regional qualification process.
-func RegionalAuthorization(combo string) string { return "provider-sites/" + combo + "/standard/v1" }
+func RegionalAuthorization(combo string) string {
+	if RegionalIsKimi(combo) {
+		return "kimi/" + combo + "/standard/v1"
+	}
+	return "provider-sites/" + combo + "/standard/v1"
+}

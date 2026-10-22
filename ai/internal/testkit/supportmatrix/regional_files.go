@@ -169,7 +169,7 @@ func verifyRegionalBundle(dir string, r Report) error {
 		return refuse("regional execution source drift")
 	}
 	var origin RegionalReservation
-	if read("regional-authorization-receipt.json", &origin) != nil || origin.Schema != 2 || origin.Mode != r.Regional.Mode || origin.GrantID != r.Regional.GrantID || origin.GrantSHA256 != r.Regional.GrantSHA256 || origin.Combo != r.Combo || origin.Session != filepath.Base(dir) || origin.StartedAt.Before(r.StartedAt) || origin.StartedAt.After(r.FinishedAt) || origin.MaxCalls != 24 || origin.MaxAttempts != 24 {
+	if read("regional-authorization-receipt.json", &origin) != nil || origin.Schema != 2 || origin.Mode != r.Regional.Mode || origin.GrantID != r.Regional.GrantID || origin.GrantSHA256 != r.Regional.GrantSHA256 || origin.Combo != r.Combo || origin.Session != filepath.Base(dir) || origin.StartedAt.Before(r.StartedAt) || origin.StartedAt.After(r.FinishedAt) || origin.MaxCalls != r.Budget.MaxCalls || origin.MaxAttempts != r.Budget.MaxAttempts {
 		return refuse("regional original authorization receipt differs")
 	}
 	grantRaw, err := regionalRead(root, "regional-grant.json")
@@ -179,6 +179,9 @@ func verifyRegionalBundle(dir string, r Report) error {
 	var grant RegionalGrant
 	if json.Unmarshal(grantRaw, &grant) != nil || grant.Check(r.Combo, r.StartedAt) != nil || grant.Stage != r.Regional.Stage || grant.Mode != r.Regional.Mode || grant.ID != r.Regional.GrantID || grant.AccountAlias != r.AccountAlias || grant.RegionAlias != r.Regional.RegionAlias {
 		return refuse("regional own authorization target differs")
+	}
+	if RegionalIsKimi(r.Combo) && (grant.MaxUSD != r.Regional.MaxUSD || grant.BinarySHA256 != r.Regional.BinarySHA256 || origin.MaxUSD != grant.MaxUSD || origin.BinarySHA256 != grant.BinarySHA256) {
+		return refuse("Kimi original USD/binary grant differs")
 	}
 	if err := verifyRegionalReservation(grant, origin); err != nil {
 		return err

@@ -1,0 +1,221 @@
+{
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "-run",
+    "^Test(KimiQualification|Regional)",
+    "-count=1",
+    "-timeout=10m"
+  ],
+  "attempts": [
+    {
+      "attempt": "20261022T142531.892255Z-hw13jvpk",
+      "exitCode": 1,
+      "receiptSHA256": "4a4ed8c22ec98770c71b41dc7117d588b29483704d8d503cdce763be9572bea8",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T142621.105688Z-o6mqov7i",
+      "exitCode": 0,
+      "receiptSHA256": "4357accc6e0f0db345307726ba06d02e3da7ce08125f2c844ba38afd6b490b1c",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T142726.036821Z-3b3p_e89",
+      "exitCode": 1,
+      "receiptSHA256": "8f1aafe062938b121222687234882cda93fd28139ffba0fc282293942f252c19",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T142735.843399Z-wuh60ez2",
+      "exitCode": 1,
+      "receiptSHA256": "ee7b67c8a3344baa9bd4cb49698a5d427f889c8cf3fc4220a15260020ba7451c",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T142851.717443Z-yvbm84ws",
+      "exitCode": 0,
+      "receiptSHA256": "f05cdbcfefd9fbc79a499960449644bcccea014dd9d15a4bad2f4d7e6d584de3",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T143118.211722Z-r3lhyh8d",
+      "exitCode": 0,
+      "receiptSHA256": "435e9158e5500c3fb0881d026145669426eeb9e14b5eb88ea852d61d8612161f",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T143134.540336Z-08leakym",
+      "exitCode": 0,
+      "receiptSHA256": "c6b897590bc51255c065b9f56dedf85fb89d77e055c00f990209300c7bc3d883",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T143200.120280Z-tdrk6jh1",
+      "exitCode": 0,
+      "receiptSHA256": "3b5d8e9a61e547863500a6bceadec5aef2401b9fcec7a414409416ee74149992",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T143353.913410Z-15tm819b",
+      "exitCode": 1,
+      "receiptSHA256": "2454a6bc1a9c16dbb4b067d76ffe5925b027a6346c9dc654c21655bb826daec8",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T143411.646854Z-l1qlvask",
+      "exitCode": 1,
+      "receiptSHA256": "40d106a56179b59ee851dbe111122e2aaede8f0dd44c043a6778a96756136a2b",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T143547.487401Z-y3usss3q",
+      "exitCode": 0,
+      "receiptSHA256": "492b0f3c57985f238dd9f46fa406e06ff8324a93178fa4c1592662139d7a385c",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T143615.766098Z-icyzvfv9",
+      "exitCode": 1,
+      "receiptSHA256": "6294caec9ce466238472d836600dadc532987f543245ef55e55088942c979fd6",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T143805.428718Z-unlx3oev",
+      "exitCode": 0,
+      "receiptSHA256": "488d1d71ec500c30b77fc9755c7d36db2ddc75ce7213c2d4d7bb28529c114829",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T143909.499634Z-w7mezst6",
+      "exitCode": 0,
+      "receiptSHA256": "230eab6d0d46ce44006cfbdd0aba0e89cd509a3584212b376defd6d63622fac4",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T144010.560111Z-h0o57ohs",
+      "exitCode": 0,
+      "receiptSHA256": "4ed4ae15bd0ae0b6e13618b4c6a3679e4a6410ab03979a9027469544968a1b6d",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T144405.403128Z-pe3bttj5",
+      "exitCode": 1,
+      "receiptSHA256": "b39df08c9a60ca66e1cf5f7480a50cfb1e2fe52fb27f0937b3ef40180faa4cb5",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T144420.872799Z-vhov8_xc",
+      "exitCode": 1,
+      "receiptSHA256": "76d4fa4f8e29638b6feb56ffd619cd2e58fe784eaade8a89341a1bb0064f20c9",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T144444.989724Z-5m6b9cp0",
+      "exitCode": 0,
+      "receiptSHA256": "d7eff880832ddde76bde6f2d35344da3ed3eea78593c1e0920e5ef4e7a142805",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T144639.010755Z-y2socdtz",
+      "exitCode": 1,
+      "receiptSHA256": "5c994c5631b80604542fd67dc86637a0da8b7bd21c6a3bd87ecf06012f45e7de",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T144831.503573Z-hfarupya",
+      "exitCode": 1,
+      "receiptSHA256": "87384e11d8284810b59125e3ad209c236c02e1a1f1ffab9263da9e3f701a0f90",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T144937.616780Z-02r1aj74",
+      "exitCode": 0,
+      "receiptSHA256": "103009064b657eddb4b1a524284b5b27dd4771aab488acc76296b71d9202b85e",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T145147.382644Z-vawy2xmj",
+      "exitCode": 1,
+      "receiptSHA256": "0151bcf62ef1824cc31ceefa1a86a6ffcaad6f0ac681c37587cee904d876d059",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T145213.831285Z-gbzts6q5",
+      "exitCode": 0,
+      "receiptSHA256": "c1d9e40d98c07fde1a60ea4843e12ee0941785a514d16d23abd5a9e2fc7b0671",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T145252.902530Z-6rtduw7j",
+      "exitCode": 1,
+      "receiptSHA256": "2fd1a8ed9095fc4498e218d0cc9c563032300a2adb46bdf7a442ce289a8369bc",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T145331.187307Z-91llaz1y",
+      "exitCode": 0,
+      "receiptSHA256": "456fe871fea46db01dc4bf155dbcb2932a20fbb44853c3cce8044665692d2705",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T145756.723506Z-17vctebm",
+      "exitCode": 1,
+      "receiptSHA256": "973093be5b766c9747e2dccfff46472cf19b9d90f92901cd397366c81aae5b2b",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T145828.290551Z-6vbiwzxc",
+      "exitCode": 0,
+      "receiptSHA256": "9b0a87e672534d607a2ffae0142d523feacb3d20519075126382227ed8cd6643",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T145953.179092Z-0k__s64b",
+      "exitCode": 0,
+      "receiptSHA256": "cd8c98a628c7a8202658b696a281f9c2690b654fd1c875ffce38e4b7fcd91f36",
+      "status": "PASS"
+    },
+    {
+      "attempt": "20261022T150224.972917Z-6t6buhp5",
+      "exitCode": 1,
+      "receiptSHA256": "6c3939eac55fb94d8105647a1b153d34f9d7037be7490567c7b69b459c2557c3",
+      "status": "FAIL"
+    },
+    {
+      "attempt": "20261022T150801.224885Z-yxdrz029",
+      "exitCode": 0,
+      "receiptSHA256": "0a789365cc864810acbcc3fc166e6dc562fad3171c4d830d83d49fa27395efe8",
+      "status": "PASS"
+    }
+  ],
+  "bundles": [
+    {
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "manifestSHA256": "e6ff199a424e9a6fa6e84feb8e1b3d44d2732a29060e6861791ae830e19bdf55",
+      "package": "./ai/e2e",
+      "path": "bundles/20261022T150804.365654000Z"
+    }
+  ],
+  "byteEqualityVerified": true,
+  "completedLeafTests": 814,
+  "completedTests": 862,
+  "currentCommitBeforeDocs": "5410a8ad9478375f4377240fa45220290dedc212",
+  "exitCode": 0,
+  "feature": "barness-ai-kimi-qualification",
+  "kimiQualificationLeafTests": 74,
+  "receipt": ".evidence/barness-ai-kimi-qualification/e2e/20261022T150801.224885Z-yxdrz029/receipt.json",
+  "receiptSHA256": "0a789365cc864810acbcc3fc166e6dc562fad3171c4d830d83d49fa27395efe8",
+  "retainedAt": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-qualification",
+  "retainedFiles": 161233,
+  "retentionInventory": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-qualification/retention-inventory-20261022T1509.json",
+  "retentionInventorySHA256": "4c42ed6a4072d0247be5884f28a1803d48bbc649738c996b4c3c6474772eee0e",
+  "schema": 1,
+  "selectedInputs": {},
+  "sourceFileCount": 1338,
+  "sourceSetAndHashesEqual": true,
+  "status": "PASS",
+  "testedCommit": "5410a8ad9478375f4377240fa45220290dedc212"
+}

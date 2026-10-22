@@ -14,7 +14,6 @@ import (
 
 	"github.com/openai/openai-go/v3/packages/ssestream"
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
 )
 
 // Response evidence is interpreted by the public Client's real SDK/codec.
@@ -48,7 +47,7 @@ func (h regionalReplay) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regionalExchange, saved ai.AssistantMessage, attempt ai.Attempt) (ai.Usage, error) {
-	cat, err := regional.CandidateCatalog()
+	cat, err := RegionalCandidateCatalog(r.Combo)
 	if r.Regional.Stage == "formal" {
 		cat, err = RegionalFormalCatalog(r.Combo)
 	}
@@ -116,7 +115,7 @@ func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regiona
 			}
 			return ai.Usage{}, fmt.Errorf("%w: regional raw response %s unsuccessful: stop=%s attempts=%d code=%s phase=%s", ErrInvalidReport, s.ID, got.Message.StopReason, len(got.Metadata.Attempts), code, phase)
 		}
-		if !regionalSameMessage(got.Message, saved) || got.Metadata.Attempts[0].UsageReporting != attempt.UsageReporting {
+		if !regionalSameMessage(got.Message, saved) || got.Metadata.Attempts[0].UsageReporting != attempt.UsageReporting || RegionalIsKimi(r.Combo) && !reflect.DeepEqual(got.Metadata.Attempts[0].CostEstimate, attempt.CostEstimate) {
 			return ai.Usage{}, refuse("regional raw response contradicts Result usage, content or terminal")
 		}
 		return got.Message.Usage, nil
@@ -137,7 +136,7 @@ func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regiona
 		}
 		prefix.WriteString("event: " + event.Type + "\ndata: " + string(event.Data) + "\n\n")
 		got, _ := replay(prefix.String())
-		if len(got.Metadata.Attempts) == 1 && got.Metadata.Attempts[0].UsageReporting == attempt.UsageReporting && reflect.DeepEqual(got.Message.Usage, saved.Usage) && regionalMessagePrefix(saved, got.Message) {
+		if len(got.Metadata.Attempts) == 1 && got.Metadata.Attempts[0].UsageReporting == attempt.UsageReporting && (!RegionalIsKimi(r.Combo) || reflect.DeepEqual(got.Metadata.Attempts[0].CostEstimate, attempt.CostEstimate)) && reflect.DeepEqual(got.Message.Usage, saved.Usage) && regionalMessagePrefix(saved, got.Message) {
 			return got.Message.Usage, nil
 		}
 	}

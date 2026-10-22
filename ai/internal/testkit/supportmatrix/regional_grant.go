@@ -5,8 +5,6 @@ import (
 	"regexp"
 	"slices"
 	"time"
-
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/regional"
 )
 
 // RegionalGrant is a new, explicit one-process authorization. The harness
@@ -34,13 +32,15 @@ type RegionalGrant struct {
 	MaxAttempts              int       `json:"maxAttempts"`
 	MaxRequestedOutputTokens int       `json:"maxRequestedOutputTokens"`
 	MaxReservedInputTokens   int       `json:"maxReservedInputTokens"`
+	MaxUSD                   float64   `json:"maxUSD,omitempty"`
+	BinarySHA256             string    `json:"binarySha256,omitempty"`
 }
 
 func (g RegionalGrant) Check(combo string, at time.Time) error {
 	want, err := RegionalGrantSnapshot(combo, g.Stage)
 	r, ok := RegionalRouteOf(combo)
 	alias := regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
-	if !slices.Contains([]string{"live", "controlled"}, g.Mode) || err != nil || g.Endpoint != want.Endpoint || g.SourceSHA256 != want.SourceSHA256 || g.CatalogVersion != want.CatalogVersion || g.CatalogHash != want.CatalogHash || g.SDK != want.SDK || !ok || g.Schema != 1 || !alias.MatchString(g.ID) || g.Contract != RegionalAuthorization(combo) || g.Combo != combo || g.Provider != r.Provider || g.Purpose != "standard" || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !slices.Equal(g.Models, RegionalModels(combo)) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || g.MaxCalls != 24 || g.MaxAttempts != 24 || g.MaxRequestedOutputTokens != 98304 || g.MaxReservedInputTokens != 120000 {
+	if !slices.Contains([]string{"live", "controlled"}, g.Mode) || err != nil || g.Endpoint != want.Endpoint || g.SourceSHA256 != want.SourceSHA256 || g.CatalogVersion != want.CatalogVersion || g.CatalogHash != want.CatalogHash || g.SDK != want.SDK || !ok || g.Schema != 1 || !alias.MatchString(g.ID) || g.Contract != RegionalAuthorization(combo) || g.Combo != combo || g.Provider != r.Provider || g.Purpose != "standard" || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !slices.Equal(g.Models, RegionalModels(combo)) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || g.MaxCalls != want.MaxCalls || g.MaxAttempts != want.MaxAttempts || g.MaxRequestedOutputTokens != want.MaxRequestedOutputTokens || g.MaxReservedInputTokens != want.MaxReservedInputTokens || RegionalIsKimi(combo) && (!regionalValidUSD(g.MaxUSD) || len(g.BinarySHA256) != 64) {
 		return fmt.Errorf("regional explicit own identity, account, purpose, expiry or budget authorization invalid")
 	}
 	return nil
@@ -53,7 +53,7 @@ func RegionalGrantSnapshot(combo, stage string) (RegionalGrant, error) {
 	if !ok || stage != "candidate" && stage != "formal" {
 		return RegionalGrant{}, fmt.Errorf("unknown regional grant target or stage")
 	}
-	cat, err := regional.CandidateCatalog()
+	cat, err := RegionalCandidateCatalog(combo)
 	if stage == "formal" {
 		cat, err = RegionalFormalCatalog(combo)
 	}
@@ -72,5 +72,6 @@ func RegionalGrantSnapshot(combo, stage string) (RegionalGrant, error) {
 	if err != nil {
 		return RegionalGrant{}, err
 	}
-	return RegionalGrant{Schema: 1, Mode: "live", Stage: stage, Endpoint: r.Endpoint, SourceSHA256: RegionalSourceHash(source), CatalogVersion: cat.Version, CatalogHash: hash, SDK: sdk, Contract: RegionalAuthorization(combo), Combo: combo, Provider: r.Provider, Purpose: "standard", Models: RegionalModels(combo), MaxCalls: 24, MaxAttempts: 24, MaxRequestedOutputTokens: 98304, MaxReservedInputTokens: 120000}, nil
+	limits := RegionalBudgetFor(combo)
+	return RegionalGrant{Schema: 1, Mode: "live", Stage: stage, Endpoint: r.Endpoint, SourceSHA256: RegionalSourceHash(source), CatalogVersion: cat.Version, CatalogHash: hash, SDK: sdk, Contract: RegionalAuthorization(combo), Combo: combo, Provider: r.Provider, Purpose: "standard", Models: RegionalModels(combo), MaxCalls: limits.MaxCalls, MaxAttempts: limits.MaxAttempts, MaxRequestedOutputTokens: limits.MaxRequestedOutputTokens, MaxReservedInputTokens: limits.MaxReservedInputTokens}, nil
 }
