@@ -19,3 +19,9 @@
 最新常规 scope 覆盖 Host 授权/元数据72拒绝、官方目标、gateway、shared request-ID、共享成本边界、既有四 Provider Host 回归和 Chat/Messages usage；另一个最新 scope 覆盖2市场×2已合并协议×4入口，16个实际子用例。无厂商网络请求。
 
 Responses wrapper 已有独立红例 `20261022T142225.769705Z-czh_x1bs`，只缺票03协议成本接线；保留票05 claimed，等集成六路线 wrapper 转绿后完成。live/race/压力均 NOT_RUN，未授予正式支持，`release.pass=false`。恢复方法是停用 Kimi Binding、从加载目录移除 Kimi 身份，再恢复之前软件；不改写历史或其他 Provider。
+
+## Concurrent multi-tenant/dual-market acceptance
+
+追加公共 Client E2E `TestKimiHostConcurrentMarketsAndTenants`：一个 Client 同时持有两租户×两市场×Chat/Messages 八条调用；同账户标签/同 Session 下四份独立凭据，header 和 socket channel 屏障证明八个许可同时持有。逐调用校对归属/封套、实际 key alias/路径、四个无原始标识的不同派生 cache key、独立输入/Result/CostEstimate/Observer 快照、字面 worked USD 范围与资源归零。未发现需要修改产品代码的问题；未运行 race/压力/厂商请求。
+
+最终本片来源为提交 `e0ac913` 加此验收文件；冻结文件字节见 receipt.source.files。普通命令 `go test -json ./ai/e2e -run '^TestKimiHostConcurrentMarketsAndTenants$' -count=1`，exit0，PASS；原件 `.evidence/barness-ai-kimi-host/e2e/20261022T144043.784126Z-41wvzk80/receipt.json`，SHA-256 `43d3f323ef3a8a7eee478f6aa5f8bea5cee9c44c45086921d3c91bcc02eaabbd`。编译修正前的两个失败 attempt 和初版通过同样原样保留。票05仍等待票03合并后的六路线完整 scope。
