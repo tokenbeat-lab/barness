@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "sourceCommit": "33640dd7af3221ea70c1762e8d0a1ce8262658b4",
+  "status": "FAIL",
+  "kind": "format-only",
+  "file": "ai/e2e/kimi_chat_runtime_test.go",
+  "fileSHA256": "7478205ca0b71c77586f9d8290b4e9709b66ecf1cf2fc19b16e72531fdeecd13",
+  "argv": [
+    "gofmt",
+    "-d",
+    "ai/e2e/kimi_chat_runtime_test.go"
+  ],
+  "nativeExitCode": 1,
+  "diff": "diff ai/e2e/kimi_chat_runtime_test.go.orig ai/e2e/kimi_chat_runtime_test.go\n--- ai/e2e/kimi_chat_runtime_test.go.orig\n+++ ai/e2e/kimi_chat_runtime_test.go\n@@ -5,8 +5,8 @@\n \t\"encoding/json\"\n \t\"errors\"\n \t\"github.com/tokenbeat-lab/barness/ai\"\n-\t\"github.com/tokenbeat-lab/barness/ai/internal/testkit/host\"\n \t\"github.com/tokenbeat-lab/barness/ai/internal/probe\"\n+\t\"github.com/tokenbeat-lab/barness/ai/internal/testkit/host\"\n \t\"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider\"\n \t\"strings\"\n \t\"testing\"\n",
+  "reason": "Imports were not in gofmt order. Frozen ordinary remains untouched until it completes; formatting changes will obtain a new final ordinary receipt."
+}
