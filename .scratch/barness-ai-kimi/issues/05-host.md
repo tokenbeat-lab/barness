@@ -1,7 +1,7 @@
 # 05 — Host 装配与价格来源
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 01
 
 ## Context
@@ -29,3 +29,5 @@ R02、R10、R12；K02、K11、K15。拥有 kimihost 示例、六路线官方目�
 ## Answer
 
 Host 与共享边界实现已完成，普通本地 scope 和 Chat/Messages 四入口已绿；Responses 四入口成本接线等待票03合并，故暂不关闭本票。实际 argv、数字退出、受测来源与原生 bundle/audit 指针见[票05回执](../evidence/ticket-05.md)。live/race/压力未执行，release.pass=false。
+
+2026-10-22 最终普通验收：已合并三协议，完整六路线 Host 四入口、十二并发隔离、精确 hook 数值与共享成本均完成。冻结受测提交 `e8d42f90fc78e7ec6d1402cc2d8a73c467277696`；通过范围与 argv/exit/原件 SHA 见[票05完整收尾回执](../evidence/ticket-05.md#final-six-route-ordinary-closure)。普通实施验收完成，live/race/压力 NOT_RUN，不产生正式支持或 release.pass。
