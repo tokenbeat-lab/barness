@@ -272,6 +272,8 @@ var observationFields = map[string]bool{
 	"noEnvelope": true, "accountMismatch": true, "crossModel": true,
 	"attemptId": true, "httpStatus": true, "providerRequestId": true, "code": true, "phase": true, "retryAfter": true,
 	"retryDelay": true, "usageReporting": true,
+	// Reviewed value-only CostEstimate: fixed enum and USD number components.
+	"costEstimate": true, "status": true, "minimum": true, "maximum": true,
 	"input": true, "output": true, "cacheRead": true, "cacheWrite": true, "cacheWrite1h": true, "reasoning": true,
 	"totalTokens": true, "cost": true, "total": true,
 	// Optional image token counts are metadata, never image content.

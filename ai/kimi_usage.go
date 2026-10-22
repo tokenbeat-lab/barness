@@ -57,7 +57,7 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 	u.TotalTokens = sum
 	billable := r.input.present && r.output.present && r.read.present && r.write.present
 	if r.total.present {
-		if billable && r.total.n != sum {
+		if r.total.n < sum || (billable && r.total.n != sum) {
 			return Usage{}, UsageUnreported, unreported, kimiUsageFailure()
 		}
 		u.TotalTokens = r.total.n
@@ -91,13 +91,22 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 	}
 	u.Cost = model.Cost.estimate(u)
 	estimate := CostEstimate{Status: CostPartial}
+	if !r.input.present && !r.output.present && !r.read.present && !r.write.present {
+		estimate.Status = CostUnreported
+	}
 	if billable {
 		unknown := r.write.n - ttlSum
-		lower := u.Cost
-		upperUsage := u
-		// A bound is a pricing calculation, not an observed one-hour counter.
-		upperUsage.CacheWrite1h = Value(r.long.n + unknown)
-		upper := model.Cost.estimate(upperUsage)
+		lowerUsage, upperUsage := u, u
+		// Bounds are pricing scenarios; they must not fabricate observed
+		// one-hour counts. Trusted Host rates can reverse the usual ordering.
+		rates := model.Cost.ratesForUsage(u)
+		if rates.CacheWrite <= rates.Input*2 {
+			upperUsage.CacheWrite1h = Value(r.long.n + unknown)
+		} else {
+			lowerUsage.CacheWrite1h = Value(r.long.n + unknown)
+		}
+		lower, upper := model.Cost.estimate(lowerUsage), model.Cost.estimate(upperUsage)
+		u.Cost = lower
 		estimate = CostEstimate{Status: CostResolved, Minimum: Value(lower), Maximum: Value(upper)}
 		if unknown > 0 {
 			estimate.Status = CostBounded
