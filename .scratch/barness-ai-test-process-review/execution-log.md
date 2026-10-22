@@ -33,3 +33,9 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 外层输入枚举方式：`git ls-files .scratch`，排除本功能 `.scratch/barness-ai-test-process-review/`；为每个文件构造独立 `--input <path>` 参数，再通过同一 run.py main（Python runpy避免操作系统argv长度限制）执行回执所记原生Go argv。原件中的 selectedInputs 保存全部精确路径及哈希；不扫描或变更真实 `.evidence`。最终静态检查 `frozen-static-20261022T021650Z` 两种vet和live-tag只编译均exit0。
 
 收尾只读判定 `record-check-20261022T022247Z-w_a2gs3l` 实际退出1；source/live适用性通过，E2E因attempt根目录的`.DS_Store`在回执封存后被macOS更新而拒绝，race/压力未执行。原receipt和拒绝报告均保留，不改旧哈希。`desktop-metadata-red-20261022T022346Z`先证明该问题；随后明确区分执行来源/命令文件与桌面缓存，Go/Python来源枚举一致排除桌面缓存，回执只登记自身生成的四份命令/日志文件。再次冻结与普通验收后才提交规范。
+
+最终冻结普通回执：`.evidence/barness-ai-test-process-review/e2e/20261022T022434.220792Z-qopwtw85/receipt.json` PASS/exit0，受测提交 `ad2ca22aad39cfc041319204687b9bd5ba6acf0b`，实际通过12811测试节点，原生12086 PASS / 214 NOT_RUN，audit零发现，墙钟370.57秒。完整来源1240文件及8636份外层历史输入前后哈希相等。普通通过的有限case集合与上一轮整包通过集合完全相同；没有以删除/跳过原普通用例缩小范围。
+
+外层输入枚举方式：`git ls-files .scratch`，排除本功能 `.scratch/barness-ai-test-process-review/`；为每个文件构造独立 `--input <path>` 参数，再通过同一 run.py main（Python runpy避免操作系统argv长度限制）执行回执所记原生Go argv。原件中的 selectedInputs 保存全部精确路径及哈希；不扫描或变更真实 `.evidence`。最终静态检查 `metadata-static-20261022T022458Z` 两种vet和live-tag只编译均exit0。
+
+桌面元数据修复 `ad2ca22aad39cfc041319204687b9bd5ba6acf0b` 冻结后，`desktop-metadata-green-20261022T022359Z` 27组进程场景通过；最终普通原件 `20261022T022434.220792Z-qopwtw85` PASS/exit0，370.57秒，12811个通过节点，原生12086 PASS/214 NOT_RUN、audit0；四份受控命令文件不登记桌面缓存。`metadata-static-20261022T022458Z` 双vet和live-tag仅编译均exit0。旧桌面缓存哈希失效的回执和拒绝报告原样保留。
