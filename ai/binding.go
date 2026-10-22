@@ -59,6 +59,10 @@ const (
 	// ProviderMiniMaxCN is MiniMax's China service, independently authorized
 	// and evidenced from the international service.
 	ProviderMiniMaxCN ProviderID = "minimax-cn"
+	// ProviderMoonshot is Kimi international, independently authorized from China.
+	ProviderMoonshot ProviderID = "moonshot"
+	// ProviderMoonshotCN is Kimi China, with its own credentials and prices.
+	ProviderMoonshotCN ProviderID = "moonshot-cn"
 )
 
 // API identifies a wire protocol. Values match the frozen pi-ai API names.
