@@ -1,0 +1,5 @@
+# Interrupted ordinary attempt
+
+Actual frozen source `0c2a03dfc177699cf0163fa4b7b76e61e17fea71`; attempt `.evidence/barness-ai-kimi/e2e/20261022T224952.556573Z-d01b4hhe`. Root wrote closeout notes and moved the untracked debug duplicate during execution. Historical public rollback tests correctly rejected these changed caller files: `TestGLMFullRollback` and `TestMiniMaxFullRollback`. Their errors are retained in actual stdout JSON, not reclassified as PASS.
+
+The orchestrator sent SIGTERM to the exact collector PID35093 after observing both failures. Collector final status CANCELLED, native process exit-9, outer exit1. Freeze03 before/after complete execution source and129 selected inputs remained equal; the stricter historical caller-worktree snapshots also protect out-of-scope Markdown and untracked paths. This was orchestration interference, not a product assertion change. No test, runtime, input or consumer was weakened. The same frozen source and finite selection will rerun in a new attempt while all non-evidence workspace bytes remain stationary; failed/interrupted originals remain retained.
