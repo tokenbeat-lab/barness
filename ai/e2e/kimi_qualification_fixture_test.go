@@ -71,7 +71,11 @@ func kimiQualificationReply(t *testing.T, api, kind string) provider.Reply {
 		if kind != "cancel" {
 			frames = append(frames, json.RawMessage(`{"id":"kimi-q-chat","model":"kimi-k3","choices":[{"index":0,"delta":{},"finish_reason":"`+stop+`"}]}`), json.RawMessage(`{"choices":[],"usage":{"prompt_tokens":200,"completion_tokens":50,"total_tokens":250,"prompt_tokens_details":{"cached_tokens":20,"cache_write_tokens":80},"completion_tokens_details":{"reasoning_tokens":10}}}`))
 		}
-		return chatEvents(t, frames, "")
+		reply := chatEvents(t, frames, "")
+		if kind == "cancel" {
+			reply.End = provider.EndHold
+		}
+		return reply
 	case "openai-responses":
 		output := `[{"type":"message","id":"kimi-q-message","role":"assistant","status":"completed","content":[{"type":"output_text","text":"REGIONAL42 Kimi ready.","annotations":[]}]}]`
 		if native {

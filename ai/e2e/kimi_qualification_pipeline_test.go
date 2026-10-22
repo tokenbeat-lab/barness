@@ -15,6 +15,7 @@ import (
 func TestKimiQualificationPipeline(t *testing.T) {
 	binary, digest := kimiQualificationBinary(t)
 	consumer := kimiQualificationConsumer(t)
+	var nativeDirs []string
 	for _, combo := range kimiQualificationRoutes {
 		t.Run(combo, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-"+combo+"-K16-controlled-pipeline")
@@ -51,6 +52,7 @@ func TestKimiQualificationPipeline(t *testing.T) {
 				return
 			}
 			dir := filepath.Dir(paths[0])
+			nativeDirs = append(nativeDirs, dir)
 			verify := exec.CommandContext(ctxFor(t), consumer, "-controlled", dir)
 			verify.Dir, verify.Env = "../..", regionalChildEnvironment()
 			vraw, verr := verify.CombinedOutput()
@@ -77,7 +79,11 @@ func TestKimiQualificationPipeline(t *testing.T) {
 			relabeled.Dir, relabeled.Env = cmd.Dir, cmd.Env
 			rr, rer := relabeled.CombinedOutput()
 			ev.Check("same scope cannot regain authority by changing ID", rer != nil && len(srv.Requests()) == 9, "%s", regionalSafeOutput(rr))
-			ev.Record("native-pointer", map[string]string{"manifest": paths[0], "sha256": evidence.Digest(data)})
+			manifest, _ := os.ReadFile(paths[0])
+			ev.Record("native-pointer", map[string]string{"manifest": paths[0], "sha256": evidence.Digest(manifest)})
 		})
+	}
+	if len(nativeDirs) == 6 {
+		kimiQualificationPromotion(t, nativeDirs)
 	}
 }

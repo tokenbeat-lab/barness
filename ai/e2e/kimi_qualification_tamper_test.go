@@ -15,7 +15,7 @@ import (
 // stay intact; resealing makes these semantic checks independent of hashing.
 func kimiQualificationTamper(t *testing.T, original, combo, consumer string) {
 	t.Helper()
-	for _, mode := range []string{"cost-state", "attempt-finished-cost", "native-source", "usd-reserve", "grant-binary", "raw-write-missing", "tool-pair"} {
+	for _, mode := range []string{"cost-state", "attempt-finished-cost", "native-source", "native-request-tail", "usd-reserve", "grant-binary", "raw-write-missing", "tool-pair"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-"+combo+"-K16-refuse-"+mode)
 			dir := filepath.Join(t.TempDir(), filepath.Base(original))
@@ -25,6 +25,9 @@ func kimiQualificationTamper(t *testing.T, original, combo, consumer string) {
 			caseID := supportmatrix.RegionalCaseID(combo, "kimi-k3/full-stream")
 			var paths []string
 			switch mode {
+			case "native-request-tail":
+				caseID = supportmatrix.RegionalCaseID(combo, "kimi-k3/native-history")
+				paths = []string{caseID + "/request.json"}
 			case "attempt-finished-cost":
 				paths = []string{caseID + "/observations.json"}
 			case "cost-state":
@@ -47,6 +50,10 @@ func kimiQualificationTamper(t *testing.T, original, combo, consumer string) {
 				var value any
 				mustUnmarshal(t, raw, &value)
 				switch mode {
+				case "native-request-tail":
+					r := value.(map[string]any)
+					messages := r["Messages"].([]any)
+					r["Messages"] = append(messages, messages[len(messages)-1])
 				case "attempt-finished-cost":
 					v := value.([]any)[2].(map[string]any)["attempt"]
 					kimiMutateCost(v)
@@ -96,6 +103,9 @@ func kimiMutateCost(v any) {
 			kimiMutateCost(x)
 		}
 	case map[string]any:
+		if v["kind"] == "attempt_started" {
+			return
+		}
 		for key, x := range v {
 			if key == "costEstimate" {
 				v[key] = map[string]any{"status": "resolved", "minimum": map[string]any{"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}, "maximum": map[string]any{"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "total": 0}}

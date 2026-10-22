@@ -47,6 +47,14 @@ func main() {
 		template.AccountAlias = "<actual own account alias required>"
 		template.RegionAlias = "<actual own region alias required>"
 		value = template
+		if supportmatrix.RegionalIsKimi(*grant) {
+			raw, _ := json.Marshal(template)
+			var fields map[string]any
+			_ = json.Unmarshal(raw, &fields)
+			fields["maxUSD"] = 0
+			fields["binarySha256"] = "<approved frozen executable SHA-256 required>"
+			value = fields
+		}
 	case *controlled != "":
 		value, err = supportmatrix.VerifyRegionalControlledCapture(*controlled)
 	case *qualification != "":

@@ -111,6 +111,9 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 	if read("observations.json", &observations) != nil || len(observations) != 4 || observations[0].Kind != ai.ObservationCallStarted || observations[0].Call.Resolved || observations[3].Kind != ai.ObservationCallFinished || !reflect.DeepEqual(observations[3].Call, m) || !reflect.DeepEqual(observations[3].Usage, result.Message.Usage) {
 		return refuse("regional observed lifecycle differs")
 	}
+	if RegionalIsKimi(r.Combo) && (observations[1].Kind != ai.ObservationAttemptStarted || observations[1].Attempt == nil || observations[1].Attempt.CostEstimate.Status != ai.CostUnreported || observations[2].Kind != ai.ObservationAttemptFinished || observations[2].Attempt == nil || !reflect.DeepEqual(*observations[2].Attempt, a)) {
+		return refuse("Kimi observed attempt/cost lifecycle differs")
+	}
 	var events []struct{ Type string }
 	if read("events.json", &events) != nil {
 		return refuse("regional event capture missing")
@@ -193,6 +196,11 @@ func verifyRegionalNative(root *os.Root, r Report, s ScenarioResult, wire string
 	var body map[string]any
 	if json.Unmarshal([]byte(wire), &body) != nil {
 		return refuse("regional native request invalid")
+	}
+	if RegionalIsKimi(r.Combo) {
+		if err := verifyKimiRegionalNative(root, r, s, source, firstMessage, body); err != nil {
+			return err
+		}
 	}
 	var native []map[string]any
 	if r.API == "openai-responses" {

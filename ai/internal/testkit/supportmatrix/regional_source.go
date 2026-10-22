@@ -38,7 +38,8 @@ func RegionalExecutionSource() (map[string]string, error) {
 		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/supportmatrix/"} {
 			capture = capture || strings.HasPrefix(name, prefix) && !strings.HasSuffix(name, "_test.go")
 		}
-		if !runtime && !capture {
+		capture=capture || name=="ai/catalog_kimi.json"
+ if !runtime && !capture {
 			return nil
 		}
 		raw, err := glmRead(path)
