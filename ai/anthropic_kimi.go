@@ -81,7 +81,8 @@ func validateKimiMessagesBody(m Model, raw []byte, header http.Header, beta stri
 	}
 	if value, present := body["tool_choice"]; present {
 		choice, ok := value.(map[string]any)
-		if !ok || len(choice) != 1 || !slices.Contains([]any{"auto", "any", "none"}, choice["type"]) {
+		tools, _ := body["tools"].([]any)
+		if !ok || len(choice) != 1 || !slices.Contains([]any{"auto", "any", "none"}, choice["type"]) || choice["type"] == "any" && len(tools) == 0 {
 			return invalid()
 		}
 	}
@@ -140,4 +141,18 @@ func kimiMessagesTools(value any) bool {
 		// their property names as protocol fields or vendor-side references.
 	}
 	return true
+}
+
+// The final payload is authoritative: a hook may replace the original choice.
+func kimiMessagesRequiresTool(m Model, raw []byte) bool {
+	if !isKimi(m.Provider) {
+		return false
+	}
+	var body struct {
+		Choice struct {
+			Type string `json:"type"`
+		} `json:"tool_choice"`
+	}
+	_ = json.Unmarshal(raw, &body)
+	return body.Choice.Type == "any"
 }

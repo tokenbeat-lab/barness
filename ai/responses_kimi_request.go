@@ -70,6 +70,9 @@ func validateKimiResponsesControls(m Model, b map[string]any) string {
 	if b["stream"] != true {
 		return "Kimi Responses requires stream:true"
 	}
+	if _, present := b["max_output_tokens"]; !present && m.MaxTokens < 131072 {
+		return "max_output_tokens must retain the narrowed model output limit"
+	}
 	if v, present := b["max_output_tokens"]; present {
 		n, ok := v.(json.Number)
 		if !ok || !outputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, 131072)) {

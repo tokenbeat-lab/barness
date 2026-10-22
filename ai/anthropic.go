@@ -227,7 +227,7 @@ func (anthropicAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	p := &anthropicParser{out: out, failures: failures, model: ac.model, attempt: ac.initial,
-		open: map[int64][]anthropicSlot{}, usage: anthropicUsage{model: ac.model}}
+		open: map[int64][]anthropicSlot{}, usage: anthropicUsage{model: ac.model}, kimiRequired: kimiMessagesRequiresTool(ac.model, body)}
 	failure = p.read(ctx, newSSEDecoder(res.Body, ac.limits.frame))
 	if failure != nil {
 		failure.ProviderRequestID = requestID

@@ -99,6 +99,9 @@ func validateKimiChatCapabilities(m Model, b map[string]any) string {
 	if !ok || len(cache) != 2 || cache["mode"] != "implicit" || (cache["ttl"] != "5m" && cache["ttl"] != "1h") || (cache["ttl"] == "1h" && !m.supportsLongCacheRetention()) {
 		return "Kimi Chat requires an integrated implicit cache TTL"
 	}
+	if _, present := b["max_completion_tokens"]; !present && m.MaxTokens < 131072 {
+		return "max_completion_tokens must retain the narrowed model output limit"
+	}
 	if raw, present := b["max_completion_tokens"]; present {
 		n, ok := raw.(json.Number)
 		if !ok || !outputBudgetNumber(json.RawMessage(n), min(m.MaxTokens, 131072)) {

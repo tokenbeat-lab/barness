@@ -65,6 +65,9 @@ func (p *responsesParser) validateKimiResponsesEvent(raw []byte) *Error {
 				return bad()
 			}
 			if typ == "response.output_item.done" {
+				if !p.kimi.completedTextAgrees(key, ev["item"]) {
+					return bad()
+				}
 				if slot.kind == "function_call" && p.kimi.partDone(key, ev) {
 					item, _ := kimiResponsesObject(ev["item"])
 					args, _ := kimiResponsesString(item["arguments"])
@@ -122,6 +125,10 @@ func (p *responsesParser) validateKimiResponsesEvent(raw []byte) *Error {
 					return bad()
 				}
 				if strings.HasSuffix(typ, ".done") {
+					text, _ := kimiResponsesString(part["text"])
+					if !p.kimi.recordCompletedText(key, ev, text) {
+						return bad()
+					}
 					p.kimi.markPartDone(key, ev)
 				}
 			}
@@ -159,6 +166,9 @@ func (p *responsesParser) validateKimiResponsesEvent(raw []byte) *Error {
 			}
 			for i, item := range output {
 				key := responsesIndex{kind: "number", value: int64(i)}
+				if !p.kimi.completedTextAgrees(key, item) {
+					return bad()
+				}
 				if _, ok := p.kimi.recordItem(key, item); !ok {
 					return bad()
 				}

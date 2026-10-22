@@ -10,17 +10,16 @@ import (
 )
 
 // GLM and Kimi expose opaque source IDs. Allocate replacements only when
-// the target normalization would collapse distinct provenance owners. The
-// historical function name remains local to the shared transcript boundary.
+// the target normalization would collapse distinct provenance owners.
 // Inspect the complete transcript before renaming so calls from separate
 // assistant turns share one collision domain with their matching results.
-func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules) historyRules {
+func opaqueHistoryToolIDRules(target Model, messages []Message, rules historyRules) historyRules {
 	if rules.normalizeToolCallID == nil || (target.API == APIOpenAIResponses && responsesCapabilitiesOf(target.Provider).implementation == responsesGLM) {
 		return rules
 	}
 	if !slices.ContainsFunc(messages, func(message Message) bool {
 		a, ok := message.(AssistantMessage)
-		return ok && glmHistoryIDSource(a)
+		return ok && opaqueHistoryIDSource(a)
 	}) {
 		return rules
 	}
@@ -74,11 +73,11 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 			normalized := normalize(call.ID, assistant)
 			// Reserve both spellings: native same-model legacy histories do
 			// not normalize, while cross-model histories do. Neither may be
-			// overwritten by a replacement assigned to a GLM source call.
+			// overwritten by a replacement assigned to an opaque source call.
 			owner := opaqueHistoryOwner(call.ID, assistant, turn)
 			reserve(call.ID, owner)
 			reserve(normalized, owner)
-			if glmHistoryIDSource(assistant) {
+			if opaqueHistoryIDSource(assistant) {
 				candidates = append(candidates, candidate{call.ID, normalized, owner, assistant})
 			}
 		}
@@ -93,6 +92,8 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 			continue
 		}
 		sum := sha256.Sum256([]byte(c.id))
+		// Retain the established generated wire spelling for persisted histories;
+		// this prefix carries no Provider attribution or replay authority.
 		id := normalize("glm_"+hex.EncodeToString(sum[:16]), c.source)
 		if _, occupied := owners[wireID(id)]; occupied {
 			// A caller can deliberately preoccupy the hash spelling. There
@@ -120,7 +121,7 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 		activeTurn++
 	}
 	rules.normalizeToolCallID = func(id string, source AssistantMessage) string {
-		if glmHistoryIDSource(source) {
+		if opaqueHistoryIDSource(source) {
 			if replacement, ok := replacements[opaqueHistoryOwner(id, source, activeTurn)]; ok {
 				return replacement
 			}
@@ -132,7 +133,7 @@ func glmHistoryToolIDRules(target Model, messages []Message, rules historyRules)
 
 // Each source grammar belongs to its protocol. Codec equality only identifies
 // opaque ID syntax; replayOrigin still compares the exact real Provider.
-func glmHistoryIDSource(source AssistantMessage) bool {
+func opaqueHistoryIDSource(source AssistantMessage) bool {
 	if isKimi(source.Provider) {
 		return source.API == APIOpenAICompletions || source.API == APIOpenAIResponses || source.API == APIAnthropicMessages
 	}

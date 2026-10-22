@@ -26,6 +26,9 @@ func TestKimiMessagesToolsAndNative(t *testing.T) {
 					req := miniMaxToolRequest()
 					invoke := func() outcome {
 						opts := ai.AnthropicOptions{ToolChoice: ai.Value(ai.AnthropicToolChoice{Mode: "any"})}
+						if len(req.Messages) > 1 {
+							opts.ToolChoice = ai.Value(ai.AnthropicToolChoice{Mode: "auto"})
+						}
 						var o outcome
 						switch entry {
 						case "stream":

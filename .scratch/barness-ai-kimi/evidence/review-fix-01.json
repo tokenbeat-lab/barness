@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "0300710ad027a7f86fb8a55d4c81367c9da39620",
+  "currentCommit": "0300710ad027a7f86fb8a55d4c81367c9da39620",
+  "sourceFiles": 1346,
+  "sourceFilesEqual": true,
+  "selectedInputs": {},
+  "finalAttempt": ".evidence/barness-ai-kimi-review-fixes/e2e/20261022T220449.485533Z-asv4ohyx",
+  "authoritativePrimaryFinalAttempt": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-review-fixes-final/e2e/20261022T220449.485533Z-asv4ohyx",
+  "finalStatus": "PASS",
+  "exitCode": 0,
+  "testRecords": {
+    "github.com/tokenbeat-lab/barness/ai/e2e": {
+      "pass": 5325,
+      "skip": 178
+    },
+    "github.com/tokenbeat-lab/barness/ai": {
+      "pass": 26
+    },
+    "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix": {
+      "pass": 79
+    }
+  },
+  "retainedFiles": 38279,
+  "allRetainedBytesEqual": true,
+  "retentionProof": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-review-fixes/retention-20261022T-final.json",
+  "retentionProofSHA256": "15a6e58663cb8148d741586e8ab8fd3ecf8adeefbd9bd7e5ec7c862f094a9981",
+  "bundles": [
+    {
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "manifestSHA256": "8e962120d0e646076d024c9152b80ae5a060b8219648261a2c8b62365c8f8329",
+      "package": "./ai/e2e",
+      "path": "bundles/20261022T220451.333747000Z"
+    }
+  ],
+  "sourceSetSHA256": "b434a3ddeb2879b9aeb75727715b7b76c70dcf17020c4380c0bb9d64d6407bbc",
+  "requiredCaseGroups": {
+    "Messages final any": 64,
+    "narrowed output limits": 48,
+    "exact Chat index": 44,
+    "Responses completed text": 36,
+    "qualification captured controls": 60
+  },
+  "manifestCases": {
+    "PASS": 5117,
+    "NOT_RUN": 178
+  },
+  "skipReason": "Broad Classifier auxiliary selector also discovered TestClassifierImagesPressure (2 cases) and TestClassifierImagesPressureImport (176 cases); ordinary gates skipped all 178. No pressure ran.",
+  "live": "NOT_RUN; no vendor calls authorized; only controlled native subprocesses and read-only consumers.",
+  "race": "NOT_RUN; no human-selected scope.",
+  "pressure": "NOT_RUN; no human-selected load.",
+  "releasePass": false,
+  "followupReviews": {
+    "standards": "closed; zero new findings",
+    "spec": "closed; zero new actionable findings",
+    "reviewedCommit": "0300710ad027a7f86fb8a55d4c81367c9da39620"
+  }
+}

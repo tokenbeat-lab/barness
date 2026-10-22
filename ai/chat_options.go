@@ -145,6 +145,10 @@ func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey
 			ttl = "1h"
 		}
 		body.PromptCacheOptions = &chatKimiCacheOptions{Mode: "implicit", TTL: ttl}
+		// Omission selects the service default only when it fits the Host cap.
+		if o.MaxTokens.IsZero() && m.MaxTokens < 131072 {
+			body.MaxCompletionTokens = m.MaxTokens
+		}
 	}
 	if compat.implementation != chatKimi && compat.promptCache && o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
 		body.PromptCacheRetention = "24h"
