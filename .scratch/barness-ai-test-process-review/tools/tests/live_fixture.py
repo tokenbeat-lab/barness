@@ -62,3 +62,56 @@ def live_bundle(test, combo='openai-decisions', qualified=False):
     test.record['impact']['liveRoutes'] = [combo]
     test.record['live'] = {'status': 'PASS', 'routes': {combo: stage}}
     return bundle, stage, report
+
+
+def chat_bundle(test):
+    """Native-shaped Google chat captures for the CLI seam, never vendor proof."""
+    bundle, stage, report = live_bundle(test, 'google-gemini')
+    import shutil
+    for path in bundle.iterdir():
+        if path.is_dir():
+            shutil.rmtree(path)
+    expected = ['text-stream', 'text-complete', 'tool-round-trip', 'cancel-after-first-frame', 'reasoning-history', 'image']
+    endpoint, model = 'https://generativelanguage.googleapis.com/v1beta', 'gemini-3.8-flash'
+    report.update(operation='chat', provider='google', api='google-generative-ai', model=model, endpoint=endpoint,
+                  expected=expected, scenarios=[], budget={'maxCalls': 32, 'maxRetriesPerScenario': 1,
+                  'maxOutputTokensPerCall': 4096, 'callsUsed': 6, 'httpAttempts': 6,
+                  'inputTokensUsed': 6, 'outputTokensUsed': 6})
+    cases = []
+    for ident in expected:
+        case = bundle / ident
+        metadata = {'tenantId': 'fixture', 'requestId': ident, 'bindingId': 'google-gemini', 'resolved': True,
+                    'operation': 'chat', 'providerId': 'google', 'api': 'google-generative-ai', 'modelId': model,
+                    'catalogVersion': report['catalogVersion'], 'catalogHash': report['catalogHash'],
+                    'attempts': [{'attemptId': ident + '#1', 'httpStatus': 200, 'providerRequestId': ident}]}
+        write_json(case / 'attempt-1-call-result.json', {'error': '', 'result': {
+            'metadata': metadata, 'message': {'usage': {'input': 1, 'output': 1}}}})
+        write_json(case / 'attempt-1-call-exchanges.json', [{'method': 'POST',
+            'url': endpoint + '/models/' + model + ':streamGenerateContent',
+            'requestBody': '{}', 'status': 200, 'responseHeaders': {}, 'responseBody': '{}'}])
+        write_json(case / 'observations-attempt-1-call.json', [{'kind': 'call_finished', 'call': metadata}])
+        write_json(case / 'assertions.json', {'case_id': ident, 'status': 'PASS', 'assertions': [{'pass': True}]})
+        cases.append({'id': ident, 'dir': ident, 'status': 'PASS',
+                      'artifacts': {p.name: digest(p) for p in case.iterdir()}})
+        report['scenarios'].append({'id': ident, 'caseId': ident, 'model': model, 'outcome': 'PASS',
+                                    'calls': 1, 'attempts': 1, 'providerRequestIds': [ident]})
+    write_json(bundle / 'live-report.json', report)
+    manifest = json.loads((bundle / 'manifest.json').read_text())
+    manifest.update(package='-tags live ./ai/live', cases=cases)
+    write_json(bundle / 'manifest.json', manifest)
+    stage['requiredCases'] = expected
+    refresh_chat_receipt(bundle, stage)
+    return bundle, stage, report
+
+
+def refresh_chat_receipt(bundle, stage):
+    """Seal the supplied test input, including intentional independent mutations."""
+    manifest = json.loads((bundle / 'manifest.json').read_text())
+    for case in manifest['cases']:
+        case['artifacts'] = {p.name: digest(p) for p in (bundle / case['dir']).iterdir() if p.is_file()}
+    write_json(bundle / 'manifest.json', manifest)
+    path = bundle.parent.parent / 'receipt.json'
+    receipt = json.loads(path.read_text())
+    receipt['bundles'][0].update(package=manifest['package'], manifestSHA256=digest(bundle / 'manifest.json'))
+    write_json(path, receipt)
+    stage['receipt']['sha256'] = digest(path)

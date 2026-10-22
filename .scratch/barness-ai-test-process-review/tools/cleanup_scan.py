@@ -147,8 +147,6 @@ def scan(root):
             value = value.rstrip('.,;，。；')
         if not value or '://' in value or value.startswith(('http:', 'https:', 'mailto:')):
             return
-        if not any(x in value for x in ('.evidence', 'evidence/', '.log')) and not value.endswith(('.json', '.md')):
-            return
         row = {'source': str(origin.relative_to(root)), 'field': str(field), 'raw': raw}
         if re.search(r'[<>${}*]|\bNEW_[A-Z_]+\b', value):
             references.append(dict(row, classification='EXAMPLE_OR_PREFIX', reason='explicit placeholder or pattern'))
@@ -166,6 +164,11 @@ def scan(root):
             return
         candidate = relative.startswith('.evidence/') or (relative.startswith('.scratch/') and '/evidence/' in relative)
         if not candidate or relative.startswith('.evidence/_quarantine/'):
+            return
+        # Resolve against the referring document before classifying. Directory
+        # and binary references have no required suffix; existing bare names
+        # count too. Ignore non-path scalar values such as PASS or a digest.
+        if '/' not in value and not Path(value).suffix and not path.exists():
             return
         within(root, relative)
         row['path'] = relative

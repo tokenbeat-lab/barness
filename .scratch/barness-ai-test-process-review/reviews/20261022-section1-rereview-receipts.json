@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-22T03:34:15.089106+00:00",
+  "reviewedCommit": "fce5f387e375fa3f7901700f5f525fdb64c6804f",
+  "testedCommit": "3aafd2d41436d222449f5b5f0e8c0596ed1154e9",
+  "sourceFiles": 1244,
+  "selectedInputs": 8636,
+  "sha256Checks": 104574,
+  "nativeArtifactFiles": 94660,
+  "nativeCaseCounts": {
+    "PASS": 12086,
+    "NOT_RUN": 214
+  },
+  "passingGoNodes": 12890,
+  "toolProcessCases": 41,
+  "sourceAndInputSetsMatch": true,
+  "recordCurrentStateHashMatches": true,
+  "requiredCaseSetMatches": true,
+  "allReferencedCommandFilesMatch": true,
+  "releaseChecks": [
+    {
+      "id": "source",
+      "pass": true
+    },
+    {
+      "id": "e2e",
+      "pass": true
+    },
+    {
+      "id": "race",
+      "pass": false,
+      "problem": "stage missing, incomplete or not passed"
+    },
+    {
+      "id": "pressure",
+      "pass": false,
+      "problem": "stage missing, incomplete or not passed"
+    },
+    {
+      "id": "live",
+      "pass": true
+    }
+  ],
+  "releasePass": false,
+  "noVerificationCommandsStarted": true,
+  "scope": "Read-only retained receipt/source/input/native artifact hashes and event counts; no race, pressure, paid live, cleanup, or later plan."
+}

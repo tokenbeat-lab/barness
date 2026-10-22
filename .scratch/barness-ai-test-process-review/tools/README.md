@@ -14,9 +14,13 @@
 
 PASS 阶段必须有 receipt 路径/哈希和来自主包的 requiredCases；其余包的完整库存与审计同时检查；race/压力/live 另有 selection.by=human 与精确 argv。live 每条路线有独立记录，`consumers` 为恰好一份 `{path, sha256}` 原生消费者回执引用；旧自填 argv/exit/files 格式已删除。对精确原生 bundle 显式运行只读命令（不发厂商请求，不写支持矩阵）：
 
-`releasegate -live-bundle <仓库相对 bundle 目录> -out <attempt 内的新消费者目录>`
+`python3 .scratch/barness-ai-test-process-review/tools/consume_live.py --binary <已编译的 releasegate 路径> --bundle <仓库相对 bundle 目录> --out <仓库相对的新消费者目录>`
 
-它复用各路线原生报告构造器、manifest/audit 和完整 `supportmatrix.Merge` 资格检查，记录 `live-consumer.json`、stdout.jsonl、stderr.log、exit-code，绑定命令、时间、退出、可执行文件摘要、完整来源、全部原生文件哈希和结果摘要。消费者目录必须在仓库内且位于 native bundle 外，拒绝符号链接；输出不得写回原件。发布判定重新执行这些只读消费者规则并比对回执、原件及日志，不能用 `true`、过期来源、controlled 或零调用 PASS 标签代替。消费者不是另一套调度/授权系统，不启动任何验证阶段。
+外层工具只执行一次原生 `releasegate -live-bundle ... -out <消费者目录>/native`，移除凭据和重负载环境，固定 GOENV=off / 空 GOFLAGS。原生命令复用各路线报告构造器、manifest/audit 和 `supportmatrix.Merge`；普通 chat 另核对固定官方目标/型号/SDK、预算、各场景调用与实际捕获/结果/终结 Observer，不能将支持矩阵接纳历史部分报告的语义当成完整发布资格。
+
+原生命令只写 `native/live-consumer.json` 资格结果并输出该结果；它不生成自己的数字退出或日志快照。外层实际采集子进程 stdout.jsonl、stderr.log、exit-code，完成后原子保存 schema 2 的 `live-consumer.json`，绑定真实 argv、起止、墙钟、可执行文件摘要、完整来源、全部输入与四份文件哈希（含 native 资格原件）。`consumers` 必须引用这份外层回执，旧 schema 1 的自采集格式已删除。外层先落 RUNNING/非通过记录；最终保存失败时保留该记录，不能把原生子进程成功冒充整个采集完成。原生最终写入失败、输出管道失败或取消均按实际子进程事实记录，不能提前声明退出0。
+
+消费者目录必须在仓库内且位于 native bundle 外，拒绝符号链接；输出不得写回原件。发布判定重新执行只读资格检查并比对外层回执、原生结果、实际输出与日志，不能用 `true`、过期来源、controlled 或零调用 PASS 标签代替。消费者不授予厂商或后续阶段执行权限，合成自测不产生真实支持资格。
 
 NA 必须有原因且与影响分析一致。Source.Files 是采集器选定的完整 Go/夹具/维护工具来源集合（含被 Git 忽略的源码，排除 Markdown 展示文档与生成缓存；参与实际消费的文档另用 --input 固定）；正式状态只能引用真实回执，不能拿自测的合成 race/live 字段冒充实际执行。
 
@@ -38,6 +42,6 @@ live 只转发一个选定生产者的变量，不授予调用权限。通用路
 
 原生 live manifest 的 package 保留 `-tags live [-timeout <Go duration>] ./ai/live` 格式；采集器按该合同识别唯一主包，仍拒绝错包、附加包和歧义。外层超时同时覆盖进程与输出管道；脱离进程组的后代持有管道时，采集器关闭自身读端、记录 CAPTURE_FAILED 并有界退出，不把它写成 PASS。它不发现或终止任意外部 session；临时用例负责回收自己创建的已知后代。
 
-清理判定必须同时核对所有 receipt、manifest、audit 与声明的文件库存；失败、缺 audit、未分类字节或 grant/claim/ledger 任一项都阻止整候选隔离。未被手工索引的失败和未知候选也作为递归依赖根。状态 JSON 通过同目录临时文件、flush/fsync、原子 replace 与目录同步保存，写入失败不会截断上一份状态；这不授予真实清理权限。
+清理判定必须同时核对所有 receipt、manifest、audit 与声明的文件库存；失败、缺 audit、未分类字节或 grant/claim/ledger 任一项都阻止整候选隔离。未被手工索引的失败和未知候选也作为递归依赖根。引用先按来源解析到候选范围，目录、二进制和无扩展名文件同样保护，不能根据后缀忽略；普通状态与哈希标量不视作不存在的路径。状态 JSON 通过同目录临时文件、flush/fsync、原子 replace 与目录同步保存，写入失败不会截断上一份状态；这不授予真实清理权限。
 
 普通 E2E 的 TestMain 同时注册宿主账户 HOME 的脱敏，防止隔离 HOME 后进程报告泄露原宿主路径。消费者成功/拒绝的 stdout、stderr 文件与进程实际输出逐字相等，exit-code 与实际返回一致；不能以磁盘快照冒充标准输出。

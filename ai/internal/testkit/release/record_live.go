@@ -32,6 +32,9 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	if err != nil {
 		return report, fmt.Errorf("native live qualification unavailable")
 	}
+	if err := verifyChatQualification(report); err != nil {
+		return report, err
+	}
 	if err := verifyLiveManifest(dir, report); err != nil {
 		return report, err
 	}

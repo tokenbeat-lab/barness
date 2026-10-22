@@ -50,6 +50,8 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 	if m.Package != packageArgs || m.Commit != r.GitCommit || m.Started.IsZero() || m.Finished.Before(r.FinishedAt) || m.Started.Before(r.StartedAt) || m.Started.After(r.FinishedAt) || m.Versions["live_combo"] != r.Combo || m.Versions["live_sdk"] != r.SDK || m.Versions["model_catalog_version"] != r.CatalogVersion || m.Versions["model_catalog_hash"] != r.CatalogHash {
 		return fmt.Errorf("live manifest provenance disagrees with report")
 	}
+	seenCalls := map[string]bool{}
+	var chatTotals chatUsage
 	for _, s := range r.Scenarios {
 		matches := 0
 		for _, c := range m.Cases {
@@ -70,6 +72,14 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 				return err
 			}
 			files := verifiedCase{bundle: source, dir: c.Dir, artifacts: c.Artifacts, verified: true}
+			if r.Operation == "chat" {
+				usage, err := verifyChatCaptures(files, r, s, seenCalls)
+				if err != nil {
+					return err
+				}
+				chatTotals.input += usage.input
+				chatTotals.output += usage.output
+			}
 			if s.Attempts > 0 {
 				patterns := []string{"attempt-*-exchanges.json", "attempt-*-result.json", "observations-*.json"}
 				if r.Combo == "openai-decisions" {
@@ -115,6 +125,9 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 		if matches != 1 {
 			return fmt.Errorf("live scenario lacks a unique captured case")
 		}
+	}
+	if r.Operation == "chat" && (chatTotals.input != r.Budget.InputTokensUsed || chatTotals.output != r.Budget.OutputTokensUsed) {
+		return fmt.Errorf("chat captured usage disagrees with budget")
 	}
 	return nil
 }

@@ -21,6 +21,7 @@ type LiveConsumerReceipt struct {
 	Schema           int               `json:"schema"`
 	Consumer         string            `json:"consumer"`
 	Pass             bool              `json:"pass"`
+	Status           string            `json:"status"`
 	ExitCode         int               `json:"exitCode"`
 	Error            string            `json:"error,omitempty"`
 	Source           ExecutionSource   `json:"source"`
@@ -31,7 +32,23 @@ type LiveConsumerReceipt struct {
 	ExecutableSHA256 string            `json:"executableSHA256"`
 	StartedAt        time.Time         `json:"startedAt"`
 	FinishedAt       time.Time         `json:"finishedAt"`
+	ElapsedSeconds   float64           `json:"elapsedSeconds"`
 	Files            map[string]string `json:"files"`
+	GoEnv            string            `json:"goEnv"`
+	GoFlags          *string           `json:"goFlags"`
+}
+
+type nativeLiveQualification struct {
+	Schema       int               `json:"schema"`
+	Consumer     string            `json:"consumer"`
+	Pass         bool              `json:"pass"`
+	Error        string            `json:"error,omitempty"`
+	Source       ExecutionSource   `json:"source"`
+	Bundle       string            `json:"bundle"`
+	Inputs       map[string]string `json:"inputs"`
+	ReportSHA256 string            `json:"reportSHA256"`
+	StartedAt    time.Time         `json:"startedAt"`
+	FinishedAt   time.Time         `json:"finishedAt"`
 }
 
 func liveInventory(dir string) (map[string]string, error) {
@@ -68,12 +85,11 @@ func liveReportHash(report supportmatrix.Report) string {
 	return fmt.Sprintf("%x", sha256.Sum256(raw))
 }
 
-// CaptureLiveConsumer is an explicitly invoked read-only consumer. The caller
-// supplies a new output directory, outside the sealed native input bundle.
-func CaptureLiveConsumer(root, bundle, out string, argv []string) (bool, error) {
+// ConsumeNativeLive writes only the native qualification. An outer process
+// captures actual streams and exit, including errors after this write.
+func ConsumeNativeLive(root, bundle, out string) (bool, error) {
 	started := time.Now().UTC()
-	proof := LiveConsumerReceipt{Schema: 1, Consumer: liveConsumer, ExitCode: 1, Bundle: bundle,
-		Argv: argv, StartedAt: started, Files: map[string]string{}}
+	proof := nativeLiveQualification{Schema: 1, Consumer: liveConsumer, Bundle: bundle, StartedAt: started}
 	var report supportmatrix.Report
 	dir, err := recordPath(root, bundle)
 	absoluteOut, outErr := filepath.Abs(out)
@@ -112,47 +128,23 @@ func CaptureLiveConsumer(root, bundle, out string, argv []string) (bool, error) 
 	}
 	if err == nil {
 		proof.Pass = true
-		proof.ExitCode = 0
 		proof.ReportSHA256 = liveReportHash(report)
-	}
-	executable, executableErr := os.Executable()
-	if executableErr == nil {
-		proof.ExecutableSHA256, executableErr = recordHash(executable)
-	}
-	if executableErr != nil {
-		return false, executableErr
 	}
 	if err != nil {
 		proof.Error = "native live consumer rejected evidence"
 	}
+	proof.FinishedAt = time.Now().UTC()
 	raw, marshalErr := json.MarshalIndent(proof, "", "  ")
 	if marshalErr != nil {
 		return false, marshalErr
 	}
-	// Capture actual output and exit separately. Input bytes are never modified.
-	for name, content := range map[string][]byte{"stdout.jsonl": append(raw, '\n'), "stderr.log": []byte(proof.Error),
-		"exit-code": []byte(fmt.Sprintf("%d\n", proof.ExitCode))} {
-		path := filepath.Join(out, name)
-		if e := os.WriteFile(path, content, 0600); e != nil {
-			return false, e
-		}
-		proof.Files[name], marshalErr = recordHash(path)
-		if marshalErr != nil {
-			return false, marshalErr
-		}
+	if e := os.WriteFile(filepath.Join(out, "live-consumer.json"), append(raw, '\n'), 0600); e != nil {
+		return false, e
 	}
 	if _, e := os.Stdout.Write(append(raw, '\n')); e != nil {
 		return false, e
 	}
 	if _, e := os.Stderr.Write([]byte(proof.Error)); e != nil {
-		return false, e
-	}
-	proof.FinishedAt = time.Now().UTC()
-	raw, marshalErr = json.MarshalIndent(proof, "", "  ")
-	if marshalErr != nil {
-		return false, marshalErr
-	}
-	if e := os.WriteFile(filepath.Join(out, "live-consumer.json"), append(raw, '\n'), 0600); e != nil {
 		return false, e
 	}
 	return proof.Pass, nil
@@ -179,26 +171,28 @@ func verifyLiveConsumer(root, dir string, ref FileRef, source ExecutionSource, r
 	}
 	outputDir, _ := filepath.Abs(*argOut)
 
-	if err != nil || inputErr != nil || proof.Schema != 1 || proof.Consumer != liveConsumer || !proof.Pass || proof.ExitCode != 0 || proof.Error != "" ||
+	if err != nil || inputErr != nil || proof.Schema != 2 || proof.Consumer != liveConsumer || proof.Status != "PASS" || !proof.Pass || proof.ExitCode != 0 || proof.Error != "" || proof.GoEnv != "off" || proof.GoFlags == nil || *proof.GoFlags != "" || proof.ElapsedSeconds < 0 ||
 		proof.Bundle != filepath.ToSlash(bundle) || proof.Source.Commit != source.Commit || !sameRecordSource(proof.Source, source) ||
 		!reflect.DeepEqual(proof.Inputs, inputs) || proof.ReportSHA256 != liveReportHash(report) ||
-		outputDir != filepath.Dir(path) || !validArgs || *argBundle != proof.Bundle ||
-		len(proof.ExecutableSHA256) != 64 || proof.StartedAt.IsZero() || proof.FinishedAt.Before(proof.StartedAt) || len(proof.Files) != 3 {
+		outputDir != filepath.Join(filepath.Dir(path), "native") || !validArgs || *argBundle != proof.Bundle ||
+		len(proof.ExecutableSHA256) != 64 || proof.StartedAt.IsZero() || proof.FinishedAt.Before(proof.StartedAt) || len(proof.Files) != 4 {
 		return fmt.Errorf("native consumer disagrees with actual input, result or invocation")
 	}
 	attempt := filepath.Dir(path)
-	for _, name := range []string{"stdout.jsonl", "stderr.log", "exit-code"} {
+	for _, name := range []string{"stdout.jsonl", "stderr.log", "exit-code", "native/live-consumer.json"} {
 		if _, err := verifyRecordFile(attempt, FileRef{name, proof.Files[name]}); err != nil {
 			return err
 		}
 	}
-	var output LiveConsumerReceipt
+	var native, output nativeLiveQualification
 	if recordJSON(filepath.Join(attempt, "stdout.jsonl"), &output) != nil {
 		return fmt.Errorf("consumer output invalid")
 	}
-	proof.Files = map[string]string{}
-	proof.FinishedAt = time.Time{}
-	if !reflect.DeepEqual(proof, output) {
+	if recordJSON(filepath.Join(attempt, "native/live-consumer.json"), &native) != nil || !reflect.DeepEqual(native, output) ||
+		native.Schema != 1 || native.Consumer != liveConsumer || !native.Pass || native.Error != "" ||
+		native.Bundle != proof.Bundle || native.Source.Commit != source.Commit || !sameRecordSource(native.Source, source) ||
+		!reflect.DeepEqual(native.Inputs, inputs) || native.ReportSHA256 != proof.ReportSHA256 ||
+		native.StartedAt.Before(proof.StartedAt) || native.FinishedAt.Before(native.StartedAt) || native.FinishedAt.After(proof.FinishedAt) {
 		return fmt.Errorf("consumer output disagrees with receipt")
 	}
 	code, e := os.ReadFile(filepath.Join(attempt, "exit-code"))

@@ -156,3 +156,32 @@ class CleanupProcess(ProcessCase):
         self.assertEqual(json.loads(path.read_text())['status'], 'MOVED')
         self.tool('restore', '--batch', self.batch, expected=0)
         self.assertEqual((self.repo / '.evidence/unused/body.txt').read_text(), 'synthetic body\n')
+
+    def test_failed_relative_directory_and_binary_dependencies_survive_purge(self):
+        # Relative directories, extensionless files, and non-JSON artifacts are
+        # legitimate dependencies; a PASS sibling cannot inherit their deletion.
+        write_json(self.repo / '.evidence/unindexed-failure/receipt.json', {
+            'status': 'FAIL', 'exitCode': 7, 'inputs': ['../unused', '../binary/payload.bin', '../plain/payload']})
+        for name, artifact in (('binary', 'payload.bin'), ('plain', 'payload')):
+            base = self.repo / '.evidence' / name
+            base.mkdir()
+            (base / artifact).write_bytes(b'synthetic capture')
+            write_json(base / 'receipt.json', {'status': 'PASS', 'exitCode': 0,
+                       'files': {artifact: digest(base / artifact)}})
+        dependency = self.repo / '.evidence/unused/body.txt'
+        dependency.write_text('[next](../transitive)\n')
+        write_json(self.repo / '.evidence/disposable/receipt.json', {'status': 'PASS', 'exitCode': 0})
+        write_json(self.repo / '.evidence/unused/receipt.json', {
+            'status': 'PASS', 'exitCode': 0, 'files': {'body.txt': digest(dependency)}})
+        write_json(self.repo / '.evidence/transitive/receipt.json', {'status': 'PASS', 'exitCode': 0})
+        self.prepare()
+        marks = {c['path']: c['mark'] for c in json.loads((self.meta / 'plan.json').read_text())['candidates']}
+        for name in ('unused', 'binary', 'plain', 'transitive'):
+            self.assertEqual(marks['.evidence/' + name], 'KEEP', name)
+        self.tool('move', '--batch', self.batch, '--plan-sha256', self.plan_sha, expected=0)
+        self.tool('verify', '--batch', self.batch, expected=0)
+        self.age()
+        self.tool('purge', '--batch', self.batch, '--plan-sha256', self.plan_sha, expected=0)
+        for name in ('unused', 'binary', 'plain', 'transitive'):
+            self.assertTrue((self.repo / '.evidence' / name).is_dir(), name)
+        self.assertFalse((self.repo / '.evidence/disposable').exists())
