@@ -7,6 +7,7 @@ const (
 	chatDeepSeek
 	chatGLM
 	chatMiniMax
+	chatKimi
 )
 
 // chatCompat is the part of pi's openai-completions compat that differs
@@ -62,6 +63,8 @@ type chatCompat struct {
 // providers retain the standard OpenAI compat (ADR-0013).
 func chatCompatOf(p ProviderID) chatCompat {
 	switch p {
+	case ProviderID("moonshot"), ProviderID("moonshot-cn"):
+		return chatCompat{implementation: chatKimi, streamUsage: true, promptCache: true, preserveThinkingDefault: true}
 	case ProviderMiniMax:
 		return chatCompat{implementation: chatMiniMax, streamUsage: true, adaptiveThinking: true, preserveThinkingDefault: true}
 	case ProviderMiniMaxCN:

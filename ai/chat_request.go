@@ -15,12 +15,13 @@ import (
 // openai-completions.ts buildParams and convertMessages for the provider's
 // compat (ADR-0013, ADR-0015).
 type chatBody struct {
-	Model                string             `json:"model"`
-	Messages             []any              `json:"messages"`
-	Stream               bool               `json:"stream"`
-	PromptCacheKey       string             `json:"prompt_cache_key,omitempty"`
-	PromptCacheRetention string             `json:"prompt_cache_retention,omitempty"`
-	StreamOptions        *chatStreamOptions `json:"stream_options,omitempty"`
+	Model                string                `json:"model"`
+	Messages             []any                 `json:"messages"`
+	Stream               bool                  `json:"stream"`
+	PromptCacheKey       string                `json:"prompt_cache_key,omitempty"`
+	PromptCacheOptions   *chatKimiCacheOptions `json:"prompt_cache_options,omitempty"`
+	PromptCacheRetention string                `json:"prompt_cache_retention,omitempty"`
+	StreamOptions        *chatStreamOptions    `json:"stream_options,omitempty"`
 	// Store is nil (omitted) for providers that take no store field.
 	Store               *bool             `json:"store,omitempty"`
 	MaxTokens           int               `json:"max_tokens,omitempty"`
@@ -146,7 +147,7 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 		tools := make([]chatTool, len(history.tools))
 		for i, t := range history.tools {
 			tools[i] = chatTool{Type: "function", Function: chatToolFunction{Name: t.Name, Description: t.Description, Parameters: t.Parameters}}
-			if model.Compat.SupportsStrictMode && chatCompatOf(model.Provider).implementation != chatGLM && chatCompatOf(model.Provider).implementation != chatMiniMax {
+			if model.Compat.SupportsStrictMode && chatCompatOf(model.Provider).implementation != chatGLM && chatCompatOf(model.Provider).implementation != chatMiniMax && chatCompatOf(model.Provider).implementation != chatKimi {
 				tools[i].Function.Strict = new(bool)
 			}
 		}
@@ -168,6 +169,9 @@ func buildChatBody(model Model, history transcript, opts ChatOptions, cacheKey s
 	}
 	if err == nil && chatCompatOf(model.Provider).implementation == chatMiniMax {
 		out, err = preserveMiniMaxChatSampling(out, model, opts)
+	}
+	if err == nil && compat.implementation == chatKimi {
+		out, err = preserveKimiChatSampling(out, model, opts)
 	}
 	return out, err
 }

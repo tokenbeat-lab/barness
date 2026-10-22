@@ -57,7 +57,17 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 	u.TotalTokens = sum
 	billable := r.input.present && r.output.present && r.read.present && r.write.present
 	if r.total.present {
-		if r.total.n < sum || (billable && r.total.n != sum) {
+		// Missing output is unknown, but known reasoning is already part of
+		// output and must fit alongside known input-side tokens.
+		minimum := sum
+		if r.reasoning.present && r.reasoning.n > u.Output {
+			var valid bool
+			minimum, valid = kimiSum(u.Input, u.CacheRead, u.CacheWrite, r.reasoning.n)
+			if !valid {
+				return Usage{}, UsageUnreported, unreported, kimiUsageFailure()
+			}
+		}
+		if r.total.n < minimum || (billable && r.total.n != sum) {
 			return Usage{}, UsageUnreported, unreported, kimiUsageFailure()
 		}
 		u.TotalTokens = r.total.n
@@ -90,6 +100,9 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 		u.CacheWrite1h = Value(r.long.n)
 	}
 	u.Cost = model.Cost.estimate(u)
+	if !kimiFiniteCost(u.Cost) {
+		return Usage{}, UsageUnreported, unreported, kimiCostFailure()
+	}
 	estimate := CostEstimate{Status: CostPartial}
 	if !r.input.present && !r.output.present && !r.read.present && !r.write.present {
 		estimate.Status = CostUnreported
@@ -106,6 +119,9 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 			lowerUsage.CacheWrite1h = Value(r.long.n + unknown)
 		}
 		lower, upper := model.Cost.estimate(lowerUsage), model.Cost.estimate(upperUsage)
+		if !kimiFiniteCost(lower) || !kimiFiniteCost(upper) {
+			return Usage{}, UsageUnreported, unreported, kimiCostFailure()
+		}
 		u.Cost = lower
 		estimate = CostEstimate{Status: CostResolved, Minimum: Value(lower), Maximum: Value(upper)}
 		if unknown > 0 {
@@ -161,4 +177,19 @@ func parseKimiCount(raw json.RawMessage) (kimiCount, error) {
 		return invalid()
 	}
 	return kimiCount{exact.Num().Int64(), true}, nil
+}
+
+// Cost arithmetic is checked before any accepted snapshot is replaced. Legal
+// finite Host rates can still overflow when combined with reported counts.
+func kimiFiniteCost(c UsageCost) bool {
+	for _, v := range []float64{c.Input, c.Output, c.CacheRead, c.CacheWrite, c.Total} {
+		if math.IsNaN(v) || math.IsInf(v, 0) || v < 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func kimiCostFailure() *Error {
+	return newError(CodeProtocol, PhaseStream, "Kimi usage cost is outside the finite estimate range")
 }

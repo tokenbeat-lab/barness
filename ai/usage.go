@@ -17,7 +17,8 @@ type Usage struct {
 	// CacheWrite1h is the part of CacheWrite written with a one-hour
 	// lifetime. Native Anthropic prices it at twice the input rate. MiniMax
 	// retains an explicit positive count and refuses success because its
-	// rate is unverified. Responses never reports this detail.
+	// rate is unverified. Kimi Messages and Responses can retain an actual
+	// one-hour subset; other Responses providers keep their existing contract.
 	CacheWrite1h Nullable[int64] `json:"cacheWrite1h,omitzero"`
 	// Reasoning is the part of Output spent on reasoning: already counted in
 	// Output and TotalTokens, never added again. Chat prices it as output

@@ -120,6 +120,12 @@ func (o ChatOptions) cacheKey(scope cacheScope, endpoint string, m Model) string
 	if !chatCompatOf(m.Provider).promptCache {
 		return ""
 	}
+	if chatCompatOf(m.Provider).implementation == chatKimi {
+		if o.SessionID == "" {
+			return ""
+		}
+		return scope.key(o.SessionID)
+	}
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
 	onOpenAI := strings.Contains(endpoint, openAIEndpointMarker) && retention != CacheRetentionNone
 	if o.SessionID == "" || !onOpenAI && !(retention == CacheRetentionLong && m.supportsLongCacheRetention()) {
@@ -133,7 +139,14 @@ func (o ChatOptions) cacheKey(scope cacheScope, endpoint string, m Model) string
 // the tool choice and the reasoning switch of its thinking format.
 func (o ChatOptions) encode(body *chatBody, m Model, compat chatCompat, cacheKey string) {
 	body.PromptCacheKey = cacheKey
-	if compat.promptCache && o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
+	if compat.implementation == chatKimi {
+		ttl := "5m"
+		if o.CacheRetention == CacheRetentionLong {
+			ttl = "1h"
+		}
+		body.PromptCacheOptions = &chatKimiCacheOptions{Mode: "implicit", TTL: ttl}
+	}
+	if compat.implementation != chatKimi && compat.promptCache && o.CacheRetention == CacheRetentionLong && m.supportsLongCacheRetention() {
 		body.PromptCacheRetention = "24h"
 	}
 	if n, ok := o.MaxTokens.Get(); ok && n != 0 {

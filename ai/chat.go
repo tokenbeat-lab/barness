@@ -93,7 +93,7 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
-		if chatCompatOf(ac.model.Provider).implementation == chatGLM || chatCompatOf(ac.model.Provider).implementation == chatMiniMax {
+		if chatCompatOf(ac.model.Provider).implementation == chatGLM || chatCompatOf(ac.model.Provider).implementation == chatMiniMax || isKimi(ac.model.Provider) {
 			failure.HTTPStatus = res.StatusCode
 		}
 		return failure
@@ -107,10 +107,14 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	}
 	usage := chatUsage{model: ac.model, reasoningExpected: reasoningExpected}
 	p := newChatParser(out, ac.model, usage, failures, ac.initial)
+	if chatCompatOf(ac.model.Provider).implementation == chatKimi {
+		choice, _ := jsonparser.GetString(body, "tool_choice")
+		p.kimiRequired = choice == "required"
+	}
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
 		failure.ProviderRequestID = requestID
-		if chatCompatOf(ac.model.Provider).implementation == chatGLM || chatCompatOf(ac.model.Provider).implementation == chatMiniMax {
+		if chatCompatOf(ac.model.Provider).implementation == chatGLM || chatCompatOf(ac.model.Provider).implementation == chatMiniMax || isKimi(ac.model.Provider) {
 			failure.HTTPStatus = res.StatusCode
 		}
 	}
@@ -124,6 +128,9 @@ type chatFailures struct{ httpFailures }
 
 func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest) chatFailures {
 	f := httpFailures{apiKey: apiKey, clock: initial.clock, requestIDHeader: requestIDHeaderOf(provider), describe: chatHTTPError}
+	if isKimi(provider) {
+		f.kimi = APIOpenAICompletions
+	}
 	if chatCompatOf(provider).implementation == chatMiniMax {
 		f.minimax = APIOpenAICompletions
 	}
@@ -137,6 +144,9 @@ func newChatFailures(provider ProviderID, apiKey Secret, initial *initialRequest
 // APIError without a status, whose message pi reports, followed by
 // OpenRouter's raw provider metadata when the message lacks it.
 func (f chatFailures) inBand(raw json.RawMessage) *Error {
+	if f.kimi != "" {
+		return newError(CodeUpstreamError, PhaseStream, kimiErrorMessage(0, kimiErrorType(raw)))
+	}
 	if f.glm != "" {
 		return f.providerError(raw)
 	}

@@ -1,7 +1,7 @@
 # 05 — Host 装配与价格来源
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 01
 
 ## Context
@@ -23,3 +23,9 @@ R02、R10、R12；K02、K11、K15。拥有 kimihost 示例、六路线官方目�
 ## Comments
 
 2026-10-22：从已批准实施的 spec/design 派生；任务依赖是集成顺序，独立协议可在同一基线并行开发，合并前同步集成分支。
+
+2026-10-22：foundation implementer 在 `codex/kimi-host` 认领，基线集成 `e40b1a93aa2c85a12aefc16155491be8666edc94`。保留现有 HostConfig URL 校验，Kimi Purpose 独立；普通公共 Client/Host 装配 E2E，不启动真实厂商、race、压力。
+
+## Answer
+
+Host 与共享边界实现已完成，普通本地 scope 和 Chat/Messages 四入口已绿；Responses 四入口成本接线等待票03合并，故暂不关闭本票。实际 argv、数字退出、受测来源与原生 bundle/audit 指针见[票05回执](../evidence/ticket-05.md)。live/race/压力未执行，release.pass=false。
