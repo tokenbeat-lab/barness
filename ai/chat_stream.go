@@ -55,6 +55,7 @@ type chatParser struct {
 	finished                  bool       // a finish_reason arrived
 	stop                      StopReason // the last finish_reason's stop reason
 	stopMessage               string     // the last error finish_reason's message
+	kimiRequired              bool       // final tool_choice requires a function on a normal stop
 	usage                     chatUsage
 }
 
@@ -123,6 +124,11 @@ func (p *chatParser) fail(failure *Error) *Error {
 // settle decides the terminal once the stream ended cleanly: an error
 // finish reason fails, a missing one is a protocol error.
 func (p *chatParser) settle() *Error {
+	if chatCompatOf(p.model.Provider).implementation == chatKimi {
+		if failure := p.settleKimiChat(); failure != nil {
+			return failure
+		}
+	}
 	if chatCompatOf(p.model.Provider).implementation == chatMiniMax && p.finished && ((len(p.calls) > 0 && p.stop == StopReasonStop) || (len(p.calls) == 0 && p.stop == StopReasonToolUse)) {
 		return newError(CodeProtocol, PhaseStream, "MiniMax finish_reason conflicts with the returned tool calls")
 	}
@@ -226,6 +232,11 @@ func (p *chatParser) chunk(c chatChunk) *Error {
 	var delta chatDelta
 	if !rawTruthy(choice.Delta) || json.Unmarshal(choice.Delta, &delta) != nil {
 		return nil
+	}
+	if chatCompatOf(p.model.Provider).implementation == chatKimi {
+		if failure := p.validateKimiChatDelta(delta); failure != nil {
+			return failure
+		}
 	}
 	if chatCompatOf(p.model.Provider).implementation == chatMiniMax {
 		if problem := p.validateMiniMaxReasoning(delta); problem != "" {
@@ -336,6 +347,11 @@ func (p *chatParser) toolCalls(raw json.RawMessage) *Error {
 		var index float64
 		indexed := len(tc.Index) > 0 && json.Unmarshal(tc.Index, &index) == nil
 		k := p.findCall(indexed, index, id)
+		if chatCompatOf(p.model.Provider).implementation == chatKimi {
+			if failure := p.validateKimiChatCall(tc, indexed, index, id, name, k); failure != nil {
+				return failure
+			}
+		}
 		if chatCompatOf(p.model.Provider).implementation == chatMiniMax && k >= 0 {
 			previous := p.calls[k]
 			if (id != "" && previous.id != "" && id != previous.id) || (indexed && previous.indexed && index != previous.index) || (name != "" && previous.name != "" && name != previous.name) {
@@ -384,6 +400,11 @@ func (p *chatParser) findCall(indexed bool, index float64, id string) int {
 // thinking block takes the streamed details as its signature, a tool call
 // its final argument parse.
 func (p *chatParser) closeBlocks() *Error {
+	if chatCompatOf(p.model.Provider).implementation == chatKimi {
+		if failure := p.closeKimiChatTools(); failure != nil {
+			return failure
+		}
+	}
 	if chatCompatOf(p.model.Provider).implementation == chatMiniMax && p.stop == StopReasonToolUse {
 		for _, c := range p.calls {
 			if c.id == "" || c.name == "" || !miniMaxToolArgumentsComplete(c.raw.String()) {
@@ -404,7 +425,7 @@ func (p *chatParser) closeBlocks() *Error {
 		default:
 			for _, c := range p.calls {
 				if c.block == i {
-					if chatCompatOf(p.model.Provider).implementation != chatMiniMax || miniMaxToolArgumentsComplete(c.raw.String()) {
+					if (chatCompatOf(p.model.Provider).implementation != chatMiniMax || miniMaxToolArgumentsComplete(c.raw.String())) && (chatCompatOf(p.model.Provider).implementation != chatKimi || kimiChatToolArguments(c.raw.String())) {
 						p.out.toolCallEnd(i, c.raw.String())
 					}
 				}

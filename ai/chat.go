@@ -107,6 +107,10 @@ func (chatAdapter) stream(ctx context.Context, ac adapterCall, out *assembler) *
 	}
 	usage := chatUsage{model: ac.model, reasoningExpected: reasoningExpected}
 	p := newChatParser(out, ac.model, usage, failures, ac.initial)
+	if chatCompatOf(ac.model.Provider).implementation == chatKimi {
+		choice, _ := jsonparser.GetString(body, "tool_choice")
+		p.kimiRequired = choice == "required"
+	}
 	failure = p.read(ctx, ssestream.NewDecoder(res))
 	if failure != nil {
 		failure.ProviderRequestID = requestID

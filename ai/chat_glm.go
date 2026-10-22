@@ -35,6 +35,9 @@ func preserveGLMChatSamplingBudget(body []byte, m Model, o ChatOptions) ([]byte,
 // clamping, before credentials. GLM's full entry rejects unsupported named
 // levels; OpenAI/DeepSeek retain their existing unclamped full-entry contract.
 func validateChatModelOptions(m Model, options Options) *Error {
+	if m.API == APIOpenAICompletions && chatCompatOf(m.Provider).implementation == chatKimi {
+		return validateKimiChatOptions(m, options)
+	}
 	if m.API == APIOpenAICompletions && chatCompatOf(m.Provider).implementation == chatMiniMax {
 		return validateMiniMaxChatOptions(m, options)
 	}
@@ -55,6 +58,9 @@ func validateChatModelOptions(m Model, options Options) *Error {
 // reasoning fields on that path too. Authorization precedes capability/model
 // checks, so an invalid effort never masks an unauthorized model or reference.
 func validateChatFinalBody(m Model, raw []byte, authorize func(map[string]any) string) *Error {
+	if chatCompatOf(m.Provider).implementation == chatKimi {
+		return validateKimiChatFinalBody(m, raw, authorize)
+	}
 	if chatCompatOf(m.Provider).implementation == chatMiniMax {
 		return validateMiniMaxChatFinalBody(m, raw, authorize)
 	}
