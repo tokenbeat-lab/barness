@@ -11,8 +11,8 @@ import tempfile
 
 from cleanup_scan import inventory, scan
 from cleanup_state import (batch, baseline_check, fresh_check, journal, load_plan, locked,
-                           moves, now, payload_check, sync_dir, verified_state)
-from receipt_files import json_file, save, sha, within
+                           moves, now, payload_check, verified_state)
+from receipt_files import json_file, save, sha, sync_dir, within
 
 
 def create(root, parent):

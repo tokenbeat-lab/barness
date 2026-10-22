@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
-from process_support import ProcessCase, TOOLS, digest, write_json
+from process_support import safe_environment, ProcessCase, TOOLS, digest, write_json
 
 PROJECT = TOOLS.parents[2]
 
@@ -16,7 +16,7 @@ class ReleaseRecordProcess(ProcessCase):
     def setUpClass(cls):
         cls.build = tempfile.TemporaryDirectory(prefix='barness-release-cli-')
         cls.binary = Path(cls.build.name) / 'releasegate'
-        env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'GOCACHE', 'GOPATH') if k in os.environ}
+        env = safe_environment()
         built = subprocess.run(['go', 'build', '-o', cls.binary, './ai/release/cmd/releasegate'],
                                cwd=PROJECT, env=env, capture_output=True, text=True, timeout=180)
         if built.returncode:
@@ -51,7 +51,7 @@ class ReleaseRecordProcess(ProcessCase):
         argv = ['go', 'test', '-json', './ai/e2e', '-count=1']
         if stage == 'race':
             argv.insert(2, '-race')
-        toolchain = {'collectorPython': 'fixture', 'platform': 'FixtureOS', 'architecture': 'fixture', 'executableSHA256': 'a' * 64}
+        toolchain = {'collectorPython': 'fixture', 'goEnv': 'off', 'goFlags': '', 'platform': 'FixtureOS', 'architecture': 'fixture', 'executableSHA256': 'a' * 64}
         command = write_json(attempt / 'command.json', {'toolchain': toolchain, 'schema': 1, 'argv': argv, 'stage': stage,
             'route': None, 'timeoutSeconds': 1500, 'environmentNames': ['PATH']})
         (attempt / 'stdout.jsonl').write_text('\n'.join(json.dumps(x) for x in [
@@ -150,6 +150,25 @@ class ReleaseRecordProcess(ProcessCase):
                 if mode == 'missing-toolchain': del receipt['toolchain']
                 if mode == 'wrong-case': self.record['e2e']['requiredCases'] = ['absent-case']
                 if mode == 'missing-audit': receipt['bundles'][0]['auditSHA256'] = '0' * 64
+                write_json(path, receipt)
+                self.record['e2e']['receipt']['sha256'] = digest(path)
+                self.gate(1)
+
+    def test_rehashed_command_cannot_claim_ambient_go_configuration_is_ordinary(self):
+        attempt = self.repo / '.evidence/sample/e2e/attempt'
+        path = attempt / 'receipt.json'
+        original = json.loads(path.read_text())
+        command_path = attempt / 'command.json'
+        original_command = json.loads(command_path.read_text())
+        for mode in ('persistent-goenv', 'implicit-race-flags', 'missing-policy'):
+            with self.subTest(mode=mode):
+                receipt, command = copy.deepcopy(original), copy.deepcopy(original_command)
+                if mode == 'persistent-goenv': receipt['toolchain']['goEnv'] = 'on'
+                if mode == 'implicit-race-flags': receipt['toolchain']['goFlags'] = '-race'
+                if mode == 'missing-policy': del receipt['toolchain']['goFlags']
+                command['toolchain'] = receipt['toolchain']
+                write_json(command_path, command)
+                receipt['files']['command.json'] = receipt['commandSHA256'] = digest(command_path)
                 write_json(path, receipt)
                 self.record['e2e']['receipt']['sha256'] = digest(path)
                 self.gate(1)

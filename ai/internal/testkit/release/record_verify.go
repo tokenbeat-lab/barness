@@ -12,9 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 // EvaluateRecord only reads source, receipts and native evidence. It never runs
@@ -140,6 +138,10 @@ func verifyStageRecord(root string, record Record, name string, stage StageRecor
 			return err
 		}
 	}
+	flags, flagsPresent := receipt.Toolchain["goFlags"]
+	if receipt.Toolchain["goEnv"] != "off" || !flagsPresent || flags != "" {
+		return fmt.Errorf("Go environment isolation policy missing or unsafe")
+	}
 	if len(receipt.Toolchain["executableSHA256"]) != 64 || receipt.Toolchain["collectorPython"] == "" {
 		return fmt.Errorf("toolchain identity missing")
 	}
@@ -227,7 +229,7 @@ func verifyStageRecord(root string, record Record, name string, stage StageRecor
 		return err
 	}
 	if name == "live" {
-		return verifySelectedLive(root, attempt, bundle, route, stage, record.Source.Commit)
+		return verifySelectedLive(root, bundle, route, stage, record.Source)
 	}
 	native, err := LoadBundle(bundle)
 	if err != nil || len(native.Problems) > 0 || native.Commit != receipt.Source.Commit {
@@ -284,70 +286,6 @@ func verifyTestEvents(attempt string, want []string) error {
 	for _, name := range want {
 		if !seen[name] {
 			return fmt.Errorf("unexecuted test claimed")
-		}
-	}
-	return nil
-}
-func verifySelectedLive(root, attempt, dir, route string, stage StageRecord, commit string) error {
-	var report supportmatrix.Report
-	var err error
-	switch {
-	case strings.HasPrefix(route, "zai-") || strings.HasPrefix(route, "minimax-cn-"):
-		report, err = supportmatrix.NewRegionalReport(dir)
-	case strings.HasPrefix(route, "minimax-"):
-		report, err = supportmatrix.NewMiniMaxReport(dir)
-	case len(supportmatrix.GLMExpected(route)) > 0:
-		report, err = supportmatrix.NewGLMReport(dir)
-	default:
-		report, err = supportmatrix.LoadReport(filepath.Join(dir, supportmatrix.ReportFile))
-		if err == nil {
-			err = verifyLiveManifest(dir, report)
-		}
-	}
-	if err != nil || report.Combo != route || report.GitCommit != commit || len(report.Expected) == 0 || len(stage.Consumers) == 0 {
-		return fmt.Errorf("live qualification unavailable or stale")
-	}
-	expected := expectedCapabilities(route)
-	expectedCopy, reported := slices.Clone(expected), slices.Clone(report.Expected)
-	slices.Sort(expectedCopy)
-	slices.Sort(reported)
-	if len(expected) == 0 || !slices.Equal(expectedCopy, reported) || len(report.Scenarios) != len(expected) {
-		return fmt.Errorf("incomplete native capability set")
-	}
-	catalog := ai.BuiltinCatalog()
-	catalogHash, err := catalog.Hash()
-	if err != nil || report.CatalogVersion != catalog.Version || report.CatalogHash != catalogHash {
-		return fmt.Errorf("live catalog drift")
-	}
-	modules, err := GoModules(root)
-	if err != nil || staleSDK(report.SDK, modules) != "" {
-		return fmt.Errorf("live SDK drift")
-	}
-	seenScenarios := map[string]bool{}
-	for _, scenario := range report.Scenarios {
-		if seenScenarios[scenario.ID] || !slices.Contains(expected, scenario.ID) {
-			return fmt.Errorf("duplicate or substituted native scenario")
-		}
-		seenScenarios[scenario.ID] = true
-	}
-	for _, c := range stage.Consumers {
-		if c.ExitCode == nil || *c.ExitCode != 0 || len(c.Argv) == 0 || len(c.Files) == 0 {
-			return fmt.Errorf("live consumer not passed")
-		}
-		for path, hash := range c.Files {
-			if _, err := verifyRecordFile(attempt, FileRef{path, hash}); err != nil {
-				return err
-			}
-		}
-	}
-	for _, id := range stage.RequiredCases {
-		if !slices.ContainsFunc(report.Scenarios, func(s supportmatrix.ScenarioResult) bool { return s.CaseID == id && s.Outcome == supportmatrix.Pass }) {
-			return fmt.Errorf("live required case missing")
-		}
-	}
-	for _, s := range report.Scenarios {
-		if s.Outcome != supportmatrix.Pass {
-			return fmt.Errorf("live scenario not passed")
 		}
 	}
 	return nil

@@ -1,6 +1,6 @@
 import json
 import sys
-from process_support import ProcessCase, TOOLS
+from process_support import safe_environment, ProcessCase, TOOLS
 
 
 class StageRunProcess(ProcessCase):
@@ -79,7 +79,7 @@ class StageRunProcess(ProcessCase):
         import subprocess
         import time
         (self.repo / 'ai/cancel_test.go').write_text('package ai\nimport("testing";"time")\nfunc TestControlledCancellation(t *testing.T){time.Sleep(15*time.Second)}\n')
-        env = {k: os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH') if k in os.environ}
+        env = safe_environment()
         command = [sys.executable, str(TOOLS / 'run.py'), '--feature', 'sample', '--stage', 'e2e', '--',
                    'go', 'test', '-json', './ai', '-run', '^TestControlledCancellation$', '-count=1']
         process = subprocess.Popen(command, cwd=self.repo, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -141,3 +141,52 @@ class StageRunProcess(ProcessCase):
         receipt = json.loads(receipt_path.read_text())
         self.assertNotIn('ai/.DS_Store', receipt['source']['files'])
         self.assertNotIn('.DS_Store', receipt['files'])
+
+    def test_persistent_go_configuration_cannot_enable_parent_or_nested_race(self):
+        import platform
+        home = self.repo / 'host-home'
+        config = home / ('Library/Application Support/go/env' if platform.system() == 'Darwin' else '.config/go/env')
+        config.parent.mkdir(parents=True)
+        config.write_text('GOFLAGS=-race\n')
+        self.run_stage('go-environment', env={'HOME': str(home), 'GOFLAGS': '-race'}, expected=0)
+        path = self.attempts()[0]
+        events = [json.loads(line) for line in (path.parent / 'stdout.jsonl').read_text().splitlines()]
+        observed = next(e for e in events if 'configuredGoFlags' in e)
+        self.assertEqual(observed['configuredGoFlags'], '')
+        self.assertEqual(observed['nestedGoFlags'], '')
+        receipt = json.loads(path.read_text())
+        self.assertEqual(receipt['toolchain']['goEnv'], 'off')
+        self.assertIn('goFlags', receipt['toolchain'])
+        self.assertEqual(receipt['toolchain']['goFlags'], '')
+
+    def test_detached_descendant_pipe_cannot_hold_collector_open(self):
+        import os
+        import signal
+        try:
+            result = self.call(sys.executable, TOOLS / 'run.py', '--feature', 'sample', '--stage', 'e2e',
+                '--timeout', '0.4', '--', sys.executable, TOOLS / 'tests/fixture_child.py', 'held-pipe', timeout=3)
+            self.assertNotEqual(result.returncode, 0)
+            receipt = json.loads(self.attempts()[0].read_text())
+            self.assertEqual(receipt['status'], 'CAPTURE_FAILED')
+            self.assertEqual(receipt['exitCode'], 0)
+        finally:
+            pidfile = self.repo / 'descendant.pid'
+            if pidfile.exists():
+                try:
+                    os.kill(int(pidfile.read_text()), signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+
+    def test_native_live_package_tags_and_timeout_are_discovered_without_live_execution(self):
+        env = {'BARNESS_AI_LIVE': '1', 'BARNESS_AI_LIVE_COMBO': 'deepseek-chat',
+               'BARNESS_AI_LIVE_ACCOUNT_ALIAS': 'synthetic-account', 'BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT': 'synthetic-key'}
+        for package in ('-tags live ./ai/live', '-tags live -timeout 180s ./ai/live',
+                        '-tags live -timeout 1800s ./ai/live', '-tags live -timeout 30m0s ./ai/live'):
+            with self.subTest(package=package):
+                self.call(sys.executable, TOOLS / 'run.py', '--feature', 'sample', '--stage', 'live', '--route', 'deepseek-chat',
+                          '--', sys.executable, TOOLS / 'tests/fixture_child.py', 'live', package, env=env, expected=0)
+        for package in ('./ai/live', '-tags live ./ai/other', '-tags live ./ai/live ./ai/other',
+                        '-tags live -timeout unlimited ./ai/live', '-tags live -race ./ai/live'):
+            with self.subTest(package=package):
+                self.call(sys.executable, TOOLS / 'run.py', '--feature', 'sample', '--stage', 'live', '--route', 'deepseek-chat',
+                          '--', sys.executable, TOOLS / 'tests/fixture_child.py', 'live', package, env=env, expected=1)

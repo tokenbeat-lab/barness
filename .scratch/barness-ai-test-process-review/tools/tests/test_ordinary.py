@@ -5,7 +5,7 @@ import shlex
 import subprocess
 import tempfile
 import unittest
-from process_support import TOOLS
+from process_support import safe_environment, TOOLS
 
 PROJECT = TOOLS.parents[2]
 
@@ -16,13 +16,13 @@ class OrdinaryEntrypointProcess(unittest.TestCase):
             root = Path(tmp)
             (root / 'go').write_text('#!/bin/sh\ncase " $* " in *TestMiniMaxSharedDesignLoad*) echo hidden-load > ' + shlex.quote(str(root / 'started')) + '; exit 91;; *) exec ' + shlex.quote(shutil.which('go')) + ' "$@";; esac\n')
             (root / 'go').chmod(0o755)
-            env = {k: os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH') if k in os.environ}
+            env = safe_environment()
             env['PATH'] = str(root) + os.pathsep + env['PATH']
             env['BARNESS_BOUNDARY_MARKER'] = str(root / 'started')
             env['BARNESS_AI_EVIDENCE_DIR'] = str(root / 'bundles')
             binary = root / 'ordinary.test'
             built = subprocess.run([shutil.which('go'), 'test', '-c', '-o', binary, './ai/e2e'], cwd=PROJECT,
-                                   env={k: os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH') if k in os.environ},
+                                   env=safe_environment(),
                                    capture_output=True, text=True, timeout=90)
             self.assertEqual(built.returncode, 0, built.stderr)
             result = subprocess.run([binary, '-test.run=^TestMiniMaxReleaseLoadConsumer$', '-test.count=1', '-test.timeout=60s'],
@@ -40,7 +40,7 @@ class OrdinaryEntrypointProcess(unittest.TestCase):
         import json
         with tempfile.TemporaryDirectory(prefix='barness-manual-boundary-') as tmp:
             root = Path(tmp)
-            env = {k: os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH') if k in os.environ}
+            env = safe_environment()
             binary = root / 'ordinary.test'
             built = subprocess.run([shutil.which('go'), 'test', '-c', '-o', binary, './ai/e2e'], cwd=PROJECT,
                                    env=env, capture_output=True, text=True, timeout=90)

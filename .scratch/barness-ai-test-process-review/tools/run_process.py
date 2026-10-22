@@ -1,9 +1,12 @@
 """Bounded process capture with group cancellation and credential redaction."""
 import codecs
+import json
 import os
+import shutil
 import signal
 import subprocess
-import threading
+import selectors
+import time
 from live_environment import selected_environment
 
 ALLOW = ('PATH', 'HOME', 'TMPDIR', 'GOCACHE', 'GOPATH', 'GOROOT', 'GOTOOLCHAIN',
@@ -13,6 +16,7 @@ LIMIT = 64 << 20
 
 def environment(stage, route=None):
     env = {key: os.environ[key] for key in ALLOW if key in os.environ}
+    env.update(GOENV='off', GOFLAGS='')
     secrets = []
     if stage == 'pressure':
         env['BARNESS_AI_PRESSURE'] = '1'
@@ -27,6 +31,22 @@ def environment(stage, route=None):
     return env, secrets
 
 
+def isolate_go_home(env, stage, out):
+    if stage == 'live':
+        return
+    # Legacy child launchers retain HOME but may rebuild their environment.
+    # An empty stage-owned home prevents them reopening the user's Go config.
+    go = shutil.which('go', path=env.get('PATH'))
+    if go:
+        caches = json.loads(subprocess.check_output(
+            [go, 'env', '-json', 'GOCACHE', 'GOPATH'], env=env, timeout=10))
+        for name in ('GOCACHE', 'GOPATH'):
+            env.setdefault(name, caches[name])
+    home = out / 'home'
+    home.mkdir(mode=0o700)
+    env['HOME'] = str(home)
+
+
 def capture(argv, cwd, env, out, timeout, secrets):
     state = {'exitCode': None, 'status': 'START_FAILED', 'error': None}
     try:
@@ -35,86 +55,88 @@ def capture(argv, cwd, env, out, timeout, secrets):
     except OSError:
         state['error'] = 'process unavailable'
         return state
-    errors = []
-    stop_lock = threading.Lock()
-    stopped = False
+    deadline = time.monotonic() + timeout
+    selector = selectors.DefaultSelector()
+    streams = []
+    hold = max([len(x) for x in secrets] or [1]) - 1
+
     def stop():
-        nonlocal stopped
-        with stop_lock:
-            if stopped:
-                return
-            try:
-                os.killpg(process.pid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
-            except PermissionError:
-                # Darwin may report EPERM for an already reaped process group.
-                # A live leader still requires an explicit capture failure.
-                if process.poll() is None:
-                    errors.append('process group could not be stopped')
-                    process.kill()
-            stopped = True
-    def pump(stream, target):
-        decoder = codecs.getincrementaldecoder('utf-8')('replace')
-        pending = ''
-        total = 0
-        hold = max([len(x) for x in secrets] or [1]) - 1
         try:
-            with target.open('w') as log:
-                while block := stream.read1(65536):
-                    total += len(block)
-                    if total > LIMIT:
-                        raise ValueError('capture limit exceeded')
-                    pending += decoder.decode(block)
-                    # Keep incomplete secret prefixes before writing a bounded chunk.
-                    cut = max(0, len(pending) - hold)
-                    for secret in secrets:
-                        pos = pending.find(secret)
-                        while pos >= 0:
-                            if pos < cut < pos + len(secret):
-                                cut = pos
-                            pos = pending.find(secret, pos + len(secret))
-                    ready, pending = pending[:cut], pending[cut:]
-                    for secret in secrets:
-                        ready = ready.replace(secret, '[REDACTED]')
-                    log.write(ready)
-                    log.flush()
-                pending += decoder.decode(b'', final=True)
-                for secret in secrets:
-                    pending = pending.replace(secret, '[REDACTED]')
-                log.write(pending)
-                log.flush()
-                os.fsync(log.fileno())
-        except Exception:
-            errors.append('process capture failed')
-            stop()
-        finally:
-            stream.close()
-    threads = [threading.Thread(target=pump, args=(process.stdout, out / 'stdout.jsonl')),
-               threading.Thread(target=pump, args=(process.stderr, out / 'stderr.log'))]
-    for thread in threads:
-        thread.start()
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        except PermissionError:
+            # Darwin can report EPERM for a reaped group; never target another PID.
+            if process.poll() is None:
+                process.kill()
+
+    def write(stream, block, final=False):
+        stream['total'] += len(block)
+        if stream['total'] > LIMIT:
+            raise ValueError('capture limit exceeded')
+        pending = stream['pending'] + stream['decoder'].decode(block, final=final)
+        cut = len(pending) if final else max(0, len(pending) - hold)
+        for secret in secrets:
+            pos = pending.find(secret)
+            while pos >= 0:
+                if pos < cut < pos + len(secret):
+                    cut = pos
+                pos = pending.find(secret, pos + len(secret))
+        ready, stream['pending'] = pending[:cut], pending[cut:]
+        for secret in secrets:
+            ready = ready.replace(secret, '[REDACTED]')
+        stream['log'].write(ready)
+        stream['log'].flush()
+
     previous = signal.getsignal(signal.SIGTERM)
     def cancelled(_signum, _frame):
         raise KeyboardInterrupt
     signal.signal(signal.SIGTERM, cancelled)
     try:
-        state['exitCode'] = process.wait(timeout=timeout)
-        state['status'] = 'PASS' if state['exitCode'] == 0 else 'FAIL'
-    except subprocess.TimeoutExpired:
-        stop()
-        state.update(status='TIMEOUT', exitCode=process.wait(timeout=5))
+        for pipe, name in ((process.stdout, 'stdout.jsonl'), (process.stderr, 'stderr.log')):
+            stream = {'pipe': pipe, 'log': (out / name).open('w'), 'total': 0,
+                      'pending': '', 'decoder': codecs.getincrementaldecoder('utf-8')('replace')}
+            streams.append(stream)
+            os.set_blocking(pipe.fileno(), False)
+            selector.register(pipe, selectors.EVENT_READ, stream)
+        while selector.get_map() or process.poll() is None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                if process.poll() is None:
+                    state['status'] = 'TIMEOUT'
+                else:
+                    state.update(status='CAPTURE_FAILED', error='pipe remained open after child exit')
+                break
+            for key, _ in selector.select(min(.05, remaining)):
+                stream = key.data
+                block = os.read(key.fd, 65536)
+                write(stream, block, final=not block)
+                if not block:
+                    selector.unregister(key.fileobj)
+                    key.fileobj.close()
+        else:
+            state['status'] = 'PASS' if process.returncode == 0 else 'FAIL'
     except KeyboardInterrupt:
-        stop()
-        state.update(status='CANCELLED', exitCode=process.wait(timeout=5))
-    except (OSError, subprocess.TimeoutExpired):
-        state.update(status='CAPTURE_FAILED', exitCode=process.poll(), error='process wait failed')
+        state['status'] = 'CANCELLED'
+    except (OSError, ValueError):
+        state.update(status='CAPTURE_FAILED', error='process capture failed')
     finally:
+        # The deadline covers both process lifetime and inherited pipe handles.
+        # No blocking reader threads survive finalization, even for detached children.
+        try:
+            stop()
+            state['exitCode'] = process.wait(timeout=5)
+        except (OSError, subprocess.TimeoutExpired):
+            state.update(status='CAPTURE_FAILED', exitCode=process.poll(), error='process wait failed')
+        selector.close()
+        for stream in streams:
+            stream['pipe'].close()
+            try:
+                write(stream, b'', final=True)
+                os.fsync(stream['log'].fileno())
+            except (OSError, ValueError):
+                state.update(status='CAPTURE_FAILED', error='capture finalization failed')
+            finally:
+                stream['log'].close()
         signal.signal(signal.SIGTERM, previous)
-        # A descendant holding a pipe cannot extend the stage indefinitely.
-        stop()
-        for thread in threads:
-            thread.join(timeout=5)
-        if any(thread.is_alive() for thread in threads) or errors:
-            state.update(status='CAPTURE_FAILED', error='process capture failed')
     return state

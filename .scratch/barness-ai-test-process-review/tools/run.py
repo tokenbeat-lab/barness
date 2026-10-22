@@ -14,7 +14,7 @@ import tempfile
 import time
 
 from receipt_files import json_file, save, sha, source_snapshot, verify_bundle, within
-from run_process import capture, environment
+from run_process import capture, environment, isolate_go_home
 
 
 def main():
@@ -63,11 +63,13 @@ def main():
         out = Path(tempfile.mkdtemp(prefix=prefix, dir=base))
         bundles = out / 'bundles'
         bundles.mkdir()
+        isolate_go_home(env, args.stage, out)
         env['BARNESS_AI_EVIDENCE_DIR'] = str(bundles)
         env['BARNESS_RUN_COMMIT'] = source['commit']
         executable = shutil.which(argv[0], path=env.get('PATH'))
         toolchain = {'collectorPython': platform.python_version(), 'platform': platform.system(),
                      'architecture': platform.machine(),
+                     'goEnv': env['GOENV'], 'goFlags': env['GOFLAGS'],
                      'executableSHA256': sha(Path(executable).resolve()) if executable else ''}
         started = datetime.now(timezone.utc).isoformat()
         monotonic = time.monotonic()
@@ -101,7 +103,9 @@ def main():
                     raise ValueError('bundle source commit mismatch')
                 found.append({'path': str(path.relative_to(out)), 'package': package,
                     'manifestSHA256': sha(path / 'manifest.json'), 'auditSHA256': sha(path / 'audit.json')})
-            primary = [item for item in found if item['package'] == expected]
+            primary = [item for item in found if (re.fullmatch(
+                r'-tags live(?: -timeout (?:[0-9]+(?:\.[0-9]+)?[hms])+)? \./ai/live', item['package'])
+                if args.stage == 'live' else item['package'] == expected)]
             if len(primary) != 1:
                 raise ValueError('expected exactly one primary native bundle')
             receipt['bundles'] = found

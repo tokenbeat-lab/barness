@@ -41,3 +41,5 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 桌面元数据修复 `ad2ca22aad39cfc041319204687b9bd5ba6acf0b` 冻结后，`desktop-metadata-green-20261022T022359Z` 27组进程场景通过；最终普通原件 `20261022T022434.220792Z-qopwtw85` PASS/exit0，370.57秒，12811个通过节点，原生12086 PASS/214 NOT_RUN、audit0；四份受控命令文件不登记桌面缓存。`metadata-static-20261022T022458Z` 双vet和live-tag仅编译均exit0。旧桌面缓存哈希失效的回执和拒绝报告原样保留。
 
 规范切换依据：实现受测SHA `ad2ca22aad39cfc041319204687b9bd5ba6acf0b`，普通验收提交 `6c1a02f2e50547d5fb87dae75daba24ebadafe0d`。只读判定原件 `.evidence/barness-ai-test-process-review/record-check-20261022T023118Z-ywf0q8wp`，实际退出1，source/E2E/live不适用检查均通过，race与正式压力因NOT_RUN拒绝，release.pass=false。文档相对链接215项通过；旧活动差分/自动check/race命令检索零命中。此规范提交仅含Markdown；提交后的完整来源与8636份输入相等性原件见该目录final-source-check.json。未启动第2–8节或真实证据清理。
+
+七项复审修复开始，基线 HEAD 3ddc774084fe502ca1a13ab8b41b208053e24378，工作区干净。沿用已批准公共CLI/进程/临时文件系统接缝；仅普通验证，不运行race、压力、付费live、真实证据清理或后续计划。失败方式见review-fixes.md。

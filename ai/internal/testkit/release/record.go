@@ -38,12 +38,7 @@ type StageRecord struct {
 	RequiredCases []string               `json:"requiredCases,omitempty"`
 	Selection     *Selection             `json:"selection,omitempty"`
 	Routes        map[string]StageRecord `json:"routes,omitempty"`
-	Consumers     []ConsumerRecord       `json:"consumers,omitempty"`
-}
-type ConsumerRecord struct {
-	Argv     []string          `json:"argv"`
-	ExitCode *int              `json:"exitCode"`
-	Files    map[string]string `json:"files"`
+	Consumers     []FileRef              `json:"consumers,omitempty"`
 }
 type NativeBundleRef struct {
 	Path           string `json:"path"`

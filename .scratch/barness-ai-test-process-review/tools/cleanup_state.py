@@ -7,19 +7,11 @@ from pathlib import Path
 import re
 
 from cleanup_scan import inventory, intersects, scan
-from receipt_files import json_file, save, sha, within
+from receipt_files import json_file, save, sha, sync_dir, within
 
 
 def now():
     return datetime.now(timezone.utc).isoformat()
-
-
-def sync_dir(path):
-    fd = os.open(path, os.O_RDONLY)
-    try:
-        os.fsync(fd)
-    finally:
-        os.close(fd)
 
 
 @contextmanager

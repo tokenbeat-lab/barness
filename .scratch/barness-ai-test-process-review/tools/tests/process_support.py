@@ -23,11 +23,17 @@ def write_json(path, value):
     return path
 
 
+def safe_environment():
+    env = {k: os.environ[k] for k in ("PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH") if k in os.environ}
+    env.update(GOENV="off", GOFLAGS="")
+    return env
+
+
 class ProcessCase(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="barness-process-e2e-")
         self.addCleanup(self.temp.cleanup)
-        self.repo = Path(self.temp.name)
+        self.repo = Path(self.temp.name).resolve()
         (self.repo / "ai").mkdir()
         (self.repo / "ai/example.go").write_text("package ai\n")
         (self.repo / "go.mod").write_text("module example.test/fixture\n\ngo 1.26.2\n")
@@ -37,11 +43,11 @@ class ProcessCase(unittest.TestCase):
         self.call("git", "-c", "user.name=Fixture", "-c", "user.email=fixture@example.test",
                   "commit", "-qm", "synthetic source")
 
-    def call(self, *args, env=None, expected=None):
-        child_env = {k: os.environ[k] for k in ("PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH") if k in os.environ}
+    def call(self, *args, env=None, expected=None, child_setup=None, timeout=40):
+        child_env = safe_environment()
         child_env.update(env or {})
         result = subprocess.run([str(x) for x in args], cwd=self.repo, env=child_env,
-                                capture_output=True, text=True, timeout=40)
+                                capture_output=True, text=True, timeout=timeout, preexec_fn=child_setup)
         if ARTIFACT:
             target = Path(ARTIFACT)
             target.mkdir(parents=True, exist_ok=True)

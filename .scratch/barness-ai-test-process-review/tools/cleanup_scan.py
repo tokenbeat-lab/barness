@@ -39,20 +39,65 @@ def intersects(a, b):
 
 
 def successful(path):
-    receipts = list(path.rglob('receipt.json')) if path.is_dir() else []
-    manifests = list(path.rglob('manifest.json')) if path.is_dir() else []
-    if len(receipts) + len(manifests) > MAX_ENTRIES:
-        raise ValueError('candidate state limit exceeded')
-    if receipts:
-        for receipt in receipts:
-            value = json_file(receipt)
-            if value.get('status') != 'PASS' or value.get('exitCode') != 0:
+    if not path.is_dir():
+        return False
+    files = inventory(path)['files']
+    receipts = [name for name in files if Path(name).name == 'receipt.json']
+    manifests = [name for name in files if Path(name).name == 'manifest.json']
+    if not receipts and not manifests:
+        return False
+    # Authority records and unclassified bytes never inherit a parent's PASS.
+    if any(any(token in name.casefold() for token in ('grant', 'claim', 'ledger', '账本')) for name in files):
+        return False
+    covered = set(receipts + manifests)
+
+    def artifacts(base, values):
+        if not isinstance(values, dict):
+            return False
+        for name, expected in values.items():
+            member = within(base, name)
+            relative = str(member.relative_to(path))
+            if files.get(relative) != str(expected).removeprefix('sha256:'):
                 return False
+            covered.add(relative)
         return True
-    if manifests:
-        return all((value := json_file(p)).get('cases') and
-                   all(c.get('status') in ('PASS', 'UNSUPPORTED') for c in value['cases']) for p in manifests)
-    return False
+
+    for name in receipts:
+        receipt = path / name
+        value = json_file(receipt)
+        if value.get('status') != 'PASS' or value.get('exitCode') != 0:
+            return False
+        if not artifacts(receipt.parent, value.get('files', {})):
+            return False
+    for name in manifests:
+        manifest = path / name
+        value = json_file(manifest)
+        cases = value.get('cases')
+        if not isinstance(cases, list) or not cases:
+            return False
+        for case in cases:
+            if case.get('status') not in ('PASS', 'UNSUPPORTED'):
+                return False
+            case_dir = within(manifest.parent, case.get('dir') or case.get('id', ''))
+            if not artifacts(case_dir, case.get('artifacts', {})):
+                return False
+        audit = manifest.parent / 'audit.json'
+        if not audit.is_file() or json_file(audit).get('findings') != []:
+            return False
+        covered.add(str(audit.relative_to(path)))
+    return covered == set(files)
+
+
+def candidate_paths(root):
+    members = []
+    for path in sorted((root / '.evidence').iterdir()):
+        if path.name == '_quarantine':
+            continue
+        for member in sorted(path.iterdir()) if path.name == 'barness-ai' and path.is_dir() else [path]:
+            members.append(member)
+            if len(members) > MAX_ENTRIES:
+                raise ValueError('candidate limit exceeded')
+    return members
 
 
 def scan(root):
@@ -76,6 +121,22 @@ def scan(root):
         if path.suffix in TEXT or path.name == 'SHA256SUMS':
             pending.append(path)
     pending += [root / name for name in REQUIRED]
+    candidates_scope = candidate_paths(root)
+    successful_paths = {str(path.relative_to(root)): successful(path) for path in candidates_scope}
+    # Retained failed/unknown runs are reference roots even without a handoff
+    # document. Their captures and indices can depend on otherwise successful runs.
+    for path in candidates_scope:
+        relative = str(path.relative_to(root))
+        if successful_paths[relative]:
+            continue
+        protected.add(relative)
+        files = inventory(path)
+        members = [path / name for name in files['files']] if files['kind'] == 'directory' else [path]
+        for member in members:
+            if member.suffix in TEXT or member.name == 'SHA256SUMS':
+                pending.append(member)
+                if len(pending) > MAX_ENTRIES:
+                    raise ValueError('retained reference roots exceed bound')
 
     def reference(raw, origin, field, trim=False):
         raw = raw.strip()
@@ -181,16 +242,12 @@ def scan(root):
                                               for parent in existing if parent != p)]
     baseline = {p: inventory(root / p) for p in maximal}
     candidates = []
-    evidence = root / '.evidence'
-    for path in sorted(evidence.iterdir()):
-        if path.name == '_quarantine':
-            continue
-        members = list(path.iterdir()) if path.name == 'barness-ai' and path.is_dir() else [path]
-        for member in members:
-            name = str(member.relative_to(root))
-            kept = any(intersects(name, p) for p in protected)
-            mark = 'KEEP' if kept else ('QUARANTINE' if successful(member) else 'BLOCKED')
-            candidates.append({'path': name, 'mark': mark, 'reason': 'referenced' if kept else 'successful' if mark == 'QUARANTINE' else 'unknown or failed'})
+    for member in candidates_scope:
+        name = str(member.relative_to(root))
+        kept = any(intersects(name, p) for p in protected)
+        mark = 'BLOCKED' if not successful_paths[name] else 'KEEP' if kept else 'QUARANTINE'
+        candidates.append({'path': name, 'mark': mark,
+                           'reason': 'unknown or failed' if mark == 'BLOCKED' else 'referenced' if kept else 'successful'})
     for path in (root / '.scratch').rglob('*.log') if (root / '.scratch').exists() else []:
         relative = str(path.relative_to(root))
         if '/evidence/' not in relative:

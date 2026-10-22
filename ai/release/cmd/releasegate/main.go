@@ -15,19 +15,28 @@ func main() { os.Exit(cli(os.Args[1:])) }
 func cli(args []string) int {
 	flags := flag.NewFlagSet("releasegate", flag.ContinueOnError)
 	record := flags.String("record", "", "immutable feature receipt index")
+	bundle := flags.String("live-bundle", "", "read-only native live qualification consumer")
 	out := flags.String("out", "", "new report directory")
-	if flags.Parse(args) != nil || flags.NArg() != 0 || *record == "" || *out == "" {
-		fmt.Fprintln(os.Stderr, "releasegate: -record and -out required")
+	if flags.Parse(args) != nil || flags.NArg() != 0 || (*record == "") == (*bundle == "") || *out == "" {
+		fmt.Fprintln(os.Stderr, "releasegate: select -record or -live-bundle, with -out")
 		return 2
-	}
-	if err := os.Mkdir(*out, 0700); err != nil {
-		fmt.Fprintln(os.Stderr, "releasegate: new output directory required")
-		return 1
 	}
 	root, err := os.Getwd()
 	if err != nil {
 		return 1
 	}
+	if *bundle != "" {
+		if err := release.CaptureLiveConsumer(root, *bundle, *out, append([]string{os.Args[0]}, args...)); err != nil {
+			fmt.Fprintln(os.Stderr, "releasegate: native live consumer failed")
+			return 1
+		}
+		return 0
+	}
+	if err := os.Mkdir(*out, 0700); err != nil {
+		fmt.Fprintln(os.Stderr, "releasegate: new output directory required")
+		return 1
+	}
+
 	report := release.EvaluateRecord(root, *record)
 	raw, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {

@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import tempfile
 
 MAX_FILE = 64 << 20
 
@@ -32,13 +33,28 @@ def json_file(path):
     return json.loads(path.read_text(), object_pairs_hook=pairs)
 
 
+def sync_dir(path):
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
 def save(path, value):
     path = Path(path)
     raw = (json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + '\n').encode()
-    with path.open('wb') as stream:
-        stream.write(raw)
-        stream.flush()
-        os.fsync(stream.fileno())
+    fd, temporary = tempfile.mkstemp(prefix='.' + path.name + '-', dir=path.parent)
+    temporary = Path(temporary)
+    try:
+        with os.fdopen(fd, 'wb') as stream:
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+        sync_dir(path.parent)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def within(root, relative):

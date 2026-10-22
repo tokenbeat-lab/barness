@@ -24,7 +24,7 @@ for index in range(2 if mode in ("ambiguous", "auxiliary") else 1):
         "cases": [{"id": "fixture-case", "test": "TestFixture", "status": "PASS", "dir": "fixture-case",
                    "artifacts": {"assertions.json": hashlib.sha256((case / "assertions.json").read_bytes()).hexdigest()}}]}
     if mode == 'live':
-        manifest['package'] = './ai/live'
+        manifest['package'] = sys.argv[2] if len(sys.argv) > 2 else '-tags live ./ai/live'
     if mode == "auxiliary" and index == 1:
         manifest["package"] = "./ai/examples/visualeval"
     if mode == "no-cases":
@@ -48,3 +48,15 @@ if mode == "doc-change":
 if mode == 'desktop-metadata':
     (base.parent / '.DS_Store').write_bytes(b'synthetic-desktop-cache')
     Path('ai/.DS_Store').write_bytes(b'synthetic-after')
+
+if mode == 'go-environment':
+    import subprocess
+    child = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'GOPATH', 'GOCACHE') if k in os.environ}
+    configured = subprocess.check_output(['go', 'env', 'GOFLAGS'], text=True).strip()
+    nested = subprocess.check_output(['go', 'env', 'GOFLAGS'], env=child, text=True).strip()
+    print(json.dumps({'configuredGoFlags': configured, 'nestedGoFlags': nested}))
+
+if mode == 'held-pipe':
+    import subprocess
+    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)'], start_new_session=True)
+    Path('descendant.pid').write_text(str(child.pid))
