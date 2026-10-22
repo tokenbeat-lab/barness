@@ -73,7 +73,7 @@ type ModelCompat struct {
 	// as pi does with them off (ADR-0018).
 	SupportsMidConvoSystemMessages bool `json:"supportsMidConvoSystemMessages,omitempty"`
 	// SupportsLongCacheRetention: long cache retention is requested
-	// (Responses: a 24h retention; Anthropic: a 1h cache_control ttl). Unset
+	// (OpenAI Responses: 24h; Anthropic and Kimi: 1h). Unset
 	// or null means true, as in pi.
 	SupportsLongCacheRetention Nullable[bool] `json:"supportsLongCacheRetention,omitzero"`
 	// SupportsExplicitPromptCacheMode: cache retention is sent as
