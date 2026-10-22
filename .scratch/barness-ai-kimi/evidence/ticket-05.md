@@ -31,3 +31,15 @@ Responses wrapper 已有独立红例 `20261022T142225.769705Z-czh_x1bs`，只缺
 公共 Client 验收覆盖两市场 Chat/Messages 的 json.Number 与 RawMessage：分数 budget、近似固定 top_p 均在零 Attempt/HTTP 之前拒绝；合法精确数值可用，model 越权仍先报 tenant_denied。`marshalJS` 当前直接使用 json.Encoder，不存在猜测中的 float64 round-trip；产品代码无需改动。既有 OpenAI hook 同样保留原始数字拼写。
 
 初始失败 `20261022T145028.378654Z-argp7a2w` 只来自本次测试对既有 OpenAI 数值归一化的错误期待，属于测试设置错误，不作为产品缺陷红例。修正期待后的普通验收 `20261022T145208.513160Z-ga07rikd`：exit0/PASS，命令 `go test -json ./ai/e2e -run '^TestKimiHostHook(ExactNumbers|LegacyNumberPreservation)' -count=1`；receipt SHA-256 `9787a481763d4ef74964a18f3c67de834b3bc14cfd40d6b5176797fc261e5d06`。原件已复制至主工作区 `.evidence/barness-ai-kimi-host/e2e/`。后续03合并后增加 Responses 同组验收。
+
+## Final six-route ordinary closure
+
+三协议已合并；两租户×两市场×三协议的十二个调用通过双 channel/socket 屏障同时持有十二个准入许可。四个独立凭据记录各服务三条明示 API；八个 Chat/Responses 请求在同租户/Provider/账户的跨协议调用间共享同一派生键，四份所有权之间保持四个不同键。Messages 不增加会话键。逐调用归属、实际 key alias、输入与 callback 序列化边界、Result/CostEstimate/Observer 独立值及资源归零均通过。Responses hook 原始数字 rejection/合法值/越权优先级也完成。
+
+新增十二调用夹具初版 `20261022T150141.053384Z-10cmjfx5` 与并发误启动的扩大命令 `20261022T150215.420104Z-ny1tgt27` 失败原件保留；二者仅同一个 worked literal 求和笔误，属于测试设置错误，未据此修改产品代码。修正后的完整 Host scope `20261022T150241.672768Z-y8xu0wm_` 退出0，随后提交并冻结代码/测试。
+
+最终命令：`go test -json ./ai/e2e ./ai -run '^(TestKimi|TestGLMHost|TestMiniMaxHost|TestRegionalProviderHost|TestCostEstimate$|TestThinkingBudgets$)' -count=1 -timeout=20m`。受测提交 `e8d42f90fc78e7ec6d1402cc2d8a73c467277696`；唯一完整 attempt `.evidence/barness-ai-kimi-host/e2e/20261022T150323.957119Z-0mdqdsdi/receipt.json`，exit0/PASS，receipt SHA-256 `9c7cd740ae382c764a085eb94a0e2df4afb06ebc29ea1191119f75a2d662de1b`。1936个实际测试节点（含父/子）完成，唯一主 bundle 有1844个 PASS 用例、audit零发现；TestKimi1592节点、GLM Host63、MiniMax Host84、Regional Host171，辅助 ./ai 两个现有顶层测试及其26节点全部覆盖，非零匹配。精确原生 bundle、manifest/audit 哈希由 receipt.bundles 固定。
+
+普通阶段 source.files 共1324项，与票01/05收尾前当前完整执行来源及选定输入集合相等；本段和工单/map 只改非运行时 scratch 文本。收尾源码集合相等记录保留为 `ticket-01-05-source-equivalence-20261022T1504.json`。完整 receipt 自含 argv、工具链、墙钟、数值退出、全部来源文件哈希与 stdout/stderr。原失败和所有过渡 attempt 保留在同一路径。
+
+票01/05按当前实施与普通验收合同 resolved；真实 live、race、压力仍 NOT_RUN，候选不晋升正式目录，release.pass=false。后续整体源码审查/修复与最终冻结普通包由票07继续，不把本票 closure 解释为发布资格。
