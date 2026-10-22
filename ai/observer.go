@@ -239,7 +239,7 @@ type attemptRecorder struct {
 func (r attemptRecorder) started(attemptID string) time.Time {
 	now := time.Now()
 	if r.q != nil {
-		r.q.publish(Observation{Kind: ObservationAttemptStarted, Time: now, Call: r.call, Attempt: &Attempt{AttemptID: attemptID, UsageReporting: UsageUnreported}})
+		r.q.publish(Observation{Kind: ObservationAttemptStarted, Time: now, Call: r.call, Attempt: &Attempt{AttemptID: attemptID, UsageReporting: UsageUnreported, CostEstimate: unreportedCostEstimate(r.call.ProviderID)}})
 	}
 	return now
 }

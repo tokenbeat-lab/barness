@@ -95,6 +95,7 @@ type Attempt struct {
 	// message's Usage.
 	UsageReporting UsageReporting `json:"usageReporting"`
 	Usage          Usage          `json:"usage"`
+	CostEstimate   CostEstimate   `json:"costEstimate,omitzero"`
 }
 
 // Texts for a call interrupted while its initial request is in flight or
@@ -121,6 +122,8 @@ type initialRequest struct {
 	policy    RetryPolicy
 	clock     *clock.Clock // nil is the system clock
 	requestID string
+	// provider identifies Kimi attempts before any usage arrives.
+	provider ProviderID
 	// admit obtains the permit an attempt runs under.
 	admit    func(ctx context.Context, attemptID string) (release func(), failure *Error)
 	attempts []Attempt
@@ -199,6 +202,7 @@ func (r *initialRequest) send(ctx context.Context, attempt func(context.Context)
 			HTTPStatus:        out.status,
 			ProviderRequestID: out.providerRequestID,
 			UsageReporting:    UsageUnreported,
+			CostEstimate:      unreportedCostEstimate(r.provider),
 		}
 		if out.failure == nil {
 			r.release, r.attemptStarted = release, started
@@ -239,6 +243,20 @@ func (r *initialRequest) failed(rec Attempt, started time.Time) {
 func (r *initialRequest) usage(reporting UsageReporting, u Usage) {
 	a := &r.attempts[len(r.attempts)-1]
 	a.UsageReporting, a.Usage = reporting, u.clone()
+}
+
+// usageEstimate stores one accepted report and its pricing facts together,
+// before any terminal observation can be queued.
+func (r *initialRequest) usageEstimate(reporting UsageReporting, u Usage, estimate CostEstimate) {
+	a := &r.attempts[len(r.attempts)-1]
+	a.UsageReporting, a.Usage, a.CostEstimate = reporting, u.clone(), estimate
+}
+
+func unreportedCostEstimate(provider ProviderID) CostEstimate {
+	if isKimi(provider) {
+		return CostEstimate{Status: CostUnreported}
+	}
+	return CostEstimate{}
 }
 
 // done ends the attempt whose stream the call read, if any: it reports it

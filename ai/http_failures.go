@@ -27,6 +27,8 @@ const msgConnection = "Connection error."
 type httpFailures struct {
 	// glm selects independently documented GLM business codes and safe errors.
 	glm API
+	// kimi selects independently documented Kimi safe errors and retry rules.
+	kimi API
 	// minimax selects safe, evidence-bound compatibility errors.
 	minimax API
 	apiKey  Secret
@@ -108,6 +110,10 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 		msg = miniMaxErrorMessage(res.StatusCode, f.miniMaxErrorType(body))
 		sdkMsg = msg
 	}
+	if f.kimi != "" {
+		msg = kimiErrorMessage(res.StatusCode, kimiErrorType(body))
+		sdkMsg = msg
+	}
 	e := newError(code, PhaseRequest, f.redact(msg))
 	o := f.unread(res, e)
 	o.sdkMessage = f.redact(sdkMsg)
@@ -117,6 +123,9 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 	if f.minimax != "" {
 		o.permanent = miniMaxPermanentHTTPStatus(res.StatusCode) || miniMaxPermanentErrorType(f.miniMaxErrorType(body))
 	}
+	if f.kimi != "" {
+		o.permanent = kimiPermanent(res.StatusCode, kimiErrorType(body))
+	}
 	return o
 }
 
@@ -124,13 +133,18 @@ func (f httpFailures) status(res *http.Response) attemptOutcome {
 // reason, or was described into e. It keeps what the headers tell.
 func (f httpFailures) unread(res *http.Response, e *Error) attemptOutcome {
 	e.HTTPStatus = res.StatusCode
-	e.ProviderRequestID = res.Header.Get(f.requestIDHeader)
+	if f.kimi == "" {
+		e.ProviderRequestID = res.Header.Get(f.requestIDHeader)
+	}
 	e.RetryAfter = retryAfter(res.Header, f.clock.Now())
 	return attemptOutcome{status: res.StatusCode, header: res.Header, providerRequestID: e.ProviderRequestID, failure: e}
 }
 
 // upstream is a failure the provider reported inside the stream.
 func (f httpFailures) upstream(msg string) *Error {
+	if f.kimi != "" {
+		return newError(CodeUpstreamError, PhaseStream, kimiErrorMessage(0, kimiErrorType(json.RawMessage(msg))))
+	}
 	if f.minimax != "" {
 		return newError(CodeUpstreamError, PhaseStream, miniMaxErrorMessage(0, f.miniMaxErrorType(json.RawMessage(msg))))
 	}

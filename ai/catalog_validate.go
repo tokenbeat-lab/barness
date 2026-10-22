@@ -32,6 +32,9 @@ func (c Catalog) validate() error {
 	for _, m := range c.Models {
 		problem := m.Cost.problem()
 		if problem == "" {
+			problem = kimiModelProblem(m)
+		}
+		if problem == "" {
 			problem = defaultThinkingLevelProblem(m)
 		}
 		if problem == "" {
