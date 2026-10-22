@@ -46,4 +46,4 @@ go test ./ai/e2e -run '^TestRegionalProvider' -count=1
 
 原生 bundle 保留请求、脚本、事件、Result、Attempt、usage、降级、资源归零、断言和 Hash，使用 manifest 的 replay 命令复现。实际执行结果与原件入口见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)。
 
-发布按 [ADR-0051](../adr/0051-scoped-verification-receipts.md) 核验功能五项回执；受影响服务及业务效果仍需自身证明，源码或目录变化后由原生消费者判断旧证据适用性。pi 仅作架构参考。付费资格、范围与预算，以及实际 race 范围依[验证策略](../agents/verification.md)单独授权。
+发布按 [ADR-0051](../adr/0051-scoped-verification-receipts.md) 核验功能五项回执；受影响服务及业务效果仍需自身证明，源码或目录变化后由原生消费者判断旧证据适用性。pi 仅作架构参考。付费资格、范围与预算，以及实际 race 范围依[测试流程 SOP](../agents/verification.md)单独授权。

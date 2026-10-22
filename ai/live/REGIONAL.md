@@ -4,11 +4,14 @@
 
 ## 无 Key 检查
 
+按[测试流程 SOP](../../docs/agents/verification.md)使用清除 live/重负载/凭据环境的普通回执入口。下列 E2E 在受控边界验证地区合同；不在继承环境中直接运行 live-tag 测试包。
+
 ```sh
-go test ./ai/e2e -run '^TestRegionalProviderRelease'
-go test -tags live ./ai/live -run '^TestRegionalCandidate$'
-go run ./ai/live/cmd/regionalverify -source
-go run ./ai/live/cmd/regionalverify -grant-template zai-chat
+python3 .scratch/barness-ai-test-process-review/tools/run.py --feature '<功能 slug>' --stage e2e -- \
+  go test -json ./ai/e2e -run '^TestRegionalProviderRelease' -count=1
+# 以下两个命令只生成来源/模板；不执行验证或请求厂商。
+env GOENV=off GOFLAGS='' go run ./ai/live/cmd/regionalverify -source
+env GOENV=off GOFLAGS='' go run ./ai/live/cmd/regionalverify -grant-template zai-chat
 ```
 
 最后一个命令输出当前端点、source SHA、目录版本/Hash、SDK、型号和固定上限；ID、账户/地区别名和有效期仍需填写，因此模板不能授权请求。`-controlled <原生目录>` 只验证受控材料；`-qualify <目录>` 只接收自身真实候选或正式执行；`-formal <目录>` 还要求已晋升目录与一次新的正式执行。每次命令只允许一个消费模式。
@@ -17,7 +20,7 @@ go run ./ai/live/cmd/regionalverify -grant-template zai-chat
 
 ## 将来执行自身 live 的合同
 
-必须先按 `docs/agents/verification.md` 获得本次六条路线之一的明确付费验证授权。账户、地区与用途别名由 Host 维护者确认；只允许 standard API，不能从 key 外形猜测服务或转用 coding / M-plan。每条路线单独进程、独立 key 和新 grant，不能从旧授权推断许可。
+必须先按[测试流程 SOP](../../docs/agents/verification.md)获得本次六条路线之一的明确付费验证授权。账户、地区与用途别名由 Host 维护者确认；只允许 standard API，不能从 key 外形猜测服务或转用 coding / M-plan。每条路线单独进程、独立 key 和新 grant，不能从旧授权推断许可。
 
 1. 固定完整运行源码，使用 `-source` 输出的 `sourceSha256` 构建：
 
@@ -47,3 +50,5 @@ go run ./ai/live/cmd/regionalverify -grant-template zai-chat
 `regional-report.json`、原始授权/回执、完整执行源码、目录与来源快照、manifest、audit 和所有型号用例必须同属一个原生 bundle。消费器重新核对实际端点/模型/账户/Provider/API/SDK、预留与用量总计、每项单次 Attempt、事件终态、Host 工具配对、原生 reasoning 和资源归零，并拒绝隐藏、缺失、额外或改动文件。原始响应通过公共 Client 的现有 SDK/协议解析器独立重放；完成调用的正文、工具、推理/签名、原生状态、终态、用量数值/报告完整度和估算必须与保存的 Result/Attempt/Observer 相符，预算总计取独立解析用量。缺少、部分与明确零值用量保持不同。取消允许未完成帧、缺少终态/用量和已捕获但尚未发出的 read-ahead；保存的内容/原生字段必须为实际观察前缀，用量必须由该完整帧前缀支持。离线重放不发网络请求，也不产生真实服务资格。只有 `-formal` 通过的 `live-report.json` 可进入支持矩阵，按该自身 row 合并，不认证兄弟站点或另一个型号。
 
 发布按功能影响选择需要自身证明的地区路线，依 [ADR-0051](../../docs/adr/0051-scoped-verification-receipts.md) 写入五项回执；不运行冻结 pi 差分。`REGIONAL-R01..R20` 和 `REGIONAL-RP01..RP20` 各自固定完整有限 case ID 集，不能用一个匹配 PASS 替代全部验收。涉及真实资格的条目还依赖 `LIVE`。历史 GLM 捕获仍保留原件与事实；共享运行源码改变后，原生消费者应拒绝其作为当前支持，不刷新 pin 或时间掩盖过期。
+
+保存所需 `-qualify` / `-formal` 原生消费结果后，再按 SOP 第 4 节使用 consume_live.py 取得 schema 2 外层消费者回执，供功能 `-record` 索引引用。普通 E2E、真实调用、正式资格与只读发布判定分别保留事实。

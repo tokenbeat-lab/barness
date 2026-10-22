@@ -1,6 +1,6 @@
 # barness-ai
 
-> Current verification follows [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md); see the [single current status](../.scratch/barness-ai-test-process-review/status.md). Historical acceptances below apply only to their measured source.
+> Follow the [testing SOP](../docs/agents/verification.md) for current verification, backed by [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md); see the [single current status](../.scratch/barness-ai-test-process-review/status.md). Historical acceptances below apply only to their measured source.
 
 > **Catalog and release status (2026-10-19):** `2026-10-18.1-minimax` contains 96 chat identities, two image models and three classifiers. The release contract requires 16 protocol combinations and 17 independent own support identities. China standard GLM-5.3/5.2 keep separate Chat, Responses and Messages bindings; [Host examples](examples/glmhost/README.md) cover standard keys and full/simple/WithHooks. Jev1.14 images and Box retain experimental-image and explicit-authorization requirements. The current support matrix has 17 PASS identities; current-source qualification, the complete release gate and final reviews are **COMPLETE**. See the [delivery status](../.scratch/barness-ai-minimax/delivery-status.md).
 
@@ -10,7 +10,7 @@ English | [简体中文](README.zh-CN.md)
 
 `github.com/tokenbeat-lab/barness/ai` is barness's model protocol module: one trusted, concurrency-safe `Client` that
 runs **one model operation** against a model provider for **many tenants**. It is a Go port of
-[pi-ai](https://github.com/earendil-works/pi) (frozen baseline `1.1.0`) with tenant isolation, explicit resource limits
+[pi-ai](https://github.com/earendil-works/pi), used as an architecture reference, with tenant isolation, explicit resource limits
 and observability added on top.
 
 This README covers the public API and host responsibilities. Coding agents should also read [the invariants, layout and
@@ -72,9 +72,9 @@ Non-goals: no agent loop, no built-in memory or history trimming, no tool execut
 
 The matrix records each identity's own source/catalog-scoped evidence. Jev1.13 and1.14 share one protocol combination and retain separate required identities. GLM routes are Extension Routes with their own evidence, alongside DeepSeek Responses and both native image routes; none claims frozen pi parity. Callable models remain the intersection of the full `(Operation, Provider, API, ModelID)` catalog identity and the binding allowlist.
 
-### Current verification and release status
+### Historical verification and release baselines
 
-The [current MiniMax delivery](../.scratch/barness-ai-minimax/delivery-status.md) is COMPLETE: at measured source `78843eb`, both vet modes, ordinary and race commands exited 0; each main suite has 12,495 PASS, 0 FAIL, 0 NOT_RUN and audit0. All 17 own support inputs and four effects pass. Eleven source groups qualify; GLM Messages cancel passes in the full report at 1146ms. Later documentation/evidence commits preserve all 1,078 selected source files and are not new Go executions. The following baselines retain their original historical results.
+The [recorded MiniMax delivery](../.scratch/barness-ai-minimax/delivery-status.md) is COMPLETE: at measured source `78843eb`, both vet modes, ordinary and race commands exited 0; each main suite has 12,495 PASS, 0 FAIL, 0 NOT_RUN and audit0. All 17 own support inputs and four effects pass. Eleven source groups qualify; GLM Messages cancel passes in the full report at 1146ms. Later documentation/evidence commits preserve all 1,078 selected source files and are not new Go executions. The following baselines retain their original historical results.
 
 The previous complete baseline is [ticket14's accepted release](../.scratch/jev-1.14-multimodal-box/14-remaining-real/verification.md):11 own live identities, four independent effects, normal/race9098 each,861 frozen pi cases and all gates PASS. The original [pressure issue07](../.scratch/barness-ai-thinking-sampling/issues/07-pressure-stream-integrity.md) is resolved with retained causal evidence; earlier failing releases remain history.
 
@@ -456,19 +456,9 @@ Other directories:
 
 ### Testing
 
-Per AGENTS.md, establish public Client or CLI/process failure scenarios before implementation. Ordinary verification records the affected E2E:
+Follow the [testing SOP](../docs/agents/verification.md) before changing tests, selecting verification, evaluating release evidence or maintaining artifacts. It defines the ordered steps, command templates, completion criteria and failure handling. Public Client/CLI failure scenarios precede implementation; each attempt retains verifiable native evidence.
 
-```sh
-python3 .scratch/barness-ai-test-process-review/tools/run.py --feature <slug> --stage e2e -- \
-  go test -json ./ai/e2e ./ai -count=1 -timeout=20m
-# Add -run for focused checks, affected CLI/consumer packages as needed,
-# and repeated --input for external fixtures actually consumed.
-go run ./ai/release/cmd/releasegate -record <feature-record.json> -out <new-directory>
-```
-
-Large features proceed through E2E → affected own live evidence or justified NA → human-selected race → human-selected pressure or justified NA. Paid live additionally requires explicit route, qualification and budget authorization. Race and pressure require separate exact command selections; ordinary success and fixes never start them. Pressure cases default to NOT_RUN; ordinary consumers use retained fixtures.
-
-Each attempt preserves native exit, timing, source/inputs and exact manifest/audit pointers under `bundles/<run-id>/`; retries never overwrite failures. The release CLI only reads five recorded fields, and missing or stale evidence keeps release false. See the [tool contract](../.scratch/barness-ai-test-process-review/tools/README.md), [verification policy](../docs/agents/verification.md) and [release guide](../docs/barness-ai/README.md). Offline and controlled replay do not establish real support qualification.
+The [tool contract](../.scratch/barness-ai-test-process-review/tools/README.md) specifies receipt shapes and the read-only release CLI. Paid live, race and pressure retain their separate explicit selections; offline/controlled replay does not establish real support qualification. Current rollout facts and deferred execution are recorded in the [process status](../.scratch/barness-ai-test-process-review/status.md).
 
 ## Further reading
 

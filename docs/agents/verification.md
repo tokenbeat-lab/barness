@@ -1,48 +1,143 @@
-# 验证策略
+# 测试流程 SOP
 
-决定测试范围、准备付费验证或执行发布门禁时读取本文件。当前决定见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)；本次迁移的实际状态见[唯一当前状态](../../.scratch/barness-ai-test-process-review/status.md)。pi 只作为架构与设计参考，行为以 barness 公共契约和自身证据验证。
+编写测试、选择验证范围、执行验收、判定发布和维护证据时遵循本 SOP。工程规则见 [AGENTS.md](../../AGENTS.md)，决定与历史替代范围见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。本流程调整的实施事实见[当前状态](../../.scratch/barness-ai-test-process-review/status.md)；具体功能另维护自己的唯一当前状态。
 
-## 开发阶段
+## 1. 确定变更与验证范围
 
-行为变更先在公共 Client 或 CLI/进程边界建立可重复的失败场景，再实现与运行受影响普通 E2E。必须隔离测试时，先列出所有失败方式。纯文档、展示清单和审查记录检查引用、格式、状态与来源相等性；参与运行、价格、追溯或证据消费的数据按实际行为验证。
+开始前读取功能 spec/issue、当前状态和相关 ADR，检查完整 HEAD、已修改及未跟踪文件。把以下内容写入该功能当前状态：变更影响、公共测试入口、普通范围、live 路线或不适用依据、race/压力候选范围、实际输入与已有证据。pi 作为架构参考，行为依据 barness 的公共契约和自身证据。
 
-| 变更 | 普通验证范围 | 后续人工选择参考 |
+| 变更 | 普通验证 | 大功能后续范围 |
 | --- | --- | --- |
-| 生命周期、队列、取消、共享状态与资源策略 | 受影响公共 E2E，含隔离、释放与受控时序 | 对应并发路径、旧 Provider 回归及受影响设计负载 |
-| 协议编码、解析、历史与用量 | 对应协议 E2E 与脱敏捕获回放 | 受影响自身 live 路线及异步/资源路径 |
-| 发布判定、证据消费者与维护工具 | 公共 CLI/进程、取消和文件系统失败场景 | 受影响的执行、取消与并发读取路径 |
-| 纯文档及展示数据 | 引用、状态与完整来源/选定输入集合相等性 | 来源或输入未变时引用已有事实 |
-| 模块、SDK、构建标签或无法限定的共享变更 | 扩大普通 E2E 和编译/vet 范围 | 按影响确定真实路线、race 与压力范围 |
+| 生命周期、队列、取消、共享状态、资源限额 | 公共 E2E 覆盖隔离、受控时序、取消与释放 | 对应并发路径、旧 Provider 回归、受影响设计负载 |
+| 协议、历史、编码和用量 | 对应协议 E2E、已脱敏捕获回放 | 每条受影响自身 live 路线及资源路径 |
+| CLI、发布判定、证据消费或维护 | 公共 CLI/子进程，含文件系统失败、取消与超时 | 对应执行、取消及并发读取路径 |
+| SDK、模块、构建标签或难以限定的共享变更 | 扩大普通包与编译/vet | 按影响列出真实路线、race 和压力 |
+| 纯文档、展示清单、审查记录 | 引用、格式、状态、来源/选定输入集合相等性 | 沿用来源适用的事实，不伪造新测试 |
 
-测试范围由影响决定。合并本身不触发全量重跑；相关行为、测试、依赖或选定输入变化后重验受影响范围。并发场景用受控服务、hook 和 channel 确定阶段及取消时点，不用真实压力代替确定性回归。
+参与运行、价格、追溯或证据消费的数据按行为变更验证。测试范围由影响决定；合并不自动触发全库重跑。**完成条件：每项变更都有验证去向，未执行项与不适用项分开记录。**
 
-在仓库根使用[回执工具](../../.scratch/barness-ai-test-process-review/tools/README.md)，每轮写入独立 attempt：
+## 2. 日常开发：先失败，再实现
+
+1. 在公共 Client 或 CLI/进程边界建立能复现问题的失败场景，保留实际命令、退出和原件。复杂功能优先 E2E；确需隔离时先列全失败方式。遵循 AGENTS.md 的测试原则。
+2. 修改实现，重跑该失败场景，再运行受影响普通包。并发使用受控服务、hook/channel 确定时序与取消点，容量验证留到独立压力阶段。
+3. CLI/消费者/harness 变更增加对应无厂商请求的进程检查；普通消费者读取留存夹具，真实负载生成器与消费者放在独立压力阶段。
+
+在仓库根按功能设置变量，以下为命令模板：
 
 ```sh
-python3 .scratch/barness-ai-test-process-review/tools/run.py --feature <slug> --stage e2e -- \
+TOOLS="$PWD/.scratch/barness-ai-test-process-review/tools"
+FEATURE='<功能 slug>'
+python3 "$TOOLS/run.py" --feature "$FEATURE" --stage e2e -- \
+  go test -json ./ai/e2e -run '<受影响测试表达式>' -count=1
+# 交付前覆盖完整受影响包；CLI/证据消费者变化时追加对应包。
+python3 "$TOOLS/run.py" --feature "$FEATURE" --stage e2e -- \
   go test -json ./ai/e2e ./ai -count=1 -timeout=20m
 ```
 
-定向验证用 `-run`，CLI/消费者另覆盖受影响包。采集器固定 ai 与维护工具执行来源（包括 Git 忽略的源码），清除继承的重负载及凭据配置。实际消费的仓库外层脚本、历史夹具、目录、授权与文档等另以可重复的 `--input <仓库相对文件>` 固定；不能只依赖 HEAD。密钥不能放进 argv 或输入快照。
+每次生成新的 attempt，检查实际测试集合及必需 case ID，不能把零匹配、父测试 PASS 或缺场景当成完成。普通回执包含唯一主 `./ai/e2e` bundle，辅助包也保留完整库存与 audit。只跑工具进程场景的补充命令回执须与同来源普通证据一起交付，不冒充主 E2E 原生包。
 
-## 审查、冻结与大功能验收
+`run.py` 固定 GOENV=off、空 GOFLAGS，清除继承的差分、压力、live、路线和凭据配置；非 live 隔离 HOME，并保留宿主 HOME 脱敏。独立构建/元数据命令也须隔离这些配置。无 Key 检查选择已知受控入口；不要直接在继承环境中启动整个 live-tag 测试包。
 
-先整合审查最终 payload、原生历史、取消、超时、用量、资源释放和租户隔离；修复后复审，再提交并冻结源码、测试、依赖、工具和选定输入。按顺序完成：普通 E2E → 受影响自身 live 或有依据的不适用 → 人工 race → 人工压力或有依据的不适用。前项未通过就停止；各阶段独立保留原件。阶段完成、修复、合并与收尾均不自动启动下一阶段。
+**完成条件：原失败场景转绿、受影响普通测试实际完成、命令退出0、断言与 audit 通过，父子进程没有隐式启动 race、压力、厂商请求或冻结 oracle。失败即停，保留独立失败 attempt 后再修复。**
 
-付费 live 必须另有明确路线、资格与预算授权；计划实施批准不是付费许可。一个进程只持有对应路线凭据，继续遵循各原生生产者的一次性授权、预算、完整用例、来源与资格规则。离线回放和受控 loopback 不产生真实支持资格。
+## 3. 审查并冻结大功能来源
 
-race 和压力分别要求人类明确选择实际 argv 与范围。实施批准、普通通过和文档收尾不包含这种选择。race 不顺带开启压力；压力只在独立阶段启用 `BARNESS_AI_PRESSURE=1`。失败重跑与扩大范围按新的明确选择处理。等待时交付建议命令、范围、来源、输入及已有证据，实际未执行保持 NOT_RUN，`release.pass: false`。
+完成最终 payload、原生历史、用量、资源释放、取消、超时与租户隔离审查；修复后复核，再提交并冻结源码、测试、夹具、依赖、工具及实际输入。记录实际受测 SHA，不只记录 HEAD。
 
-## 并发与容量入口
+工具内建来源覆盖 `ai/`、本维护工具目录、go.mod/go.sum，含 Git 忽略的源码；不包含 Markdown、生成缓存和整个仓库。跨出该范围的实际代码、脚本、历史夹具、目录快照、授权及参与消费的文档，按文件枚举，用重复的 `--input <仓库相对文件>` 固定哈希；凭据不进入 argv 或输入快照。
 
-普通并发覆盖包括 MiniMax 的共享租户、准入、取消、Observer、重试，队列限额与释放，协议超时，以及视觉发送前后取消。旧 Provider 对应路径按影响加入。
+按第 2 节重新取得冻结来源的完整受影响普通回执。后续相关源码、测试、依赖或输入变化，回到本节；不能修改旧原件的 pin、时间或状态。纯文档/索引收尾只有在完整相关来源和选定输入集合及内容相等时才能沿用，另保存当前提交与实际受测提交的相等性核验。
 
-手动容量集合包括 `TestPolicyPressure`、`TestMixedPressure`、`TestClassifierImagesPressure` 及其 Import、`TestToolArgumentsScaling`、`TestAdmissionBurstPressure`、`TestPressureFixtureWriteBackpressure`、`TestPressureToolWriteIntegrity`、GLM/MiniMax/Multimodal 的 `SharedDesignLoad`/`RuntimeDesignLoad`，以及 `TestMiniMaxReleasePressureLoadConsumer`。`TestPressureLoopback` 还要求显式循环数。它们默认不运行；普通 MiniMax 消费者只读取留存夹具，不能启动负载子进程。小响应的 loopback 故障诊断仍属普通 E2E。
+**完成条件：审查结果、完整来源/输入集合和冻结普通回执一致。随后按 live → race → 压力顺序推进；前项未通过或缺少依据时停在当前阶段。阶段完成、修复及合并均不自动启动下一阶段。**
 
-## 发布判定与收尾
+## 4. 受影响 live：独立授权与原生资格
 
-`releasegate -record <json> -out <新目录>` 只读判定提交/来源、E2E、受影响 live、race、压力五项事实，不执行测试、vet、Node 或厂商请求。schema 与用法见[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md)和[发布指南](../barness-ai/README.md)。不适用必须与影响分析一致，缺失、失败、NOT_RUN 和过期不得当作通过；保留各原生消费者的完整性、脱敏、资格和资源断言。
+无厂商运行行为、型号、协议、目录或支持资格变化时，写 `NOT_APPLICABLE` 并给出影响依据。否则逐路线列出操作/Provider/API、型号与 SDK、官方目标、完整必交用例、原生消费者、账户/地区资格、预算与来源，再取得该次付费验证的明确授权。共享协议/目录变化评估所有受影响路线。
 
-每阶段保存真实 argv、数字退出、起止和墙钟时间、范围、工具身份、完整执行来源/输入、日志及原生 `bundles/<run-id>/manifest.json` 和 audit 的精确路径与哈希。启动失败没有原生退出码；中断或采集失败如实记录，重跑不能覆盖。父子测试耗时不能相加当作墙钟。
+每次只持有所选路线凭据，使用新 grant/claim 及该路线原生预算；失败或取消仍消耗该次授权。保留原始授权、账本、构建 argv/退出、二进制 SHA 和来源绑定；候选、正式、controlled/replay 分别判定。地区六路线的冻结构建、source 注入、精确入口和正式资格按 [REGIONAL.md](../../ai/live/REGIONAL.md) 执行；其他路线按自身原生合同，环境转发见[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md#原生-live-环境合同)。
 
-每功能只维护一份当前状态，报告与审查链接它。文档收尾只有在完整相关来源与选定输入相等时才能沿用普通结果，并注明实际受测 SHA 与当前提交的关系。真实清理单独按已审计划执行；历史失败、当前依赖、授权账本和未知证据不因成功重跑而删除。维护工具的临时合成清理自测不代表开始真实清理。
+```sh
+# 仅在该次范围、资格和预算获准后执行原生冻结二进制。
+python3 "$TOOLS/run.py" --feature "$FEATURE" --stage live --route '<已选路线>' -- \
+  '<原生冻结二进制>' '<该路线的精确测试入口>' '<该路线时限>'
+```
+
+对回执中精确发现的 bundle 运行所需原生资格消费者（地区正式还需 `regionalverify -formal`），保存命令、退出与原件。随后用已编译的 releasegate 取得外层只读消费者回执：
+
+```sh
+python3 "$TOOLS/consume_live.py" --binary '<releasegate 绝对路径>' \
+  --bundle '<仓库相对原生 bundle>' --out '<仓库相对的新消费者目录>'
+```
+
+`consumers` 引用外层 schema 2 的 live-consumer.json；它实际采集唯一原生子进程，绑定来源、全部输入、资格结果、argv、时间、日志和真实数字退出。最终写失败或采集未完成保持非通过。该命令不请求厂商，也不发放 live 权限，不能用旧自采集格式或自报 `true` 替代。
+
+可回放的已脱敏捕获收为 `ai/e2e/testdata/<route>/` 夹具，先复现回放失败再接线，保留来源和哈希。新夹具改变冻结来源时先回到第 3 节；由原生规则判断旧 live 适用性，过期则等待新授权，不自动重买路线。
+
+**完成条件：所有受影响路线的构建、实际调用、完整必交场景、audit 与正式原生资格均有效，或 live 有依据地不适用。离线/受控通过不产生真实支持资格。**
+
+## 5. 人工 race
+
+普通及所需 live 通过或 live 不适用后，交付具体 argv、来源、选定输入、必交用例、已有回执和预计耗时，等待人类明确选择本次范围。未选择时写 `NOT_RUN`，发布保持 false；实施计划批准不代替该选择。
+
+```sh
+# 待人工选择该实际范围；可按影响缩小，须列出保留/未跑项。
+python3 "$TOOLS/run.py" --feature "$FEATURE" --stage race -- \
+  go test -race -json ./ai/... -count=1 -timeout=75m
+```
+
+**完成条件：实际退出0、选定测试完成、stdout/stderr 无 DATA RACE，所有期望原生包与 audit 有效，来源及输入适用。race 不顺带开启压力/live；失败重跑或扩大范围需新的明确选择。**
+
+## 6. 人工压力或有依据的不适用
+
+race 通过后，队列、取消、共享状态、内存、限额、复杂度或大载荷变化由人选择受影响负载；其余情况写 `NOT_APPLICABLE` 和影响依据。默认普通消费者只读夹具，压力阶段才设置 BARNESS_AI_PRESSURE=1。
+
+```sh
+# 待人工选择；这是一份全集合模板，不是每次改动的默认命令。
+python3 "$TOOLS/run.py" --feature "$FEATURE" --stage pressure -- \
+  go test -json ./ai/e2e -run 'Pressure|DesignLoad|ToolArgumentsScaling' \
+  -count=1 -timeout=20m
+```
+
+选择范围时对照实际测试发现集合：Policy、AdmissionBurst、Mixed、ClassifierImages、MiniMax/GLM SharedDesignLoad、Multimodal RuntimeDesignLoad、夹具写背压和工具写完整性等。工具参数复杂度变化包含 TestToolArgumentsScaling；生成器与依赖它的消费者同次运行。TestPressureLoopback 还需人选择有界循环数，未选则明确记未跑。
+
+**完成条件：实际退出0，选定必交场景实际 PASS，资源/复杂度/完整性原件与 audit 有效，政策数值、来源和输入匹配。部分 PASS 或仅设置开关不足以完成。**
+
+## 7. 更新当前状态并只读判定发布
+
+每功能一份唯一可变当前状态；保留既有 Markdown 格式，并引用独立、不可覆盖的版本化 JSON 索引。状态包含影响依据、实际受测提交、当前提交、来源/输入、各阶段范围/argv/实际状态、原件路径与哈希、尚未执行项。
+
+1. 核对所有阶段原件与当前适用性，保存真实 argv、数字退出（启动失败无原生退出码）、起止/墙钟、工具身份、日志和精确 `bundles/<run-id>/manifest.json` / audit 哈希。父子耗时不相加冒充墙钟。
+2. 保存旧当前状态的快照；更新当前状态并计算内容哈希，在新的 record.json 中绑定它及实际阶段回执、impact、selection 与有限完整 requiredCases。字段以 [record.go](../../ai/internal/testkit/release/record.go) 和[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md#只读发布-cli)为准；合成测试记录不是实际阶段事实。
+3. 在新的报告目录只读判定，保留实际命令/退出和报告。需要精确 CLI 退出码时使用编译后二进制，go run 会包装程序的非零退出。
+
+```sh
+releasegate -record '<不可变回执索引.json>' -out '<新的报告目录>'
+```
+
+| 五项事实 | 通过条件 |
+| --- | --- |
+| 提交/来源 | 当前状态哈希、完整执行来源和选定输入适用；收尾沿用有集合相等性及两个提交的记录 |
+| E2E | 实际退出0，必需场景完成，唯一主包及所有辅助原件完整、audit 通过 |
+| live | 各受影响路线的实际执行与原生正式资格/外层消费者有效，或 impact 与原因支持不适用 |
+| race | 本次人类选择与实际 argv 一致，独立完整回执通过 |
+| 压力 | 本次人类选择与负载原件一致并通过，或 impact 与原因支持不适用 |
+
+退出0才表示 release.pass=true；缺失、过期、失败、NOT_RUN 或无依据的不适用都拒绝。只读判定不启动测试、vet、Node、厂商或任何后续阶段。修改已绑定的当前状态后，须新建索引并重新只读判定，不能悄悄改变旧索引所指字节。
+
+**完成条件：实际判定与当前状态一致，报告和命令原件可追溯。普通验证完成、流程启用、等待人工与完整发布通过分别记录。**
+
+## 8. 证据保留与维护
+
+每次使用 `.evidence/<feature>/<stage>/[<route>/]<attempt>/`；原生包在 attempt 内 bundles/<run-id>。失败、START_FAILED、超时、中断、未知/缺退出、当前完整 attempt、传递依赖、授权/claim/账本及尚未变成有效夹具的捕获均保留。成功重跑不覆盖旧失败。scratch 中新增验收说明仅保存命令、退出、哈希与原件指针，不复制整棵胶囊或压缩包。
+
+真实维护独立于测试和发布，开始前读取已审[清理方案第 6 节](../../.scratch/barness-ai-test-process-review/plan.md#6-存量清理)。按 scan → plan/清单审阅 → move → verify → 至少7×24小时观察 → inspect/purge 操作确切批次及清单哈希；首次 verify 成功才开始观察期，恢复/内容变化重新验证计时。失败/未知/有依赖/授权记录不能因年龄、大小、名称或一次成功被清理。相对目录、二进制与无扩展名依赖同样保留。
+
+工具持独占锁、原子保存状态并重新核对引用、基线和库存；任一步失败即停，恢复拒绝覆盖不同内容。purge 内部重查全部条件，任何前置失败均零删除；仅删本批 payload，永久保留 metadata、引用与移动/恢复日志。不用 LATEST、裸删除或修改正文引用掩盖误隔离。
+
+**完成条件：真实隔离有批次/哈希、移动与 verify 回执、新增缺失0；真实清理还需观察期满后的新鲜核验、PURGED、实际回收量及剩余依赖复核。未执行就分别记 NOT_RUN；临时合成清理自测不算真实清理。**
+
+## 9. 收尾交付
+
+交付变更、验证范围、实际 argv/数字退出、受测 SHA 与当前提交关系、回执入口、未跑/不适用依据及回滚方式。原生消费者仍按自身来源规则检查历史材料；旧十门禁、冻结 pi 差分、自动 check/race 和代际恢复控制器只留历史事实，新的工作不续建控制器。
+
+**完成条件：活动代码/CLI/文档使用同一合同，当前状态只有一份，全部声明有证据；若缺人工阶段则明确 release.pass=false。** 新流程的首次大功能闭环、真实隔离和永久清理分别按[计划第 8 节](../../.scratch/barness-ai-test-process-review/plan.md#8-完成条件与-review-对照)记录，不能用文档完成代替未发生的执行。

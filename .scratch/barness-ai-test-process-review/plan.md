@@ -1,6 +1,6 @@
 # 测试与证据清理执行方案
 
-日期：2026-10-22（Asia/Shanghai）。第 1 节入口迁移、七项及后续三项 Astra 复审修复的普通验收已完成；实际来源、回执、执行偏差及未运行范围统一见 [status.md](status.md) 和 [execution-log.md](execution-log.md)。第 2–8 节未启动，真实证据清理未开始。依据：[测试过程评审](research.md)、[测试系统地图](system.md)。
+日期：2026-10-22（Asia/Shanghai）。第 1 节实现及普通验收已完成；第 2–5、7 节流程规则已落实到[测试流程 SOP](../../docs/agents/verification.md)，AGENTS.md 与活动文档已引用。第 3 节真实人工阶段、第 6 节真实清理及第 8 节首次完整大功能验收仍按实际事实分别记录，未执行不冒充完成。来源、回执、执行偏差及当前进度统一见 [status.md](status.md) 和 [execution-log.md](execution-log.md)。依据：[测试过程评审](research.md)、[测试系统地图](system.md)。
 
 执行顺序：第 1 节完成入口迁移与验收，再启用第 2–5 节的新流程；第 6 节独立执行清理，观察期结束后才允许永久删除；最后按第 8 节逐项收尾。修改本计划不构成上述执行，也不授予 race、压力或付费调用权限。
 
@@ -76,6 +76,8 @@
 
 ## 2. 日常改动：普通 E2E
 
+本节操作已纳入 SOP 第 1–3 节；当前日常工作按 SOP 执行，以下保留原计划的验收合同与模板。
+
 本节仅在第 1 节切换完成后适用。每项行为改动先在 `ai/e2e` 建立本地受控 Provider 的公共 Client 失败场景，再改实现；纯函数规则确需隔离时先写失败方式。工具改动另覆盖受影响公共 CLI/进程。
 
 ```sh
@@ -118,7 +120,7 @@ python3 "$TOOLS/run.py" --feature "$FEATURE" --stage e2e -- \
 
 3. 可信 Host 在清除其他路线、凭据和 endpoint 覆盖的环境中注入 `BARNESS_AI_LIVE=1`、所选 `BARNESS_REGIONAL_ROUTE/SERVICE/GRANT/KEY`；正式阶段另有 `BARNESS_REGIONAL_STAGE=formal`。通过 `run.py --stage live --route <combo> --` 执行冻结二进制，精确入口为 `-test.run=^TestRegionalCandidate$` 或 `-test.run=^TestRegionalFormal$`，`-test.timeout=1800s`。构建材料须被本次回执按路径及哈希关联。
 4. 地区每进程最多 24 Calls/24 HTTP Attempts、零重试；其他路线使用自身合同，不能套用地区预算。保存 grant、授权回执、账本和原生文件；失败或取消也不能重用 grant。
-5. 对精确发现的原生 bundle 运行 `regionalverify -qualify <bundle>`，正式资格另须 `-formal <bundle>`；保存消费者命令、退出码、日志及来源。其他路线使用自身消费者。消费者失败即停止，不能仅凭 Go 测试退出 0 或报告标题 PASS 继续。
+5. 对精确发现的原生 bundle 运行 `regionalverify -qualify <bundle>`，正式资格另须 `-formal <bundle>`；保存消费者命令、退出码、日志及来源。其他路线使用自身消费者。再按 SOP 第 4 节以 `consume_live.py` 取得 schema 2 外层只读回执，由 `consumers` 引用；原生进程不自报最终退出或日志。消费者失败即停止，不能仅凭 Go 测试退出 0 或报告标题 PASS 继续。
 
 验收：构建、live、所需原生消费者均成功；本路线全部必交场景 PASS，来源/目录/型号/SDK/预算及审计一致。候选通过不能代替正式发布资格，controlled/replay 不能认证 live；失败、未跑与不适用分别记录。
 
@@ -274,6 +276,8 @@ purge 须持锁并依次检查：批次身份/规范路径及元数据完整；�
 历史 ADR、失败、已消费授权和旧报告保持原事实；原生只读消费者仍需读取的材料进入保留集。旧内部执行路径直接删除，不新增兼容执行层。
 
 ## 8. 完成条件与 review 对照
+
+流程启用与实际执行的逐节状态、SOP 文档检查及来源相等性原件统一见 status.md；规范交付不等于首次大功能闭环、隔离或永久删除完成。
 
 实施状态分开记录，不因下一个功能尚未开始而伪造验收：
 

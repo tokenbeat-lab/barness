@@ -25,9 +25,9 @@ barness 是 [pi](https://github.com/earendil-works/pi) 的 Go（Golang）复刻�
 
 ## Agent skills
 
-### Verification
+### 测试流程 SOP
 
-决定测试范围、准备付费验证或执行发布门禁前，读取并遵循 `docs/agents/verification.md`。
+编写或修改测试、选择验证范围、执行验收、判定发布或维护测试证据前，必须读取并遵循[测试流程 SOP](docs/agents/verification.md)。
 
 ### Issue tracker
 

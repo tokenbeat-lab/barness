@@ -1,6 +1,6 @@
 # barness-ai
 
-> 当前验证流程见 [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md) 与[唯一当前状态](../.scratch/barness-ai-test-process-review/status.md)；以下旧验收仅适用于其原受测源码。
+> 当前验证步骤见[测试流程 SOP](../docs/agents/verification.md)，决策见 [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md)，实施事实见[唯一当前状态](../.scratch/barness-ai-test-process-review/status.md)；以下旧验收仅适用于其原受测源码。
 
 > **目录与发布状态（2026-10-19）**：`2026-10-18.1-minimax` 包含96个聊天身份、两个图像型号和三个分类型号，发布合同要求十六协议组合、十七自身支持身份。中国区标准GLM-5.3/5.2各有Chat、Responses、Messages独立绑定；[Host示例](examples/glmhost/README.md)覆盖标准Key和full/simple/WithHooks。Jev1.14图像与Box继续要求实验图像开关和显式授权。当前支持矩阵17身份全部PASS；当前来源资格、完整发布门禁与最终审查均已完成，交付为 **COMPLETE**。见[当前交付状态](../.scratch/barness-ai-minimax/delivery-status.md)。
 
@@ -10,7 +10,7 @@
 
 `github.com/tokenbeat-lab/barness/ai` 是 barness 的模型协议模块：一个可信、并发安全的
 `Client`，为**多个租户**向模型服务发起**一次模型操作**。它是
-[pi-ai](https://github.com/earendil-works/pi)（冻结基线 `1.1.0`）的 Go 复刻，并在其上增加了租户隔离、显式资源限额与可观测性。
+[pi-ai](https://github.com/earendil-works/pi)的 Go 复刻，以其为架构参考，并在其上增加了租户隔离、显式资源限额与可观测性。
 
 本文面向两类读者：
 
@@ -71,7 +71,7 @@
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
 内置目录包含 96 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
 
-### 当前验证与发布状态
+### 历史验证与发布基线
 
 [当前MiniMax交付](../.scratch/barness-ai-minimax/delivery-status.md)已COMPLETE：测量来源`78843eb`两种vet、普通/race实际命令均exit0，两套主包各12495PASS、0FAIL、0NOT_RUN、audit0。17份自身支持与4项效果全部PASS，严格来源资格11/11；GLM Messages cancel在完整报告中1146ms PASS。后续文档/证据提交保持1078份选定源码字节，不冒充新Go执行。以下基线保持各自历史结果。
 
@@ -433,18 +433,9 @@ input/output/total/cached/cache-write/reasoning 六项均明确报告（包括�
 
 ### 测试
 
-按 AGENTS.md，先建立公共 Client 或 CLI/进程失败场景，再实现并验证。默认运行受影响普通 E2E：
+修改测试、选择验证、判定发布或维护证据前，遵循[测试流程 SOP](../docs/agents/verification.md)。步骤、命令模板、完成条件与失败处理以 SOP 为准；先建立公共 Client/CLI 失败场景，再实现，每次独立保存可验证的原生证据。
 
-```sh
-python3 .scratch/barness-ai-test-process-review/tools/run.py --feature <slug> --stage e2e -- \
-  go test -json ./ai/e2e ./ai -count=1 -timeout=20m
-# 定向验证增加 -run，CLI/消费者变化追加对应包；实际消费的外部夹具另加 --input。
-go run ./ai/release/cmd/releasegate -record <功能回执索引.json> -out <新目录>
-```
-
-大功能按 E2E → 受影响自身 live 或有依据的不适用 → 人工 race → 人工压力或有依据的不适用验收。付费 live 另需路线、资格和预算授权；race 与压力分别明确选择实际命令，不由普通完成或修复触发。默认压力用例 NOT_RUN，普通消费者读取留存夹具。
-
-每轮独立 attempt 保存真实退出、时间、来源/输入和 `bundles/<run-id>/` 的精确 manifest/audit 指针；重跑不能覆盖失败。发布 CLI 只读检查五项回执，未执行或过期保持发布 false。工具形状、选定输入、原生消费者与状态规则见[工具合同](../.scratch/barness-ai-test-process-review/tools/README.md)、[验证策略](../docs/agents/verification.md)及[发布指南](../docs/barness-ai/README.md)。离线或受控回放不替代真实支持资格。
+[工具合同](../.scratch/barness-ai-test-process-review/tools/README.md)定义回执形状与只读发布 CLI。付费 live、race 和压力仍分别明确选择，离线/受控回放不产生真实支持资格。本次流程启用事实及未执行项见[当前状态](../.scratch/barness-ai-test-process-review/status.md)。
 
 ## 延伸阅读
 

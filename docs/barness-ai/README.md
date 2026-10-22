@@ -1,6 +1,6 @@
 # barness-ai 发布说明
 
-> **当前验证流程（2026-10-22）**：按 [ADR-0051](../adr/0051-scoped-verification-receipts.md) 使用分阶段回执和只读发布判定。迁移与普通验证的事实见[唯一当前状态](../../.scratch/barness-ai-test-process-review/status.md)；race、压力、付费 live 和真实清理以该状态中的实际记录为准。下列旧整版资格只适用于各自原受测源码。
+> **当前验证流程（2026-10-22）**：操作步骤与完成条件统一见[测试流程 SOP](../agents/verification.md)，决策见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。迁移与普通验证的事实见[唯一当前状态](../../.scratch/barness-ai-test-process-review/status.md)；race、压力、付费 live 和真实清理以该状态中的实际记录为准。下列旧整版资格只适用于各自原受测源码。
 
 > **地区 Provider 实施**：GLM 与 MiniMax 的中国站、国际站使用独立身份；新增九个候选身份的实现、普通验证及自身资格见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)，装配、缓存 v2 和回滚见[地区服务说明](regional-providers.md)。以下历史通过不自动认证修改后的源码。
 
@@ -70,23 +70,16 @@ python3 .scratch/barness-ai-thinking-sampling/pressure-stream-integrity-evidence
 
 ## 发布门禁
 
-先按[验证策略](../agents/verification.md)完成各个已选择阶段，再在仓库根消费不可变功能索引：
+先按[测试流程 SOP](../agents/verification.md)完成影响分析、普通验证及已选择的人工阶段，再在仓库根消费不可变功能索引：
 
 ```sh
-go run ./ai/release/cmd/releasegate -record <功能回执索引.json> -out <新的报告目录>
+env GOENV=off GOFLAGS='' go run ./ai/release/cmd/releasegate \
+  -record '<功能回执索引.json>' -out '<新的报告目录>'
 ```
 
 `-out` 的父目录必须存在，目标目录必须不存在。CLI 只核验现有原件，写出 `release-report.json` / `.md`；不调度测试、vet、race、压力或 live。退出 0 表示五项均有效，1 表示拒绝或读写失败，2 表示参数错误；需要直接取得退出码时使用编译后的二进制，`go run` 会包装程序的非零退出。
 
-| 字段 | 通过条件 |
-| --- | --- |
-| 提交/来源 | 实际受测提交、当前状态文件、完整执行来源及选定输入都有哈希；与当前相关字节集合相等。文档提交不冒充新测试 |
-| E2E | 真实普通命令 exit0、测试实际完成，恰好一个主 `./ai/e2e` 原生包；明确必需用例通过，所有辅助包库存、完整性与 audit 有效 |
-| 受影响 live | 按影响列出每条路线的独立真实回执与原生消费者记录，保持完整用例、当前来源/目录/SDK、授权预算及资格校验；无厂商行为时明确原因为不适用 |
-| race | 人类选择与真实 argv 一致；独立原件、实际退出0、测试完成且无 race 诊断；来源与输入适用 |
-| 压力 | 人工选择受影响设计负载并通过原断言，或有依据的不适用；普通夹具回放不能替代容量证明 |
-
-字段形状与有限 requiredCases 见[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md)。所有原生包保留逐文件哈希、脱敏审计和资源/资格检查；缺失、失败、NOT_RUN、过期或无依据的不适用均不能发布。历史全库路线数和差分账本不再是当前发布选择器；受影响路线不能因历史通过或共享 adapter 而省略自身证明。
+五项事实（来源、E2E、受影响 live、race、压力）的通过条件、状态冻结顺序与失败处理见 SOP 第 7 节。字段形状、有限 requiredCases 及 live 外层 schema 2 消费者见[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md)。原生包保留完整性、脱敏、资源和正式资格检查；历史全库路线数和差分账本不再是发布选择器，兄弟路线的通过不能替代自身证明。
 
 ### 历史九组合结论（2026-10-08）
 
