@@ -22,6 +22,9 @@ func (p *anthropicParser) strictMessagesSequence(ev sseEvent, e anthropicEvent) 
 		return nil
 	}
 	if ev.name == "message_start" {
+		if kimi && e.Message != nil && e.Message.Model != nil && *e.Message.Model != p.model.ID {
+			return invalid()
+		}
 		if p.started || e.Message == nil {
 			return invalid()
 		}
@@ -79,6 +82,9 @@ func (p *anthropicParser) strictMessagesSequence(ev sseEvent, e anthropicEvent) 
 					p.strictToolIDs = map[string]bool{}
 				}
 				p.strictToolIDs[e.ContentBlock.ID] = true
+			}
+			if kimi && e.ContentBlock.Type == "tool_use" && len(e.ContentBlock.Input) == 0 {
+				return invalid()
 			}
 			if e.ContentBlock.Type == "tool_use" && len(e.ContentBlock.Input) > 0 {
 				var input map[string]json.RawMessage

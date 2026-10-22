@@ -11,13 +11,15 @@ import (
 
 func TestKimiMessagesSequence(t *testing.T) {
 	for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
-		for _, fault := range []string{"no-start", "duplicate-start", "duplicate-index", "unopened-delta", "open-terminal", "after-terminal", "duplicate-terminal", "mismatched-type", "missing-index", "missing-stop", "invalid-json", "tool-not-object", "incomplete-tool-json", "wrong-tool-stop"} {
+		for _, fault := range []string{"no-start", "duplicate-start", "duplicate-index", "unopened-delta", "open-terminal", "after-terminal", "duplicate-terminal", "mismatched-type", "missing-index", "missing-stop", "invalid-json", "tool-not-object", "incomplete-tool-json", "wrong-tool-stop", "missing-tool-input", "model-change"} {
 			t.Run(string(market)+"/"+fault, func(t *testing.T) {
 				ev := run.Case(t, "KIMI-"+string(market)+"-MESSAGES-K12-"+fault)
 				w := newKimiMessagesWorld(t, market, nil)
 				script := kimiMessagesScript(`{"input_tokens":100,"cache_read_input_tokens":20,"cache_creation_input_tokens":80}`)
 				frames := strings.Split(strings.TrimSpace(script), "\n\n")
 				switch fault {
+				case "model-change":
+					frames[0] = strings.ReplaceAll(frames[0], "kimi-k3", "unauthorized-model")
 				case "no-start":
 					frames = frames[1:]
 				case "duplicate-start":
@@ -41,15 +43,23 @@ data: {"type":"content_block_delta","index":99,"delta":{"type":"text_delta","tex
 					frames = frames[:len(frames)-1]
 				case "invalid-json":
 					frames[1] = "event: content_block_start\ndata: {invalid"
-				case "tool-not-object", "incomplete-tool-json", "wrong-tool-stop":
+				case "tool-not-object", "incomplete-tool-json", "wrong-tool-stop", "missing-tool-input":
 					frames[1] = `event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"opaque|/α","name":"inspect","input":{}}}`
+					if fault == "missing-tool-input" {
+						frames[1] = strings.ReplaceAll(frames[1], `,"input":{}`, "")
+					}
 					if fault == "tool-not-object" {
 						frames[1] = strings.ReplaceAll(frames[1], `"input":{}`, `"input":[]`)
 					}
 					if fault == "incomplete-tool-json" {
 						frames = append(frames[:2], append([]string{`event: content_block_delta
 data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"label\":"}}`}, frames[2:]...)...)
+					}
+				}
+				if fault == "missing-tool-input" {
+					for i := range frames {
+						frames[i] = strings.ReplaceAll(frames[i], `"stop_reason":"end_turn"`, `"stop_reason":"tool_use"`)
 					}
 				}
 				enqueue(ev, w, provider.SSE([][]byte{[]byte(strings.Join(frames, "\n\n") + "\n\n")}))
