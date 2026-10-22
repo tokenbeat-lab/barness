@@ -11,6 +11,9 @@ import (
 // prepareTranscript: a signed thinking block as its reasoning item, text as
 // output messages and tool calls as function_call items.
 func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]any, error) {
+	if isKimi(model.Provider) {
+		return kimiResponsesAssistantItems(m)
+	}
 	sameProviderAPI := m.Provider == model.Provider && m.API == model.API
 	// A same provider/API message whose native state was downgraded is
 	// replayed as pi replays another model's.

@@ -1,7 +1,7 @@
 # 03 — Responses 协议
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 01
 
 ## Context
@@ -23,3 +23,5 @@ R03、R05、R07–R09、R11；K03–K10、K12–K14。拥有 responses_* 与自�
 ## Comments
 
 2026-10-22：从已批准实施的 spec/design 派生；任务依赖是集成顺序，独立协议可在同一基线并行开发，合并前同步集成分支。
+
+2026-10-22：Responses implementer 已领取，独立分支 codex/kimi-responses 以集成分支 3e25c0e 为基线。公共 Client E2E seam 已确认；保留红例后实现，按影响覆盖 Responses 回归，隔离 checkout 缺少无关历史归档的全库范围由根任务在主 checkout 验证。live/race/压力本票不执行。
