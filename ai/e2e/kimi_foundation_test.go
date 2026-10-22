@@ -16,11 +16,20 @@ func kimiFoundationModel() ai.Model {
 }
 
 func TestKimiCatalogBoundary(t *testing.T) {
-	for _, kind := range []string{"model", "protocol", "image", "context", "output", "zero-price", "tiers", "effort", "off", "strict", "adaptive", "budget"} {
+	for _, kind := range []string{"model", "protocol", "image", "context", "output", "zero-price", "tiers", "effort", "off", "strict", "adaptive", "budget", "default-low", "default-empty", "max-disabled", "thinking-optional"} {
 		t.Run(kind, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-INTL-CHAT-K01-catalog-reject-"+kind)
 			m := kimiFoundationModel()
 			switch kind {
+			case "default-low":
+				m.DefaultThinkingLevel = ai.ThinkingLow
+			case "default-empty":
+				m.DefaultThinkingLevel = ""
+			case "max-disabled":
+				m.DefaultThinkingLevel = ""
+				m.ThinkingLevelMap.Max = ai.Null[string]()
+			case "thinking-optional":
+				m.Compat.RequiresThinking = false
 			case "model":
 				m.ID = "kimi-k2.5"
 			case "protocol":

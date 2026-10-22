@@ -14,8 +14,11 @@ func kimiModelProblem(m Model) string {
 	if len(m.Input) != 1 || m.Input[0] != ModalityText || m.ContextWindow <= 0 || m.ContextWindow > 1048576 || m.MaxTokens <= 0 || m.MaxTokens > 131072 {
 		return "Kimi text capacity is outside the implemented subset"
 	}
-	if !m.Reasoning {
-		return "Kimi K3 requires reasoning"
+	if !m.Reasoning || !m.Compat.RequiresThinking || m.DefaultThinkingLevel != ThinkingMax {
+		return "Kimi K3 requires reasoning and the max default"
+	}
+	if value, ok := m.ThinkingLevelMap.Max.Get(); !ok || value != "max" {
+		return "Kimi K3 must retain max effort"
 	}
 	for _, l := range modelThinkingLevels {
 		e := m.ThinkingLevelMap.entry(l)
