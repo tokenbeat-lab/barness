@@ -72,6 +72,11 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 	if json.Unmarshal([]byte(x.RequestBody), &request) != nil || string(request["model"]) != string(mustRegionalJSON(s.Model)) || string(request["stream"]) != "true" {
 		return refuse("regional own wire model differs")
 	}
+	if RegionalIsKimi(r.Combo) {
+		if err := verifyKimiRegionalControls(r, s, x.RequestBody); err != nil {
+			return err
+		}
+	}
 	var result regionalResult
 	if read("result.json", &result) != nil {
 		return refuse("regional actual Result missing")

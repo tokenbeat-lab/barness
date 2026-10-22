@@ -34,7 +34,15 @@ func (h regionalReplay) ResolveCredential(context.Context, ai.CallScope, ai.Bind
 }
 func (h regionalReplay) RoundTrip(req *http.Request) (*http.Response, error) {
 	if req.Body != nil {
-		req.Body.Close()
+		if RegionalIsKimi(h.binding.BindingID) {
+			raw, err := io.ReadAll(req.Body)
+			req.Body.Close()
+			if err != nil || !kimiRegionalSameWire(raw, h.exchange.RequestBody) {
+				return nil, refuse("Kimi replay did not send the captured request")
+			}
+		} else {
+			req.Body.Close()
+		}
 	}
 	if req.URL.String() != h.exchange.URL {
 		return nil, refuse("regional replay target differs")
@@ -103,7 +111,11 @@ func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regiona
 		}
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		return client.Complete(ctx, ai.CallScope{TenantID: host.binding.TenantID, RequestID: "regional-replay"}, ai.Target{BindingID: r.Combo, ModelID: s.Model}, ai.Request{Messages: []ai.Message{ai.UserText("Replay captured response.")}, Tools: tools}, opts)
+		hooks := ai.Hooks{}
+		if RegionalIsKimi(r.Combo) {
+			hooks = kimiRegionalReplayHook(x.RequestBody)
+		}
+		return client.WithHooks(hooks).Complete(ctx, ai.CallScope{TenantID: host.binding.TenantID, RequestID: "regional-replay"}, ai.Target{BindingID: r.Combo, ModelID: s.Model}, ai.Request{Messages: []ai.Message{ai.UserText("Replay captured response.")}, Tools: tools}, opts)
 	}
 	_, kind, _ := strings.Cut(s.ID, "/")
 	if kind != "cancel" {

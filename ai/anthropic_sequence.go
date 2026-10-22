@@ -40,7 +40,7 @@ func (p *anthropicParser) strictMessagesSequence(ev sseEvent, e anthropicEvent) 
 			if reason != "end_turn" && reason != "max_tokens" && reason != "tool_use" && reason != "refusal" {
 				return invalid()
 			}
-			if reason == "end_turn" && len(p.strictToolIDs) > 0 || reason == "tool_use" && len(p.strictToolIDs) == 0 {
+			if reason == "end_turn" && (len(p.strictToolIDs) > 0 || p.kimiRequired) || reason == "tool_use" && len(p.strictToolIDs) == 0 {
 				return invalid()
 			}
 		}

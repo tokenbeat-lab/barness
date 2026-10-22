@@ -15,7 +15,7 @@ import (
 // stay intact; resealing makes these semantic checks independent of hashing.
 func kimiQualificationTamper(t *testing.T, original, combo, consumer string) {
 	t.Helper()
-	for _, mode := range []string{"cost-state", "attempt-finished-cost", "native-source", "native-request-tail", "usd-reserve", "grant-binary", "raw-write-missing", "tool-pair"} {
+	for _, mode := range []string{"cost-state", "attempt-finished-cost", "native-source", "native-request-tail", "usd-reserve", "grant-binary", "raw-write-missing", "tool-pair", "wire-full-effort", "wire-simple-low", "wire-simple-high", "wire-default-effort", "wire-effort-removed", "wire-tool-choice", "wire-budget", "wire-tools", "wire-unsupported", "wire-options-effort"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-"+combo+"-K16-refuse-"+mode)
 			dir := filepath.Join(t.TempDir(), filepath.Base(original))
@@ -25,6 +25,23 @@ func kimiQualificationTamper(t *testing.T, original, combo, consumer string) {
 			caseID := supportmatrix.RegionalCaseID(combo, "kimi-k3/full-stream")
 			var paths []string
 			switch mode {
+			case "wire-simple-low":
+				caseID = supportmatrix.RegionalCaseID(combo, "kimi-k3/simple-stream")
+				paths = []string{caseID + "/exchanges.json"}
+			case "wire-simple-high":
+				caseID = supportmatrix.RegionalCaseID(combo, "kimi-k3/simple-complete")
+				paths = []string{caseID + "/exchanges.json"}
+			case "wire-default-effort":
+				paths = []string{caseID + "/exchanges.json"}
+			case "wire-tool-choice", "wire-tools":
+				caseID = supportmatrix.RegionalCaseID(combo, "kimi-k3/tool-call")
+				paths = []string{caseID + "/exchanges.json"}
+			case "wire-full-effort", "wire-effort-removed", "wire-budget", "wire-unsupported", "wire-options-effort":
+				caseID = supportmatrix.RegionalCaseID(combo, "kimi-k3/full-complete")
+				paths = []string{caseID + "/exchanges.json"}
+				if mode == "wire-options-effort" {
+					paths = append(paths, caseID+"/options.json")
+				}
 			case "native-request-tail":
 				caseID = supportmatrix.RegionalCaseID(combo, "kimi-k3/native-history")
 				paths = []string{caseID + "/request.json"}
@@ -50,6 +67,8 @@ func kimiQualificationTamper(t *testing.T, original, combo, consumer string) {
 				var value any
 				mustUnmarshal(t, raw, &value)
 				switch mode {
+				case "wire-full-effort", "wire-simple-low", "wire-simple-high", "wire-default-effort", "wire-effort-removed", "wire-tool-choice", "wire-budget", "wire-tools", "wire-unsupported", "wire-options-effort":
+					kimiQualificationWireTamper(t, value, combo, mode, filepath.Base(name))
 				case "native-request-tail":
 					r := value.(map[string]any)
 					messages := r["Messages"].([]any)

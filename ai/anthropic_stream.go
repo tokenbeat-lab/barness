@@ -108,12 +108,13 @@ type anthropicParser struct {
 	strictToolIDs map[string]bool
 	strictInitial map[int64]bool
 	// raw is each tool call's argument JSON received so far (pi's partialJson).
-	raw        map[int]*argumentText
-	kimiCounts map[string]json.RawMessage
-	usage      anthropicUsage
-	attempt    *initialRequest
-	started    bool // message_start was received
-	stopped    bool // message_stop was received
+	raw          map[int]*argumentText
+	kimiRequired bool // final tool_choice:any must yield a call on normal completion
+	kimiCounts   map[string]json.RawMessage
+	usage        anthropicUsage
+	attempt      *initialRequest
+	started      bool // message_start was received
+	stopped      bool // message_stop was received
 	// stop is the mapped stop reason of the last message_delta that had one;
 	// "" while none arrived. stopMessage is an error stop reason's message.
 	stop        StopReason

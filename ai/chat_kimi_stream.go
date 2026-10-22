@@ -25,7 +25,11 @@ func (p *chatParser) closeKimiChatTools() *Error {
 	return nil
 }
 func (p *chatParser) validateKimiChatCall(tc chatToolCallDelta, indexed bool, index float64, id, name string, k int) *Error {
-	if !indexed || index < 0 || index != float64(int64(index)) || tc.Function == nil || rawTruthy(tc.Custom) {
+	// Validate the source number before the shared parser's float conversion.
+	// The shared call map uses float64 indexes, so only exactly representable
+	// integers can keep distinct stream slots distinct.
+	n, err := parseKimiCount(tc.Index)
+	if err != nil || !n.present || n.n > 1<<53-1 || !indexed || tc.Function == nil || rawTruthy(tc.Custom) {
 		return newError(CodeProtocol, PhaseStream, "Kimi Chat tool delta requires an indexed function")
 	}
 	if k >= 0 {

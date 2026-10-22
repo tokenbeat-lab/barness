@@ -157,6 +157,9 @@ func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCap
 			ttl = "1h"
 		}
 		body.PromptCacheOptions = &responsesPromptCacheOptions{Mode: "implicit", TTL: ttl}
+		if o.MaxTokens.IsZero() && m.MaxTokens < 131072 {
+			body.MaxOutputTokens = m.MaxTokens
+		}
 	case !caps.promptCacheRetention:
 		// A routing key alone does not enable retention fields.
 	case retention == CacheRetentionLong && longRetention && !explicit:
