@@ -1,0 +1,44 @@
+{
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "-run",
+    "^Test(KimiQualification|Regional)",
+    "-count=1",
+    "-timeout=10m"
+  ],
+  "bundles": [
+    {
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "manifestSHA256": "cb69f0229383192509d468bfa067b809813de555a6ad78015cea49dc3bac161d",
+      "package": "./ai/e2e",
+      "path": "bundles/20261022T151146.117599000Z"
+    }
+  ],
+  "byteEqualityVerified": true,
+  "completedLeafTests": 814,
+  "currentCommitBeforeDocs": "9c3409d15dea4e6df52cd3a1a0d1db48ece45ef1",
+  "exitCode": 0,
+  "feature": "barness-ai-kimi-qualification",
+  "kimiQualificationLeafTests": 74,
+  "live": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "priorAttemptsIndex": ".scratch/barness-ai-kimi/evidence/ticket-06-retention-20261022T1509.json",
+  "race": "NOT_RUN",
+  "receipt": ".evidence/barness-ai-kimi-qualification/e2e/20261022T151141.555350Z-m5y7s4_e/receipt.json",
+  "receiptSHA256": "71c504ab927893bfd843d58db6d353eac9f908fe3b64a26377b64cae676167a7",
+  "releasePass": false,
+  "retainedAt": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-qualification",
+  "retainedAttemptCount": 31,
+  "retainedFiles": 170374,
+  "retentionInventory": "/Users/cyber/RestoX/barness/.evidence/barness-ai-kimi-qualification/retention-inventory-20261022T1512.json",
+  "retentionInventorySHA256": "61d42b22bf0795291f2c6528cd3c5e877fab14970fd8e0cb2512eb6b05497b93",
+  "schema": 1,
+  "selectedInputs": {},
+  "sourceFileCount": 1339,
+  "sourceSetAndHashesEqual": true,
+  "status": "PASS",
+  "testedCommit": "9c3409d15dea4e6df52cd3a1a0d1db48ece45ef1"
+}

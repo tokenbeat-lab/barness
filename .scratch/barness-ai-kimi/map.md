@@ -11,6 +11,7 @@
 - 普通验证自行执行；live、race、压力遵循 SOP 独立授权。
 - [02 Chat 已完成](issues/02-chat.md)：精确请求、工具/原生历史、成本、故障与资源的受影响普通回归通过；[不可变原件索引](evidence/ticket-02.md)。
 - [04 Messages 已完成](issues/04-messages.md)：稳定 Messages、Bearer、thinking 来源、成本与资源回归通过；[不可变原件索引](evidence/ticket-04.md)。
+- [06 资格基础设施已完成](issues/06-qualification.md)：六路线真实受控进程与只读 replay/成本/晋升边界通过；[原件与索引](evidence/ticket-06.md)。正式目录保持 inactive。
 - 源码冻结与完整普通验收依赖所有实现及双轴审查修复；阶段性通过不等于六路线真实资格或 release.pass。
 
 ## Fog
