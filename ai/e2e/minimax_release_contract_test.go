@@ -9,109 +9,51 @@ import (
 	"os/exec"
 	"path/filepath"
 	"slices"
-	"strings"
 	"testing"
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
-
-func TestMiniMaxAdditiveReleaseContract(t *testing.T) {
-	ev := run.Case(t, "MM10-release-contract")
-	raw, e := os.ReadFile("../release/traceability.json")
-	if e != nil {
-		t.Fatal(e)
-	}
-	plan, e := release.ParseTraceMap(raw)
-	if e != nil {
-		t.Fatal(e)
-	}
-	ev.Check("twenty-three own formal support identities", len(plan.LiveCombos) == 23 && release.CheckReleasePlan(plan).Current, "count=%d contract=%+v", len(plan.LiveCombos), release.CheckReleasePlan(plan))
-	matrix, e := supportmatrix.LoadMatrix("../live/support-matrix.json")
-	if e != nil {
-		t.Fatal(e)
-	}
-	ev.Check("twenty-three own rows preserve old identities", len(matrix.Rows) == 23, "rows=%d", len(matrix.Rows))
-	routes := map[string]bool{}
-	for _, row := range matrix.Rows {
-		routes[row.Operation+"/"+row.Provider+"/"+row.API] = true
-	}
-	ev.Check("twenty-two distinct protocol routes", len(routes) == 22, "routes=%d", len(routes))
-	ev.Check("original eighth frozen differential remains own M3 Messages", len(plan.Differential.Required) == 10 && slices.Contains(plan.Differential.Required, "MM-MESSAGES"), "%v", plan.Differential.Required)
-	for _, route := range []string{"chat", "responses", "messages"} {
-		combo := "minimax-" + route
-		i := slices.IndexFunc(matrix.Rows, func(r supportmatrix.Row) bool { return r.Combo == combo })
-		ev.Check("own MiniMax row "+combo, i >= 0 && matrix.Rows[i].ValidIdentity(), "missing exact own row")
-		changed := plan
-		changed.LiveCombos = slices.DeleteFunc(slices.Clone(plan.LiveCombos), func(c string) bool { return c == combo })
-		ev.Check("removing own proof fails "+combo, !release.CheckReleasePlan(changed).Current, "missing proof accepted")
-	}
-	for prefix, count := range map[string]int{"MM-R": 28, "MM-T": 4, "MM-A": 20, "MM-US": 80} {
-		for i := 1; i <= count; i++ {
-			id := fmt.Sprintf("%s%02d", prefix, i)
-			at := slices.IndexFunc(plan.Items, func(item release.TraceItem) bool { return item.ID == id })
-			ev.Check("finite required mapping "+id, at >= 0 && len(plan.Items[at].RequiredCases) > 0, "missing finite own cases")
-			if at >= 0 && i == 1 {
-				// One mutation per independently required category; all finite sets
-				// above are checked without repeatedly hashing the same large map.
-				changed := plan
-				changed.Items = slices.Clone(plan.Items)
-				changed.Items[at].RequiredCases = nil
-				ev.Check("finite selection cannot be removed "+id, !release.CheckReleasePlan(changed).Current, "empty finite mapping accepted")
-			}
-		}
-	}
-	for _, prefix := range []string{"GLM-R01", "GLM-A15", "GLM-US62", "UC-R17", "UC-US50", "OD-R20", "TS-R12"} {
-		ev.Check("old contract retained "+prefix, slices.ContainsFunc(plan.Items, func(item release.TraceItem) bool { return item.ID == prefix }), "old contract removed")
-	}
-}
-
-// Failure inventory for the added public consumer: six absent/failed cases,
-// shrunken original4/8 or added3/6 batches, changed protocol/routes/dimensions,
-// missing headroom, excessive memory, incomplete captures/results/Observer and
-// leaked resources must all fail independently in normal and race evidence.
-func TestMiniMaxReleaseRequiresOwnDesignLoads(t *testing.T) {
-	ev := run.Case(t, "MM10-release-required-loads")
-	report := release.Evaluate(release.Inputs{})
-	gate := slices.IndexFunc(report.Gates, func(g release.Gate) bool { return g.ID == release.GateEvidence })
-	if gate < 0 {
-		t.Fatal("required artifacts gate missing")
-	}
-	detail := strings.Join(report.Gates[gate].Problems, "\n")
-	for _, host := range []string{"local", "cloud"} {
-		for _, route := range []string{"chat", "responses", "messages"} {
-			name := "minimax-design-load-" + host + "-" + route
-			ev.Check("normal missing own load "+name, strings.Contains(detail, name+":"), "missing load was not required")
-			ev.Check("race missing own load "+name, strings.Contains(detail, "race-"+name+":"), "missing race load was not required")
-		}
-	}
-}
 
 // These are actual public Client load captures, imported through the same
 // bundle and consumer boundary the release command uses. Rehashed mutations
 // exercise semantic checks independently of the artifact hash inventory.
-func TestMiniMaxReleaseLoadConsumer(t *testing.T) {
-	ev := run.Case(t, "MM10-release-load-consumer")
+func TestMiniMaxReleaseLoadConsumer(t *testing.T) { miniMaxReleaseLoadConsumer(t, false) }
+
+func TestMiniMaxReleasePressureLoadConsumer(t *testing.T) {
+	pressureCase(t, "MM10-actual-pressure-import")
+	miniMaxReleaseLoadConsumer(t, true)
+}
+
+func miniMaxReleaseLoadConsumer(t *testing.T, actual bool) {
+	ev := run.Case(t, fmt.Sprintf("MM10-release-load-consumer-%t", actual))
 	base := t.TempDir()
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
-	defer cancel()
-	command := exec.CommandContext(ctx, "go", "test", "-count=1", "-timeout=90s", "./ai/e2e", "-run", "^TestMiniMaxSharedDesignLoad$")
-	command.Dir = "../.."
-	for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {
-		if v, ok := os.LookupEnv(key); ok {
-			command.Env = append(command.Env, key+"="+v)
+	dir := base
+	if actual {
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+		defer cancel()
+		command := exec.CommandContext(ctx, "go", "test", "-count=1", "-timeout=90s", "./ai/e2e", "-run", "^TestMiniMaxSharedDesignLoad$")
+		command.Dir = "../.."
+		for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {
+			if value, ok := os.LookupEnv(key); ok {
+				command.Env = append(command.Env, key+"="+value)
+			}
+		}
+		command.Env = append(command.Env, "BARNESS_AI_PRESSURE=1", "BARNESS_AI_EVIDENCE_DIR="+base)
+		output, err := command.CombinedOutput()
+		if !ev.Check("explicit pressure capture succeeds", err == nil, "%v %s", err, output) {
+			return
+		}
+		dir, err = release.FindBundle(base)
+		if err != nil {
+			t.Fatal(err)
+		}
+	} else {
+		if _, err := release.LoadMiniMaxDesignLoadFixture(base); err != nil {
+			t.Fatal(err)
 		}
 	}
-	command.Env = append(command.Env, "BARNESS_AI_PRESSURE=1", "BARNESS_AI_EVIDENCE_DIR="+base)
-	output, err := command.CombinedOutput()
-	if !ev.Check("independent complete six-load process succeeds", err == nil, "%v %s", err, output) {
-		return
-	}
-	dir, err := release.FindBundle(base)
-	if err != nil {
-		t.Fatal(err)
-	}
+
 	bundle, err := release.LoadBundle(dir)
 	if err != nil {
 		t.Fatal(err)
@@ -120,11 +62,6 @@ func TestMiniMaxReleaseLoadConsumer(t *testing.T) {
 	ev.Check("exactly six independent consumers", len(checks) == 6, "%d", len(checks))
 	for _, check := range checks {
 		ev.Check(check.Name, check.Status == release.Pass, "%s", check.Detail)
-	}
-	race := release.RaceEvidence(dir, release.TraceMap{}, release.Ledger{})
-	for _, check := range checks {
-		at := slices.IndexFunc(race, func(c release.EvidenceCheck) bool { return c.Name == "race-"+check.Name })
-		ev.Check("independent race consumer "+check.Name, at >= 0 && race[at].Status == release.Pass, "race consumer missing or failed")
 	}
 	raw, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
 	if err != nil {

@@ -19,10 +19,8 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
-// pressureEnv opts in to TestPolicyPressure: a design load streams millions
-// of frames, too heavy for every `go test ./...`. The release gate sets it
-// (go run ./ai/release/cmd/releasegate); without it the cases are NOT_RUN,
-// which fails the gate's P0 check.
+// pressureEnv is an explicit human-selected design-load switch. Ordinary
+// verification never sets it, including in fixture-consuming subprocesses.
 const pressureEnv = "BARNESS_AI_PRESSURE"
 
 // pressureDeadline bounds one pressure run; a design load that cannot

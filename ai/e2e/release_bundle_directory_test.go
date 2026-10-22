@@ -48,11 +48,11 @@ func TestReleaseProducerNestedEmptyEffortDirectories(t *testing.T) {
 	}
 	ev.Fixture("producer-manifest.json", raw)
 	b, err := release.LoadBundle(producer.Dir())
-	ev.Record("import", map[string]any{"error": err != nil, "cases": b.Cases, "problems": b.Problems, "diffs": b.Diffs})
+	ev.Record("import", map[string]any{"error": err != nil, "cases": b.Cases, "problems": b.Problems})
 	if !ev.Check("recursive producer inventory imports", err == nil && len(b.Problems) == 0, "error=%v problems=%v", err, b.Problems) {
 		return
 	}
-	ev.Check("all raw identities preserved", len(b.Cases) == 16 && len(b.Diffs) == 0, "cases=%d diffs=%d", len(b.Cases), len(b.Diffs))
+	ev.Check("all raw identities preserved", len(b.Cases) == 16, "cases=%d", len(b.Cases))
 	for _, id := range releaseEmptyEffortIDs() {
 		ev.Check("empty identity preserved "+id, slices.Contains(b.Cases, release.Case{ID: id, Status: release.Pass}), "raw ID changed")
 		assertions, e := os.ReadFile(filepath.Join(producer.Dir(), id, "assertions.json"))

@@ -2,12 +2,12 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"path/filepath"
 	"slices"
 	"testing"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
@@ -33,7 +33,7 @@ func TestReleaseRecordedBundleDiagnostic(t *testing.T) {
 		if err != nil {
 			t.Fatal("recorded manifest unavailable")
 		}
-		if !ev.Check("literal original manifest", pioracle.SHA256(before) == wantHashes[i], "wrong historical input") {
+		if !ev.Check("literal original manifest", evidence.Digest(before) == wantHashes[i], "wrong historical input") {
 			continue
 		}
 		b, err := release.LoadBundle(dir)
@@ -56,7 +56,7 @@ func TestReleaseRecordedBundleDiagnostic(t *testing.T) {
 			ev.Check("raw original identity "+id, slices.Contains(b.Cases, release.Case{ID: id, Status: release.Pass}), "identity changed")
 		}
 		after, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
-		ev.Check("original manifest byte immutable", err == nil && pioracle.SHA256(after) == wantHashes[i], "historical input was modified")
+		ev.Check("original manifest byte immutable", err == nil && evidence.Digest(after) == wantHashes[i], "historical input was modified")
 		ev.Record([]string{"ordinary", "race"}[i], map[string]any{"diagnosticOnly": true, "sourceCommit": b.Commit, "manifestSHA256": wantHashes[i], "cases": len(b.Cases), "passed": passed, "failed": failed, "inventoryProblems": b.Problems, "newCommandsExecuted": false})
 	}
 }

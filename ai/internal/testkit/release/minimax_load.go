@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"regexp"
 	"slices"
 	"strings"
 
@@ -15,6 +16,8 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/examples/localassembly"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
+
+var catalogHash = regexp.MustCompile(`^sha256:[a-f0-9]{64}$`)
 
 // MiniMax adds six bounded batches alongside the unchanged original4/8 loads.
 // Missing/failed cases, altered capacities, report-only PASS, leaked resources,

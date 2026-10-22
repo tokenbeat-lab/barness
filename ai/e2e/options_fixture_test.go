@@ -213,14 +213,3 @@ func sentCacheKey(t *testing.T, body []byte) string {
 }
 
 // pidiff is the scenario of TestOptions for the differential.
-func (f optionsFixture) pidiff(t *testing.T, raw []byte, sc optionsScenario) pidiffScenario {
-	t.Helper()
-	p := pidiffScenario{fixture: "options.json", raw: raw, model: sc.Model, req: f.request(t, sc), reply: f.reply(t),
-		requests: 1, modelCompat: sc.ModelCompat, modelPatch: sc.ModelPatch, piOptionsRaw: sc.Options}
-	if sc.simple() {
-		p.simple = sc.simpleOptions(t)
-	} else {
-		p.full = sc.fullOptions(t)
-	}
-	return p
-}

@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -10,7 +11,6 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
@@ -93,7 +93,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				t.Fatal(err)
 			}
 			grant.Mode = "controlled"
-			grant.ID, grant.AccountAlias, grant.RegionAlias = "synthetic-"+combo+"-"+pioracle.SHA256([]byte(run.Dir()))[:12], "synthetic-account", "synthetic-region"
+			grant.ID, grant.AccountAlias, grant.RegionAlias = "synthetic-"+combo+"-"+evidence.Digest([]byte(run.Dir()))[:12], "synthetic-account", "synthetic-region"
 			grant.ExpiresAt = time.Now().UTC().Add(time.Hour)
 			grantPath := filepath.Join(t.TempDir(), "grant.json")
 			if err := os.WriteFile(grantPath, mustMarshal(t, grant), 0600); err != nil {
@@ -172,7 +172,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				t.Fatal(err)
 			}
 			rel, _ := filepath.Rel(run.Dir(), filepath.Join(dir, "manifest.json"))
-			ev.Record("original-native-pointer", map[string]string{"manifest": rel, "sha256": pioracle.SHA256(manifest)})
+			ev.Record("original-native-pointer", map[string]string{"manifest": rel, "sha256": evidence.Digest(manifest)})
 			ev.Check("all own models and capabilities captured", report.Regional != nil && report.Regional.Complete && report.Regional.Mode == "controlled" && len(report.Scenarios) == len(supportmatrix.RegionalExpected(combo)) && len(srv.Requests()) == len(report.Scenarios), "%+v", report.Budget)
 			_, err = supportmatrix.VerifyRegionalQualification(dir)
 			ev.Check("controlled capture never becomes own live proof", err != nil, "controlled qualification accepted")

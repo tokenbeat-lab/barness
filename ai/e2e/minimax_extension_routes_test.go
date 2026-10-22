@@ -3,25 +3,23 @@ package e2e
 import (
 	"encoding/json"
 	"os"
-	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
 func TestMiniMaxExtensionRoutes(t *testing.T) {
-	raw, err := os.ReadFile("testdata/minimax-pidiff/extensions.json")
+	raw, err := os.ReadFile("testdata/minimax/routes.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 	var cases []struct {
-		ID                                            string `json:"id"`
-		API                                           ai.API `json:"api"`
-		Model, Kind, Source, PidiffSkip, ExpectedText string
-		Events                                        []json.RawMessage `json:"events"`
-		Fixture                                       string            `json:"fixture"`
+		ID                                string `json:"id"`
+		API                               ai.API `json:"api"`
+		Model, Kind, Source, ExpectedText string
+		Events                            []json.RawMessage `json:"events"`
+		Fixture                           string            `json:"fixture"`
 	}
 	mustUnmarshal(t, raw, &cases)
 	if len(cases) != 5 {
@@ -43,10 +41,6 @@ func TestMiniMaxExtensionRoutes(t *testing.T) {
 			t.Run(sc.ID+"/"+entry.name, func(t *testing.T) {
 				ev := run.Case(t, "MM06-extension-"+sc.ID+"-"+entry.name)
 				ev.Fixture("extension-inventory.json", raw)
-				ev.Record("pi-status", map[string]string{"classification": "extension", "piParity": "NOT_RUN", "pidiffSkip": sc.PidiffSkip, "source": sc.Source, "kind": sc.Kind})
-				ev.Check("explicit scoped pi skip", sc.PidiffSkip != "" && sc.Source != "" && (sc.Kind == "route" || sc.Kind == "model"), "%+v", sc)
-				registered, routeExtension := loadLedger(t).Route("minimax", string(sc.API))
-				ev.Check("exact route inventory", sc.API == ai.APIAnthropicMessages && !routeExtension || sc.API != ai.APIAnthropicMessages && routeExtension && registered.Classification == pioracle.Extension, "%+v", registered)
 				var w *world
 				var target ai.Target
 				var req ai.Request
@@ -73,7 +67,7 @@ func TestMiniMaxExtensionRoutes(t *testing.T) {
 				ev.Check("own extension is independently executed", o.err == nil && len(w.provider.Requests()) == 1 && len(o.result.Metadata.Attempts) == 1 && textOf(o.result.Message) == sc.ExpectedText && o.result.Message.StopReason == ai.StopReasonStop, "%v %+v", o.err, o.result.Message)
 				ev.Check("actual route/model identity preserved", o.result.Message.Provider == ai.ProviderMiniMax && o.result.Message.API == sc.API && o.result.Message.Model == sc.Model, "%+v", o.result.Message)
 				if sc.Kind == "model" {
-					ev.Check("new model cannot borrow M3 frozen identity", sc.Model == "MiniMax-M3.1-Flash-Preview" && strings.Contains(sc.PidiffSkip, "M3.1"), "%+v", sc)
+					ev.Check("preview model keeps its own identity", sc.Model == "MiniMax-M3.1-Flash-Preview", "%+v", sc)
 				}
 			})
 		}

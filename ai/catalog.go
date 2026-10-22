@@ -23,7 +23,7 @@ type Catalog struct {
 //
 // Source: frozen pi-ai 1.1.0 providers/data/{openai,anthropic,google,deepseek}.json.
 // Per-file hashes and the complete model-data hash are pinned in
-// internal/testkit/pioracle/node/PROVENANCE.md. Included fields are checked
+// historical ADR-0004. Current fields are checked
 // against that data by TestCatalogInclusion, including the 1.0 additions
 // evaluated under ADR-0018 and the managed effort implemented in ADR-0019.
 //

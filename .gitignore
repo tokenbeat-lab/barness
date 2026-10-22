@@ -5,7 +5,7 @@
 /.scratch/**/*.zip
 /.scratch/**/*.tar.gz
 
-# Frozen pi oracle dependencies (rebuild: npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node)
+# Historical oracle cache remains ignored; its installer and active runtime have been removed.
 /ai/internal/testkit/pioracle/node/node_modules/
 
 # Local secrets (live smoke keys); never committed
@@ -13,3 +13,7 @@
 
 # macOS directory metadata
 .DS_Store
+
+# Python maintenance-tool bytecode is generated, never execution source.
+__pycache__/
+*.py[cod]

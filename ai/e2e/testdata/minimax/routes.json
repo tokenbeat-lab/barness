@@ -1,0 +1,160 @@
+[
+  {
+    "id": "chat-m3",
+    "api": "openai-completions",
+    "model": "MiniMax-M3",
+    "kind": "route",
+    "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
+    "expectedText": "MiniMax extension.",
+    "events": [
+      {
+        "id": "extension-chat",
+        "model": "MiniMax-M3",
+        "choices": [
+          {
+            "delta": {
+              "content": "MiniMax extension."
+            }
+          }
+        ]
+      },
+      {
+        "choices": [
+          {
+            "delta": {},
+            "finish_reason": "stop"
+          }
+        ]
+      },
+      {
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 3,
+          "completion_tokens": 2
+        }
+      }
+    ],
+    "fixture": ""
+  },
+  {
+    "id": "responses-m3",
+    "api": "openai-responses",
+    "model": "MiniMax-M3",
+    "kind": "route",
+    "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
+    "expectedText": "MiniMax extension.",
+    "events": [
+      {
+        "type": "response.completed",
+        "response": {
+          "id": "extension-response",
+          "model": "MiniMax-M3",
+          "status": "completed",
+          "output": [
+            {
+              "id": "m-ext",
+              "type": "message",
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "MiniMax extension."
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 3,
+            "output_tokens": 2,
+            "total_tokens": 5
+          }
+        }
+      }
+    ],
+    "fixture": ""
+  },
+  {
+    "id": "chat-m31",
+    "api": "openai-completions",
+    "model": "MiniMax-M3.1-Flash-Preview",
+    "kind": "model",
+    "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
+    "expectedText": "MiniMax extension.",
+    "events": [
+      {
+        "id": "extension-chat",
+        "model": "MiniMax-M3.1-Flash-Preview",
+        "choices": [
+          {
+            "delta": {
+              "content": "MiniMax extension."
+            }
+          }
+        ]
+      },
+      {
+        "choices": [
+          {
+            "delta": {},
+            "finish_reason": "stop"
+          }
+        ]
+      },
+      {
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 3,
+          "completion_tokens": 2
+        }
+      }
+    ],
+    "fixture": ""
+  },
+  {
+    "id": "responses-m31",
+    "api": "openai-responses",
+    "model": "MiniMax-M3.1-Flash-Preview",
+    "kind": "model",
+    "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
+    "expectedText": "MiniMax extension.",
+    "events": [
+      {
+        "type": "response.completed",
+        "response": {
+          "id": "extension-response",
+          "model": "MiniMax-M3.1-Flash-Preview",
+          "status": "completed",
+          "output": [
+            {
+              "id": "m-ext",
+              "type": "message",
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "MiniMax extension."
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 3,
+            "output_tokens": 2,
+            "total_tokens": 5
+          }
+        }
+      }
+    ],
+    "fixture": ""
+  },
+  {
+    "id": "messages-m31",
+    "api": "anthropic-messages",
+    "model": "MiniMax-M3.1-Flash-Preview",
+    "kind": "model",
+    "source": "Official MiniMax 2026-10-18 schema hashes in ai/internal/testkit/minimax/sources.json; spec R24. Synthetic fixture; no live claim.",
+    "expectedText": "Synthetic reply.",
+    "events": [],
+    "fixture": "text.sse"
+  }
+]

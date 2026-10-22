@@ -184,18 +184,4 @@ func TestDeepSeekChatRouting(t *testing.T) {
 		})
 	}
 
-	// DeepSeek × Chat is a frozen pi route (pi's deepseek.json serves
-	// openai-completions): unlike P05 it is not registered as an extension
-	// and every P06 scenario runs in the differential.
-	t.Run("pi-route", func(t *testing.T) {
-		ev := run.Case(t, "P06-E10-pi-route")
-		_, registered := loadLedger(t).Route(string(ai.ProviderDeepSeek), string(ai.APIOpenAICompletions))
-		ev.Check("not registered as an extension route", !registered, "the ledger lists it")
-		for _, file := range deepseekChatFixtureFiles {
-			f, _ := loadFixture(t, deepseekChatProtocol, file)
-			for _, sc := range f.Scenarios {
-				ev.Check(file+" "+sc.ID+" runs in the differential", sc.PidiffSkip == "", "pidiffSkip %q", sc.PidiffSkip)
-			}
-		}
-	})
 }

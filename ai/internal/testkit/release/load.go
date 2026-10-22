@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -15,15 +16,13 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 // OfflinePackage is the package argument the offline E2E bundle records.
 const OfflinePackage = "./ai/e2e"
 
-// LoadBundle reads an offline evidence bundle: every case's status from
-// manifest.json and every differential case's verdict from its pidiff.json.
+// LoadBundle verifies native offline case inventories before exposing consumers.
 func LoadBundle(dir string) (Bundle, error) {
 	source, root, err := openArtifactBundle(dir)
 	if err != nil {
@@ -76,43 +75,9 @@ func LoadBundle(dir string) (Bundle, error) {
 		files := verifiedCase{bundle: source, dir: physical, artifacts: c.Artifacts, verified: inventoryErr == nil}
 		b.caseFiles[c.ID] = files
 		b.Cases = append(b.Cases, Case{ID: c.ID, Status: c.Status})
-		if kindOf(c.ID) != kindDifferential || c.Status == NotRun {
-			continue
-		}
-		if inventoryErr != nil {
-			b.Diffs = append(b.Diffs, DiffCase{ID: c.ID, Status: c.Status, Missing: []string{"artifact inventory invalid"}})
-			continue // do not consume a verdict from an unverified artifact tree
-		}
-		var v map[string]json.RawMessage
-		if c.Artifacts["pidiff.json"] == "" {
-			continue // the gate reports the missing verdict
-		}
-		if err := files.json("pidiff.json", maxInventoryFile, &v); err != nil {
-			return Bundle{}, err
-		}
-		var pending *int
-		if err := json.Unmarshal(v["pending"], &pending); err != nil || pending == nil {
-			return Bundle{}, fmt.Errorf("release: differential artifact has no pending count")
-		}
-		d := DiffCase{ID: c.ID, Status: c.Status, Pending: *pending}
-		for _, field := range diffRecordFields {
-			if raw, ok := v[field]; !ok || string(raw) == "null" || string(raw) == `""` {
-				d.Missing = append(d.Missing, field)
-			}
-		}
-		d.Missing = append(d.Missing, differentialRecordProblems(c.ID, v)...)
-		if strings.HasPrefix(c.ID, "PIDIFF-P10-") {
-			d.Missing = append(d.Missing, decisionsCaptureProblems(files, v)...)
-		}
-		b.Diffs = append(b.Diffs, d)
 	}
 	return b, nil
 }
-
-// diffRecordFields are the fields spec Testing Decisions §6 requires of every
-// differential record (the first differing position is first_diff, null
-// when nothing differs, so it is not required to be set).
-var diffRecordFields = []string{"case_id", "pi_commit", "pi_version", "pi_model_data_sha256", "sdk_versions", "model_catalog_hash", "request_sha256", "frame_sha256", "findings", "pass", "gate"}
 
 // FindBundle returns the single offline E2E bundle below base, where a
 // `go test ./...` run with BARNESS_AI_EVIDENCE_DIR=base wrote it.
@@ -194,7 +159,7 @@ func safeAuditFindings(findings []audit.Finding, forbidden []audit.Forbidden) []
 			f.Rule, f.Detail = audit.RuleUnparseable, "recorded audit contains an invalid rule"
 		}
 		if len(audit.File("audit-diagnostic.txt", []byte(f.File+"\n"+f.Detail), forbidden)) != 0 {
-			f.File = "artifact-sha256:" + pioracle.SHA256([]byte(f.File))
+			f.File = "artifact-sha256:" + evidence.Digest([]byte(f.File))
 			f.Detail = "artifact content rejected by redaction audit"
 		}
 		out = append(out, f)
@@ -216,32 +181,6 @@ func GoModules(dir string) (map[string]string, error) {
 		}
 	}
 	return out, nil
-}
-
-// LoadLedger reads and validates the difference ledger.
-func LoadLedger(path string) (Ledger, error) {
-	data, err := readArtifact(path, 16<<20)
-	if err != nil {
-		return Ledger{}, fmt.Errorf("release: %w", err)
-	}
-	l, err := pioracle.ParseLedger(data)
-	if err != nil {
-		return Ledger{}, err
-	}
-	out := Ledger{Fixed: l.Count(pioracle.Fixed), Extension: l.Count(pioracle.Extension), Pending: l.Count(pioracle.Pending)}
-	for _, r := range l.Routes() {
-		out.Routes = append(out.Routes, Route{Provider: r.Provider, API: r.API})
-	}
-	return out, nil
-}
-
-// LoadTraceMap reads and validates the traceability map.
-func LoadTraceMap(path string) (TraceMap, error) {
-	data, err := readArtifact(path, 16<<20)
-	if err != nil {
-		return TraceMap{}, fmt.Errorf("release: %w", err)
-	}
-	return ParseTraceMap(data)
 }
 
 // CatalogSnapshot is the built-in model catalog with its hash: the model and

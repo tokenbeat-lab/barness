@@ -2,11 +2,11 @@ package release
 
 import (
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -107,7 +107,7 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 					return fmt.Errorf("invalid live fixture path")
 				}
 				raw, err := files.read(name, maxInventoryFile)
-				if err != nil || pioracle.SHA256(raw) != hash {
+				if err != nil || evidence.Digest(raw) != hash {
 					return fmt.Errorf("live fixture missing or changed")
 				}
 			}

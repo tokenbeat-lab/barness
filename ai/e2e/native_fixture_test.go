@@ -222,22 +222,3 @@ func forge(t *testing.T, data []byte, env ai.NativeStateEnvelope) []byte {
 // pi has no trust concept, so only these two replays have a pi counterpart; a
 // downgrade of same-model state is asserted offline to equal the cross-model
 // body.
-func nativePidiffScenario(t *testing.T, name string) pidiffScenario {
-	t.Helper()
-	f, raw := loadNativeFixture(t)
-	sc := pidiffScenario{fixture: "native-state.json", raw: raw, model: f.Model, requests: 1}
-	switch name {
-	case "reasoning-call":
-		sc.req, sc.reply = f.round1Request(), f.round1Reply(t)
-	case "reasoning-replay", "reasoning-cross-model":
-		source := f.Model
-		if name == "reasoning-cross-model" {
-			source = f.OtherModel
-		}
-		round1 := f.round1(t, newWorld(t, tenantA), tenantA, source)
-		sc.req, sc.reply = f.round2Request(round1.Message), f.round2Reply(t)
-	default:
-		t.Fatalf("unknown native pidiff scenario %q", name)
-	}
-	return sc
-}

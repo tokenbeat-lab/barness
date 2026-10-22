@@ -30,7 +30,6 @@ type retryScenario struct {
 	Expect  retryExpect    `json:"expect"`
 	// PidiffSkip, when set, says why the scenario stays out of the pi
 	// differential (pi waits for real, on its own clock).
-	PidiffSkip string `json:"pidiffSkip"`
 }
 
 // retrySettings are a RetryPolicy in pi's option names. A maxRetryDelayMs
@@ -195,9 +194,3 @@ func hookedEntries(h *ai.HookedClient) []outcomeEntry {
 
 // retryPidiffScenario is E05 scenario sc of TestExplicitRetry: text-basic's
 // logical input with sc's attempts and retry settings on both sides.
-func retryPidiffScenario(t *testing.T, f retryFixture, raw []byte, text textFixture, sc retryScenario) pidiffScenario {
-	t.Helper()
-	return pidiffScenario{fixture: "retry.json", raw: raw, model: text.Model, req: textRequest(text),
-		replies: sc.replies(t, text), requests: sc.Expect.Requests,
-		retry: sc.Retry.policy(), clock: f.clock(), piOptions: sc.Retry.piOptions()}
-}

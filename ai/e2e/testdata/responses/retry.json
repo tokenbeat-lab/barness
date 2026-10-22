@@ -14,7 +14,7 @@
     },
     {
       "id": "default-retry-after-date",
-      "pidiffSkip": "pi reads the date against its real clock; the reported delay is a barness extension anyway.",
+
       "note": "Without retries the provider's requested delay is still reported; an HTTP date is converted with the clock.",
       "replies": [{"status": 429, "header": {"retry-after": "Fri, 02 Oct 2026 00:00:05 GMT"}, "body": "{\"error\":{\"message\":\"Rate limit reached\",\"type\":\"requests\",\"code\":\"rate_limit_exceeded\"}}"}],
       "expect": {"requests": 1, "sleepsMs": [], "stopReason": "error", "code": "rate_limited", "phase": "request", "httpStatus": 429, "retryAfterMs": 5000,
@@ -112,7 +112,7 @@
     },
     {
       "id": "retry-after-date",
-      "pidiffSkip": "pi would wait until the fixture's date on its real clock.",
+
       "note": "An HTTP date is measured from the clock's now.",
       "retry": {"maxRetries": 1},
       "replies": [{"status": 503, "header": {"retry-after": "Fri, 02 Oct 2026 00:00:05 GMT"}, "body": "{\"error\":{\"message\":\"busy\"}}"}, {"ok": true}],
@@ -175,7 +175,7 @@
     },
     {
       "id": "delay-cap-disabled",
-      "pidiffSkip": "pi would really wait 120s.",
+
       "note": "maxRetryDelayMs 0 removes only the cap; the call's deadline still bounds the wait.",
       "retry": {"maxRetries": 1, "maxRetryDelayMs": 0},
       "replies": [{"status": 429, "header": {"retry-after": "120"}, "body": "{\"error\":{\"message\":\"Rate limit reached\"}}"}, {"ok": true}],

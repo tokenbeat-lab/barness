@@ -195,20 +195,11 @@ func TestGoogleImagesUsageObserver(t *testing.T) {
 	ev.Record("usage", obs[len(obs)-1].Usage)
 }
 
-func TestGoogleImagesExtensionRegistration(t *testing.T) {
+func TestGoogleImagesNativeCatalogLimits(t *testing.T) {
 	ev := run.Case(t, "P09-E11-native-catalog-exemption")
-	ledger := loadLedger(t)
-	route, ok := ledger.Route(string(ai.ProviderGoogle), string(googleImagesProtocol.api))
-	ev.Check("explicit native image route", ok && route.Ref != "", "missing Google extension")
-	for _, file := range []string{"generation.json", "failures.json", "options.json", "usage.json", "editing.json", "editing-invalid-input.json", "editing-failures.json", "editing-usage.json", "editing-options.json"} {
-		f, _ := loadFixture(t, googleImagesProtocol, file)
-		for _, sc := range f.Scenarios {
-			ev.Check("explicit differential skip "+sc.ID, sc.PidiffSkip != "", "missing differential skip")
-		}
-	}
 	for _, m := range ai.BuiltinCatalog().ImageModels {
 		if m.API == googleImagesProtocol.api {
-			ev.Check("own live-confirmed builtin remains an extension", m.Provider == ai.ProviderGoogle && m.ID == "gemini-nano-banana-2.1", "unverified model listed")
+			ev.Check("own live-confirmed builtin identity", m.Provider == ai.ProviderGoogle && m.ID == "gemini-nano-banana-2.1", "unverified model listed")
 		}
 	}
 	// This protocol does not become a chat route or acquire native continuation.

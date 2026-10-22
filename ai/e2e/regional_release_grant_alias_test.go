@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -9,7 +10,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
@@ -71,7 +71,7 @@ func TestRegionalProviderReleaseGrantAliases(t *testing.T) {
 				if err := os.MkdirAll(ledger, 0700); err != nil {
 					t.Fatal(err)
 				}
-				f, err := os.OpenFile(filepath.Join(ledger, "scope-"+pioracle.SHA256(scope)+".json"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+				f, err := os.OpenFile(filepath.Join(ledger, "scope-"+evidence.Digest(scope)+".json"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
 				if err != nil {
 					t.Fatal(err)
 				}

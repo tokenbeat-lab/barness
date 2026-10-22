@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -10,7 +11,6 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
@@ -53,7 +53,7 @@ func regionalMissingNativeSource(t *testing.T, binary, combo string) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		grant.Mode, grant.ID = "controlled", "absent-native-"+combo+"-"+pioracle.SHA256([]byte(run.Dir()))[:12]
+		grant.Mode, grant.ID = "controlled", "absent-native-"+combo+"-"+evidence.Digest([]byte(run.Dir()))[:12]
 		grant.AccountAlias, grant.RegionAlias, grant.ExpiresAt = "synthetic-account", "synthetic-region", time.Now().UTC().Add(time.Hour)
 		path := filepath.Join(t.TempDir(), "grant.json")
 		if err := os.WriteFile(path, mustMarshal(t, grant), 0600); err != nil {

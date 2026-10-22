@@ -5,10 +5,10 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
@@ -150,7 +150,7 @@ func verifyMultimodalResult(files verifiedCase, call, tenant, binding, hash stri
 	}
 	for i, index := range order {
 		raw, err := base64.StdEncoding.Strict().DecodeString(input.Images[index].Data)
-		if err != nil || result.ImageInputs[i].MimeType != input.Images[index].MimeType || result.ImageInputs[i].SHA256 != strings.TrimPrefix(pioracle.SHA256(raw), "sha256:") {
+		if err != nil || result.ImageInputs[i].MimeType != input.Images[index].MimeType || result.ImageInputs[i].SHA256 != strings.TrimPrefix(evidence.Digest(raw), "sha256:") {
 			return bad
 		}
 	}

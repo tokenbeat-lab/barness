@@ -167,27 +167,3 @@ func (f toolFixture) round1Message(t *testing.T) ai.AssistantMessage {
 // toolPidiffScenario is TestToolRoundTrip's round 1 ("tool-call", with the
 // entry's own tool choice; "tool-call-function" forcing get_weather) or round
 // 2 ("tool-results") for the differential.
-func toolPidiffScenario(t *testing.T, name, entry string) pidiffScenario {
-	t.Helper()
-	f, raw := loadToolFixture(t)
-	sc := pidiffScenario{fixture: "tool-round-trip.json", raw: raw, model: f.Model, requests: 1}
-	if name == "tool-results" {
-		sc.req = f.round2Request(f.round1Message(t))
-		sc.reply = f.reply(t, f.Round2.Events, provider.FramingLF, "")
-		return sc
-	}
-	sc.req = f.request()
-	sc.reply = f.reply(t, f.Round1.Events, provider.FramingLF, "")
-	switch {
-	case name == "tool-call-function":
-		sc.full = ai.ResponsesOptions{ToolChoice: ai.Value(ai.ResponsesToolChoice{Function: "get_weather"})}
-		sc.piOptions = map[string]any{"toolChoice": map[string]any{"type": "function", "name": "get_weather"}}
-	case entry == "stream":
-		sc.full = ai.ResponsesOptions{ToolChoice: ai.Value(ai.ResponsesToolChoice{Mode: f.ToolChoice.Full})}
-		sc.piOptions = map[string]any{"toolChoice": f.ToolChoice.Full}
-	default:
-		sc.simple = ai.SimpleOptions{ToolChoice: ai.Value(ai.ToolChoice(f.ToolChoice.Simple))}
-		sc.piOptions = map[string]any{"toolChoice": f.ToolChoice.Simple}
-	}
-	return sc
-}

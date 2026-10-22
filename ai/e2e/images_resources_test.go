@@ -10,7 +10,6 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/probe"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
@@ -204,22 +203,6 @@ func TestOpenAIImagesObserverIsolation(t *testing.T) {
 	}
 	encoded := string(mustMarshal(t, obs))
 	ev.Check("observer contains metadata only", !strings.Contains(encoded, imagesInput(t, sc).Prompt) && !strings.Contains(encoded, "b64_json") && !strings.Contains(encoded, "errorMessage"), "content in observer")
-}
-
-func TestOpenAIImagesExtensionsRegistered(t *testing.T) {
-	ev := run.Case(t, "P08-E11-extensions-registered")
-	r, ok := loadLedger(t).Route(string(ai.ProviderOpenAI), string(ai.APIOpenAIImages))
-	ev.Record("route", r)
-	ev.Check("native route registered independently", ok && r.Classification == pioracle.Extension && r.Ref != "", "got %+v", r)
-	for _, name := range []string{"generation.json", "failures.json"} {
-		f, _ := loadFixture(t, imagesProtocol, name)
-		for _, sc := range f.Scenarios {
-			ev.Check("explicit pi skip "+sc.ID, sc.PidiffSkip != "", "missing skip")
-		}
-	}
-	ev.Record("catalog", ai.BuiltinCatalog())
-	// Real inclusion is verified independently against sourced facts and this
-	// route's own live response replay by TestOpenAIImagesBuiltinCatalog.
 }
 
 func TestOpenAIImagesUsageValidation(t *testing.T) {

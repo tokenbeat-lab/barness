@@ -136,17 +136,3 @@ func TestOpenAIImagesEntryOptionsSnapshot(t *testing.T) {
 	}
 	ev.Check("entry options independently frozen", err == nil && string(request["n"]) == "1" && opts.N == ai.Value(2), "got %v request=%s", err, request["n"])
 }
-
-func TestCatalogNativeImageExemptions(t *testing.T) {
-	ev := run.Case(t, "P08-E11-native-catalog-exemption")
-	ledger := loadLedger(t)
-	ev.Record("image-models", ai.BuiltinCatalog().ImageModels)
-	// Native image routes are never silently included in the chat-model pi
-	// comparison. Future issue 11 additions must retain this explicit exemption.
-	for _, m := range ai.BuiltinCatalog().ImageModels {
-		r, ok := ledger.Route(string(m.Provider), string(m.API))
-		ev.Check("native image exemption "+m.ID, ok && r.Ref != "" && m.Pricing.Source != "", "missing native evidence exemption")
-	}
-	r, ok := ledger.Route(string(ai.ProviderOpenAI), string(ai.APIOpenAIImages))
-	ev.Check("explicit native Images exemption exists", ok && r.Ref != "", "missing exemption")
-}

@@ -141,21 +141,6 @@ func TestDeepSeekResponsesRouting(t *testing.T) {
 		})
 	}
 
-	// spec Testing Decisions §5: DeepSeek Responses is proven by its own
-	// fixtures, registered as an extension route in the differential
-	// ledger, and none of its scenarios runs as a pi differential case.
-	t.Run("registered-as-extension", func(t *testing.T) {
-		ev := run.Case(t, "P05-E10-registered-as-extension")
-		route, ok := loadLedger(t).Route(string(ai.ProviderDeepSeek), string(ai.APIOpenAIResponses))
-		ev.Record("route", route)
-		ev.Check("the ledger registers DeepSeek × Responses as an extension route", ok, "no route entry")
-		for _, file := range deepseekResponsesFixtureFiles {
-			f, _ := loadFixture(t, deepseekResponsesProtocol, file)
-			for _, sc := range f.Scenarios {
-				ev.Check(file+" "+sc.ID+" stays out of the differential", sc.PidiffSkip != "", "no pidiffSkip")
-			}
-		}
-	})
 }
 
 func bodyFields(t *testing.T, body []byte) map[string]json.RawMessage {

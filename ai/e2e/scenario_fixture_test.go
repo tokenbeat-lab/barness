@@ -91,8 +91,7 @@ type fixtureScenario struct {
 	// uses the real clock, which the differential maps.
 	Now int64 `json:"now"`
 	// PidiffSkip says why the differential does not run the scenario.
-	PidiffSkip string        `json:"pidiffSkip"`
-	Expect     fixtureExpect `json:"expect"`
+	Expect fixtureExpect `json:"expect"`
 	// framing lays out SSE replies; empty is LF.
 	framing provider.Framing
 	// proto is the protocol whose fixture holds the scenario.
@@ -452,7 +451,7 @@ func checkScenario(ev *evidence.Case, w *world, sc fixtureScenario, mode callMod
 	if x.Content != nil {
 		got := []any{}
 		for _, c := range m.Content {
-			got = append(got, piBlock(t, c))
+			got = append(got, fixtureContent(t, c))
 		}
 		ev.Check("final content", jsonEqual(mustMarshal(t, got), x.Content), "got %s\nwant %s", mustMarshal(t, got), x.Content)
 	}

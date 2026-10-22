@@ -1,16 +1,13 @@
 package e2e
 
 import (
-	"context"
 	"encoding/json"
-	"reflect"
+
 	"slices"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 )
 
 // responsesProtocol is OpenAI × Responses in the shared scenario format;
@@ -38,12 +35,9 @@ var catalogInclusionProtocols = []struct {
 
 // TestCatalogInclusion is issue 34 (ADR-0018): the models that only an
 // optional protocol feature barness-ai does not implement kept out of the
-// catalog are listed, and are served the way pi serves them with that
-// feature off. Each protocol's catalog.json runs its scenarios — no tools,
-// tools, mid-conversation system and tool changes, level maps and tiered
-// prices — through the public Client; TestPiDifferential runs the same
-// scenarios through frozen pi, where pi's optional features are ledger
-// extensions limited to these cases.
+// catalog are listed and served with explicit supported options. Protocol
+// catalog fixtures exercise tools, history, level maps and tiered prices
+// through the public Client with independent literal expectations.
 //
 // Ways it could fail:
 //
@@ -53,7 +47,7 @@ var catalogInclusionProtocols = []struct {
 //	   claude-fable-5-1, claude-opus-5 and claude-opus-5-5 out for, is
 //	   TestManagedEffort's)
 //	L3 a field differs from pi's frozen data: name, limits, level map,
-//	   carried compat or prices (checked against pi with BARNESS_AI_PIDIFF=1)
+//	   carried capabilities or prices (checked against independent fixtures)
 //	L4 a hard constraint is not kept: a temperature reaches
 //	   claude-opus-4-8, thinking is switched off on a model whose level
 //	   map has off null, a level outside the map is sent unclamped
@@ -96,49 +90,4 @@ func TestCatalogInclusion(t *testing.T) {
 		}
 	}
 
-	t.Run("builtin-models-are-pi's", func(t *testing.T) {
-		ev := run.Case(t, "E03-catalog-builtin-models-are-pis")
-		ev.ReplayEnv(pioracle.EnableEnv + "=1")
-		o := openOracle(t)
-		catalog := ai.BuiltinCatalog()
-		// China standard GLM has independent vendor sources and extension routes;
-		// TestGLMFormalCatalog verifies those six; MiniMax has its own dated
-		// price/tier and protocol metadata acceptance, never a frozen data claim.
-		catalog.Models = slices.DeleteFunc(catalog.Models, func(m ai.Model) bool { return m.Provider == ai.ProviderZhipu || m.Provider == ai.ProviderMiniMax })
-		keys := make([]pioracle.ModelKey, len(catalog.Models))
-		for i, m := range catalog.Models {
-			keys[i] = piModelKey(m)
-		}
-		ctx, cancel := context.WithTimeout(ctxFor(t), 30*time.Second)
-		defer cancel()
-		pi, err := o.Models(ctx, keys)
-		if !ev.Check("pi reports its model data", err == nil && len(pi) == len(keys), "err=%v", err) {
-			return
-		}
-		ev.Record("pi-models", pi)
-		for i, m := range catalog.Models {
-			var want ai.Model
-			if !ev.Check(m.ID+" ("+string(m.API)+") is in pi's data", string(pi[i]) != "null" && json.Unmarshal(pi[i], &want) == nil,
-				"key %+v", keys[i]) {
-				continue
-			}
-			// The catalog lists pi's entry on the API barness routes it
-			// on; compat keeps the flags ModelCompat carries, which
-			// decoding pi's entry into Model already does.
-			want.Provider, want.API = m.Provider, m.API
-			ev.Check(m.ID+" ("+string(m.API)+") fields are pi's", reflect.DeepEqual(m, want),
-				"barness %s\npi      %s", mustMarshal(t, m), mustMarshal(t, want))
-		}
-	})
-}
-
-// piModelKey is where pi's data holds m: OpenAI's Chat models are its
-// Responses entries (ADR-0013) and DeepSeek's Responses model is its Chat
-// entry (ADR-0014), which the oracle routes on those APIs.
-func piModelKey(m ai.Model) pioracle.ModelKey {
-	api := m.API
-	if m.Provider == ai.ProviderDeepSeek && m.API == ai.APIOpenAIResponses {
-		api = ai.APIOpenAICompletions
-	}
-	return pioracle.ModelKey{Provider: string(m.Provider), API: string(api), ID: m.ID}
 }

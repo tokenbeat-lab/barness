@@ -182,8 +182,3 @@ func mustUnmarshal(t *testing.T, raw []byte, v any) {
 }
 
 // pidiff is the scenario of TestHistoryNormalization for the differential.
-func (f historyFixture) pidiff(t *testing.T, raw []byte, sc historyScenario) pidiffScenario {
-	t.Helper()
-	return pidiffScenario{fixture: "history.json", raw: raw, model: sc.Model, req: sc.request(t, tenantA),
-		reply: f.reply(t), requests: 1, modelCompat: sc.ModelCompat}
-}

@@ -5,7 +5,6 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/glm"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 )
 
 // Standard China routes are distinct from both frozen Coding catalogs. A route
@@ -14,9 +13,6 @@ func TestGLMExtensionRoutes(t *testing.T) {
 	for _, route := range glmSharedRoutes {
 		t.Run(route.name, func(t *testing.T) {
 			ev := run.Case(t, "GLM10-extension-route-"+route.name)
-			registered, ok := loadLedger(t).Route(string(ai.ProviderZhipu), string(route.api))
-			ev.Record("route", registered)
-			ev.Check("China standard route is explicitly an extension", ok && registered.Classification == pioracle.Extension && registered.Ref != "", "%+v", registered)
 			var cat ai.Catalog
 			switch route.name {
 			case "chat":

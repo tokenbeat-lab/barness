@@ -3,6 +3,7 @@ package release
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
@@ -13,7 +14,7 @@ func TestRejectedIdentifiersAreNeverRepublished(t *testing.T) {
 	const secret = "sk-syntheticDisclosureCredential"
 	t.Run("live-combo", func(t *testing.T) {
 		dir := t.TempDir()
-		r := goodInputs(t).Audits[1].Live
+		r := &supportmatrix.Report{}
 		r.Combo = secret
 		writeArtifact(t, dir, "live-report.json", r)
 		writeArtifact(t, dir, "manifest.json", map[string]any{"cases": []any{}})

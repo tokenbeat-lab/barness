@@ -1,14 +1,8 @@
 package ai
 
 import (
-	"context"
-	"encoding/json"
 	"math"
-	"reflect"
 	"testing"
-	"time"
-
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 )
 
 // TestCostEstimate checks the cost rule ported from pi-ai's calculateCost
@@ -16,9 +10,7 @@ import (
 // with and without one-hour cache writes. TestUsageAndCost (Responses) and
 // TestAnthropicUsageAndRetry (one-hour writes, P02) cover the rest end to
 // end. This is the one isolated
-// test; with BARNESS_AI_PIDIFF=1 every case is also checked bit for bit
-// against frozen pi-ai's own calculateCost, and the built-in catalog's
-// prices against pi's frozen model data.
+// test. Expectations are independent literal monetary examples.
 //
 // Ways it could fail:
 //
@@ -29,10 +21,8 @@ import (
 //	C3 a tier applies at its threshold, counts input alone, or the first
 //	   matching tier wins over the highest threshold exceeded
 //	C4 reasoning tokens are priced on top of output
-//	C5 the total is not the sum of the parts, or a component differs from
-//	   pi's in the last bit (operation order, fused multiply-add)
+//	C5 the total is not the sum of the independently calculated parts
 //	C6 a zero usage costs anything
-//	C7 a built-in price differs from pi's frozen model data
 func TestCostEstimate(t *testing.T) {
 	base := ModelCost{CostRates: CostRates{Input: 3, Output: 15, CacheRead: 0.3, CacheWrite: 3.75}}
 	tiered := ModelCost{CostRates: CostRates{Input: 2, Output: 8, CacheRead: 0.2, CacheWrite: 2.5}, Tiers: []CostTier{
@@ -62,35 +52,7 @@ func TestCostEstimate(t *testing.T) {
 			UsageCost{Input: 1.2, CacheWrite: 0.008, Total: 1.208}},
 	}
 
-	var pi pioracle.CostResults
-	if pioracle.Enabled() {
-		o, err := pioracle.Open()
-		if err != nil {
-			t.Fatal(err)
-		}
-		in := make([]pioracle.CostCase, len(cases))
-		for i, c := range cases {
-			u := c.usage
-			u.Cost = UsageCost{}
-			in[i] = pioracle.CostCase{Cost: mustJSON(t, c.cost), Usage: mustJSON(t, u)}
-		}
-		var ids []string
-		for _, m := range BuiltinCatalog().Models {
-			// China's Zhipu routes are extensions absent from frozen pi.
-			// Their six prices have independent sourced public catalog E2E.
-			if m.Provider == ProviderZhipu {
-				continue
-			}
-			ids = append(ids, m.ID)
-		}
-		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-		defer cancel()
-		if pi, err = o.Costs(ctx, in, ids); err != nil {
-			t.Fatal(err)
-		}
-	}
-
-	for i, c := range cases {
+	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			got := c.cost.estimate(c.usage)
 			if !closeCost(got, c.want) {
@@ -99,51 +61,15 @@ func TestCostEstimate(t *testing.T) {
 			if got.Total != got.Input+got.Output+got.CacheRead+got.CacheWrite {
 				t.Errorf("total %v is not the sum of %+v", got.Total, got)
 			}
-			if pi.Results != nil {
-				var want UsageCost
-				if err := json.Unmarshal(pi.Results[i], &want); err != nil {
-					t.Fatal(err)
-				}
-				if got != want {
-					t.Errorf("pi gives %+v, barness %+v", want, got)
-				}
-			}
 		})
 	}
 
-	t.Run("builtin-prices-are-pi's", func(t *testing.T) {
-		if pi.Models == nil {
-			t.Skipf("frozen pi differential not requested (set %s=1)", pioracle.EnableEnv)
-		}
-		for _, m := range BuiltinCatalog().Models {
-			if m.Provider == ProviderZhipu {
-				continue
-			}
-			var want ModelCost
-			if err := json.Unmarshal(pi.Models[m.ID], &want); err != nil || pi.Models[m.ID] == nil {
-				t.Errorf("%s: pi has no cost entry (%v)", m.ID, err)
-				continue
-			}
-			if !reflect.DeepEqual(m.Cost, want) {
-				t.Errorf("%s: barness %+v, pi %+v", m.ID, m.Cost, want)
-			}
-		}
-	})
 }
 
 // closeCost compares two costs to a relative 1e-12: the hand-written
-// expectations are decimals, not pi's exact binary values.
+// expectations are worked decimal monetary examples.
 func closeCost(a, b UsageCost) bool {
 	near := func(x, y float64) bool { return math.Abs(x-y) <= 1e-12*math.Max(1, math.Max(math.Abs(x), math.Abs(y))) }
 	return near(a.Input, b.Input) && near(a.Output, b.Output) && near(a.CacheRead, b.CacheRead) &&
 		near(a.CacheWrite, b.CacheWrite) && near(a.Total, b.Total)
-}
-
-func mustJSON(t *testing.T, v any) json.RawMessage {
-	t.Helper()
-	data, err := json.Marshal(v)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return data
 }

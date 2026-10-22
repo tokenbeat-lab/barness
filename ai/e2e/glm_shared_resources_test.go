@@ -142,7 +142,7 @@ func glmSharedOneTerminal(ev *evidence.Case, o outcome) {
 // 4 KiB maximum tool args, 32 KiB maximum wire output per stream. Each round
 // uses an independent own-model protocol source plus synthetic text padding.
 func TestGLMSharedDesignLoad(t *testing.T) {
-	ev := run.Case(t, "GLM09-design-load")
+	ev := pressureCase(t, "GLM09-design-load")
 	w := newGLMSharedWorld(t, nil)
 	baseline := runtime.NumGoroutine()
 	var before, after runtime.MemStats

@@ -2,12 +2,12 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -47,7 +47,7 @@ func regionalNativeSourceRefusals(t *testing.T, original, combo string) {
 				for _, v := range manifest["cases"].([]any) {
 					c := v.(map[string]any)
 					if c["id"] == caseID {
-						c["artifacts"].(map[string]any)[filepath.Base(name)] = pioracle.SHA256(raw)
+						c["artifacts"].(map[string]any)[filepath.Base(name)] = evidence.Digest(raw)
 					}
 				}
 				if err := os.WriteFile(filepath.Join(dir, "manifest.json"), mustMarshal(t, manifest), 0600); err != nil {

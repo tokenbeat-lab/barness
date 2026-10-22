@@ -1,19 +1,13 @@
 package ai
 
 import (
-	"context"
-	"encoding/json"
 	"testing"
-	"time"
-
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 )
 
 // TestThinkingBudgets checks the shared thinking budget rules token-budget
 // protocols build on (spec I7: default budgets, custom budgets, answer room).
 // They have no effect on the Responses wire, so no E2E reaches them yet; this
-// is the one isolated test, and with BARNESS_AI_PIDIFF=1 every expectation is
-// also checked against frozen pi-ai's own adjustMaxTokensForThinking.
+// is an isolated rule test using independent literal expectations.
 //
 // Ways it could fail:
 //
@@ -54,28 +48,7 @@ func TestThinkingBudgets(t *testing.T) {
 		{"cap-zero", base(0), 128000, ThinkingMinimal, ThinkingBudgets{}, 1024, 0},
 	}
 
-	var pi []pioracle.BudgetResult
-	if pioracle.Enabled() {
-		o, err := pioracle.Open()
-		if err != nil {
-			t.Fatal(err)
-		}
-		in := make([]pioracle.BudgetCase, len(cases))
-		for i, c := range cases {
-			budgets, err := json.Marshal(c.budgets)
-			if err != nil {
-				t.Fatal(err)
-			}
-			in[i] = pioracle.BudgetCase{BaseMaxTokens: c.base, ModelMaxTokens: c.modelMax, Level: string(c.level), Budgets: budgets}
-		}
-		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-		defer cancel()
-		if pi, err = o.ThinkingBudgets(ctx, in); err != nil {
-			t.Fatal(err)
-		}
-	}
-
-	for i, c := range cases {
+	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			b, hasBase := 0, c.base != nil
 			if hasBase {
@@ -84,9 +57,6 @@ func TestThinkingBudgets(t *testing.T) {
 			gotMax, gotThinking := adjustMaxTokensForThinking(b, hasBase, c.modelMax, c.level, c.budgets)
 			if gotMax != c.wantMax || gotThinking != c.wantThinking {
 				t.Errorf("got (%d, %d), want (%d, %d)", gotMax, gotThinking, c.wantMax, c.wantThinking)
-			}
-			if pi != nil && (pi[i].MaxTokens != c.wantMax || pi[i].ThinkingBudget != c.wantThinking) {
-				t.Errorf("pi gives (%d, %d), the expectation is (%d, %d)", pi[i].MaxTokens, pi[i].ThinkingBudget, c.wantMax, c.wantThinking)
 			}
 		})
 	}

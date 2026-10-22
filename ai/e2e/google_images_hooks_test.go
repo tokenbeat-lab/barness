@@ -18,9 +18,8 @@ func TestGoogleImagesCallbackFixtures(t *testing.T) {
 		t.Fatal(err)
 	}
 	var f struct {
-		Source     string `json:"source"`
-		PidiffSkip string `json:"pidiffSkip"`
-		Cases      []struct {
+		Source string `json:"source"`
+		Cases  []struct {
 			ID     string         `json:"id"`
 			Set    map[string]any `json:"set"`
 			Delete string         `json:"delete"`
@@ -37,7 +36,6 @@ func TestGoogleImagesCallbackFixtures(t *testing.T) {
 			t.Run(name, func(t *testing.T) {
 				ev := run.Case(t, "P09-E04-"+name)
 				ev.Fixture("callbacks.json", raw)
-				ev.Check("explicit native differential skip", f.PidiffSkip != "", "missing native skip")
 				input := firstGoogleImagesScenario(t)
 				if editing {
 					input = googleEditScenario(t)

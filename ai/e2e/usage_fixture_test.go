@@ -128,9 +128,3 @@ func (sc usageScenario) piOptions() map[string]any {
 
 // usagePidiffScenario is E11 scenario sc of TestUsageAndCost on the full
 // entry, with the same model patch, options and retry settings on both sides.
-func usagePidiffScenario(t *testing.T, f usageFixture, raw []byte, text textFixture, sc usageScenario) pidiffScenario {
-	t.Helper()
-	return pidiffScenario{fixture: "usage.json", raw: raw, model: f.model(sc), req: textRequest(text),
-		replies: f.replies(t, sc), requests: len(sc.Replies), retry: sc.Retry.policy(),
-		full: sc.options(), piOptions: sc.piOptions(), modelPatch: sc.ModelPatch}
-}

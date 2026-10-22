@@ -2,12 +2,12 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
@@ -57,7 +57,7 @@ func TestReleaseRevocationSemanticIntegrity(t *testing.T) {
 				if err := os.WriteFile(path, raw, 0600); err != nil {
 					t.Fatal(err)
 				}
-				updateReleaseInventory(t, dir, id, file, pioracle.SHA256(raw))
+				updateReleaseInventory(t, dir, id, file, evidence.Digest(raw))
 				b, err := release.LoadBundle(dir)
 				if err != nil {
 					t.Fatal(err)

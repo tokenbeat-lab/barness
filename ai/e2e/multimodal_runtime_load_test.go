@@ -33,7 +33,7 @@ func checkMultimodalSuccess(t *testing.T, ev *evidence.Case, r mixedRoute, req a
 func TestMultimodalRuntimeDesignLoad(t *testing.T) {
 	for _, entry := range []string{"plain", "hooked"} {
 		t.Run(entry, func(t *testing.T) {
-			ev := run.Case(t, "UC09-design-load-"+entry)
+			ev := pressureCase(t, "UC09-design-load-"+entry)
 			ended, release := make(chan struct{}, 4), make(chan struct{})
 			var once sync.Once
 			unblock := func() { once.Do(func() { close(release) }) }

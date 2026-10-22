@@ -2,13 +2,13 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"slices"
 	"testing"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
@@ -60,7 +60,7 @@ func TestReleaseRecordedBundleDiagnosticProcess(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			ev.Record("process", map[string]any{"mode": mode, "failed": processErr != nil, "outputSHA256": pioracle.SHA256(output), "cases": bundle.Cases, "problems": bundle.Problems, "vendorCalls": 0})
+			ev.Record("process", map[string]any{"mode": mode, "failed": processErr != nil, "outputSHA256": evidence.Digest(output), "cases": bundle.Cases, "problems": bundle.Problems, "vendorCalls": 0})
 			ev.Check("child inventory remains complete", len(bundle.Problems) == 0, "inventory problems=%d", len(bundle.Problems))
 			if mode == "default" {
 				ev.Check("unconfigured diagnostic skips without evidence case", processErr == nil && len(bundle.Cases) == 0, "failed=%t cases=%v", processErr != nil, bundle.Cases)

@@ -6,11 +6,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"reflect"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 )
 
@@ -46,7 +46,7 @@ func verifyMultimodalCapture(files verifiedCase, call, tenant, binding string, c
 	values := map[string]any{"TENANT": tenant, "STATE_TEXT": string(stateText), "STATE_JSON": state}
 	for i, img := range input.Images {
 		raw, err := base64.StdEncoding.Strict().DecodeString(img.Data)
-		if err != nil || pioracle.SHA256(raw) != hashes[i] {
+		if err != nil || evidence.Digest(raw) != hashes[i] {
 			return bad
 		}
 		index := string(rune('0' + i))
@@ -93,7 +93,7 @@ func verifyMultimodalCapture(files verifiedCase, call, tenant, binding string, c
 	if json.Compact(&compact, capture.Body) != nil {
 		return bad
 	}
-	response := "response-" + binding + "-" + pioracle.SHA256(compact.Bytes()) + ".json"
+	response := "response-" + binding + "-" + evidence.Digest(compact.Bytes()) + ".json"
 	var actualResponse any
 	if readLoadJSON(files, response, &actualResponse) != nil || !reflect.DeepEqual(actualResponse, bindMultimodalFixture(spec.Response, values)) {
 		return bad

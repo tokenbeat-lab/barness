@@ -4,13 +4,13 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
@@ -84,10 +84,10 @@ func TestReleaseBundleDirectoryIsolation(t *testing.T) {
 			ev.Record("manifest", manifest)
 			b, err := release.LoadBundle(dir)
 			accepted := err == nil && len(b.Problems) == 0
-			ev.Record("import", map[string]any{"accepted": accepted, "error": err != nil, "problems": b.Problems, "cases": b.Cases, "diffs": b.Diffs})
+			ev.Record("import", map[string]any{"accepted": accepted, "error": err != nil, "problems": b.Problems, "cases": b.Cases})
 			ev.Check("only intact canonical trees import", accepted == (mode == "flat" || strings.HasPrefix(mode, "nested") && mode != "nested-symlink"), "accepted=%t error=%v problems=%v", accepted, err, b.Problems)
 			if accepted {
-				ev.Check("nested artifacts do not invent differential cases", len(b.Cases) == 1 && len(b.Diffs) == 0 && b.Cases[0].ID == c["id"], "unexpected case attribution")
+				ev.Check("nested artifacts preserve exactly one case", len(b.Cases) == 1 && b.Cases[0].ID == c["id"], "unexpected case attribution")
 			}
 		})
 	}
@@ -104,7 +104,7 @@ func releaseBoundaryFiles(t *testing.T, dir string, files map[string]string) map
 		if err := os.WriteFile(path, []byte(raw), 0600); err != nil {
 			t.Fatal(err)
 		}
-		artifacts[name] = pioracle.SHA256([]byte(raw))
+		artifacts[name] = evidence.Digest([]byte(raw))
 	}
 	return artifacts
 }

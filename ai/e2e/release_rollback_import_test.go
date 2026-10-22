@@ -3,13 +3,13 @@ package e2e
 import (
 	"archive/zip"
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/pioracle"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
@@ -127,7 +127,7 @@ func TestReleaseOfflineInventoryCannotOmitFile(t *testing.T) {
 	writeReleaseJSON(t, filepath.Join(dir, id), "result.json", map[string]any{"synthetic": true})
 	writeReleaseJSON(t, filepath.Join(dir, id), "resources.json", map[string]any{"calls": 0})
 	raw, _ := os.ReadFile(filepath.Join(dir, id, "result.json"))
-	writeReleaseJSON(t, dir, "manifest.json", map[string]any{"package": "./ai/e2e", "cases": []any{map[string]any{"id": id, "dir": id, "status": "PASS", "artifacts": map[string]string{"result.json": pioracle.SHA256(raw)}}}})
+	writeReleaseJSON(t, dir, "manifest.json", map[string]any{"package": "./ai/e2e", "cases": []any{map[string]any{"id": id, "dir": id, "status": "PASS", "artifacts": map[string]string{"result.json": evidence.Digest(raw)}}}})
 	b, err := release.LoadBundle(dir)
 	ev.Check("unlisted artifact refused", err != nil || len(b.Problems) > 0, "unhashed artifact accepted")
 }
