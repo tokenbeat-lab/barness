@@ -180,5 +180,3 @@ func mustUnmarshal(t *testing.T, raw []byte, v any) {
 		t.Fatalf("decode %s: %v", raw, err)
 	}
 }
-
-// pidiff is the scenario of TestHistoryNormalization for the differential.

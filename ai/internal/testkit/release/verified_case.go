@@ -112,7 +112,7 @@ func (c verifiedCase) json(name string, budget int64, value any) error {
 }
 
 // The immutable declared inventory owns these names. A nested child's file
-// cannot satisfy a parent's root-level capture, result or differential proof.
+// cannot satisfy a parent's root-level capture, result proof.
 func (c verifiedCase) matches(pattern string) []string {
 	var out []string
 	if !c.verified || c.bundle == nil {

@@ -15,3 +15,11 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 定向普通 Go 验证：`.evidence/barness-ai-test-process-review/e2e/20261022T014901.047673Z-00u3v4fm/receipt.json` PASS/exit0。维护工具全套、定向 vet、live-tag 只编译在 `implementation-checks-20261022T015346Z` 全部 exit0；未运行该 live 二进制。随后源码枚举补强仅排除展示 Markdown 与生成缓存，包含被 Git 忽略的源码；实际参与消费的 Markdown 必须通过 --input 指定。
 
 删除原冻结差分、旧自动 check/race 调度及旧固定十门禁/全库选择器。历史原件未动；通用序列化投影与 SHA-256 改为中立测试语义，保留原生完整性、脱敏及资格消费者。旧固定发布断言由五项回执 CLI 进程验证替代，普通行为与消费者安全检查继续保留。
+
+首轮完整普通回归（785f123）原件：`.evidence/barness-ai-test-process-review/e2e/20261022T015737.105482Z-78u86_0y/`。实际发现 Decisions/Jev 历史目录比较未覆盖后续地区身份、旧 Host 回滚测试使用当前已晋升目录、promotion 边界测试把已激活文件当 inactive fixture。产品目录与这些旧测试的基线文件本次未改动，故按真实故障修复场景边界，不刷新历史 hash 或资格。
+
+同轮暴露额外未 opt-in 的旧 AdmissionBurstPressure、PressureFixtureWriteBackpressure、PressureToolWriteIntegrity；它们已实际执行，属于本次禁止范围的偏差，已告知用户。后续将三个入口纳入显式压力开关；单次小响应的诊断场景以普通 loopback 故障语义保留。不得把这轮写为“零压力”或压力验收通过。
+
+为避免在已知失败后继续运行，于本轮中断。进程组重复清理在 Go 进程退出后返回 EPERM，采集器退出1且未正常落最终 receipt；保留原始 RUNNING/局部文件，并另附 interruption.json（native exit未知，不伪造）。已核对相关自有 Go/采集进程均退出。该采集器故障也需修复并做公共取消回归。
+
+修复验收：`boundary-fixes-20261022T020649Z` exit0，25组维护工具公共进程场景；取消真实小型 Go 子进程得到 CANCELLED 数字退出回执，手动压力入口默认全部 NOT_RUN。定向历史目录/回滚/晋升/自身快照回归 `.evidence/barness-ai-test-process-review/e2e/20261022T020732.756216Z-_jpbzjmu/receipt.json` PASS/exit0。inactive fixture取自 Git 2f19d45，SHA256 7923e919d03e274d940a164da65d747ef06247a74fbc99d442f93996c004787a，与原晋升边界常量一致；未改生产启用文件或放松 guard。

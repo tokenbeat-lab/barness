@@ -30,7 +30,7 @@ func TestPressureToolWriteIntegrity(t *testing.T) {
 		{"argument-limit", 128 << 10, 3},
 	} {
 		t.Run(pattern.name, func(t *testing.T) {
-			ev := run.Case(t, "E08-pressure-tool-write-"+pattern.name)
+			ev := pressureCase(t, "E08-pressure-tool-write-"+pattern.name)
 			ln, err := net.Listen("tcp", "127.0.0.1:0")
 			if err != nil {
 				t.Fatal(err)

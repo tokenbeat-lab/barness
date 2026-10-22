@@ -13,13 +13,12 @@ import (
 
 // TestOptions is the option part of E04 (spec I7 first five items, User
 // Stories 21–23): full Responses options and simple options reach the wire
-// as frozen pi-ai encodes them — every reasoning level and its clamp, the
+// with every reasoning level and its clamp, the
 // model's level map, the output token budget with its context estimate,
 // samplingParams, prompt cache retention and field presence — through Stream
 // and Complete (full) or StreamSimple and CompleteSimple (simple). Each
-// scenario's expected body is pi's (see options.json and the
-// PIDIFF-P01-E04-options-* differential), except the cache key, which is
-// derived per tenant and account.
+// scenario has an independent expected body in options.json; the cache key
+// is derived per tenant and account.
 //
 // Ways it could fail, listed before the implementation:
 //

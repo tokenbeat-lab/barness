@@ -211,5 +211,3 @@ func sentCacheKey(t *testing.T, body []byte) string {
 	mustUnmarshal(t, body, &b)
 	return b.Key
 }
-
-// pidiff is the scenario of TestOptions for the differential.

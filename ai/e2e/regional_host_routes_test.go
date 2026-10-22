@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"slices"
 	"strings"
 	"testing"
 
@@ -96,7 +97,12 @@ func TestRegionalProviderHostRevocationRollback(t *testing.T) {
 	}
 	// Rollback order: bindings disabled first, remove new identities before the
 	// old Client is loaded. Re-enabling a stale binding cannot borrow a sibling.
-	old, err := ai.NewClient(ai.Config{Policy: validPolicy(), Bindings: w.host, Credentials: w.host, Transport: provider.LoopbackTransport(), AllowLoopbackHTTP: true})
+	oldCatalog := ai.BuiltinCatalog()
+	oldCatalog.Version = "isolated-before-regional-activation"
+	oldCatalog.Models = slices.DeleteFunc(oldCatalog.Models, func(m ai.Model) bool {
+		return m.Provider == ai.ProviderZAI || m.Provider == ai.ProviderMiniMaxCN
+	})
+	old, err := ai.NewClient(ai.Config{Catalog: &oldCatalog, Policy: validPolicy(), Bindings: w.host, Credentials: w.host, Transport: provider.LoopbackTransport(), AllowLoopbackHTTP: true})
 	if err != nil {
 		t.Fatal(err)
 	}

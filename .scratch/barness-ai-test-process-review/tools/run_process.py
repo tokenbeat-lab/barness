@@ -47,11 +47,24 @@ def capture(argv, cwd, env, out, timeout, secrets):
         state['error'] = 'process unavailable'
         return state
     errors = []
+    stop_lock = threading.Lock()
+    stopped = False
     def stop():
-        try:
-            os.killpg(process.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
+        nonlocal stopped
+        with stop_lock:
+            if stopped:
+                return
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            except PermissionError:
+                # Darwin may report EPERM for an already reaped process group.
+                # A live leader still requires an explicit capture failure.
+                if process.poll() is None:
+                    errors.append('process group could not be stopped')
+                    process.kill()
+            stopped = True
     def pump(stream, target):
         decoder = codecs.getincrementaldecoder('utf-8')('replace')
         pending = ''
@@ -59,7 +72,7 @@ def capture(argv, cwd, env, out, timeout, secrets):
         hold = max([len(x) for x in secrets] or [1]) - 1
         try:
             with target.open('w') as log:
-                while block := stream.read(65536):
+                while block := stream.read1(65536):
                     total += len(block)
                     if total > LIMIT:
                         raise ValueError('capture limit exceeded')
@@ -76,6 +89,7 @@ def capture(argv, cwd, env, out, timeout, secrets):
                     for secret in secrets:
                         ready = ready.replace(secret, '[REDACTED]')
                     log.write(ready)
+                    log.flush()
                 pending += decoder.decode(b'', final=True)
                 for secret in secrets:
                     pending = pending.replace(secret, '[REDACTED]')
@@ -100,10 +114,12 @@ def capture(argv, cwd, env, out, timeout, secrets):
         state['status'] = 'PASS' if state['exitCode'] == 0 else 'FAIL'
     except subprocess.TimeoutExpired:
         stop()
-        state.update(status='TIMEOUT', exitCode=process.wait())
+        state.update(status='TIMEOUT', exitCode=process.wait(timeout=5))
     except KeyboardInterrupt:
         stop()
-        state.update(status='CANCELLED', exitCode=process.wait())
+        state.update(status='CANCELLED', exitCode=process.wait(timeout=5))
+    except (OSError, subprocess.TimeoutExpired):
+        state.update(status='CAPTURE_FAILED', exitCode=process.poll(), error='process wait failed')
     finally:
         signal.signal(signal.SIGTERM, previous)
         # A descendant holding a pipe cannot extend the stage indefinitely.

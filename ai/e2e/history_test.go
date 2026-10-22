@@ -12,9 +12,8 @@ import (
 // Stories 11–14 and 19, P01 "支持模型的图片"): a host passes any authorized
 // history — other models' and providers' turns, tool calls and results,
 // system and tool declaration changes, images — and barness-ai converts it to
-// the Responses wire as frozen pi-ai does, through every public entry point.
-// Each scenario's expected body is pi's (see history.json and the
-// PIDIFF-P01-E03-history-* differential).
+// the Responses wire through every public entry point. Each scenario has an
+// independent expected body in history.json.
 //
 // Ways it could fail, listed before the implementation:
 //

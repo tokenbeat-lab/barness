@@ -95,9 +95,6 @@ func TestDecisionsRuntimeRetry(t *testing.T) {
 					ev.Check("planned delay matches wait", a.RetryDelay == tc.delays[i], "got %+v", a)
 				}
 			}
-			if tc.name == "504-extension" {
-				ev.Record("differential-disclosure", map[string]any{"case": "OD40", "path": "retry.HTTPStatus=504", "barness": "explicit Binding retry sends two attempts", "pi-1.1.0": "does not retry 504 (route noRetryStatuses includes 504)", "status": "DECLARED_NOT_PARITY", "owner": "07-frozen-pi-differential"})
-			}
 			u.records(ev, res, err)
 			u.released(ev)
 		})

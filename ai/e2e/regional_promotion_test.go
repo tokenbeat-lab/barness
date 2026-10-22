@@ -20,7 +20,7 @@ func TestRegionalPromotionBoundary(t *testing.T) {
 	if !ev.Check("public promotion command builds", err == nil, "%v %s", err, raw) {
 		return
 	}
-	original, err := os.ReadFile("../catalog_regional.json")
+	original, err := os.ReadFile("testdata/regional/inactive-catalog.json")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import shutil
 import platform
+import subprocess
 import sys
 import tempfile
 import time
@@ -79,7 +80,10 @@ def main():
                    'status': 'RUNNING', 'exitCode': None, 'source': source, 'selectedInputs': selected_inputs, 'toolchain': toolchain,
                    'startedAt': started, 'argv': argv, 'bundles': [], 'commandSHA256': sha(out / 'command.json')}
         save(out / 'receipt.json', receipt)
-        receipt.update(capture(argv, root, env, out, timeout, secrets))
+        try:
+            receipt.update(capture(argv, root, env, out, timeout, secrets))
+        except (OSError, ValueError, subprocess.TimeoutExpired):
+            receipt.update(status='CAPTURE_FAILED', error='process capture could not be finalized')
         if receipt['exitCode'] is not None:
             (out / 'exit-code').write_text(str(receipt['exitCode']) + '\n')
         try:

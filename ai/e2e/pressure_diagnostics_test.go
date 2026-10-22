@@ -13,7 +13,7 @@ import (
 
 // The diagnostic boundary must see body errors hidden by the public, sanitized
 // transport/stream terminal. Only this synthetic loopback world records them.
-func TestPressureTransportDiagnostics(t *testing.T) {
+func TestLoopbackTransportDiagnostics(t *testing.T) {
 	ev := run.Case(t, "E08-pressure-body-error-diagnostics")
 	pw := newPressureWorld(t, *validPolicy(), 1)
 	f, raw := loadTextFixture(t, "text-basic.json")

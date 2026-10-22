@@ -215,10 +215,3 @@ func forge(t *testing.T, data []byte, env ai.NativeStateEnvelope) []byte {
 		"TenantID": env.TenantID, "AccountScopeID": env.AccountScopeID}
 	return mustMarshal(t, rec)
 }
-
-// nativePidiffScenario is TestNativeStateReplay's round 1 ("reasoning-call"),
-// or its round 2 replaying a trusted same-model message ("reasoning-replay")
-// or another model's message ("reasoning-cross-model"), for the differential.
-// pi has no trust concept, so only these two replays have a pi counterpart; a
-// downgrade of same-model state is asserted offline to equal the cross-model
-// body.

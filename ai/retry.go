@@ -161,7 +161,7 @@ type attemptOutcome struct {
 // reached (spec I9), and a provider sending oversized error bodies is
 // likely to send them again, so retrying only multiplies the reads. This
 // is a recorded extension (ADR-0007; pi retries a 429/5xx whatever its
-// body; ledger PIDIFF-P01-E08-error-body-over-limit).
+// body, as documented historically in ADR-0007).
 func (o attemptOutcome) retryable() bool {
 	if o.permanent || (o.failure != nil && o.failure.Code == CodeResourceLimit) {
 		return false

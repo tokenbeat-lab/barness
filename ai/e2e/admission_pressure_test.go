@@ -77,7 +77,7 @@ func TestAdmissionBurstPressure(t *testing.T) {
 	}
 	for _, c := range configs {
 		t.Run(c.name, func(t *testing.T) {
-			ev := run.Case(t, "E08-admission-burst-pressure-"+c.name)
+			ev := pressureCase(t, "E08-admission-burst-pressure-"+c.name)
 			r := runBurst(t, ev, *c.policy)
 			ev.Record("pressure", r)
 			t.Logf("%s: %+v", c.name, r)

@@ -25,9 +25,7 @@ var deepseekChatProtocol = &fixtureProtocol{
 	sse: chatEvents, textMarker: `"content":"Hello`,
 }
 
-// deepseekChatFixtureFiles are the P06 fixtures; frozen pi routes DeepSeek
-// through openai-completions, so the differential runs every scenario in
-// them that does not opt out.
+// deepseekChatFixtureFiles are the independent P06 public Client fixtures.
 var deepseekChatFixtureFiles = []string{"text.json", "failures.json", "history.json", "options.json", "usage.json", "retry.json", "thinking-sampling.json"}
 
 // TestDeepSeekChatText is P06/E01 through the public Client: text with

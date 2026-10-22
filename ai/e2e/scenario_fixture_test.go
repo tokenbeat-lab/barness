@@ -42,7 +42,7 @@ type fixtureProtocol struct {
 // Provider × API. Each scenario is one call — logical input, options in
 // pi's shape, the response script — with what the Provider must receive and
 // what the call must produce. The offline E2E runs them through the public
-// Client; the pi differential runs the same scenarios through frozen pi-ai.
+// Client against independently stored expected requests and results.
 type scenarioFixture struct {
 	Case      string            `json:"case"`
 	Source    string            `json:"source"`
@@ -87,10 +87,8 @@ type fixtureScenario struct {
 	// MaxRetries is the binding's retry policy (pi's maxRetries option).
 	MaxRetries int `json:"maxRetries"`
 	// Now, when set, fixes barness's clock at this Unix time in
-	// milliseconds, which Gemini tool call ids it generates contain; pi
-	// uses the real clock, which the differential maps.
-	Now int64 `json:"now"`
-	// PidiffSkip says why the differential does not run the scenario.
+	// milliseconds, which generated Gemini tool call ids contain.
+	Now    int64         `json:"now"`
 	Expect fixtureExpect `json:"expect"`
 	// framing lays out SSE replies; empty is LF.
 	framing provider.Framing

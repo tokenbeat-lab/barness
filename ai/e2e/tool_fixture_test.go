@@ -163,7 +163,3 @@ func (f toolFixture) round1Message(t *testing.T) ai.AssistantMessage {
 	}
 	return res.Message
 }
-
-// toolPidiffScenario is TestToolRoundTrip's round 1 ("tool-call", with the
-// entry's own tool choice; "tool-call-function" forcing get_weather) or round
-// 2 ("tool-results") for the differential.

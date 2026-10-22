@@ -20,7 +20,7 @@ import (
 func TestPressureFixtureWriteBackpressure(t *testing.T) {
 	for _, mode := range []string{"clean", "transient", "partial", "persistent", "other", "closed", "deadline", "canceled", "unreported", "partial-unreported"} {
 		t.Run(mode, func(t *testing.T) {
-			ev := run.Case(t, "E08-pressure-write-"+mode)
+			ev := pressureCase(t, "E08-pressure-write-"+mode)
 			ln, err := net.Listen("tcp", "127.0.0.1:0")
 			if err != nil {
 				t.Fatal(err)

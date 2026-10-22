@@ -29,7 +29,7 @@ type retryScenario struct {
 	Replies []retryReply   `json:"replies"`
 	Expect  retryExpect    `json:"expect"`
 	// PidiffSkip, when set, says why the scenario stays out of the pi
-	// differential (pi waits for real, on its own clock).
+	// deterministic E2E (the injected clock does not wait in real time).
 }
 
 // retrySettings are a RetryPolicy in pi's option names. A maxRetryDelayMs

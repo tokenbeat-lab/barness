@@ -72,3 +72,37 @@ class StageRunProcess(ProcessCase):
         receipt = json.loads(self.attempts()[0].read_text())
         self.assertIn('ai/hidden.go', receipt['source']['files'])
         self.run_stage('doc-change', expected=0)
+
+    def test_cancellation_of_real_go_process_finalizes_failed_receipt(self):
+        import os
+        import signal
+        import subprocess
+        import time
+        (self.repo / 'ai/cancel_test.go').write_text('package ai\nimport("testing";"time")\nfunc TestControlledCancellation(t *testing.T){time.Sleep(15*time.Second)}\n')
+        env = {k: os.environ[k] for k in ('PATH','HOME','TMPDIR','GOCACHE','GOPATH') if k in os.environ}
+        command = [sys.executable, str(TOOLS / 'run.py'), '--feature', 'sample', '--stage', 'e2e', '--',
+                   'go', 'test', '-json', './ai', '-run', '^TestControlledCancellation$', '-count=1']
+        process = subprocess.Popen(command, cwd=self.repo, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            deadline = time.monotonic() + 15
+            started = False
+            while time.monotonic() < deadline:
+                for receipt_path in self.attempts():
+                    log = receipt_path.parent / 'stdout.jsonl'
+                    if log.exists() and 'TestControlledCancellation' in log.read_text():
+                        started = True
+                        break
+                if started:
+                    break
+                time.sleep(.05)
+            self.assertTrue(started, 'controlled Go child did not start')
+            process.send_signal(signal.SIGTERM)
+            process.communicate(timeout=12)
+            self.assertNotEqual(process.returncode, 0)
+            receipt = json.loads(self.attempts()[0].read_text())
+            self.assertEqual(receipt['status'], 'CANCELLED')
+            self.assertIsInstance(receipt['exitCode'], int)
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.communicate(timeout=5)

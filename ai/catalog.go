@@ -22,10 +22,9 @@ type Catalog struct {
 // read 2026-10-08; own live evidence and fixed version inclusion: ADR-0021.
 //
 // Source: frozen pi-ai 1.1.0 providers/data/{openai,anthropic,google,deepseek}.json.
-// Per-file hashes and the complete model-data hash are pinned in
-// historical ADR-0004. Current fields are checked
-// against that data by TestCatalogInclusion, including the 1.0 additions
-// evaluated under ADR-0018 and the managed effort implemented in ADR-0019.
+// Historical provenance is recorded in ADR-0004, with later additions in
+// ADR-0018 and ADR-0019. Current behavior is verified by barness public E2E
+// and its own catalog snapshot; pi is an architecture reference.
 //
 // A model is listed when its Provider × API is implemented and the adapter
 // keeps all of its hard constraints, the compat flags without which the

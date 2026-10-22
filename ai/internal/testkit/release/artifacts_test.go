@@ -22,7 +22,7 @@ func writeArtifact(t *testing.T, dir, name string, v any) {
 	}
 }
 
-// Both differential fixtures enter through the native artifact inventory. Hash
+// Both design-load fixtures enter through the native artifact inventory. Hash
 // the actual deliberately mutated bytes so semantic guards, rather than an
 // unrelated missing-inventory rejection, decide each test's result.
 func TestDesignLoadReportCannotBeMissingOrIncomplete(t *testing.T) {

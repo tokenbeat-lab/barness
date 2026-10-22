@@ -36,8 +36,7 @@ func clampMaxTokensToContext(m Model, msgs []Message, maxTokens int) int {
 //
 // pi skips a turn's usage when a message before it has a later timestamp
 // (for example, an inserted compaction summary). Only assistant messages
-// carry timestamps here; every other message counts as 0, as it does in
-// the pi differential.
+// carry timestamps here; every other message counts as 0.
 func estimateContextTokens(msgs []Message) int {
 	usageTokens, usageIndex := 0, -1
 	latest := int64(0)
