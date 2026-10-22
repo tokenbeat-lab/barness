@@ -33,6 +33,11 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 			}
 		}
 		data := event.Data
+		if p.kimi != nil {
+			if failure := p.validateKimiResponsesEvent(data); failure != nil {
+				return failure
+			}
+		}
 		if p.minimax != nil {
 			if err := p.validateMiniMaxEvent(data); err != nil {
 				return newError(CodeProtocol, PhaseStream, "MiniMax Responses event violates the protocol")
@@ -76,6 +81,9 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 	// blocks independently of slots: a repeated output_index can overwrite
 	// the only slot that still points at an unfinished block.
 	if p.stop == StopReasonToolUse && len(p.unfinished) > 0 {
+		if p.kimi != nil {
+			return kimiResponsesProtocolFailure()
+		}
 		i := slices.Min(slices.Collect(maps.Keys(p.unfinished)))
 		ref := p.unfinished[i]
 		return newError(CodeProtocol, PhaseStream, p.failures.redact("OpenAI Responses stream completed with an unfinished tool call: "+ref.name+" ("+ref.id+")"))

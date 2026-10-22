@@ -112,7 +112,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 
 	// pi: reasoning models (that support it) take instructions as "developer".
 	role := "system"
-	if model.Reasoning {
+	if model.Reasoning && caps.implementation != responsesKimi {
 		role = "developer"
 	}
 	vision := model.acceptsImages()
@@ -166,6 +166,13 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 			}
 		case ToolResultMessage:
 			result := responsesToolResult(m, vision)
+			if caps.implementation == responsesKimi {
+				var err error
+				result.CallID, err = kimiResponsesCallID(m.ToolCallID)
+				if err != nil {
+					return nil, err
+				}
+			}
 			if responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 				var err error
 				result.CallID, err = miniMaxResponsesCallID(m.ToolCallID)
@@ -202,6 +209,9 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 		level = ThinkingMedium
 	}
 	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
+	if err == nil && caps.implementation == responsesKimi {
+		return preserveKimiResponsesSampling(out, model, level, opts.SamplingParams)
+	}
 	if err == nil && responsesCapabilitiesOf(model.Provider).implementation == responsesMiniMax {
 		return preserveMiniMaxResponsesSampling(out, model, level, opts.SamplingParams)
 	}
