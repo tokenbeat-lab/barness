@@ -49,6 +49,16 @@ class LiveQualificationProcess(Base):
         write_json(bundle / 'extra.json', {'changed': True})
         self.gate(1)
 
+    def test_consumer_capture_equals_actual_public_process_streams_and_exit(self):
+        for combo, qualified, expected in (('typesafe-classifier', True, 0), ('openai-decisions', False, 1)):
+            with self.subTest(combo=combo):
+                bundle, _, _ = live_bundle(self, combo, qualified=qualified)
+                out = bundle.parent.parent / 'consumer-streams'
+                result = self.call(self.binary, '-live-bundle', bundle.relative_to(self.repo), '-out', out, expected=expected)
+                self.assertEqual(result.stdout, (out / 'stdout.jsonl').read_text())
+                self.assertEqual(result.stderr, (out / 'stderr.log').read_text())
+                self.assertEqual(result.returncode, int((out / 'exit-code').read_text()))
+
     def test_consumer_receipt_accepts_equivalent_explicit_flag_order(self):
         from process_support import digest
         bundle, stage, _ = live_bundle(self, 'typesafe-classifier', qualified=True)

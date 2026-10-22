@@ -26,8 +26,12 @@ func cli(args []string) int {
 		return 1
 	}
 	if *bundle != "" {
-		if err := release.CaptureLiveConsumer(root, *bundle, *out, append([]string{os.Args[0]}, args...)); err != nil {
+		passed, err := release.CaptureLiveConsumer(root, *bundle, *out, append([]string{os.Args[0]}, args...))
+		if err != nil {
 			fmt.Fprintln(os.Stderr, "releasegate: native live consumer failed")
+			return 1
+		}
+		if !passed {
 			return 1
 		}
 		return 0

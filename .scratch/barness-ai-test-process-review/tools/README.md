@@ -38,4 +38,6 @@ live 只转发一个选定生产者的变量，不授予调用权限。通用路
 
 原生 live manifest 的 package 保留 `-tags live [-timeout <Go duration>] ./ai/live` 格式；采集器按该合同识别唯一主包，仍拒绝错包、附加包和歧义。外层超时同时覆盖进程与输出管道；脱离进程组的后代持有管道时，采集器关闭自身读端、记录 CAPTURE_FAILED 并有界退出，不把它写成 PASS。它不发现或终止任意外部 session；临时用例负责回收自己创建的已知后代。
 
-清理判定必须同时核对所有 receipt、manifest、audit 与声明的文件库存；失败、缺 audit、未分类字节或 grant/claim/ledger 任一项都阻止整候选隔离。未被手工索引的失败和未知候选也作为递归依赖根。状态 JSON 通过同目录临时文件、flush/fsync、原子 replace 与目录同步保存，失败保留上一份完整状态；这不授予真实清理权限。
+清理判定必须同时核对所有 receipt、manifest、audit 与声明的文件库存；失败、缺 audit、未分类字节或 grant/claim/ledger 任一项都阻止整候选隔离。未被手工索引的失败和未知候选也作为递归依赖根。状态 JSON 通过同目录临时文件、flush/fsync、原子 replace 与目录同步保存，写入失败不会截断上一份状态；这不授予真实清理权限。
+
+普通 E2E 的 TestMain 同时注册宿主账户 HOME 的脱敏，防止隔离 HOME 后进程报告泄露原宿主路径。消费者成功/拒绝的 stdout、stderr 文件与进程实际输出逐字相等，exit-code 与实际返回一致；不能以磁盘快照冒充标准输出。

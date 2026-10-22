@@ -33,3 +33,9 @@
 中间 GREEN 尝试中的失败同样保留：`live-consumer-green-20261022T025432.329313Z` 为合成 observation 非法字段，`live-consumer-green2-20261022T025520.990702Z` 为临时目录 /var 与 /private/var 别名，`fixes-process-green-20261022T025643.860531Z` 为新输出目录检查误要求叶目录已存在。未放松原生消费者：修正假 observation、规范化临时仓库根、在创建新输出前检查已有父目录。
 
 本轮所有清理子命令只在 TemporaryDirectory 假仓库执行。脱离 session 的测试后代由用例按已知 PID 回收；工具只终止自己建立的进程组，不发现或杀死任意外部 session。live 原件/授权/账本规则不变，未调用厂商。旧压力误跑事实继续保留在 status.md / execution-log.md，本轮没有新增压力执行。
+
+最终 GREEN：`.evidence/barness-ai-test-process-review/e2e/fixes-process-source-bound-20261022T030106.680355Z`，39 组 exit0，源码前后相等且与冻结提交 `fbbcab8431e285ec4586b306c9b21ea728005685` 相等。完整普通 Go 原件 `.evidence/barness-ai-test-process-review/e2e/20261022T025935.242681Z-73oqveme/receipt.json` PASS / exit0，12890 通过节点；原生 {'PASS': 12086, 'NOT_RUN': 214}、audit0，原 E2E 通过集合保持相等。两种 vet 和 live-tag 仅编译全部通过。当前状态、只读判定与精确路径统一见 status.md / verification.json。
+
+收尾自检追加失败方式：消费者回执中的 stdout/stderr 文件必须与公共 CLI 实际输出完全相同，不能只在磁盘生成名为 stdout 的结果快照。新的只读复核原件 `record-check-fixes-20261022T030635Z-a1pubf4m` 拒绝 E2E 原生 audit；当前状态已恢复为排查中，原状态快照及拒绝报告保留。
+
+只读审计不一致已定位：普通 HOME 隔离阻止了持久 Go 配置，但旧进程报告只清除当前 HOME，原宿主 HOME 前缀不再被该清理覆盖。原生 producer 的 audit 使用隔离 HOME 因而漏报，Host 的只读复核仍拒绝该原件。新增公共 run.py → 现有单个受控 Go E2E → 原生 artifact 失败场景；保留两次审计的区别，不放松审计规则、不改旧 bundle。

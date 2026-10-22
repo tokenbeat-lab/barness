@@ -70,7 +70,7 @@ func liveReportHash(report supportmatrix.Report) string {
 
 // CaptureLiveConsumer is an explicitly invoked read-only consumer. The caller
 // supplies a new output directory, outside the sealed native input bundle.
-func CaptureLiveConsumer(root, bundle, out string, argv []string) error {
+func CaptureLiveConsumer(root, bundle, out string, argv []string) (bool, error) {
 	started := time.Now().UTC()
 	proof := LiveConsumerReceipt{Schema: 1, Consumer: liveConsumer, ExitCode: 1, Bundle: bundle,
 		Argv: argv, StartedAt: started, Files: map[string]string{}}
@@ -78,28 +78,28 @@ func CaptureLiveConsumer(root, bundle, out string, argv []string) error {
 	dir, err := recordPath(root, bundle)
 	absoluteOut, outErr := filepath.Abs(out)
 	if outErr != nil {
-		return outErr
+		return false, outErr
 	}
 	relativeOut, outErr := filepath.Rel(root, absoluteOut)
 	if outErr != nil {
-		return outErr
+		return false, outErr
 	}
 	if !filepath.IsLocal(relativeOut) {
-		return fmt.Errorf("consumer output must be repository-local")
+		return false, fmt.Errorf("consumer output must be repository-local")
 	}
 	if _, outErr = recordPath(root, filepath.ToSlash(filepath.Dir(relativeOut))); outErr != nil {
-		return outErr
+		return false, outErr
 	}
 	if err == nil {
 		rel, e := filepath.Rel(dir, absoluteOut)
 		if e != nil || rel == "." || rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
-			return fmt.Errorf("consumer output must be outside native bundle")
+			return false, fmt.Errorf("consumer output must be outside native bundle")
 		}
 		proof.Source, err = currentRecordSource(root)
 	}
 	out = absoluteOut
 	if e := os.Mkdir(out, 0700); e != nil {
-		return e
+		return false, e
 	}
 	if err == nil {
 		proof.Inputs, err = liveInventory(dir)
@@ -120,36 +120,42 @@ func CaptureLiveConsumer(root, bundle, out string, argv []string) error {
 		proof.ExecutableSHA256, executableErr = recordHash(executable)
 	}
 	if executableErr != nil {
-		return executableErr
+		return false, executableErr
 	}
 	if err != nil {
 		proof.Error = "native live consumer rejected evidence"
 	}
 	raw, marshalErr := json.MarshalIndent(proof, "", "  ")
 	if marshalErr != nil {
-		return marshalErr
+		return false, marshalErr
 	}
 	// Capture actual output and exit separately. Input bytes are never modified.
 	for name, content := range map[string][]byte{"stdout.jsonl": append(raw, '\n'), "stderr.log": []byte(proof.Error),
 		"exit-code": []byte(fmt.Sprintf("%d\n", proof.ExitCode))} {
 		path := filepath.Join(out, name)
 		if e := os.WriteFile(path, content, 0600); e != nil {
-			return e
+			return false, e
 		}
 		proof.Files[name], marshalErr = recordHash(path)
 		if marshalErr != nil {
-			return marshalErr
+			return false, marshalErr
 		}
+	}
+	if _, e := os.Stdout.Write(append(raw, '\n')); e != nil {
+		return false, e
+	}
+	if _, e := os.Stderr.Write([]byte(proof.Error)); e != nil {
+		return false, e
 	}
 	proof.FinishedAt = time.Now().UTC()
 	raw, marshalErr = json.MarshalIndent(proof, "", "  ")
 	if marshalErr != nil {
-		return marshalErr
+		return false, marshalErr
 	}
 	if e := os.WriteFile(filepath.Join(out, "live-consumer.json"), append(raw, '\n'), 0600); e != nil {
-		return e
+		return false, e
 	}
-	return err
+	return proof.Pass, nil
 }
 
 func verifyLiveConsumer(root, dir string, ref FileRef, source ExecutionSource, report supportmatrix.Report) error {

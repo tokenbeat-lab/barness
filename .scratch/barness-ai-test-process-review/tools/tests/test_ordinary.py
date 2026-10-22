@@ -55,3 +55,23 @@ class OrdinaryEntrypointProcess(unittest.TestCase):
             cases = json.loads(manifests[0].read_text())['cases']
             self.assertTrue(cases)
             self.assertTrue(all(c['status'] == 'NOT_RUN' for c in cases), 'manual capacity proof executed in ordinary stage')
+
+    def test_isolated_go_home_preserves_host_home_redaction_in_native_artifacts(self):
+        import json
+        import pwd
+        import sys
+        env = safe_environment()
+        result = subprocess.run([sys.executable, str(TOOLS / 'run.py'), '--feature', 'barness-ai-test-process-review',
+            '--stage', 'e2e', '--', 'go', 'test', '-json', './ai/e2e', '-run',
+            '^TestRegionalProviderReleaseGrantAliases$/^offset$', '-count=1', '-timeout=60s'],
+            cwd=PROJECT, env=env, capture_output=True, text=True, timeout=90)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        receipt_path = PROJECT / json.loads(result.stdout)['attempt'] / 'receipt.json'
+        receipt = json.loads(receipt_path.read_text())
+        bundle = receipt_path.parent / next(b['path'] for b in receipt['bundles'] if b['package'] == './ai/e2e')
+        home = pwd.getpwuid(os.getuid()).pw_dir.encode()
+        exposed = any(home in p.read_bytes() for p in (bundle / 'RP18-grant-alias-offset').rglob('*.json'))
+        self.assertFalse(exposed, 'isolated HOME lost the actual host-home redaction policy')
+        artifact = os.environ.get('BARNESS_PROCESS_TEST_ARTIFACT_DIR')
+        if artifact:
+            (Path(artifact) / 'home-redaction-attempt.txt').write_text(str(receipt_path.relative_to(PROJECT)) + '\n')

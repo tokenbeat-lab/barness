@@ -43,3 +43,13 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 规范切换依据：实现受测SHA `ad2ca22aad39cfc041319204687b9bd5ba6acf0b`，普通验收提交 `6c1a02f2e50547d5fb87dae75daba24ebadafe0d`。只读判定原件 `.evidence/barness-ai-test-process-review/record-check-20261022T023118Z-ywf0q8wp`，实际退出1，source/E2E/live不适用检查均通过，race与正式压力因NOT_RUN拒绝，release.pass=false。文档相对链接215项通过；旧活动差分/自动check/race命令检索零命中。此规范提交仅含Markdown；提交后的完整来源与8636份输入相等性原件见该目录final-source-check.json。未启动第2–8节或真实证据清理。
 
 七项复审修复开始，基线 HEAD 3ddc774084fe502ca1a13ab8b41b208053e24378，工作区干净。沿用已批准公共CLI/进程/临时文件系统接缝；仅普通验证，不运行race、压力、付费live、真实证据清理或后续计划。失败方式见review-fixes.md。
+
+七项修复逐项 RED/GREEN 原件见 review-fixes.md；所有 RED、失败 GREEN 尝试及历史原件保留。实现冻结 `fbbcab8431e285ec4586b306c9b21ea728005685` 后，39 组公共进程场景 `.evidence/barness-ai-test-process-review/e2e/fixes-process-source-bound-20261022T030106.680355Z` exit0，执行前后完整来源相同。新消费者模式只读，不启动 Go 测试、厂商或支持矩阵写入；合成输入不是现实资格。
+
+冻结普通回执 `.evidence/barness-ai-test-process-review/e2e/20261022T025935.242681Z-73oqveme/receipt.json` PASS / exit0，375.63 秒，12890 实际通过节点，原生 {'PASS': 12086, 'NOT_RUN': 214}，audit0；1244 份执行文件和 8636 份选定历史输入相等，原普通 E2E 通过案例集合不变。普通命令增加 supportmatrix 包，完整原生资格规则的现有普通用例也通过。双 vet、live-tag 仅编译原件见 verification.json，均 exit0，没有运行编译出的 live 二进制。
+
+本轮没有新增 race、真实压力、付费 live 或真实证据清理；cleanup 子命令只对临时假仓库执行。未启动第2–8节。只读判定索引 `.evidence/barness-ai-test-process-review/record-check-fixes-20261022T030635Z-a1pubf4m/record.json` 应按实际返回落盘，race / 正式压力继续 NOT_RUN，release.pass=false；最终来源核对随收尾提交记录，不重写旧测试 SHA。
+
+收尾只读原件 `record-check-fixes-20261022T030635Z-a1pubf4m` 实际退出1；source/live不适用通过，E2E被Host环境审计拒绝，race/压力NOT_RUN。`audit-readonly-diagnostic.log` 的无环境审计通过；只读查明原件中有未脱敏宿主 HOME 前缀（不在日志复述值）。隔离HOME导致旧进程报告只清除新HOME。旧bundle、原receipt及拒绝报告不改写，已保存当时current-state-snapshot.md；当前状态恢复排查中。
+
+先在 `home-redaction-red-20261022T031154.374685Z` 复现 run.py → 单个现有受控 Go E2E → 原生artifact 的宿主HOME脱敏缺失；E2E TestMain在记录任何artifact前注册宿主账户HOME，保留隔离Go配置且不放松审计。`home-redaction-green-20261022T031246.145845Z` 定向exit0。另 `consumer-stream-red-20261022T030858.873010Z` 证明新消费者保存的stdout与实际进程输出不一致；修正真实stdout/stderr发出及退出结果传播，`consumer-stream-green-20261022T030923.223563Z` 40组exit0。后续需要重新冻结、普通验收与只读判定，旧fbbcab8普通回执不冒充修复后的当前证明。

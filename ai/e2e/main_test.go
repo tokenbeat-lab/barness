@@ -7,6 +7,7 @@ package e2e
 import (
 	"fmt"
 	"os"
+	"os/user"
 	"testing"
 	"time"
 
@@ -25,6 +26,12 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
+	}
+	// The ordinary collector isolates HOME to disable persistent Go settings.
+	// Process reports can still contain paths under the actual host account;
+	// preserve that privacy boundary before any artifact is recorded.
+	if host, err := user.Current(); err == nil && host.HomeDir != "" && host.HomeDir != string(os.PathSeparator) {
+		run.RedactSecret(host.HomeDir, "[HOST-HOME]")
 	}
 	run.RedactSecret(environmentKey.secret, environmentKey.alias)
 	// Register fixture keys before any case writes its shared fixture. A
