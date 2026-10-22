@@ -1,8 +1,6 @@
-# barness-ai 差异登记
+# barness-ai 历史差异研究
 
-本文登记 barness-ai 相对当前实现基线 pi-ai `1.1.0`（commit `abe508e1b89912adde45528136c3221eb69acdd7`）的全部可观察差异。spec Testing Decisions §5 只允许三种处置：**已修复**、**本规范定义或后续明确批准的扩展**、**待处理**；待处理阻断对应协议发布。逐条判定的权威记录是差分账本 [`ai/e2e/testdata/pidiff/ledger.json`](../../ai/e2e/testdata/pidiff/ledger.json)（每条带协议、路径、适用用例、处置与依据）；本文按主题归纳它，并补上不经差分比较的租户扩展。
-
-发布门禁（`go run ./ai/release/cmd/releasegate`）读取账本：存在 `pending` 决定、任一差分用例有待处理发现、或扩展路径未登记，差分门禁即失败。
+本文全文保留 pi-ai 1.1.0 时期的差异研究及历史处置，不是当前行为规范、发布门禁或操作入口。自 2026-10-22 起按 [ADR-0051](../adr/0051-scoped-verification-receipts.md) 使用 barness 自身契约及证据；冻结 oracle、Node 安装和活动差分账本已退出。下文的“当前”“门禁”“账本”均指原研究时期。
 
 ## 1. 账本概况
 
@@ -65,7 +63,7 @@ DeepSeek × Chat Completions（P06）是 pi 自身的路由，全部场景进入
 
 该次迁移的唯一 oracle 为 1.0.0，commit `a13d35a742c6ef8462812a28fbe1d8c8b7431c32`；
 发布件等价证明、逐文件数据哈希和安装锁见
-[PROVENANCE](../../ai/internal/testkit/pioracle/node/PROVENANCE.md)。旧安装与运行路径已替换。
+[历史冻结来源决定](../adr/0004-barness-ai-frozen-pi-oracle.md)。旧安装与运行路径已替换。
 
 原基线的五项行为已改为 1.0.0：无效/非有限 Retry-After 退避；fast 服务等级计价；
 Anthropic 增量覆盖 1h 明细；full/simple 在 builder 合并型号默认采样参数；
@@ -191,7 +189,7 @@ image/resize、保守输出上限、binary/default 元数据和候选合成费�
 Chat/Responses 在冻结 provider 数据中没有路由，登记两条 Extension Route；M3.1 在三个
 协议中均为型号扩展，不套用冻结 M3 的身份。五个独立 fixture 的四入口验收明确保存
 pidiffSkip 与 `piParity=NOT_RUN`，不计原生差分通过。Messages 整条路线没有豁免。
-源、有限 case/path 边界与重放见 [MiniMax 差分说明](../../ai/e2e/testdata/minimax-pidiff/README.md)
+源、有限 case/path 边界与重放见 [历史 MiniMax 观察决定](../adr/0043-barness-ai-minimax-observed-native-reasoning.md)
 和 [当前国际站证据](../../.scratch/barness-ai-minimax/evidence/ticket-11/README.md)。
 [原06证据](../../.scratch/barness-ai-minimax/evidence/ticket-06/README.md)保留中国区历史适用性，不能替代国际站观察。
 

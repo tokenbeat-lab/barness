@@ -21,3 +21,11 @@ PASS 阶段必须有 receipt 路径/哈希和来自主包的 requiredCases；其
 ## 清理合同
 
 真实使用前重新读取 plan.md 第 6 节。scan/plan/move/verify/restore/inspect/purge 的批次身份、清单哈希、锁、移动日志、基线和七天观察期都在工具内检查，不能绕过。工具不根据日志大小、名称或年龄直接删除；未知或失败状态保留。旧 grant/claim/账本不是清理对象。此文不构成真实清理授权。
+
+## 原生 live 环境合同
+
+live 只转发一个选定生产者的变量，不授予调用权限。通用路线沿用 `BARNESS_AI_LIVE_COMBO` 与该组合唯一 key；GLM 的 `chat/responses/messages` 映射为 `zhipu-*`，MiniMax 映射为 `minimax-*` 并保留原 ledger、账户/地区、entitlement 和续期字段；地区路线沿用完整 combo 与一次性 grant。Jev 1.14 正式路线使用 `BARNESS_MM_LIVE`、`BARNESS_MM_AUTHORIZATION` 及 `typesafe-classifier-jev-1.14.0`，版本中的点号允许。代理只使用相应原生显式变量。控制/回放开关不转发，多个路线选择拒绝。
+
+本次该合同的验收只启动 Python 合成子进程和假凭据，未调用任何厂商。实施中误触发旧压力入口的偏差及纠正统一见 [当前状态](../status.md) 与 [执行日志](../execution-log.md)。
+
+执行来源排除 `.DS_Store` / `Thumbs.db` 等非执行桌面缓存；命令回执固定登记 command.json、stdout.jsonl、stderr.log、exit-code。原生 bundle 库存与审计保持严格，真实命令文件或选定输入变化仍拒绝。

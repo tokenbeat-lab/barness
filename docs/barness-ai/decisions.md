@@ -49,7 +49,7 @@ payload 为 callback_failed/request；结果错误为 protocol/response。取消
 回滚由 Host 发布新的 Binding 版本：停用 Enabled、移除 AllowedModels 中的 Luna，或撤销
 AllowClassifierImages。前两者拒绝新的对应调用；撤销图片权限仍允许已授权文本。已 pin
 调用按原快照及有限重试结束，历史 Usage/Estimated Cost 不撤回。不改走 Jev/chat，保留原
-证据和失败结果。撤销/恢复的六个入口与 Hook 场景是 normal/race 发布各自必交证据。
+证据和失败结果。撤销/恢复的六个入口与 Hook 场景按功能影响列入普通 E2E 和人工 race 的完整必需用例，原生撤权断言保持。
 
 十组合发布需要当前 schema 3 的各自报告、七个冻结 Pi 差分子集（含 P10）和原三条
 Extension Route、旧混合及分类图片设计负载、Jev/Luna 独立效果与逐包审计。

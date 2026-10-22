@@ -1,5 +1,7 @@
 # barness-ai
 
+> Current verification follows [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md); see the [single current status](../.scratch/barness-ai-test-process-review/status.md). Historical acceptances below apply only to their measured source.
+
 > **Catalog and release status (2026-10-19):** `2026-10-18.1-minimax` contains 96 chat identities, two image models and three classifiers. The release contract requires 16 protocol combinations and 17 independent own support identities. China standard GLM-5.3/5.2 keep separate Chat, Responses and Messages bindings; [Host examples](examples/glmhost/README.md) cover standard keys and full/simple/WithHooks. Jev1.14 images and Box retain experimental-image and explicit-authorization requirements. The current support matrix has 17 PASS identities; current-source qualification, the complete release gate and final reviews are **COMPLETE**. See the [delivery status](../.scratch/barness-ai-minimax/delivery-status.md).
 
 > **MiniMax international:** `BuiltinCatalog()` includes `MiniMax-M3` on `minimax` × `openai-completions`, `openai-responses` and `anthropic-messages`, using `api.minimax.io/v1` or `api.minimax.io/anthropic`. The three own [current formal reports](../.scratch/barness-ai-minimax/evidence/ticket-19/actual/remaining/README.md) pass with source applicability verified at the final measured source. M3.1 remains an unpromoted candidate: its own online reports are NOT_RUN, with M Plan entitlement and production price unconfirmed. [Host examples](examples/minimaxhost/README.md) require an explicit account and credential purpose. The [final closure](../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md) records eleven qualified source groups, the passing complete gate and exact matrix publication; original failures and older source maps remain historical.
@@ -334,13 +336,7 @@ For concurrent chat, image and classifier calls on one Client, choose `localasse
 `hostintegration.CloudMixedPolicy()`. They explicitly enable finite subpolicies at 4/8 concurrent attempts, sized for
 complete unary JSON and base64 buffers. `OpenOperations` assembles independent bindings and named key sources. Cloud
 `Host.GenerateImages` and `Host.Classify` build scope from Principal and preserve downstream cancellation. The host
-handles typed results/errors, confidence thresholds and human review. Run the original mixed load and additional Luna
-image batches together; without the flag pressure cases are NOT_RUN:
-
-```sh
-BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(Mixed|ClassifierImagesPressure)' -count=1
-BARNESS_AI_PRESSURE=1 go test -race ./ai/e2e -run '^Test(Mixed|ClassifierImagesPressure)' -count=1
-```
+handles typed results/errors, confidence thresholds and human review. Mixed and classifier-image design loads run only in an explicitly selected pressure stage. Select race separately; pressure cases remain NOT_RUN without opt-in.
 
 ### Observability, usage and cost
 
@@ -409,7 +405,7 @@ Read this section, [GLOSSARY.md](../GLOSSARY.md) and the ADRs touching your area
 4. **Initial-request retries only.** `Binding.Retry` governs them; never retry resource limits, started streams or unary 2xx failures. Disable SDK retries.
 5. **Secrets never leave.** `Secret` cannot enter messages, events, errors, observations, evidence or logs. barness-ai writes no logs.
 6. **Explicit assembly.** No ambient provider/proxy env, credential files or default endpoints. Require https; `AllowLoopbackHTTP` is test-only.
-7. **Frozen pi parity.** Record every intentional difference from `1.1.0` in the [ledger](e2e/testdata/pidiff/ledger.json) and [differences.md](../docs/barness-ai/differences.md); pending entries block release.
+7. **Own contracts and evidence.** Use pi as an architecture and design reference. Verify barness behavior through its public contracts, E2E and own live evidence; see [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md).
 8. **Provider capabilities.** Shared adapters derive fields from the provider, never another provider's protocol assumptions.
 9. **Bounded hooks.** Observers never affect calls; hooks cannot widen operation/auth/target/model/native references/hosted tools/image permissions. Revalidate final unary input (ADR-0005).
 10. **Validated tools.** Execute only finished tool calls that pass `ValidateToolCall`.
@@ -447,60 +443,42 @@ Other directories:
 | `examples/` | `localassembly`, `hostintegration` (chat/mixed operations), `toolloop`, `requestid`, `classifiermigration`, `chineseeval` (independent business evaluation); exercised by offline E2E |
 | `e2e/` | Offline acceptance tests against the public API, a local controlled provider and a host double; fixtures in `e2e/testdata/<protocol>/` |
 | `live/` | Real-API smoke (build tag `live`), feeds `support-matrix.json` |
-| `release/` | Release gate command, catalog snapshot, traceability map |
-| `internal/testkit/` | Test-only: controlled provider, host double, pi oracle (Node), evidence, audit, release gate logic |
+| `release/` | Read-only release receipt verifier and catalog snapshot |
+| `internal/testkit/` | Test-only: controlled provider, host double, evidence, audit and read-only release verification |
 | `internal/probe`, `internal/clock` | Test hooks injected through `Config` (hosts cannot construct them) |
 
 ### Common changes
 
-- **Add a model:** update its `catalog_*.go` data (including `catalog_decisions.go`) under ADR-0018; regenerate with `go run ./ai/release/cmd/releasegate -write-snapshot` and review.
-- **Add a provider:** add ID/capabilities, fixtures, live combo and ADR; add a ledger entry when pi has no route.
+- **Add a model:** update its `catalog_*.go` data (including `catalog_decisions.go`) under ADR-0018; review the updated `release/catalog-snapshot.json` content and public `BuiltinCatalog().Hash()` together; `TestBuiltinCatalogReleaseSnapshot` checks both.
+- **Add a provider:** add ID/capabilities, fixtures, live combo and ADR; qualify the route using its own evidence.
 - **Add a protocol:** define operation/API/options/results, E2E and ADR. Chat uses `adapter` / `registry()`; unary uses shared runtime and explicit dispatch. Bound encoding, reading and validation.
-- **Change observable behavior:** run pi differential; update the ledger and `differences.md`.
+- **Change observable behavior:** write a public failing scenario first, then verify affected E2E; identify required live routes and authorization when vendor behavior changes.
 
 ### Testing
 
-Per AGENTS.md, E2E is the primary mechanism. Tests drive the public `Client` only; nothing in `e2e/` reaches inside the
-package.
+Per AGENTS.md, establish public Client or CLI/process failure scenarios before implementation. Ordinary verification records the affected E2E:
 
 ```sh
-go test ./ai/...                               # offline E2E + package tests, no network
-go test -race -count=1 -timeout=20m ./ai/...
-BARNESS_AI_PRESSURE=1 go test -count=1 ./ai/e2e # policy pressure scenarios
-BARNESS_AI_PIDIFF=1 go test -count=1 ./ai/e2e   # differential against frozen pi
-#   needs Node.js and: npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node
-
-# Live smoke: one combo per process, only that combo's key
-BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=deepseek-chat \
-BARNESS_AI_LIVE_ACCOUNT_ALIAS='test-account' \
-go test -tags live -count=1 ./ai/live
-# Inject BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT into that process beforehand.
-go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # merge reports into the matrix
-
-go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # NOT_RUN; no network
-go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # independent NOT_RUN bundle
-go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-bundle>
-go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-jev <Jev-bundle> -evaluation-luna <Luna-bundle> -visual-evaluation-jev <Jev-visual> -visual-evaluation-decisions <Decisions-visual> [-live <bundle-dir>]...
-# After a human explicitly chooses the final race stage:
-go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
+python3 .scratch/barness-ai-test-process-review/tools/run.py --feature <slug> --stage e2e -- \
+  go test -json ./ai/e2e ./ai -count=1 -timeout=20m
+# Add -run for focused checks, affected CLI/consumer packages as needed,
+# and repeated --input for external fixtures actually consumed.
+go run ./ai/release/cmd/releasegate -record <feature-record.json> -out <new-directory>
 ```
 
-The default check stage preflights current inputs, runs both vet variants and the complete ordinary suite, and verifies its native evidence. It stops at `READY_FOR_RACE` (exit 2, race `NOT_RUN`, release false). Failures exit 1 and stop later work; `-collect-all` only gathers check-stage diagnostics. `-preflight` runs no verification commands and exit 0 means input readiness only. The race stage revalidates the original check inputs and source before running; only complete release success exits 0. Read-only `-bundle` reevaluation cannot certify unexecuted commands. See [verification policy](../docs/agents/verification.md).
+Large features proceed through E2E → affected own live evidence or justified NA → human-selected race → human-selected pressure or justified NA. Paid live additionally requires explicit route, qualification and budget authorization. Race and pressure require separate exact command selections; ordinary success and fixes never start them. Pressure cases default to NOT_RUN; ordinary consumers use retained fixtures.
 
-Every E2E run writes a redacted evidence bundle under `.evidence/` (`BARNESS_AI_EVIDENCE_DIR` overrides). New behavior
-needs an E2E case whose evidence the release gate can trace (`release/traceability.json`). The full release gate
-requires seventeen own live identities across sixteen protocol combinations and four independent real effects; offline fixtures and
-NOT_RUN reports cannot replace them.
+Each attempt preserves native exit, timing, source/inputs and exact manifest/audit pointers under `bundles/<run-id>/`; retries never overwrite failures. The release CLI only reads five recorded fields, and missing or stale evidence keeps release false. See the [tool contract](../.scratch/barness-ai-test-process-review/tools/README.md), [verification policy](../docs/agents/verification.md) and [release guide](../docs/barness-ai/README.md). Offline and controlled replay do not establish real support qualification.
 
 ## Further reading
 
 | Document | Content |
 | --- | --- |
 | [docs/barness-ai/contract.md](../docs/barness-ai/contract.md) | Public contract, full error table, assembly notes |
-| [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | Every difference from pi-ai and its disposition |
+| [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | Historical pi-ai difference research |
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | Classifier inputs, refusals, image authorization, usage and rollback |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | Thinking profiles, merge order and full/simple boundaries |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | Release deliverables, gate status, policy measurements |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0040 |
+| [docs/adr/](../docs/adr/) | Current and historical ADRs |
 | [GLOSSARY.md](../GLOSSARY.md) | Domain terms (Tenant, Binding, Logical Call, Native State, …) |
 | `go doc -all ./ai` | Package and type documentation |

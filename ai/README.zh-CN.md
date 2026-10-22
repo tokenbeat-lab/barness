@@ -1,5 +1,7 @@
 # barness-ai
 
+> 当前验证流程见 [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md) 与[唯一当前状态](../.scratch/barness-ai-test-process-review/status.md)；以下旧验收仅适用于其原受测源码。
+
 > **目录与发布状态（2026-10-19）**：`2026-10-18.1-minimax` 包含96个聊天身份、两个图像型号和三个分类型号，发布合同要求十六协议组合、十七自身支持身份。中国区标准GLM-5.3/5.2各有Chat、Responses、Messages独立绑定；[Host示例](examples/glmhost/README.md)覆盖标准Key和full/simple/WithHooks。Jev1.14图像与Box继续要求实验图像开关和显式授权。当前支持矩阵17身份全部PASS；当前来源资格、完整发布门禁与最终审查均已完成，交付为 **COMPLETE**。见[当前交付状态](../.scratch/barness-ai-minimax/delivery-status.md)。
 
 > **MiniMax 国际站**：`BuiltinCatalog()` 已包含 `minimax` × Chat、Responses、Messages 的三个 `MiniMax-M3` 身份，端点为 `api.minimax.io/v1` 或 `api.minimax.io/anthropic`。三份自身[当前正式报告](../.scratch/barness-ai-minimax/evidence/ticket-19/actual/remaining/README.md)均PASS，并已核对最终测量来源的适用性。M3.1仍为未推广候选，线上自身报告NOT_RUN，M Plan权益与正式价格未知。[Host示例](examples/minimaxhost/README.zh-CN.md)要求明确账户和凭据用途。[最终闭合](../.scratch/barness-ai-minimax/evidence/ticket-21/final-closure/README.md)记录11组来源资格、完整门禁和精确矩阵发布通过；原失败和旧来源map保留历史。
@@ -323,12 +325,7 @@ unary 的响应读取、解码与输出校验失败属于 `PhaseResponse`。成�
 实测成本限制为 4/8 并发；原聊天容量不构成图像默认值。本地 `OpenOperations` 为每个
 操作配置独立 Binding，Keys 按 CredentialRef 装配。
 云端 `Host.GenerateImages` / `Host.Classify` 从 Principal 校验身份并传递取消 context。
-宿主处理类型化结果与错误、业务置信阈值和转人工；记录使用 Observer。重放命令：
-
-```sh
-BARNESS_AI_PRESSURE=1 go test ./ai/e2e -run '^Test(Mixed|ClassifierImagesPressure)' -count=1
-BARNESS_AI_PRESSURE=1 go test -race ./ai/e2e -run '^Test(Mixed|ClassifierImagesPressure)' -count=1
-```
+宿主处理类型化结果与错误、业务置信阈值和转人工；记录使用 Observer。混合与分类图片设计负载只在人工选择的独立压力阶段运行，race 单独选择；未开压力时用例为 NOT_RUN。
 
 ### 可观测性、用量与成本
 
@@ -385,7 +382,7 @@ input/output/total/cached/cache-write/reasoning 六项均明确报告（包括�
 4. **只重试初始请求**，由 `Binding.Retry` 决定。不重试资源限额失败、已开始的流或 unary 2xx 后的失败；不允许 SDK 自行重试。
 5. **秘密不外泄。** `Secret` 不得进入消息、事件、错误、观测记录、证据包或日志。barness-ai 不写日志。
 6. **没有环境隐式配置。** 不读取 Provider 环境变量、代理环境变量、凭据文件或默认 endpoint。endpoint 必须为 https，`AllowLoopbackHTTP`（仅测试）除外。
-7. **默认与 pi 一致。** 可观察行为与冻结的 pi-ai `1.1.0` 一致。任何有意差异都必须登记到 [`e2e/testdata/pidiff/ledger.json`](e2e/testdata/pidiff/ledger.json) 与 [differences.md](../docs/barness-ai/differences.md)；`pending` 条目会阻断发布。
+7. **自身契约与证据。** pi 只作架构和设计参考；公共行为由 barness 契约、公共 E2E 和自身真实证据验证，流程见 [ADR-0051](../docs/adr/0051-scoped-verification-receipts.md)。
 8. **能力按 Provider 确定，而非按协议。** 共享 adapter 不得发送其他 Provider 的字段（如 DeepSeek × Responses 不发送 `store`/`include`/缓存字段）。请求字段从该 Provider 的能力派生。
 9. **Observer 从不影响调用；回调可以使调用失败，但不能放宽**操作、鉴权、目标、模型、原生引用、托管工具或分类图片权限。unary 最终输入必须重新校验（ADR-0005）。
 10. **工具参数不可执行**，直到对已结束的消息调用 `ValidateToolCall` 通过。
@@ -423,57 +420,41 @@ input/output/total/cached/cache-write/reasoning 六项均明确报告（包括�
 | `examples/` | `localassembly`、`hostintegration`（聊天/混合操作）、`toolloop`、`requestid`、`classifiermigration`、`chineseeval`（独立业务评估），均有离线 E2E |
 | `e2e/` | 针对公共 API、本地受控 Provider 与宿主替身的离线验收测试；fixture 位于 `e2e/testdata/<protocol>/` |
 | `live/` | 真实 API 冒烟（build tag `live`），更新 `support-matrix.json` |
-| `release/` | 发布门禁命令、目录快照、追溯映射 |
-| `internal/testkit/` | 仅测试使用：受控 Provider、宿主替身、pi oracle（Node）、证据、审计、发布门禁逻辑 |
+| `release/` | 只读发布回执判定命令与目录快照 |
+| `internal/testkit/` | 仅测试使用：受控 Provider、宿主替身、证据、审计和只读发布判定 |
 | `internal/probe`、`internal/clock` | 经 `Config` 注入的测试钩子（宿主无法构造） |
 
 ### 常见改动
 
-- **新增型号：** 按纳入标准（ADR-0018）更新对应 `catalog_*.go` 数据（分类还包括 `catalog_decisions.go`），再用 `go run ./ai/release/cmd/releasegate -write-snapshot` 重新生成目录快照并审阅差异。
-- **在已有协议上新增 Provider：** 新增 `ProviderID` 及其能力集（如 `chat_compat.go` / `responses_capabilities.go`）、`e2e/testdata/` 下的 fixture、live 组合、ADR；pi 没有该路由时还需登记差分账本。
+- **新增型号：** 按纳入标准（ADR-0018）更新对应 `catalog_*.go` 数据（分类还包括 `catalog_decisions.go`），同步审阅 `release/catalog-snapshot.json` 的目录内容与公共 `BuiltinCatalog().Hash()`；`TestBuiltinCatalogReleaseSnapshot` 核对二者。
+- **在已有协议上新增 Provider：** 新增 `ProviderID` 及其能力集（如 `chat_compat.go` / `responses_capabilities.go`）、`e2e/testdata/` 下的 fixture、live 组合、ADR；真实支持由自身路线证据判定。
 - **新增协议：** 明确操作、`API`、类型化选项与结果转换，添加 E2E 套件与 ADR。聊天实现 `adapter` / `registry()`；unary 复用共同运行时与显式分派。编码、读取和校验均执行限额，不提前添加注册抽象。
-- **改变可观察行为：** 运行 pi 差分，然后更新账本与 `differences.md`。
+- **改变可观察行为：** 先写公共失败场景，再验证受影响 E2E；涉及厂商行为另列所需 live 路线与授权。
 
 ### 测试
 
-按 AGENTS.md，E2E 是主要测试手段。测试只驱动公共 `Client`；`e2e/` 中的代码不触及包内部。
+按 AGENTS.md，先建立公共 Client 或 CLI/进程失败场景，再实现并验证。默认运行受影响普通 E2E：
 
 ```sh
-go test ./ai/...                               # 离线 E2E 与包内测试，不访问网络
-go test -race -count=1 -timeout=20m ./ai/...
-BARNESS_AI_PRESSURE=1 go test -count=1 ./ai/e2e # 策略压力场景
-BARNESS_AI_PIDIFF=1 go test -count=1 ./ai/e2e   # 与冻结 pi 的差分
-#   需要 Node.js，并先执行：npm ci --ignore-scripts --prefix ai/internal/testkit/pioracle/node
-
-# 真实冒烟：一个进程只跑一个组合，只持有该组合的 key
-BARNESS_AI_LIVE=1 BARNESS_AI_LIVE_COMBO=deepseek-chat \
-BARNESS_AI_LIVE_ACCOUNT_ALIAS='test-account' \
-go test -tags live -count=1 ./ai/live
-# 提前向该进程注入 BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT。
-go run ./ai/live/cmd/supportmatrix <bundle-dir>...   # 把冒烟报告合并进支持矩阵
-
-go run ./ai/examples/chineseeval/cmd/chineseeval -route jev  # 不联网，生成 NOT_RUN 包
-go run ./ai/examples/chineseeval/cmd/chineseeval -route luna # 独立的 NOT_RUN 包
-go run ./ai/examples/chineseeval/cmd/chineseeval -route luna -verify <Luna-效果包>
-go run ./ai/release/cmd/releasegate -stage check -out <check-dir> -evaluation-jev <Jev-效果包> -evaluation-luna <Luna-效果包> -visual-evaluation-jev <Jev-视觉包> -visual-evaluation-decisions <Decisions-视觉包> [-live <bundle-dir>]...
-# 人工明确选择最后的 race 阶段后执行：
-go run ./ai/release/cmd/releasegate -stage race -from <check-dir> -out <race-dir>
+python3 .scratch/barness-ai-test-process-review/tools/run.py --feature <slug> --stage e2e -- \
+  go test -json ./ai/e2e ./ai -count=1 -timeout=20m
+# 定向验证增加 -run，CLI/消费者变化追加对应包；实际消费的外部夹具另加 --input。
+go run ./ai/release/cmd/releasegate -record <功能回执索引.json> -out <新目录>
 ```
 
-默认 check 阶段先检查当前输入，再运行双 vet、完整普通测试和原生证据消费，完成后停在 `READY_FOR_RACE`（退出2、race NOT_RUN、发布false）。失败退出1并停止后续工作；`-collect-all`只收集普通阶段诊断。`-preflight`不运行验证命令，其退出0仅表示输入就绪。race阶段重新核对原check来源与输入；完整发布全部通过才退出0。`-bundle`只读重评估不能认证未执行的命令。详见[验证策略](../docs/agents/verification.md)。
+大功能按 E2E → 受影响自身 live 或有依据的不适用 → 人工 race → 人工压力或有依据的不适用验收。付费 live 另需路线、资格和预算授权；race 与压力分别明确选择实际命令，不由普通完成或修复触发。默认压力用例 NOT_RUN，普通消费者读取留存夹具。
 
-每次 E2E 运行都会在 `.evidence/` 下写出脱敏的证据包（可用 `BARNESS_AI_EVIDENCE_DIR` 覆盖）。新行为需要一个 E2E 用例，且其证据能被发布门禁追溯（`release/traceability.json`）。
-完整发布门禁需要十六协议组合、十七支持身份各自的当前真实证据，Jev/Luna 各自独立中文评估、Jev/Decisions 各自独立视觉评估，以及完整离线、race、差分、压力和审计；离线 fixture 与 NOT_RUN 报告不能替代真实证据。
+每轮独立 attempt 保存真实退出、时间、来源/输入和 `bundles/<run-id>/` 的精确 manifest/audit 指针；重跑不能覆盖失败。发布 CLI 只读检查五项回执，未执行或过期保持发布 false。工具形状、选定输入、原生消费者与状态规则见[工具合同](../.scratch/barness-ai-test-process-review/tools/README.md)、[验证策略](../docs/agents/verification.md)及[发布指南](../docs/barness-ai/README.md)。离线或受控回放不替代真实支持资格。
 
 ## 延伸阅读
 
 | 文档 | 内容 |
 | --- | --- |
 | [docs/barness-ai/contract.md](../docs/barness-ai/contract.md) | 公共契约、完整错误表、装配说明 |
-| [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | 与 pi-ai 的全部差异及处置 |
+| [docs/barness-ai/differences.md](../docs/barness-ai/differences.md) | 历史 pi-ai 差异研究（非当前门禁） |
 | [docs/barness-ai/decisions.md](../docs/barness-ai/decisions.md) | 分类输入、拒答、图片授权、用量与回滚 |
 | [docs/barness-ai/thinking-sampling.md](../docs/barness-ai/thinking-sampling.md) | 思考分档、合并顺序与 full/simple 边界 |
 | [docs/barness-ai/README.md](../docs/barness-ai/README.md) | 发布交付物、门禁状态、策略实测 |
-| [docs/adr/](../docs/adr/) | ADR-0001 … ADR-0040 |
+| [docs/adr/](../docs/adr/) | 当前与历史 ADR |
 | [GLOSSARY.md](../GLOSSARY.md) | 领域术语（租户、服务绑定、逻辑调用、原生续接状态……） |
 | `go doc -all ./ai` | 包与类型文档 |

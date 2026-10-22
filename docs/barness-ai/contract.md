@@ -332,7 +332,7 @@ Output 加 thought、Reasoning 为内含分项，TotalTokens 保留厂商值。�
 Decisions 的共享重试、诊断、unary 资源边界与授权撤销契约见
 [运行时与回滚](decisions-runtime.md)；撤销仅影响新调用，已 pin 的调用不重解析或自动 fallback。
 
-唯一 oracle 固定 commit `abe508e1b89912adde45528136c3221eb69acdd7`，来源等价与全量差分已核验。每个聊天成功、错误、取消结果及其终态消息都有非负整数 `durationMs`，包含准备、回调与重试，使用单调时间四舍五入到毫秒；未完成的 PartialView 可尚无此字段。完整当前发布未通过前，不把实现基线切换称为整版正式发布。
+历史迁移曾固定 pi commit `abe508e1b89912adde45528136c3221eb69acdd7` 并核验来源及差分；当前 pi 仅作架构参考，验证流程见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。每个聊天成功、错误、取消结果及其终态消息都有非负整数 `durationMs`，包含准备、回调与重试，使用单调时间四舍五入到毫秒；未完成的 PartialView 可尚无此字段。完整当前发布未通过前，不把实现基线切换称为整版正式发布。
 
 
 ## 中国区标准 GLM 的独立协议边界

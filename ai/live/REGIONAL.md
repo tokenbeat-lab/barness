@@ -1,6 +1,6 @@
 # 新地区服务的独立资格验证
 
-`zai` 和 `minimax-cn` 的六条路由使用新命名空间与一次性授权；旧 GLM / MiniMax 授权、预算余额、捕获和目录不能转用。默认普通测试不会访问厂商。当前九个新型号身份仍是 `regional.CandidateCatalog()` 中的候选，矩阵保持 `NOT_RUN`；受控流水线通过不代表真实资格完成。
+`zai` 和 `minimax-cn` 的六条路由使用新命名空间与一次性授权；旧 GLM / MiniMax 授权、预算余额、捕获和目录不能转用。默认普通测试不会访问厂商。候选、晋升和当前真实资格分别判定；实际进度见[地区规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)。受控流水线通过不代表真实资格完成。
 
 ## 无 Key 检查
 
@@ -46,4 +46,4 @@ go run ./ai/live/cmd/regionalverify -grant-template zai-chat
 
 `regional-report.json`、原始授权/回执、完整执行源码、目录与来源快照、manifest、audit 和所有型号用例必须同属一个原生 bundle。消费器重新核对实际端点/模型/账户/Provider/API/SDK、预留与用量总计、每项单次 Attempt、事件终态、Host 工具配对、原生 reasoning 和资源归零，并拒绝隐藏、缺失、额外或改动文件。原始响应通过公共 Client 的现有 SDK/协议解析器独立重放；完成调用的正文、工具、推理/签名、原生状态、终态、用量数值/报告完整度和估算必须与保存的 Result/Attempt/Observer 相符，预算总计取独立解析用量。缺少、部分与明确零值用量保持不同。取消允许未完成帧、缺少终态/用量和已捕获但尚未发出的 read-ahead；保存的内容/原生字段必须为实际观察前缀，用量必须由该完整帧前缀支持。离线重放不发网络请求，也不产生真实服务资格。只有 `-formal` 通过的 `live-report.json` 可进入支持矩阵，按该自身 row 合并，不认证兄弟站点或另一个型号。
 
-发布计划追加六条路线到旧 17 条；原有八项冻结差分保留，并追加 ZAI Chat 与中国 MiniMax Messages 的真实冻结差分，其余四条按精确 Provider/API 注册扩展。`REGIONAL-R01..R20` 和 `REGIONAL-RP01..RP20` 各自固定完整有限 case ID 集，不能用一个匹配 PASS 替代全部验收。涉及真实资格的条目还依赖 `LIVE`。历史 GLM 捕获仍保留原件与事实；共享运行源码改变后，原生消费者应拒绝其作为当前支持，不刷新 pin 或时间掩盖过期。
+发布按功能影响选择需要自身证明的地区路线，依 [ADR-0051](../../docs/adr/0051-scoped-verification-receipts.md) 写入五项回执；不运行冻结 pi 差分。`REGIONAL-R01..R20` 和 `REGIONAL-RP01..RP20` 各自固定完整有限 case ID 集，不能用一个匹配 PASS 替代全部验收。涉及真实资格的条目还依赖 `LIVE`。历史 GLM 捕获仍保留原件与事实；共享运行源码改变后，原生消费者应拒绝其作为当前支持，不刷新 pin 或时间掩盖过期。

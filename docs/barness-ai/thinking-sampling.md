@@ -1,3 +1,5 @@
+> 当前流程：验证按 [ADR-0051](../adr/0051-scoped-verification-receipts.md) 使用自身 E2E 和分阶段回执。本文提到的 oracle、差分账本及其回滚属于历史迁移背景；不构成当前门禁或操作要求。
+
 # Thinking-level sampling / 思考档位采样
 
 The implementation branch uses the single verified pi-ai **1.1.0** baseline.
