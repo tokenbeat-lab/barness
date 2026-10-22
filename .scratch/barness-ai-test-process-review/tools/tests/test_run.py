@@ -106,3 +106,30 @@ class StageRunProcess(ProcessCase):
             if process.poll() is None:
                 process.kill()
                 process.communicate(timeout=5)
+
+    def test_live_collector_uses_each_native_environment_contract_without_network(self):
+        # Only the synthetic Python child runs; no Go/live producer is invoked.
+        cases = [
+            ('deepseek-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_AI_LIVE_COMBO': 'deepseek-chat',
+              'BARNESS_AI_LIVE_ACCOUNT_ALIAS': 'synthetic-account', 'BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT': 'synthetic-selected-key'},
+             ['BARNESS_AI_LIVE_ACCOUNT_ALIAS']),
+            ('zhipu-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_GLM_ROUTE': 'chat', 'BARNESS_GLM_FORMAL': '1', 'BARNESS_GLM_KEY': 'synthetic-selected-key'}, ['BARNESS_GLM_FORMAL']),
+            ('minimax-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_MINIMAX_ROUTE': 'chat', 'BARNESS_MINIMAX_KEY': 'synthetic-selected-key',
+              'BARNESS_MINIMAX_LEDGER': 'synthetic-ledger.json', 'BARNESS_MINIMAX_ACCOUNT_ALIAS': 'synthetic-account',
+              'BARNESS_MINIMAX_REGION_ALIAS': 'synthetic-region', 'BARNESS_MINIMAX_ENTITLEMENT': 'synthetic-standard'},
+             ['BARNESS_MINIMAX_LEDGER', 'BARNESS_MINIMAX_ACCOUNT_ALIAS', 'BARNESS_MINIMAX_REGION_ALIAS', 'BARNESS_MINIMAX_ENTITLEMENT']),
+            ('typesafe-classifier-jev-1.14.0', {'BARNESS_MM_LIVE': '1', 'BARNESS_MM_ROUTE': 'jev', 'BARNESS_MM_FORMAL': '1',
+              'BARNESS_MM_AUTHORIZATION': 'synthetic-authorization.json', 'BARNESS_MM_KEY': 'synthetic-selected-key'}, ['BARNESS_MM_AUTHORIZATION', 'BARNESS_MM_LIVE']),
+            ('zai-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_REGIONAL_ROUTE': 'zai-chat', 'BARNESS_REGIONAL_SERVICE': 'zai',
+              'BARNESS_REGIONAL_GRANT': 'synthetic-grant.json', 'BARNESS_REGIONAL_KEY': 'synthetic-selected-key'}, ['BARNESS_REGIONAL_GRANT'])]
+        for route, env, required in cases:
+            with self.subTest(route=route):
+                self.call(sys.executable, TOOLS / 'run.py', '--feature', 'sample', '--stage', 'live', '--route', route, '--',
+                          sys.executable, TOOLS / 'tests/fixture_child.py', 'live', env={**env, 'UNRELATED_API_KEY': 'synthetic-foreign-key'}, expected=0)
+                receipt_path = sorted((self.repo / '.evidence/sample/live' / route).glob('*/receipt.json'))[-1]
+                output = (receipt_path.parent / 'stdout.jsonl').read_text()
+                for name in required:
+                    self.assertIn(name, output)
+                self.assertIn('[REDACTED]', output)
+                self.assertNotIn('synthetic-selected-key', output)
+                self.assertNotIn('UNRELATED_API_KEY', output)

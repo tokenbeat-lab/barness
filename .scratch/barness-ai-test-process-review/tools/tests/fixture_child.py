@@ -23,6 +23,8 @@ for index in range(2 if mode in ("ambiguous", "auxiliary") else 1):
     manifest = {"package": "./ai/e2e", "git_commit": os.environ.get("BARNESS_RUN_COMMIT", ""),
         "cases": [{"id": "fixture-case", "test": "TestFixture", "status": "PASS", "dir": "fixture-case",
                    "artifacts": {"assertions.json": hashlib.sha256((case / "assertions.json").read_bytes()).hexdigest()}}]}
+    if mode == 'live':
+        manifest['package'] = './ai/live'
     if mode == "auxiliary" and index == 1:
         manifest["package"] = "./ai/examples/visualeval"
     if mode == "no-cases":

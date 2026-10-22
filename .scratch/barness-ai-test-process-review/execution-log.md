@@ -23,3 +23,7 @@ HEAD 118b82259d799b580df30d27d10ec43ab8ef9b3e 开始执行 plan.md
 为避免在已知失败后继续运行，于本轮中断。进程组重复清理在 Go 进程退出后返回 EPERM，采集器退出1且未正常落最终 receipt；保留原始 RUNNING/局部文件，并另附 interruption.json（native exit未知，不伪造）。已核对相关自有 Go/采集进程均退出。该采集器故障也需修复并做公共取消回归。
 
 修复验收：`boundary-fixes-20261022T020649Z` exit0，25组维护工具公共进程场景；取消真实小型 Go 子进程得到 CANCELLED 数字退出回执，手动压力入口默认全部 NOT_RUN。定向历史目录/回滚/晋升/自身快照回归 `.evidence/barness-ai-test-process-review/e2e/20261022T020732.756216Z-_jpbzjmu/receipt.json` PASS/exit0。inactive fixture取自 Git 2f19d45，SHA256 7923e919d03e274d940a164da65d747ef06247a74fbc99d442f93996c004787a，与原晋升边界常量一致；未改生产启用文件或放松 guard。
+
+整包普通回归（冻结来源 e1a336de0e7d9249c3bde9ed44551f502555fa90）：`20261022T020749.741275Z-ns_hsib6/receipt.json` PASS/exit0，12811个实际通过测试节点，墙钟375.59秒；原生库存与 audit 有效。`final-static-20261022T020758Z` 普通/live-tag两种全 ai vet与live-tag只编译均exit0。
+
+复审发现live回执环境合同缺少通用路线及MiniMax授权字段、GLM/MiniMax短路由映射和Jev版本点号。先在`live-contract-red-20261022T021445Z`留下Python合成子进程失败，修复后`live-contract-green-20261022T021505Z`全套26组进程验证exit0。此测试只有临时合成原件和假凭据，不执行Go live生产者或厂商请求。随后再次冻结实现，最终普通回执显式固定仓库内外层历史输入；真实证据清理仍未开始。

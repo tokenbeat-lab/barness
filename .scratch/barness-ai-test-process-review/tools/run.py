@@ -28,7 +28,7 @@ def main():
     args = parser.parse_args()
     if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,100}', args.feature):
         parser.error('invalid feature slug')
-    if (args.stage == 'live') != bool(args.route) or (args.route and not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,100}', args.route)):
+    if (args.stage == 'live') != bool(args.route) or (args.route and not re.fullmatch(r'[a-z0-9][a-z0-9.-]{0,100}', args.route)):
         parser.error('route is required only for live')
     argv = args.command[1:] if args.command[:1] == ['--'] else args.command
     if not argv:
@@ -46,9 +46,7 @@ def main():
         if len(args.input) != len(set(args.input)):
             raise ValueError('duplicate selected input')
         selected_inputs = {name: sha(within(root, name)) for name in args.input}
-        env, secrets = environment(args.stage)
-        if args.stage == 'live' and args.route not in [v for k, v in env.items() if k.endswith('_ROUTE')]:
-            raise ValueError('route does not match selected live environment')
+        env, secrets = environment(args.stage, args.route)
         if any(secret and secret in part for secret in secrets for part in argv):
             raise ValueError('credential in command arguments')
         base = root / '.evidence' / args.feature / args.stage
@@ -91,21 +89,19 @@ def main():
                 raise ValueError('execution source changed during stage')
             if any(sha(within(root, name)) != value for name, value in selected_inputs.items()):
                 raise ValueError('selected input changed during stage')
-            expected = './ai/e2e' if args.stage != 'live' else None
+            expected = './ai/e2e' if args.stage != 'live' else './ai/live'
             found = []
             for path in sorted(bundles.iterdir()):
                 if not path.is_dir() or path.is_symlink() or not (path / 'manifest.json').is_file():
                     continue
                 manifest = json_file(path / 'manifest.json')
                 package = manifest.get('package', '')
-                if expected is None and 'live' not in package:
-                    continue
                 verify_bundle(path, package)
                 if manifest.get('git_commit') != source['commit']:
                     raise ValueError('bundle source commit mismatch')
                 found.append({'path': str(path.relative_to(out)), 'package': package,
                     'manifestSHA256': sha(path / 'manifest.json'), 'auditSHA256': sha(path / 'audit.json')})
-            primary = [item for item in found if expected is None or item['package'] == expected]
+            primary = [item for item in found if item['package'] == expected]
             if len(primary) != 1:
                 raise ValueError('expected exactly one primary native bundle')
             receipt['bundles'] = found

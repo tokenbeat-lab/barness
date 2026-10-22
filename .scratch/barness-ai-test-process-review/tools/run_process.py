@@ -4,13 +4,14 @@ import os
 import signal
 import subprocess
 import threading
+from live_environment import selected_environment
 
 ALLOW = ('PATH', 'HOME', 'TMPDIR', 'GOCACHE', 'GOPATH', 'GOROOT', 'GOTOOLCHAIN',
          'GOOS', 'GOARCH', 'CGO_ENABLED', 'CC', 'CXX', 'SYSTEMROOT')
 LIMIT = 64 << 20
 
 
-def environment(stage):
+def environment(stage, route=None):
     env = {key: os.environ[key] for key in ALLOW if key in os.environ}
     secrets = []
     if stage == 'pressure':
@@ -21,20 +22,8 @@ def environment(stage):
                 raise ValueError('pressure loop count outside bounds')
             env['BARNESS_AI_PRESSURE_LOOPS'] = str(value)
     if stage == 'live':
-        # Only explicitly selected route variables cross the process boundary.
-        families = ('BARNESS_REGIONAL_', 'BARNESS_MINIMAX_', 'BARNESS_GLM_', 'BARNESS_MM_')
-        selected = [p for p in families if os.environ.get(p + 'ROUTE')]
-        if len(selected) != 1 or os.environ.get('BARNESS_AI_LIVE') != '1':
-            raise ValueError('one explicitly selected live route required')
-        prefix = selected[0]
-        allowed = ('ROUTE', 'SERVICE', 'GRANT', 'KEY', 'STAGE', 'FORMAL', 'MODEL', 'PURPOSE', 'FORMAL_RENEWAL', 'PROXY')
-        for suffix in allowed:
-            key = prefix + suffix
-            if key in os.environ:
-                env[key] = os.environ[key]
-                if suffix == 'KEY':
-                    secrets.append(env[key])
-        env['BARNESS_AI_LIVE'] = '1'
+        selected, secrets = selected_environment(route)
+        env.update(selected)
     return env, secrets
 
 

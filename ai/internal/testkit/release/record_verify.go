@@ -71,7 +71,7 @@ func EvaluateRecord(root, path string) RecordReport {
 			err = fmt.Errorf("required live routes missing")
 		}
 		for _, route := range record.Impact.LiveRoutes {
-			if seen[route] || !regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,100}$`).MatchString(route) {
+			if seen[route] || !regexp.MustCompile(`^[a-z0-9][a-z0-9.-]{0,100}$`).MatchString(route) {
 				err = fmt.Errorf("invalid live scope")
 				break
 			}
