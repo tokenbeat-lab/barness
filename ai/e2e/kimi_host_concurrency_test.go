@@ -41,7 +41,7 @@ type kimiConcurrentJob struct {
 	minimum, maximum float64
 }
 
-// Eight finite calls share one Client and a deliberately identical account
+// Twelve finite calls share one Client and a deliberately identical account
 // label/session, but preserve four separately authorized tenant/market secrets.
 // Header and socket barriers prove simultaneous pinned calls without sleeps,
 // timing assumptions, throughput load or a race-stage run.
@@ -70,15 +70,15 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 	}, tenantA, tenantB)
 	jobs := []*kimiConcurrentJob{}
 	// Independent worked USD expectations, from candidate rates and each
-	// scripted counter tuple. Chat has80 writes of unknown TTL; Messages has0.
-	lows := []float64{.000330, .000087, .0003332341565052, .000092234454032, .000342, .000099, .0003451353763804, .0001041356739072}
-	highs := []float64{.000570, .000087, .0005712585540092, .000092234454032, .000582, .000099, .0005831597738844, .0001041356739072}
+	// scripted counter tuple. Chat has80 writes of unknown TTL; Responses/Messages have0.
+	lows := []float64{.000330, .000087, .000090, .000336209461474, .0000952097590008, .0000981850639696, .000348, .000105, .000108, .0003540612912868, .0001130615888136, .0001160368937824}
+	highs := []float64{.000570, .000087, .000090, .000574233858978, .0000952097590008, .0000981850639696, .000588, .000105, .000108, .0005920856887908, .0001130615888136, .0001160368937824}
 	for ti, tenant := range []tenantKey{tenantA, tenantB} {
 		for pi, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
 			key := kimiConcurrentKeys[ti*2+pi]
 			owner := tenant.tenant + "/" + string(market)
 			endpoints := map[ai.API]string{}
-			for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIAnthropicMessages} {
+			for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
 				endpoints[api] = w.provider.URL() + "/kimi-concurrent/" + owner + "/" + string(api)
 			}
 			auth := kimihost.Authorization{ProviderID: market, TenantID: tenant.tenant, AccountScopeID: "same-account-alias", CredentialRef: owner + "-record", Version: "binding-v1", Purpose: kimihost.Standard, Endpoints: endpoints, TrustedGateway: true}
@@ -86,7 +86,7 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			resolvers[owner] = kimihost.Credentials{Authorization: auth, Record: kimihost.CredentialRecord{ProviderID: market, TenantID: tenant.tenant, AccountScopeID: auth.AccountScopeID, CredentialRef: auth.CredentialRef, Purpose: kimihost.Standard, Version: "secret-v1", BindingVersion: auth.Version, Active: true, AllowedAPIs: []ai.API{ai.APIOpenAICompletions, ai.APIAnthropicMessages}}, ReadSecret: func(_ context.Context, ref string) (ai.Secret, error) {
+			resolvers[owner] = kimihost.Credentials{Authorization: auth, Record: kimihost.CredentialRecord{ProviderID: market, TenantID: tenant.tenant, AccountScopeID: auth.AccountScopeID, CredentialRef: auth.CredentialRef, Purpose: kimihost.Standard, Version: "secret-v1", BindingVersion: auth.Version, Active: true, AllowedAPIs: []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages}}, ReadSecret: func(_ context.Context, ref string) (ai.Secret, error) {
 				readsMu.Lock()
 				defer readsMu.Unlock()
 				if ref != auth.CredentialRef {
@@ -96,9 +96,6 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 				return ai.NewSecret(key.secret), nil
 			}}
 			for _, binding := range bindings {
-				if binding.API != ai.APIOpenAICompletions && binding.API != ai.APIAnthropicMessages {
-					continue
-				}
 				w.host.PutBinding(binding)
 				n := len(jobs)
 				id := fmt.Sprintf("kimi-concurrent-%d", n)
@@ -121,7 +118,7 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 				simultaneous <- gauges.Permits()
 			}
 			arrivals.Done()
-			waitFor(ev, "all eight requests are in flight", allSent)
+			waitFor(ev, "all twelve requests are in flight", allSent)
 		}
 		w.provider.EnqueueAt(strings.TrimPrefix(job.binding.Endpoint, w.provider.URL()), reply)
 		var retained map[string]any
@@ -145,6 +142,8 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 		var opts ai.Options = ai.AnthropicOptions{MaxTokens: ai.Value(4096)}
 		if job.binding.API == ai.APIOpenAICompletions {
 			opts = ai.ChatOptions{MaxTokens: ai.Value(4096), SessionID: "same-private-session", SamplingParams: job.sampling}
+		} else if job.binding.API == ai.APIOpenAIResponses {
+			opts = ai.ResponsesOptions{MaxTokens: ai.Value(4096), SessionID: "same-private-session"}
 		}
 		job.stream = w.client.WithHooks(hooks).Stream(ctxFor(t), scope, ai.Target{BindingID: job.binding.BindingID, ModelID: "kimi-k3"}, job.request, opts)
 		defer job.stream.Close()
@@ -178,10 +177,11 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 	done.Wait()
 	held := waitValue(ev, "all authorized sockets reached deterministic in-flight barrier", simultaneous)
 	ev.Record("simultaneous-permits", held)
-	ev.Check("eight independently attributed calls overlap under the shared admission policy", held == 8, "held=%d", held)
+	ev.Check("twelve independently attributed calls overlap under the shared admission policy", held == 12, "held=%d", held)
 	captures := w.provider.Requests()
 	ev.Record("requests", captures)
 	keys := map[string]bool{}
+	ownerKeys := map[string]string{}
 	for _, job := range jobs {
 		o := job.result
 		ev.Record(job.id+"-result", o.result)
@@ -212,11 +212,14 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 		if ev.Check("selected tenant market secret reaches only its authorized path", capture != nil && capture.KeyAlias == job.key.alias && strings.HasPrefix(capture.Path, strings.TrimPrefix(b.Endpoint, w.provider.URL())), "id=%s capture=%+v", job.id, capture) {
 			fields := bodyFields(t, capture.Body)
 			ev.Check("caller and callback mutations cannot change serialized request", strings.Contains(string(capture.Body), "original-input-"+job.id) && !strings.Contains(string(capture.Body), "caller-mutated") && !strings.Contains(string(capture.Body), "callback-mutated"), "id=%s body=%s", job.id, capture.Body)
-			if b.API == ai.APIOpenAICompletions {
+			if b.API != ai.APIAnthropicMessages {
 				var key string
 				_ = json.Unmarshal(fields["prompt_cache_key"], &key)
-				ev.Check("derived key omits raw tenant and session identifiers", len(key) == 64 && !strings.Contains(key, b.TenantID) && !strings.Contains(key, "same-private-session") && !keys[key], "id=%s key=%s", job.id, key)
+				owner := b.TenantID + "/" + string(b.ProviderID)
+				prior := ownerKeys[owner]
+				ev.Check("cache key separates tenant/market and shares only same-account protocol scope", len(key) == 64 && !strings.Contains(key, b.TenantID) && !strings.Contains(string(capture.Body), "same-private-session") && ((prior == "" && !keys[key]) || prior == key), "id=%s key=%s prior=%s", job.id, key, prior)
 				keys[key] = true
+				ownerKeys[owner] = key
 			} else {
 				ev.Check("Messages does not acquire an undeclared session routing field", fields["prompt_cache_key"] == nil, "body=%s", capture.Body)
 			}
@@ -249,12 +252,12 @@ func TestKimiHostConcurrentMarketsAndTenants(t *testing.T) {
 		ev.Check("Result and Observer ownership preserve immutable cost snapshots", err == nil && len(again.Message.Content) > 0 && again.Metadata.Attempts[0].CostEstimate.Status == expectedStatus && againLow == low && againHigh == high && reflect.DeepEqual(again.Message.Usage, original.Message.Usage), "id=%s result=%+v", job.id, again)
 	}
 	ev.Record("secret-reads", reads)
-	ev.Check("four separate records each serve exactly two allowed protocols", len(reads) == 4 && len(keys) == 4, "reads=%v keys=%d", reads, len(keys))
+	ev.Check("four separate records each serve exactly three allowed protocols", len(reads) == 4 && len(keys) == 4, "reads=%v keys=%d", reads, len(keys))
 	for _, n := range reads {
-		ev.Check("secret selection has no fallback or cross-record reuse", n == 2, "reads=%d", n)
+		ev.Check("secret selection has no fallback or cross-record reuse", n == 3, "reads=%d", n)
 	}
 	ev.Record("resources", map[string]int64{"calls": gauges.ActiveCalls(), "permits": gauges.Permits(), "queued": gauges.QueuedEvents(), "bodies": bodies.Open()})
-	ev.Check("all eight calls release their resources", len(captures) == 8 && gauges.ActiveCalls() == 0 && gauges.Permits() == 0 && gauges.QueuedEvents() == 0 && bodies.Open() == 0, "captures=%d", len(captures))
+	ev.Check("all twelve calls release their resources", len(captures) == 12 && gauges.ActiveCalls() == 0 && gauges.Permits() == 0 && gauges.QueuedEvents() == 0 && bodies.Open() == 0, "captures=%d", len(captures))
 }
 
 func kimiConcurrentReply(t *testing.T, job *kimiConcurrentJob) provider.Reply {
@@ -269,5 +272,8 @@ func kimiConcurrentReply(t *testing.T, job *kimiConcurrentJob) provider.Reply {
 	reply, _ := kimiHostScript(t, job.binding.API)
 	script := strings.ReplaceAll(reply.Script, `"input_tokens":8`, fmt.Sprintf(`"input_tokens":%d`, job.input))
 	script = strings.ReplaceAll(script, "Ready.", "answer-"+job.id)
+	if job.binding.API == ai.APIOpenAIResponses {
+		script = strings.ReplaceAll(script, `"total_tokens":12`, fmt.Sprintf(`"total_tokens":%d`, job.input+4))
+	}
 	return provider.SSE([][]byte{[]byte(script)})
 }

@@ -7,6 +7,7 @@
 ## Decisions so far
 
 - 公共 Client E2E seam 已由 spec 确认。
+- [01 身份/目录/成本已完成](issues/01-foundation.md) 与 [05 Host 装配已完成](issues/05-host.md)：六路线四入口、十二调用并发、共享成本与既有 Host/包回归通过；[最终普通回执](evidence/ticket-05.md#final-six-route-ordinary-closure)。
 - 普通验证自行执行；live、race、压力遵循 SOP 独立授权。
 - [02 Chat 已完成](issues/02-chat.md)：精确请求、工具/原生历史、成本、故障与资源的受影响普通回归通过；[不可变原件索引](evidence/ticket-02.md)。
 - [04 Messages 已完成](issues/04-messages.md)：稳定 Messages、Bearer、thinking 来源、成本与资源回归通过；[不可变原件索引](evidence/ticket-04.md)。
