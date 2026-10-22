@@ -1,7 +1,7 @@
 # 04 — Messages 协议
 
 Type: task
-Status: ready-for-agent
+Status: in-progress
 Blocked by: 01
 
 ## Context
@@ -23,3 +23,5 @@ R03、R06–R09、R11；K03–K10、K12–K14。拥有 anthropic_* 与原生 thi
 ## Comments
 
 2026-10-22：从已批准实施的 spec/design 派生；任务依赖是集成顺序，独立协议可在同一基线并行开发，合并前同步集成分支。
+
+2026-10-22：Messages implementer 已在 codex/kimi-messages 领取；基线集成分支 8678bc9；公共 Client 受控协议 seam；不运行 live/race/压力。

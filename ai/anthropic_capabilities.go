@@ -6,6 +6,7 @@ const (
 	anthropicStandard anthropicImplementation = iota
 	anthropicGLM
 	anthropicMiniMax
+	anthropicKimi
 )
 
 // anthropicCapabilities describes the automatic fields of the Messages
@@ -38,6 +39,8 @@ type anthropicCapabilities struct {
 // Client wire captures (ADR-0035). Native Anthropic defaults stay unchanged.
 func anthropicCapabilitiesOf(provider ProviderID) anthropicCapabilities {
 	switch provider {
+	case "moonshot", "moonshot-cn":
+		return anthropicCapabilities{implementation: anthropicKimi, reportedCacheWriteTTL: true}
 	case ProviderMiniMax:
 		return anthropicCapabilities{implementation: anthropicMiniMax, adaptiveThinking: true, reportedCacheWriteTTL: true}
 	case ProviderMiniMaxCN:

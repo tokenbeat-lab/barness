@@ -29,6 +29,7 @@ type anthropicBody struct {
 	OutputConfig *anthropicOutputConfig     `json:"output_config,omitempty"`
 	Metadata     *anthropicMetadata         `json:"metadata,omitempty"`
 	ToolChoice   *anthropicToolChoiceObject `json:"tool_choice,omitempty"`
+	CacheControl *anthropicCacheControl     `json:"cache_control,omitempty"`
 }
 
 type anthropicMessage struct {
@@ -185,6 +186,9 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 	caps := anthropicCapabilitiesOf(model.Provider)
 	cc := opts.cacheControl(model)
 	body := anthropicBody{Model: model.ID, MaxTokens: model.MaxTokens, Stream: true, Betas: betas}
+	if caps.implementation == anthropicKimi {
+		body.MaxTokens = min(model.MaxTokens, 131072)
+	}
 	if n, ok := opts.MaxTokens.Get(); ok {
 		body.MaxTokens = n
 	}
@@ -237,6 +241,14 @@ func buildAnthropicBody(model Model, history transcript, opts AnthropicOptions, 
 		display = cmp.Or(opts.ThinkingDisplay, "summarized")
 	}
 	switch {
+	case caps.implementation == anthropicKimi:
+		if opts.Effort != "" {
+			body.OutputConfig = &anthropicOutputConfig{Effort: opts.Effort}
+		}
+		body.CacheControl = &anthropicCacheControl{Type: "ephemeral", TTL: "5m"}
+		if opts.CacheRetention == CacheRetentionLong {
+			body.CacheControl.TTL = "1h"
+		}
 	case managed:
 		// Whatever the thinking options, so that thinking bound to a
 		// prefix the effort change no longer matches is dropped instead of

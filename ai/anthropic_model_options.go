@@ -7,6 +7,9 @@ func validateAnthropicModelOptions(m Model, options Options) *Error {
 	if m.API != APIAnthropicMessages {
 		return nil
 	}
+	if failure := validateKimiMessagesOptions(m, options); failure != nil {
+		return failure
+	}
 	if anthropicCapabilitiesOf(m.Provider).optionsBeforeCredential {
 		opts, _ := options.(AnthropicOptions)
 		if failure := validateGLMMessagesOptions(m, opts); failure != nil {
