@@ -223,13 +223,17 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 文档工作 | spec、设计与成本 ADR 已形成；测试 Seam 已获用户确认 |
-| 工作基线 | `68b7da0a3400f909dc535d7f585c93771df1569c`；本次仅文档 |
-| 实现/目录/六路线 | NOT_RUN；未实现、未创建候选或正式型号 |
-| 本次文档检查 | PASS；见交付检查记录，仅证明引用、格式、来源与需求/设计一致性 |
-| 本次程序 E2E/live/race/压力 | NOT_APPLICABLE：本次仅规划文档，无运行路径或支持资格改变 |
-| 未来实现 E2E/live/race/压力 | NOT_RUN：须按实际影响、来源及各阶段条件另行执行 |
-| 当前 release.pass | false；不以设计就绪替代实现和资格 |
+| 文档工作 | spec/design/ADR 与 7 个实施工单已固定；公共 Client E2E seam 沿用已确认选择 |
+| 工作基线 | `68b7da0a3400f909dc535d7f585c93771df1569c`；实施集成分支 `codex/barness-ai-kimi-integration` |
+| 变更影响 | 两站六协议候选、协议字段/原生历史/缓存、共享 Attempt 成本元数据、Host 授权装配与资格证据；其他 Provider 合同须回归 |
+| 公共测试入口/普通范围 | 公共 Client Stream/Complete/Simple；先按协议 Kimi E2E 红绿，最终完整 `./ai/e2e ./ai`，新增 Host/consumer 包纳入普通范围；统一 SOP run.py |
+| 实际输入与已有证据 | spec/design/research、ADR-0052、仓库现有协议/地区示例；仅规划检查，无 Kimi 运行支持证据；后续保留各 worktree 的原始 attempt |
+| 实现/目录/六路线 | IN_PROGRESS；候选与正式分别记录，未授权前不晋升正式目录 |
+| 本次 E2E | NOT_RUN；各工单先记录公共 Client 失败场景再实现，最终冻结回执另列 |
+| live 路线 | NOT_RUN；kimi-{cn,intl}-{chat,responses,messages} 均受影响；每路线 L01–L09 与新授权/账户/预算按设计 §10.3 执行 |
+| race 候选 | NOT_RUN；双站多租户、Admission、取消/Observer、输入/结果/CostEstimate 快照、受影响旧 Provider；等待普通/live 完成后人工选择 argv |
+| 压力候选 | NOT_RUN；工具参数增量、正文/帧/队列限额、背压取消、双站并发与共享负载；等待前阶段及人工选择 |
+| 当前 release.pass | false；实施与普通验证不能替代真实资格及人工阶段 |
 
 未来实施时在本节补充实际受测 SHA、影响与选定输入、各阶段真实 argv/退出、不可变回执索引及原件 Hash；历史失败和旧状态快照保留。依据：[测试流程 SOP](../../docs/agents/verification.md)、[Issue tracker](../../docs/agents/issue-tracker.md)。
 
