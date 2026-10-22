@@ -4,7 +4,7 @@ Status: ready-for-agent
 Type: feature
 Updated: 2026-10-22
 
-本文件定义待实施的交付契约。中国站和国际站均在范围内；设计就绪不表示已经接入、型号已晋升或真实支持已通过。实施细节见[设计文档](design.md)，官方事实及冲突见[研究报告](research.md)。
+本文件定义交付契约。中国站和国际站均在范围内；设计就绪不表示已经接入、型号已晋升或真实支持已通过。实施细节见[设计文档](design.md)，官方事实及冲突见[研究报告](research.md)。
 
 ## Problem Statement
 
@@ -229,7 +229,8 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | 公共测试入口/普通范围 | 公共 Client Stream/Complete/Simple；先按协议 Kimi E2E 红绿，最终完整 `./ai/e2e ./ai`，新增 Host/consumer 包纳入普通范围；统一 SOP run.py |
 | 实际输入与已有证据 | spec/design/research、ADR-0052、仓库现有协议/地区示例；仅规划检查，无 Kimi 运行支持证据；后续保留各 worktree 的原始 attempt |
 | 实现/目录/六路线 | IN_PROGRESS；候选与正式分别记录，未授权前不晋升正式目录 |
-| 本次 E2E | NOT_RUN；各工单先记录公共 Client 失败场景再实现，最终冻结回执另列 |
+| 工单普通 E2E | Chat、Messages 已完成受影响普通回归并保留红绿原件；Host/基础成本已完成部分范围，Responses 与资格入口实施中；见 [工单02回执](evidence/ticket-02.md)、[工单04回执](evidence/ticket-04.md)、[工单05回执](evidence/ticket-05.md) |
+| 集成冻结普通 E2E | NOT_RUN；须在全部实现与双轴审查修复后，固定完整来源及实际历史输入，在主工作区运行完整受影响包 |
 | live 路线 | NOT_RUN；kimi-{cn,intl}-{chat,responses,messages} 均受影响；每路线 L01–L09 与新授权/账户/预算按设计 §10.3 执行 |
 | race 候选 | NOT_RUN；双站多租户、Admission、取消/Observer、输入/结果/CostEstimate 快照、受影响旧 Provider；等待普通/live 完成后人工选择 argv |
 | 压力候选 | NOT_RUN；工具参数增量、正文/帧/队列限额、背压取消、双站并发与共享负载；等待前阶段及人工选择 |
