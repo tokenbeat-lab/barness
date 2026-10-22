@@ -44,3 +44,7 @@ if mode == 'input-change':
 
 if mode == "doc-change":
     Path("ai/README.md").write_text("Prose only; no execution input changed.\n")
+
+if mode == 'desktop-metadata':
+    (base.parent / '.DS_Store').write_bytes(b'synthetic-desktop-cache')
+    Path('ai/.DS_Store').write_bytes(b'synthetic-after')

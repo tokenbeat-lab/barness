@@ -73,7 +73,7 @@ def source_snapshot(root):
                     raise ValueError('symbolic execution source rejected')
             for name in names:
                 path = Path(parent) / name
-                if path.suffix.lower() in excluded_suffixes:
+                if name in {'.DS_Store', 'Thumbs.db'} or path.suffix.lower() in excluded_suffixes:
                     continue
                 relative = str(path.relative_to(root))
                 files[relative] = sha(within(root, relative))

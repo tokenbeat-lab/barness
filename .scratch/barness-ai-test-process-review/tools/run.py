@@ -123,8 +123,9 @@ def main():
             receipt['error'] = str(error)
         receipt['files'] = {}
         try:
-            for path in out.iterdir():
-                if path.is_file() and path.name != 'receipt.json':
+            for name in ('command.json', 'stdout.jsonl', 'stderr.log', 'exit-code'):
+                path = out / name
+                if path.is_file():
                     receipt['files'][path.name] = sha(path)
         except (OSError, ValueError):
             receipt.update(status='CAPTURE_FAILED', error='capture inventory could not be finalized')

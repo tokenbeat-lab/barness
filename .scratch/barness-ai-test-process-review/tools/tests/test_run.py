@@ -133,3 +133,11 @@ class StageRunProcess(ProcessCase):
                 self.assertIn('[REDACTED]', output)
                 self.assertNotIn('synthetic-selected-key', output)
                 self.assertNotIn('UNRELATED_API_KEY', output)
+
+    def test_desktop_metadata_is_not_execution_source_or_command_capture(self):
+        (self.repo / 'ai/.DS_Store').write_bytes(b'synthetic-before')
+        self.run_stage('desktop-metadata', expected=0)
+        receipt_path = self.attempts()[0]
+        receipt = json.loads(receipt_path.read_text())
+        self.assertNotIn('ai/.DS_Store', receipt['source']['files'])
+        self.assertNotIn('.DS_Store', receipt['files'])

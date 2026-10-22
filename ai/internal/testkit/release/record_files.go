@@ -153,6 +153,9 @@ func currentRecordSource(root string) (ExecutionSource, error) {
 			if info.IsDir() {
 				return nil
 			}
+			if info.Name() == ".DS_Store" || info.Name() == "Thumbs.db" {
+				return nil
+			}
 			switch strings.ToLower(filepath.Ext(path)) {
 			case ".md", ".pyc", ".test", ".exe":
 				return nil
