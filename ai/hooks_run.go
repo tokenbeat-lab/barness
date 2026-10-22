@@ -180,10 +180,10 @@ func callbackFailure(ctx context.Context, err error, msg string) *Error {
 // One provider policy governs all three callback boundaries. The regional
 // identities share the established GLM/MiniMax failure contract.
 func recoversCallbackPanics(provider ProviderID) bool {
-	return provider == ProviderZhipu || provider == ProviderZAI || provider == ProviderMiniMax || provider == ProviderMiniMaxCN
+	return isKimi(provider) || provider == ProviderZhipu || provider == ProviderZAI || provider == ProviderMiniMax || provider == ProviderMiniMaxCN
 }
 
-// GLM and MiniMax callbacks must settle the logical call instead of crashing its stream
+// GLM, MiniMax and Kimi callbacks must settle the logical call instead of crashing its stream
 // producer. The caller gates recovery on the immutable Provider attribution;
 // other providers retain their existing panic behavior. Preserve error causes
 // for Host diagnosis, but never format

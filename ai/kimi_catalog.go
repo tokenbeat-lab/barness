@@ -35,6 +35,9 @@ func kimiModelProblem(m Model) string {
 	if c.ThinkingSwitchOnly || c.SupportsStrictMode || c.SupportsMidConvoSystemMessages || c.SupportsExplicitPromptCacheMode || c.ForceAdaptiveThinking || c.SupportsMidConvoEffort || c.MessagesThinkingBudgetTokens != 0 {
 		return "Kimi compatibility flags cannot expand the implemented subset"
 	}
+	if m.API == APIAnthropicMessages && (len(m.SamplingParams) > 0 || len(m.SamplingParamsByThinkingLevel) > 0) {
+		return "Kimi Messages sampling defaults are not implemented"
+	}
 	if len(m.Cost.Tiers) > 0 {
 		return "Kimi pricing tiers are not implemented"
 	}
