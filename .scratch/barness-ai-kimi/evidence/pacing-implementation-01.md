@@ -1,0 +1,28 @@
+# Kimi native call pacing — implementation evidence
+
+Authority: `/tmp/barness-kimi-pacing/contract.md`; baseline `1889322`, root policy `d27e19c`. Frozen reviewed source **`f11b7976373859299392b1baaf083ec84d9f3ad6`** contains implementation `8600988`, merged policy and the two reviewer corrections. Both replacement reviews passed with no unresolved findings. This note changes no executable source.
+
+The optional Kimi-native `callIntervalMs` integer accepts0..60000; omission remains0, non-Kimi positive values reject. Only one exact canonical field spelling is accepted; aliases, duplicate semantic interval keys, null, fractions, negatives and overflow fail before HTTP. Other legacy grant fields retain their existing JSON contract. Canonical grant serialization binds the interval into the existing reservation scope, with matching report and durable receipt values.
+
+Each Kimi logical call, including the first, waits under the process/grant context before call/output reservations and before the120s per-call context exists. Timers and SIGINT/SIGTERM subscriptions are released. An interrupted initial wait spends no call/attempt/input/output/USD reservation; the consumed grant remains consumed. No retry, scheduler, model payload field or shared account state was added. Source and binary checks remain strict, so old candidates are not renewed for the new source.
+
+The native read-only consumer compares configuration to the original grant/receipt and validates all four nonzero Observation timestamps in call_started → attempt_started → attempt_finished → call_finished order before deriving completion-to-next-start gaps. Initial start is anchored to the existing authorization consumption timestamp. Resealing contradictory timestamps, report intervals or receipts cannot qualify a capture. Old zero/default regional paths remain unchanged.
+
+All commands use SOP `run.py --feature barness-ai-kimi-pacing --stage e2e`; exact argv, source, exits and bundles for every attempt are in `pacing-implementation-01.json` and original receipts:
+
+| Attempt | Actual outcome |
+| --- | --- |
+| `20261023T021052.377461Z-xwvput84` | exit1 public native/consumer red before production edits.40ms grants actually had ~0.6–0.9ms inter-call gaps, invalid values reached HTTP, timing/receipt forgeries passed, signal cancellation violated graceful zero-budget semantics. The600ms expiry subcase expired during startup and is not claimed as wait coverage. The unauthorized non-Kimi case eventually hit the bounded child timeout after8 controlled HTTP requests; this proves the pre-HTTP guard failed, not vendor behavior. Initial display labels used40ns by mistake while actual requested/asserted value was40ms; labels corrected before final implementation. |
+| `20261023T021241.447714Z-1zu5k2na` | exit1 stronger interrupted-wait red: grant must be durably consumed, initial interval60000ms with valid3s expiry; old code starts requests instead of waiting. |
+| `20261023T021321.685645Z-13bt0dh2` | exit0 first public green:40ms/zero processes, invalid controls, expiry/signal, resealed timing checks. |
+| `20261023T021416.815830Z-26t1pam1` | exit0 original frozen regression before reviewer findings. Retained independently; superseded for current-source acceptance. |
+| `20261023T021727.102856Z-3gcuhn3e` | exit1 reviewer grant-boundary red before fix: canonical+case duplicate, exact duplicate, alias-null, uppercase and Unicode-fold raw grants execute9HTTP and their original capsules are accepted by the actual consumer. |
+| `20261023T021955.042546Z-jgvjtt68` | exit1 reviewer chronology red before fix: a resealed prior CallFinished moved to CallStarted plus next start at forged finish+interval manufactures a gap while AttemptFinished remains later. Both IntlChat and CNMessages consumers accept this impossible timeline. |
+| `20261023T022059.220406Z-lhicgqdh` | exit0 all targeted cases after strict grant and complete chronology fixes. |
+| `20261023T022217.341848Z-dtni59r5` | exit0 final frozen scoped regression:425 unique native PASS cases, no skips; main audit empty. E2E432 Go PASS records include parents, auxiliary supportmatrix26 PASS records. Includes all Kimi qualification/pacing processes and consumers, old regional grants/default controlled captures/resources and current capability/merge checks. |
+
+Final main bundle is `bundles/20261023T022219.803744000Z`, manifest SHA-256 `7fb80514a563e1fe2c7d1ed8133ac3de8d33af1e337cf356af7ffb73efe36337`, audit SHA-256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`. The exact finite425-PASS-ID inventory and receipt hashes are recorded in the adjacent JSON. All1359 execution-source files equal the frozen receipt; selected inputs are empty.
+
+All8 attempt roots, including original reds and superseded greens, are copied to primary `.evidence/barness-ai-kimi-pacing/`. Both complete relative-file sets match and all13299 files compare byte-for-byte and SHA-256; no differing destination was overwritten. Proof `/tmp/barness-kimi-pacing/retention.json`, SHA-256 `28069cd31a5a685ad99c24ab06aeb15c1e5782da1537186d43c1aa72d596fee2`. Durable grant reservations remain in the shared trusted repository store and are not removed. No old source pin, grant, capture or hash rule was changed.
+
+No `.env`, real credential, vendor call, paid retry, race, pressure or full repository suite ran here. Root owns new frozen native builds, full ordinary acceptance and authorized international execution (35000ms grants). Existing Chinese candidates become stale under the new native source; requalification is separate. Formal/live human gates remain pending and `release.pass=false`. Roll back the two implementation commits while retaining every receipt and consumed grant.

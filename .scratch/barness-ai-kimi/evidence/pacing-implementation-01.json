@@ -1,0 +1,214 @@
+{
+  "testedCommit": "f11b7976373859299392b1baaf083ec84d9f3ad6",
+  "currentCommit": "f11b7976373859299392b1baaf083ec84d9f3ad6",
+  "sourceFiles": 1359,
+  "sourceFilesEqual": true,
+  "selectedInputs": {},
+  "finalReceipt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T022217.341848Z-dtni59r5/receipt.json",
+  "finalReceiptSHA256": "aa620080252af7f9afee108ca1532c96a0c142166804f2e1cd07fb2ed4ce055a",
+  "finalStatus": "PASS",
+  "exitCode": 0,
+  "bundles": [
+    {
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "manifestSHA256": "7fb80514a563e1fe2c7d1ed8133ac3de8d33af1e337cf356af7ffb73efe36337",
+      "package": "./ai/e2e",
+      "path": "bundles/20261023T022219.803744000Z"
+    }
+  ],
+  "requiredPassCaseCount": 425,
+  "goTestRecords": {
+    "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix": {
+      "pass": 26
+    },
+    "github.com/tokenbeat-lab/barness/ai/e2e": {
+      "pass": 432
+    }
+  },
+  "allAttempts": [
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T021052.377461Z-xwvput84",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(KimiQualificationPacing|KimiPacingGrantGuards|KimiPacingInterruptedWait)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "sourceCommit": "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+      "receiptSHA256": "ecb5e64059d3a843d790f3396389271fa1422e776dd968a665aeab2057504fcb",
+      "bundles": []
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T021241.447714Z-1zu5k2na",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestKimiPacingInterruptedWait$",
+        "-count=1",
+        "-timeout=2m"
+      ],
+      "sourceCommit": "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+      "receiptSHA256": "3f36efc1a3b19a00f04a284ed9eaaaa0b5ac3dd4b5a3c362ec49c314395b8db7",
+      "bundles": []
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T021321.685645Z-13bt0dh2",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(KimiQualificationPacing|KimiPacingGrantGuards|KimiPacingInterruptedWait)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "sourceCommit": "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+      "receiptSHA256": "c7917fb1819cdf2ee4f01cb36766b2530d78a57bcdb237598541741f2635c43c",
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "faae53e6edb21948b976c0710599f4aec15d22c7ed441f2e6454cc1b93d79107",
+          "package": "./ai/e2e",
+          "path": "bundles/20261023T021325.645700000Z"
+        }
+      ]
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T021416.815830Z-26t1pam1",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai/internal/testkit/supportmatrix",
+        "-run",
+        "^Test(KimiQualification.*|KimiPacing.*|RegionalProviderRelease(Authorization|GrantAliases|CapturePipeline)|RegionalProviderResources|Merge.*|CurrentCapabilitySet)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "sourceCommit": "fafd72e1f2b0f74e481058b27e4baa912f7adcde",
+      "receiptSHA256": "d2cdbfd436c7f665b7152c37332bddb22b83eacd4a11019bc8e7a753a517f88a",
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "cec4b0a566f49b68a98c90cf2b732dfde7de6522aee87cb5d952593fac024f2d",
+          "package": "./ai/e2e",
+          "path": "bundles/20261023T021419.356007000Z"
+        }
+      ]
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T021727.102856Z-3gcuhn3e",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestKimiPacingGrantJSONAmbiguity$",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "sourceCommit": "fafd72e1f2b0f74e481058b27e4baa912f7adcde",
+      "receiptSHA256": "4e52412ed707def37784eb2b3b56af10f6b46e9bdf4491451ebe23f6fcf2ad37",
+      "bundles": []
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T021955.042546Z-jgvjtt68",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestKimiQualificationPacing$",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "sourceCommit": "fafd72e1f2b0f74e481058b27e4baa912f7adcde",
+      "receiptSHA256": "2703d42032b6fa1d0001ae71cfa4ac3c38eb872c1878fc57af5760b11be9d002",
+      "bundles": []
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T022059.220406Z-lhicgqdh",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(KimiQualificationPacing|KimiPacingGrantJSONAmbiguity|KimiPacingGrantGuards|KimiPacingInterruptedWait)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "sourceCommit": "fafd72e1f2b0f74e481058b27e4baa912f7adcde",
+      "receiptSHA256": "35aac90760ecccaf73a57909d6a179f3ef0843bb058fad353f3f54816d0aefa2",
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "89ea0885a110d200ed1e5fec0d55e93fbef5daa81bc08f6fc3bae80f33fde796",
+          "package": "./ai/e2e",
+          "path": "bundles/20261023T022102.296607000Z"
+        }
+      ]
+    },
+    {
+      "attempt": ".evidence/barness-ai-kimi-pacing/e2e/20261023T022217.341848Z-dtni59r5",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai/internal/testkit/supportmatrix",
+        "-run",
+        "^Test(KimiQualification.*|KimiPacing.*|RegionalProviderRelease(Authorization|GrantAliases|CapturePipeline)|RegionalProviderResources|Merge.*|CurrentCapabilitySet)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "sourceCommit": "f11b7976373859299392b1baaf083ec84d9f3ad6",
+      "receiptSHA256": "aa620080252af7f9afee108ca1532c96a0c142166804f2e1cd07fb2ed4ce055a",
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "7fb80514a563e1fe2c7d1ed8133ac3de8d33af1e337cf356af7ffb73efe36337",
+          "package": "./ai/e2e",
+          "path": "bundles/20261023T022219.803744000Z"
+        }
+      ]
+    }
+  ],
+  "retainedFiles": 13299,
+  "fullRetainedSetsEqual": true,
+  "retainedBytesAndSHA256Equal": true,
+  "retentionProof": "/tmp/barness-kimi-pacing/retention.json",
+  "retentionProofSHA256": "28069cd31a5a685ad99c24ab06aeb15c1e5782da1537186d43c1aa72d596fee2",
+  "live": "NOT_RUN",
+  "race": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "releasePass": false,
+  "requiredPassCases": ["KIMI-K16-authorization-binary","KIMI-K16-authorization-controlled-with-live","KIMI-K16-authorization-expiry","KIMI-K16-authorization-missing-usd","KIMI-K16-authorization-mixed-route","KIMI-K16-authorization-negative-usd","KIMI-K16-authorization-provider","KIMI-K16-authorization-source","KIMI-K16-authorization-tiny-usd","KIMI-K16-authorization-wrong-entry","KIMI-K16-expires-during-call-stops-process","KIMI-K16-independent-controlled-proposal","KIMI-K16-missing-charge-stops-process","KIMI-K16-missing-native-stops-process","KIMI-K16-output-exceeds-reserve-stops-process","KIMI-K16-pacing-grant-fraction","KIMI-K16-pacing-grant-negative","KIMI-K16-pacing-grant-non-kimi","KIMI-K16-pacing-grant-null","KIMI-K16-pacing-grant-overflow","KIMI-K16-pacing-grant-too-large","KIMI-K16-pacing-initial-expiry","KIMI-K16-pacing-initial-signal","KIMI-K16-pacing-json-alias-null","KIMI-K16-pacing-json-case-duplicate","KIMI-K16-pacing-json-exact-duplicate","KIMI-K16-pacing-json-unicode-fold","KIMI-K16-pacing-json-uppercase","KIMI-K16-promotion-proof-boundary","KIMI-K16-promotion-refusal-controlled-live","KIMI-K16-promotion-refusal-duplicate","KIMI-K16-promotion-refusal-missing","KIMI-K16-promotion-refusal-partial","KIMI-K16-promotion-refusal-stale","KIMI-K16-source-inputs","KIMI-kimi-cn-chat-K16-controlled-pipeline","KIMI-kimi-cn-chat-K16-refuse-attempt-finished-cost","KIMI-kimi-cn-chat-K16-refuse-cost-state","KIMI-kimi-cn-chat-K16-refuse-grant-binary","KIMI-kimi-cn-chat-K16-refuse-native-request-tail","KIMI-kimi-cn-chat-K16-refuse-native-source","KIMI-kimi-cn-chat-K16-refuse-raw-write-missing","KIMI-kimi-cn-chat-K16-refuse-tool-pair","KIMI-kimi-cn-chat-K16-refuse-usd-reserve","KIMI-kimi-cn-chat-K16-refuse-wire-budget","KIMI-kimi-cn-chat-K16-refuse-wire-default-effort","KIMI-kimi-cn-chat-K16-refuse-wire-effort-removed","KIMI-kimi-cn-chat-K16-refuse-wire-full-effort","KIMI-kimi-cn-chat-K16-refuse-wire-options-effort","KIMI-kimi-cn-chat-K16-refuse-wire-simple-high","KIMI-kimi-cn-chat-K16-refuse-wire-simple-low","KIMI-kimi-cn-chat-K16-refuse-wire-tool-choice","KIMI-kimi-cn-chat-K16-refuse-wire-tools","KIMI-kimi-cn-chat-K16-refuse-wire-unsupported","KIMI-kimi-cn-chat-K16-template","KIMI-kimi-cn-messages-K16-controlled-pipeline","KIMI-kimi-cn-messages-K16-pacing-40ms","KIMI-kimi-cn-messages-K16-pacing-forgery-initial-gap","KIMI-kimi-cn-messages-K16-pacing-forgery-later-gap","KIMI-kimi-cn-messages-K16-pacing-forgery-receipt-interval","KIMI-kimi-cn-messages-K16-pacing-forgery-report-interval","KIMI-kimi-cn-messages-K16-pacing-forgery-timeline-order","KIMI-kimi-cn-messages-K16-refuse-attempt-finished-cost","KIMI-kimi-cn-messages-K16-refuse-cost-state","KIMI-kimi-cn-messages-K16-refuse-grant-binary","KIMI-kimi-cn-messages-K16-refuse-native-request-tail","KIMI-kimi-cn-messages-K16-refuse-native-source","KIMI-kimi-cn-messages-K16-refuse-raw-write-missing","KIMI-kimi-cn-messages-K16-refuse-tool-pair","KIMI-kimi-cn-messages-K16-refuse-usd-reserve","KIMI-kimi-cn-messages-K16-refuse-wire-budget","KIMI-kimi-cn-messages-K16-refuse-wire-default-effort","KIMI-kimi-cn-messages-K16-refuse-wire-effort-removed","KIMI-kimi-cn-messages-K16-refuse-wire-full-effort","KIMI-kimi-cn-messages-K16-refuse-wire-options-effort","KIMI-kimi-cn-messages-K16-refuse-wire-simple-high","KIMI-kimi-cn-messages-K16-refuse-wire-simple-low","KIMI-kimi-cn-messages-K16-refuse-wire-tool-choice","KIMI-kimi-cn-messages-K16-refuse-wire-tools","KIMI-kimi-cn-messages-K16-refuse-wire-unsupported","KIMI-kimi-cn-messages-K16-template","KIMI-kimi-cn-responses-K16-controlled-pipeline","KIMI-kimi-cn-responses-K16-refuse-attempt-finished-cost","KIMI-kimi-cn-responses-K16-refuse-cost-state","KIMI-kimi-cn-responses-K16-refuse-grant-binary","KIMI-kimi-cn-responses-K16-refuse-native-request-tail","KIMI-kimi-cn-responses-K16-refuse-native-source","KIMI-kimi-cn-responses-K16-refuse-raw-write-missing","KIMI-kimi-cn-responses-K16-refuse-tool-pair","KIMI-kimi-cn-responses-K16-refuse-usd-reserve","KIMI-kimi-cn-responses-K16-refuse-wire-budget","KIMI-kimi-cn-responses-K16-refuse-wire-default-effort","KIMI-kimi-cn-responses-K16-refuse-wire-effort-removed","KIMI-kimi-cn-responses-K16-refuse-wire-full-effort","KIMI-kimi-cn-responses-K16-refuse-wire-options-effort","KIMI-kimi-cn-responses-K16-refuse-wire-simple-high","KIMI-kimi-cn-responses-K16-refuse-wire-simple-low","KIMI-kimi-cn-responses-K16-refuse-wire-tool-choice","KIMI-kimi-cn-responses-K16-refuse-wire-tools","KIMI-kimi-cn-responses-K16-refuse-wire-unsupported","KIMI-kimi-cn-responses-K16-template","KIMI-kimi-intl-chat-K16-controlled-pipeline","KIMI-kimi-intl-chat-K16-pacing-0s","KIMI-kimi-intl-chat-K16-pacing-40ms","KIMI-kimi-intl-chat-K16-pacing-forgery-initial-gap","KIMI-kimi-intl-chat-K16-pacing-forgery-later-gap","KIMI-kimi-intl-chat-K16-pacing-forgery-receipt-interval","KIMI-kimi-intl-chat-K16-pacing-forgery-report-interval","KIMI-kimi-intl-chat-K16-pacing-forgery-timeline-order","KIMI-kimi-intl-chat-K16-refuse-attempt-finished-cost","KIMI-kimi-intl-chat-K16-refuse-cost-state","KIMI-kimi-intl-chat-K16-refuse-grant-binary","KIMI-kimi-intl-chat-K16-refuse-native-request-tail","KIMI-kimi-intl-chat-K16-refuse-native-source","KIMI-kimi-intl-chat-K16-refuse-raw-write-missing","KIMI-kimi-intl-chat-K16-refuse-tool-pair","KIMI-kimi-intl-chat-K16-refuse-usd-reserve","KIMI-kimi-intl-chat-K16-refuse-wire-budget","KIMI-kimi-intl-chat-K16-refuse-wire-default-effort","KIMI-kimi-intl-chat-K16-refuse-wire-effort-removed","KIMI-kimi-intl-chat-K16-refuse-wire-full-effort","KIMI-kimi-intl-chat-K16-refuse-wire-options-effort","KIMI-kimi-intl-chat-K16-refuse-wire-simple-high","KIMI-kimi-intl-chat-K16-refuse-wire-simple-low","KIMI-kimi-intl-chat-K16-refuse-wire-tool-choice","KIMI-kimi-intl-chat-K16-refuse-wire-tools","KIMI-kimi-intl-chat-K16-refuse-wire-unsupported","KIMI-kimi-intl-chat-K16-template","KIMI-kimi-intl-messages-K16-controlled-pipeline","KIMI-kimi-intl-messages-K16-refuse-attempt-finished-cost","KIMI-kimi-intl-messages-K16-refuse-cost-state","KIMI-kimi-intl-messages-K16-refuse-grant-binary","KIMI-kimi-intl-messages-K16-refuse-native-request-tail","KIMI-kimi-intl-messages-K16-refuse-native-source","KIMI-kimi-intl-messages-K16-refuse-raw-write-missing","KIMI-kimi-intl-messages-K16-refuse-tool-pair","KIMI-kimi-intl-messages-K16-refuse-usd-reserve","KIMI-kimi-intl-messages-K16-refuse-wire-budget","KIMI-kimi-intl-messages-K16-refuse-wire-default-effort","KIMI-kimi-intl-messages-K16-refuse-wire-effort-removed","KIMI-kimi-intl-messages-K16-refuse-wire-full-effort","KIMI-kimi-intl-messages-K16-refuse-wire-options-effort","KIMI-kimi-intl-messages-K16-refuse-wire-simple-high","KIMI-kimi-intl-messages-K16-refuse-wire-simple-low","KIMI-kimi-intl-messages-K16-refuse-wire-tool-choice","KIMI-kimi-intl-messages-K16-refuse-wire-tools","KIMI-kimi-intl-messages-K16-refuse-wire-unsupported","KIMI-kimi-intl-messages-K16-template","KIMI-kimi-intl-responses-K16-controlled-pipeline","KIMI-kimi-intl-responses-K16-refuse-attempt-finished-cost","KIMI-kimi-intl-responses-K16-refuse-cost-state","KIMI-kimi-intl-responses-K16-refuse-grant-binary","KIMI-kimi-intl-responses-K16-refuse-native-request-tail","KIMI-kimi-intl-responses-K16-refuse-native-source","KIMI-kimi-intl-responses-K16-refuse-raw-write-missing","KIMI-kimi-intl-responses-K16-refuse-tool-pair","KIMI-kimi-intl-responses-K16-refuse-usd-reserve","KIMI-kimi-intl-responses-K16-refuse-wire-budget","KIMI-kimi-intl-responses-K16-refuse-wire-default-effort","KIMI-kimi-intl-responses-K16-refuse-wire-effort-removed","KIMI-kimi-intl-responses-K16-refuse-wire-full-effort","KIMI-kimi-intl-responses-K16-refuse-wire-options-effort","KIMI-kimi-intl-responses-K16-refuse-wire-simple-high","KIMI-kimi-intl-responses-K16-refuse-wire-simple-low","KIMI-kimi-intl-responses-K16-refuse-wire-tool-choice","KIMI-kimi-intl-responses-K16-refuse-wire-tools","KIMI-kimi-intl-responses-K16-refuse-wire-unsupported","KIMI-kimi-intl-responses-K16-template","RP16-resource-minimax-chat-cancel-after-content","RP16-resource-minimax-chat-cancel-before-headers","RP16-resource-minimax-chat-cancel-retry","RP16-resource-minimax-chat-malformed","RP16-resource-minimax-chat-queue-bytes","RP16-resource-minimax-chat-queue-count","RP16-resource-minimax-chat-truncated","RP16-resource-minimax-cn-chat-cancel-after-content","RP16-resource-minimax-cn-chat-cancel-before-headers","RP16-resource-minimax-cn-chat-cancel-retry","RP16-resource-minimax-cn-chat-malformed","RP16-resource-minimax-cn-chat-queue-bytes","RP16-resource-minimax-cn-chat-queue-count","RP16-resource-minimax-cn-chat-truncated","RP16-resource-minimax-cn-messages-cancel-after-content","RP16-resource-minimax-cn-messages-cancel-before-headers","RP16-resource-minimax-cn-messages-cancel-retry","RP16-resource-minimax-cn-messages-malformed","RP16-resource-minimax-cn-messages-queue-bytes","RP16-resource-minimax-cn-messages-queue-count","RP16-resource-minimax-cn-messages-truncated","RP16-resource-minimax-cn-responses-cancel-after-content","RP16-resource-minimax-cn-responses-cancel-before-headers","RP16-resource-minimax-cn-responses-cancel-retry","RP16-resource-minimax-cn-responses-malformed","RP16-resource-minimax-cn-responses-queue-bytes","RP16-resource-minimax-cn-responses-queue-count","RP16-resource-minimax-cn-responses-truncated","RP16-resource-minimax-messages-cancel-after-content","RP16-resource-minimax-messages-cancel-before-headers","RP16-resource-minimax-messages-cancel-retry","RP16-resource-minimax-messages-malformed","RP16-resource-minimax-messages-queue-bytes","RP16-resource-minimax-messages-queue-count","RP16-resource-minimax-messages-truncated","RP16-resource-minimax-responses-cancel-after-content","RP16-resource-minimax-responses-cancel-before-headers","RP16-resource-minimax-responses-cancel-retry","RP16-resource-minimax-responses-malformed","RP16-resource-minimax-responses-queue-bytes","RP16-resource-minimax-responses-queue-count","RP16-resource-minimax-responses-truncated","RP16-resource-zai-chat-cancel-after-content","RP16-resource-zai-chat-cancel-before-headers","RP16-resource-zai-chat-cancel-retry","RP16-resource-zai-chat-malformed","RP16-resource-zai-chat-queue-bytes","RP16-resource-zai-chat-queue-count","RP16-resource-zai-chat-truncated","RP16-resource-zai-messages-cancel-after-content","RP16-resource-zai-messages-cancel-before-headers","RP16-resource-zai-messages-cancel-retry","RP16-resource-zai-messages-malformed","RP16-resource-zai-messages-queue-bytes","RP16-resource-zai-messages-queue-count","RP16-resource-zai-messages-truncated","RP16-resource-zai-responses-cancel-after-content","RP16-resource-zai-responses-cancel-before-headers","RP16-resource-zai-responses-cancel-retry","RP16-resource-zai-responses-malformed","RP16-resource-zai-responses-queue-bytes","RP16-resource-zai-responses-queue-count","RP16-resource-zai-responses-truncated","RP16-resource-zhipu-chat-cancel-after-content","RP16-resource-zhipu-chat-cancel-before-headers","RP16-resource-zhipu-chat-cancel-retry","RP16-resource-zhipu-chat-malformed","RP16-resource-zhipu-chat-queue-bytes","RP16-resource-zhipu-chat-queue-count","RP16-resource-zhipu-chat-truncated","RP16-resource-zhipu-messages-cancel-after-content","RP16-resource-zhipu-messages-cancel-before-headers","RP16-resource-zhipu-messages-cancel-retry","RP16-resource-zhipu-messages-malformed","RP16-resource-zhipu-messages-queue-bytes","RP16-resource-zhipu-messages-queue-count","RP16-resource-zhipu-messages-truncated","RP16-resource-zhipu-responses-cancel-after-content","RP16-resource-zhipu-responses-cancel-before-headers","RP16-resource-zhipu-responses-cancel-retry","RP16-resource-zhipu-responses-malformed","RP16-resource-zhipu-responses-queue-bytes","RP16-resource-zhipu-responses-queue-count","RP16-resource-zhipu-responses-truncated","RP18-authorization-catalogHash","RP18-authorization-catalogVersion","RP18-authorization-endpoint","RP18-authorization-mode","RP18-authorization-provider","RP18-authorization-purpose","RP18-authorization-sdk","RP18-authorization-sourceSha256","RP18-cancel-evidence-minimax-cn-chat-malformed-before-content","RP18-cancel-evidence-minimax-cn-chat-partial-frame","RP18-cancel-evidence-minimax-cn-chat-read-ahead","RP18-cancel-evidence-minimax-cn-chat-wrong-text","RP18-cancel-evidence-minimax-cn-messages-malformed-before-content","RP18-cancel-evidence-minimax-cn-messages-partial-frame","RP18-cancel-evidence-minimax-cn-messages-read-ahead","RP18-cancel-evidence-minimax-cn-messages-wrong-text","RP18-cancel-evidence-minimax-cn-responses-malformed-before-content","RP18-cancel-evidence-minimax-cn-responses-partial-frame","RP18-cancel-evidence-minimax-cn-responses-read-ahead","RP18-cancel-evidence-minimax-cn-responses-wrong-text","RP18-cancel-evidence-zai-chat-malformed-before-content","RP18-cancel-evidence-zai-chat-partial-frame","RP18-cancel-evidence-zai-chat-read-ahead","RP18-cancel-evidence-zai-chat-wrong-text","RP18-cancel-evidence-zai-messages-malformed-before-content","RP18-cancel-evidence-zai-messages-partial-frame","RP18-cancel-evidence-zai-messages-read-ahead","RP18-cancel-evidence-zai-messages-wrong-text","RP18-cancel-evidence-zai-responses-malformed-before-content","RP18-cancel-evidence-zai-responses-partial-frame","RP18-cancel-evidence-zai-responses-read-ahead","RP18-cancel-evidence-zai-responses-wrong-text","RP18-capture-pipeline-minimax-cn-chat","RP18-capture-pipeline-minimax-cn-messages","RP18-capture-pipeline-minimax-cn-responses","RP18-capture-pipeline-zai-chat","RP18-capture-pipeline-zai-messages","RP18-capture-pipeline-zai-responses","RP18-controlled-promotion-proposal","RP18-grant-alias-concurrent","RP18-grant-alias-copied","RP18-grant-alias-offset","RP18-grant-alias-partial","RP18-grant-alias-relabeled","RP18-minimax-cn-responses-fixed-native-originals","RP18-minimax-cn-responses-native-source-absent","RP18-minimax-cn-responses-native-source-case","RP18-minimax-cn-responses-native-source-model","RP18-minimax-cn-responses-native-source-request","RP18-minimax-cn-responses-native-source-tenant","RP18-minimax-cn-responses-native-source-wire","RP18-native-refusal-minimax-cn-chat-catalog","RP18-native-refusal-minimax-cn-chat-endpoint","RP18-native-refusal-minimax-cn-chat-events","RP18-native-refusal-minimax-cn-chat-extra","RP18-native-refusal-minimax-cn-chat-inventory","RP18-native-refusal-minimax-cn-chat-model","RP18-native-refusal-minimax-cn-chat-origin","RP18-native-refusal-minimax-cn-chat-raw-terminal","RP18-native-refusal-minimax-cn-chat-raw-text","RP18-native-refusal-minimax-cn-chat-raw-thinking","RP18-native-refusal-minimax-cn-chat-raw-tool","RP18-native-refusal-minimax-cn-chat-raw-usage-count","RP18-native-refusal-minimax-cn-chat-raw-usage-missing","RP18-native-refusal-minimax-cn-chat-raw-usage-partial","RP18-native-refusal-minimax-cn-chat-raw-usage-zero","RP18-native-refusal-minimax-cn-chat-response","RP18-native-refusal-minimax-cn-chat-source","RP18-native-refusal-minimax-cn-chat-tool-pair","RP18-native-refusal-minimax-cn-messages-catalog","RP18-native-refusal-minimax-cn-messages-endpoint","RP18-native-refusal-minimax-cn-messages-events","RP18-native-refusal-minimax-cn-messages-extra","RP18-native-refusal-minimax-cn-messages-inventory","RP18-native-refusal-minimax-cn-messages-model","RP18-native-refusal-minimax-cn-messages-origin","RP18-native-refusal-minimax-cn-messages-raw-terminal","RP18-native-refusal-minimax-cn-messages-raw-text","RP18-native-refusal-minimax-cn-messages-raw-thinking","RP18-native-refusal-minimax-cn-messages-raw-tool","RP18-native-refusal-minimax-cn-messages-raw-usage-count","RP18-native-refusal-minimax-cn-messages-raw-usage-missing","RP18-native-refusal-minimax-cn-messages-raw-usage-partial","RP18-native-refusal-minimax-cn-messages-raw-usage-zero","RP18-native-refusal-minimax-cn-messages-response","RP18-native-refusal-minimax-cn-messages-source","RP18-native-refusal-minimax-cn-messages-tool-pair","RP18-native-refusal-minimax-cn-responses-catalog","RP18-native-refusal-minimax-cn-responses-endpoint","RP18-native-refusal-minimax-cn-responses-events","RP18-native-refusal-minimax-cn-responses-extra","RP18-native-refusal-minimax-cn-responses-inventory","RP18-native-refusal-minimax-cn-responses-model","RP18-native-refusal-minimax-cn-responses-origin","RP18-native-refusal-minimax-cn-responses-raw-terminal","RP18-native-refusal-minimax-cn-responses-raw-text","RP18-native-refusal-minimax-cn-responses-raw-thinking","RP18-native-refusal-minimax-cn-responses-raw-tool","RP18-native-refusal-minimax-cn-responses-raw-usage-count","RP18-native-refusal-minimax-cn-responses-raw-usage-missing","RP18-native-refusal-minimax-cn-responses-raw-usage-partial","RP18-native-refusal-minimax-cn-responses-raw-usage-zero","RP18-native-refusal-minimax-cn-responses-response","RP18-native-refusal-minimax-cn-responses-source","RP18-native-refusal-minimax-cn-responses-tool-pair","RP18-native-refusal-zai-chat-catalog","RP18-native-refusal-zai-chat-endpoint","RP18-native-refusal-zai-chat-events","RP18-native-refusal-zai-chat-extra","RP18-native-refusal-zai-chat-inventory","RP18-native-refusal-zai-chat-model","RP18-native-refusal-zai-chat-origin","RP18-native-refusal-zai-chat-raw-terminal","RP18-native-refusal-zai-chat-raw-text","RP18-native-refusal-zai-chat-raw-thinking","RP18-native-refusal-zai-chat-raw-tool","RP18-native-refusal-zai-chat-raw-usage-count","RP18-native-refusal-zai-chat-raw-usage-missing","RP18-native-refusal-zai-chat-raw-usage-partial","RP18-native-refusal-zai-chat-raw-usage-zero","RP18-native-refusal-zai-chat-response","RP18-native-refusal-zai-chat-source","RP18-native-refusal-zai-chat-tool-pair","RP18-native-refusal-zai-messages-catalog","RP18-native-refusal-zai-messages-endpoint","RP18-native-refusal-zai-messages-events","RP18-native-refusal-zai-messages-extra","RP18-native-refusal-zai-messages-inventory","RP18-native-refusal-zai-messages-model","RP18-native-refusal-zai-messages-origin","RP18-native-refusal-zai-messages-raw-terminal","RP18-native-refusal-zai-messages-raw-text","RP18-native-refusal-zai-messages-raw-thinking","RP18-native-refusal-zai-messages-raw-tool","RP18-native-refusal-zai-messages-raw-usage-count","RP18-native-refusal-zai-messages-raw-usage-missing","RP18-native-refusal-zai-messages-raw-usage-partial","RP18-native-refusal-zai-messages-raw-usage-zero","RP18-native-refusal-zai-messages-response","RP18-native-refusal-zai-messages-source","RP18-native-refusal-zai-messages-tool-pair","RP18-native-refusal-zai-responses-catalog","RP18-native-refusal-zai-responses-endpoint","RP18-native-refusal-zai-responses-events","RP18-native-refusal-zai-responses-extra","RP18-native-refusal-zai-responses-inventory","RP18-native-refusal-zai-responses-model","RP18-native-refusal-zai-responses-origin","RP18-native-refusal-zai-responses-raw-terminal","RP18-native-refusal-zai-responses-raw-text","RP18-native-refusal-zai-responses-raw-thinking","RP18-native-refusal-zai-responses-raw-tool","RP18-native-refusal-zai-responses-raw-usage-count","RP18-native-refusal-zai-responses-raw-usage-missing","RP18-native-refusal-zai-responses-raw-usage-partial","RP18-native-refusal-zai-responses-raw-usage-zero","RP18-native-refusal-zai-responses-response","RP18-native-refusal-zai-responses-source","RP18-native-refusal-zai-responses-tool-pair","RP18-zai-chat-native-source-absent","RP18-zai-chat-native-source-case","RP18-zai-chat-native-source-model","RP18-zai-chat-native-source-request","RP18-zai-chat-native-source-tenant","RP18-zai-chat-native-source-wire","RP18-zai-chat-native-source-wire-visible","RP18-zai-responses-fixed-native-originals","RP18-zai-responses-native-source-absent","RP18-zai-responses-native-source-case","RP18-zai-responses-native-source-model","RP18-zai-responses-native-source-request","RP18-zai-responses-native-source-tenant","RP18-zai-responses-native-source-wire"]
+}
