@@ -1,6 +1,6 @@
 # 普通测试固定输入交付
 
-Status: claimed
+Status: resolved
 Type: maintenance
 Updated: 2026-10-24
 
