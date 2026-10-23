@@ -1,36 +1,34 @@
-# 普通测试输入治理当前状态
+# 治理当前状态
 
-日期：2026-10-24（Asia/Shanghai）。**工单01：COMPLETE；普通验收 PASS。** 其他治理阶段尚未实施；本功能完整发布判定仍为 false。
+日期：2026-10-24（Asia/Shanghai）。**工单01 COMPLETE；工单02 COMPLETE（文档验收通过）。** 第3项及后续尚未实施，完整发布判定保持 false。
 
-## 实现与来源
+## 第2项：现行规范与操作入口
 
-- 实际受测提交：`214cff42fdf72d6cd00dfd76bdd80f57999d8b1c`。收尾仅更新本状态、工单、说明链接和验证指针；当前提交与受测提交的完整执行来源/选定输入相等性见本轮只读报告及独立核对。
-- 三处原证据测试改用 Git 跟踪的固定输入：Jev/Decisions 原字节 ZIP+manifest；runtime 保留原首个完整包的六个撤销场景及全部原件，派生 manifest 与历史身份明确区分。
-- 干净全包额外发现 GLM 六份原归档只在宿主 .evidence。现按原 SHA 交付到 ai/live/testdata/glm-formal/archives，公共消费者和测试 helper 直接读取；原 index/pin/报告不改、无宿主路径兜底、无重新生成历史证据。
-- 新固定输入552文件、13,551,018字节；1909份执行来源、8757份保守选定历史输入。历史 scratch 字节全部不变；原生 GLM index/usage/pin 字节不变。[依赖清单](input-dependencies.json)记录调用与存储边界。
-- 分支：`codex/retained-ordinary-inputs`。基线571ca112、首片640476c、GLM补片214cff4；原有未跟踪 SOP 回归与审查目录保留，未纳入提交。
+- 基线提交：`c6606748a21f9816c4b06b5da917d4667789f557`。改动四份活动文档及本治理记录；没有修改执行源码、依赖、实际夹具、原生索引、支持矩阵或控制器。
+- 基础spec正文采用自身公共契约/夹具和分阶段验证；明确accepted ADR取代范围优先，撤下冻结oracle、活动差分、自动全库/race及固定组合数量的现行义务。50条User Stories、E01–E11、P01–P06身份保留，协议/安全/资源行为不借规范整理放宽。
+- 公共合同将功能契约与验证流程分开，明确spec/专项/accepted ADR适用关系；追溯表只说明历史来源与自身场景，已删除traceability文件不再作为可打开的活动入口。
+- 地区README只导航到spec当前状态、recovery7 index及pause-handoff；旧R2–R4合同与命令留在[原字节历史快照](history/phase2-before-20261024/provider-tools-README.md)，不提供当前恢复命令。
+- [四份原文及Git/哈希/链接基址](history/phase2-before-20261024/index.json)随仓库保存。上轮原状态、spec和plan另存本轮docs attempt；旧record、报告、pin及历史verdict不改。
 
-## 实际验证
+## 本轮验证与适用范围
 
-- 独立 Git clone 只检出受测提交的跟踪文件；可共用只读 Git 对象与 Go 依赖缓存，没有 .env、宿主历史 .evidence 或原三份忽略 ZIP。所有552个固定输入均受 Git 跟踪且与主工作区同字节，测试前后 git status 均为空。
-- 实际 argv：`go test -json ./ai/e2e ./ai ./ai/internal/testkit/release ./ai/release/cmd/releasegate ./ai/internal/testkit/supportmatrix -count=1 -failfast -timeout=20m`。SOP采集器固定GOENV=off、空GOFLAGS，隔离HOME并清除凭据/live/race/压力配置。
-- 退出0，墙钟446.40秒；14,943个Go通过节点。710个预发现E2E顶层入口全部有实际结束事件：705 PASS、5 SKIP。四个实际测试包PASS；releasegate包无测试文件，真实事件为SKIP，不冒充该包有测试通过。
-- 唯一主原生包：14,071 PASS / 214 NOT_RUN / 0 FAIL；58项预选必交case全部PASS，未缩减断言；全部辅助原生包及audit通过。214 NOT_RUN与5个Go SKIP单独保留，不计为完成。
-- [最终普通回执](../../.evidence/scratch-artifact-remediation/e2e/clean-final/.evidence/scratch-artifact-remediation/e2e/20261023T222836.128993Z-nq6l0f8o/receipt.json)，SHA256 `c08a2e7fa6e4d480bc2b3a9fd051afaa8dd4ef56d04352b0c0f5f7a06368d270`；[主manifest](../../.evidence/scratch-artifact-remediation/e2e/clean-final/.evidence/scratch-artifact-remediation/e2e/20261023T222836.128993Z-nq6l0f8o/bundles/20261023T222841.672172000Z/manifest.json)，SHA256 `0f5d390e9095756a4994216b9268371080e98165d1cf59720279e03aac4445af`；[audit](../../.evidence/scratch-artifact-remediation/e2e/clean-final/.evidence/scratch-artifact-remediation/e2e/20261023T222836.128993Z-nq6l0f8o/bundles/20261023T222841.672172000Z/audit.json)，SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。
-- [完整统计与干净性核对](../../.evidence/scratch-artifact-remediation/planning/clean-final-summary.json)、[执行前库存](../../.evidence/scratch-artifact-remediation/planning/clean-final-preflight.json)及[原件/引用检查](../../.evidence/scratch-artifact-remediation/planning/integrity-check.json)分别保存来源、实际case集合、包退出和输入哈希。
-- 两份ZIP经原公共verifier --audit，runtime在独立副本审计，四命令exit0；六GLM归档在正确原生bundle根做独立审计，七命令exit0。原固定夹具未被审计器写回。回执见input-audit-qnvshf7a与glm-input-audit-7zl4hw8f的summary。
+- 文档检查24项通过：112处本地引用/锚点有效、fence和场景标识保持；原合同指向不存在的支持矩阵锚点已修正，当前四份文档没有待保留的失效本地引用。
+- 71项保护对象哈希不变，含地区spec、recovery7 index/pause-handoff、closed6 seal、64个控制器PY、支持矩阵及上轮record/报告。
+- 完整执行来源1909份的集合与字节仍等于第1项实际受测来源 `214cff42fdf72d6cd00dfd76bdd80f57999d8b1c`。旧保守选定输入8757份的路径集合相等，但三份Markdown字节改变：基础spec、研究追溯表、地区工具README。三份旧字节均保存在已固定快照；其余8754份相等。
+- 因旧选定输入发生变化，本轮不将上轮E2E回执重新标成当前全输入通过，不改旧hash/pin，也不声称新Go测试。新索引另绑定当前文档、保护对象和检查原件；文档验收PASS与完整发布资格分开。
+- 实际文档检查命令/数字退出0、时间、日志和验证脚本SHA见[命令回执](../../.evidence/scratch-artifact-remediation/docs/20261023T224146Z-wd6mrs8d/final-check-command/command-receipt.json)，[检查结果](../../.evidence/scratch-artifact-remediation/docs/20261023T224146Z-wd6mrs8d/final-document-check.json)保存完整引用与输入差异。前一轮111有效引用/1既有失效锚点的检查也保留，修正后取得新的112/0结果，没有覆盖旧回执。
+- [本轮不可变索引](../../.evidence/scratch-artifact-remediation/docs/20261023T224146Z-wd6mrs8d/record.json)、[只读报告](../../.evidence/scratch-artifact-remediation/docs/20261023T224146Z-wd6mrs8d/report/release-report.md)及命令原件只消费已有事实。当前E2E NOT_RUN（纯文档无新执行，旧选择字节已变）、race NOT_RUN，release.pass=false；这不改写第1项原版本下的实际PASS。
 
-## 失败与先红后绿
+## 第1项已完成事实（原受测范围）
 
-- 基线干净clone定向RED：20261023T222133.479214Z-yv2tja9a，45FAIL/1PASS/audit0；同46个case定向GREEN为20261023T222316.990694Z-7ufuosop，46PASS/audit0。
-- 首候选640476c的完整五包FAIL：20261023T222503.230183Z-9fwf2u8f；首个TestGLMFormalReports/chat报immutable archive unavailable，原件保留，三个其他测试包成功不冒充全包完成。
-- GLM独立定向RED为20261023T222711.380852Z-lqtkxntt；同12case定向GREEN为20261023T222744.357964Z-shw5hgib，12PASS/audit0；之后取得上方新冻结来源完整干净五包PASS。
-- 补充GLM审计首次选错ZIP外层目录，因无manifest实际exit1；原失败glm-input-audit-0cen1zpl保留。修正为各report所在原生根后新attempt全部通过，不改写首次退出或原件。
+- 受测214cff4；干净独立Git clone的五包普通命令真实exit0、446.40秒。58项必交case PASS；主原生包14,071 PASS / 214 NOT_RUN / 0 FAIL，audit0；710个顶层入口705 PASS/5 SKIP，14,943个Go通过节点。无测试文件的releasegate包不冒充有测试通过。
+- 新固定输入552文件、13,551,018字节；两份Jev/Decisions原ZIP与manifest、六场景runtime派生bundle、六份按原SHA存储的GLM归档随Git交付。测试前后clone工作区干净，无.env、宿主原证据目录或原三份忽略ZIP。
+- [原普通完整统计](../../.evidence/scratch-artifact-remediation/planning/clean-final-summary.json)及[原不可变索引](../../.evidence/scratch-artifact-remediation/record-20261023T223511Z-pkea1jy5/record.json)保持。其CurrentState原字节现保存在[上轮状态快照](../../.evidence/scratch-artifact-remediation/docs/20261023T224146Z-wd6mrs8d/previous-status.md)，也可按c660674提交读取；不能在修改后的状态路径上声称旧绑定仍相等。
+- 两轮缺输入RED/GREEN、首候选全包GLM缺口FAIL和补充审计选错原生根的真实exit1均保留在第1项原件中，未反向改为PASS。[依赖清单](input-dependencies.json)仍描述该项的固定输入边界。
 
-## 阶段与只读判定
+## 暂停与阶段边界
 
-- live：NOT_APPLICABLE（本次普通输入可交付性验收）。改动仅固定历史字节和消费位置，不改变厂商wire/型号/价格/目录/晋升规则，不请求厂商。GLM消费者源码有变化，旧历史证据对当前来源仍被拒绝；没有续期或授予新的正式资格。
-- race：NOT_RUN，未有人类对本次范围的选择。候选为上述五包加 `-race`、`-timeout=75m`，覆盖本轮1909来源/8757输入/58必交case及完整包；实际耗时未测，须独立选择后执行。
-- 压力：NOT_APPLICABLE；不改变运行时资源策略、并发/复杂度限额或设计负载，普通消费者只读固定夹具。真实清理、付费调用均NOT_RUN。
-- release.pass=false：缺人工race。新的[不可变回执索引](../../.evidence/scratch-artifact-remediation/record-20261023T223511Z-pkea1jy5/record.json)及[只读报告](../../.evidence/scratch-artifact-remediation/record-20261023T223511Z-pkea1jy5/report/release-report.md)消费既有事实，不补跑阶段；判定实际命令与数字退出另留在本轮目录。
-- 地区recovery7暂停、历史账本和支持矩阵保持；不启动第2项治理。回滚按三处读取/固定输入及GLM存储读取成组回退；新旧失败和授权原件均保留。
+- recovery7权威index仍为PAUSED_AFTER_NATIVE_ORDINARY_TIMEOUT；用户暂停标记true；新human7/grant7/paidClaims7均false，formalREADY/race为NOT_RUN，releasePass=false。没有恢复构建、付费或正式race。
+- 本轮live与压力有依据NOT_APPLICABLE：只改说明文档，不改厂商wire/资格/资源/负载行为。Go测试、vet、编译、live、race、压力和真实清理均未执行；只读CLI及文件/Git元数据检查不是新产品验收。
+- 文档提交不会续期正式资格，也不恢复已关闭授权/余额。其他功能唯一状态保持原样；原有未跟踪SOP回归和审查目录保留。
+- 回滚第2项时成组回退四份活动文档及对应治理状态，保留新旧快照/回执；不回写历史pin或重启恢复轮次。

@@ -1,10 +1,12 @@
 # barness-ai 研究、规范与验收追溯
 
-本表配套 [spec](spec.md)，恢复三份研究的实施细节、来源与验收对应关系。所有“保留/补齐/已映射”只表示规范覆盖，当前没有 barness-ai 实现或测试通过证据。具体行为以 spec 为准；本表不能独立放宽契约。
+本表配套[基础 spec](spec.md)，保留三份历史研究与自身契约、场景的追溯。“保留/补齐/已映射”只表示文档覆盖，本表不提供当前实现或测试通过证明。已接受 ADR 的明确取代范围优先于早期规范，未被取代的行为与安全边界继续有效。
+
+当前验证只按[ADR-0051](../../docs/adr/0051-scoped-verification-receipts.md)与[测试 SOP](../../docs/agents/verification.md)执行；流程状态见[唯一流程状态](../barness-ai-test-process-review/status.md)，具体功能状态由各自唯一入口维护。[修订前追溯表](../scratch-artifact-remediation/history/phase2-before-20261024/research-traceability.md)及[历史索引](../scratch-artifact-remediation/history/phase2-before-20261024/index.json)保留原字节、Git和链接基址。
 
 来源缩写：S = [原需求研究](/Users/cyber/RestoX/harness/.scratch/pi-ai-go/spec.md)，D = [原技术设计](/Users/cyber/RestoX/harness/.scratch/pi-ai-go/design.md)，V = [原 E2E 计划](/Users/cyber/RestoX/harness/.scratch/pi-ai-go/e2e-test-plan.md)。冻结版本和三个文件的 SHA-256 见 spec 的 Further Notes；源文件保持只读。旧名称仅存在于历史来源链接中。
 
-实施后的可计算映射见 [`ai/release/traceability.json`](../../ai/release/traceability.json)：发布门禁（ADR-0017）按实际证据计算每个条目的状态，只有映射没有证据的条目为 NO_EVIDENCE；本表仍只表示文档覆盖。
+历史 `ai/release/traceability.json` 和 ADR-0017 的固定全库计算入口已按 ADR-0051 退役，不再作为可打开的当前入口。现行追溯由各功能唯一状态 → 不可变 record → 精确命令回执/原生 manifest/audit 形成；本表只关联需求与场景，不恢复旧账本或自报 PASS。
 
 本表中的 I1–I10 指 spec 的 Implementation Decisions 第 1–10 节；E01–E11、P01–P06 指 Testing Decisions 的横向场景和协议专项。实施用例应以 E/P 标识关联原 T/C 条目，运行报告还必须指向实际请求、事件、结果与断言证据。
 
@@ -16,14 +18,14 @@
 | S§2：文本、图片及工具结果图片、工具 JSON/校验 | [I6]，P01–P06 | 全部保留；图片支持与占位降级分别测，参数完整性与 schema 校验不等于执行工具；E03 |
 | S§2：原生推理状态、统一及完整选项、流/结果 | [I2]、[I6]、[I7]、[I8] | 保留签名/密文、full/simple、Result 独立等待；E01–E04 |
 | S§2：注册、模型元数据、更新/撤销、观测和有界资源 | [I3]、[I4]、[I9]、[I10] | 租户扩展与公共协议语义分开验收；E06–E11 |
-| S§3：四类协议与六个首期接入组合 | [I4]，P01–P06 | 按研究建议纳入首期；DeepSeek Responses 属于扩展，不能冒充冻结 pi 路由已覆盖；E10 |
+| S§3：四类协议与六个首期接入组合 | [I4]，P01–P06 | 按研究建议纳入首期；每条路径都由 barness 自身证据验证，历史扩展身份不能代替覆盖；E10 |
 | S§3：官方云 API、服务身份、网关与订阅账号区别 | Out of Scope | 官方云 API/身份及网关后续独立规范；订阅账号路径不交付，不把服务身份 OAuth 等同订阅登录 |
 | S§2：图片生成/音视频、批处理、WebSocket、动态模型目录、紧凑帧持久化 | Out of Scope | 按本次范围决策延期；不将这些能力算作首期已完成 |
 | S§3：pi-messages、Cloudflare AI JS binding；S§2：JS 宿主入口 | Out of Scope | 明确排除，保留 Go 原生模块边界 |
-| S§5：pi 可观察兼容语义与租户扩展 | [I5]–[I10]，Testing Decisions§5 | 事件、终态、选项、历史、usage 做差分；扩展单独断言，不把 SDK/文件结构当兼容目标 |
+| S§5：pi 可观察兼容语义与租户扩展 | [I5]–[I10]，Testing Decisions§5 | 事件、终态、选项、历史、usage 按自身独立预期验证；归属与资源另作断言，不把 SDK/文件结构当兼容目标 |
 | S§6 验收 1–3 | [I3]、[I4]、[I6]，P01–P06 | 协议能力、A/B 并发隔离、失败前零推理请求；E01–E03/E06/E07 |
 | S§6 验收 4–7 | [I3]、[I8]、[I9] | 更新/撤销、EOF/错误、限额/资源释放、脱敏；E02/E05–E09 |
-| S§6 验收 8–10 | [I4]、[I6]–[I10]，Testing Decisions§5 | 全量差分、simple/full/reasoning/Usage、跨 Provider/协议路由；E03–E05/E10/E11 |
+| S§6 验收 8–10 | [I4]、[I6]–[I10]，Testing Decisions§5 | 适用公共 E2E、simple/full/reasoning/Usage、跨 Provider/协议路由；E03–E05/E10/E11 |
 | S§7 R1–R5 | Further Notes 范围决策与 D1/D2 | 将原建议与本次采用的范围区分；D1 是新增选择，不能反写为原研究已确定 |
 | S§8 来源 | 本表§6–§7 | 恢复直达源码、测试和探针的链接；不要求重新寻找原始行为出处 |
 
@@ -51,7 +53,7 @@
 | D§1、§2 调用路径与接口草图 | [I1]、[I2]、[I8] | 保留四入口、显式 scope、失败最终消息、单消费者与并行 Result/Close；函数草图及目录形式不作为固定实现；E01/E02 |
 | D§2.1 ID 含义与粒度 | [I2]、GLOSSARY | RequestID 不等于 RunID/TurnID/JobID；Actor 不是 worker；重试新 Attempt、再次调用新 Request；E05/E09 |
 | D§3 绑定字段、解析、一致性 | [I3] | 版本/账户/权限/凭据引用独立，Resolver 可信，缺失/禁用/读取失败保留分类上下文；D2 收窄为不一致时失败；E07 |
-| D§3.1 Provider/API 关系 | [I4] | 协议简称与 pi API 标识对应；DeepSeek 两 binding 可授权引用同账户 key，不混淆模型配置；E10/P05/P06 |
+| D§3.1 Provider/API 关系 | [I4] | 协议简称与 barness API 标识对应；DeepSeek 两 binding 可授权引用同账户 key，不混淆模型配置；E10/P05/P06 |
 | D§3.1 DeepSeek Responses 限制 | [I4]，P05 | 保留 previous_response_id/conversation/store 不受支持及 reasoning_text.delta/done；按研究快照核对请求能力，不从 OpenAI 推导 |
 | D§4 本地/云端装配 | [I3]，Testing Decisions§1 | 本地显式秘密来源、云端任务不带秘密、可信历史；最小调用程序验证宿主交接，完整云端服务属后续宿主模块；E10 |
 | D§5 密钥生命周期与重试 | [I3]、[I8] | 无 key/provider 切换；0 次默认、Retry-After 优先级、500ms/8s/25% 退避、60s 单项上限和取消；E05/E07 |
@@ -64,7 +66,7 @@
 | D§7 流与资源 | [I8]、[I9] | 先返回流、后台设置、成功 Err=nil、Result 无消费依赖、Close 阶段差异、终态预留、无静默丢 delta；D1 新增强制策略；E01/E02/E08 |
 | D§7 transport | [I5] | 无 CookieJar/带凭据重定向；共享对象无鉴权状态；未来不同 mTLS/代理身份分 transport profile；E06/E07 |
 | D§8 状态隔离、观测、费用 | [I9]、[I10] | 应用缓存/原生句柄后续约束、账户维度、观测丢失计数、不提供账本保证、Usage 数值与完整性分开；E09/E11 |
-| D§9–§10 批次与参考构建 | [I10]，Testing Decisions§6，Further Notes | 先建失败场景和基线，各批有通过门槛；生成模型数据在独立副本补齐并记哈希，不修改收集源码 |
+| D§9–§10 批次与参考构建 | [I10]，Testing Decisions§6，Further Notes | 先固定自身契约/输入和失败场景，按SOP取得受影响普通及所需后续证据；原研究构建过程仅保留历史来源 |
 | D§12 待评审选择 | Further Notes、ADR-0002/0003 | 范围采用与新增决策单列原因、代价和重议条件，不伪称原研究已有定论 |
 
 ## 4. E2E 计划逐项映射
@@ -72,7 +74,7 @@
 | 原条目 | 当前场景/章节 | 保留的验收要求 |
 | --- | --- | --- |
 | V§1–§2 边界、装置、证据 | Testing Decisions§1–§3 | 真实 SDK/HTTP、本地脚本、假 key/环境污染、屏障/时钟/ID、版本/哈希；边界调整只缩减宿主产品范围 |
-| V§3 差分规则 | Testing Decisions§5–§6 | presence、数组/事件顺序、一一 ID 映射、原始请求/帧哈希、首个不同位置和处置；禁止宽松删除字段 |
+| V§3 差分规则（历史来源） | Testing Decisions§5–§6 | 提取presence、数组/事件顺序、有限ID映射与原始字节哈希要求到自身公共E2E；禁止宽松删除字段，不再运行冻结上游比较 |
 | V§4 OpenAI Responses | P01 | completed/incomplete/failed、缺终态 EOF、reasoning replay、工具分片、usage presence |
 | V§4 Anthropic | P02 | message_stop、空文本签名/redacted、交错块、缓存及 1h 计价、SSE error |
 | V§4 Gemini | P03 | thought/thoughtSignature、缺 finishReason EOF、function result 与图片结果路由 |
@@ -90,7 +92,7 @@
 | C10 路由与宿主 | E10 | 跨 Provider 共享协议、同 Provider 双协议、可信身份/历史、下游取消；补合流事件信封 |
 | C11 用量与成本 | E11 | 缺失/null/零值、缓存/1h、reasoning 子集、阶梯价格、每尝试完整性；不把 unknown 当免费 |
 | V§6 live 约束 | Testing Decisions§2、§5 | 六组合低权限测试账户、CI secret store 逐进程注入、token/次数预算；故障注入只在本地；PASS/FAIL/NOT_RUN/UNSUPPORTED |
-| V§7 批次与门禁 | Testing Decisions§6 | 本地/差分/live 分报告；B/C 批门槛、race/vet、压力/脱敏、对应组合独立通过 |
+| V§7 批次与门禁 | Testing Decisions§6 | 普通/受影响live/人工race/人工压力依SOP独立记录；历史B/C批与固定差分配置不作为当前调度入口 |
 | V§8 来源与边界 | 本表§6–§7 | 迁移具体场景并保留测试适用范围，不将 SDK 测试/探针改名后当模块 E2E |
 
 P01–P06 均需运行适用的 full/simple、Stream 完整消费、Stream 仅 Result、Complete 和错误终态。矩阵是一项发布承诺的完整证据集合，不意味着所有输入都做无意义的笛卡尔积。
@@ -105,10 +107,10 @@ P01–P06 均需运行适用的 full/simple、Stream 完整消费、Stream 仅 R
 - DeepSeek reasoning_text、reasoning_content 和工具历史有正常路径证据；incomplete/failed 的真实触发、服务端拒绝字段及边界组合未逐一实测，P05/P06 必须补齐本地断言并如实记录 live 覆盖。
 - DeepSeek Chat thinking 模式下不能强制 tool_choice=required；强制工具探针关闭 thinking，自动工具选择的 thinking+tools 与推理回放另有验证，不能合并成一个笼统通过结论。
 
-| 原硬门槛 | 研究能证明什么 | barness-ai 仍必须证明什么 |
+| 原研究硬门槛（历史命名） | 研究当时证明的范围 | barness-ai 自身契约仍须证明什么 |
 | --- | --- | --- |
 | H1 凭据/endpoint/header 隔离 | SDK 显式配置入口样本可避开环境污染 | 绑定/凭据授权、撤销、一致快照及并发隔离；E06/E07/E10 |
-| H2 字段、签名、工具和 pi 差分 | 简单请求/工具通过；OpenAI 原始字段 presence、Anthropic 签名可读取；Google typed 保留已知字段但丢失未知字段 | 全量事件/结果/历史/选项差分；必需字段经原始通道保留或按组合改直连；E01/E03/E04/E11/P01–P06 |
+| H2 字段、签名、工具和 pi 差分 | 简单请求/工具通过；OpenAI 原始字段 presence、Anthropic 签名可读取；Google typed 保留已知字段但丢失未知字段 | 按自身公共契约覆盖事件/结果/历史/选项；必需字段经原始通道保留或按组合改直连；E01/E03/E04/E11/P01–P06 |
 | H3 正确终态与部分消息 | SDK 不替库检查所有异常 EOF | 自有归并逻辑识别终态、保留 partial、独立 Result；E01/E02/P01/P03 |
 | H4 pi 等价重试 | SDK 内置重试可关闭，探针 HTTP 500 只发一次 | 默认零重试、Retry-After、延迟上限、取消、快照固定及尝试计量；E05 |
 | H5 前置资源限制 | 读取前截断 HTTP body 可行 | 请求/帧/工具 JSON/队列/最终结果及全部时限有界；E08 |
@@ -117,7 +119,7 @@ H1–H5 均不能因 SDK 样本通过而标为目标库 PASS。优先核查公�
 
 ## 6. pi 源码与具体测试入口
 
-这些链接指向已收集的研究仓库；实施时将固定提交及必要模型数据整理为 barness 自身可重建的参考产物。链接方便核对语义，不要求复制源码目录或把机器绝对路径写入 CI。
+这些链接指向历史研究仓库，只供按原时点追溯设计；不要求重建冻结pi、安装Node或恢复oracle。自身验证实际消费的固定输入另按SOP随仓库交付，记录来源/哈希，不依赖机器绝对路径。
 
 | 行为 | 原实现入口 | 可迁移的具体测试 | 对应场景 |
 | --- | --- | --- | --- |
@@ -148,14 +150,14 @@ H1–H5 均不能因 SDK 样本通过而标为目标库 PASS。优先核查公�
 | 项目 | 处置 |
 | --- | --- |
 | 名称及项目归属 | 按用户要求统一 barness-ai，属于 barness 基础模块；历史证据链接保留原始位置 |
-| 测试边界调整 | 公开 Client 主入口保持完整模块验收；宿主仅验证身份/历史/取消交接，实际应用 E2E 由未来宿主模块承担 |
+| 测试边界调整 | 公开 Client/CLI 继续覆盖完整模块行为；按影响选范围，宿主验证身份/历史/取消交接，应用 E2E 由相应宿主模块承担 |
+| 当前验证决定 | ADR-0051 取代冻结oracle/活动差分账本/自动全库调度；现行步骤、状态和五项只读判定统一见SOP |
 | D1 资源策略 | [ADR-0002](../../docs/adr/0002-barness-ai-resource-policy.md)：新增强制有限策略，记录装配成本、误限风险和默认值重议条件；E08 |
 | D2 一致快照 | [ADR-0003](../../docs/adr/0003-barness-ai-snapshot-consistency.md)：收窄为前置失败，记录轮换可用性代价和有界重解析重议条件；E07 |
 | 精确行为遗漏 | 已补签名删除、samplingParams 忽略、cacheRetention/metadata、header 时点、异步设置和成功 Err=nil；E01/E03/E04 |
 | 归属契约遗漏 | 已补 Result/流字段、AccountScopeID、逐事件信封、未解析状态和 Observer 字段；E03/E09/E10 |
 | 协议与 SDK 细节遗漏 | 已补 DeepSeek 字段限制、Google typed 丢字段、SDK 测试适用范围和 P01–P06；不宣称新测试已运行 |
-| 来源与构建线索遗漏 | 已恢复源码/测试/探针入口、历史证据范围、生成模型数据缺口及独立副本重建要求 |
-
+| 来源与构建线索遗漏 | 保留原源码/测试/探针入口及当时模型数据缺口；当前仅交付自身验收需要的固定输入，不续建参考执行环境 |
 | Review 契约调整（2026-10-01） | [I2]：Complete/Stream.Result 返回 `(Result, error)`，失败时 error 非 nil 且 Result 有效，Stream.Err 与之一致；[I6]：库只校验原生状态封套，可信性由宿主经不可反序列化的构造入口担保，无封套/账户不匹配按跨模型规则降级并记录到 Result 元数据与 Observer（[ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)）；[I7]：删除每调用 transport 配置；[I9]：只取 Result 的流仍受队列上限、不采用背压，准入接口携 AccountScopeID 而账户聚合准入由宿主注入；E01/E02/E03/E08/E10 |
 | 术语统一 | 本地/远端统一为“本地/云端”，见 GLOSSARY |
 

@@ -1,6 +1,10 @@
 # barness-ai 公共契约、错误分类与装配说明
 
-本文是 barness-ai（Go 包 `github.com/tokenbeat-lab/barness/ai`）的发布说明之一，汇总宿主可依赖的公共契约。行为的权威来源依次是 [spec](../../.scratch/barness-ai/spec.md)、[ADR](../adr/) 与包文档（`go doc ./ai`）；本文不放宽其中任何一条。术语见 [GLOSSARY](../../GLOSSARY.md)。
+本文汇总 barness-ai（Go 包 `github.com/tokenbeat-lab/barness/ai`）的宿主公共契约。功能行为由[基础 spec](../../.scratch/barness-ai/spec.md)、适用专项规范及[已接受 ADR](../adr/)共同定义：ADR 明确记载的取代范围优先于早期 spec 的相应内容，未被取代的协议、安全与资源规则继续有效。包文档（`go doc ./ai`）描述当前实现，不能自行放宽规范；术语见[GLOSSARY](../../GLOSSARY.md)。
+
+验证与发布步骤、阶段选择和完成条件统一见[测试 SOP](../agents/verification.md)与[ADR-0051](../adr/0051-scoped-verification-receipts.md)。pi 只作架构及历史设计参考；旧差分、固定整版门禁或旧通过不构成当前执行义务或当前资格。流程实施状态见[唯一流程状态](../../.scratch/barness-ai-test-process-review/status.md)，具体功能结果见各自唯一状态。本页描述接口，不能替代实际回执。
+
+[修订前合同](../../.scratch/scratch-artifact-remediation/history/phase2-before-20261024/public-contract.md)按原字节保留，Git/哈希与原链接基址见[历史索引](../../.scratch/scratch-artifact-remediation/history/phase2-before-20261024/index.json)。
 
 ## 1. 构造
 
@@ -168,7 +172,7 @@ Input>272000 对全请求输入用 $0.20/百万，不仅计超额部分。即使
 | `(Result, error)` | StopReason 为 `error` 或 `aborted` 时 error 非 nil（`*ai.Error`），Result 仍完整；成功时 error 为 nil。 |
 | 原生状态 | 本进程产出的消息自带可信来源，可直接回放；持久化读回的消息须由宿主鉴权后经 `TrustNativeState(scope, envelope)` 担保。JSON 反序列化得不到可信状态。无封套或账户不匹配时按跨模型规则降级（调用照常进行，计数进 `Metadata` 与 Observer）。 |
 | 工具 | `ToolCall` 保留原始参数 JSON（`RawArguments`）与展示用部分解析（`Arguments`，不可执行）；`ValidateToolCall` 校验完整参数后才交宿主执行；`RepairToolJSON` 显式修复；`ToolResultText` 构造结果。工具执行与下一轮调用属于宿主。 |
-| 用量与成本 | `Usage` 保持 pi 的数字（含按目录价格估算的 `Cost`，非账单）；每次尝试的 `UsageReporting`（未上报/部分/完整）另行记录，零值不表示免费。 |
+| 用量与成本 | `Usage` 保持既定公共计量口径（含按目录价格估算的 `Cost`，非账单）；每次尝试的 `UsageReporting`（未上报/部分/完整）另行记录，零值不表示免费。 |
 
 `CallAttribution.Operation` 从入口开始即为 chat 或 classifier，包含 CallStarted、预检失败和事件信封；
 Provider、API、ModelID、AccountScopeID 与绑定/凭据/目录版本仍只在一致快照解析成功后填写。
@@ -197,7 +201,7 @@ operation 是经审阅的 Observer 固定枚举元数据，已加入脱敏审计
 
 Phase 取值：`scope`、`binding`、`capability`、`credential`、`consistency`、`admission`、`request`、`stream`、`response`、`event_queue`。错误分类不替换 StopReason：设置阶段捕获的取消形成 `error`，进入 adapter 后的取消形成 `aborted`；单次尝试自身的时限到期为 `error`。
 
-`Error.Message` 按 pi 原样引用 Provider 错误体，只脱敏 key 形态的文本，可能复述 Provider 回显的请求内容：它只返回给发起调用的租户，宿主不得写入共享日志，需要记录时使用 Observer 记录（批准的安全差异，ADR-0009）。barness-ai 自身不写日志。
+`Error.Message` 按 ADR-0009 原样引用 Provider 错误体，只脱敏 key 形态的文本，可能复述 Provider 回显的请求内容：它只返回给发起调用的租户，宿主不得写入共享日志，需要记录时使用 Observer 记录（批准的安全差异，ADR-0009）。barness-ai 自身不写日志。
 
 ## 5. 装配说明
 
@@ -232,7 +236,7 @@ scope，先拒绝错误租户声明和空 target，再传递请求 context 与�
 
 ## 6. 支持声明
 
-协议组合只有在适用验收与真实冒烟通过后才可宣称支持；当前状态见 [README](README.md#支持矩阵) 与 [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)。“兼容 OpenAI”不等于任何兼容服务已验收；共享 adapter 的通过不连带标记其他组合。
+协议组合只有在适用验收与真实冒烟通过后才可宣称支持；各功能唯一当前状态的入口见 [README](README.md)，原生支持记录见 [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)。矩阵中的历史记录只适用于其原受测来源。“兼容 OpenAI”不等于任何兼容服务已验收；共享 adapter 的通过不连带标记其他组合。
 
 ## OpenAI 图像生成与 JSON 编辑（工单 09–10）
 
@@ -317,7 +321,7 @@ CacheRead 记录厂商 total_cached_tokens，不重复加到总输入/总量，�
 
 成功响应先调用一次 OnResponse，再读取/解析/完整校验，期间持有准入许可；任何 2xx 后
 失败都不重放。沿用 unary 的初始请求重试、时限、取消和元数据观测。Gemini generateContent
-聊天继续不调用 OnResponse。P09 是原生扩展路线，fixture 不参加 pi 差分。
+聊天继续不调用 OnResponse。P09 按自身协议夹具与原生真实资格验证；历史扩展标识不代替当前支持证明。
 
 
 工单 14 的真实 Google 响应省略 id/请求 ID 头，报告 model/completed；ResponseID
