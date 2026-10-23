@@ -234,11 +234,11 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | 最终普通Hash | receipt ab3bb1a3d00f225f48a798801f11f6cc20c66a405a4151c707880a7f54993210；manifest 99bb7f3b8a41a517752790181409b5637dd4b58ef6edb51ecc60a4827e314771；audit 8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa |
 | 真实历史 | 旧来源7b41a21c96ee33238100ce8bea5218da480a6b6a的中国站Chat候选1调用/1Attempt、零重试，因cached_tokens缺失的旧成本规则FAIL；余8场景及其余五路线NOT_RUN，原生与外层消费者exit1。见[执行结果](evidence/candidate-live-result-01.md)及[原件](../../.evidence/barness-ai-kimi/paid-execution/01/summary.json) |
 | 新live适用范围 | 六条Kimi成本/报告与资格来源受影响，须自身新候选与正式资格；保留共享历史涉及旧18条chat路线的既有影响判断。旧grant/来源不复用，不以离线回放补新真实资格 |
-| 凭据/授权 | 中国站KIMI/CN使用KIMI_CN_KEY，国际站KIMI/GLOBAL使用KIMI_KEY；本轮仅授权代码/合同修订。旧候选范围已首失败停止；[新来源候选具体提案](evidence/candidate-live-review-03.md)已备妥、尚未获准。正式/旧路线/race/压力未授权 |
+| 凭据/授权 | 中国站KIMI/CN使用KIMI_CN_KEY，国际站KIMI/GLOBAL使用KIMI_KEY；旧候选范围首失败停止。本次[具体提案03](evidence/candidate-live-review-03.md)六路线已获明确批准；[原始批准02](../../.evidence/barness-ai-kimi/authorizations/02/approval.json)绑定新来源/二进制/六份新grant及≤US$9。范围首失败即停，执行状态与原件在本次结果留存。正式/旧路线/race/压力未授权 |
 | race/压力候选 | 均NOT_RUN；共享Usage快照、Observer与取消/Admission并发和受影响旧Provider在live后由人选择；工具/队列/背压等压力按SOP后续独立选择 |
 | 工单/目录 | 01–06及08 resolved；07普通实现/审查已完成，仍等待自身真实资格、晋升和人工阶段。六路线正式目录仍inactive，不减少原目标 |
 | 原件/回滚 | 所有旧失败/中断/批准/账本与捕获保留。旧八个实施worktree已清理；本轮6250份原件已逐项核对并保留；app两次归档请求仅queued，随后受控CLI清理exit0、checkout已移除，分支02aea23保留，见[清理回执](evidence/worktree-cleanup-06.json)。回滚先禁用Binding/移除加载目录，再回退本轮代码/合同，保留原生身份与账本 |
-| 当前release.pass | false；[新不可变索引04](../../.evidence/barness-ai-kimi/records/04/record.json)绑定本文件及真实普通原件，实际只读命令/报告在其release-final-command.json和release-final。当前文档提交与受测2ffa761的完整来源/输入集合相等性另存[核对](../../.evidence/barness-ai-kimi/closure/03/source-equality.json)。索引03为旧来源历史，不刷新旧pin/状态 |
+| 当前release.pass | false；[不可变索引04]历史绑定[执行前状态快照](history/spec-before-candidate-retry-20261023.md)，本次执行后新建索引。原[索引04](../../.evidence/barness-ai-kimi/records/04/record.json)绑定本文件及真实普通原件，实际只读命令/报告在其release-final-command.json和release-final。当前文档提交与受测2ffa761的完整来源/输入集合相等性另存[核对](../../.evidence/barness-ai-kimi/closure/03/source-equality.json)。索引03为旧来源历史，不刷新旧pin/状态 |
 
 依据[测试SOP](../../docs/agents/verification.md)执行；当前修订决策优先于研究保留的旧schema必填标记。旧官方原文、旧真实失败及来源Hash不修改，当前软件归一化行为由修订合同与自身公共证据定义。
 
