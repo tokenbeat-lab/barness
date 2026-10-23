@@ -238,7 +238,7 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | race/压力候选 | 均NOT_RUN；共享Usage快照、Observer与取消/Admission并发和受影响旧Provider在live后由人选择；工具/队列/背压等压力按SOP后续独立选择 |
 | 工单/目录 | 01–06及08 resolved；07普通实现/审查已完成，仍等待自身真实资格、晋升和人工阶段。六路线正式目录仍inactive，不减少原目标 |
 | 原件/回滚 | 所有旧失败/中断/批准/账本与捕获保留。旧八个实施worktree已清理；本轮6250份原件已逐项核对并保留；app两次归档请求仅queued，随后受控CLI清理exit0、checkout已移除，分支02aea23保留，见[清理回执](evidence/worktree-cleanup-06.json)。回滚先禁用Binding/移除加载目录，再回退本轮代码/合同，保留原生身份与账本 |
-| 当前release.pass | false；[不可变索引04]历史绑定[执行前状态快照](history/spec-before-candidate-retry-20261023.md)，本次执行后新建索引。原[索引04](../../.evidence/barness-ai-kimi/records/04/record.json)绑定本文件及真实普通原件，实际只读命令/报告在其release-final-command.json和release-final。当前文档提交与受测2ffa761的完整来源/输入集合相等性另存[核对](../../.evidence/barness-ai-kimi/closure/03/source-equality.json)。索引03为旧来源历史，不刷新旧pin/状态 |
+| 当前release.pass | false；[不可变索引04]历史绑定[执行前状态快照](history/spec-before-candidate-retry-20261023.md)，本次执行后新建索引。[索引04](../../.evidence/barness-ai-kimi/records/04/record.json)及其真实只读命令/报告保留为修订后普通验收的执行前事实。当前文档提交与受测2ffa761的完整来源/输入集合相等性另存[核对](../../.evidence/barness-ai-kimi/closure/03/source-equality.json)。索引03为旧来源历史，不刷新旧pin/状态 |
 
 依据[测试SOP](../../docs/agents/verification.md)执行；当前修订决策优先于研究保留的旧schema必填标记。旧官方原文、旧真实失败及来源Hash不修改，当前软件归一化行为由修订合同与自身公共证据定义。
 
