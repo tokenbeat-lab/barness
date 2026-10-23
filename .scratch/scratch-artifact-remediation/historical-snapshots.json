@@ -1,0 +1,1493 @@
+{
+  "schema": 1,
+  "kind": "external-snapshot-provenance",
+  "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+  "scope": "Explicit Kimi spec history, Decisions publication originals, two MiniMax state snapshots, prior governance snapshots and recorded downloaded sources. Drafts and transformed copies are not inferred as verbatim originals.",
+  "bounds": {
+    "gitHistoryCommitsPerOriginalPath": 80,
+    "gitBlobBytes": 8388608,
+    "kimiRecordGlob": ".evidence/barness-ai-kimi/records/*/record.json"
+  },
+  "snapshots": [
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-acceptance-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "cbc26875585fd0939664bcf11fdcff0a161c4868afac6d656271808e38fc8c74",
+      "bytes": 28614,
+      "archivedAtCommit": "7b41a21c96ee33238100ce8bea5218da480a6b6a",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "0c2a03dfc177699cf0163fa4b7b76e61e17fea71",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "4779e0635b0c051da3ff13092cdcc305578f20e0",
+        "bytes": 28614,
+        "sha256": "cbc26875585fd0939664bcf11fdcff0a161c4868afac6d656271808e38fc8c74"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-22"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "7b41a21c96ee33238100ce8bea5218da480a6b6a",
+          "7b41a21c96ee33238100ce8bea5218da480a6b6a^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-adaptive-retry-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "6f51fffecfef6327ef5659a2753ec34e24c12cafff60ea16fbf73965699a99cf",
+      "bytes": 34613,
+      "archivedAtCommit": "92d4f63fbcfbaa26f029931b327e0dffc47e99f4",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "c274ee7bcfbe21c325ad54f7d580baa9a6b30fd3",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "3ef809b421df20cfcf415cd25c7362e42d2968c6",
+        "bytes": 34613,
+        "sha256": "6f51fffecfef6327ef5659a2753ec34e24c12cafff60ea16fbf73965699a99cf"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "claimed",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".evidence/barness-ai-kimi/records/06/record.json",
+          "sha256": "66ff562d8d3c67b444650aa2c95eff57c2476bd89e3efa21ad43fc2f356696b5",
+          "field": "currentState",
+          "recorded": {
+            "path": ".scratch/barness-ai-kimi/spec.md",
+            "sha256": "6f51fffecfef6327ef5659a2753ec34e24c12cafff60ea16fbf73965699a99cf"
+          },
+          "recordSourceCommit": "9c0e5205788b0fdcf73cda95d9191b386868b1a2",
+          "meaning": "Original state bytes pinned independently; execution commit is not a document Git revision"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "92d4f63fbcfbaa26f029931b327e0dffc47e99f4",
+          "92d4f63fbcfbaa26f029931b327e0dffc47e99f4^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-adaptive-retry-results-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "411871aacba5e166a0283155f1047afbc9da3ed02912e29da2e8ca89b180b0b7",
+      "bytes": 34213,
+      "archivedAtCommit": "4c65409c8517a180bdc0a29496dd3204a2aad78b",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "92d4f63fbcfbaa26f029931b327e0dffc47e99f4",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "fb608965b49e8ac7c260bfb9ca795aa1fdef0fa2",
+        "bytes": 34213,
+        "sha256": "411871aacba5e166a0283155f1047afbc9da3ed02912e29da2e8ca89b180b0b7"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "claimed",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "4c65409c8517a180bdc0a29496dd3204a2aad78b",
+          "4c65409c8517a180bdc0a29496dd3204a2aad78b^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-artifact-acceptance-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "7c8b27d79838a34257e0f8313879840f692582e62f8dac90e17c07de4c628857",
+      "bytes": 30617,
+      "archivedAtCommit": "7b41a21c96ee33238100ce8bea5218da480a6b6a",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-human",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".evidence/barness-ai-kimi/records/01/record.json",
+          "sha256": "361ccff8e497aba2c9681fdd898aaf2749ebe5f754c3f5bed73a31ea46fbafc4",
+          "field": "currentState",
+          "recorded": {
+            "path": ".scratch/barness-ai-kimi/spec.md",
+            "sha256": "7c8b27d79838a34257e0f8313879840f692582e62f8dac90e17c07de4c628857"
+          },
+          "recordSourceCommit": "0c85bcb716d2e372a55817f39af5c2e1dbc11b4f",
+          "meaning": "Original state bytes pinned independently; execution commit is not a document Git revision"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "7b41a21c96ee33238100ce8bea5218da480a6b6a",
+          "7b41a21c96ee33238100ce8bea5218da480a6b6a^",
+          "571ca112859211ca5d987906e16ae135f89f54f5",
+          "4c65409c8517a180bdc0a29496dd3204a2aad78b",
+          "92d4f63fbcfbaa26f029931b327e0dffc47e99f4",
+          "c274ee7bcfbe21c325ad54f7d580baa9a6b30fd3",
+          "18f59625ec516f1ce4e34121d3f4f4abfc6aa41f",
+          "d27e19cd4ed6cca8bd5f336ee38bdedf57dab5ac",
+          "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+          "d291e9b5eba87f717d3eb3fcee56c95649806a2e",
+          "6d3183eed8b0ca4b923f52b8a97b4f9ac3263c5b",
+          "b7f333bd188f99b0d296db75182f10b8a4bbc5f4",
+          "2ffa761c437cdb6403cbaf05c7f1846e11965f49",
+          "a1bf7e163454b011216a404efcf3933358de9988",
+          "2d55fcfa8957f430cb2b9950942429a58fc14a19",
+          "df78eef6b7a17d25220d365eb22c00292b202157",
+          "8678bc951ddaed20b0e5d16314ef791ed19ed156",
+          "be5bc0b7511892ff52a799ebba444da12bbfca76"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-cache-default-bounds-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "deaf89f01c6814a3e3e0e557f1f4cbfa17c62673dbcc91bace3ce952350ae06c",
+      "bytes": 33270,
+      "archivedAtCommit": "a1bf7e163454b011216a404efcf3933358de9988",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "2d55fcfa8957f430cb2b9950942429a58fc14a19",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "f5cdcce3a508ca88a625e1829b6fa817cafe311e",
+        "bytes": 33270,
+        "sha256": "deaf89f01c6814a3e3e0e557f1f4cbfa17c62673dbcc91bace3ce952350ae06c"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-human",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".evidence/barness-ai-kimi/records/03/record.json",
+          "sha256": "944c7cb18be64c165ec3e9f220aebad547cc5d70d475ec7c43a094d0f2b54caf",
+          "field": "currentState",
+          "recorded": {
+            "path": ".scratch/barness-ai-kimi/spec.md",
+            "sha256": "deaf89f01c6814a3e3e0e557f1f4cbfa17c62673dbcc91bace3ce952350ae06c"
+          },
+          "recordSourceCommit": "0c2a03dfc177699cf0163fa4b7b76e61e17fea71",
+          "meaning": "Original state bytes pinned independently; execution commit is not a document Git revision"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "a1bf7e163454b011216a404efcf3933358de9988",
+          "a1bf7e163454b011216a404efcf3933358de9988^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-candidate-live-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "80531cd15da93bb7a03fc1443324bb4fc31488a6f0ee5027bd4713cca7be7dab",
+      "bytes": 32097,
+      "archivedAtCommit": "2d55fcfa8957f430cb2b9950942429a58fc14a19",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "7b41a21c96ee33238100ce8bea5218da480a6b6a",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "019bc44c1956408c11e54ef095894be8b7497fa4",
+        "bytes": 32097,
+        "sha256": "80531cd15da93bb7a03fc1443324bb4fc31488a6f0ee5027bd4713cca7be7dab"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-human",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".evidence/barness-ai-kimi/records/02/record.json",
+          "sha256": "a7dc96bf4ebcbd66bb82549fac4ed04ad46e83011b081cca0691bf87a6dc05fe",
+          "field": "currentState",
+          "recorded": {
+            "path": ".scratch/barness-ai-kimi/spec.md",
+            "sha256": "80531cd15da93bb7a03fc1443324bb4fc31488a6f0ee5027bd4713cca7be7dab"
+          },
+          "recordSourceCommit": "0c2a03dfc177699cf0163fa4b7b76e61e17fea71",
+          "meaning": "Original state bytes pinned independently; execution commit is not a document Git revision"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "2d55fcfa8957f430cb2b9950942429a58fc14a19",
+          "2d55fcfa8957f430cb2b9950942429a58fc14a19^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-candidate-result-02-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "b903f8a7859062ba69a70b4274c65e8e100b9d0651a9f345c29314af1b7c3bd7",
+      "bytes": 32714,
+      "archivedAtCommit": "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "d291e9b5eba87f717d3eb3fcee56c95649806a2e",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "32a57f3a3d73d2c771f73b5e8eefe076bbb2ef3d",
+        "bytes": 32714,
+        "sha256": "b903f8a7859062ba69a70b4274c65e8e100b9d0651a9f345c29314af1b7c3bd7"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "claimed",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+          "1889322b136f9daa8e34ba94c1aa8a9832b964f7^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-candidate-retry-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "7816fcf4d56e35c10eaad214190716ea3e023c7bcb72752f378c5b1034de1b51",
+      "bytes": 32464,
+      "archivedAtCommit": "6d3183eed8b0ca4b923f52b8a97b4f9ac3263c5b",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "b7f333bd188f99b0d296db75182f10b8a4bbc5f4",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "4be387848f9ffa982a7689fed7e4a8268bbc400d",
+        "bytes": 32464,
+        "sha256": "7816fcf4d56e35c10eaad214190716ea3e023c7bcb72752f378c5b1034de1b51"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "claimed",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".evidence/barness-ai-kimi/records/04/record.json",
+          "sha256": "20bb64441f13433ba86f8be354109ed113384473e2bbe4b4312b29591570f189",
+          "field": "currentState",
+          "recorded": {
+            "path": ".scratch/barness-ai-kimi/spec.md",
+            "sha256": "7816fcf4d56e35c10eaad214190716ea3e023c7bcb72752f378c5b1034de1b51"
+          },
+          "recordSourceCommit": "2ffa761c437cdb6403cbaf05c7f1846e11965f49",
+          "meaning": "Original state bytes pinned independently; execution commit is not a document Git revision"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "6d3183eed8b0ca4b923f52b8a97b4f9ac3263c5b",
+          "6d3183eed8b0ca4b923f52b8a97b4f9ac3263c5b^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-live-pacing-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "f79ec00ac90644d43f36b60a0e8b17afe7bf3cdf10442091ad8450546bd9d962",
+      "bytes": 33510,
+      "archivedAtCommit": "d27e19cd4ed6cca8bd5f336ee38bdedf57dab5ac",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "1889322b136f9daa8e34ba94c1aa8a9832b964f7",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "4448b9473f74a8dceb80de728320a35c5804eb4a",
+        "bytes": 33510,
+        "sha256": "f79ec00ac90644d43f36b60a0e8b17afe7bf3cdf10442091ad8450546bd9d962"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "claimed",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".evidence/barness-ai-kimi/records/05/record.json",
+          "sha256": "ddd9f80fcef5794a9ae651629136c43c512b474485edd2afdb1f2640427c0dc8",
+          "field": "currentState",
+          "recorded": {
+            "path": ".scratch/barness-ai-kimi/spec.md",
+            "sha256": "f79ec00ac90644d43f36b60a0e8b17afe7bf3cdf10442091ad8450546bd9d962"
+          },
+          "recordSourceCommit": "2ffa761c437cdb6403cbaf05c7f1846e11965f49",
+          "meaning": "Original state bytes pinned independently; execution commit is not a document Git revision"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "d27e19cd4ed6cca8bd5f336ee38bdedf57dab5ac",
+          "d27e19cd4ed6cca8bd5f336ee38bdedf57dab5ac^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-before-paced-live-result-20261023.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "acff1e80c15c67233a3dc182dfab3c254ebcf72fccedfae8369f02752d665813",
+      "bytes": 34328,
+      "archivedAtCommit": "c274ee7bcfbe21c325ad54f7d580baa9a6b30fd3",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "9c0e5205788b0fdcf73cda95d9191b386868b1a2",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "44e9e790ba4791b99628cbaae10379530a32b2ba",
+        "bytes": 34328,
+        "sha256": "acff1e80c15c67233a3dc182dfab3c254ebcf72fccedfae8369f02752d665813"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "claimed",
+        "Updated": "2026-10-23"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "c274ee7bcfbe21c325ad54f7d580baa9a6b30fd3",
+          "c274ee7bcfbe21c325ad54f7d580baa9a6b30fd3^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-kimi/history/spec-planning-20261022.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-kimi/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-kimi",
+      "sha256": "2f6a46f4ccdce99d7415ac316995c016967ec65d713eb7f627b9bb66cc6e52fa",
+      "bytes": 27333,
+      "archivedAtCommit": "8678bc951ddaed20b0e5d16314ef791ed19ed156",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "be5bc0b7511892ff52a799ebba444da12bbfca76",
+        "path": ".scratch/barness-ai-kimi/spec.md",
+        "gitBlob": "e7b577f072a1837c986df5ab83be14039e385ce7",
+        "bytes": 27333,
+        "sha256": "2f6a46f4ccdce99d7415ac316995c016967ec65d713eb7f627b9bb66cc6e52fa"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-22"
+      },
+      "currentEntry": ".scratch/barness-ai-kimi/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8678bc951ddaed20b0e5d16314ef791ed19ed156",
+          "8678bc951ddaed20b0e5d16314ef791ed19ed156^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/spec.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions",
+      "sha256": "df012733a9754fc432c3770dd10bdcd77a163cfa310a0e14dde933c3791b0a82",
+      "bytes": 20861,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+        "path": ".scratch/barness-ai-openai-decisions/spec.md",
+        "gitBlob": "41203e00844a65a81def54cea1ff6e25b9758a62",
+        "bytes": 20861,
+        "sha256": "df012733a9754fc432c3770dd10bdcd77a163cfa310a0e14dde933c3791b0a82"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/spec.md]",
+          "expectedSHA256": "df012733a9754fc432c3770dd10bdcd77a163cfa310a0e14dde933c3791b0a82",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/acceptance.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/acceptance.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions",
+      "sha256": "d446c36b898cfc7b6d6cea2335200853f01d5c6f2e6123381f476cc199766268",
+      "bytes": 15617,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/acceptance.md]",
+          "expectedSHA256": "d446c36b898cfc7b6d6cea2335200853f01d5c6f2e6123381f476cc199766268",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/design.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/design.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions",
+      "sha256": "39d4b9a1e8a955c3b32a99c448f342d0215367f5fcb2bd44e18cc7c5c5e7957d",
+      "bytes": 27544,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+        "path": ".scratch/barness-ai-openai-decisions/design.md",
+        "gitBlob": "4c7f62af4e9b6f3bb4f186745dfd467d8b8d2af4",
+        "bytes": 27544,
+        "sha256": "39d4b9a1e8a955c3b32a99c448f342d0215367f5fcb2bd44e18cc7c5c5e7957d"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/design.md]",
+          "expectedSHA256": "39d4b9a1e8a955c3b32a99c448f342d0215367f5fcb2bd44e18cc7c5c5e7957d",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/implementation-plan.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions",
+      "sha256": "b1455b62b3bf395f6780d34ab5a94fb3e1dfb3e289b1e10fe088f588f0c39816",
+      "bytes": 7706,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/implementation-plan.md]",
+          "expectedSHA256": "b1455b62b3bf395f6780d34ab5a94fb3e1dfb3e289b1e10fe088f588f0c39816",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/planning-verification.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/planning-verification.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions",
+      "sha256": "e7e845cec856ad2a086087f899d834744d4f8a16f55f53a484e63c3fc967e205",
+      "bytes": 3724,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/planning-verification.md]",
+          "expectedSHA256": "e7e845cec856ad2a086087f899d834744d4f8a16f55f53a484e63c3fc967e205",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/01-jev-baseline-and-failure-contract.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/01-jev-baseline-and-failure-contract.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "6f1ff4d6cb6859df44f55216aa9f6d6a84a7cd64f4b90bd3e03df79d4113ac69",
+      "bytes": 2262,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/01-jev-baseline-and-failure-contract.md]",
+          "expectedSHA256": "6f1ff4d6cb6859df44f55216aa9f6d6a84a7cd64f4b90bd3e03df79d4113ac69",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/02-public-contracts-and-safe-defaults.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/02-public-contracts-and-safe-defaults.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "34e34328f1898a3aa6cd673ed2f06dd6d68dbb06bcd5f492d04a548fc7c29496",
+      "bytes": 2758,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/02-public-contracts-and-safe-defaults.md]",
+          "expectedSHA256": "34e34328f1898a3aa6cd673ed2f06dd6d68dbb06bcd5f492d04a548fc7c29496",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/03-text-protocol-and-final-payload.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/03-text-protocol-and-final-payload.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "e684c866a5a244f0775fd787b6cbf2e0ca72698418ebb5136438bf411ef4b17f",
+      "bytes": 2843,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/03-text-protocol-and-final-payload.md]",
+          "expectedSHA256": "e684c866a5a244f0775fd787b6cbf2e0ca72698418ebb5136438bf411ef4b17f",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/04-answers-refusals-and-usage.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/04-answers-refusals-and-usage.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "6c96164cd42f93886f938a93367dd3610b7c3ada8d5488b65785745db2a5a083",
+      "bytes": 2797,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/04-answers-refusals-and-usage.md]",
+          "expectedSHA256": "6c96164cd42f93886f938a93367dd3610b7c3ada8d5488b65785745db2a5a083",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/05-classifier-images-and-authorization.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/05-classifier-images-and-authorization.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "079255bbdb6e53344202c581e6d7611c38964cdd9264e33fc0ec6f12b00ac0eb",
+      "bytes": 2547,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/05-classifier-images-and-authorization.md]",
+          "expectedSHA256": "079255bbdb6e53344202c581e6d7611c38964cdd9264e33fc0ec6f12b00ac0eb",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/06-runtime-isolation-and-differential.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/06-runtime-isolation-and-differential.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "a21e9d1ddb0bd28667009651afa3ef156ea6a4e3e5cb7762f8ccec4b8122594d",
+      "bytes": 2656,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/06-runtime-isolation-and-differential.md]",
+          "expectedSHA256": "a21e9d1ddb0bd28667009651afa3ef156ea6a4e3e5cb7762f8ccec4b8122594d",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/07-live-catalog-and-support-matrix.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/07-live-catalog-and-support-matrix.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "c96242dc6599a1cd5e759d8aee2733dbfa7f6f93cc9589f2cda81bbbf3366f9b",
+      "bytes": 2943,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/07-live-catalog-and-support-matrix.md]",
+          "expectedSHA256": "c96242dc6599a1cd5e759d8aee2733dbfa7f6f93cc9589f2cda81bbbf3366f9b",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/08-host-examples-and-chinese-evaluation.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/08-host-examples-and-chinese-evaluation.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "a49a338dfbf7db18d4f9e6b5ad659af20847e19fc497c7d99811009c23e80648",
+      "bytes": 2623,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/08-host-examples-and-chinese-evaluation.md]",
+          "expectedSHA256": "a49a338dfbf7db18d4f9e6b5ad659af20847e19fc497c7d99811009c23e80648",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/issues/09-release-gate-docs-and-rollback.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/issues/09-release-gate-docs-and-rollback.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/issues",
+      "sha256": "8853fe74941b8b35c88ceb80c6a65333592cd20683ae49cf4465ae5b73e4d64b",
+      "bytes": 2813,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/proposal.json",
+          "sha256": "76d719c4c90a51596ad15f94542c07e9f1244d4a401f66bc84583365602021dd",
+          "field": "originalHashes[.scratch/barness-ai-openai-decisions/issues/09-release-gate-docs-and-rollback.md]",
+          "expectedSHA256": "8853fe74941b8b35c88ceb80c6a65333592cd20683ae49cf4465ae5b73e4d64b",
+          "publicationMap": ".scratch/barness-ai-openai-decisions/ticket-review/publication.json"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "8ea61b8d70de6c84fe27be34dc7d21c5c40841d9",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/ticket-review/originals/ticket-review/README.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-openai-decisions/ticket-review/README.md",
+      "originalRelativeBase": ".scratch/barness-ai-openai-decisions/ticket-review",
+      "sha256": "baffdd01dc654b38bd39917990b4896ed17f75ffa58cd7d0d89654eecb5f971a",
+      "bytes": 14248,
+      "archivedAtCommit": "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": null,
+      "sourceRevisionStatus": "ORIGINAL_HASH_PIN_MATCH;DOCUMENT_GIT_REVISION_UNKNOWN",
+      "versionMetadata": {
+        "Status": "needs-triage",
+        "Updated": "2026-10-12"
+      },
+      "currentEntry": ".scratch/barness-ai-openai-decisions/implementation-plan.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/ticket-review/originals/ticket-review/validation.json",
+          "sha256": "eab73b007646af0e61b8b275240e2997dc9a92dee8d80c195de7ad4c58bca24e",
+          "field": "sha256[.scratch/barness-ai-openai-decisions/ticket-review/README.md]",
+          "expectedSHA256": "baffdd01dc654b38bd39917990b4896ed17f75ffa58cd7d0d89654eecb5f971a"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0",
+          "016e9f097701babd3dd06f737ff44ab0d2e587e0^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-minimax/evidence/ticket-13/pre-routed-delivery-status.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-minimax/delivery-status.md",
+      "originalRelativeBase": ".scratch/barness-ai-minimax",
+      "sha256": "c8487116e0a59cd9f5d14ca99997c36a228828d575a3fa3a075c447a808b23fd",
+      "bytes": 8512,
+      "archivedAtCommit": "73ef82888b7a9c623d3ff4c33f331057f0275af4",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "8fbd17006677774368d4d77d924a8672fd205c51",
+        "path": ".scratch/barness-ai-minimax/delivery-status.md",
+        "gitBlob": "dd748e3a660fc8d54ae6b9619ea7c0be52b87ad5",
+        "bytes": 8512,
+        "sha256": "c8487116e0a59cd9f5d14ca99997c36a228828d575a3fa3a075c447a808b23fd"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Delivery": "PARTIAL",
+        "Updated": "2026-10-18"
+      },
+      "currentEntry": ".scratch/barness-ai-minimax/delivery-status.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "73ef82888b7a9c623d3ff4c33f331057f0275af4",
+          "73ef82888b7a9c623d3ff4c33f331057f0275af4^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-minimax/evidence/ticket-15/pre-fixed6-delivery-status.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-minimax/delivery-status.md",
+      "originalRelativeBase": ".scratch/barness-ai-minimax",
+      "sha256": "6be9ede63952c7c4d2069cdb9372ce92ba18ac8cf5263436cb4656864bb4e5ac",
+      "bytes": 5558,
+      "archivedAtCommit": "955567d0dd686001a9f8fbdfa1bcd3a0b9b1a807",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "6b440de18181128e082c56acc10d277fb0a721ab",
+        "path": ".scratch/barness-ai-minimax/delivery-status.md",
+        "gitBlob": "f890a39a4cd20ca0834d728e6ec8bddcf5b2ea19",
+        "bytes": 5558,
+        "sha256": "6be9ede63952c7c4d2069cdb9372ce92ba18ac8cf5263436cb4656864bb4e5ac"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Delivery": "PARTIAL",
+        "Updated": "2026-10-18"
+      },
+      "currentEntry": ".scratch/barness-ai-minimax/delivery-status.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "955567d0dd686001a9f8fbdfa1bcd3a0b9b1a807",
+          "955567d0dd686001a9f8fbdfa1bcd3a0b9b1a807^"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/barness-ai-spec.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai/spec.md",
+      "originalRelativeBase": ".scratch/barness-ai",
+      "sha256": "2a10c1797c8e7b2f43859f5e0ad7299687d036cb3c439d16a9ebf30c0a9a9ccd",
+      "bytes": 65577,
+      "archivedAtCommit": "99d074964aa844a3ed0b3b9a047db08af18bc46f",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "c6606748a21f9816c4b06b5da917d4667789f557",
+        "path": ".scratch/barness-ai/spec.md",
+        "gitBlob": "9fbe2e7f9f01aa49e7fe5d84a4b8f6c32e3df8eb",
+        "bytes": 65577,
+        "sha256": "2a10c1797c8e7b2f43859f5e0ad7299687d036cb3c439d16a9ebf30c0a9a9ccd"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {
+        "Status": "ready-for-agent",
+        "Updated": "2026-10-02"
+      },
+      "currentEntry": ".scratch/barness-ai/spec.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/index.json",
+          "sha256": "963e91405f9e75910ec0828cafe02c48a893377f10c9275bc3e39b4fdd346462",
+          "field": "documents",
+          "expectedSHA256": "2a10c1797c8e7b2f43859f5e0ad7299687d036cb3c439d16a9ebf30c0a9a9ccd"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "c6606748a21f9816c4b06b5da917d4667789f557"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/research-traceability.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai/research-traceability.md",
+      "originalRelativeBase": ".scratch/barness-ai",
+      "sha256": "c37b8d0f52dc5e072d1f97084f57b8673c123064606c0c744e9a1f2eb5934225",
+      "bytes": 23866,
+      "archivedAtCommit": "99d074964aa844a3ed0b3b9a047db08af18bc46f",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "c6606748a21f9816c4b06b5da917d4667789f557",
+        "path": ".scratch/barness-ai/research-traceability.md",
+        "gitBlob": "c3cd1e2c6366c53fbebbbce678d663ed9717d48a",
+        "bytes": 23866,
+        "sha256": "c37b8d0f52dc5e072d1f97084f57b8673c123064606c0c744e9a1f2eb5934225"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {},
+      "currentEntry": ".scratch/barness-ai/research-traceability.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/index.json",
+          "sha256": "963e91405f9e75910ec0828cafe02c48a893377f10c9275bc3e39b4fdd346462",
+          "field": "documents",
+          "expectedSHA256": "c37b8d0f52dc5e072d1f97084f57b8673c123064606c0c744e9a1f2eb5934225"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "c6606748a21f9816c4b06b5da917d4667789f557"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/public-contract.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": "docs/barness-ai/contract.md",
+      "originalRelativeBase": "docs/barness-ai",
+      "sha256": "5bb650cf1668d8fb8b0738da0b0097d3f2cbd3338faaf04765e5289fe7691829",
+      "bytes": 38773,
+      "archivedAtCommit": "99d074964aa844a3ed0b3b9a047db08af18bc46f",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "c6606748a21f9816c4b06b5da917d4667789f557",
+        "path": "docs/barness-ai/contract.md",
+        "gitBlob": "ddd0ac013fccf67174429ed4fe3718d2ef983532",
+        "bytes": 38773,
+        "sha256": "5bb650cf1668d8fb8b0738da0b0097d3f2cbd3338faaf04765e5289fe7691829"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {},
+      "currentEntry": "docs/barness-ai/contract.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/index.json",
+          "sha256": "963e91405f9e75910ec0828cafe02c48a893377f10c9275bc3e39b4fdd346462",
+          "field": "documents",
+          "expectedSHA256": "5bb650cf1668d8fb8b0738da0b0097d3f2cbd3338faaf04765e5289fe7691829"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "c6606748a21f9816c4b06b5da917d4667789f557"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/provider-tools-README.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-provider-sites/tools/README.md",
+      "originalRelativeBase": ".scratch/barness-provider-sites/tools",
+      "sha256": "85a003d069b612f255e4e21d872acde0acba6b6b7e67c8217e21f5603d91453e",
+      "bytes": 20755,
+      "archivedAtCommit": "99d074964aa844a3ed0b3b9a047db08af18bc46f",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "c6606748a21f9816c4b06b5da917d4667789f557",
+        "path": ".scratch/barness-provider-sites/tools/README.md",
+        "gitBlob": "69f3c6bef37f36413647ee7e084ba65d350d989f",
+        "bytes": 20755,
+        "sha256": "85a003d069b612f255e4e21d872acde0acba6b6b7e67c8217e21f5603d91453e"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {},
+      "currentEntry": ".scratch/barness-provider-sites/tools/README.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/scratch-artifact-remediation/history/phase2-before-20261024/index.json",
+          "sha256": "963e91405f9e75910ec0828cafe02c48a893377f10c9275bc3e39b4fdd346462",
+          "field": "documents",
+          "expectedSHA256": "85a003d069b612f255e4e21d872acde0acba6b6b7e67c8217e21f5603d91453e"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "c6606748a21f9816c4b06b5da917d4667789f557"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase3-before-20261024/test-process-tools-README.md",
+      "kind": "verbatim-snapshot",
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/README.md",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "07dacb56771f4186c76634a9d06714f5a502d69c0cbc98bc6103f93762ed4d93",
+      "bytes": 7865,
+      "archivedAtCommit": "c8fae0f7a80b62db2c8ac62bfd8e65c04f24c953",
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "matchedGitOriginal": {
+        "commit": "99d074964aa844a3ed0b3b9a047db08af18bc46f",
+        "path": ".scratch/barness-ai-test-process-review/tools/README.md",
+        "gitBlob": "9d5bce8f17c4fea61a6f1d218c2983a2efb3d506",
+        "bytes": 7865,
+        "sha256": "07dacb56771f4186c76634a9d06714f5a502d69c0cbc98bc6103f93762ed4d93"
+      },
+      "sourceRevisionStatus": "EXACT_GIT_BYTES",
+      "versionMetadata": {},
+      "currentEntry": ".scratch/barness-ai-test-process-review/tools/README.md",
+      "preserveOriginal": true,
+      "originalPinProofs": [
+        {
+          "path": ".scratch/scratch-artifact-remediation/history/phase3-before-20261024/index.json",
+          "sha256": "047645a1bd126c801638c8bf66ce48465eb87e3cc0a8076185e8b08a7ae0b8fb",
+          "field": "documents",
+          "expectedSHA256": "07dacb56771f4186c76634a9d06714f5a502d69c0cbc98bc6103f93762ed4d93"
+        }
+      ],
+      "search": {
+        "kind": "fixed Git metadata/blob read",
+        "maximumHistoryCommits": 80,
+        "commitsExamined": [
+          "99d074964aa844a3ed0b3b9a047db08af18bc46f"
+        ],
+        "maxBlobBytes": 8388608
+      },
+      "limits": "Git equality proves archived bytes, not current runtime/support. Original source revision remains unknown if only an immutable receipt pin matches."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/guide.md",
+      "kind": "recorded-download",
+      "originalPath": "https://developers.openai.com/api/docs/guides/decisions.md",
+      "originalRelativeBase": "https://developers.openai.com/api/docs/guides/decisions.md",
+      "sha256": "518b4297877cb2aa6ddf6b36a1b201d3dd6e657b6171e2c2b2ae01b1d3d4aa77",
+      "bytes": 29581,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "archivedAtCommit": "c50783b2a1a1efc20f5576558f667976cbc605f4",
+      "sourceRevisionStatus": "RECORDED_CAPTURE_HASH_MATCH",
+      "matchedGitOriginal": null,
+      "versionMetadata": {
+        "retrievedAt": "2026-10-12T22:14:22.211600+00:00"
+      },
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/sources.json",
+          "sha256": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+          "expectedSHA256": "518b4297877cb2aa6ddf6b36a1b201d3dd6e657b6171e2c2b2ae01b1d3d4aa77"
+        }
+      ],
+      "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
+      "preserveOriginal": true,
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/reference.txt",
+      "kind": "recorded-download",
+      "originalPath": "https://developers.openai.com/api/reference/resources/decisions/methods/create",
+      "originalRelativeBase": "https://developers.openai.com/api/reference/resources/decisions/methods/create",
+      "sha256": "99cac111ef6cbeae93afcb2f609b43e9c83ce96e4b7647ada3b085fd04fdb6ab",
+      "bytes": 7215,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "archivedAtCommit": "c50783b2a1a1efc20f5576558f667976cbc605f4",
+      "sourceRevisionStatus": "RECORDED_CAPTURE_HASH_MATCH",
+      "matchedGitOriginal": null,
+      "versionMetadata": {
+        "retrievedAt": "2026-10-12T22:14:22.211600+00:00"
+      },
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/sources.json",
+          "sha256": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+          "expectedSHA256": "99cac111ef6cbeae93afcb2f609b43e9c83ce96e4b7647ada3b085fd04fdb6ab"
+        }
+      ],
+      "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
+      "preserveOriginal": true,
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/model.md",
+      "kind": "recorded-download",
+      "originalPath": "https://developers.openai.com/api/docs/models/gpt-6-luna.md",
+      "originalRelativeBase": "https://developers.openai.com/api/docs/models/gpt-6-luna.md",
+      "sha256": "2e4861582095740f5ea84b14bb18fa476a49c426b397b779b964bc144397b451",
+      "bytes": 3969,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "archivedAtCommit": "c50783b2a1a1efc20f5576558f667976cbc605f4",
+      "sourceRevisionStatus": "RECORDED_CAPTURE_HASH_MATCH",
+      "matchedGitOriginal": null,
+      "versionMetadata": {
+        "retrievedAt": "2026-10-12T22:14:22.211600+00:00"
+      },
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/sources.json",
+          "sha256": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+          "expectedSHA256": "2e4861582095740f5ea84b14bb18fa476a49c426b397b779b964bc144397b451"
+        }
+      ],
+      "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
+      "preserveOriginal": true,
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/pi-classifier.json",
+      "kind": "recorded-download",
+      "originalPath": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz",
+      "originalRelativeBase": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz",
+      "sha256": "9c3eb7100ff6f4e915df6c3cf3952e5cb542077ebcecd98677050b27938be3cd",
+      "bytes": 494,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "archivedAtCommit": "c50783b2a1a1efc20f5576558f667976cbc605f4",
+      "sourceRevisionStatus": "RECORDED_CAPTURE_HASH_MATCH",
+      "matchedGitOriginal": null,
+      "versionMetadata": {
+        "retrievedAt": "2026-10-12T22:14:22.211600+00:00"
+      },
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/sources.json",
+          "sha256": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+          "expectedSHA256": "9c3eb7100ff6f4e915df6c3cf3952e5cb542077ebcecd98677050b27938be3cd"
+        }
+      ],
+      "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
+      "preserveOriginal": true,
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/gopher.webp",
+      "kind": "recorded-download",
+      "originalPath": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp",
+      "originalRelativeBase": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp",
+      "sha256": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
+      "bytes": 442,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "archivedAtCommit": "c50783b2a1a1efc20f5576558f667976cbc605f4",
+      "sourceRevisionStatus": "RECORDED_CAPTURE_HASH_MATCH",
+      "matchedGitOriginal": null,
+      "versionMetadata": {
+        "retrievedAt": "2026-10-12T22:14:22.211600+00:00"
+      },
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/sources.json",
+          "sha256": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+          "expectedSHA256": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a"
+        }
+      ],
+      "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
+      "preserveOriginal": true,
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/LICENSE",
+      "kind": "recorded-download",
+      "originalPath": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE",
+      "originalRelativeBase": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "archivedAtCommit": "c50783b2a1a1efc20f5576558f667976cbc605f4",
+      "sourceRevisionStatus": "RECORDED_CAPTURE_HASH_MATCH",
+      "matchedGitOriginal": null,
+      "versionMetadata": {
+        "retrievedAt": "2026-10-12T22:14:22.211600+00:00"
+      },
+      "originalPinProofs": [
+        {
+          "path": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/sources.json",
+          "sha256": "61be0c194e7231aa5c3b986c849c2b23935ae6a1830038413530eb0d3618b8fe",
+          "expectedSHA256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+        }
+      ],
+      "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
+      "preserveOriginal": true,
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+    },
+    {
+      "snapshotPath": ".scratch/barness-ai-pi-1.0/nine-route-release-evidence/history/1/release-report.md",
+      "kind": "derived-redacted-history",
+      "originalPath": null,
+      "originalRelativeBase": null,
+      "sha256": "3d4b511f440c90513e8b9370b0ffe573317d7a8b1f976835568db2e6beefe5b3",
+      "bytes": 32062,
+      "reviewCommit": "19795e5decef6a9902e4adbf768a684378fd17ff",
+      "sourceRevisionStatus": "DERIVED_COPY;EXACT_ORIGINAL_PATH_UNKNOWN",
+      "matchedGitOriginal": null,
+      "originalPinProofs": [],
+      "versionMetadata": {
+        "recordedCommit": "3cf700732ac2849a8482636f06e6907a1ffa6d30"
+      },
+      "currentEntry": "docs/agents/verification.md",
+      "preserveOriginal": true,
+      "transformationEvidence": {
+        "path": ".scratch/barness-ai-pi-1.0/nine-route-release-evidence/capture.py",
+        "line": 123,
+        "rule": "Read bytes then replace repository/home paths before writing"
+      },
+      "limits": "Do not infer a raw original hash, original relative base or current PASS from the preserved redacted report."
+    }
+  ]
+}
