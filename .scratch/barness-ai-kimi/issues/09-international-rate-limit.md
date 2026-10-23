@@ -1,7 +1,7 @@
 # 09 — 国际站候选受账户 RPM 限额阻塞
 
 Type: task
-Status: ready-for-human
+Status: claimed
 Blocked by: 10
 
 ## Context
@@ -32,3 +32,5 @@ Blocked by: 10
 2026-10-23：用户明确要求延长间隔并继续剩余验证，选择Resolution path2。认领Kimi-only grant.callIntervalMs0..60000、可取消等待及独立时序消费者，先公开进程红绿、审查和新冻结普通；随后按每国际路线35秒间隔、9调用/9Attempt、零重试、≤US$1.50范围执行新来源。旧失败与grant不复用，中国站旧来源候选适用性另判定。
 
 2026-10-23：有界间隔实现、425项定向、双轴复审及14071必需完整普通已PASS；国际站Chat完整9/9、-qualify退出0，上次429项通过。Responses第4项出现新的HTTP200内engine overloaded，按范围停止，详见[结果03](../evidence/candidate-live-result-03.md)。本票剩余完整国际资格未满足，由[10](10-responses-engine-overload.md)接续外部阻塞；没有自动新一轮。
+
+2026-10-23：用户明确要求“拉大间隔时间重试，如有类似失败请做相同处理”，已直接授权[范围05](../evidence/candidate-live-review-05.md)。原生60秒/新grant完整九项；同类临时失败可120/240/480秒冷却后续轮，SDK不在已开始流内重放。最多4轮/路线及2小时，合计预留4.50包含上轮0.964002；其他失败/额度/未知/证据问题停止。新普通与原始执行由spec唯一状态记录。
