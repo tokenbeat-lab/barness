@@ -9,7 +9,9 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"testing"
 	"time"
 
@@ -45,6 +47,12 @@ func driveRegional(t *testing.T) {
 	}
 	if p.notRun != "" {
 		t.Skip("NOT_RUN: " + p.notRun)
+	}
+	processCtx := context.Background()
+	if supportmatrix.RegionalIsKimi(p.report.Combo) {
+		var stop context.CancelFunc
+		processCtx, stop = signal.NotifyContext(processCtx, os.Interrupt, syscall.SIGTERM)
+		defer stop()
 	}
 	if err := p.consumeGrant(); err != nil {
 		p.problem = "regional grant reservation failed"
@@ -83,7 +91,7 @@ func driveRegional(t *testing.T) {
 	if supportmatrix.RegionalIsKimi(p.report.Combo) && p.grant.ExpiresAt.Before(deadline) {
 		deadline = p.grant.ExpiresAt
 	}
-	ctx, cancel := context.WithDeadline(context.Background(), deadline)
+	ctx, cancel := context.WithDeadline(processCtx, deadline)
 	defer cancel()
 	s := regionalSession{p: p, client: client, rec: rec, gate: gate, probe: gauges, ctx: ctx, tools: map[string]ai.AssistantMessage{}, native: map[string]ai.AssistantMessage{}}
 	for i := range p.report.Scenarios {
@@ -170,6 +178,11 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	cs := run.Case(t, row.CaseID)
 	cs.ReplayRun(regionalEntry())
 	modelInfo, _ := s.p.cat.Lookup(ai.ProviderID(s.p.report.Provider), ai.API(s.p.report.API), row.Model)
+	if err := s.p.waitInterval(s.ctx); err != nil {
+		row.Outcome, row.ErrorCategory = supportmatrix.Fail, supportmatrix.CategoryBudget
+		cs.Check("pacing wait honors process cancellation and grant expiry", false, "%v", err)
+		return
+	}
 	outputBudget := min(4096, modelInfo.MaxTokens)
 	if err := s.p.reserve(s.ctx, outputBudget); err != nil {
 		row.Outcome, row.ErrorCategory = supportmatrix.Fail, supportmatrix.CategoryBudget

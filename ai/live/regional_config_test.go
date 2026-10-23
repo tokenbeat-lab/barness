@@ -136,6 +136,7 @@ func initializeRegional() {
 			return
 		}
 		p.report.Regional.MaxUSD = p.grant.MaxUSD
+		p.report.Regional.CallIntervalMs = p.grant.CallIntervalMs
 	}
 	p.report.AccountAlias = p.grant.AccountAlias
 	p.report.Regional.RegionAlias, p.report.Regional.GrantID, p.report.Regional.GrantSHA256 = p.grant.RegionAlias, p.grant.ID, sha256Text(p.grantRaw)

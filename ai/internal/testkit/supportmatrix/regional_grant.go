@@ -1,6 +1,8 @@
 package supportmatrix
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"slices"
@@ -34,13 +36,14 @@ type RegionalGrant struct {
 	MaxReservedInputTokens   int       `json:"maxReservedInputTokens"`
 	MaxUSD                   float64   `json:"maxUSD,omitempty"`
 	BinarySHA256             string    `json:"binarySha256,omitempty"`
+	CallIntervalMs           int       `json:"callIntervalMs,omitempty"`
 }
 
 func (g RegionalGrant) Check(combo string, at time.Time) error {
 	want, err := RegionalGrantSnapshot(combo, g.Stage)
 	r, ok := RegionalRouteOf(combo)
 	alias := regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
-	if !slices.Contains([]string{"live", "controlled"}, g.Mode) || err != nil || g.Endpoint != want.Endpoint || g.SourceSHA256 != want.SourceSHA256 || g.CatalogVersion != want.CatalogVersion || g.CatalogHash != want.CatalogHash || g.SDK != want.SDK || !ok || g.Schema != 1 || !alias.MatchString(g.ID) || g.Contract != RegionalAuthorization(combo) || g.Combo != combo || g.Provider != r.Provider || g.Purpose != "standard" || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !slices.Equal(g.Models, RegionalModels(combo)) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || g.MaxCalls != want.MaxCalls || g.MaxAttempts != want.MaxAttempts || g.MaxRequestedOutputTokens != want.MaxRequestedOutputTokens || g.MaxReservedInputTokens != want.MaxReservedInputTokens || RegionalIsKimi(combo) && (!regionalValidUSD(g.MaxUSD) || len(g.BinarySHA256) != 64) {
+	if g.CallIntervalMs < 0 || g.CallIntervalMs > 60000 || g.CallIntervalMs != 0 && !RegionalIsKimi(combo) || !slices.Contains([]string{"live", "controlled"}, g.Mode) || err != nil || g.Endpoint != want.Endpoint || g.SourceSHA256 != want.SourceSHA256 || g.CatalogVersion != want.CatalogVersion || g.CatalogHash != want.CatalogHash || g.SDK != want.SDK || !ok || g.Schema != 1 || !alias.MatchString(g.ID) || g.Contract != RegionalAuthorization(combo) || g.Combo != combo || g.Provider != r.Provider || g.Purpose != "standard" || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !slices.Equal(g.Models, RegionalModels(combo)) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || g.MaxCalls != want.MaxCalls || g.MaxAttempts != want.MaxAttempts || g.MaxRequestedOutputTokens != want.MaxRequestedOutputTokens || g.MaxReservedInputTokens != want.MaxReservedInputTokens || RegionalIsKimi(combo) && (!regionalValidUSD(g.MaxUSD) || len(g.BinarySHA256) != 64) {
 		return fmt.Errorf("regional explicit own identity, account, purpose, expiry or budget authorization invalid")
 	}
 	return nil
@@ -74,4 +77,23 @@ func RegionalGrantSnapshot(combo, stage string) (RegionalGrant, error) {
 	}
 	limits := RegionalBudgetFor(combo)
 	return RegionalGrant{Schema: 1, Mode: "live", Stage: stage, Endpoint: r.Endpoint, SourceSHA256: RegionalSourceHash(source), CatalogVersion: cat.Version, CatalogHash: hash, SDK: sdk, Contract: RegionalAuthorization(combo), Combo: combo, Provider: r.Provider, Purpose: "standard", Models: RegionalModels(combo), MaxCalls: limits.MaxCalls, MaxAttempts: limits.MaxAttempts, MaxRequestedOutputTokens: limits.MaxRequestedOutputTokens, MaxReservedInputTokens: limits.MaxReservedInputTokens}, nil
+}
+
+// Optional means omitted or an integer, never JSON null. Validate before the
+// typed zero value can erase that distinction at the native grant boundary.
+func (g *RegionalGrant) UnmarshalJSON(raw []byte) error {
+	type wireGrant RegionalGrant
+	var value wireGrant
+	if err := json.Unmarshal(raw, &value); err != nil {
+		return err
+	}
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(raw, &fields); err != nil {
+		return err
+	}
+	if bytes.Equal(bytes.TrimSpace(fields["callIntervalMs"]), []byte("null")) {
+		return fmt.Errorf("regional call interval must be an integer")
+	}
+	*g = RegionalGrant(value)
+	return nil
 }

@@ -32,6 +32,7 @@ type RegionalEvidence struct {
 	BinarySHA256       string  `json:"binarySha256"`
 	MaxUSD             float64 `json:"maxUSD,omitempty"`
 	ReservedUSD        float64 `json:"reservedUSD,omitempty"`
+	CallIntervalMs     int     `json:"callIntervalMs,omitempty"`
 	Complete           bool    `json:"complete"`
 	AuditPassed        bool    `json:"auditPassed"`
 	// NativeSourceCases is predeclared per identity, not a fallback lookup.

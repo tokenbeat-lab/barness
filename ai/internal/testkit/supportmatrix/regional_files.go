@@ -186,6 +186,9 @@ func verifyRegionalBundle(dir string, r Report) error {
 	if err := verifyRegionalReservation(grant, origin); err != nil {
 		return err
 	}
+	if err := verifyRegionalPacing(root, r, grant, origin); err != nil {
+		return err
+	}
 	if err := verifyRegionalTotals(root, r); err != nil {
 		return err
 	}
