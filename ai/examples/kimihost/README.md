@@ -110,9 +110,12 @@ org/accounts when hard isolation is required.
 
 Read `Attempt.CostEstimate` with `UsageReporting`. Resolved amounts agree;
 bounded reports both finite USD bounds and uses the lower bound as Usage.Cost;
-reserve budget using Maximum. Partial/unreported omit amount bounds and never
+reserve budget using Maximum. Chat/Responses optional cached_tokens defaults to0 before completeness checks.
+Missing write counts keep UsageReporting partial; when known total input/output
+constrain every allocation, CostEstimate may still be bounded or resolved.
+Partial/unreported cost estimates omit amount bounds and never
 mean free service. Reasoning tokens are already included in output. Chat may
-have complete counters yet an unknown paid write tier. Only reported Messages
+have complete counters yet an unknown paid write tier. Reported Messages
 TTL counters or applied Responses options resolve those tiers. Request TTL is
 never observed billing evidence.
 

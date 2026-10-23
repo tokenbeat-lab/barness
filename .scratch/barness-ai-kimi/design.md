@@ -201,9 +201,9 @@ Chat/Responses 有 SessionID 时使用 [cacheScope v2](../../ai/cache_key.go)，
 
 Chat/Responses：Input=vendor total input−read−write，Total=Input+Read+Write+Output。Messages：Input=vendor input，Total=Input+Read+Write+Output；厂商若报告 total，按自身 schema 校验，不重复加入明细。Reasoning 已含在 Output。
 
-Kimi 的计数解析保留缺失、null、零，拒绝负数、非整数、越界及加法溢出；读写和不得超过总输入，reasoning 不超过 output，TTL 分项不得超过 write。完整提供 5m/1h 明细时两者之和须等于 write；仅提供一项的剩余写量保持 TTL 未知，不补为另一档。
+Kimi 的必要计数解析保留缺失、null、零；Chat/Responses 可选 cached_tokens 缺失/null 按用户确认的协议默认0参与完整性与计价，Chat 先按原规则回退 legacy 顶层值。显式非法值不使用默认，继续拒绝负数、非整数、越界及加法溢出；读写和不得超过总输入，reasoning 不超过 output，TTL 分项不得超过 write。完整提供 5m/1h 明细时两者之和须等于 write；仅提供一项的剩余写量保持 TTL 未知，不补为另一档。
 
-Kimi Chat/Responses 的 cache_write_tokens 缺失使 UsageReporting 为 partial，区别于既有 Provider 的可选写量规则；Chat/Responses reasoning 细分仍遵循各自合同。Messages 四个主计数齐全才 complete，thinking_tokens 可选。保留合法已知用量，非法矛盾导致 protocol 错误，不能用 max(0,...) 掩盖非法分类。
+Kimi Chat/Responses 可选 cached_tokens 缺省0本身不降低报告完整度；cache_write_tokens 缺失仍使 UsageReporting 为 partial，区别于既有 Provider 的可选写量规则；Chat/Responses reasoning 细分仍遵循各自合同。Messages 四个主计数齐全才 complete，thinking_tokens 可选。保留合法已知用量，非法矛盾导致 protocol 错误，不能用 max(0,...) 掩盖非法分类。
 
 ### 8.3 Attempt.CostEstimate 的明确合同
 
@@ -211,14 +211,16 @@ Kimi Chat/Responses 的 cache_write_tokens 缺失使 UsageReporting 为 partial�
 
 | Status | 条件 | Minimum / Maximum | Message 与 Attempt 的 Usage.Cost |
 | --- | --- | --- | --- |
-| resolved | 全部计价必要计数、价格与实际写档可证；或写量为显式零 | 两者都有且相等 | 等于该已知估值 |
-| bounded | 计价计数齐全，只有正写量中的实际 TTL 未知，5m/1h 价格均已知 | 都有，低≤高 | 等于 Minimum，须连同 bounded 展示 |
-| partial | 其他计价必要计数/费率缺失，或不能建立完整有限区间 | 两者省略 | 保留按现有缺项规则算出的非完整点值，不称上下界 |
+| resolved | 所有允许计费分配得到同一金额，包括可选读取默认0、显式零写量或不确定分区费率相同 | 两者都有且相等 | 等于该已知估值 |
+| bounded | 已知事实和价格能限定完整有限范围；包括正写量TTL未知、或已知总输入/输出/读取而写量缺失 | 都有，低≤高 | 等于 Minimum，须连同 bounded 展示 |
+| partial | 缺必要总量/费率等，无法证明完整有限区间 | 两者省略 | 保留按现有缺项规则算出的非完整点值，不称上下界 |
 | unreported | 没有可计价 usage（包括现行 failed 响应语义） | 两者省略 | 维持既有零值；不表示免费 |
 
-成本状态与 UsageReporting 独立：reasoning 明细缺失但已含于已知 output，不妨碍金额 resolved；cache_write_tokens 缺失即不能假装完整。非法计数先报 protocol，不以 partial 接受坏数据。
+成本状态与 UsageReporting 独立：reasoning 明细缺失但已含于已知 output，不妨碍金额 resolved；cache_write_tokens 缺失仍使 token 报告 partial，但有明确输入分区约束时成本可 resolved/bounded。非法计数先报 protocol，不以 partial 接受坏数据。
 
-用合法已知计数计算已知金额 C；未知 TTL 的写量 W，则区间为 `[C + W×rate5m/1e6, C + W×rate1h/1e6]`。如果部分写量已有实际档位，C 包含这些分项，只有剩余 W 进入范围；不得把正未知写量套成免费或用 1h token 数伪造观测。
+用合法已知计数计算已知金额 C；未知 TTL 的写量 W，则分别计算 `C + W×rate5m/1e6` 与 `C + W×rate1h/1e6` 并按金额排序为区间。如果部分写量已有实际档位，C 包含这些分项，只有剩余 W 进入范围；不得把正未知写量套成免费或用 1h token 数伪造观测。
+
+对于Chat/Responses缺写量，令Q=P−R，则W∈[0,Q]、未缓存输入=Q−W；分别计算未缓存、5m写入、1h写入等所有允许分配的有限端点。Responses实际回显TTL可收窄写档，请求偏好不能收窄。自定义Host价格可能反转大小，逐项比较最小/最大；总输入分类和保持P不变；既有Kimi目录继续拒绝分档价格，不借费用区间扩大目录能力。只在内部估价场景分配未知量，不生成 public CacheWrite/CacheWrite1h 观测。边界相等为resolved，不相等为bounded。
 
 Messages 可复用 CacheWrite1h；Responses 有充分 actual 证明时可设置实际 1h 子集，Kimi 特殊成本 path 用同一份证据更新点值和区间；其他 Responses 不改变该字段原有行为。typed SDK 未暴露的 actual options 可从有界原始终态提取，不能依赖 SDK 默默丢字段后的值。
 
@@ -279,7 +281,7 @@ spec 的 K01–K16 是必需验收组；K01、K03–K12 中可适用的组在六
 
 重点反例在实现前固定：错误 Provider/模型/用途，凭据读取顺序，非法档位/预算/固定参数，三种强制工具差异，Hook 改 auth/model/cache key，summary 输入输出泄漏，unsigned thinking 无担保，opaque ID 冲突，缓存无实际 TTL、写量缺失/矛盾/溢出，非 JSON 504、余额 429、半帧取消、背压、观察者拥塞与归零。
 
-数字示例：完整国际用量 Input=100、Output=50、Read=20、Write=80，未知 TTL 时成本区间为 0.001296..0.001536 USD，点值取下界、CostEstimate=bounded；write=0 时上下界相等。缺 write 字段不能用这两个有限界替代 partial。相同请求 TTL=5m 的合成响应也必须覆盖实际 1h、缺失和混合明细，证明没有按请求猜价。
+数字示例：完整国际用量 Input=100、Output=50、Read=20、Write=80，未知 TTL 时成本区间为 0.001296..0.001536 USD，点值取下界、CostEstimate=bounded；write=0 时上下界相等。缺 write 时用量仍partial，但可依据分区重新计算费用界：国际P120/O50/R20、W未知时，TTL未知为0.001056..0.001356USD；实际5m且对应单价相同时费用resolved。必要输入/输出不足仍partial/unreported。相同请求 TTL=5m 的合成响应也必须覆盖实际 1h、缺失和混合明细，证明没有按请求猜价。
 
 新成本值只含数值，不需要新的测试注入接口。通过 Result、Observer、并发复制和 JSON round trip 检查；其他 Provider 成本新字段省略，旧数值保持。Snapshot/Catalog/来源 Hash 通过公共 Client 和公开 Catalog 操作核对。
 
@@ -315,7 +317,7 @@ spec 的 K01–K16 是必需验收组；K01、K03–K12 中可适用的组在六
 
 候选通过后审阅六份目录再晋升，各自 formal 使用新的批准和当前来源完成同样有限合同；候选捕获不替代正式执行。只读 consumer 校对精确身份、所有必交 case、原生前缀/工具配对、真实 usage/成本状态、资源归零、完整性与脱敏；离线回放不联网。
 
-bounded 是本功能正式定义的成本结果，不导致合法调用失败；formal 消费器须核对范围确由真实计数及本站价格得出，不能要求编造 resolved。关键用量缺项、原生来源缺失或其他合同不符保持失败，不从别站补证。
+bounded 是本功能正式定义的成本结果，不导致合法调用失败；formal 消费器须核对范围确由真实计数及本站价格得出，不能要求编造 resolved。不能证明完整有限费用、原生来源缺失或其他合同不符保持失败，不从别站补证。
 
 共享代码变化对既有路线的 live 影响依实际差异评估，不能在规划中预先豁免所有旧 Provider；未变的执行来源/选定输入只有按原消费者规则核对后才能沿用。最终发布仍只消费功能当前状态与五项回执，不启动任何阶段。
 

@@ -81,7 +81,10 @@ Do not infer authority from plan approval, candidate availability or an old gran
    are read-only: no vendor request, build, secret read, promotion or scheduler.
    They replay captured responses independently and compare real counters,
    CostEstimate, exact native source, tool pairing, resources and provenance.
-   Bounded costs are valid; missing principal charges are not qualified.
+   Bounded costs are valid even with partial token reporting when all allowed
+allocations have proved finite cost bounds. Chat/Responses optional cached_tokens
+defaults to0; missing write counts do not become observations. Missing principal
+totals that prevent full finite bounds remain unqualified.
 
 Native originals, failed attempts, grants, ledger receipts, binary/source
 bindings, manifest, audit and consumer outputs must be retained. SOP's outer

@@ -19,4 +19,4 @@
 
 ## Fog
 
-- [08 真实计费报告缺项](issues/08-live-usage-reporting.md)：中国站 Chat 未报 cached_tokens；保持 partial，不以合成0取得资格。六路线实际资格与晋升仍依赖自身完整付费证据，不从研究或回放推定。
+- [08 真实计费报告缺项](issues/08-live-usage-reporting.md)：用户已确认cached_tokens可选默认0，并选择保守费用区间；08已认领实现，保留旧失败事实。六路线实际资格与晋升仍依赖自身完整付费证据，不从研究或回放推定。
