@@ -1,6 +1,6 @@
 # barness-ai 接入 Kimi：Responses、Chat Completions 与 Messages
 
-Status: ready-for-human
+Status: claimed
 Type: feature
 Updated: 2026-10-23
 
@@ -68,10 +68,10 @@ Host 保持账户授权、上下文组织、工具执行和凭据存储职责。
 42. As a tenant administrator, I want derived routing identifiers scoped to tenant, Provider and account, so that raw tenant/session identifiers are not sent as cache keys.
 43. As a Host operator, I want the provider's org-level cache scope disclosed, so that routing keys are not mistaken for hard tenant isolation.
 44. As a Host developer, I want cache read, write and uncached tokens normalized per protocol, so that input is neither omitted nor charged twice.
-45. As a Host developer, I want missing counters distinguished from zero, so that absent usage cannot imply free service.
+45. As a Host developer, I want required missing counters distinguished from zero and optional cached reads defaulted to zero, so that usage remains robust and meaningful.
 46. As a Host developer, I want reasoning tokens counted inside output, so that cost does not double count thinking.
 47. As a Host operator, I want cost certainty separate from usage completeness, so that complete token counts do not hide an unknown cache TTL.
-48. As a Host operator, I want bounded cost estimates when cache TTL is unknown, so that a valid Chat call remains usable without presenting an invented rate.
+48. As a Host operator, I want bounded cost estimates when known facts constrain uncertain quantities or rates, so that a valid call remains usable without an invented exact cost.
 49. As a Host operator, I want China prices converted with an explicit historical FX snapshot, so that CNY values cannot be read as USD rates.
 50. As a Host operator, I want catalog and source versions pinned, so that rates and estimates can be reproduced.
 51. As a Host developer, I want callback payloads validated after customization, so that Hooks cannot expand supported capabilities or authority.
@@ -141,11 +141,11 @@ Native State Envelope 继续精确比较 Tenant、Account Scope、Provider、API
 
 ### R09 — 用量与成本范围
 
-Chat/Responses 的 Input 由总输入扣除缓存读写；Messages 的 input_tokens 已是不含读写的输入。推理是 Output 的子集。所有报告计数须是非负整数且满足包含关系，溢出或矛盾为 protocol 错误；缺失与零分开保留。
+Chat/Responses 的 Input 由总输入扣除缓存读写；Messages 的 input_tokens 已是不含读写的输入。推理是 Output 的子集。所有报告计数须是非负整数且满足包含关系，溢出或矛盾为 protocol 错误；必要报告缺失与零分开保留。Chat/Responses 的 cached_tokens 是可选字段，缺失/null 默认0，默认本身不降低报告完整度；Chat 先保留 nested 与 legacy 顶层回退。显式非法读取量仍拒绝，Messages 的独立字段维持原合同。
 
 Kimi 的收费写量属于必要报告项，缺失不得宣称完整；其他 Provider 继续按原合同判定。Messages 的 thinking token 明细仍是可选项。保持失败响应、重试间不求和及已知用量留存的现有规则。
 
-在 Attempt 上增加可选、只含数值和枚举的成本估算元数据，区分 resolved、bounded、partial、unreported。旧 Provider 默认省略，旧消息 Usage 数字形状不变。Kimi 收到完整收费计数且实际 TTL 可证时上下界相等；仅 TTL 未知时给出 5m/1h 价格上下界，保留成功并明确 bounded；其他计价必要项缺失时不得编造有限区间。
+在 Attempt 上增加可选、只含数值和枚举的成本估算元数据，区分 resolved、bounded、partial、unreported。旧 Provider 默认省略，旧消息 Usage 数字形状不变。Kimi 收到完整收费计数且实际 TTL 可证时上下界相等；未知TTL或写量可由已知总量与价格约束时，计算所有允许计费分配的有限上下界，保留成功并明确 bounded；上下界相等则 resolved。Chat/Responses 已知总输入P、输出O和读取R时，缺失写量W满足0≤W≤P−R；用量仍partial，公开未知写量保持兼容零值，不伪造观察。必要总量/费率缺失、无法证明完整有限区间时继续partial/unreported。
 
 Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估值，bounded 为区间下界，partial 为现有缺项规则下的非完整估值；Host 展示和预算不能把 bounded/partial 的点值当成完整费用。UsageReporting 只表达 token 报告程度，与成本状态独立；重试许可的预算预留使用保守上界而不是点估值。
 
@@ -186,8 +186,8 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | K07 推理与历史 | 实际 reasoning/summary/thinking/signature 回放；不补造状态、不混输入输出 schema | R04–R07 |
 | K08 原生来源 | 持久化信任、缺封套/错账户/跨站/跨协议降级；unsigned thinking 同样受限 | R07 |
 | K09 缓存请求 | short/long/none、顶层 Messages、v2 派生、最终 hook 不绕过 | R08 |
-| K10 用量 | 读写互斥、包含关系、显式零、缺失、溢出与负数；末帧 usage 不丢 | R09 |
-| K11 成本 | 已知 TTL、未知 TTL 区间、零写量、partial/unreported、价格/FX 来源与数值规则 | R09–R10 |
+| K10 用量 | 可选读取默认0、必要写量缺失、读写互斥、包含关系、显式零、溢出与负数；末帧 usage 不丢 | R09 |
+| K11 成本 | 已知/未知TTL、缺写量有限分区、相等/反转费率、分档配置仍拒绝、零写量、partial/unreported、价格/FX 来源 | R09–R10 |
 | K12 故障与取消 | 错误终态、无终态、非 JSON HTTP 错误、额度/限流、取消/超时和有界重试 | R11 |
 | K13 共享运行时 | 请求/帧/输出/工具/队列限额、背压和许可归零；双站并发归属 | R03、R11 |
 | K14 Hooks 与快照 | 认证与授权字段受保护、最终校验、输入修改不影响活跃调用、成本元数据独立 | R02–R03、R09 |
@@ -219,31 +219,26 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 
 ### 唯一当前状态
 
-本节是本功能唯一可变状态入口。历史字节分别保留为 [验收前快照](history/spec-before-acceptance-20261023.md)、[路径修正前快照](history/spec-before-artifact-acceptance-20261023.md)、[候选执行前快照](history/spec-before-candidate-live-20261023.md)。账户归属已确认：中国站 `KIMI / CN`、国际站 `KIMI / GLOBAL`；凭据变量名分别为 `KIMI_CN_KEY`、`KIMI_KEY`。用户已明确批准六条候选路线的固定范围，原始批准保留于 [authorization01](../../.evidence/barness-ai-kimi/authorizations/01/approval.json)；首个真实用例失败后已停止。中国站 Key 仅从 `.env` 所选变量提取并转发给该子进程，未进入 argv/快照/日志；国际站 Key 未读取。正式验证、晋升、旧路线、race 与压力未授权。
+本节是唯一可变状态入口。2026-10-23用户明确选择费用保守区间，并指定 cached_tokens 可选、未返回补0；[08](issues/08-live-usage-reporting.md)已认领实施。修订前状态字节保留于 [快照](history/spec-before-cache-default-bounds-20261023.md)，既有真实失败及授权不改写。
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 集成分支/基线 | `codex/barness-ai-kimi-integration`；基线 `68b7da0a3400f909dc535d7f585c93771df1569c` |
-| 变更/实现 | 六个独立 K3 候选、三协议/四入口、Host 双站隔离、原生历史/工具、严格用量与成本区间、价格/FX 来源、原生有限资格与 proof-gated 晋升入口已实现；正式 Kimi payload 仍未启用 |
-| 审查 | [双轴发现](evidence/review-01.md)的5项硬问题与1项命名判断由同一 implementer 修复；[两轴复核](evidence/review-followup-01.md)关闭。后续仅 import 排序及缓存证据标签修正；[标签两轴复核](evidence/artifact-review-followup-01.md)均无新发现 |
-| 实际受测提交 | 普通 `0c2a03dfc177699cf0163fa4b7b76e61e17fea71`；候选真实执行 `7b41a21c96ee33238100ce8bea5218da480a6b6a`，1346项完整执行来源及129项选定输入相等。文档收尾当前 SHA 由只读报告 releaseCommit 和独立来源/输入集合相等性原件记录，不能只引用 HEAD |
-| 实际输入 | 129项：122份实际历史/价格/脚本输入，加冻结 binary 与6份已批准范围内的原 grant；中国站 Chat 的一次性授权已消耗。三个整目录消费集合85/6/5文件，前后集合与内容相等；[运行前原件](../../.evidence/barness-ai-kimi/freeze/04/before.json)、[运行后原件](../../.evidence/barness-ai-kimi/freeze/04/after.json) |
-| 最终普通 E2E | PASS / exit0；13956个预声明原生必需用例均 PASS、214个重负载用例 NOT_RUN；14822个实际 Go PASS 测试节点。逐条非空断言、实际测试事件与哈希核对通过；主审计零发现，五个辅助包的实际事件库存审计零发现 |
-| 辅助包事实 | 核心包26、supportmatrix79、release15测试节点通过；两个 CLI 包编译完成，其实际行为由主公共进程 E2E 验证。辅助库存标记为派生实际 Go 事件，没有伪造辅助原生 E2E bundle |
-| 普通命令/原件 | `go test -json ./ai/e2e ./ai ./ai/internal/testkit/supportmatrix ./ai/internal/testkit/release ./ai/live/cmd/regionalverify ./ai/live/cmd/regionalpromote -count=1 -timeout=20m`；含129个 --input 的实际 argv/数字退出/墙钟见 [调用回执](../../.evidence/barness-ai-kimi/freeze/04/invocation.json)；[原生回执](../../.evidence/barness-ai-kimi/e2e/20261022T225320.206038Z-d6eep7gx/receipt.json)；[逐项核对与辅助审计](../../.evidence/barness-ai-kimi/acceptance/04/verification.json) |
-| 受测哈希 | receipt `5eea1f1eb35a51363313f6a6aa948ee8dce0e8874cfc5bb9741ac1d9cf1654eb`；主 manifest `cdd09fdcf4815f278af4948c25261b11e0b8001bdb435dd01ae91becedee7730`；audit `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa` |
-| 整包读取闭环 | 初判因8个空缓存标签形成非规范路径而拒绝，失败原件保留；显式迁移8个ID，13956个必需项未删减。同一读取器对新完整14170-case bundle 实际 exit0/零问题，见 [命令/哈希](../../.evidence/barness-ai-kimi/diagnose/03/command.json)；[标签修正证明](evidence/artifact-fix-01.json) |
-| 中断原件 | freeze03期间编排者写入收尾文件，旧 Provider 回滚检查正确失败；随后取消，native exit-9/outer exit1，保留独立原件。同一冻结来源在工作区静止时完整重跑通过，[原因与回执](evidence/ordinary-interrupted-01.md)；未削弱测试或改变输入 |
-| native 构建/批准 | 已编译、完整478项 native 来源集合与内容相等；[六路线具体批准范围](evidence/candidate-live-review-02.md)每路线9次、零重试、估算预留≤US$1.50，合计≤US$9；到期2026-10-23 14:12:29上海时间。scope 首失败后已停止，不自动续跑/重买；原始提案字节不改写 |
-| live | 中国站 Chat 候选 FAIL：1调用/1 HTTP Attempt、零重试，HTTP200正常结束；原始末帧缺 nested/top-level cached_tokens，UsageReporting与CostEstimate均 partial，计费依据断言失败。该路线余8项及其他五路线 NOT_RUN，原生/外层消费者均 exit1；[不可变结果](evidence/candidate-live-result-01.md)、[完整原件索引](../../.evidence/barness-ai-kimi/paid-execution/01/summary.json)。六路线均无正式资格；旧18条受影响 chat 路线仍 NOT_RUN，图像/分类器契约未变 |
-| race | NOT_RUN；当前 live 失败，须在所需 live 完成后，由人选择双站多租户、Admission/取消/Observer/快照及受影响旧 Provider 的实际 argv |
-| 压力 | NOT_RUN；须在 race 后人工选择工具参数增量/复杂度、正文/帧/队列、背压取消及并发负载；普通214个 NOT_RUN不构成压力证据 |
-| 目录/工单 | 01–06 resolved；07普通验收和审查已完成，候选真实计费依据被 [08](issues/08-live-usage-reporting.md) 阻塞；正式资格/晋升与人工阶段待处理。不能以候选或受控回放替代正式纳入 |
-| 原件/工作区 | 所有原失败/中断及中间回执、真实失败、原始批准、已消耗 grant 的ID/scope账本与所有捕获保留；八个实施 worktree 已移除，分支和字节核对原件保留，最新见 [cleanup05](evidence/worktree-cleanup-05.json)。辅助审计准备的历史失败与成功原件分开保留；调试源码仅留明确标记的 evidence 目录 |
-| 当前 release.pass | false；缺真实资格及人工阶段。[不可变索引03](../../.evidence/barness-ai-kimi/records/03/record.json)绑定本文件哈希，最终只读报告与真实命令存其 release-final、release-final-command.json。历史索引01的 e2e=false、索引02的未执行 live 均保留原事实，不改写其 pin/时间/状态；其当时当前状态字节由上述快照保留 |
-| 回滚 | 先禁用 Kimi Binding，再移除将加载的 Kimi Catalog 身份，回退代码/目录版本；保留原 Provider/Native State、所有原件与已消费授权，不映射为其他厂商 |
+| 集成分支/修订基线 | codex/barness-ai-kimi-integration；本轮固定比较点2d55fcfa8957f430cb2b9950942429a58fc14a19，原大功能基线68b7da0a3400f909dc535d7f585c93771df1569c |
+| 当前实现范围 | Kimi Chat/Responses 两站可选 cached_tokens 默认0；独立判断 token 完整性与可证明费用界；缺写量有界分配；真实SSE回放；Result/Observer一致；资格断言与消费者采用同一成本合同。Messages及其他Provider维持原合同 |
+| 公共验证入口 | 继续采用用户确认的公共Client/CLI E2E。先留存真实捕获/缺项/自定义费率等失败，再实现并转绿；不增加私有helper单测 |
+| 普通候选范围 | 完整受影响包：go test -json ./ai/e2e ./ai ./ai/internal/testkit/supportmatrix ./ai/internal/testkit/release ./ai/live/cmd/regionalverify ./ai/live/cmd/regionalpromote -count=1 -timeout=20m；通过SOP run.py固定全部实际输入。最终有限必需ID在运行前冻结 |
+| 旧普通事实 | 实际受测0c2a03dfc177699cf0163fa4b7b76e61e17fea71，13956原生PASS/214重负载NOT_RUN；[原核对](../../.evidence/barness-ai-kimi/acceptance/04/verification.json)。本轮行为/测试/夹具改变后不能作为新来源普通通过，须重新冻结验收 |
+| 本轮普通/审查 | NOT_RUN；实施者进行公共E2E红绿后，由根任务合并、双轴审查、修复、冻结来源并完整普通验收 |
+| 实际输入计划 | 保留122份实际历史/价格/脚本输入及85/6/5整目录集合审计；新增真实脱敏夹具在ai/来源内。审查完成后构建新native二进制及六份新grant草案，按文件固定实际输入。凭据不进入输入/argv |
+| 真实历史 | 旧来源7b41a21c96ee33238100ce8bea5218da480a6b6a的中国站Chat候选1调用/1Attempt、零重试，因cached_tokens缺失的旧成本规则FAIL；余8场景及其余五路线NOT_RUN，原生与外层消费者exit1。见[执行结果](evidence/candidate-live-result-01.md)及[原件](../../.evidence/barness-ai-kimi/paid-execution/01/summary.json) |
+| 新live适用范围 | 六条Kimi成本/报告与资格来源受影响，须自身新候选与正式资格；保留共享历史涉及旧18条chat路线的既有影响判断。旧grant/来源不复用，不以离线回放补新真实资格 |
+| 凭据/授权 | 中国站KIMI/CN使用KIMI_CN_KEY，国际站KIMI/GLOBAL使用KIMI_KEY；本轮仅授权代码/合同修订。旧候选范围已首失败停止，新来源付费范围待审查/普通完成后提交。正式/旧路线/race/压力未授权 |
+| race/压力候选 | 均NOT_RUN；共享Usage快照、Observer与取消/Admission并发和受影响旧Provider在live后由人选择；工具/队列/背压等压力按SOP后续独立选择 |
+| 工单/目录 | 01–06 resolved；08 claimed；07受本轮冻结验收与真实资格阻塞。六路线正式目录仍inactive，不减少原目标 |
+| 原件/回滚 | 所有旧失败/中断/批准/账本与捕获保留。旧八个实施worktree已清理，本轮新worktree独立实施。回滚先禁用Binding/移除加载目录，再回退本轮代码/合同，保留原生身份与账本 |
+| 当前release.pass | false；[索引03](../../.evidence/barness-ai-kimi/records/03/record.json)是修订前历史，绑定上述快照字节；本轮最终需新索引及真实只读判定，不刷新旧pin/状态 |
 
-状态与普通验证依据 [测试 SOP](../../docs/agents/verification.md)。尚未执行项不是不适用；失败项不改成未执行。运行时和资格阈值未变，已用零网络公共 Client 原样回放及标记的合成对照排除 SDK 丢字段/TTL原因；缺计数不能填零。没有新建全库调度器、恢复控制器或旧 oracle 门禁。
+依据[测试SOP](../../docs/agents/verification.md)执行；当前修订决策优先于研究保留的旧schema必填标记。旧官方原文、旧真实失败及来源Hash不修改，当前软件归一化行为由修订合同与自身公共证据定义。
 
 ### 交付检查记录
 
