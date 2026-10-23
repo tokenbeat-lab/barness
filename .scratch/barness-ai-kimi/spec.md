@@ -163,6 +163,8 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 
 ### R12 — 交付、回滚与兼容
 
+Kimi原生资格grant可带callIntervalMs整数，范围0..60000、默认0；非Kimi不得配置非零。每次公共Client调用前（含首项）在进程/批准有效期内可取消等待，完成后才保留调用/输出预算并建立120秒调用窗口；等待不增加HTTP尝试或重试。取消/到期时不发送、不计入调用/输出预留，已消耗grant仍不可复用。间隔进入grant作用域及原生回执，消费者用实际观察时间核对，不能仅自报等待。
+
 交付包括六个候选身份、Host 本地/云端装配示例、公共 E2E 夹具和重放产物、自身真实资格入口与只读证据消费、正式目录及文档。复用现有证据结构；不建立固定全库调度器、不恢复 pi oracle/差分门禁或历史恢复控制器。
 
 仅新增 Provider 常量和可选 Attempt 成本字段等必要公共扩展，现有 Target、Binding、凭据、消息、Native State Envelope 和调用方法保持。涉及公共结构位置式 literal 的调用者须迁移；其他 Provider 的字段、默认值、估价和历史行为由回归锁定。
@@ -192,7 +194,7 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | K13 共享运行时 | 请求/帧/输出/工具/队列限额、背压和许可归零；双站并发归属 | R03、R11 |
 | K14 Hooks 与快照 | 认证与授权字段受保护、最终校验、输入修改不影响活跃调用、成本元数据独立 | R02–R03、R09 |
 | K15 回归与回滚 | 受影响既有 Provider 请求、历史、成本、Observer 和目录保持；禁用/目录移除有效 | R12 |
-| K16 自身真实资格 | 六路线各自完整有限场景、当前来源、真实历史续接及脱敏可重放捕获 | R01、R12 |
+| K16 自身真实资格 | 六路线各自完整有限场景、当前来源、真实历史续接、可取消有界调用间隔与独立时序消费、脱敏捕获 | R01、R12 |
 
 已有先例是 DeepSeek 两条路线的公共协议夹具、三协议共享资源套件，以及地区 Provider 的身份、Host 装配、目录、原生历史和证据回放场景；复用其测试 Seam 和产物，按 Kimi 合同新建自身案例。
 
@@ -219,6 +221,8 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 
 ### 唯一当前状态
 
+2026-10-23用户明确要求“拉长间隔时间，继续完成剩余验证”。09已认领原生有界间隔实现；下一次国际站三路线各调用前等待35000ms、零重试、最多9调用/路线和≤US$1.50/路线（合计≤US$4.50）。国际站Chat须用新grant从第一项完整重跑，其他两协议各完整九项；不拼接旧部分捕获。原生来源变化后，既有中国站候选只保留旧来源事实，额外重跑另列范围。
+
 本节是唯一可变状态入口。2026-10-23用户明确选择费用保守区间，并指定 cached_tokens 可选、未返回补0；[08](issues/08-live-usage-reporting.md)已完成实现与普通验收。修订前状态字节保留于 [快照](history/spec-before-cache-default-bounds-20261023.md)，既有真实失败及授权不改写。
 
 | 项目 | 当前状态 |
@@ -228,19 +232,19 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | 公共验证入口 | 继续采用用户确认的公共Client/CLI E2E。先留存真实捕获/缺项/自定义费率等失败，再实现并转绿；不增加私有helper单测 |
 | 普通验收范围 | 完整受影响包：go test -json ./ai/e2e ./ai ./ai/internal/testkit/supportmatrix ./ai/internal/testkit/release ./ai/live/cmd/regionalverify ./ai/live/cmd/regionalpromote -count=1 -timeout=20m；通过SOP run.py固定全部实际输入。[最终有限清单](evidence/ordinary-selection-05.json)在运行前冻结：14045个必需ID，214个重负载NOT_RUN |
 | 旧普通事实 | 实际受测0c2a03dfc177699cf0163fa4b7b76e61e17fea71，13956原生PASS/214重负载NOT_RUN；[原核对](../../.evidence/barness-ai-kimi/acceptance/04/verification.json)。此为旧来源历史，未用来替代本轮新来源的完整普通验收 |
-| 本轮普通/审查 | 冻结实现3a722ba，交付02aea23；398个定向公共用例PASS，[实施证据](evidence/cache-bounds-implementation-01.md)。[双轴审查](evidence/cache-bounds-review-01.md)均PASS/0发现；最终完整普通实测2ffa761c437cdb6403cbaf05c7f1846e11965f49、exit0/PASS，14045必需用例全PASS、214重负载NOT_RUN；14913个实际Go PASS节点 |
+| 上一冻结普通/审查 | 冻结实现3a722ba，交付02aea23；398个定向公共用例PASS，[实施证据](evidence/cache-bounds-implementation-01.md)。[双轴审查](evidence/cache-bounds-review-01.md)均PASS/0发现；最终完整普通实测2ffa761c437cdb6403cbaf05c7f1846e11965f49、exit0/PASS，14045必需用例全PASS、214重负载NOT_RUN；14913个实际Go PASS节点 |
 | 实际输入 | 共135项：122份实际历史/价格/脚本输入、新native二进制和6份新grant草案、5份实际编排/审计工具及本次有限清单。85/6/5整目录集合另作前后审计；真实脱敏夹具在ai/来源内。新native来源22b841baaf4b6a61f982a29cef8ed4199bdb05748a413705944955911f406eea；新构建全exit0，凭据不进入输入/argv |
-| 最终普通原件 | [调用/退出/墙钟](../../.evidence/barness-ai-kimi/freeze/05/invocation.json)、[回执](../../.evidence/barness-ai-kimi/e2e/20261023T011642.944924Z-ylkxot0p/receipt.json)、[逐项断言与五辅助审计](../../.evidence/barness-ai-kimi/acceptance/05/verification.json)。主审计零发现；辅助ai26、supportmatrix79、release15节点PASS，两CLI仅编译，实际行为由公共进程E2E覆盖。1351份来源、135项输入及85/6/5目录消费集合前后相等 |
-| 最终普通Hash | receipt ab3bb1a3d00f225f48a798801f11f6cc20c66a405a4151c707880a7f54993210；manifest 99bb7f3b8a41a517752790181409b5637dd4b58ef6edb51ecc60a4827e314771；audit 8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa |
+| 上一普通原件 | [调用/退出/墙钟](../../.evidence/barness-ai-kimi/freeze/05/invocation.json)、[回执](../../.evidence/barness-ai-kimi/e2e/20261023T011642.944924Z-ylkxot0p/receipt.json)、[逐项断言与五辅助审计](../../.evidence/barness-ai-kimi/acceptance/05/verification.json)。主审计零发现；辅助ai26、supportmatrix79、release15节点PASS，两CLI仅编译，实际行为由公共进程E2E覆盖。1351份来源、135项输入及85/6/5目录消费集合前后相等 |
+| 上一普通Hash | receipt ab3bb1a3d00f225f48a798801f11f6cc20c66a405a4151c707880a7f54993210；manifest 99bb7f3b8a41a517752790181409b5637dd4b58ef6edb51ecc60a4827e314771；audit 8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa |
 | 真实历史 | 旧来源7b41a21c96ee33238100ce8bea5218da480a6b6a的中国站Chat候选1调用/1Attempt、零重试，因cached_tokens缺失的旧成本规则FAIL；余8场景及其余五路线NOT_RUN，原生与外层消费者exit1。见[执行结果](evidence/candidate-live-result-01.md)及[原件](../../.evidence/barness-ai-kimi/paid-execution/01/summary.json) |
 | 新live实际范围 | 本次六路线candidate：CN Chat/Responses/Messages均9项PASS，原生及-qualify各exit0；GLOBAL Chat前3项PASS、第4项429/FAIL，余5项NOT_RUN；GLOBAL Responses/Messages各9项NOT_RUN。所有路线formal仍NOT_RUN，旧18条受影响路线仍NOT_RUN；[结果02](evidence/candidate-live-result-02.md) |
 | 凭据/授权 | [提案03](evidence/candidate-live-review-03.md)及[原始批准02](../../.evidence/barness-ai-kimi/authorizations/02/approval.json)已执行，共31调用/31Attempt、零重试，预算预留约US$2.278042（非账单）。四份grant永久消耗，余两ID未claimed但scope已首个真实候选失败停止；不自动续用。各进程仅所选Key，GLOBAL其他两路线未读取凭据 |
 | 本次失败与资源 | GLOBAL Chat HTTP429、rate_limit_reached_error，服务说明该账户RPM上限3、Retry-After1秒；统一rate_limited，usage/cost unreported，最终资源全0。四个原生audit均零发现，八份ID/scope账本副本字节相等，原件不改写。新范围见09，不因服务给Retry-After而自动重试 |
 | 阶段纠正 | 初始运行器把正式发布消费者用于CN Chat candidate，得到预期拒绝；-qualify及9项均PASS。保留该失败原件并更正阶段判定，在同一批准内仅继续五份未消耗candidate授权，未重跑CN Chat；真正candidate失败在GLOBAL Chat，之后全部停止。正式消费留待formal阶段 |
 | race/压力候选 | 均NOT_RUN；共享Usage快照、Observer与取消/Admission并发和受影响旧Provider在live后由人选择；工具/队列/背压等压力按SOP后续独立选择 |
-| 工单/目录 | 01–06及08 resolved；07普通实现/审查完成，真实候选由[09](issues/09-international-rate-limit.md)账户RPM限额阻塞，formal/晋升/人工阶段仍待处理。六路线正式目录仍inactive |
+| 工单/目录 | 01–06及08 resolved；07上一轮普通实现/审查完成；[09](issues/09-international-rate-limit.md) claimed，按用户指令加入间隔后重验国际站；新来源中国站重验、formal/晋升/人工阶段仍待处理。六路线正式目录仍inactive |
 | 原件/回滚 | 所有旧失败/中断/批准/账本与捕获保留。旧八个实施worktree已清理；本轮6250份原件已逐项核对并保留；app两次归档请求仅queued，随后受控CLI清理exit0、checkout已移除，分支02aea23保留，见[清理回执](evidence/worktree-cleanup-06.json)。回滚先禁用Binding/移除加载目录，再回退本轮代码/合同，保留原生身份与账本 |
-| 当前release.pass | false；[新不可变索引05](../../.evidence/barness-ai-kimi/records/05/record.json)绑定本文件及本轮实际状态；其release-final和release-final-command.json保留实际只读报告/数字退出。普通实测2ffa761、实际付费执行d291e9b，文档收尾当前SHA及来源/135项输入相等性在[核对04](../../.evidence/barness-ai-kimi/closure/04/source-equality.json)记录。索引04历史状态字节保留为[快照](history/spec-before-candidate-retry-20261023.md)，不刷新旧pin |
+| 当前release.pass | false；09代码/公开E2E红绿、审查、新冻结普通及新来源paced国际站执行尚在准备。[索引05](../../.evidence/barness-ai-kimi/records/05/record.json)历史绑定[间隔实施前状态](history/spec-before-live-pacing-20261023.md)；其release-final和release-final-command.json保留原实际只读报告/数字退出，新一轮结束后建新索引。普通实测2ffa761、实际付费执行d291e9b，文档收尾当前SHA及来源/135项输入相等性在[核对04](../../.evidence/barness-ai-kimi/closure/04/source-equality.json)记录。索引04历史状态字节保留为[快照](history/spec-before-candidate-retry-20261023.md)，不刷新旧pin |
 
 依据[测试SOP](../../docs/agents/verification.md)执行；当前修订决策优先于研究保留的旧schema必填标记。旧官方原文、旧真实失败及来源Hash不修改，当前软件归一化行为由修订合同与自身公共证据定义。
 

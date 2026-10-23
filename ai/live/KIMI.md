@@ -30,6 +30,16 @@ It never releases budget based on a partial, canceled or lower-point estimate.
 A failed Kimi case stops the process before later calls; the one-use grant
 remains spent and the incomplete native report cannot qualify.
 
+Kimi grants may set `callIntervalMs` to an integer0..60000 (default0).
+The native process waits before every logical call, including the first, under
+its process/grant deadline and cancellation. It reserves call/output budget and
+starts the120-second call window only after the wait. Waiting never adds retries;
+a canceled/expired wait sends no request, while the grant remains consumed.
+The interval is bound into the grant/ledger/native receipts and independently
+checked against captured observation times. Controlled tests use explicit small
+intervals; live intervals are not silently scaled. The international continuation
+uses35000ms because the observed account returned an organization limit of3 RPM.
+
 The fixed scenarios are: Full Stream with omitted effort/default max, Full
 Complete high, Simple Stream low, Simple Complete medium clamped high, exact
 L01 native-history continuation, tool call, Host tool-result continuation,

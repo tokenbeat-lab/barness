@@ -1,7 +1,7 @@
 # 09 — 国际站候选受账户 RPM 限额阻塞
 
 Type: task
-Status: ready-for-human
+Status: claimed
 
 ## Context
 
@@ -27,3 +27,5 @@ Status: ready-for-human
 ## Comments
 
 2026-10-23：依据已批准六路线提案03执行，真实候选首失败后关闭本范围。本次共31调用/31Attempt、零重试；不自动购买下一轮。
+
+2026-10-23：用户明确要求延长间隔并继续剩余验证，选择Resolution path2。认领Kimi-only grant.callIntervalMs0..60000、可取消等待及独立时序消费者，先公开进程红绿、审查和新冻结普通；随后按每国际路线35秒间隔、9调用/9Attempt、零重试、≤US$1.50范围执行新来源。旧失败与grant不复用，中国站旧来源候选适用性另判定。
