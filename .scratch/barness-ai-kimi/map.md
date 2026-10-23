@@ -15,8 +15,8 @@
 - 源码冻结与完整普通验收依赖所有实现及双轴审查修复；阶段性通过不等于六路线真实资格或 release.pass。
 
 - [03 Responses 已完成](issues/03-responses.md)：原生 summary/opaque IDs、终态、成本与历史碰撞由自身公共 E2E 验证。
-- [07 普通验收/双轴修复已完成](issues/07-acceptance.md)：真实阶段等待独立授权；只在 spec 唯一当前状态维护实际阶段事实。
+- [07 普通验收/双轴修复已完成](issues/07-acceptance.md)：六路线候选批准后的首个真实用例失败，按范围停止；只在 spec 唯一当前状态维护实际阶段事实。
 
 ## Fog
 
-- 六路线实际资格与晋升依赖自身付费证据，不从研究或回放推定。
+- [08 真实计费报告缺项](issues/08-live-usage-reporting.md)：中国站 Chat 未报 cached_tokens；保持 partial，不以合成0取得资格。六路线实际资格与晋升仍依赖自身完整付费证据，不从研究或回放推定。

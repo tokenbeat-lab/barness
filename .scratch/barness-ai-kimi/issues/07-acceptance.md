@@ -2,7 +2,7 @@
 
 Type: task
 Status: ready-for-human
-Blocked by: 02, 03, 04, 05, 06
+Blocked by: 02, 03, 04, 05, 06, 08
 
 ## Context
 
@@ -30,4 +30,4 @@ K01–K16；完整受影响普通包、源码冻结、Standards/Spec 审查及�
 
 集成实现、同一 implementer 的审查修复、两轴复核与冻结完整普通验收已完成；13956个必需原生用例 PASS，来源/129项输入及整目录集合相等。同一原生读取器接受完整14170-case bundle，路径修正前的失败及编排干扰中断均保留。实际受测 SHA、argv/exit、审计和不可变索引统一见 [唯一当前状态](../spec.md#唯一当前状态)。八个实施 worktree 已清理且原件/分支保留。
 
-本票尚待六路线自身候选与正式资格、审阅晋升及所需人工阶段；当前无付费/race/压力批准，不能 resolved 或宣称 release.pass。下一步具体范围见 [候选提案](../evidence/candidate-live-review-02.md)。
+本票尚待六路线自身候选与正式资格、审阅晋升及所需人工阶段。六路线候选已获批准；首个中国站 Chat 用例因服务未报缓存读取计数而失败，按批准范围停止其余调用，见 [不可变执行结果](../evidence/candidate-live-result-01.md)。由 [08](08-live-usage-reporting.md) 跟踪尚缺的厂商计费报告依据；原 grant 不复用。正式验证、race/压力尚未授权，不能 resolved 或宣称 release.pass。
