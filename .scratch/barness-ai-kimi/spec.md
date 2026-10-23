@@ -226,10 +226,10 @@ Kimi 的 Usage.Cost 使用同一元数据定义的点估值：resolved 为该估
 | 集成分支/修订基线 | codex/barness-ai-kimi-integration；本轮固定比较点2d55fcfa8957f430cb2b9950942429a58fc14a19，原大功能基线68b7da0a3400f909dc535d7f585c93771df1569c |
 | 当前实现范围 | Kimi Chat/Responses 两站可选 cached_tokens 默认0；独立判断 token 完整性与可证明费用界；缺写量有界分配；真实SSE回放；Result/Observer一致；资格断言与消费者采用同一成本合同。Messages及其他Provider维持原合同 |
 | 公共验证入口 | 继续采用用户确认的公共Client/CLI E2E。先留存真实捕获/缺项/自定义费率等失败，再实现并转绿；不增加私有helper单测 |
-| 普通候选范围 | 完整受影响包：go test -json ./ai/e2e ./ai ./ai/internal/testkit/supportmatrix ./ai/internal/testkit/release ./ai/live/cmd/regionalverify ./ai/live/cmd/regionalpromote -count=1 -timeout=20m；通过SOP run.py固定全部实际输入。最终有限必需ID在运行前冻结 |
+| 普通候选范围 | 完整受影响包：go test -json ./ai/e2e ./ai ./ai/internal/testkit/supportmatrix ./ai/internal/testkit/release ./ai/live/cmd/regionalverify ./ai/live/cmd/regionalpromote -count=1 -timeout=20m；通过SOP run.py固定全部实际输入。[最终有限清单](evidence/ordinary-selection-05.json)在运行前冻结：14045个必需ID，214个重负载NOT_RUN |
 | 旧普通事实 | 实际受测0c2a03dfc177699cf0163fa4b7b76e61e17fea71，13956原生PASS/214重负载NOT_RUN；[原核对](../../.evidence/barness-ai-kimi/acceptance/04/verification.json)。本轮行为/测试/夹具改变后不能作为新来源普通通过，须重新冻结验收 |
-| 本轮普通/审查 | NOT_RUN；实施者进行公共E2E红绿后，由根任务合并、双轴审查、修复、冻结来源并完整普通验收 |
-| 实际输入计划 | 保留122份实际历史/价格/脚本输入及85/6/5整目录集合审计；新增真实脱敏夹具在ai/来源内。审查完成后构建新native二进制及六份新grant草案，按文件固定实际输入。凭据不进入输入/argv |
+| 本轮普通/审查 | 已合并交付02aea23，冻结实现3a722ba；398个定向公共用例PASS，[实施证据](evidence/cache-bounds-implementation-01.md)。[双轴审查](evidence/cache-bounds-review-01.md)均PASS/0发现；完整普通验收待本次冻结执行 |
+| 实际输入计划 | 共135项：122份实际历史/价格/脚本输入、新native二进制和6份新grant草案、5份实际编排/审计工具及本次有限清单。85/6/5整目录集合另作前后审计；真实脱敏夹具在ai/来源内。新native来源22b841baaf4b6a61f982a29cef8ed4199bdb05748a413705944955911f406eea；新构建全exit0，凭据不进入输入/argv |
 | 真实历史 | 旧来源7b41a21c96ee33238100ce8bea5218da480a6b6a的中国站Chat候选1调用/1Attempt、零重试，因cached_tokens缺失的旧成本规则FAIL；余8场景及其余五路线NOT_RUN，原生与外层消费者exit1。见[执行结果](evidence/candidate-live-result-01.md)及[原件](../../.evidence/barness-ai-kimi/paid-execution/01/summary.json) |
 | 新live适用范围 | 六条Kimi成本/报告与资格来源受影响，须自身新候选与正式资格；保留共享历史涉及旧18条chat路线的既有影响判断。旧grant/来源不复用，不以离线回放补新真实资格 |
 | 凭据/授权 | 中国站KIMI/CN使用KIMI_CN_KEY，国际站KIMI/GLOBAL使用KIMI_KEY；本轮仅授权代码/合同修订。旧候选范围已首失败停止，新来源付费范围待审查/普通完成后提交。正式/旧路线/race/压力未授权 |
