@@ -1318,7 +1318,7 @@
     },
     {
       "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/guide.md",
-      "kind": "recorded-download",
+      "kind": "recorded-source-capture",
       "originalPath": "https://developers.openai.com/api/docs/guides/decisions.md",
       "originalRelativeBase": "https://developers.openai.com/api/docs/guides/decisions.md",
       "sha256": "518b4297877cb2aa6ddf6b36a1b201d3dd6e657b6171e2c2b2ae01b1d3d4aa77",
@@ -1339,11 +1339,16 @@
       ],
       "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
       "preserveOriginal": true,
-      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links. Capture format may be derived/extracted; inspect captureFormat. The pin proves this retained file, not an entire originating response/archive.",
+      "hashScope": "SHA256 of the retained capture file, not automatically the original HTTP/npm response body",
+      "captureFormat": {
+        "kind": "retained-source-file",
+        "method": "Recorded source capture; no byte-level original HTTP body identity inferred beyond sources.json file pin"
+      }
     },
     {
       "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/reference.txt",
-      "kind": "recorded-download",
+      "kind": "recorded-source-capture",
       "originalPath": "https://developers.openai.com/api/reference/resources/decisions/methods/create",
       "originalRelativeBase": "https://developers.openai.com/api/reference/resources/decisions/methods/create",
       "sha256": "99cac111ef6cbeae93afcb2f609b43e9c83ce96e4b7647ada3b085fd04fdb6ab",
@@ -1364,11 +1369,19 @@
       ],
       "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
       "preserveOriginal": true,
-      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links. Capture format may be derived/extracted; inspect captureFormat. The pin proves this retained file, not an entire originating response/archive.",
+      "hashScope": "SHA256 of the retained capture file, not automatically the original HTTP/npm response body",
+      "captureFormat": {
+        "kind": "derived-text",
+        "method": "HTMLParser main element text nodes, excluding script/style, joined with newlines",
+        "rawDownloadSHA256": "7007cb7445654ecf8cb4bfee271489d0cf5e51fe0de4d0ec11b74abe3fe928e4",
+        "rawDownloadRecovered": false,
+        "rule": "Derived text SHA and source HTML download SHA are distinct; raw HTML location not established in this bounded task."
+      }
     },
     {
       "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/model.md",
-      "kind": "recorded-download",
+      "kind": "recorded-source-capture",
       "originalPath": "https://developers.openai.com/api/docs/models/gpt-6-luna.md",
       "originalRelativeBase": "https://developers.openai.com/api/docs/models/gpt-6-luna.md",
       "sha256": "2e4861582095740f5ea84b14bb18fa476a49c426b397b779b964bc144397b451",
@@ -1389,11 +1402,16 @@
       ],
       "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
       "preserveOriginal": true,
-      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links. Capture format may be derived/extracted; inspect captureFormat. The pin proves this retained file, not an entire originating response/archive.",
+      "hashScope": "SHA256 of the retained capture file, not automatically the original HTTP/npm response body",
+      "captureFormat": {
+        "kind": "retained-source-file",
+        "method": "Recorded source capture; no byte-level original HTTP body identity inferred beyond sources.json file pin"
+      }
     },
     {
       "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/pi-classifier.json",
-      "kind": "recorded-download",
+      "kind": "recorded-source-capture",
       "originalPath": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz",
       "originalRelativeBase": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz",
       "sha256": "9c3eb7100ff6f4e915df6c3cf3952e5cb542077ebcecd98677050b27938be3cd",
@@ -1414,11 +1432,19 @@
       ],
       "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
       "preserveOriginal": true,
-      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links. Capture format may be derived/extracted; inspect captureFormat. The pin proves this retained file, not an entire originating response/archive.",
+      "hashScope": "SHA256 of the retained capture file, not automatically the original HTTP/npm response body",
+      "captureFormat": {
+        "kind": "extracted-classifier-entry",
+        "method": "One classifier model JSON entry from the pinned npm source snapshot",
+        "upstreamCommit": "abe508e1b89912adde45528136c3221eb69acdd7",
+        "originalTarballRecovered": false,
+        "rule": "The capture is not the full tarball; its file SHA does not prove the original tarball bytes."
+      }
     },
     {
       "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/gopher.webp",
-      "kind": "recorded-download",
+      "kind": "recorded-source-capture",
       "originalPath": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp",
       "originalRelativeBase": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp",
       "sha256": "335348a182a3fc65e0a1a59a53555cdea0c2cd60373acf44b091a0304ff2504a",
@@ -1439,11 +1465,16 @@
       ],
       "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
       "preserveOriginal": true,
-      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links. Capture format may be derived/extracted; inspect captureFormat. The pin proves this retained file, not an entire originating response/archive.",
+      "hashScope": "SHA256 of the retained capture file, not automatically the original HTTP/npm response body",
+      "captureFormat": {
+        "kind": "retained-source-file",
+        "method": "Recorded source capture; no byte-level original HTTP body identity inferred beyond sources.json file pin"
+      }
     },
     {
       "snapshotPath": ".scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/LICENSE",
-      "kind": "recorded-download",
+      "kind": "recorded-source-capture",
       "originalPath": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE",
       "originalRelativeBase": "https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE",
       "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
@@ -1464,7 +1495,12 @@
       ],
       "currentEntry": ".scratch/barness-ai-openai-decisions/spec.md",
       "preserveOriginal": true,
-      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links."
+      "limits": "Historical URL and capture only; no network/freshness/remote-availability assertion. Non-Markdown captures have no Markdown relative links. Capture format may be derived/extracted; inspect captureFormat. The pin proves this retained file, not an entire originating response/archive.",
+      "hashScope": "SHA256 of the retained capture file, not automatically the original HTTP/npm response body",
+      "captureFormat": {
+        "kind": "retained-source-file",
+        "method": "Recorded source capture; no byte-level original HTTP body identity inferred beyond sources.json file pin"
+      }
     },
     {
       "snapshotPath": ".scratch/barness-ai-pi-1.0/nine-route-release-evidence/history/1/release-report.md",

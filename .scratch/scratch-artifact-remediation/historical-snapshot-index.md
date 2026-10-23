@@ -2,7 +2,7 @@
 
 [追溯总览](historical-traceability.md) · [完整字段/哈希](historical-snapshots.json)
 
-40项由33份原样文档快照、6份按原来源清单哈希保存的下载捕获、1份明确经过路径脱敏的历史报告组成。脱敏派生报告不冒充原样；originals目录自己的说明README是归档指南，不假定它曾来自另一路径。GLM ticket-drafts是原提案位置，未推测成搬移快照。
+40项由33份原样文档快照、6份按原来源清单哈希保存的来源捕获、1份明确经过路径脱敏的历史报告组成。脱敏派生报告不冒充原样；originals目录自己的说明README是归档指南，不假定它曾来自另一路径。GLM ticket-drafts是原提案位置，未推测成搬移快照。
 
 原样快照19份有相等Git原文；14份有原发布/状态回执pin，但未找到相等文档Git版本。后者不是原件丢失，也不能把执行来源commit填作文档版本。相对链接从originalPath的父目录解释；当前入口仅导航，不回写旧状态。
 
@@ -41,12 +41,12 @@
 | [.scratch/scratch-artifact-remediation/history/phase2-before-20261024/public-contract.md](history/phase2-before-20261024/public-contract.md) | verbatim-snapshot | `docs/barness-ai/contract.md` | Git原字节相等 | [docs/barness-ai/contract.md](../../docs/barness-ai/contract.md) |
 | [.scratch/scratch-artifact-remediation/history/phase2-before-20261024/provider-tools-README.md](history/phase2-before-20261024/provider-tools-README.md) | verbatim-snapshot | `.scratch/barness-provider-sites/tools/README.md` | Git原字节相等 | [.scratch/barness-provider-sites/tools/README.md](../barness-provider-sites/tools/README.md) |
 | [.scratch/scratch-artifact-remediation/history/phase3-before-20261024/test-process-tools-README.md](history/phase3-before-20261024/test-process-tools-README.md) | verbatim-snapshot | `.scratch/barness-ai-test-process-review/tools/README.md` | Git原字节相等 | [.scratch/barness-ai-test-process-review/tools/README.md](../barness-ai-test-process-review/tools/README.md) |
-| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/guide.md](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/guide.md) | recorded-download | `https://developers.openai.com/api/docs/guides/decisions.md` | 原sources.json捕获哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
-| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/reference.txt](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/reference.txt) | recorded-download | `https://developers.openai.com/api/reference/resources/decisions/methods/create` | 原sources.json捕获哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
-| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/model.md](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/model.md) | recorded-download | `https://developers.openai.com/api/docs/models/gpt-6-luna.md` | 原sources.json捕获哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
-| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/pi-classifier.json](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/pi-classifier.json) | recorded-download | `https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz` | 原sources.json捕获哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
-| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/gopher.webp](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/gopher.webp) | recorded-download | `https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp` | 原sources.json捕获哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
-| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/LICENSE](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/LICENSE) | recorded-download | `https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE` | 原sources.json捕获哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
+| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/guide.md](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/guide.md) | recorded-source-capture | `https://developers.openai.com/api/docs/guides/decisions.md` | 原sources.json捕获文件哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
+| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/reference.txt](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/reference.txt) | recorded-source-capture | `https://developers.openai.com/api/reference/resources/decisions/methods/create` | 原sources.json捕获文件哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
+| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/model.md](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/model.md) | recorded-source-capture | `https://developers.openai.com/api/docs/models/gpt-6-luna.md` | 原sources.json捕获文件哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
+| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/pi-classifier.json](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/pi-classifier.json) | recorded-source-capture | `https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz` | 原sources.json捕获文件哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
+| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/gopher.webp](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/gopher.webp) | recorded-source-capture | `https://go.googlesource.com/image/+/refs/tags/v0.45.0/testdata/gopher-doc.1bpp.lossless.webp` | 原sources.json捕获文件哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
+| [.scratch/barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/LICENSE](../barness-ai-openai-decisions/formal-support-evidence/live/LIVE-P10-sources/LICENSE) | recorded-source-capture | `https://go.googlesource.com/image/+/refs/tags/v0.45.0/LICENSE` | 原sources.json捕获文件哈希相等 | [.scratch/barness-ai-openai-decisions/spec.md](../barness-ai-openai-decisions/spec.md) |
 | [.scratch/barness-ai-pi-1.0/nine-route-release-evidence/history/1/release-report.md](../barness-ai-pi-1.0/nine-route-release-evidence/history/1/release-report.md) | derived-redacted-history | `UNKNOWN（不推断）` | 路径脱敏派生；原完整路径/哈希未知 | [docs/agents/verification.md](../../docs/agents/verification.md) |
 
 ## 复核边界
@@ -54,3 +54,7 @@
 完整JSON逐项保留snapshotPath、originalPath、originalRelativeBase、SHA256、归档提交、版本字段、matchedGitOriginal、原pin证明与currentEntry。Git搜索至多80个原路径变更提交、单blob不超过8MiB；每项实际检查的commit另列。原样快照字节和与原记录的哈希均重新核对。
 
 网站捕获按原sources.json中的URL解析网站根相对路径；未发网络请求，不说明页面现在仍存在，也不更新当时事实。历史报告只保留原FAIL及脱敏转换说明，不据此产生本次通过。
+
+## 捕获格式不等于原始下载字节
+
+6份来源捕获的pin只确认各留存文件。reference.txt是HTMLParser抽取的main正文，原HTML另记录SHA256 `7007cb7445654ecf8cb4bfee271489d0cf5e51fe0de4d0ec11b74abe3fe928e4`，本轮未确认原HTML位置；pi-classifier.json只是固定npm来源中的单个classifier条目，不是原tgz。其余文件也不凭捕获文件pin推断完整HTTP响应原字节。逐项captureFormat/hashScope保留转换与未知范围，没有重新下载或补造原包。

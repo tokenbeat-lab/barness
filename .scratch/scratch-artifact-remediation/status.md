@@ -7,8 +7,10 @@
 - 基线提交：`19795e5decef6a9902e4adbf768a684378fd17ff`。只新增外部追溯索引/导航和本治理记录，没有修改原历史正文、脚本、快照、原生索引、产品源码、夹具、支持矩阵或授权。
 - 入口：[历史追溯总览](historical-traceability.md)、[349处逐项处置](historical-link-dispositions.md)、[逐项JSON](historical-links.json)、[快照索引](historical-snapshot-index.md)、[快照来源JSON](historical-snapshots.json)、[固定Git版本](historical-git-targets.md)。这些展示索引不供产品或证据消费者执行，也不发放资格。
 - 原349项保持顺序/内容：272项按已证实原基址可读，70项为已删除仓库路径的历史版本，2项临时地址有原哈希确认的永久副本，4项为网站根相对地址，1项在第2项已修正活动入口并保留原文。
-- 40项来源记录包含33份原样文档、6份原来源清单哈希一致的下载捕获及1份路径脱敏历史报告。原样文档19份与Git原文相等，14份由原发布清单/状态回执pin确认，但文档Git版本未找到；不拿执行来源commit冒充文档版本。Kimi、Decisions、MiniMax及前轮治理快照均按原路径/基址解释。
+- 40项来源记录包含33份原样文档、6份原来源清单哈希一致的来源捕获及1份路径脱敏历史报告。原样文档19份与Git原文相等，14份由原发布清单/状态回执pin确认，但文档Git版本未找到；不拿执行来源commit冒充文档版本。Kimi、Decisions、MiniMax及前轮治理快照均按原路径/基址解释。
 - 旧`/tmp/barness-ticket17-current-source-applicability.json`未重建。[ticket09永久原件](../barness-ai-minimax/evidence/ticket-09/final-closure/current-source-applicability.json)与[ticket17审查原件](../barness-ai-minimax/evidence/ticket-17/reviews/current-source-applicability.json)各49,705字节，均等于两份原文记录SHA256 `29d7009a2f31e03199b17225b3f069b78d99777e4c0d8c21ea71f1c9e51f8ff0`。只恢复导航；原2306917适用范围、严格相等性false、原selector/矩阵/原生pin和既有结论不改。
+
+- 来源捕获另注明格式：reference.txt为HTML正文提取、pi-classifier.json为npm单条目，捕获文件SHA不冒充原HTML/完整tgz。原HTML位置及完整tgz字节本轮未确认；[格式说明](historical-snapshot-index.md#捕获格式不等于原始下载字节)保留转换和未知范围。首轮第4项记录/状态/索引原字节另存[capture澄清前快照](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/capture-clarification/before.json)，不覆盖其回执。
 
 ## 仍未确认的部分与查找边界
 
@@ -22,7 +24,7 @@
 
 - 349项覆盖、原文href/片段、40项快照来源、19份Git相等原文、14份原pin、49个旧源码指针、两份临时库存原SHA及全部新引用核对通过。原失效列表、8757份旧选定scratch输入的集合与字节、345项保护对象及1909份完整执行来源保持；前轮已pin的输入除本治理status/spec/plan外均不变。
 - 第3项record绑定的原状态完整保存在[修订前状态](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/previous-status.md)，前轮spec/plan也同attempt保存。历史record、报告、脚本及所有pin不改，不能把旧状态hash套用到修改后的当前路径。
-- [真实文档检查命令回执](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/final-check-command/command-receipt.json)保留argv、实际数字退出0、起止/墙钟、日志和检查器SHA；[检查结果](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/final-document-check.json)列全检查和限制。[本轮不可变索引](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/record.json)及[只读报告](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/report/release-report.md)另存。
+- [真实文档检查命令回执](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/capture-clarification/final-check-command/command-receipt.json)保留argv、实际数字退出0、起止/墙钟、日志和检查器SHA；[检查结果](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/capture-clarification/final-document-check.json)列全检查和限制。[本轮不可变索引](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/capture-clarification/record.json)及[只读报告](../../.evidence/scratch-artifact-remediation/docs/20261023T234325Z-t6bj9jrp/capture-clarification/report/release-report.md)另存。
 - 本轮来源检查复用现行SOP纯读source_snapshot API，只读文件/Git；没有执行历史脚本或捕获命令，未运行Go/Node测试、vet、构建、厂商、race、压力或真实清理。未修改供运行/资格消费者使用的追溯数据；新索引仅展示。
 - 新选定输入含当前外部索引、原pin与检查事实；本轮E2E NOT_RUN、race NOT_RUN，live/压力有纯文档不适用依据；Source通过，release.pass=false。原第1项实际E2E仍只适用其原来源和输入，不因本次导航恢复重新绑定为当前全输入PASS。
 
