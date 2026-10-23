@@ -21,9 +21,11 @@
 
 - [本次候选结果02](evidence/candidate-live-result-02.md)：31调用/31Attempt、零重试；中国站三路线通过。正式发布消费者曾误用于candidate，原拒绝及阶段纠正均保留。
 
+- [60秒续验结果04](evidence/candidate-live-result-04.md)：国际站Responses/Messages各9/9及原生候选资格PASS，连同同源Chat，当前国际三路线候选完整通过。18调用均200，未触发额外重试；09/10 resolved。新输入完整普通14071必需PASS，实际状态仍只维护spec。
+
 ## Fog
 
-- [09 国际站RPM限额](issues/09-international-rate-limit.md)：35秒原生间隔的实现与普通已完成，Chat9/9通过。Responses新服务端SSE过载阻塞余下资格，接续见10；新来源中国站、formal/晋升及人工阶段仍待处理。
+- 新来源中国站三路线候选、六路线formal/晋升及人工阶段仍待07；11嵌套SSE错误诊断待triage。09/10已按60秒续验完整通过，旧失败事实保留。
 
 - 2026-10-23：用户要求延长间隔并继续，09认领Kimi grant有界间隔实现与公开进程验证；新的国际三路线固定35秒、零重试，旧来源/授权原件保留。当前实际进度仅见spec。
 

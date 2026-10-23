@@ -39,3 +39,5 @@ K01–K16；完整受影响普通包、源码冻结、Standards/Spec 审查及�
 2026-10-23：修订后授权已执行，三条中国站candidate完整PASS；国际站Chat第4项因账户RPM=3返回429，首失败停止，国际站另两条NOT_RUN。31调用/31Attempt、零重试；见[结果02](../evidence/candidate-live-result-02.md)与新阻塞[09](09-international-rate-limit.md)。正式资格及人工阶段仍未获准。
 
 2026-10-23：按用户要求加入35秒原生间隔，完成双轴复核与新冻结完整普通（14071必需PASS）；当前来源国际站Chat9/9及自身资格PASS。Responses第4项服务端SSE过载，范围停止，Messages未跑；[10](10-responses-engine-overload.md)等待新scope，[11](11-responses-stream-error-diagnostics.md)记录诊断分类待triage。原件见[结果03](../evidence/candidate-live-result-03.md)，当前发布仍false。
+
+2026-10-23：60秒间隔已完成国际站Responses/Messages各9/9、native/-qualify均0；当前native来源国际三路线候选完整通过，09/10 resolved，11仍needs-triage。完整普通07为14071必需PASS/603输入；[结果04](../evidence/candidate-live-result-04.md)。本票继续ready-for-human：当前来源中国站三候选、六路线formal、晋升、旧路线及人工race/压力均未执行，不宣称release.pass。
