@@ -244,7 +244,7 @@ Kimi原生资格grant可带callIntervalMs整数，范围0..60000、默认0；非
 | race/压力候选 | 均NOT_RUN；共享Usage快照、Observer与取消/Admission并发和受影响旧Provider在live后由人选择；工具/队列/背压等压力按SOP后续独立选择 |
 | 工单/目录 | 01–06、08–10 resolved；09/10的国际候选续验目标完成，旧失败保留。11仍needs-triage，SDK嵌套错误诊断本轮未修改。07 ready-for-human，待当前来源中国站三路线、formal、晋升及人工阶段；正式目录inactive |
 | 原件/回滚 | 所有旧失败/批准/pin/账本保留。paced实施13299份原件双端全量核对一致，539份共享授权记录不变；app归档仅queued，精确owned worktree随后安全CLI清理exit0、路径已移除，分支6a08保留，见[清理07](evidence/worktree-cleanup-07.json)。先禁用Binding/移除加载目录，再回退本轮实现，保留原生身份及账本 |
-| 当前release.pass | false；完整普通07及本轮剩余国际候选已通过。新不可变[索引07](../../.evidence/barness-ai-kimi/records/07/record.json)与[只读发布判定](../../.evidence/barness-ai-kimi/records/07/release-final/release-report.json)记录source/e2e通过、live/race/pressure未通过，实际CLI exit1；新来源中国站候选、六路线formal、晋升、旧路线、race/压力未执行。收尾仅文档/索引，与实测来源/603输入集合相等；[相等性](../../.evidence/barness-ai-kimi/closure/06/source-equality.json)。旧索引06不变 |
+| 当前release.pass | false；完整普通07及本轮剩余国际候选已通过。新不可变[索引07](../../.evidence/barness-ai-kimi/records/07/record-final.json)与[只读发布判定](../../.evidence/barness-ai-kimi/records/07/release-final/release-report.json)记录source/e2e通过、live/race/pressure未通过，实际CLI exit1；新来源中国站候选、六路线formal、晋升、旧路线、race/压力未执行。收尾仅文档/索引，与实测来源/603输入集合相等；[相等性](../../.evidence/barness-ai-kimi/closure/06/source-equality.json)。旧索引06不变 |
 
 依据[测试SOP](../../docs/agents/verification.md)执行；当前修订决策优先于研究保留的旧schema必填标记。旧官方原文、旧真实失败及来源Hash不修改，当前软件归一化行为由修订合同与自身公共证据定义。
 

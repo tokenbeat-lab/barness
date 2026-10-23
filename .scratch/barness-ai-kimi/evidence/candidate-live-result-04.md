@@ -22,4 +22,4 @@
 
 native source仍为2f1513067bedf1431f1e702b6b24e222543f22bf992e01e7bd64fba3399dd1b4，binary仍为00b595e39dd242ead429123c45b49e217648ec4b56d3e002cc28f9767e1c4ff6；因此国际站Chat已有完整当前来源候选仍适用。旧中国站三路线候选属于前一native来源，未在本轮重买；当前来源中国站候选、六路线formal、目录晋升、旧路线、race和压力均未执行，release.pass=false。
 
-[09](../issues/09-international-rate-limit.md)及[10](../issues/10-responses-engine-overload.md)的国际候选续验目标已完成；[11](../issues/11-responses-stream-error-diagnostics.md)保持needs-triage。唯一可变状态见[spec](../spec.md#唯一当前状态)，新不可变索引为[07](../../../.evidence/barness-ai-kimi/records/07/record.json)。本次没有新建worktree。
+[09](../issues/09-international-rate-limit.md)及[10](../issues/10-responses-engine-overload.md)的国际候选续验目标已完成；[11](../issues/11-responses-stream-error-diagnostics.md)保持needs-triage。唯一可变状态见[spec](../spec.md#唯一当前状态)，新不可变索引为[07](../../../.evidence/barness-ai-kimi/records/07/record-final.json)。本次没有新建worktree。
