@@ -23,6 +23,8 @@
 
 ## Fog
 
-- [09 国际站RPM限额](issues/09-international-rate-limit.md)：本次三条中国站candidate完整PASS，国际站Chat第4项429；首个真实候选失败停止，余两条国际路线NOT_RUN。新的来源适用性/付费范围及正式资格、晋升与人工阶段仍待处理。
+- [09 国际站RPM限额](issues/09-international-rate-limit.md)：35秒原生间隔的实现与普通已完成，Chat9/9通过。Responses新服务端SSE过载阻塞余下资格，接续见10；新来源中国站、formal/晋升及人工阶段仍待处理。
 
 - 2026-10-23：用户要求延长间隔并继续，09认领Kimi grant有界间隔实现与公开进程验证；新的国际三路线固定35秒、零重试，旧来源/授权原件保留。当前实际进度仅见spec。
+
+- [35秒续验结果03](evidence/candidate-live-result-03.md)：Chat9/9及原生资格PASS；Responses第4项SSE引擎过载，13调用后停止。09实现与普通已通过，剩余资格由[10](issues/10-responses-engine-overload.md)待新范围；[11](issues/11-responses-stream-error-diagnostics.md)仅记录安全错误诊断待核对。实际状态仍只维护spec。
