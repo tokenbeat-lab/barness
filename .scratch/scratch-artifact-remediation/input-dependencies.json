@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "baselineHead": "571ca112859211ca5d987906e16ae135f89f54f5",
+  "ordinaryInputs": [
+    {
+      "fixture": "ai/e2e/testdata/retained/jev-baseline",
+      "provenance": "ai/e2e/testdata/retained/jev-baseline/provenance.json",
+      "files": 3,
+      "bytes": 4829340,
+      "sourceArchive": ".scratch/barness-ai-openai-decisions/jev-baseline"
+    },
+    {
+      "fixture": "ai/e2e/testdata/retained/decisions-text-choice",
+      "provenance": "ai/e2e/testdata/retained/decisions-text-choice/provenance.json",
+      "files": 3,
+      "bytes": 3997729,
+      "sourceArchive": ".scratch/barness-ai-openai-decisions/text-choice-evidence"
+    },
+    {
+      "fixture": "ai/e2e/testdata/retained/decisions-runtime",
+      "provenance": "ai/e2e/testdata/retained/decisions-runtime/provenance.json",
+      "files": 537,
+      "bytes": 1372808,
+      "sourceArchive": {
+        "path": ".scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip",
+        "sha256": "55c3dcca662bb1d2128c1f1a906b02488ae8969efd8d7c5407bf02ee64e9c33b",
+        "manifestSHA256": "6ba9aa456143c8d86e8cb733b0a1cd9ad301844481eca49cb7f6d3c54b58266c"
+      }
+    }
+  ],
+  "verifiers": [
+    {
+      "path": ".scratch/barness-ai-openai-decisions/jev-baseline/verify.py",
+      "transitiveInputs": "Retained manifest and ZIP; archive source/provenance bytes stay opaque; optional Go audit CLI only."
+    },
+    {
+      "path": ".scratch/barness-ai-openai-decisions/text-choice-evidence/verify.py",
+      "transitiveInputs": "Retained manifest and ZIP; Go audit CLI for snapshot process."
+    }
+  ],
+  "otherTrackedDependencies": "Conservative fixed closure: all 8,757 baseline Git-tracked .scratch files, excluding new mutable governance records. Includes protocol verifier, launch guards, rollback source, formal support and Chinese-effect captures. Complete hashes retained in the planning baseline, not duplicated here.",
+  "historicalTrackedByteChanges": []
+}

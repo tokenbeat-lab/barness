@@ -1,0 +1,28 @@
+{
+  "answers": null,
+  "usage": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "totalTokens": 0,
+    "cost": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    }
+  },
+  "stopReason": "error",
+  "errorMessage": "binding does not allow classifier images",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-after-revoke",
+    "actorId": "actor-tenant-a",
+    "jobId": "job-tenant-a",
+    "bindingId": "luna",
+    "operation": "classifier",
+    "resolved": false
+  }
+}

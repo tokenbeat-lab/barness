@@ -1,0 +1,22 @@
+{
+  "TenantID": "tenant-b",
+  "BindingID": "chat",
+  "Operation": "chat",
+  "Version": "b1",
+  "Enabled": true,
+  "ProviderID": "openai",
+  "API": "openai-responses",
+  "Endpoint": "http://127.0.0.1:50946/tenant-b/chat",
+  "AuthKind": "api_key",
+  "AccountScopeID": "shared-openai",
+  "CredentialRef": "openai",
+  "AllowedModels": [
+    "same-model"
+  ],
+  "AllowedHostedTools": null,
+  "AllowClassifierImages": false,
+  "Retry": {
+    "MaxRetries": 0,
+    "MaxRetryDelay": null
+  }
+}

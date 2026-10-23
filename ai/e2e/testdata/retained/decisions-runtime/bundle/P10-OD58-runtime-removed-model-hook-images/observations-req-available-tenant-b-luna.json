@@ -1,0 +1,158 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-12T23:45:37.452068+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-luna",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-12T23:45:37.452205+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-luna",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "attempt": {
+      "attemptId": "req-available-tenant-b-luna#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-12T23:45:37.4523+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-luna",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "attempt": {
+      "attemptId": "req-available-tenant-b-luna#1",
+      "httpStatus": 200,
+      "providerRequestId": "up-tenant-b-luna",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 47,
+        "output": 20,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 67,
+        "cost": {
+          "input": 0.000004700000000000001,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000004700000000000001
+        }
+      }
+    },
+    "duration": 94625
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-12T23:45:37.452302+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-luna",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235",
+      "attempts": [
+        {
+          "attemptId": "req-available-tenant-b-luna#1",
+          "httpStatus": 200,
+          "providerRequestId": "up-tenant-b-luna",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 47,
+            "output": 20,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 67,
+            "cost": {
+              "input": 0.000004700000000000001,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000004700000000000001
+            }
+          }
+        }
+      ]
+    },
+    "duration": 233375,
+    "stopReason": "stop",
+    "usage": {
+      "input": 47,
+      "output": 20,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 67,
+      "cost": {
+        "input": 0.000004700000000000001,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000004700000000000001
+      }
+    }
+  }
+]

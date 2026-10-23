@@ -1,81 +1,24 @@
 package e2e
 
 import (
-	"archive/zip"
 	"encoding/json"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
-	"io"
 	"os"
 	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 )
 
-// Import the retained public runtime run, keeping each original artifact byte.
+// Keep the same six historical revocation cases selected by the former ZIP
+// import. Original artifacts and the derived manifest are pinned beside the
+// bundle; provenance never promotes this fixture to current live support.
 func releaseRollbackBundle(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()
-	z, err := zip.OpenReader("../../.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip")
-	if err != nil {
+	if err := os.CopyFS(dir, os.DirFS("testdata/retained/decisions-runtime/bundle")); err != nil {
 		t.Fatal(err)
 	}
-	defer z.Close()
-	var prefix string
-	for _, f := range z.File {
-		if strings.HasPrefix(f.Name, "runs/full/") && strings.HasSuffix(f.Name, "/manifest.json") {
-			prefix = strings.TrimSuffix(f.Name, "manifest.json")
-			break
-		}
-	}
-	if prefix == "" {
-		t.Fatal("original runtime manifest absent")
-	}
-	for _, f := range z.File {
-		name, ok := strings.CutPrefix(f.Name, prefix)
-		if !ok || (!strings.HasPrefix(name, "P10-OD58-runtime-") && name != "manifest.json" && name != "audit.json") {
-			continue
-		}
-		if f.FileInfo().IsDir() {
-			continue
-		}
-		if !filepath.IsLocal(name) {
-			t.Fatal("unsafe archive member")
-		}
-		dst := filepath.Join(dir, name)
-		if err := os.MkdirAll(filepath.Dir(dst), 0700); err != nil {
-			t.Fatal(err)
-		}
-		r, err := f.Open()
-		if err != nil {
-			t.Fatal(err)
-		}
-		raw, err := io.ReadAll(io.LimitReader(r, 8<<20))
-		r.Close()
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := os.WriteFile(dst, raw, 0600); err != nil {
-			t.Fatal(err)
-		}
-	}
-	raw, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	var m map[string]any
-	if err = json.Unmarshal(raw, &m); err != nil {
-		t.Fatal(err)
-	}
-	var cases []any
-	for _, v := range m["cases"].([]any) {
-		if strings.HasPrefix(v.(map[string]any)["id"].(string), "P10-OD58-runtime-") {
-			cases = append(cases, v)
-		}
-	}
-	m["cases"] = cases
-	writeReleaseJSON(t, dir, "manifest.json", m)
 	return dir
 }
 func TestReleaseRollbackArtifacts(t *testing.T) {

@@ -1,0 +1,22 @@
+{
+  "TenantID": "tenant-b",
+  "BindingID": "luna",
+  "Operation": "classifier",
+  "Version": "b1",
+  "Enabled": true,
+  "ProviderID": "openai",
+  "API": "openai-decisions",
+  "Endpoint": "http://127.0.0.1:50952/tenant-b/luna",
+  "AuthKind": "api_key",
+  "AccountScopeID": "shared-openai",
+  "CredentialRef": "openai",
+  "AllowedModels": [
+    "same-model"
+  ],
+  "AllowedHostedTools": null,
+  "AllowClassifierImages": true,
+  "Retry": {
+    "MaxRetries": 0,
+    "MaxRetryDelay": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "purpose": "Immutable historical input for ordinary public verifier tests; no current live qualification",
+  "sourceCommit": "571ca112859211ca5d987906e16ae135f89f54f5",
+  "sourceDirectory": ".scratch/barness-ai-openai-decisions/text-choice-evidence",
+  "files": {
+    "manifest.json": "56eebbe07a9c339d675c48ab94bc4399c22140bf8489d28b1d517458edaeb34c",
+    "text-choice.zip": "10d0c83f3f5ffa33ca14fb4fa9ca7a29c3651510b45c6da7eebaa166ca330c44"
+  },
+  "verifier": {
+    "path": ".scratch/barness-ai-openai-decisions/text-choice-evidence/verify.py",
+    "sha256": "700a85f360432e57cb35e5c9ae37b7f892fa5777e3aa706d967af1e89c8d63cf"
+  },
+  "selection": "Exact original archive and manifest bytes. Historical red/FAIL/NOT_RUN records are retained."
+}

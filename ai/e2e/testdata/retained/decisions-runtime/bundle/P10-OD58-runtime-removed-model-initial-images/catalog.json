@@ -1,0 +1,174 @@
+{
+  "version": "runtime-06-synthetic",
+  "models": [
+    {
+      "provider": "openai",
+      "api": "openai-responses",
+      "id": "same-model",
+      "name": "Host chat",
+      "reasoning": false,
+      "input": [
+        "text",
+        "image"
+      ],
+      "contextWindow": 1047576,
+      "maxTokens": 32768,
+      "samplingParams": {
+        "top_p": 0.5
+      },
+      "cost": {
+        "input": 0.4,
+        "output": 1.6,
+        "cacheRead": 0.1,
+        "cacheWrite": 0,
+        "tiers": [
+          {
+            "inputTokensAbove": 100,
+            "input": 2,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        ]
+      }
+    }
+  ],
+  "imageModels": [
+    {
+      "provider": "openai",
+      "api": "openai-images",
+      "id": "same-model",
+      "name": "Synthetic image model",
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "image"
+      ],
+      "capabilities": {
+        "maxReferenceImages": 16,
+        "maxOutputImages": 10,
+        "sizes": [
+          "auto",
+          "1024x1024",
+          "1536x1024"
+        ],
+        "qualities": [
+          "auto",
+          "low",
+          "medium",
+          "high"
+        ],
+        "mask": true,
+        "transparentBackground": true,
+        "inputFidelity": [
+          "high",
+          "low"
+        ]
+      },
+      "pricing": {
+        "inputText": 2,
+        "inputImage": 3,
+        "outputImage": 5,
+        "source": "synthetic fixture rates"
+      }
+    },
+    {
+      "provider": "google",
+      "api": "google-interactions",
+      "id": "same-model",
+      "name": "Synthetic Google image model",
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text",
+        "image"
+      ],
+      "capabilities": {
+        "maxReferenceImages": 14,
+        "maxOutputImages": 4,
+        "imageSizes": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "aspectRatios": [
+          "1:1",
+          "16:9"
+        ]
+      },
+      "pricing": {
+        "inputText": 2,
+        "inputImage": 3,
+        "outputText": 4,
+        "outputImage": 5,
+        "source": "synthetic fixture rates"
+      }
+    }
+  ],
+  "classifierModels": [
+    {
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "id": "same-model",
+      "name": "Synthetic classifier",
+      "contextWindow": 64000,
+      "capabilities": {
+        "kinds": [
+          "choice",
+          "score",
+          "bool"
+        ],
+        "maxChoices": 255,
+        "minScoreLevels": 2,
+        "maxScoreLevels": 10
+      },
+      "cost": {
+        "input": 1,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    },
+    {
+      "provider": "openai",
+      "api": "openai-decisions",
+      "id": "same-model",
+      "name": "Synthetic Luna runtime candidate",
+      "contextWindow": 64000,
+      "input": [
+        "text",
+        "image"
+      ],
+      "capabilities": {
+        "maxInputImages": 128,
+        "imageMimeTypes": [
+          "image/png",
+          "image/jpeg",
+          "image/webp"
+        ],
+        "kinds": [
+          "choice",
+          "score",
+          "bool"
+        ],
+        "maxChoices": 255,
+        "minChoices": 2,
+        "descriptionFormats": [
+          "string"
+        ],
+        "minScoreLevels": 2,
+        "maxScoreLevels": 10
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    }
+  ]
+}

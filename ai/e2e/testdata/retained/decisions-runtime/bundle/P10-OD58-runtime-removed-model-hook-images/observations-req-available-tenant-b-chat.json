@@ -1,0 +1,158 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-12T23:45:37.450036+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-chat",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "chat",
+      "operation": "chat",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-12T23:45:37.450054+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-chat",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "chat",
+      "operation": "chat",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-responses",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "attempt": {
+      "attemptId": "req-available-tenant-b-chat#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-12T23:45:37.45023+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-chat",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "chat",
+      "operation": "chat",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-responses",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "attempt": {
+      "attemptId": "req-available-tenant-b-chat#1",
+      "httpStatus": 200,
+      "providerRequestId": "up-tenant-b-chat",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 47,
+        "output": 1,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 48,
+        "cost": {
+          "input": 0.000018800000000000003,
+          "output": 0.0000016000000000000001,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000020400000000000005
+        }
+      }
+    },
+    "duration": 176459
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-12T23:45:37.45024+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-chat",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "chat",
+      "operation": "chat",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-responses",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235",
+      "attempts": [
+        {
+          "attemptId": "req-available-tenant-b-chat#1",
+          "httpStatus": 200,
+          "providerRequestId": "up-tenant-b-chat",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 47,
+            "output": 1,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "reasoning": 0,
+            "totalTokens": 48,
+            "cost": {
+              "input": 0.000018800000000000003,
+              "output": 0.0000016000000000000001,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000020400000000000005
+            }
+          }
+        }
+      ]
+    },
+    "duration": 204125,
+    "stopReason": "stop",
+    "usage": {
+      "input": 47,
+      "output": 1,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 48,
+      "cost": {
+        "input": 0.000018800000000000003,
+        "output": 0.0000016000000000000001,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000020400000000000005
+      }
+    }
+  }
+]

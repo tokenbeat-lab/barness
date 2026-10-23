@@ -1,0 +1,69 @@
+{
+  "answers": {
+    "intent": {
+      "type": "choice",
+      "choice": "track",
+      "probabilities": {
+        "other": 0.1,
+        "track": 0.9
+      },
+      "confidence": 0.82
+    }
+  },
+  "usage": {
+    "input": 31,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "reasoning": 0,
+    "totalTokens": 51,
+    "cost": {
+      "input": 0.0000031000000000000004,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0.0000031000000000000004
+    }
+  },
+  "stopReason": "stop",
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-prior",
+    "actorId": "actor-tenant-a",
+    "jobId": "job-tenant-a",
+    "bindingId": "luna",
+    "operation": "classifier",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-decisions",
+    "modelId": "same-model",
+    "accountScopeId": "shared-openai",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "runtime-06-synthetic",
+    "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235",
+    "attempts": [
+      {
+        "attemptId": "req-prior#1",
+        "httpStatus": 200,
+        "providerRequestId": "up-tenant-a-luna",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 31,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 51,
+          "cost": {
+            "input": 0.0000031000000000000004,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0000031000000000000004
+          }
+        }
+      }
+    ]
+  }
+}

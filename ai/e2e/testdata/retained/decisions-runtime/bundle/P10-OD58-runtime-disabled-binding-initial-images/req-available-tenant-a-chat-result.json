@@ -1,0 +1,73 @@
+{
+  "message": {
+    "content": [
+      {
+        "text": "mixed-output-tenant-a",
+        "textSignature": "{\"v\":1,\"id\":\"msg_p\"}"
+      }
+    ],
+    "api": "openai-responses",
+    "provider": "openai",
+    "model": "same-model",
+    "responseId": "resp_p",
+    "usage": {
+      "input": 31,
+      "output": 1,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "reasoning": 0,
+      "totalTokens": 32,
+      "cost": {
+        "input": 0.000012400000000000002,
+        "output": 0.0000016000000000000001,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000014000000000000001
+      }
+    },
+    "stopReason": "stop",
+    "rawStopReason": "completed",
+    "timestamp": 1791819937416,
+    "durationMs": 0
+  },
+  "metadata": {
+    "tenantId": "tenant-a",
+    "requestId": "req-available-tenant-a-chat",
+    "actorId": "actor-tenant-a",
+    "jobId": "job-tenant-a",
+    "bindingId": "chat",
+    "operation": "chat",
+    "resolved": true,
+    "providerId": "openai",
+    "api": "openai-responses",
+    "modelId": "same-model",
+    "accountScopeId": "shared-openai",
+    "bindingVersion": "b1",
+    "credentialVersion": "v1",
+    "catalogVersion": "runtime-06-synthetic",
+    "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235",
+    "attempts": [
+      {
+        "attemptId": "req-available-tenant-a-chat#1",
+        "httpStatus": 200,
+        "providerRequestId": "up-tenant-a-chat",
+        "usageReporting": "complete",
+        "usage": {
+          "input": 31,
+          "output": 1,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 32,
+          "cost": {
+            "input": 0.000012400000000000002,
+            "output": 0.0000016000000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.000014000000000000001
+          }
+        }
+      }
+    ]
+  }
+}

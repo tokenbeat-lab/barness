@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "purpose": "Immutable historical input for ordinary public verifier tests; no current live qualification",
+  "sourceCommit": "571ca112859211ca5d987906e16ae135f89f54f5",
+  "sourceDirectory": ".scratch/barness-ai-openai-decisions/jev-baseline",
+  "files": {
+    "manifest.json": "9847ee653eff6d9534db94f590946bb487fd4ffcee4ba2bfbf88558b026086cb",
+    "baseline.zip": "b1c5a8e66af451580a587ce99ab1314918022f7362bdc447fd14d21ae530e8d7"
+  },
+  "verifier": {
+    "path": ".scratch/barness-ai-openai-decisions/jev-baseline/verify.py",
+    "sha256": "4936382c94dbd53dd77a6f1a914a73233fe6c4ebc0f12e56ffcc7141a6623e40"
+  },
+  "selection": "Exact original archive and manifest bytes. Historical red/FAIL/NOT_RUN records are retained."
+}

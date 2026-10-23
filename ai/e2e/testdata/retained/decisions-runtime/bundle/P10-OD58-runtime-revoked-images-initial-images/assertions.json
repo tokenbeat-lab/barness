@@ -1,0 +1,884 @@
+{
+  "assertions": [
+    {
+      "name": "observer received call_finished of req-prior",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-prior#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-prior#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-prior#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.456528 +0800 CST m=+15.548116542 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-prior ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-prior#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]} Attempt:<nil> Duration:405.25µs StopReason:stop Error:<nil> Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-prior#1"
+    },
+    {
+      "name": "reported cost exists before revocation",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "active request is frozen and sent",
+      "pass": true
+    },
+    {
+      "name": "observer received call_finished of req-after-revoke",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-after-revoke ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-after-revoke ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-after-revoke ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.457674 +0800 CST m=+15.549261959 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-after-revoke ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]} Attempt:<nil> Duration:61.375µs StopReason:error Error:0x4226e886340 Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "new authorization rejected without fallback",
+      "pass": true,
+      "detail": "got ai: tenant_denied (capability): binding does not allow classifier images / {Bindings:1 Credentials:0}"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-a-chat",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-a-chat#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-chat Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:32 Cost:{Input:1.2400000000000002e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:1.4000000000000001e-05}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-a-chat#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-a-chat#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-chat Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:32 Cost:{Input:1.2400000000000002e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:1.4000000000000001e-05}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.458589 +0800 CST m=+15.550177209 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-chat ActorID:actor-tenant-a JobID:job-tenant-a BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-a-chat#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-chat Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:32 Cost:{Input:1.2400000000000002e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:1.4000000000000001e-05}}}]} Attempt:<nil> Duration:343.667µs StopReason:stop Error:<nil> Usage:{Input:31 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:32 Cost:{Input:1.2400000000000002e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:1.4000000000000001e-05}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-a-chat#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-a chat: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-a-openai-image",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-a-openai-image#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-openai-image Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9c0880 TotalTokens:51 Cost:{Input:6.2e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000162}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-a-openai-image#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-a-openai-image#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-openai-image Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9c0a00 TotalTokens:51 Cost:{Input:6.2e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000162}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.459124 +0800 CST m=+15.550712542 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-openai-image ActorID:actor-tenant-a JobID:job-tenant-a BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-a-openai-image#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-openai-image Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9c0a00 TotalTokens:51 Cost:{Input:6.2e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000162}}}]} Attempt:<nil> Duration:90.166µs StopReason:stop Error:<nil> Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9c0940 TotalTokens:51 Cost:{Input:6.2e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000162}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-a-openai-image#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-a openai-image: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-a-classifier",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-a-classifier#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-classifier Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1e-05 Output:0 CacheRead:0 CacheWrite:0 Total:3.1e-05}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-a-classifier#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-a-classifier#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-classifier Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1e-05 Output:0 CacheRead:0 CacheWrite:0 Total:3.1e-05}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.459736 +0800 CST m=+15.551324459 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-available-tenant-a-classifier ActorID:actor-tenant-a JobID:job-tenant-a BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-a-classifier#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-classifier Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1e-05 Output:0 CacheRead:0 CacheWrite:0 Total:3.1e-05}}}]} Attempt:<nil> Duration:124.167µs StopReason:stop Error:<nil> Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1e-05 Output:0 CacheRead:0 CacheWrite:0 Total:3.1e-05}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-a-classifier#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-a classifier: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-b-chat",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-b-chat#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-chat Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:48 Cost:{Input:1.8800000000000003e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:2.0400000000000005e-05}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-b-chat#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-chat#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-chat Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:48 Cost:{Input:1.8800000000000003e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:2.0400000000000005e-05}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.460535 +0800 CST m=+15.552123042 Call:{CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-chat ActorID:actor-tenant-b JobID:job-tenant-b BindingID:chat Operation:chat Resolved:true ProviderID:openai API:openai-responses ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-chat#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-chat Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:48 Cost:{Input:1.8800000000000003e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:2.0400000000000005e-05}}}]} Attempt:<nil> Duration:199.5µs StopReason:stop Error:<nil> Usage:{Input:47 Output:1 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:48 Cost:{Input:1.8800000000000003e-05 Output:1.6000000000000001e-06 CacheRead:0 CacheWrite:0 Total:2.0400000000000005e-05}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-b-chat#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-b chat: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-b-openai-image",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-b-openai-image#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-openai-image Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9cd3c0 TotalTokens:67 Cost:{Input:9.4e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000194}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-b-openai-image#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-openai-image#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-openai-image Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9cd5c0 TotalTokens:67 Cost:{Input:9.4e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000194}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.46148 +0800 CST m=+15.553068667 Call:{CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-openai-image ActorID:actor-tenant-b JobID:job-tenant-b BindingID:openai-image Operation:image Resolved:true ProviderID:openai API:openai-images ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-openai-image#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-openai-image Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9cd5c0 TotalTokens:67 Cost:{Input:9.4e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000194}}}]} Attempt:<nil> Duration:87.916µs StopReason:stop Error:<nil> Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:0x4226e9cd580 TotalTokens:67 Cost:{Input:9.4e-05 Output:0.0001 CacheRead:0 CacheWrite:0 Total:0.000194}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-b-openai-image#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-b openai-image: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-b-classifier",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-b-classifier#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-classifier Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.7e-05 Output:0 CacheRead:0 CacheWrite:0 Total:4.7e-05}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-b-classifier#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-classifier#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-classifier Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.7e-05 Output:0 CacheRead:0 CacheWrite:0 Total:4.7e-05}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.462019 +0800 CST m=+15.553607876 Call:{CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-classifier ActorID:actor-tenant-b JobID:job-tenant-b BindingID:classifier Operation:classifier Resolved:true ProviderID:typesafe API:typesafe-system-one ModelID:same-model AccountScopeID:shared-typesafe} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-classifier#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-classifier Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.7e-05 Output:0 CacheRead:0 CacheWrite:0 Total:4.7e-05}}}]} Attempt:<nil> Duration:129.917µs StopReason:stop Error:<nil> Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.7e-05 Output:0 CacheRead:0 CacheWrite:0 Total:4.7e-05}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-b-classifier#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-b classifier: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-available-tenant-b-luna",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-available-tenant-b-luna#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.700000000000001e-06 Output:0 CacheRead:0 CacheWrite:0 Total:4.700000000000001e-06}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-available-tenant-b-luna#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-luna#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.700000000000001e-06 Output:0 CacheRead:0 CacheWrite:0 Total:4.700000000000001e-06}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.462743 +0800 CST m=+15.554331417 Call:{CallAttribution:{TenantID:tenant-b RequestID:req-available-tenant-b-luna ActorID:actor-tenant-b JobID:job-tenant-b BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-available-tenant-b-luna#1 HTTPStatus:200 ProviderRequestID:up-tenant-b-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.700000000000001e-06 Output:0 CacheRead:0 CacheWrite:0 Total:4.700000000000001e-06}}}]} Attempt:<nil> Duration:236.458µs StopReason:stop Error:<nil> Usage:{Input:47 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:67 Cost:{Input:4.700000000000001e-06 Output:0 CacheRead:0 CacheWrite:0 Total:4.700000000000001e-06}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-available-tenant-b-luna#1"
+    },
+    {
+      "name": "same account key does not merge authorization",
+      "pass": true,
+      "detail": "got tenant-b luna: <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-text-still-allowed",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b2 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b2 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b2 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b2 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-text-still-allowed#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-text-still-allowed#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b2 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-text-still-allowed#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.463601 +0800 CST m=+15.555189626 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-text-still-allowed ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b2 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-text-still-allowed#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]} Attempt:<nil> Duration:453.25µs StopReason:stop Error:<nil> Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-text-still-allowed#1"
+    },
+    {
+      "name": "text authorization remains usable",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "observer received call_finished of req-active",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-active#1 HTTPStatus:429 ProviderRequestID:up-before-revoke Code:rate_limited RetryDelay:1ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-active#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-active#2 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-active#2"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-active#1 HTTPStatus:429 ProviderRequestID:up-before-revoke Code:rate_limited RetryDelay:1ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-active#2 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.464109 +0800 CST m=+15.555697001 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-active#1 HTTPStatus:429 ProviderRequestID:up-before-revoke Code:rate_limited RetryDelay:1ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-active#2 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]} Attempt:<nil> Duration:6.724625ms StopReason:stop Error:<nil> Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-active#1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-active#2"
+    },
+    {
+      "name": "in-flight retry retains authorization and cost",
+      "pass": true,
+      "detail": "got <nil> / {CallAttribution:{TenantID:tenant-a RequestID:req-active ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b1 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-active#1 HTTPStatus:429 ProviderRequestID:up-before-revoke Code:rate_limited RetryDelay:1ms UsageReporting:unreported Usage:{Input:0 Output:0 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:0 value:0} Modalities:<nil> TotalTokens:0 Cost:{Input:0 Output:0 CacheRead:0 CacheWrite:0 Total:0}}} {AttemptID:req-active#2 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]}"
+    },
+    {
+      "name": "active attempts identical after revocation",
+      "pass": true,
+      "detail": "got 2 captures"
+    },
+    {
+      "name": "prior results cannot lose reported consumption",
+      "pass": true,
+      "detail": "prior result mutated"
+    },
+    {
+      "name": "observer received call_finished of req-restored",
+      "pass": true
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "unresolved entry attribution",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:false ProviderID: API: ModelID: AccountScopeID:} BindingVersion: CredentialVersion: CatalogVersion: CatalogHash: NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b3 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b3 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b3 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt record has complete snapshot",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b3 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[]}"
+    },
+    {
+      "name": "attempt Observer usage matches own result attempt",
+      "pass": true,
+      "detail": "got &{AttemptID:req-restored#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "no unrelated observed attempt",
+      "pass": true,
+      "detail": "got req-restored#1"
+    },
+    {
+      "name": "observation keeps tenant, operation and binding",
+      "pass": true,
+      "detail": "got {CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b3 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-restored#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]}"
+    },
+    {
+      "name": "observed immutable metadata and usage",
+      "pass": true,
+      "detail": "got {Kind:call_finished Time:2026-10-12 23:45:37.464806 +0800 CST m=+15.556394209 Call:{CallAttribution:{TenantID:tenant-a RequestID:req-restored ActorID:actor-tenant-a JobID:job-tenant-a BindingID:luna Operation:classifier Resolved:true ProviderID:openai API:openai-decisions ModelID:same-model AccountScopeID:shared-openai} BindingVersion:b3 CredentialVersion:v1 CatalogVersion:runtime-06-synthetic CatalogHash:sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235 NativeStateDowngrades:{NoEnvelope:0 AccountMismatch:0 CrossModel:0} Attempts:[{AttemptID:req-restored#1 HTTPStatus:200 ProviderRequestID:up-tenant-a-luna Code: RetryDelay:0s UsageReporting:complete Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}]} Attempt:<nil> Duration:183.958µs StopReason:stop Error:<nil> Usage:{Input:31 Output:20 CacheRead:0 CacheWrite:0 CacheWrite1h:{state:0 value:0} Reasoning:{state:2 value:0} Modalities:<nil> TotalTokens:51 Cost:{Input:3.1000000000000004e-06 Output:0 CacheRead:0 CacheWrite:0 Total:3.1000000000000004e-06}}}"
+    },
+    {
+      "name": "one logical call and no invented attempts",
+      "pass": true,
+      "detail": "starts=1 finishes=1"
+    },
+    {
+      "name": "each own attempt observed exactly once",
+      "pass": true,
+      "detail": "attempt req-restored#1"
+    },
+    {
+      "name": "restored authorization observed on fresh call",
+      "pass": true,
+      "detail": "got <nil>"
+    },
+    {
+      "name": "all mixed calls finished",
+      "pass": true
+    },
+    {
+      "name": "released events",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released bodies",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released hostPermits",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released calls",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released permits",
+      "pass": true,
+      "detail": "got 0"
+    },
+    {
+      "name": "released waiters",
+      "pass": true,
+      "detail": "got 0"
+    }
+  ],
+  "case_id": "P10-OD58-runtime-revoked-images-initial-images",
+  "replay": "go test ./ai/e2e -count=1 -run '^TestDecisionsRuntimeRollback$/^revoked-images$/^initial-images$'",
+  "status": "PASS",
+  "test": "TestDecisionsRuntimeRollback/revoked-images/initial-images"
+}

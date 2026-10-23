@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-12T23:45:37.46889+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-after-revoke",
+      "actorId": "actor-tenant-a",
+      "jobId": "job-tenant-a",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-12T23:45:37.468984+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-after-revoke",
+      "actorId": "actor-tenant-a",
+      "jobId": "job-tenant-a",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "openai",
+      "api": "openai-decisions",
+      "modelId": "same-model",
+      "accountScopeId": "shared-openai",
+      "bindingVersion": "b2",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "duration": 94083,
+    "stopReason": "error",
+    "error": {
+      "code": "tenant_denied",
+      "phase": "request"
+    }
+  }
+]

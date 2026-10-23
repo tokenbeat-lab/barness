@@ -1,0 +1,34 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-12T23:45:37.426993+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-after-revoke",
+      "actorId": "actor-tenant-a",
+      "jobId": "job-tenant-a",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-12T23:45:37.427002+08:00",
+    "call": {
+      "tenantId": "tenant-a",
+      "requestId": "req-after-revoke",
+      "actorId": "actor-tenant-a",
+      "jobId": "job-tenant-a",
+      "bindingId": "luna",
+      "operation": "classifier",
+      "resolved": false
+    },
+    "duration": 9250,
+    "stopReason": "error",
+    "error": {
+      "code": "tenant_denied",
+      "phase": "binding"
+    }
+  }
+]

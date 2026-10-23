@@ -1,0 +1,22 @@
+{
+  "TenantID": "tenant-a",
+  "BindingID": "classifier",
+  "Operation": "classifier",
+  "Version": "b1",
+  "Enabled": true,
+  "ProviderID": "typesafe",
+  "API": "typesafe-system-one",
+  "Endpoint": "http://127.0.0.1:50955/tenant-a/classifier",
+  "AuthKind": "api_key",
+  "AccountScopeID": "shared-typesafe",
+  "CredentialRef": "typesafe",
+  "AllowedModels": [
+    "same-model"
+  ],
+  "AllowedHostedTools": null,
+  "AllowClassifierImages": false,
+  "Retry": {
+    "MaxRetries": 0,
+    "MaxRetryDelay": null
+  }
+}

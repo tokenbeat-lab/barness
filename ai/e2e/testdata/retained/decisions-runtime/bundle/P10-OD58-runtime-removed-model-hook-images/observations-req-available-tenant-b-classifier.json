@@ -1,0 +1,155 @@
+[
+  {
+    "kind": "call_started",
+    "time": "2026-10-12T23:45:37.4515+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-classifier",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": false
+    }
+  },
+  {
+    "kind": "attempt_started",
+    "time": "2026-10-12T23:45:37.451541+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-classifier",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "same-model",
+      "accountScopeId": "shared-typesafe",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "attempt": {
+      "attemptId": "req-available-tenant-b-classifier#1",
+      "usageReporting": "unreported",
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "kind": "attempt_finished",
+    "time": "2026-10-12T23:45:37.451617+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-classifier",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "same-model",
+      "accountScopeId": "shared-typesafe",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235"
+    },
+    "attempt": {
+      "attemptId": "req-available-tenant-b-classifier#1",
+      "httpStatus": 200,
+      "providerRequestId": "up-tenant-b-classifier",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 47,
+        "output": 20,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 67,
+        "cost": {
+          "input": 0.000047,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000047
+        }
+      }
+    },
+    "duration": 76167
+  },
+  {
+    "kind": "call_finished",
+    "time": "2026-10-12T23:45:37.451619+08:00",
+    "call": {
+      "tenantId": "tenant-b",
+      "requestId": "req-available-tenant-b-classifier",
+      "actorId": "actor-tenant-b",
+      "jobId": "job-tenant-b",
+      "bindingId": "classifier",
+      "operation": "classifier",
+      "resolved": true,
+      "providerId": "typesafe",
+      "api": "typesafe-system-one",
+      "modelId": "same-model",
+      "accountScopeId": "shared-typesafe",
+      "bindingVersion": "b1",
+      "credentialVersion": "v1",
+      "catalogVersion": "runtime-06-synthetic",
+      "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235",
+      "attempts": [
+        {
+          "attemptId": "req-available-tenant-b-classifier#1",
+          "httpStatus": 200,
+          "providerRequestId": "up-tenant-b-classifier",
+          "usageReporting": "complete",
+          "usage": {
+            "input": 47,
+            "output": 20,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "totalTokens": 67,
+            "cost": {
+              "input": 0.000047,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 0.000047
+            }
+          }
+        }
+      ]
+    },
+    "duration": 119208,
+    "stopReason": "stop",
+    "usage": {
+      "input": 47,
+      "output": 20,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "totalTokens": 67,
+      "cost": {
+        "input": 0.000047,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "total": 0.000047
+      }
+    }
+  }
+]

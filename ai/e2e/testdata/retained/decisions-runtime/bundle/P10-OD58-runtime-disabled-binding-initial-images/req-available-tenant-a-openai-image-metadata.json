@@ -1,0 +1,45 @@
+{
+  "tenantId": "tenant-a",
+  "requestId": "req-available-tenant-a-openai-image",
+  "actorId": "actor-tenant-a",
+  "jobId": "job-tenant-a",
+  "bindingId": "openai-image",
+  "operation": "image",
+  "resolved": true,
+  "providerId": "openai",
+  "api": "openai-images",
+  "modelId": "same-model",
+  "accountScopeId": "shared-openai",
+  "bindingVersion": "b1",
+  "credentialVersion": "v1",
+  "catalogVersion": "runtime-06-synthetic",
+  "catalogHash": "sha256:d86fd265074354ad9cc0b805b8bf7d0be1c5ad872094a6a31e79fd0b2228d235",
+  "attempts": [
+    {
+      "attemptId": "req-available-tenant-a-openai-image#1",
+      "httpStatus": 200,
+      "providerRequestId": "up-tenant-a-openai-image",
+      "usageReporting": "complete",
+      "usage": {
+        "input": 31,
+        "output": 20,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "modalities": {
+          "inputText": 31,
+          "inputImage": 0,
+          "outputText": 0,
+          "outputImage": 20
+        },
+        "totalTokens": 51,
+        "cost": {
+          "input": 0.000062,
+          "output": 0.0001,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0.000162
+        }
+      }
+    }
+  ]
+}

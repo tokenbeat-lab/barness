@@ -12,11 +12,12 @@ import (
 // rewritten inventory passed off as the original. Verification success means
 // recorded evidence is intact; it cannot turn historical release FAIL into PASS.
 func TestJevBaselineEvidence(t *testing.T) {
-	base := filepath.Join("..", "..", ".scratch", "barness-ai-openai-decisions", "jev-baseline")
+	base := filepath.Join("testdata", "retained", "jev-baseline")
+	verifier := filepath.Join("..", "..", ".scratch", "barness-ai-openai-decisions", "jev-baseline", "verify.py")
 	for _, name := range []string{"intact", "missing-archive", "changed-archive", "rewritten-manifest"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P07-OD50-jev-baseline-"+name)
-			if _, err := os.Stat(filepath.Join(base, "verify.py")); err != nil {
+			if _, err := os.Stat(verifier); err != nil {
 				ev.Check("verifier available", false, "baseline verifier is absent")
 				return
 			}
@@ -47,7 +48,7 @@ func TestJevBaselineEvidence(t *testing.T) {
 					}
 				}
 			}
-			cmd := exec.CommandContext(ctxFor(t), "python3", filepath.Join(base, "verify.py"), "--bundle", dir)
+			cmd := exec.CommandContext(ctxFor(t), "python3", verifier, "--bundle", dir)
 			out, err := cmd.CombinedOutput()
 			root, rootErr := filepath.Abs(filepath.Join("..", ".."))
 			if rootErr != nil {

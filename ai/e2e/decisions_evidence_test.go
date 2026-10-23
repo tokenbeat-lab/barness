@@ -8,12 +8,16 @@ import (
 	"testing"
 )
 
+// Historical verifiers keep their source identity; ordinary inputs are tracked
+// separately so clean checkouts need no locally retained evidence archive.
+const decisionsTextVerifier = "../../.scratch/barness-ai-openai-decisions/text-choice-evidence/verify.py"
+
 func TestDecisionsEvidence(t *testing.T) {
-	base := filepath.Join("..", "..", ".scratch", "barness-ai-openai-decisions", "text-choice-evidence")
+	base := filepath.Join("testdata", "retained", "decisions-text-choice")
 	for _, name := range []string{"intact", "missing-archive", "changed-archive", "rewritten-manifest"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P10-OD32-evidence-"+name)
-			if _, err := os.Stat(filepath.Join(base, "verify.py")); err != nil {
+			if _, err := os.Stat(decisionsTextVerifier); err != nil {
 				ev.Check("verifier available", false, "text evidence verifier absent")
 				return
 			}
@@ -44,7 +48,7 @@ func TestDecisionsEvidence(t *testing.T) {
 					}
 				}
 			}
-			out, err := exec.CommandContext(ctxFor(t), "python3", filepath.Join(base, "verify.py"), "--bundle", dir).CombinedOutput()
+			out, err := exec.CommandContext(ctxFor(t), "python3", decisionsTextVerifier, "--bundle", dir).CombinedOutput()
 			ev.Record("verification", map[string]any{"output": string(out), "succeeded": err == nil})
 			if name == "intact" {
 				ev.Check("recorded evidence intact", err == nil && strings.Contains(string(out), "no live execution"), "got %s", out)
@@ -60,7 +64,7 @@ func TestDecisionsEvidence(t *testing.T) {
 // directory; the child runs the public CLI, not a private parser entry.
 func TestDecisionsEvidenceSnapshot(t *testing.T) {
 	ev := run.Case(t, "P10-OD32-evidence-snapshot-race")
-	base := filepath.Join("..", "..", ".scratch", "barness-ai-openai-decisions", "text-choice-evidence")
+	base := filepath.Join("testdata", "retained", "decisions-text-choice")
 	dir := t.TempDir()
 	for _, name := range []string{"manifest.json", "text-choice.zip"} {
 		raw, err := os.ReadFile(filepath.Join(base, name))
@@ -95,7 +99,7 @@ except SystemExit as e:
     code=e.code
 print(json.dumps({'replaced':replaced,'escaped':(folder/'escaped.txt').exists(),'code':code}))
 `
-	out, err := exec.CommandContext(ctxFor(t), "python3", "-c", script, filepath.Join(base, "verify.py"), dir).CombinedOutput()
+	out, err := exec.CommandContext(ctxFor(t), "python3", "-c", script, decisionsTextVerifier, dir).CombinedOutput()
 	ev.Record("verification", map[string]any{"output": string(out), "succeeded": err == nil})
 	ev.Check("replacement exercised", strings.Contains(string(out), `"replaced": true`), "got %s", out)
 	ev.Check("audit uses validated immutable bytes", err == nil && strings.Contains(string(out), `"escaped": false`) && strings.Contains(string(out), `"code": 0`), "got %s", out)
@@ -103,7 +107,6 @@ print(json.dumps({'replaced':replaced,'escaped':(folder/'escaped.txt').exists(),
 
 func TestDecisionsEvidenceManifestBudget(t *testing.T) {
 	ev := run.Case(t, "P10-OD32-evidence-manifest-budget")
-	base := filepath.Join("..", "..", ".scratch", "barness-ai-openai-decisions", "text-choice-evidence")
 	dir := t.TempDir()
 	file, err := os.Create(filepath.Join(dir, "manifest.json"))
 	if err != nil {
@@ -134,7 +137,7 @@ pathlib.Path.open=open_bound
 sys.argv=[verifier,'--bundle',folder]
 runpy.run_path(verifier,run_name='__main__')
 `
-	out, err := exec.CommandContext(ctxFor(t), "python3", "-c", script, filepath.Join(base, "verify.py"), dir).CombinedOutput()
+	out, err := exec.CommandContext(ctxFor(t), "python3", "-c", script, decisionsTextVerifier, dir).CombinedOutput()
 	ev.Record("verification", map[string]any{"output": string(out), "failed": err != nil})
 	ev.Check("bounded public rejection before allocation", err != nil && strings.Contains(string(out), "FAIL:") && !strings.Contains(string(out), "Traceback"), "got %s", out)
 }

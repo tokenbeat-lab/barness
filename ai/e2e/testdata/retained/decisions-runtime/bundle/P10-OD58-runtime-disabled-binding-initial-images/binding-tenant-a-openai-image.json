@@ -1,0 +1,22 @@
+{
+  "TenantID": "tenant-a",
+  "BindingID": "openai-image",
+  "Operation": "image",
+  "Version": "b1",
+  "Enabled": true,
+  "ProviderID": "openai",
+  "API": "openai-images",
+  "Endpoint": "http://127.0.0.1:50943/tenant-a/openai-image",
+  "AuthKind": "api_key",
+  "AccountScopeID": "shared-openai",
+  "CredentialRef": "openai",
+  "AllowedModels": [
+    "same-model"
+  ],
+  "AllowedHostedTools": null,
+  "AllowClassifierImages": false,
+  "Retry": {
+    "MaxRetries": 0,
+    "MaxRetryDelay": null
+  }
+}

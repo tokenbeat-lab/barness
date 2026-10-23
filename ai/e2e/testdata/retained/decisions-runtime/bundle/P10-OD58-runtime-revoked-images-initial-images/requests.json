@@ -1,0 +1,436 @@
+[
+  {
+    "method": "POST",
+    "path": "/tenant-a/luna/decisions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "435",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic private state tenant-a"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR4nGL6z8DwnwEZAAIAAP//HxcCAa7PZcoAAAAASUVORK5CYII="
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/luna/decisions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "435",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Barness-Test-Call": "active"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic private state tenant-a"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR4nGL6z8DwnwEZAAIAAP//HxcCAa7PZcoAAAAASUVORK5CYII="
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/chat/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "161",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic mixed chat tenant-a"
+            }
+          ]
+        }
+      ],
+      "stream": true,
+      "store": false,
+      "top_p": 0.5
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/openai-image/images/generations",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "64",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "prompt": "synthetic mixed image tenant-a"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/classifier/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "194",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "state": {
+        "owner": "tenant-a",
+        "ticket": "synthetic"
+      },
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "Choose intent",
+          "criteria": {
+            "refund": "Refund",
+            "track": "Tracking"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-b/chat/responses",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept": "application/json",
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "161",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Stainless-Lang": "go",
+      "X-Stainless-Package-Version": "3.66.0",
+      "X-Stainless-Retry-Count": "0",
+      "X-Stainless-Runtime": "go"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic mixed chat tenant-b"
+            }
+          ]
+        }
+      ],
+      "stream": true,
+      "store": false,
+      "top_p": 0.5
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-b/openai-image/images/generations",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "64",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "prompt": "synthetic mixed image tenant-b"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-b/classifier/systemone",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "194",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "state": {
+        "owner": "tenant-b",
+        "ticket": "synthetic"
+      },
+      "questions": {
+        "intent": {
+          "type": "choice",
+          "instructions": "Choose intent",
+          "criteria": {
+            "refund": "Refund",
+            "track": "Tracking"
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-b/luna/decisions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "1152",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic private state tenant-b"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/jpeg;base64,/9j/2wCEAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRQBAwQEBQQFCQUFCRQNCw0UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFP/AABEIAAIAAgMBIgACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APyrd2kYsxLMTkknJJpKKKbbk227tgf/2Q=="
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/luna/decisions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "212",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "input": "synthetic private state tenant-a",
+      "questions": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/luna/decisions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "435",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai",
+      "X-Barness-Test-Call": "active"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic private state tenant-a"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR4nGL6z8DwnwEZAAIAAP//HxcCAa7PZcoAAAAASUVORK5CYII="
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tenant-a/luna/decisions",
+    "query": "",
+    "key_alias": "key:tenant-a@v1",
+    "header": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Bearer key:tenant-a@v1",
+      "Content-Length": "435",
+      "Content-Type": "application/json",
+      "User-Agent": "barness-ai"
+    },
+    "body": {
+      "model": "same-model",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "synthetic private state tenant-a"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR4nGL6z8DwnwEZAAIAAP//HxcCAa7PZcoAAAAASUVORK5CYII="
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "type": "choice",
+          "name": "intent",
+          "instructions": "Classify",
+          "choices": [
+            {
+              "value": "other"
+            },
+            {
+              "value": "track",
+              "description": "Tracking"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
