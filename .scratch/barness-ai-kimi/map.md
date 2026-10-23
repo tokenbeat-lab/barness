@@ -19,6 +19,8 @@
 
 - [08 真实计费报告缺项](issues/08-live-usage-reporting.md)：用户已确认cached_tokens可选默认0，并选择保守费用区间；08已resolved，实现及完整普通验收14045必需PASS、两轴0发现，保留旧失败事实。六路线实际资格与晋升仍依赖自身完整付费证据，不从研究或回放推定。
 
+- [本次候选结果02](evidence/candidate-live-result-02.md)：31调用/31Attempt、零重试；中国站三路线通过。正式发布消费者曾误用于candidate，原拒绝及阶段纠正均保留。
+
 ## Fog
 
-- [07 自身真实资格与人工阶段](issues/07-acceptance.md)：修订后六路线候选具体范围待本次批准；正式资格、晋升与后续人工阶段仍依赖自身完整证据，不从回放推定。
+- [09 国际站RPM限额](issues/09-international-rate-limit.md)：本次三条中国站candidate完整PASS，国际站Chat第4项429；首个真实候选失败停止，余两条国际路线NOT_RUN。新的来源适用性/付费范围及正式资格、晋升与人工阶段仍待处理。
