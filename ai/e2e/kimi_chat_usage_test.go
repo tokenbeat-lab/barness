@@ -17,7 +17,7 @@ func TestKimiChatUsage(t *testing.T) {
 			invalid             bool
 		}{
 			{"bounded", `{"prompt_tokens":200,"completion_tokens":50,"prompt_tokens_details":{"cached_tokens":20,"cache_write_tokens":80},"completion_tokens_details":{"reasoning_tokens":10}}`, "bounded", ai.UsageComplete, false},
-			{"missing-write", `{"prompt_tokens":120,"completion_tokens":50,"prompt_tokens_details":{"cached_tokens":20},"completion_tokens_details":{"reasoning_tokens":10}}`, "partial", ai.UsagePartial, false},
+			{"missing-write", `{"prompt_tokens":120,"completion_tokens":50,"prompt_tokens_details":{"cached_tokens":20},"completion_tokens_details":{"reasoning_tokens":10}}`, "bounded", ai.UsagePartial, false},
 			{"zero-write", `{"prompt_tokens":120,"completion_tokens":50,"prompt_tokens_details":{"cached_tokens":20,"cache_write_tokens":0},"completion_tokens_details":{"reasoning_tokens":10}}`, "resolved", ai.UsageComplete, false},
 			{"negative", `{"prompt_tokens":-1}`, "unreported", ai.UsageUnreported, true},
 			{"fraction", `{"prompt_tokens":1.00000000000000001}`, "unreported", ai.UsageUnreported, true},

@@ -55,7 +55,10 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 		return Usage{}, UsageUnreported, unreported, kimiUsageFailure()
 	}
 	u.TotalTokens = sum
-	billable := r.input.present && r.output.present && r.read.present && r.write.present
+	// Read absence is a semantic zero only for Chat/Responses. Keep raw
+	// presence separate so an empty usage object remains unreported.
+	readKnown := r.read.present || model.API != APIAnthropicMessages
+	billable := r.input.present && r.output.present && readKnown && r.write.present
 	if r.total.present {
 		// Missing output is unknown, but known reasoning is already part of
 		// output and must fit alongside known input-side tokens.
@@ -67,7 +70,8 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 				return Usage{}, UsageUnreported, unreported, kimiUsageFailure()
 			}
 		}
-		if r.total.n < minimum || (billable && r.total.n != sum) {
+		totalKnown := billable || model.API != APIAnthropicMessages && r.input.present && r.output.present
+		if r.total.n < minimum || (totalKnown && r.total.n != sum) {
 			return Usage{}, UsageUnreported, unreported, kimiUsageFailure()
 		}
 		u.TotalTokens = r.total.n
@@ -78,18 +82,12 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 	}
 	// Response actual options describe the server's applied tier, never the
 	// request preference. Chat cannot supply this evidence.
-	if model.API == APIOpenAIResponses && r.write.present && len(actual) > 0 {
-		var applied struct {
-			Mode string `json:"mode"`
-			TTL  string `json:"ttl"`
-		}
-		if json.Unmarshal(actual, &applied) == nil && applied.Mode == "implicit" {
-			if applied.TTL == "5m" {
-				r.short = kimiCount{r.write.n, true}
-			}
-			if applied.TTL == "1h" {
-				r.long = kimiCount{r.write.n, true}
-			}
+	if model.API == APIOpenAIResponses && r.write.present {
+		switch kimiAppliedTTL(actual) {
+		case "5m":
+			r.short = kimiCount{r.write.n, true}
+		case "1h":
+			r.long = kimiCount{r.write.n, true}
 		}
 	}
 	ttlSum, ok := kimiSum(r.short.n, r.long.n)
@@ -107,26 +105,13 @@ func kimiUsage(model Model, raw json.RawMessage, actual json.RawMessage) (Usage,
 	if !r.input.present && !r.output.present && !r.read.present && !r.write.present {
 		estimate.Status = CostUnreported
 	}
-	if billable {
-		unknown := r.write.n - ttlSum
-		lowerUsage, upperUsage := u, u
-		// Bounds are pricing scenarios; they must not fabricate observed
-		// one-hour counts. Trusted Host rates can reverse the usual ordering.
-		rates := model.Cost.ratesForUsage(u)
-		if rates.CacheWrite <= rates.Input*2 {
-			upperUsage.CacheWrite1h = Value(r.long.n + unknown)
-		} else {
-			lowerUsage.CacheWrite1h = Value(r.long.n + unknown)
+	if billable || model.API != APIAnthropicMessages && r.input.present && r.output.present && readKnown {
+		var failure *Error
+		estimate, failure = kimiCostBounds(model.Cost, u, r, actual)
+		if failure != nil {
+			return Usage{}, UsageUnreported, unreported, failure
 		}
-		lower, upper := model.Cost.estimate(lowerUsage), model.Cost.estimate(upperUsage)
-		if !kimiFiniteCost(lower) || !kimiFiniteCost(upper) {
-			return Usage{}, UsageUnreported, unreported, kimiCostFailure()
-		}
-		u.Cost = lower
-		estimate = CostEstimate{Status: CostResolved, Minimum: Value(lower), Maximum: Value(upper)}
-		if unknown > 0 {
-			estimate.Status = CostBounded
-		}
+		u.Cost, _ = estimate.Minimum.Get()
 	}
 	return u, reporting, estimate, nil
 }

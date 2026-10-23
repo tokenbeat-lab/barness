@@ -71,6 +71,18 @@ func kimiQualificationReply(t *testing.T, api, kind string) provider.Reply {
 		if kind != "cancel" {
 			frames = append(frames, json.RawMessage(`{"id":"kimi-q-chat","model":"kimi-k3","choices":[{"index":0,"delta":{},"finish_reason":"`+stop+`"}]}`), json.RawMessage(`{"choices":[],"usage":{"prompt_tokens":200,"completion_tokens":50,"total_tokens":250,"prompt_tokens_details":{"cached_tokens":20,"cache_write_tokens":80},"completion_tokens_details":{"reasoning_tokens":10}}}`))
 		}
+		if kind == "full-stream" || kind == "full-complete" {
+			for i, frame := range frames {
+				text := string(frame)
+				if kind == "full-stream" {
+					text = strings.ReplaceAll(text, `"cached_tokens":20,`, "")
+				}
+				if kind == "full-complete" {
+					text = strings.ReplaceAll(text, `,"cache_write_tokens":80`, "")
+				}
+				frames[i] = json.RawMessage(text)
+			}
+		}
 		reply := chatEvents(t, frames, "")
 		if kind == "cancel" {
 			reply.End = provider.EndHold
@@ -91,6 +103,19 @@ func kimiQualificationReply(t *testing.T, api, kind string) provider.Reply {
 			frames = append(frames, json.RawMessage(`{"type":"response.completed","response":{"id":"kimi-q-response","model":"kimi-k3","status":"completed","output":`+output+`,"usage":{"input_tokens":200,"output_tokens":50,"total_tokens":250,"input_tokens_details":{"cached_tokens":20,"cache_write_tokens":80},"output_tokens_details":{"reasoning_tokens":10}}}}`))
 		}
 	}
+	if api == "openai-responses" && (kind == "full-stream" || kind == "full-complete") {
+		for i, frame := range frames {
+			text := string(frame)
+			if kind == "full-stream" {
+				text = strings.ReplaceAll(text, `"cached_tokens":20,`, "")
+			}
+			if kind == "full-complete" {
+				text = strings.ReplaceAll(text, `,"cache_write_tokens":80`, "")
+			}
+			frames[i] = json.RawMessage(text)
+		}
+	}
+
 	reply := sseEvents(t, frames, provider.FramingLF)
 	if kind == "cancel" {
 		reply.End = provider.EndHold

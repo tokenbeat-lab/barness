@@ -21,7 +21,7 @@ func TestKimiResponsesUsage(t *testing.T) {
 			{"actual-short", kimiResponsesUsage, `{"mode":"implicit","ttl":"5m"}`, ai.CostResolved, ai.UsageComplete, false},
 			{"actual-long", kimiResponsesUsage, `{"mode":"implicit","ttl":"1h"}`, ai.CostResolved, ai.UsageComplete, false},
 			{"actual-unknown", kimiResponsesUsage, `{"mode":"implicit","ttl":"other"}`, ai.CostBounded, ai.UsageComplete, false},
-			{"missing-write", `{"input_tokens":120,"output_tokens":50,"total_tokens":170,"input_tokens_details":{"cached_tokens":20},"output_tokens_details":{"reasoning_tokens":10}}`, "", ai.CostPartial, ai.UsagePartial, false},
+			{"missing-write", `{"input_tokens":120,"output_tokens":50,"total_tokens":170,"input_tokens_details":{"cached_tokens":20},"output_tokens_details":{"reasoning_tokens":10}}`, "", ai.CostBounded, ai.UsagePartial, false},
 			{"zero", `{"input_tokens":0,"output_tokens":0,"total_tokens":0,"input_tokens_details":{"cached_tokens":0,"cache_write_tokens":0},"output_tokens_details":{"reasoning_tokens":0}}`, "", ai.CostResolved, ai.UsageComplete, false},
 			{"missing-reasoning", `{"input_tokens":120,"output_tokens":50,"total_tokens":170,"input_tokens_details":{"cached_tokens":20,"cache_write_tokens":0}}`, "", ai.CostResolved, ai.UsagePartial, false},
 			{"unreported", "", "", ai.CostUnreported, ai.UsageUnreported, false},

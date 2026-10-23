@@ -272,7 +272,7 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 		cs.Check("reported usage retained", len(result.Metadata.Attempts) == 1 && result.Metadata.Attempts[0].UsageReporting != ai.UsageUnreported, "attempts=%d", len(result.Metadata.Attempts))
 		if supportmatrix.RegionalIsKimi(s.p.report.Combo) {
 			priced := len(result.Metadata.Attempts) == 1 && (result.Metadata.Attempts[0].CostEstimate.Status == ai.CostResolved || result.Metadata.Attempts[0].CostEstimate.Status == ai.CostBounded)
-			cs.Check("all billable counters and independent cost state available", priced, "attempts=%d", len(result.Metadata.Attempts))
+			cs.Check("finite reliable cost bounds available", priced, "attempts=%d", len(result.Metadata.Attempts))
 		}
 	}
 	if kind == "tool-call" {

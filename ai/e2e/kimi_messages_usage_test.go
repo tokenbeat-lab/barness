@@ -23,6 +23,8 @@ func TestKimiMessagesUsage(t *testing.T) {
 			{"long", `{"input_tokens":100,"cache_read_input_tokens":20,"cache_creation_input_tokens":80,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":80}}`, ai.UsageComplete, ai.CostResolved, 80},
 			{"mixed", `{"input_tokens":100,"cache_read_input_tokens":20,"cache_creation_input_tokens":80,"cache_creation":{"ephemeral_5m_input_tokens":30,"ephemeral_1h_input_tokens":50}}`, ai.UsageComplete, ai.CostResolved, 50},
 			{"partial-ttl", `{"input_tokens":100,"cache_read_input_tokens":20,"cache_creation_input_tokens":80,"cache_creation":{"ephemeral_1h_input_tokens":50}}`, ai.UsageComplete, ai.CostBounded, 50},
+			{"missing-read", `{"input_tokens":100,"cache_creation_input_tokens":0}`, ai.UsagePartial, ai.CostPartial, -1},
+			{"null-read", `{"input_tokens":100,"cache_read_input_tokens":null,"cache_creation_input_tokens":0}`, ai.UsagePartial, ai.CostPartial, -1},
 			{"missing-write", `{"input_tokens":100,"cache_read_input_tokens":20}`, ai.UsagePartial, ai.CostPartial, -1},
 			{"null-write", `{"input_tokens":100,"cache_read_input_tokens":20,"cache_creation_input_tokens":null}`, ai.UsagePartial, ai.CostPartial, -1},
 			{"zero-write", `{"input_tokens":100,"cache_read_input_tokens":20,"cache_creation_input_tokens":0}`, ai.UsageComplete, ai.CostResolved, -1},
@@ -40,7 +42,11 @@ func TestKimiMessagesUsage(t *testing.T) {
 				a := o.result.Metadata.Attempts[0]
 				u := o.result.Message.Usage
 				ev.Check("reported counts and cost certainty independent", a.UsageReporting == c.report && a.CostEstimate.Status == c.status, "%+v", a)
-				ev.Check("Messages input excludes cache and reasoning is optional", u.Input == 100 && u.CacheRead == 20 && u.Output == 50 && u.Reasoning.IsZero() && u == a.Usage, "%+v", u)
+				wantRead := int64(20)
+				if c.name == "missing-read" || c.name == "null-read" {
+					wantRead = 0
+				}
+				ev.Check("Messages input excludes cache and reasoning is optional", u.Input == 100 && u.CacheRead == wantRead && u.Output == 50 && u.Reasoning.IsZero() && u == a.Usage, "%+v", u)
 				long, present := u.CacheWrite1h.Get()
 				ev.Check("only actual TTL observed", present == (c.long >= 0) && (!present || long == c.long), "%+v", u)
 				if market == ai.ProviderMoonshot && c.name == "unknown-ttl" {
