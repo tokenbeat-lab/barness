@@ -17,6 +17,8 @@
 - [03 Responses 已完成](issues/03-responses.md)：原生 summary/opaque IDs、终态、成本与历史碰撞由自身公共 E2E 验证。
 - [07 普通验收/双轴修复已完成](issues/07-acceptance.md)：六路线候选批准后的首个真实用例失败，按范围停止；只在 spec 唯一当前状态维护实际阶段事实。
 
+- [08 真实计费报告缺项](issues/08-live-usage-reporting.md)：用户已确认cached_tokens可选默认0，并选择保守费用区间；08已resolved，实现及完整普通验收14045必需PASS、两轴0发现，保留旧失败事实。六路线实际资格与晋升仍依赖自身完整付费证据，不从研究或回放推定。
+
 ## Fog
 
-- [08 真实计费报告缺项](issues/08-live-usage-reporting.md)：用户已确认cached_tokens可选默认0，并选择保守费用区间；08已认领实现，保留旧失败事实。六路线实际资格与晋升仍依赖自身完整付费证据，不从研究或回放推定。
+- [07 自身真实资格与人工阶段](issues/07-acceptance.md)：修订后六路线候选具体范围待本次批准；正式资格、晋升与后续人工阶段仍依赖自身完整证据，不从回放推定。
