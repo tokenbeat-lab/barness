@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"regexp"
 	"slices"
+	"strings"
 	"time"
 )
 
@@ -82,17 +83,43 @@ func RegionalGrantSnapshot(combo, stage string) (RegionalGrant, error) {
 // Optional means omitted or an integer, never JSON null. Validate before the
 // typed zero value can erase that distinction at the native grant boundary.
 func (g *RegionalGrant) UnmarshalJSON(raw []byte) error {
+	// encoding/json matches struct fields case-insensitively and retains the
+	// last duplicate. Inspect keys first so this new authorization control has
+	// one exact spelling and value; unrelated legacy grant fields keep their
+	// existing decoding contract.
+	decoder := json.NewDecoder(bytes.NewReader(raw))
+	token, err := decoder.Token()
+	if err != nil || token != json.Delim('{') {
+		return fmt.Errorf("regional grant must be an object")
+	}
+	seen := false
+	for decoder.More() {
+		token, err := decoder.Token()
+		if err != nil {
+			return err
+		}
+		key, ok := token.(string)
+		if !ok {
+			return fmt.Errorf("regional grant key invalid")
+		}
+		var value json.RawMessage
+		if err := decoder.Decode(&value); err != nil {
+			return err
+		}
+		if strings.EqualFold(key, "callIntervalMs") {
+			if key != "callIntervalMs" || seen || bytes.Equal(bytes.TrimSpace(value), []byte("null")) {
+				return fmt.Errorf("regional call interval must be one canonical integer field")
+			}
+			seen = true
+		}
+	}
+	if _, err := decoder.Token(); err != nil {
+		return err
+	}
 	type wireGrant RegionalGrant
 	var value wireGrant
 	if err := json.Unmarshal(raw, &value); err != nil {
 		return err
-	}
-	var fields map[string]json.RawMessage
-	if err := json.Unmarshal(raw, &fields); err != nil {
-		return err
-	}
-	if bytes.Equal(bytes.TrimSpace(fields["callIntervalMs"]), []byte("null")) {
-		return fmt.Errorf("regional call interval must be an integer")
 	}
 	*g = RegionalGrant(value)
 	return nil

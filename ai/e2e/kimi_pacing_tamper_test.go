@@ -13,7 +13,7 @@ import (
 
 func kimiPacingTamper(t *testing.T, original, combo, consumer string) {
 	t.Helper()
-	for _, mode := range []string{"report-interval", "receipt-interval", "initial-gap", "later-gap"} {
+	for _, mode := range []string{"report-interval", "receipt-interval", "initial-gap", "later-gap", "timeline-order"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-"+combo+"-K16-pacing-forgery-"+mode)
 			dir := filepath.Join(t.TempDir(), filepath.Base(original))
@@ -25,7 +25,26 @@ func kimiPacingTamper(t *testing.T, original, combo, consumer string) {
 			if mode == "receipt-interval" {
 				file = "regional-authorization-receipt.json"
 			}
-			if mode == "initial-gap" || mode == "later-gap" {
+			if mode == "timeline-order" {
+				reportRaw, _ := os.ReadFile(filepath.Join(dir, supportmatrix.RegionalReportFile))
+				var report supportmatrix.Report
+				mustUnmarshal(t, reportRaw, &report)
+				ids := []string{supportmatrix.RegionalCaseID(combo, "kimi-k3/full-stream"), supportmatrix.RegionalCaseID(combo, "kimi-k3/full-complete")}
+				var first, next []ai.Observation
+				firstRaw, _ := os.ReadFile(filepath.Join(dir, ids[0], "observations.json"))
+				mustUnmarshal(t, firstRaw, &first)
+				nextRaw, _ := os.ReadFile(filepath.Join(dir, ids[1], "observations.json"))
+				mustUnmarshal(t, nextRaw, &next)
+				first[3].Time = first[0].Time
+				next[0].Time = first[3].Time.Add(time.Duration(report.Regional.CallIntervalMs) * time.Millisecond)
+				for i, obs := range [][]ai.Observation{first, next} {
+					updated := mustMarshal(t, obs)
+					if err := os.WriteFile(filepath.Join(dir, ids[i], "observations.json"), updated, 0600); err != nil {
+						t.Fatal(err)
+					}
+					kimiQualificationManifest(t, dir, ids[i], "observations.json", updated)
+				}
+			} else if mode == "initial-gap" || mode == "later-gap" {
 				kind := "full-stream"
 				previous := time.Time{}
 				if mode == "later-gap" {

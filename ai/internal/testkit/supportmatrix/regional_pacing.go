@@ -24,8 +24,16 @@ func verifyRegionalPacing(root *os.Root, r Report, g RegionalGrant, origin Regio
 			return err
 		}
 		var obs []ai.Observation
-		if regionalDecode(raw, &obs) != nil || len(obs) != 4 || obs[0].Kind != ai.ObservationCallStarted || obs[3].Kind != ai.ObservationCallFinished {
+		if regionalDecode(raw, &obs) != nil || len(obs) != 4 || obs[0].Kind != ai.ObservationCallStarted || obs[1].Kind != ai.ObservationAttemptStarted || obs[2].Kind != ai.ObservationAttemptFinished || obs[3].Kind != ai.ObservationCallFinished {
 			return refuse("regional paced call timestamps unavailable")
+		}
+		// Derive a completion-to-start gap only from a possible lifecycle.
+		// Moving call_finished before attempt_finished must not manufacture
+		// a pause that the actual attempt timestamps contradict.
+		for i, observation := range obs {
+			if observation.Time.IsZero() || i > 0 && observation.Time.Before(obs[i-1].Time) {
+				return refuse("regional paced observation chronology invalid")
+			}
 		}
 		start, finish := obs[0].Time, obs[3].Time
 		if start.IsZero() || start.Before(previous.Add(interval)) || finish.Before(start) || finish.After(r.FinishedAt) {
