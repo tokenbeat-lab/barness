@@ -16,9 +16,12 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
-func extractGLMFormalArchive(t *testing.T, archive, hash string) string {
+// Locate independently pinned historical bytes without relying on the original
+// local capture directory. The native consumer validates this same input on its
+// own; a helper success never certifies a current support row.
+func extractGLMFormalArchive(t *testing.T, hash string) string {
 	t.Helper()
-	raw, e := os.ReadFile("../../" + archive)
+	raw, e := os.ReadFile(filepath.Join("../live/testdata/glm-formal/archives", hash+".zip"))
 	if e != nil || fmt.Sprintf("%x", sha256.Sum256(raw)) != hash {
 		t.Fatal("immutable archive unavailable")
 	}
@@ -84,7 +87,7 @@ func TestGLMFormalKnownUsage(t *testing.T) {
 			want := [2]int{literal.InputSide, literal.Output}
 			ev.Check("expectations bound to exact immutable source/report/archive", expected.SourceCommit == index.OriginalLiveSourceCommit && literal.ArchiveSHA256 == entry.ArchiveSHA256 && literal.ReportSHA256 == entry.ReportSHA256, "expectation identity drift")
 			ev.Check("independently reconciled measured totals present", want[0] > 0 && want[1] > 0, "missing measured expectations")
-			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
+			dir := extractGLMFormalArchive(t, entry.ArchiveSHA256)
 			base := filepath.Dir(filepath.Join(dir, entry.ReportPath))
 			_, e := supportmatrix.NewGLMReport(base)
 			ev.Check("historical actual capture refuses changed execution source", glmExecutionSourceDrift(e), "%v", e)
@@ -118,7 +121,7 @@ func TestGLMFormalExtraCaptures(t *testing.T) {
 	for _, name := range []string{"extra-manifest-case", "hidden-second-attempt", "unmanifest-capture"} {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "GLM12-extra-capture-"+name)
-			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
+			dir := extractGLMFormalArchive(t, entry.ArchiveSHA256)
 			base := filepath.Dir(filepath.Join(dir, entry.ReportPath))
 			data, _ := os.ReadFile(filepath.Join(base, "manifest.json"))
 			var manifest map[string]any

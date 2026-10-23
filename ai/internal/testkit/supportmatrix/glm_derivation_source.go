@@ -4,6 +4,7 @@ import (
 	"archive/tar"
 	"archive/zip"
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"io"
 	"os"
@@ -95,7 +96,13 @@ func loadGLMRawCapture(route string) (glmRawCapture, error) {
 	if !ok || path.IsAbs(entry.Archive) || path.Clean(entry.Archive) != entry.Archive || strings.HasPrefix(entry.Archive, "../") {
 		return out, glmBad("raw route/archive identity invalid")
 	}
-	zipRaw, e := glmRead(filepath.Join(root, filepath.FromSlash(entry.Archive)))
+	// Archive is the immutable capture-time locator. Resolve the same pinned
+	// bytes from tracked fixtures, never from a host's historical .evidence.
+	digest, digestErr := hex.DecodeString(entry.ArchiveSHA256)
+	if digestErr != nil || len(digest) != 32 {
+		return out, glmBad("raw archive digest invalid")
+	}
+	zipRaw, e := glmRead(filepath.Join(base, "archives", entry.ArchiveSHA256+".zip"))
 	if e != nil || glmHash(zipRaw) != entry.ArchiveSHA256 {
 		return out, glmBad("immutable original archive missing or changed")
 	}

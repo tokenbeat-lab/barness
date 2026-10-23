@@ -25,7 +25,7 @@ func TestGLMSupportViewBounds(t *testing.T) {
 	for _, mode := range []string{"unlisted", "many", "deep"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "P0-GLM13-support-view-"+mode)
-			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
+			dir := extractGLMFormalArchive(t, entry.ArchiveSHA256)
 			base := filepath.Dir(filepath.Join(dir, entry.ReportPath))
 			count, size := 1, int64(16<<20)
 			if mode == "many" {

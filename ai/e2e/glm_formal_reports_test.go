@@ -42,7 +42,7 @@ func TestGLMFormalReports(t *testing.T) {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "GLM12-formal-import-"+route)
 			entry := index.Routes[route]
-			dir := extractGLMFormalArchive(t, entry.Archive, entry.ArchiveSHA256)
+			dir := extractGLMFormalArchive(t, entry.ArchiveSHA256)
 			reportPath := filepath.Join(dir, filepath.FromSlash(entry.ReportPath))
 			r, e := supportmatrix.LoadReport(reportPath)
 			if e != nil {

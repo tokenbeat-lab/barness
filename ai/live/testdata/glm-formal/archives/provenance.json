@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "purpose": "Exact historical raw and derived GLM input bytes for public consumers; not current qualification",
+  "sourceCommit": "571ca112859211ca5d987906e16ae135f89f54f5",
+  "selection": "Three raw and three support-view ZIPs selected by the unchanged pinned native indices; original capture locators remain historical metadata. Storage is addressed by the original archive SHA-256.",
+  "archives": [
+    {
+      "index": "ai/live/testdata/glm-formal/live-captures.json",
+      "route": "chat",
+      "originalPath": ".evidence/minimax-provider-sites-final-round2-raw/glm-chat-b384951448aa.zip",
+      "sha256": "e4e2a3a08a533ee84bf0fce0bee853e3faa65e6e8a12fb6be8a0adc16e06fb5b",
+      "bytes": 556784,
+      "members": 357,
+      "expandedBytes": 7911067,
+      "reportPath": "20261020T115110.148402000Z/formal-glm-report.json"
+    },
+    {
+      "index": "ai/live/testdata/glm-formal/live-captures.json",
+      "route": "responses",
+      "originalPath": ".evidence/minimax-provider-sites-final-round2-raw/glm-responses-b384951448aa.zip",
+      "sha256": "a0f2eb82f9a719f7114a2a38af33d7267e9acb96bc4a2400faf2f7a56595857c",
+      "bytes": 590749,
+      "members": 357,
+      "expandedBytes": 5843417,
+      "reportPath": "20261020T125947.530485000Z/formal-glm-report.json"
+    },
+    {
+      "index": "ai/live/testdata/glm-formal/live-captures.json",
+      "route": "messages",
+      "originalPath": ".evidence/minimax-provider-sites-final-round2-raw/glm-messages-b384951448aa.zip",
+      "sha256": "171bcdb12e5c2ab03b2bf7228b314588d2544c37bc90582cd6c38cf27a331e3d",
+      "bytes": 517461,
+      "members": 357,
+      "expandedBytes": 3846029,
+      "reportPath": "20261020T130249.606453000Z/formal-glm-report.json"
+    },
+    {
+      "index": "ai/live/testdata/glm-formal/support-views.json",
+      "route": "chat",
+      "originalPath": ".evidence/minimax-provider-sites-final-round2-raw/support-chat.zip",
+      "sha256": "e30de9b072dad687cdfa9e1722b3c85e0e187d8aef22b9aaa7755e391e2a2c49",
+      "bytes": 562469,
+      "members": 362,
+      "expandedBytes": 7967982,
+      "reportPath": "live-report.json"
+    },
+    {
+      "index": "ai/live/testdata/glm-formal/support-views.json",
+      "route": "responses",
+      "originalPath": ".evidence/minimax-provider-sites-final-round2-raw/support-responses.zip",
+      "sha256": "d2d3cdd2c634d8330a7e8a779738bf2f880e5dc08d9f5f747e79b07f580dc476",
+      "bytes": 595765,
+      "members": 362,
+      "expandedBytes": 5899941,
+      "reportPath": "live-report.json"
+    },
+    {
+      "index": "ai/live/testdata/glm-formal/support-views.json",
+      "route": "messages",
+      "originalPath": ".evidence/minimax-provider-sites-final-round2-raw/support-messages.zip",
+      "sha256": "14f97f9549697183f67d973d71311171a627eddca1ec35b3673f3960d0961e58",
+      "bytes": 522766,
+      "members": 362,
+      "expandedBytes": 3902917,
+      "reportPath": "live-report.json"
+    }
+  ]
+}
