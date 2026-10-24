@@ -79,7 +79,7 @@ env GOENV=off GOFLAGS='' go run ./ai/release/cmd/releasegate \
 
 `-out` 的父目录必须存在，目标目录必须不存在。CLI 只核验现有原件，写出 `release-report.json` / `.md`；不调度测试、vet、race、压力或 live。退出 0 表示五项均有效，1 表示拒绝或读写失败，2 表示参数错误；需要直接取得退出码时使用编译后的二进制，`go run` 会包装程序的非零退出。
 
-五项事实（来源、E2E、受影响 live、race、压力）的通过条件、状态冻结顺序与失败处理见 SOP 第 7 节。字段形状、有限 requiredCases 及 live 外层 schema 2 消费者见[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md)。原生包保留完整性、脱敏、资源和正式资格检查；历史全库路线数和差分账本不再是发布选择器，兄弟路线的通过不能替代自身证明。
+五项事实（来源、E2E、受影响 live、race、压力）的通过条件、状态冻结顺序与失败处理见 SOP 第 7 节。字段形状、有限 requiredCases 及 live 外层 schema 2 消费者见[工具合同](../../tools/verification/README.md)。原生包保留完整性、脱敏、资源和正式资格检查；历史全库路线数和差分账本不再是发布选择器，兄弟路线的通过不能替代自身证明。
 
 ### 历史九组合结论（2026-10-08）
 

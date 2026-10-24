@@ -76,7 +76,7 @@ def source_snapshot(root):
     files = {}
     excluded_dirs = {'node_modules', '__pycache__', '.git', '.evidence'}
     excluded_suffixes = {'.md', '.pyc', '.test', '.exe'}
-    for scope in ('ai', '.scratch/barness-ai-test-process-review/tools'):
+    for scope in ('ai', 'tools/verification'):
         base = root / scope
         if base.is_symlink():
             raise ValueError('symbolic execution source rejected')

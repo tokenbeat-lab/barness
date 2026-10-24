@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 from process_support import safe_environment, ProcessCase, TOOLS, digest, write_json
 
-PROJECT = TOOLS.parents[2]
+PROJECT = TOOLS.parents[1]
 
 
 class ReleaseRecordProcess(ProcessCase):

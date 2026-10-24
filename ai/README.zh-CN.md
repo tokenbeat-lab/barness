@@ -435,7 +435,7 @@ input/output/total/cached/cache-write/reasoning 六项均明确报告（包括�
 
 修改测试、选择验证、判定发布或维护证据前，遵循[测试流程 SOP](../docs/agents/verification.md)。步骤、命令模板、完成条件与失败处理以 SOP 为准；先建立公共 Client/CLI 失败场景，再实现，每次独立保存可验证的原生证据。
 
-[工具合同](../.scratch/barness-ai-test-process-review/tools/README.md)定义回执形状与只读发布 CLI。付费 live、race 和压力仍分别明确选择，离线/受控回放不产生真实支持资格。本次流程启用事实及未执行项见[当前状态](../.scratch/barness-ai-test-process-review/status.md)。
+[工具合同](../tools/verification/README.md)定义回执形状与只读发布 CLI。付费 live、race 和压力仍分别明确选择，离线/受控回放不产生真实支持资格。本次流程启用事实及未执行项见[当前状态](../.scratch/barness-ai-test-process-review/status.md)。
 
 ## 延伸阅读
 

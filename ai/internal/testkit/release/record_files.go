@@ -131,7 +131,7 @@ func currentRecordSource(root string) (ExecutionSource, error) {
 	// Independent inventory validation is intentional: the read-only verifier
 	// cannot trust or execute the collector being verified. Both use this small
 	// published source boundary; prose is excluded unless explicitly selected.
-	for _, scope := range []string{"ai", ".scratch/barness-ai-test-process-review/tools"} {
+	for _, scope := range []string{"ai", "tools/verification"} {
 		base := filepath.Join(root, filepath.FromSlash(scope))
 		if _, err := os.Lstat(base); os.IsNotExist(err) {
 			continue

@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from process_support import safe_environment, TOOLS
 
-PROJECT = TOOLS.parents[2]
+PROJECT = TOOLS.parents[1]
 
 
 class OrdinaryEntrypointProcess(unittest.TestCase):

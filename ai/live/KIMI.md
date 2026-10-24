@@ -11,7 +11,7 @@ services through the real public Client, SDK and native process. It does not
 spend money or authorize live, race or pressure stages.
 
 ```sh
-python3 .scratch/barness-ai-test-process-review/tools/run.py \
+python3 tools/verification/run.py \
   --feature barness-ai-kimi-qualification --stage e2e -- \
   go test -json ./ai/e2e -run '^TestKimiQualification' -count=1
 ```

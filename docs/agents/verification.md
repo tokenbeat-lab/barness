@@ -25,7 +25,7 @@
 在仓库根按功能设置变量，以下为命令模板：
 
 ```sh
-TOOLS="$PWD/.scratch/barness-ai-test-process-review/tools"
+TOOLS="$PWD/tools/verification"
 FEATURE='<功能 slug>'
 python3 "$TOOLS/run.py" --feature "$FEATURE" --stage e2e -- \
   go test -json ./ai/e2e -run '<受影响测试表达式>' -count=1
@@ -54,7 +54,7 @@ python3 "$TOOLS/run.py" --feature "$FEATURE" --stage e2e -- \
 
 无厂商运行行为、型号、协议、目录或支持资格变化时，写 `NOT_APPLICABLE` 并给出影响依据。否则逐路线列出操作/Provider/API、型号与 SDK、官方目标、完整必交用例、原生消费者、账户/地区资格、预算与来源，再取得该次付费验证的明确授权。共享协议/目录变化评估所有受影响路线。
 
-每次只持有所选路线凭据，使用新 grant/claim 及该路线原生预算；失败或取消仍消耗该次授权。保留原始授权、账本、构建 argv/退出、二进制 SHA 和来源绑定；候选、正式、controlled/replay 分别判定。地区六路线的冻结构建、source 注入、精确入口和正式资格按 [REGIONAL.md](../../ai/live/REGIONAL.md) 执行；其他路线按自身原生合同，环境转发见[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md#原生-live-环境合同)。
+每次只持有所选路线凭据，使用新 grant/claim 及该路线原生预算；失败或取消仍消耗该次授权。保留原始授权、账本、构建 argv/退出、二进制 SHA 和来源绑定；候选、正式、controlled/replay 分别判定。地区六路线的冻结构建、source 注入、精确入口和正式资格按 [REGIONAL.md](../../ai/live/REGIONAL.md) 执行；其他路线按自身原生合同，环境转发见[工具合同](../../tools/verification/README.md#原生-live-环境合同)。
 
 ```sh
 # 仅在该次范围、资格和预算获准后执行原生冻结二进制。
@@ -107,7 +107,7 @@ python3 "$TOOLS/run.py" --feature "$FEATURE" --stage pressure -- \
 每功能一份唯一可变当前状态；保留既有 Markdown 格式，并引用独立、不可覆盖的版本化 JSON 索引。状态包含影响依据、实际受测提交、当前提交、来源/输入、各阶段范围/argv/实际状态、原件路径与哈希、尚未执行项。
 
 1. 核对所有阶段原件与当前适用性，保存真实 argv、数字退出（启动失败无原生退出码）、起止/墙钟、工具身份、日志和精确 `bundles/<run-id>/manifest.json` / audit 哈希。父子耗时不相加冒充墙钟。
-2. 保存旧当前状态的快照；更新当前状态并计算内容哈希，在新的 record.json 中绑定它及实际阶段回执、impact、selection 与有限完整 requiredCases。字段以 [record.go](../../ai/internal/testkit/release/record.go) 和[工具合同](../../.scratch/barness-ai-test-process-review/tools/README.md#只读发布-cli)为准；合成测试记录不是实际阶段事实。
+2. 保存旧当前状态的快照；更新当前状态并计算内容哈希，在新的 record.json 中绑定它及实际阶段回执、impact、selection 与有限完整 requiredCases。字段以 [record.go](../../ai/internal/testkit/release/record.go) 和[工具合同](../../tools/verification/README.md#只读发布-cli)为准；合成测试记录不是实际阶段事实。
 3. 在新的报告目录只读判定，保留实际命令/退出和报告。需要精确 CLI 退出码时使用编译后二进制，go run 会包装程序的非零退出。
 
 ```sh

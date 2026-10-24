@@ -7,7 +7,7 @@
 按[测试流程 SOP](../../docs/agents/verification.md)使用清除 live/重负载/凭据环境的普通回执入口。下列 E2E 在受控边界验证地区合同；不在继承环境中直接运行 live-tag 测试包。
 
 ```sh
-python3 .scratch/barness-ai-test-process-review/tools/run.py --feature '<功能 slug>' --stage e2e -- \
+python3 tools/verification/run.py --feature '<功能 slug>' --stage e2e -- \
   go test -json ./ai/e2e -run '^TestRegionalProviderRelease' -count=1
 # 以下两个命令只生成来源/模板；不执行验证或请求厂商。
 env GOENV=off GOFLAGS='' go run ./ai/live/cmd/regionalverify -source

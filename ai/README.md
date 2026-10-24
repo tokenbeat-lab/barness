@@ -458,7 +458,7 @@ Other directories:
 
 Follow the [testing SOP](../docs/agents/verification.md) before changing tests, selecting verification, evaluating release evidence or maintaining artifacts. It defines the ordered steps, command templates, completion criteria and failure handling. Public Client/CLI failure scenarios precede implementation; each attempt retains verifiable native evidence.
 
-The [tool contract](../.scratch/barness-ai-test-process-review/tools/README.md) specifies receipt shapes and the read-only release CLI. Paid live, race and pressure retain their separate explicit selections; offline/controlled replay does not establish real support qualification. Current rollout facts and deferred execution are recorded in the [process status](../.scratch/barness-ai-test-process-review/status.md).
+The [tool contract](../tools/verification/README.md) specifies receipt shapes and the read-only release CLI. Paid live, race and pressure retain their separate explicit selections; offline/controlled replay does not establish real support qualification. Current rollout facts and deferred execution are recorded in the [process status](../.scratch/barness-ai-test-process-review/status.md).
 
 ## Further reading
 
