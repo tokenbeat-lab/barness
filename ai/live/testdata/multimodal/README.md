@@ -81,9 +81,9 @@ release, `manifest.json`, `audit.json`, `multimodal-report.json` and a final
 `multimodal-integrity.json`. Never edit old bundles to accept a new source hash.
 
 ```sh
-python3 .scratch/jev-1.14-multimodal-box/verify-11-evidence.py BUNDLE
+python3 ai/internal/testkit/jevformal/verify_protocol.py BUNDLE
 # Required for real service acceptance; controlled HTTP is always rejected.
-python3 .scratch/jev-1.14-multimodal-box/verify-11-evidence.py --require-live BUNDLE
+python3 ai/internal/testkit/jevformal/verify_protocol.py --require-live BUNDLE
 ```
 
 Python 3 is required for independent verification and the process E2E. The

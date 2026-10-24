@@ -1,6 +1,6 @@
 # 测试流程 SOP
 
-编写测试、选择验证范围、执行验收、判定发布和维护证据时遵循本 SOP。工程规则见 [AGENTS.md](../../AGENTS.md)，决定与历史替代范围见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。本流程调整的实施事实见[当前状态](../../.scratch/barness-ai-test-process-review/status.md)；具体功能另维护自己的唯一当前状态。
+编写测试、选择验证范围、执行验收、判定发布和维护证据时遵循本 SOP。工程规则见 [AGENTS.md](../../AGENTS.md)，决定与历史替代范围见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。本次工具归属与新入口见[ADR-0053](../adr/0053-verification-tool-ownership.md)及[迁移当前状态](../../.scratch/scratch-artifact-remediation/status.md)；原流程调整的实施事实见[原功能状态](../../.scratch/barness-ai-test-process-review/status.md)；具体功能另维护自己的唯一当前状态。
 
 ## 1. 确定变更与验证范围
 

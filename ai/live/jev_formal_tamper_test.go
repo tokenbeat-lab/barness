@@ -139,7 +139,7 @@ func formalTamperCases(t *testing.T, cs *evidence.Case, bundle string, env []str
 				os.Symlink(target, filepath.Join(dest, "formal-integrity.json"))
 			}
 			if kind == "invalid-box" {
-				check := exec.Command("python3", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py", "--formal-catalog", filepath.Join(dest, "protocol/MM11-configuration/formal-catalog.json"), filepath.Join(dest, "protocol"))
+				check := exec.Command("python3", "../internal/testkit/jevformal/verify_protocol.py", "--formal-catalog", filepath.Join(dest, "protocol/MM11-configuration/formal-catalog.json"), filepath.Join(dest, "protocol"))
 				check.Env = env
 				_, directErr := check.CombinedOutput()
 				ev.Check("independent structural verifier rejects invalid Box", directErr != nil, "invalid normalized Box accepted")

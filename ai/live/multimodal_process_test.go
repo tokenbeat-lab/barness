@@ -99,11 +99,11 @@ func TestMultimodalCandidateProcess(t *testing.T) {
 				cs.Check("formal importer rejects candidate", formalErr != nil, "candidate entered formal matrix")
 				_, formalErr = os.Stat(filepath.Join(root, "live-report.json"))
 				cs.Check("no formal report published", os.IsNotExist(formalErr), "formal report emitted")
-				verify := exec.CommandContext(ctx, "python3", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py", root)
+				verify := exec.CommandContext(ctx, "python3", "../internal/testkit/jevformal/verify_protocol.py", root)
 				verified, verifyErr := verify.CombinedOutput()
 				cs.Record("verification", map[string]any{"output": string(verified), "error": errText(verifyErr)})
 				cs.Check("independent gate accepts only complete controlled pipeline", (verifyErr == nil) == (want == "PASS"), "%s", verified)
-				liveVerify := exec.CommandContext(ctx, "python3", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py", "--require-live", root)
+				liveVerify := exec.CommandContext(ctx, "python3", "../internal/testkit/jevformal/verify_protocol.py", "--require-live", root)
 				cs.Check("controlled package cannot prove service PASS", liveVerify.Run() != nil, "controlled promoted")
 				if fault == "success" {
 					verifyMultimodalTampering(t, root, route)
@@ -217,7 +217,7 @@ func verifyMultimodalTampering(t *testing.T, root, route string) {
 			if err = os.WriteFile(inventoryPath, data, 0600); err != nil {
 				t.Fatal(err)
 			}
-			cmd := exec.Command("python3", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py", root)
+			cmd := exec.Command("python3", "../internal/testkit/jevformal/verify_protocol.py", root)
 			output, err := cmd.CombinedOutput()
 			cs.Record("verification", map[string]any{"fault": fault, "output": string(output), "error": errText(err)})
 			cs.Check("semantic corruption rejected despite refreshed checksums", err != nil, "%s", output)

@@ -2,7 +2,7 @@
 
 日常操作步骤、阶段顺序与完成条件统一见[测试流程 SOP](../../docs/agents/verification.md)；本文件定义现有工具合同。
 
-Scratch脚本的活动/测试/历史/诊断身份、逐文件输入输出、副作用与来源限制见[脚本边界清单](../../.scratch/scratch-artifact-remediation/script-boundaries.md)。旧生成器、两组MJS、整轮run-14及封存README里的命令只按原轮次阅读，日常操作使用本页与SOP；现有普通测试仍调用的verifier/rollback继续由原公共入口消费。地区recovery7保持[当前暂停入口](../../.scratch/barness-provider-sites/tools/README.md)所述边界，合成测试消费旧控制器不构成恢复授权。[本页修订前原字节](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/test-process-tools-README.md)与[原基址/哈希](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/index.json)另存。
+Scratch脚本的活动/测试/历史/诊断身份、逐文件输入输出、副作用与来源限制见[当前归属/历史后继映射](../../.scratch/scratch-artifact-remediation/tool-migration.md)。旧生成器、两组MJS、整轮run-14及封存README里的命令只按原轮次阅读，日常操作使用本页与SOP；现有普通测试仍调用的verifier/rollback继续由原公共入口消费。地区recovery7保持[当前暂停入口](../../.scratch/barness-provider-sites/tools/README.md)所述边界，合成测试消费旧控制器不构成恢复授权。[本页修订前原字节](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/test-process-tools-README.md)与[原基址/哈希](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/index.json)另存。
 
 这些工具只负责一条已选择命令的回执、或一批已审阅文件的清理。不会发放授权、编排厂商轮次或自动进入下一阶段。当前实施范围没有真实 race、压力、付费 live 或证据清理许可；清理相关进程测试仅使用临时合成仓库。
 

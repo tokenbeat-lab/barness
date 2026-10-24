@@ -147,7 +147,7 @@ func CheckInputs(protocol, effects string, requireLive bool) (Proof, error) {
 	}
 	// A dirty or incomplete source tree cannot borrow another formal run's PASS.
 	want := map[string]string{}
-	paths := []string{"../../go.mod", "../../go.sum", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py"}
+	paths := []string{"../../go.mod", "../../go.sum", "../internal/testkit/jevformal/verify_protocol.py"}
 	paths = append(paths, "../live/testdata/jev-formal/sources.json")
 	err = filepath.WalkDir(filepath.Join(root, "ai"), func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
@@ -200,7 +200,7 @@ func CheckInputs(protocol, effects string, requireLive bool) (Proof, error) {
 	if closeErr != nil {
 		return out, closeErr
 	}
-	args := []string{filepath.Join(root, ".scratch/jev-1.14-multimodal-box/verify-11-evidence.py"), "--formal-catalog", file.Name()}
+	args := []string{filepath.Join(root, "ai/internal/testkit/jevformal/verify_protocol.py"), "--formal-catalog", file.Name()}
 	if requireLive {
 		args = append(args, "--require-live")
 	}

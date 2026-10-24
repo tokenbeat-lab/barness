@@ -1,0 +1,206 @@
+{
+  "schema": 1,
+  "kind": "activity-successor-and-original-map",
+  "baselineCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+  "adr": "docs/adr/0053-verification-tool-ownership.md",
+  "files": [
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/README.md",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/README.md",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "3184a6b30cfe20022861b8b87668a7e85aeca7946b41b7b2dd1d8535cc480cc8",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/README.md",
+      "currentSHA256": "eca040958189e165f244e433d38e86fc24ac3d374789e14e4846184f6cf102c1",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/cleanup.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/cleanup.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "79a878af47fdb18577791eb2eb2efde92650413722badbd53446b084fd990651",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/cleanup.py",
+      "currentSHA256": "79a878af47fdb18577791eb2eb2efde92650413722badbd53446b084fd990651",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/cleanup_scan.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/cleanup_scan.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "022f286151f783129938e33524647a2b3f48251fe87e1caaedabc44f3b31b286",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/cleanup_scan.py",
+      "currentSHA256": "022f286151f783129938e33524647a2b3f48251fe87e1caaedabc44f3b31b286",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/cleanup_state.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/cleanup_state.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "dfc5d81a49a6eb5e2c4be5f9a472c37b6d9abdb05eab578e36f19b0564160ca0",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/cleanup_state.py",
+      "currentSHA256": "dfc5d81a49a6eb5e2c4be5f9a472c37b6d9abdb05eab578e36f19b0564160ca0",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/consume_live.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/consume_live.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "4bc231fe6ffa78acc86f751bb1839e69e94d519d5d71bde8856cdb6d5580a674",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/consume_live.py",
+      "currentSHA256": "4bc231fe6ffa78acc86f751bb1839e69e94d519d5d71bde8856cdb6d5580a674",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/live_environment.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/live_environment.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "3f7e149cd2b1241d2ca8f7d6302b7d1c9c655d51775848000b570b9ebc380fec",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/live_environment.py",
+      "currentSHA256": "3f7e149cd2b1241d2ca8f7d6302b7d1c9c655d51775848000b570b9ebc380fec",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/receipt_files.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/receipt_files.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "de2f290b03f0d8864bae02b50f5fea2d7568020c30c7d0b1c21551cfbff687f3",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/receipt_files.py",
+      "currentSHA256": "407de5bdc094da2d1b137efcee5dd35f432023ca5679cced8feacd81d49b9bce",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/run.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/run.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "4ef759de59672cf6cffa1280ff488f31eb5ee0055a92cf178a0565ba97fedff6",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/run.py",
+      "currentSHA256": "4ef759de59672cf6cffa1280ff488f31eb5ee0055a92cf178a0565ba97fedff6",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/run_process.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/run_process.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools",
+      "sha256": "9ebd8fec669871721c184ab4f0c141ca98efcebb3e68b8e215cc3a2c83cd0295",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/run_process.py",
+      "currentSHA256": "9ebd8fec669871721c184ab4f0c141ca98efcebb3e68b8e215cc3a2c83cd0295",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/fixture_child.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/fixture_child.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "397198e84415aecb745611aca5d6341c7b54fa01882fecd778c2d53175b967f4",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/fixture_child.py",
+      "currentSHA256": "397198e84415aecb745611aca5d6341c7b54fa01882fecd778c2d53175b967f4",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/live_fixture.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/live_fixture.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "98f8b94dced655984810b2b510026bdda5b697ee658b41b7426250874e24c078",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/live_fixture.py",
+      "currentSHA256": "98f8b94dced655984810b2b510026bdda5b697ee658b41b7426250874e24c078",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/process_support.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/process_support.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "3d26b11420f442f8d72191ec24c42142497bc5af517c7704a972ed145da84572",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/process_support.py",
+      "currentSHA256": "3d26b11420f442f8d72191ec24c42142497bc5af517c7704a972ed145da84572",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/test_cleanup.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/test_cleanup.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "49828cc68ca87c30c9a6f503f7b78ab57562ece8efa4f7d9e28b4e388386e267",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/test_cleanup.py",
+      "currentSHA256": "49828cc68ca87c30c9a6f503f7b78ab57562ece8efa4f7d9e28b4e388386e267",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/test_live_release.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/test_live_release.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "72d5823f75580c5708efe44993a1cc721431365b66f8c2fe3407d90e42aa6c83",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/test_live_release.py",
+      "currentSHA256": "72d5823f75580c5708efe44993a1cc721431365b66f8c2fe3407d90e42aa6c83",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/test_ordinary.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/test_ordinary.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "51a9d61e28f7e01d36423b19654ce5f68e7a3a050f0a2d703b1567fcf25b47cc",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/test_ordinary.py",
+      "currentSHA256": "1a6fb8270096ea7f726c8e842f41d1f9de2265d910a2f44d24cfe6d7738a437c",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/test_release.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/test_release.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "fabd649abcbbfe6291744324e24c199973b2e39c225f32585f68454c268ac4c6",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/test_release.py",
+      "currentSHA256": "34e27d0443cb6af5e65d9bc98f4c8adcd2d4e0cda29b48bf5693f5246705d89e",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/barness-ai-test-process-review/tools/tests/test_run.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/barness-ai-test-process-review/tools/tests/test_run.py",
+      "originalRelativeBase": ".scratch/barness-ai-test-process-review/tools/tests",
+      "sha256": "e591d0f598e5ff05b925b95ef95b68a5aa54afd3cf430313fe0f648e336219a0",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "tools/verification/tests/test_run.py",
+      "currentSHA256": "e591d0f598e5ff05b925b95ef95b68a5aa54afd3cf430313fe0f648e336219a0",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    },
+    {
+      "originalPath": ".scratch/jev-1.14-multimodal-box/verify-11-evidence.py",
+      "snapshotPath": ".scratch/scratch-artifact-remediation/history/phase5-before-20261024/jev-1.14-multimodal-box/verify-11-evidence.py",
+      "originalRelativeBase": ".scratch/jev-1.14-multimodal-box",
+      "sha256": "0ad4b561cfe0407d8ee2943aa6543d4c56ea0f0e895e772ff111d4699a78f08e",
+      "mode": "0o644",
+      "gitCommit": "f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0",
+      "currentPath": "ai/internal/testkit/jevformal/verify_protocol.py",
+      "currentSHA256": "0ad4b561cfe0407d8ee2943aa6543d4c56ea0f0e895e772ff111d4699a78f08e",
+      "rule": "Historical original only; current callers use new path, no wrapper"
+    }
+  ]
+}

@@ -84,7 +84,7 @@ func driveMultimodal(t *testing.T) {
 	// Seal actual working source bytes as well as the commit. A dirty source run
 	// cannot silently borrow the identity of an earlier candidate package.
 	r.SourceHashes = map[string]string{}
-	paths := []string{"../../go.mod", "../../go.sum", "../../.scratch/jev-1.14-multimodal-box/verify-11-evidence.py"}
+	paths := []string{"../../go.mod", "../../go.sum", "../internal/testkit/jevformal/verify_protocol.py"}
 	if formal {
 		path := "../live/testdata/jev-formal/sources.json"
 		sources, e := os.ReadFile(path)
