@@ -1,6 +1,6 @@
 # 05：迁移活动验证工具（第5A项）
 
-Status: claimed
+Status: resolved
 Type: task
 Blocked by: 04
 Updated: 2026-10-24
@@ -27,3 +27,7 @@ Updated: 2026-10-24
 ## Comments
 
 2026-10-24：固定f286690ebf30c7dd7bf1908276dc1ff78f4c9bf0与迁移前18原件，开始第一个公共CLI失败场景。
+
+## Answer
+
+2026-10-24：ADR→两个公共进程RED→迁移SOP/双来源选择器/测试与Jev原核验器→GREEN完成。18原件保留、旧活动入口删除无shim；受测4e291311的六包普通命令exit0、48工具进程及5个受控入口exit0，源码/8804实际输入一致。Jev与12条共用地区来源路线的真实资格缺口保持NOT_RUN，未付费/race/压力/真实清理，recovery7暂停。全部回执、偏差、原件与只读报告见[唯一当前状态](../status.md)。

@@ -1,10 +1,10 @@
 # 测试输入与规范入口治理
 
-Status: claimed
+Status: resolved
 Type: maintenance
 Updated: 2026-10-24
 
-本轮实施[工单05](issues/05-active-tool-migration.md)，依据用户2026-10-24对第5A项的明确授权；工单04保持完成。[工单01](issues/01-retained-ordinary-inputs.md)、[工单02](issues/02-current-contract-and-entrypoints.md)和[工单03](issues/03-script-boundaries.md)保持已完成；唯一动态状态见[status.md](status.md)。
+本轮已完成[工单05](issues/05-active-tool-migration.md)，依据用户2026-10-24对第5A项的明确授权；工单04保持完成。[工单01](issues/01-retained-ordinary-inputs.md)、[工单02](issues/02-current-contract-and-entrypoints.md)和[工单03](issues/03-script-boundaries.md)保持已完成；唯一动态状态见[status.md](status.md)。
 
 目标：Git 内容足以在干净工作区运行受影响普通测试。稳定输入进入 ai/e2e/testdata/retained；历史字节、固定锚点、缺输入失败和语义拒绝保持。runtime 只收实际消费的完整场景，派生清单与原件身份区分。
 
