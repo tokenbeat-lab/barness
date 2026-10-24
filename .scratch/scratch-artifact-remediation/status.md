@@ -1,6 +1,15 @@
 # 治理当前状态
 
-日期：2026-10-24（Asia/Shanghai）。**工单01–05 COMPLETE；第5A项活动工具迁移与普通验收完成。** 第5B项顶层导航尚未实施。真实live资格缺口及race未执行，完整发布保持false；recovery7继续暂停。
+日期：2026-10-24（Asia/Shanghai）。**工单01–06 COMPLETE；第5B项顶层导航完成。** 第5A项活动工具迁移与普通验收事实保留。真实live资格缺口及race未执行，完整发布保持false；recovery7继续暂停。
+
+## 第5B项交付
+
+- [顶层导航](../README.md)覆盖当前工作区22个目录，每目录一行，列出类型、spec/唯一当前状态入口、活动工具、历史资料和普通测试直接依赖。研究/展示/缺陷/回归/审查/治理按实际用途登记；未设集中状态的目录如实指向工单或报告，不增造状态源。顶层不复制阶段结果、轮次、预算或授权。
+- SOP工具及显式进程测试链接到tools/verification，Jev链接到现行jevformal核验器；GLM/Decisions/MiniMax仍供普通测试读取的源码与Pi旧资料中的静态数据分别标明。地区工具仅导航到唯一状态/工具README及分类，不提供恢复命令；旧分类版本按迁移映射读取，不修改原封存说明。
+- 基线e0ddbb649169e09db328976ce46ab734a573c331，库存含两个原有未跟踪目录barness-ai-sop-test-20261022、scratch-artifact-review。本次只链接这些本地材料，不修改或纳入Git；没有重命名或补造spec。修订前状态/spec/plan及库存见[本轮基线](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/before.json)、[旧状态原字节](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/previous-status.md)。
+- [导航检查](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/navigation-check.json)与[实际命令回执](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/navigation-check-command/command-receipt.json)为exit0；最终交付复核及其命令回执存于[本轮检查目录](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/)。检查覆盖目录集合、六栏/单行、全部本地链接/锚点、格式、无动态结论副本、8813个历史/暂停保护文件、14份原有未跟踪材料及前轮原件。首轮检查将历史文件名日期误作正文状态，真实exit1的[原报告](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/initial-check.json)/日志保留；检查改为扫描可见正文后另起成功attempt，没有改旧报告。
+- 本项不改执行来源或实际消费数据；1912项完整来源与8804项实际选定输入集合/字节仍等于第5A受测4e291311。新导航仅展示，另在交付索引固定哈希，不冒充既有回执的实际测试输入；没有重跑Go/Node测试、构建、历史脚本或工具合成测试。此前真实资格缺口/race未执行保持，压力影响无新增；本项未执行付费、race、压力或真实清理。
+- 新的[不可变索引](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/release-record/record.json)绑定本状态、原普通回执及其完整实际输入；[只读报告](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/release-record/report/release-report.md)与[判定命令回执](../../.evidence/scratch-artifact-remediation/docs/20261024T002612Z-bc0058a0/release-evaluate/command-receipt.json)独立保存。旧第5A状态绑定由本轮旧状态原字节验证，不回写前轮record/pin。回滚仅撤回顶层导航，原件/回执继续保留。
 
 ## 第5A项交付
 
@@ -11,7 +20,7 @@
 
 ## 实际普通验收
 
-- 冻结受测提交：`4e29131189a28df43f923f1a1d792d53fac7926a`；执行来源1912项，选定输入8804项。当前收尾只改本治理说明，完整执行来源与全部实际选定输入仍等于受测集合/字节，不把HEAD标签代替受测SHA。
+- 冻结受测提交：`4e29131189a28df43f923f1a1d792d53fac7926a`；执行来源1912项，选定输入8804项。本轮顶层展示导航和治理收尾不改变这些实际输入；完整执行来源与全部实际选定输入仍等于受测集合/字节，不把HEAD标签代替受测SHA。
 - 新run公共入口先因不存在取得真实exit1，迁移后exit0；新Jev路径/source pin先RED再GREEN。公共collector→releasegate交接验证新目录、忽略PY及工具/测试/Jev源码的增删改，不能靠漏收文件取得来源通过。
 - [最终完整普通回执](../../.evidence/scratch-artifact-remediation/e2e/20261024T000626.339050Z-pncc23t9/receipt.json)：真实exit0、443.79秒。命令为go test -json ./ai/e2e ./ai ./ai/internal/testkit/release ./ai/release/cmd/releasegate ./ai/internal/testkit/supportmatrix ./ai/internal/testkit/jevformal -count=1 -failfast -timeout=20m。四个有测试包PASS，releasegate/jevformal两个无测试包SKIP；不冒充测试通过。
 - 主原生包14,071 PASS / 214 NOT_RUN / 0 FAIL、audit0；58项既有输入必交场景全部PASS，14,943个Go通过节点。41份ai Markdown另以--input固定，覆盖原生选择器实际读取但默认来源策略排除的文档。
@@ -39,4 +48,4 @@
 ## 已完成前项与回滚
 
 - 工单01干净工作区固定输入、工单02规范入口、工单03脚本分类、工单04历史追溯均完成。其原回执/失败及适用范围保留；第4项40条来源/349候选和未知原版本不因本项改写。历史入口后继只按新映射或原固定Git解析。
-- 回滚本项将代码/调用点/来源选择器/测试/活动文档作为同一单元回退；保留18原件及所有新旧回执，不复活已消费授权或以任意新状态套用旧来源PASS。第5B顶层导航和真实清理尚未开始，原有两个未跟踪目录保持。
+- 回滚第5A项将代码/调用点/来源选择器/测试/活动文档作为同一单元回退；保留18原件及所有新旧回执，不复活已消费授权或以任意新状态套用旧来源PASS。第5B仅回退导航；真实清理尚未开始，原有两个未跟踪目录保持。

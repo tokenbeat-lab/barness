@@ -4,13 +4,13 @@ Status: resolved
 Type: maintenance
 Updated: 2026-10-24
 
-本轮已完成[工单05](issues/05-active-tool-migration.md)，依据用户2026-10-24对第5A项的明确授权；工单04保持完成。[工单01](issues/01-retained-ordinary-inputs.md)、[工单02](issues/02-current-contract-and-entrypoints.md)和[工单03](issues/03-script-boundaries.md)保持已完成；唯一动态状态见[status.md](status.md)。
+本轮按用户2026-10-24对第5B项的明确授权完成[工单06](issues/06-scratch-navigation.md)顶层导航；[工单05](issues/05-active-tool-migration.md)及此前工单保持完成；唯一动态状态见[status.md](status.md)。
 
 目标：Git 内容足以在干净工作区运行受影响普通测试。稳定输入进入 ai/e2e/testdata/retained；历史字节、固定锚点、缺输入失败和语义拒绝保持。runtime 只收实际消费的完整场景，派生清单与原件身份区分。
 
 公共 seam：现有 Go E2E → verifier CLI / release 消费者；先在干净独立 Git checkout 复现缺输入 RED，再最小修改取得 GREEN。无自动下载、skip、重建历史证据或旧路径兼容。
 
-本次不修改产品协议/目录/支持矩阵，仅迁移已确认的SOP工具/测试和Jev核验器，不恢复地区暂停轮次，不执行付费live/race/压力/真实清理。第5B项尚未实施。
+本次仅新增展示导航及本治理记录，不修改产品协议、支持矩阵、工具、测试或实际输入。前项迁移事实保留；不恢复地区暂停轮次，不执行付费live/race/压力/真实清理。
 
 ## 第2项范围
 
@@ -31,3 +31,9 @@ Updated: 2026-10-24
 ## 第5A项范围
 
 归属见[ADR-0053](../../docs/adr/0053-verification-tool-ownership.md)；先在公共CLI/Go消费者建立迁移失败，再迁移和验证受影响入口。历史原件/资格pin保留，活动旧路径删除，无兼容wrapper。独立来源选择器完整覆盖新路径和PY。recovery7暂停，本次禁止付费、race、压力与真实清理。
+
+## 第5B项范围
+
+新增[顶层导航](../README.md)，每个目录一行，分别登记类型、spec/唯一状态入口、活动工具、历史资料和普通测试直接依赖；研究、展示、缺陷、回归、审查和治理按实际用途归类。没有集中状态时明确说明，不造第二份状态；历史分类中的工具后继路径由第5A迁移映射解释。按当前工作区库存覆盖本地审查/回归目录，但不把这些已有未跟踪材料混入本次提交。
+
+仅检查目录集合、引用/锚点、展示边界、历史/暂停对象和实际执行来源/输入相等性；新增README不是执行输入，不声称新Go验收。回滚只撤回顶层导航，历史原件及新旧回执保留。
