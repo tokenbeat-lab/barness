@@ -22,4 +22,6 @@ v3正式批次第4条OpenAI Chat：10场景PASS，reasoning-history依ai/live/co
 
 ## Answer
 
-进行中；本批已停止，无付费重跑或后续路线。
+最小生产修复268faeba、完整publicCLI回归b77859c0及独立v12两轴0/0完成；等待本来源完整四包普通验收后关闭软件票。旧批次停止不续跑，后续新source付费仍另取选择。
+
+- v11各1 P2已通过完整原生包公共CLI接线补齐：原strict规则、报告接线、原件接线三份实际RED，61项定向GREEN；[完整证据](../evidence/generic-unsupported-cli-v1.json)/[v12](../review/review-v12.md)。当前完整普通由集成统一执行，不把合成材料计为正式资格。

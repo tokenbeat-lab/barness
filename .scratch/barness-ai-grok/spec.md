@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–16软件已解决；v3真实运行发现既有OpenAI Chat不支持推理历史的资格规则遗漏，已开17修复票。05正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 本批v3实际普通与付费来源f952644bf0dc06f2397c966b4ef6376f8ed52b9c，2054默认文件及164输入固定。软件fd02/消费者DTO已真实验证；后续17资格规则修复需重新冻结，不改旧pin |
-| 审查 | v1–v8历史发现均已修复；16新增v9 Standards0/Spec1 P2（mandatory-history反例缺失），同一实现者补齐，独立[v10](review/review-v10.md)两轴均0项 |
-| 当前完整普通（cases-v7） | 本批同164输入完整三包15,850测试/1469必交/121入口及32辅助全部PASS，629.895秒/exit0/audit0。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T131507.033844Z-tyztv0yc/receipt.json) |
+| 实现 | 01–04及07–16软件已解决；17已完成狭窄资格合同修复268faeba、完整publicCLI回归b77859c0与v12两轴0/0，当前待完整普通。05正式live/06人工及发布未完成 |
+| 冻结来源 | 软件pin b77859c0a7b94b7ef874cd8a52196f544d0e01e1，默认2057文件/129选定输入（119执行输入+9规划前沿+新增合同文档）。所有4类native source相对旧付费f952已变，旧3条通过只保留历史资格 |
+| 审查 | 16的v10两轴0/0；17的v11两轴各1 P2公共CLI接线缺口已由同一完整fixture修复者补齐，v12独立两轴均0项；三份实际RED与完整61项定向GREEN保留 |
+| 当前完整普通（cases-v9） | 新来源完整普通NOT_RUN；[cases-v9](verification/cases-v9.json)1518必交/125入口，旧1469基线全保留，CLI旧弱用例由6条完整包回归语义替换。计划四包20m/outer1500秒；旧f952三包15850 PASS只为历史事实 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | 本批前三条xAI/OpenAI Responses/DeepSeek Responses实际正式消费者均PASS；第4条OpenAI Chat实际exit1/pass=false，原生声明reasoning-history为UNSUPPORTED/零调用被统一正调用/PASS规则拒绝。后13条NOT_RUN，批次STOPPED；[停止索引](../../.evidence/barness-ai-grok/live-batches/gf3-20261026T131257Z-6a9ba85b/stopped-checkpoint-v1.json) |
-| 自身live | 本批v3 xAI正式18/18、24调用24HTTP，实际正式消费者PASS，响应估算上界0.029846 USD；只读采集父目录遗漏在native child启动前修复，0付费重跑，原失败采集原件保留 |
-| 共享历史live | 本批4条执行：前三条QUALIFIED；OpenAI Chat 10PASS/1原生UNSUPPORTED、15调用/15HTTP、正式消费者FAIL；后13条未运行。共65调用65HTTP，前批39另计。本批已停止，不继续剩余grant；Kimi六条仍候选 |
+| 原生消费 | 旧v3前三条通过、第4条真实拒绝/后13NOT_RUN已固定停止索引；当前17合同修复后的正式live均NOT_RUN。新索引/只读判定待完整普通，不改旧报告或借旧source资格 |
+| 自身live | 旧v3 f952 xAI正式18/18、24调用24HTTP、正式消费者PASS、响应估算0.029846 USD；当前原生source改变，当前来源真实验证NOT_RUN，未自动续跑或重买 |
+| 共享历史live | 历史正式两批共104calls/104HTTP（v2 39+v3 65）；新[计划v4](formal-live-plan-v4.md)同17路线/238必交，其中237要求PASS、1固定无调用UNSUPPORTED，尚未获新授权；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI接线完成；本批17正式live未完整通过，17软件修复进行中，race/压力未选择，release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 未发布Builtin2026-10-26.1/xAI接线完成；17完整普通待实测，新source正式live/race/压力未完成，release.pass=false，未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -340,3 +340,11 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 #### v3实际停止与资格合同修复
 
 新批次已在第4条的真实正式消费者拒绝后停止，前三条正式资格通过，后13条NOT_RUN。OpenAI Chat的`reasoning-history`依既有`ai/live/combos_test.go`/`scenarios_test.go`合同为不支持、零请求；支持矩阵原生保留UNSUPPORTED语义，当前release资格层却要求所有场景正调用及PASS。已建立[17修复工单](issues/17-declared-unsupported-qualification.md)，只修复合同一致性并保留该能力不支持，不伪造成功、不扩大型号/重放能力。所有真实捕获、消费者拒绝、原始授权及65次调用由[停止索引](../../.evidence/barness-ai-grok/live-batches/gf3-20261026T131257Z-6a9ba85b/stopped-checkpoint-v1.json)固定；后续新source/付费需重新冻结与选择，当前授权不续跑。
+
+#### 17资格合同修复与v4冻结前沿
+
+原生已声明的不支持场景保持UNSUPPORTED/无新LastPassedAt，精确固定身份/原因、零活动及仅assertions原件均验证；伪造PASS、错误状态或任意其他能力借例外都会拒绝。Generic6当前目录分支审计证明只有OpenAI Chat固定noReplay可达。生产验证归属supportmatrix既有合同模块，删除release旧实现，不扩公开ai API。
+
+原报告合同RED与伪造PASS RED保留；[完整CLI证据](evidence/generic-unsupported-cli-v1.json)用11场景原生包和独立测试Git命名空间验证真正接线，三份实际RED分别证明原严格规则/报告接线/库存接线可被回归捕获，61项定向GREEN/audit0。合成全体release=false，未调用Claim或真实厂商/真实store。v11两轴P2经[v12](review/review-v12.md)独立复核均关闭。
+
+[计划v4](formal-live-plan-v4.md)及[机器计划](verification/formal-plan-v4.json)固定新source/8个image/旧native预算及明确237 PASS+1固定UNSUPPORTED/零请求合同。129输入中119执行输入未变，额外绑定修改的原生合同文档。完整普通尚待实际执行，旧批次104次正式调用与13未跑项原样保留，不自动续用旧权限。
