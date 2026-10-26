@@ -104,7 +104,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	requestID := res.Header.Get(requestIDHeaderOf(ac.model.Provider))
 	if failure := ac.hooks.response(ctx, res); failure != nil {
 		failure.ProviderRequestID = requestID
-		if responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesMiniMax {
+		if ac.model.Provider == ProviderXAI || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesMiniMax {
 			failure.HTTPStatus = res.StatusCode
 		}
 		return failure
@@ -112,10 +112,10 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 
 	out.start()
 	failure = readResponsesStream(ctx, ssestream.NewDecoder(res), responsesParser{out: out, failures: failures, slots: map[responsesIndex]responsesSlot{}, reasoning: map[string]int{},
-		kimi: newKimiResponsesState(ac.model.Provider), glm: responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && responsesCapabilitiesOf(ac.model.Provider).implementation != responsesMiniMax, requestedTier: opts.ServiceTier}, attempt: ac.initial})
+		xai: newXAIResponsesState(ac.model.Provider, body), kimi: newKimiResponsesState(ac.model.Provider), glm: responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM, minimax: newMiniMaxResponsesState(ac.model.Provider), usage: responsesUsage{model: ac.model, pricesByTier: caps.serviceTier && responsesCapabilitiesOf(ac.model.Provider).implementation != responsesMiniMax, requestedTier: opts.ServiceTier}, attempt: ac.initial})
 	if failure != nil {
 		failure.ProviderRequestID = requestID
-		if responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesMiniMax {
+		if ac.model.Provider == ProviderXAI || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesGLM || responsesCapabilitiesOf(ac.model.Provider).implementation == responsesMiniMax {
 			failure.HTTPStatus = res.StatusCode
 		}
 	}
@@ -128,6 +128,7 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 // (grammar) tool calls and tool namespaces, which only tools barness-ai does
 // not declare produce.
 type responsesParser struct {
+	xai         *xaiResponsesState
 	kimi        *kimiResponsesState
 	minimax     *miniMaxResponsesState
 	glm         bool
