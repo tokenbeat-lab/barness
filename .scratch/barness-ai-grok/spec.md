@@ -225,15 +225,15 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 项目 | 当前事实 |
 | --- | --- |
 | 实现 | 01–04及07–15软件工单已解决，源码421efc23及v8两轴复核0/0；GLM原件使用既有辅助bundle边界，主1457case与辅助32case均完整验证。05当前正式live、06人工阶段/发布仍未完成 |
-| 冻结来源 | 最终软件421efc23f82ada2dd356dc9c8bb6cf0aef0cf5ab；本次完整受影响三包实际受测812782ecf0215c6861cd8801a61374bca4b338c7，2053默认来源文件及128选定输入固定。四类native source与全部冻结binary未变；此前未变M3完整269测试PASS按实际适用范围保留 |
+| 冻结来源 | 当前实际付费与匹配普通来源均为5a8b7a9b3a4bb1f680a05ed13788dc035b51f426，2053默认来源文件及164选定输入固定；四类native source及冻结binary未变，保留完整构建适用性依据 |
 | 审查 | 核心及JPEG的[v1](review/review-v1.md)–[v4](review/review-v4.md)均已修复/复核0项；正式软件[v5](review/review-v5.md)的Standards3项/Spec5项已修复，并在含14的独立[v6](review/review-v6.md)复核确认；v6新增Standards2项/Spec2项P2亦由15同一实现者公共RED/GREEN修复，[v7](review/review-v7.md)独立复核两轴均0项 |
-| 当前完整普通（cases-v5） | 当前[cases-v5](verification/cases-v5.json)全部1457/1457必交case、120/120入口通过；三包15837 Go测试PASS、exit0/audit0、墙钟600.793秒，主15008 PASS/214压力NOT_RUN，GLM辅助32 PASS/每case最多393；Python采集器同来源补充1项PASS |
+| 当前完整普通（cases-v5） | 新增本次授权输入后实际完整三包15837测试PASS，1457/1457必交case、120/120入口及32辅助case全部通过，exit0/audit0、墙钟614.631秒；[匹配普通receipt](../../.evidence/barness-ai-grok/e2e/20261026T112755.440188Z-ikax7pin/receipt.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [真实readonly-v6](../../.evidence/barness-ai-grok/release/readonly-v6/native/release-report.json)已实际确认source=true/e2e=true，CLI exit1仅因live/race/压力NOT_RUN，release.pass=false。当前状态收尾绑定[索引v7](verification/record-v7.json)，最终只读报告另存[readonly-v7](../../.evidence/barness-ai-grok/release/readonly-v7/native/release-report.json)。旧v5拒绝及4350文件原件不改 |
-| 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
-| 共享历史live | 维护者选定Grok+16已发布旧目标共17条正式路线；全部22代码路径受控证明保留，六条Kimi仍候选且实际live NOT_RUN。全部.env来源及国际MiniMax标准API/M3资格已确认；当前17路线实际付费尚未授权，见[具体计划v2](formal-live-plan-v2.md) |
+| 原生消费 | 本批xAI实际schema2消费者exit0/pass=true；OpenAI Responses实际schema2消费者exit1/pass=false，后续15条依批准规则停止。上一轮readonly-v7仅为授权前历史检查点；本批新索引/只读判定另存，不改旧原件 |
+| 自身live | 本批正式xAI原生18/18 PASS、24调用/24HTTP、零自动重试，正式消费者exit0/pass=true；墙钟35.360秒、响应估算累计上界0.029358 USD。旧候选v3及两次失败原件保持历史状态 |
+| 共享历史live | 已授权计划v2全部17条；实际执行2条，xAI正式资格通过，OpenAI Responses场景9/9及15调用PASS但正式消费者拒绝；其余15条NOT_RUN。本批已停止，未自动重跑。六条Kimi仍候选/受控，不连带晋升 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI已完成并审查接线，四类冻结producer及四只读CLI构建PASS；无Key正式自检NOT_RUN/Calls0。源码接线与普通PASS不构成正式支持；新正式live及人工阶段未通过，release.pass=false |
+| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI接线已完成并审查；本批live未全通过，race/压力未选择，release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -310,6 +310,15 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 原v5普通执行PASS与原生拒绝均保留；不放宽512文件上限、不删除原始4350文件。当前正式执行计划为[v2](formal-live-plan-v2.md)，四类native/binary来源未变，仍无新付费权限。
 
 
-#### 本次正式17路线已获授权
+#### 本次正式17路线已授权并按失败规则停止
 
-维护者明确回复“授权全部17条路线”，对应冻结计划v2。一次性批次 `gf-20261026T112558Z-14ec1226` 的原始授权、17份新grant与配置见[执行范围](authorization/gf-20261026T112558Z-14ec1226/execution-scope.json)；每路线只持有所选.env凭据，依序执行并在任何路线失败/取消/超时/原生资格拒绝后停止后续。当前尚无本批厂商请求，先完成新增164项授权输入的同来源普通预检，再按冻结binary执行。race/压力及发布仍未授权；旧候选与旧失败grant不复用。
+维护者明确回复“授权全部17条路线”，对应冻结计划v2。批次 `gf-20261026T112558Z-14ec1226` 的[原始授权与范围](authorization/gf-20261026T112558Z-14ec1226/execution-scope.json)保持不可变；本批原生入口、预算、代理和单路线凭据隔离均按已授权范围执行。新增164项输入的完整普通预检已实际通过，受测与付费HEAD均为 `5a8b7a9b3a4bb1f680a05ed13788dc035b51f426`。
+
+- xAI Responses：[执行原件](../../.evidence/barness-ai-grok/live/xai-responses/20261026T113909.701356Z-hi0i7x_h/receipt.json) exit0，18/18场景、24调用/24HTTP；[原生正式消费](../../.evidence/barness-ai-grok/live-consumers/gf-20261026T112558Z-14ec1226/01-xai-responses/live-consumer.json) exit0/pass=true。
+- OpenAI Responses：[执行原件](../../.evidence/barness-ai-grok/live/openai-responses/20261026T114333.867655Z-4st8edcu/receipt.json) exit0，9/9场景、15调用/15HTTP；[实际正式消费者](../../.evidence/barness-ai-grok/live-consumers/gf-20261026T112558Z-14ec1226/02-openai-responses/live-consumer.json) exit1/pass=false，原因已定位为非空AssistantContent捕获JSON解码缺陷，见[16修复工单](issues/16-generic-capture-decoding.md)。
+- 按原始授权“任一路线失败或原生资格拒绝即停止后续路线”，批次状态STOPPED。其余15条NOT_RUN，未使用剩余grant、未重跑前两条；本批累计39调用/39HTTP。[不可变停止检查点](../../.evidence/barness-ai-grok/live-batches/gf-20261026T112558Z-14ec1226/stopped-checkpoint-v1.json)保存来源、逐条回执及其哈希。
+- race、压力及发布仍NOT_RUN；live未完整有效，不能启动后续人工阶段，release.pass=false。先定位并准备可审查的软件修复，再按SOP重新冻结与取得所需的新执行选择；不以本批旧授权继续失败后的调用。
+
+#### 正式消费者修复前沿
+
+[16](issues/16-generic-capture-decoding.md)负责通用消费者捕获DTO与非空消息公共CLI回归。真实停止检查点与[只读readonly-v8](../../.evidence/barness-ai-grok/release/readonly-v8/native/release-report.json)保留：source/E2E通过，live/race/压力不通过，实际exit1/release.pass=false。软件修复与普通复验完成前，不请求新的付费执行。

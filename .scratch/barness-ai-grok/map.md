@@ -33,3 +33,5 @@
 - 真实收尾消费者随后拒绝新GLM包装case的4350项库存（原上限512），[15已重新打开](issues/15-formal-review-fixes.md)。保留完整Go PASS与实际CLI source=true/e2e=false原件；采用既有辅助bundle边界修复，导入规则不放宽，05继续被15阻塞。
 
 - [15最终已解决](issues/15-formal-review-fixes.md)：辅助bundle归属fix421efc23、v8复核0/0、新受测812782ec完整三包15837测试/1457主必交/120入口及32辅助均PASS；真实readonly-v6 source/E2E均true。05现等待[计划v2](formal-live-plan-v2.md)的明确付费授权；不自动启动17路线或人工阶段。
+
+- 正式批次已按授权停止：xAI正式18/18通过；OpenAI9/9实际调用通过但非空消息证据解码被消费者拒绝，后15条NOT_RUN。[16修复前沿](issues/16-generic-capture-decoding.md)只处理离线消费，不启动新的付费调用；[当前状态](spec.md#本次正式17路线已授权并按失败规则停止)。
