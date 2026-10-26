@@ -42,7 +42,7 @@ func GLMExecutionSource() (map[string]string, error) {
 		for _, file := range []string{"ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/decisions_config_test.go", "ai/live/decisions_sources_test.go", "ai/live/session_test.go"} {
 			capture = capture || name == file
 		}
-		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/glm/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/"} {
+		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/glm/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/", "ai/internal/testkit/grokhistory/"} {
 			if strings.HasPrefix(name, prefix) && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go") {
 				capture = true
 			}

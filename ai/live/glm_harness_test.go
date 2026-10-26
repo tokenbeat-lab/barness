@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"net/http"
 	"os"
 	"strings"
@@ -122,49 +123,6 @@ func driveGLMCandidate(t *testing.T) {
 	}
 }
 
-func glmFullOptions(sc glmCasePlan) ai.Options {
-	kind := sc.Kind
-	if strings.HasPrefix(kind, "control-") {
-		kind = "full-stream"
-		if sc.Kind == "control-auto" {
-			kind = "tool-call"
-		}
-		if sc.Kind == "control-unsigned" {
-			kind = "native-history"
-		}
-	}
-	switch glmSelected.api {
-	case ai.APIOpenAICompletions:
-		effort := ai.ThinkingLevel("")
-		if kind == "full-stream" {
-			effort = ai.ThinkingHigh
-		}
-		if kind == "full-complete" {
-			effort = ai.ThinkingLow
-		}
-		o := ai.ChatOptions{MaxTokens: ai.Value(4096), ReasoningEffort: effort}
-		if sc.Kind == "control-temperature" {
-			o.Temperature = ai.Value(0.0)
-		}
-		if sc.Kind == "control-usage" {
-			o.SamplingParams = map[string]json.RawMessage{"stream_options": json.RawMessage(`{"include_usage":true}`)}
-		}
-		return o
-	case ai.APIOpenAIResponses:
-		return ai.ResponsesOptions{MaxTokens: ai.Value(4096), ReasoningEffort: ai.ThinkingHigh}
-	default:
-		o := ai.AnthropicOptions{MaxTokens: ai.Value(4096)}
-		if sc.Model == "glm-5.2" && (kind == "full-stream" || kind == "native-history") && sc.Kind != "control-default" {
-			o.ThinkingEnabled = ai.Value(true)
-			o.ThinkingBudgetTokens = 1024
-		}
-		if sc.Kind == "control-auto" {
-			o.ToolChoice = ai.Value(ai.AnthropicToolChoice{Mode: "auto"})
-		}
-		return o
-	}
-}
-
 func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	cs := run.Case(t, "GLM11-"+strings.ReplaceAll(sc.ID, "/", "-"))
 	setGLMReplay(cs)
@@ -179,6 +137,9 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	}()
 	req := ai.Request{Messages: []ai.Message{ai.UserText(glmFixedPlan.Prompts["text"])}}
 	kind := sc.Kind
+	if kind == grokhistory.Scenario {
+		req, _ = grokhistory.Request(ai.CallScope{TenantID: liveTenant})
+	}
 	if kind == "tool-call" || kind == "control-auto" {
 		req = ai.Request{Messages: []ai.Message{ai.UserText(glmFixedPlan.Prompts["tool"])}, Tools: []ai.Tool{glmAdd}}
 	}
@@ -341,6 +302,13 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	if glmReportState.Mode == "replay" {
 		out.ReplayAttempts = out.HTTPAttempts
 		out.HTTPAttempts = 0
+	}
+	if kind == grokhistory.Scenario {
+		after, _ := json.Marshal(req)
+		cs.Record("immutable-input", req)
+		cs.Check("fixed synthetic Host history unchanged", grokhistory.VerifyHost(after), "input changed")
+		cs.Check("foreign history downgrades two turns", result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "%+v", result.Metadata.NativeStateDowngrades)
+		cs.Check("actual foreign history wire associations", len(ex) == 1 && grokhistory.Verify(glmSelected.api, []byte(ex[0].RequestBody)) == nil, "foreign wire proof")
 	}
 	cs.Record("attempt-1-exchanges", ex)
 	cs.Record("attempt-1-result", map[string]any{"result": result, "error": errText(err)})

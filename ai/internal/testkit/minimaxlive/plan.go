@@ -5,6 +5,7 @@ package minimaxlive
 import (
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax"
 )
 
@@ -60,7 +61,7 @@ type Case struct {
 // failures may repeat their scene once, plus one missing-tool/reasoning rerun.
 // No started stream is replayed. All reruns consume the same durable ledger.
 func Plan(id Identity) []Case {
-	return []Case{
+	plan := []Case{
 		{"full-stream", 1024, "default wire and terminal, raw actual model/ID and usage"},
 		{"full-complete", 1024, "full Complete text"},
 		{"simple-stream", 1024, "simple Stream default selection"},
@@ -75,6 +76,10 @@ func Plan(id Identity) []Case {
 		{"cancel", 2048, "cancel after visible content, unknown usage remains unknown"},
 		{"preflight-error", 1, "invalid output request fails before any Attempt"},
 	}
+	if id.Model == M3 && id.Purpose == "standard" {
+		plan = append(plan, Case{grokhistory.Scenario, 1024, "fixed synthetic xAI collision and cross-turn reuse history"})
+	}
+	return plan
 }
 func CaseID(id string, rerun int) string {
 	if rerun > 0 {

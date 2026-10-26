@@ -14,6 +14,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 )
 
 func readGLMJSON(path string, v any) error {
@@ -227,6 +228,13 @@ func verifyGLMCall(base string, r Report, s ScenarioResult, sources []string) er
 		return glmBad("result absent")
 	}
 	md := outcome.Result.Metadata
+	if strings.HasSuffix(s.ID, "/"+grokhistory.Scenario) {
+		before, e1 := glmRead(filepath.Join(base, "public-request.json"))
+		after, e2 := glmRead(filepath.Join(base, "immutable-input.json"))
+		if e1 != nil || e2 != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || grokhistory.Verify(ai.API(r.API), request) != nil || md.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+			return glmBad("fixed xAI input, actual wire or downgrades differ")
+		}
+	}
 	if md.ProviderID != ai.ProviderZhipu || string(md.API) != r.API || md.ModelID != s.Model || md.CatalogHash != r.CatalogHash || md.CatalogVersion != r.CatalogVersion || md.Operation != ai.OperationChat || !md.Resolved || md.BindingID != r.Combo || md.TenantID != "live-smoke" || md.AccountScopeID != "live-"+r.Combo || md.BindingVersion != "live" || md.CredentialVersion != "live" || len(md.Attempts) != s.Attempts || md.RequestID == "" {
 		return glmBad("Result attribution differs")
 	}

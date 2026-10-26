@@ -1,6 +1,9 @@
 package supportmatrix
 
-import "strings"
+import (
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
+	"strings"
+)
 
 type glmCapturedCase struct {
 	ID, Dir, Status string
@@ -11,7 +14,7 @@ type glmCapturedCase struct {
 // case. Coherently rehashing an extra case/attempt cannot hide HTTP work from
 // the counters. Failed cases may retain a prefix of their owned artifacts.
 func checkGLMArtifactContract(r Report, cases []glmCapturedCase, files map[string]string, snapshots map[string]string) error {
-	if len(cases) != 23 || len(files) > 512 {
+	if len(cases) != len(r.Scenarios)+1 || len(files) > 512 {
 		return glmBad("finite case/inventory count exceeded")
 	}
 	root := map[string]bool{"audit.json": true, "formal-glm-report.json": true, "formal-glm-5.3-report.json": true, "formal-glm-5.2-report.json": true, "glm-execution-source.json": true, "manifest.json": true}
@@ -26,6 +29,9 @@ func checkGLMArtifactContract(r Report, cases []glmCapturedCase, files map[strin
 		allowed := map[string]bool{}
 		for _, name := range []string{"assertions.json", "attempt-1-exchanges.json", "attempt-1-result.json", "budget-after.json", "budget-before.json", "events.json", "observations-1.json", "options.json", "plan.json", "public-request.json", "request-id-source.json", "request.json", "response.sse", "usage-presence.json"} {
 			allowed[name] = true
+		}
+		if strings.HasSuffix(sc.ID, "/"+grokhistory.Scenario) {
+			allowed["immutable-input.json"] = true
 		}
 		if strings.HasSuffix(sc.ID, "/cancel") {
 			allowed["capture-scope.json"] = true

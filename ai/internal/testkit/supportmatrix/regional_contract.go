@@ -1,6 +1,9 @@
 package supportmatrix
 
-import "strings"
+import (
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
+	"strings"
+)
 
 // RegionalRoute is an independent standard-API qualification target. Returning
 // values keeps the route registry immutable and outside Host model metadata.
@@ -57,6 +60,9 @@ func RegionalExpected(combo string) []string {
 		}
 		for _, kind := range strings.Fields(kinds) {
 			out = append(out, model+"/"+kind)
+		}
+		if grokhistory.Applies(combo) {
+			out = append(out, model+"/"+grokhistory.Scenario)
 		}
 	}
 	return out

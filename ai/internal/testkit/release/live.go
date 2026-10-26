@@ -5,6 +5,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -43,7 +44,7 @@ func expectedCapabilities(combo string) []string {
 		"deepseek-chat":      {"usage-position", "forced-tool-with-thinking", "prompt-cache-long-retention", "reasoning-level-high", "reasoning-level-max"},
 	}
 	if extra, ok := extras[combo]; ok {
-		return append(base, extra...)
+		return append(append(base, extra...), grokhistory.Scenario)
 	}
 	return nil
 }

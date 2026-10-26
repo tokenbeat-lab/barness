@@ -8,6 +8,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/glm"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"os"
 	"path/filepath"
 	"strings"
@@ -184,6 +185,17 @@ func initializeGLM() {
 	if len(glmCandidateCatalog.Models) != 6 || len(glmFixedPlan.Routes[route]) != 22 {
 		glmConfigError = "fixed six-candidate/22-call identity set required"
 		return
+	}
+	if grokhistory.Applies("zhipu-"+route) && r.Mode != "replay" {
+		var effective []glmCasePlan
+		for i, sc := range glmFixedPlan.Routes[route] {
+			effective = append(effective, sc)
+			if i+1 == len(glmFixedPlan.Routes[route]) || glmFixedPlan.Routes[route][i+1].Model != sc.Model {
+				effective = append(effective, glmCasePlan{ID: sc.Model + "/" + grokhistory.Scenario, Model: sc.Model, Kind: grokhistory.Scenario})
+			}
+		}
+		glmFixedPlan.Routes[route] = effective
+		r.Budget.PlannedCalls = len(effective)
 	}
 	if glmDiagnosticSelected() {
 		if err := selectGLMDiagnostic(); err != nil {

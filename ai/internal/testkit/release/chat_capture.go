@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -41,6 +42,13 @@ func verifyChatCaptures(files verifiedCase, r supportmatrix.Report, s supportmat
 			return usage, fmt.Errorf("chat capture triplet missing or invalid")
 		}
 		meta := result.Result.Metadata
+		if s.ID == grokhistory.Scenario {
+			before, e1 := files.read("public-request.json", maxInventoryFile)
+			after, e2 := files.read("immutable-input.json", maxInventoryFile)
+			if e1 != nil || e2 != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || len(exchanges) != 1 || grokhistory.Verify(ai.API(r.API), []byte(exchanges[0].RequestBody)) != nil || meta.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+				return usage, fmt.Errorf("fixed xAI Host input, actual wire or downgrades differ")
+			}
+		}
 		if meta.RequestID == "" || meta.TenantID == "" || seen[meta.RequestID] || !meta.Resolved || meta.BindingID != r.Combo ||
 			string(meta.Operation) != r.Operation || string(meta.ProviderID) != r.Provider || string(meta.API) != r.API || meta.ModelID != s.Model ||
 			len(meta.Attempts) == 0 || len(meta.Attempts) != len(exchanges) || len(observations) == 0 {

@@ -14,6 +14,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -35,8 +36,11 @@ func scenariosOf(c *combo) []scenario {
 	if c.operation == ai.OperationClassifier {
 		return classifierScenarios()
 	}
-	return append([]scenario{textStream, textComplete, toolRoundTrip, cancelAfterFirstFrame, reasoningHistory, imageInput},
-		c.extra...)
+	out := append([]scenario{textStream, textComplete, toolRoundTrip, cancelAfterFirstFrame, reasoningHistory, imageInput}, c.extra...)
+	if grokhistory.Applies(c.name) {
+		out = append(out, grokHistoryScenario)
+	}
+	return out
 }
 
 // retryableCodes are vendor or environment faults: retried within the

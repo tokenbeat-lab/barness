@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 )
 
 const GLMSourcePin = "837a83c4711dc4914b8110341403c0d6e43cac254b3101f601d6d538b209c907"
@@ -45,6 +46,9 @@ func GLMExpected(combo string) []string {
 		}
 		for _, kind := range kinds {
 			out = append(out, model+"/"+kind)
+		}
+		if grokhistory.Applies(combo) {
+			out = append(out, model+"/"+grokhistory.Scenario)
 		}
 	}
 	return out
@@ -87,14 +91,14 @@ func NewGLMReport(dir string) (Report, error) {
 	}
 	cat := ai.BuiltinCatalog()
 	hash, _ := cat.Hash()
-	if d.Schema != 1 || d.Kind != "glm-formal" || d.Mode != "live" || !d.AuditPassed || d.SourceManifestHash != GLMSourcePin || len(expected) != 22 || d.API != api || d.Endpoint != endpoint || d.CatalogVersion != cat.Version || d.CatalogHash != hash || d.GitCommit == "" || d.SDK == "" || d.AccountAlias == "" || d.StartedAt.IsZero() || d.FinishedAt.Before(d.StartedAt) || d.FinishedAt.Sub(d.StartedAt) > 1800*time.Second {
+	if d.Schema != 1 || d.Kind != "glm-formal" || d.Mode != "live" || !d.AuditPassed || d.SourceManifestHash != GLMSourcePin || len(expected) == 0 || d.API != api || d.Endpoint != endpoint || d.CatalogVersion != cat.Version || d.CatalogHash != hash || d.GitCommit == "" || d.SDK == "" || d.AccountAlias == "" || d.StartedAt.IsZero() || d.FinishedAt.Before(d.StartedAt) || d.FinishedAt.Sub(d.StartedAt) > 1800*time.Second {
 		return Report{}, refuse("GLM formal identity, source, mode, catalog or execution provenance invalid")
 	}
 	b := d.Budget
-	if b.PlannedCalls != 22 || b.MaxCalls != 24 || b.MaxAttempts != 32 || b.MaxOutputTokens != 4096 || b.CallSeconds != 120 || b.ProcessSeconds != 1800 || b.FinalizationReserveSeconds != 20 || b.CallsUsed < 0 || b.CallsUsed > 24 || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts < 0 || b.HTTPAttempts > b.AttemptsReserved || b.Retries != 0 || b.ReplayAttempts != 0 {
+	if b.PlannedCalls != len(expected) || b.MaxCalls != 24 || b.MaxAttempts != 32 || b.MaxOutputTokens != 4096 || b.CallSeconds != 120 || b.ProcessSeconds != 1800 || b.FinalizationReserveSeconds != 20 || b.CallsUsed < 0 || b.CallsUsed > 24 || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts < 0 || b.HTTPAttempts > b.AttemptsReserved || b.Retries != 0 || b.ReplayAttempts != 0 {
 		return Report{}, refuse("GLM fixed budget invalid")
 	}
-	if !slices.Equal(d.Expected, expected) || len(d.Scenarios) != 22 {
+	if !slices.Equal(d.Expected, expected) || len(d.Scenarios) != len(expected) {
 		return Report{}, refuse("GLM complete model-qualified scenario set required")
 	}
 	r := Report{Schema: SchemaVersion, Combo: combo, Operation: "chat", Provider: "zhipu", API: api, Endpoint: endpoint, Model: "glm-5.3", SDK: d.SDK, AccountAlias: d.AccountAlias + "@" + d.RegionAlias, GitCommit: d.GitCommit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: d.StartedAt, FinishedAt: d.FinishedAt, Expected: expected, GLM: &GLMEvidence{Mode: d.Mode, SourceManifestHash: d.SourceManifestHash, UsageBasis: "reported-known-lower-bound"}, evidenceDir: dir,
