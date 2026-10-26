@@ -9,6 +9,7 @@ import (
 	"image"
 	"image/color"
 	"image/jpeg"
+	"regexp"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -183,7 +184,9 @@ func (s *xaiSession) tools(mode string, imageResult bool) {
 				if m["type"] == "function_call" && m["id"] == itemID {
 					functions++
 				}
-				if m["type"] == "function_call_output" && m["output"] == "synthetic-host-result-"+string(rune('a'+i)) {
+				output, _ := m["output"].(string)
+				marker := "synthetic-host-result-" + string(rune('a'+i))
+				if m["type"] == "function_call_output" && (output == marker || imageResult && strings.HasPrefix(output, marker+"\n")) {
 					outputs++
 				}
 			}
@@ -224,7 +227,8 @@ func xaiCacheUsage(s *xaiSession) {
 		}
 		body := xaiRequest(s.last)
 		current, _ := body["prompt_cache_key"].(string)
-		s.cs.Check("cache key is derived and stable", current != "" && current != o.SessionID && (key == "" || current == key), "invalid cache scope")
+		shape, _ := regexp.MatchString(`^[0-9a-f]{64}$`, current)
+		s.cs.Check("cache key is derived and stable", shape && current != o.SessionID && (key == "" || current == key), "invalid cache scope")
 		key = current
 	}
 	// A reported zero is valid; two bounded calls never promise a cache hit.

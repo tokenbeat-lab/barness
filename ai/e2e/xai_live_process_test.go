@@ -69,7 +69,10 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 	child := func(t *testing.T, name, entry string, env []string) (map[string]any, int) {
 		t.Helper()
 		cs := run.Case(t, "E17-xai-process-"+name)
-		out := t.TempDir()
+		out, makeErr := os.MkdirTemp(run.Dir(), "xai-child-"+name+"-")
+		if makeErr != nil {
+			t.Fatal(makeErr)
+		}
 		cmd := exec.CommandContext(ctx, binary, "-test.run="+entry, "-test.timeout=30s")
 		cmd.Dir = "../.."
 		cmd.Env = append(xaiProcessEnv(t), "BARNESS_AI_LIVE_COMBO=xai-responses", evidence.DirEnv+"="+out)
@@ -87,6 +90,7 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 		if !cs.Check("own candidate report exists", len(files) == 1, "reports=%d", len(files)) {
 			return nil, code
 		}
+		nativeFiles := map[string]string{}
 		filepath.WalkDir(filepath.Dir(files[0]), func(path string, entry os.DirEntry, walkErr error) error {
 			if walkErr != nil {
 				t.Fatal(walkErr)
@@ -99,12 +103,28 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 			if readErr != nil {
 				t.Fatal(readErr)
 			}
-			cs.Fixture("native-"+strings.ReplaceAll(relative, string(filepath.Separator), "__"), data)
+			fixtureName := "native-" + strings.ReplaceAll(relative, string(filepath.Separator), "__")
+			nativeFiles[filepath.ToSlash(relative)] = fixtureName
+			cs.Fixture(fixtureName, data)
 			return nil
 		})
+		cs.Record("native-file-map", nativeFiles)
+		if name == "final-write" {
+			info, statErr := os.Stat(filepath.Join(filepath.Dir(files[0]), "xai-candidate-report.pending.json"))
+			cs.Check("filesystem refused final candidate write", statErr == nil && info.IsDir(), "expected retained filesystem failure target")
+		}
 		if name == "finite-controlled-plan" {
-			verify := exec.CommandContext(ctx, consumer, "-live-bundle", filepath.Dir(files[0]), "-out", t.TempDir())
-			verify.Dir = "../.."
+			verifyOut := filepath.Join(run.Dir(), "xai-controlled-native-consumer")
+			rootPath, err := filepath.Abs("../..")
+			if err != nil {
+				t.Fatal(err)
+			}
+			relativeBundle, err := filepath.Rel(rootPath, filepath.Dir(files[0]))
+			if err != nil {
+				t.Fatal(err)
+			}
+			verify := exec.CommandContext(ctx, consumer, "-live-bundle", filepath.ToSlash(relativeBundle), "-out", verifyOut)
+			verify.Dir = rootPath
 			verify.Env = xaiProcessEnv(t)
 			output, verifyErr := verify.CombinedOutput()
 			verifyCode := 0
@@ -115,7 +135,19 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 				}
 			}
 			cs.Record("formal-consumer", map[string]any{"argv": verify.Args, "exitCode": verifyCode, "output": string(output)})
-			cs.Check("native formal consumer rejects candidate controlled proof", verifyCode > 0, "candidate obtained formal qualification")
+			proofRaw, readErr := os.ReadFile(filepath.Join(verifyOut, "live-consumer.json"))
+			var proof struct {
+				Pass     bool              `json:"pass"`
+				Consumer string            `json:"consumer"`
+				Error    string            `json:"error"`
+				Inputs   map[string]string `json:"inputs"`
+			}
+			decodeErr := json.Unmarshal(proofRaw, &proof)
+			candidateRaw, _ := os.ReadFile(files[0])
+			if readErr == nil {
+				cs.Fixture("formal-consumer-native.json", proofRaw)
+			}
+			cs.Check("native formal consumer rejects candidate controlled proof", verifyCode == 1 && readErr == nil && decodeErr == nil && !proof.Pass && proof.Consumer == "releasegate/native-live-v1" && proof.Error == "native live consumer rejected evidence" && proof.Inputs["xai-candidate-report.json"] == evidence.Digest(candidateRaw), "candidate rejection receipt missing or invalid")
 		}
 
 		raw, _ := os.ReadFile(files[0])
