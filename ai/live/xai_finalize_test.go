@@ -71,6 +71,25 @@ func finalizeXAI(p *xaiProcess) *xaiFinalizationError {
 			return fail("projection-promotion", err)
 		}
 	}
+	if p.report.Stage == "formal" {
+		// The earlier manifest permits the staged audit. Seal again after the
+		// final report/projection so its real end time encloses those artifacts.
+		if p.controlled == "final-manifest" {
+			path := filepath.Join(run.Dir(), "manifest.json")
+			if err := os.Rename(path, filepath.Join(run.Dir(), "xai-formal-manifest.unfinalized.json")); err != nil {
+				return fail("manifest-fault-setup", err)
+			}
+			if err := os.Mkdir(path, 0700); err != nil {
+				return fail("manifest-fault-setup", err)
+			}
+		}
+		if err := run.Finish(); err != nil {
+			return fail("manifest-write", err)
+		}
+		if err := syncXAIFile(filepath.Join(run.Dir(), "manifest.json")); err != nil {
+			return fail("manifest-sync", err)
+		}
+	}
 	dir, err := os.Open(run.Dir())
 	if err != nil {
 		return fail("directory-open", err)
@@ -141,12 +160,23 @@ func failXAIFinalization(p *xaiProcess, failure *xaiFinalizationError) int {
 	if info, err := os.Stat(auditPath); err == nil && info.IsDir() {
 		_ = os.Rename(auditPath, filepath.Join(run.Dir(), "xai-final-audit-fault"))
 	}
+	if p.report.Stage == "formal" {
+		manifestPath := filepath.Join(run.Dir(), "manifest.json")
+		if info, err := os.Stat(manifestPath); err == nil && info.IsDir() {
+			_ = os.Rename(manifestPath, filepath.Join(run.Dir(), "xai-final-manifest-fault"))
+		}
+	}
 	detail := map[string]any{"step": failure.step, "projectionInvalidated": projectionInvalidated, "closedFile": errors.Is(failure.err, os.ErrClosed), "isDirectory": errors.Is(failure.err, syscall.EISDIR)}
 	var pathErr *os.PathError
 	if errors.As(failure.err, &pathErr) {
 		detail["operation"] = pathErr.Op
 	}
 	_ = run.Record("xai-finalization-failure", detail)
+	if p.report.Stage == "formal" {
+		// Best effort retention cannot turn this failed process into PASS.
+		_ = run.Finish()
+		_ = syncXAIFile(filepath.Join(run.Dir(), "manifest.json"))
+	}
 	_ = auditXAI()
 	return 1
 }

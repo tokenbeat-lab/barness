@@ -216,12 +216,12 @@ func initializeXAI() {
 			return
 		}
 	}
-	if p.controlled != "" && !slices.Contains([]string{"fixture", "cancel", "final-write", "final-sync", "final-audit", "projection-write"}, p.controlled) {
+	if p.controlled != "" && !slices.Contains([]string{"fixture", "cancel", "final-write", "final-sync", "final-audit", "projection-write", "final-manifest"}, p.controlled) {
 		p.problem = "unknown controlled mode"
 		return
 	}
-	if p.controlled == "projection-write" && stage != "formal" {
-		p.problem = "formal projection mode requires formal entry"
+	if slices.Contains([]string{"projection-write", "final-manifest"}, p.controlled) && stage != "formal" {
+		p.problem = "formal finalization mode requires formal entry"
 		return
 	}
 	if p.controlled != "" && (os.Getenv(envLive) != "" || os.Getenv(keyVar(xaiCombo)) != "") {
