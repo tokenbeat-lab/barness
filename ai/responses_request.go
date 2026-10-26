@@ -165,6 +165,14 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 				return nil, err
 			}
 		case ToolResultMessage:
+			if caps.implementation == responsesXAI {
+				var err error
+				items, err = xaiResponsesToolOutput(m)
+				if err != nil {
+					return nil, err
+				}
+				break
+			}
 			result := responsesToolResult(m, vision)
 			if caps.implementation == responsesKimi {
 				var err error

@@ -3,6 +3,7 @@ package ai
 import (
 	"bytes"
 	"cmp"
+	"context"
 	"encoding/json"
 	"maps"
 	"math/big"
@@ -10,6 +11,17 @@ import (
 	"strconv"
 	"strings"
 )
+
+func validateXAIResponsesOptions(m Model, options Options) *Error {
+	o, _ := options.(ResponsesOptions)
+	if problem := responsesCapabilitiesOf(m.Provider).unsupportedOption(o); problem != "" {
+		return newError(CodeInvalidRequest, PhaseCapability, problem)
+	}
+	if o.ReasoningEffort != "" && !slices.Contains(supportedThinkingLevels(m), o.ReasoningEffort) {
+		return newError(CodeInvalidRequest, PhaseCapability, "reasoning effort is not supported by this model")
+	}
+	return nil
+}
 
 // xAI's exact sampling merge owns its wire numbers and explicit nulls. It
 // intentionally does not change the established JS serialization of other routes.
@@ -27,7 +39,7 @@ func applyXAIResponsesSampling(raw []byte, m Model, level ThinkingLevel, overrid
 	return marshalJS(body)
 }
 
-func validateXAIResponsesFinalBody(m Model, raw []byte, authorize func(map[string]any) string, callback bool) *Error {
+func validateXAIResponsesFinalBody(ctx context.Context, m Model, raw []byte, authorize func(map[string]any) string, callback bool, limits byteLimits) *Error {
 	if m.Provider != ProviderXAI {
 		return nil
 	}
@@ -47,7 +59,10 @@ func validateXAIResponsesFinalBody(m Model, raw []byte, authorize func(map[strin
 	if problem := validateXAIResponsesControls(m, body); problem != "" {
 		return newError(code, PhaseRequest, problem)
 	}
-	return nil
+	if failure := validateXAIResponsesImages(ctx, m, body, limits, callback); failure != nil {
+		return failure
+	}
+	return limits.checkRequestBody(raw)
 }
 
 func validateXAIResponsesControls(m Model, b map[string]any) string {
@@ -150,7 +165,7 @@ func validateXAIResponsesControls(m Model, b map[string]any) string {
 			return "xAI supports only default text output"
 		}
 	}
-	return ""
+	return validateXAIResponsesInput(b["input"])
 }
 
 func xaiSamplingNumber(value any, upper string, allowZero bool) bool {
@@ -177,7 +192,11 @@ func xaiSamplingNumber(value any, upper string, allowZero bool) bool {
 	return r.Cmp(limit) <= 0
 }
 
-func authorizeXAIResponsesPayload(m Model, key string, hosted []string) func(map[string]any) string {
+func authorizeXAIResponsesPayload(m Model, key string, hosted []string, baseline ...[]byte) func(map[string]any) string {
+	var native map[string]bool
+	if len(baseline) > 0 {
+		native = xaiNativeReferences(baseline[0])
+	}
 	return func(b map[string]any) string {
 		if b["model"] != m.ID {
 			return "payload may not change the authorized model"
@@ -200,6 +219,17 @@ func authorizeXAIResponsesPayload(m Model, key string, hosted []string) func(map
 				typ, _ := tool["type"].(string)
 				if typ != "function" && typ != "" && !slices.Contains(hosted, typ) {
 					return "payload may not add unauthorized hosted tools"
+				}
+			}
+		}
+		if native != nil {
+			if input, ok := b["input"].([]any); ok {
+				for _, raw := range input {
+					if item, ok := raw.(map[string]any); ok {
+						if key := xaiNativeReferenceKey(item); key != "" && !native[key] {
+							return "payload may not expand native reference authorization"
+						}
+					}
 				}
 			}
 		}

@@ -15,8 +15,9 @@ type ResponsesOptions struct {
 	// Temperature is sent as temperature, null included.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
 	// MaxTokens is sent as max_output_tokens, raised to the protocol's
-	// minimum of 16 for OpenAI; GLM and MiniMax keep a minimum of 1.
-	// Unset, null and 0 send nothing.
+	// minimum of 16 for OpenAI; GLM, MiniMax and xAI keep a minimum of 1.
+	// On xAI, unset/null use the Host model limit and explicit 0 is rejected;
+	// on the other routes unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// SamplingParams override named request fields and model defaults, on
 	// both full and simple entries (pi-ai parity). Keys that change the

@@ -98,7 +98,25 @@ func (c *Client) execute(ctx context.Context, cl call, runtime *callRuntime, asm
 	// downgraded, never refused.
 	// The history is converted for the target as pi does (spec I6).
 	origin := replayOrigin{tenant: cl.scope.TenantID, account: binding.AccountScopeID, model: model}
+	if model.Provider == ProviderXAI {
+		if problem := validateXAIHistory(cl.req); problem != "" {
+			return newError(CodeInvalidRequest, PhaseCapability, problem)
+		}
+	}
 	history, downgrades := origin.prepareTranscript(cl.req, ad.historyRules(model))
+	if model.Provider == ProviderXAI {
+		opts, _ := options.(ResponsesOptions)
+		caps := responsesCapabilitiesOf(model.Provider)
+		key := opts.cacheKey(cacheScope{tenant: cl.scope.TenantID, provider: binding.ProviderID, account: binding.AccountScopeID}, caps)
+		raw, err := buildResponsesBody(model, history, opts, caps, key)
+		if err != nil {
+			return newError(CodeInvalidRequest, PhaseCapability, "xAI history could not be encoded")
+		}
+		if failure := validateXAIResponsesFinalBody(ctx, model, raw, authorizeXAIResponsesPayload(model, key, binding.AllowedHostedTools), false, limits); failure != nil {
+			failure.Phase = PhaseCapability
+			return failure
+		}
+	}
 
 	meta.NativeStateDowngrades = downgrades
 	cred, failure := runtime.pin(ctx, model.ID, cl.hooks)
