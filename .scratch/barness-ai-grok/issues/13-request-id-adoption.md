@@ -1,7 +1,7 @@
 # xAI 已确认响应头的厂商请求 ID
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 10
 
 ## Contract
@@ -32,8 +32,12 @@ ai/openai_sdk.go的request-ID Provider映射；新增公共E2E与被该明确行
 
 ## Answer
 
-待RED/GREEN及复核。
+`511fa00c`移除xAI对已确认响应头的保守抑制，沿现有映射采用`x-request-id`。新增两顶层公共测试/34个case；16个有头场景先RED，缺头及两个旧Provider场景保持通过。修复后34/34通过，合入最新回放的全部xAI普通范围568 case/609 Go测试/66入口PASS，audit0、exit0。[独立证据指针](../evidence/request-id-adoption-v1.json)。既有14个HTTP重试、26个流故障、7个HTTP用量失败case ID均未变，错误分类、重试及正文排除保持。
+
+本工单实现验证完成；最终两轴复核、完整包冻结及正式新来源资格由集成阶段继续，不据此宣称发布通过。
 
 ## Comments
 
 - 2026-10-26：自身真实证据已经补足R20采纳响应头的前提；不以兼容API的其他Provider证据替代。
+
+- 2026-10-26：完整RED/GREEN原件、source patch及精确新case清单保留在 `.evidence/barness-ai-grok/request-id-adoption-v1.json` 指向的独立attempt；没有厂商、race或压力调用。
