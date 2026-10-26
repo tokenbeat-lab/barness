@@ -220,11 +220,11 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 候选实现与证据修复完成：01–04、07–09已解决，集成分支 `codex/barness-ai-grok`；05真实资格、06正式交付仍未关闭 |
-| 冻结来源 | 实际受测 `02b422bfffddefcfb0d95ec018867ed4dff816dc`，1962个完整执行文件；选定输入 [cases-v2.json](verification/cases-v2.json)，SHA256 `c14e8116158c5213e6560fa87fb745221cae11c3ffc016d7c1905556acb31a1f`；收尾提交与受测来源的集合相等性另存 |
-| 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留 |
-| 完整普通v2 | 采集器实际PASS/exit0；两个Go包15402个测试PASS；主包14586个原生case PASS、214个opt-in压力/压力消费者case NOT_RUN；必需565/565 PASS、65预期入口齐全，audit0、非规范目录0 |
-| 原生消费 | 真实565-case定向包的公开原生消费者已验证source/e2e=true、live/race/压力=false、CLI exit1；完整包只读结果见[readonly-v2](../../.evidence/barness-ai-grok/release/readonly-v2/)及[不可变索引](verification/record-v2.json) |
+| 实现 | 候选01–04、07–09已解决；10的JPEG夹具修复已合入 `cefa01f5607e219b60e115acf3378703ebdfa4cb`，增量两轴复核0/0，待重新冻结；集成分支 `codex/barness-ai-grok`。05真实资格、06正式交付仍未关闭 |
+| 冻结来源 | JPEG修复改变了live harness及公共进程测试来源，正在重新冻结。历史完整受测提交 `02b422bfffddefcfb0d95ec018867ed4dff816dc` 与cases-v2原件保留；新普通范围仍565必交case/65入口，选定新清单 [cases-v3.json](verification/cases-v3.json) |
+| 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留；JPEG增量[v4](review/review-v4.md)亦0/0 |
+| 历史完整普通v2 | 采集器实际PASS/exit0；两个Go包15402个测试PASS；主包14586个原生case PASS、214个opt-in压力/压力消费者case NOT_RUN；必需565/565 PASS、65预期入口齐全，audit0、非规范目录0 |
+| 原生消费 | 历史普通v2只读结果source/e2e=true、live/race/压力=false、CLI exit1；见[readonly-v2](../../.evidence/barness-ai-grok/release/readonly-v2/)和[旧索引](verification/record-v2.json)，不冒充修复后新来源。两次实际live消费者均exit1/pass=false |
 | 自身live | 两次独立授权均已消耗：首次直连1调用超时；代理运行20调用，15场景PASS、JPEG场景FAIL、余2场景NOT_RUN。上游明确报告8×8 JPEG共64像素低于512像素下限；已知响应累计估算上界0.023408 USD，缺失用量仍未知。真实失败包、grant/claim、两次原生消费者exit1/pass=false见[不可变汇总](evidence/live-attempts-v1.json)。下一次付费运行尚未授权 |
 | 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
@@ -247,12 +247,12 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 原v1普通采集器PASS，但其E04省略effort的case目录含中间`//`，原生消费者实际拒绝。该问题通过明确`default`证据标签修正，实际请求仍省略effort，并补真实公开CLI失败/成功回归；导入器合同保持。原[readonly-v1报告](../../.evidence/barness-ai-grok/release/readonly-v1/native/release-report.json)、[v1索引](verification/record-v1.json)、全部失败/无效/成功attempt及[修正前状态原字节](history/spec-before-canonical-case-fix-v2.json)独立保留，未改写旧原件。前一可变状态另存[收尾快照](history/spec-before-final-v2.json)。
 
-所有实施工作树原件已复制至原仓库 `.evidence/barness-ai-grok/` 并逐文件SHA256核对。最终来源后只做文档/索引收尾，完整1962文件集合与内容、case-v2选定输入集合及内容须与受测来源相等；相等性回执另记录实际受测提交和收尾当前提交。用户另有未提交AGENTS.md修改及两个scratch目录，均保留为原有工作区内容。
+所有实施工作树原件已复制至原仓库 `.evidence/barness-ai-grok/` 并逐文件SHA256核对；JPEG修复RED/GREEN另经preservation/20261026T044235Z核对。新来源须重新取得完整普通回执；其后纯文档/索引收尾再核对完整源码及选定输入集合与内容相等。用户另有未提交AGENTS.md修改及两个scratch目录，均保留。
 
 #### 编译产物与尚未执行项
 
 [候选构建](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)与[只读门禁构建](../../.evidence/barness-ai-grok/build/20261026T040254-releasegate-el73wpu7/build-receipt.json)实际exit0，GOENV=off、GOFLAGS为空、隔离HOME/凭据；source/binary/catalog/SDK机器事实已固定。候选无开关/无Key精确入口实际为NOT_RUN、Calls0，不产生真实资格。
 
-自身候选已有两次失败事实；JPEG夹具修复正在独立工作树进行，随后复核并重新冻结来源。再次付费运行需新授权；05须取得自身完整捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择后再只读判定。race/压力保持NOT_RUN。真实证据维护/隔离/purge未执行。
+自身候选已有两次失败事实；JPEG夹具修复已合入，受控公共进程GREEN，正在复核并重新冻结来源。再次付费运行尚未授权；05须取得自身完整捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择后再只读判定。race/压力保持NOT_RUN。真实证据维护/隔离/purge未执行。
 
 回滚先禁用并更新xAI Binding版本，固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照及验证原件，不自动切Provider/API；无数据库迁移。

@@ -18,7 +18,7 @@ ai/live/xai_scenarios_test.go 的 JPEG 夹具及公共进程 E2E 捕获回归。
 
 ## Answer
 
-待修复复核。当前事实见 [spec](../spec.md#唯一当前状态)。
+`00e7612c` 已修正JPEG为32×32；公共进程RED/GREEN原件保留，独立[两轴v4复核](../review/review-v4.md)0/0。最终完整普通冻结待采集。当前事实见 [spec](../spec.md#唯一当前状态)。
 
 ## Comments
 
