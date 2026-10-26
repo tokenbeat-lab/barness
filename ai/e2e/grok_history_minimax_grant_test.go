@@ -9,6 +9,8 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
+	"strings"
 	"testing"
 	"time"
 )
@@ -44,7 +46,7 @@ func TestGrokHistoryMiniMaxFreshLedger(t *testing.T) {
 			}
 			cmd := miniMaxFreshLedgerCommand(t, binary, route, approval, base)
 			raw, e := cmd.CombinedOutput()
-			ev.Record("process", map[string]any{"argv": cmd.Args, "output": regionalSafeOutput(raw), "success": e == nil, "vendorCalls": 0, "origin": "controlled"})
+			ev.Record("process", map[string]any{"argv": cmd.Args, "path": cmd.Path, "dir": cmd.Dir, "environmentSHA256": livegrant.Hash([]byte(strings.Join(cmd.Env, "\x00"))), "output": regionalSafeOutput(raw), "success": e == nil, "vendorCalls": 0, "origin": "controlled"})
 			if !ev.Check("fresh process executes full fourteen-call native plan", e == nil, "%s", raw) {
 				return
 			}
@@ -59,9 +61,15 @@ func TestGrokHistoryMiniMaxFreshLedger(t *testing.T) {
 			ev.Check("controlled never formal", formal != nil, "formal accepted")
 			claimedStore := miniMaxRecordPrivateStore(t, ev, cmd, dir, "claimed")
 			originalPID := cmd.ProcessState.Pid()
-			raw, e = cmd.CombinedOutput()
-			miniMaxCheckRefusedRestart(t, ev, cmd, base, dir, originalPID, raw, e)
-			restartedStore := miniMaxRecordPrivateStore(t, ev, cmd, dir, "refused-restart")
+			// exec.Cmd cannot be reused. Preserve the original private authority
+			// namespace rather than allocating another fixture for this restart.
+			restart := exec.CommandContext(ctxFor(t), cmd.Path, cmd.Args[1:]...)
+			restart.Args = append([]string(nil), cmd.Args...)
+			restart.Dir, restart.Env = cmd.Dir, append([]string(nil), cmd.Env...)
+			ev.Check("restart preserves exact command and private environment", restart.Path == cmd.Path && slices.Equal(restart.Args, cmd.Args) && restart.Dir == cmd.Dir && slices.Equal(restart.Env, cmd.Env), "restart command drifted")
+			raw, e = restart.CombinedOutput()
+			miniMaxCheckRefusedRestart(t, ev, restart, base, dir, originalPID, raw, e)
+			restartedStore := miniMaxRecordPrivateStore(t, ev, restart, dir, "refused-restart")
 			ev.Check("same private namespace keeps its original one-use guards", maps.Equal(claimedStore, restartedStore), "private store changed during refusal")
 			ev.Record("original-native-pointer", dir)
 		})
