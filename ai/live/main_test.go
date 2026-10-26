@@ -47,7 +47,9 @@ func TestMain(m *testing.M) {
 	flag.Parse()
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An isolated qualification process never executes a legacy live combination.
-	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
+	if xaiSelected() {
+		cfg = processConfig{notRun: "isolated xAI candidate"}
+	} else if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated new regional authorization"}
 	} else if glmDiagnosticSelected() {
 		cfg = processConfig{notRun: "isolated one-case GLM diagnostic"}
@@ -67,6 +69,9 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
 	}
+	if xaiSelected() {
+		packageArgs = "-tags live -timeout " + flag.Lookup("test.timeout").Value.String() + " ./ai/live"
+	}
 	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
 		// Record the actual process limit, including controlled/replay and
 		// rejected inputs. An environment round ID grants no extra lifetime.
@@ -82,7 +87,9 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
+	if xaiSelected() {
+		initializeXAI()
+	} else if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
 		initializeRegional()
 	} else if glmDiagnosticSelected() {
 		initializeGLM()
@@ -116,7 +123,7 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if glmReportState == nil && minimaxReport == nil && regionalState == nil {
+	if xaiState == nil && glmReportState == nil && minimaxReport == nil && regionalState == nil {
 		run.SetVersion("model_catalog_version", catalog.Version)
 		run.SetVersion("model_catalog_hash", catalogHash)
 	}
@@ -129,7 +136,10 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if regionalState != nil && flag.Lookup("test.run").Value.String() != regionalEntry() {
+	if xaiState != nil && flag.Lookup("test.run").Value.String() != xaiEntry {
+		xaiState.report.Outcome, xaiState.report.Failure = "FAIL", "exact isolated xAI entry required"
+		code = 1
+	} else if regionalState != nil && flag.Lookup("test.run").Value.String() != regionalEntry() {
 		regionalState.problem = "exact isolated regional entry required"
 		code = 1
 	} else if minimaxReport != nil && flag.Lookup("test.run").Value.String() != minimaxEntry() {
@@ -177,6 +187,12 @@ func TestMain(m *testing.M) {
 			code = 1
 		}
 	}
+	if xaiState != nil {
+		xaiState.report.FinishedAt = time.Now().UTC()
+		if err := run.Record("xai-candidate-report", xaiState.report); err != nil {
+			code = 1
+		}
+	}
 	if err := run.Finish(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		code = 1
@@ -193,6 +209,9 @@ func TestMain(m *testing.M) {
 			fmt.Fprintf(os.Stderr, "live: redaction audit: %s [%s] %s\n", f.File, f.Rule, f.Detail)
 		}
 		code = 1
+	}
+	if xaiState != nil {
+		code = finishXAI(code, auditOK)
 	}
 	if decisionsReport != nil {
 		code = finishDecisionsReport(code, auditOK)
