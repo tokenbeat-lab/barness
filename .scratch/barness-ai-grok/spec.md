@@ -225,15 +225,15 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 项目 | 当前事实 |
 | --- | --- |
 | 实现 | 01–04及07–17软件工单已解决；17狭窄合同修复268faeba、完整CLI回归b77859c0、v12两轴0/0及四包完整普通通过。05新来源正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 软件pin b77859c0a7b94b7ef874cd8a52196f544d0e01e1；实际受测edd01fabf46499abc1c420d8c1c4e7835b189e5a，2057默认来源文件及129输入固定。纯文档/索引收尾须全文件/输入集合内容相等；旧f952正式资格只保留历史 |
+| 冻结来源 | 软件pin b77859c0；本批实际受测/执行HEAD `013b1046179dac08b78c818278a6354151ff64d7`，2057默认来源及165选定输入集合/内容完全匹配；当前仅非执行文档更新，HEAD保持不变 |
 | 审查 | 16的v10两轴0/0；17的v11两轴各1 P2公共CLI接线缺口已由同一完整fixture修复者补齐，v12独立两轴均0项；三份实际RED与完整61项定向GREEN保留 |
-| 当前完整普通（cases-v9） | 四包15,982 Go测试实际PASS，1518/1518必交与125/125入口全部通过，626.207秒/exit0/audit0；主15069 PASS/214压力NOT_RUN，辅助GLM32 PASS/每case最多393。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T145222.873831Z-r808769f/receipt.json)/[核验v8](../../.evidence/barness-ai-grok/final-ordinary-validation-v8.json) |
+| 当前完整普通（cases-v9） | v4匹配165输入的四包15,982测试、1518/1518必交、125/125入口全部PASS，657.659秒/exit0/audit0；主15069 PASS/214压力NOT_RUN，辅助GLM32 PASS。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T184249.442089Z-mwbqp_5d/receipt.json)/[核验](../../.evidence/barness-ai-grok/gf4-20261026T184225Z-e2beb101-ordinary-validation.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | 历史[索引v10](verification/record-v10.json)绑定修复后完整普通与当时状态；五项事实由[readonly-v10](../../.evidence/barness-ai-grok/release/readonly-v10/native/release-report.json)逐项给出。旧批次前三条通过/第四条拒绝保持历史；当前新来源17正式live/race/压力NOT_RUN，release.pass=false |
-| 自身live | 旧v3 f952 xAI正式18/18、24调用24HTTP、正式消费者PASS、响应估算0.029846 USD；当前原生source改变，当前来源真实验证NOT_RUN，未自动续跑或重买 |
-| 共享历史live | 历史正式两批共104calls/104HTTP（v2 39+v3 65）；新[计划v4](formal-live-plan-v4.md)同17路线/238必交，其中237要求PASS、1固定无调用UNSUPPORTED，已明确授权新批次`gf4-20261026T184225Z-e2beb101`，新165输入匹配普通预检待执行；Kimi六条仍候选 |
+| 原生消费 | [索引v12](verification/record-v12.json)绑定同源完整普通、7条有效正式消费者、第8条失败及后9未跑；只读结果见[readonly-v12](../../.evidence/barness-ai-grok/release/readonly-v12/native/release-report.json)。旧索引/两次停止点保留；release.pass=false |
+| 自身live | 本批xAI已取得正式资格：18/18 PASS，24calls/24HTTP，原生schema2消费者exit0；原件与其他4条见[停止检查点](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/stopped-checkpoint-v1.json) |
+| 共享历史live | 已明确批准SOP3/4限定续跑例外；6智谱24/24、7 ZAI20/20及消费者通过，连同前5为7条QUALIFIED。8国际MiniMax Chat的thinking-on原始reasoning_tokens=0，13场景PASS/1 FAIL，原生进程exit1，已再次STOP，后9条NOT_RUN。本批137逻辑calls/136HTTP，历史104/104另计，合计241/240；[停止原件](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/continuation-1/stopped-checkpoint-v1.json)。Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 未发布Builtin2026-10-26.1/xAI接线、软件修复、v12复核与完整四包普通已通过；当前新来源正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 最终目录源码及普通通过，正式live尚缺第8至17条有效资格，race/压力尚未选择；release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -360,3 +360,17 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 #### v4本次正式live授权
 
 维护者明确回复“授权 v4 全部 17 条路线”；新批次`gf4-20261026T184225Z-e2beb101`的[原始授权](authorization/gf4-20261026T184225Z-e2beb101/authorization.json)与[17路线执行范围](authorization/gf4-20261026T184225Z-e2beb101/execution-scope.json)已保存。默认2057来源文件不变，新增36项授权/config/grant/index使选定输入为165；先取得同提交/输入的完整四包普通，再依固定顺序执行一次各路线与原生资格消费者。新批次当前NOT_RUN，未读取凭据、未取得claim或请求厂商；失败即停，不续用v3剩余权限。历史record-v10及readonly-v10只代表授权前检查点；race/压力及发布仍未授权，release.pass=false。
+
+#### v4实际停止及无密钥启动修正
+
+前5条新来源正式资格通过，共58 PASS及1项固定无请求UNSUPPORTED。智谱在仓库根初始化时读取相对testdata失败，后续入口检查覆盖更早的配置错误；未发HTTP、未领取grant，原生执行仍失败，按原授权停止后11条。完整[停止检查点](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/stopped-checkpoint-v1.json)保存所有原件，原进度及失败不修改。
+
+现有env -C将native工作目录设为ai/live、binary/grant解析同文件绝对路径即可修正；[17条无Key/无grant初始化](../../.evidence/barness-ai-grok/preflight/gf4-20261026T184225Z-e2beb101-cwd-keyless-6em78m4s/receipt.json)全部PASS、0调用/0claim，不产生正式资格。源2057、执行输入165及HEAD均未改变，未修改源码或重新购买。
+
+[具体同源续跑提案](formal-live-continuation-v4.md)只保留前5、对第6追加一次进程并继续后11：179必交PASS、最多292calls/320HTTP、6小时原生上界、原grant到2026-10-27 14:42（上海）过期。它明确要求人批准SOP4失败授权/原未claim grant及一次进程例外、解除STOP/精确cwd启动修正，以及仅补充计划与原始人类回复不加入165输入的SOP3治理回执例外。目前未授权、未续跑；若拒绝这些例外，不能混用不同输入回执。race/压力与发布仍未授权。
+
+#### 限定续跑已授权及MiniMax实际停止
+
+维护者明确回复“批准限定例外，续跑剩余 12 条”；[原始补充授权](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/continuation-authorization-v1.json)固定允许仅治理计划/原始回复不加入165输入、第6额外一次使用原未claim grant及解除STOP。没有改旧grant/config、source、pin或原失败记录，也未重复前5。新智谱24 PASS/24calls、ZAI20 PASS/20calls均取得正式资格。
+
+第8国际MiniMax-M3 Chat实际14逻辑calls/13HTTP、21.045秒，14场景中13 PASS（含xai-origin-history），thinking-on FAIL；其真实请求thinking.type=adaptive/reasoning_split=true/2048输出，服务器HTTP200直接回答42且原始reasoning_tokens=0，无法满足自身“实际观察推理”正例。另一full-stream原始8 reasoning tokens及Thinking被正确保留，当前未见适配器丢失证据；推断探针任务可能过于简单，尚未修正或重新验证，保留FAIL不降级。完整[停止检查点](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/continuation-1/stopped-checkpoint-v1.json)保存ledger/claim/原件和9条NOT_RUN；没有自动重试或启动第9条。后续只做离线诊断，不新增付费权限。
