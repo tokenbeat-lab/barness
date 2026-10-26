@@ -76,7 +76,7 @@ func verifyXAIRequest(request map[string]json.RawMessage) error {
 			return err
 		}
 	}
-	return nil
+	return verifyXAIInputPairs(input)
 }
 func verifyXAIScenario(root *os.Root, s ScenarioResult, calls []xaiCall) error {
 	first := calls[0]
@@ -317,6 +317,12 @@ func xaiImages(raw json.RawMessage) ([]string, error) {
 		json.Unmarshal(b["type"], &kind)
 		if kind != "input_image" {
 			continue
+		}
+		if err := xaiInputFields(b, "inline image part", "type", "image_url", "detail"); err != nil {
+			return nil, err
+		}
+		if detail, ok := b["detail"]; ok && xaiWireString(detail) != "auto" {
+			return nil, refuse("xAI inline image detail control is not integrated")
 		}
 		var value string
 		if json.Unmarshal(b["image_url"], &value) != nil {
