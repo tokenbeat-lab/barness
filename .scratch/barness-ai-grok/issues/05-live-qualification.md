@@ -2,7 +2,7 @@
 
 Type: task
 Status: needs-info
-Blocked by: 04, 07, 08
+Blocked by: 04, 07, 08, 09
 
 ## Contract
 
