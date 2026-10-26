@@ -292,6 +292,9 @@ func check(m Matrix, r Report) (int, error) {
 		}
 		seen[s.ID] = true
 	}
+	if err := checkGenericHistory(r); err != nil {
+		return 0, err
+	}
 	if err := checkImages(r); err != nil {
 		return 0, err
 	}

@@ -60,12 +60,12 @@ func executionSourceName(name string) bool {
 	if strings.HasPrefix(name, "ai/live/minimax_") && strings.HasSuffix(name, ".go") {
 		return true
 	}
-	for _, file := range []string{"ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/decisions_config_test.go", "ai/live/decisions_sources_test.go", "ai/live/session_test.go"} {
+	for _, file := range []string{"ai/live/grok_process_grant_test.go", "ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/decisions_config_test.go", "ai/live/decisions_sources_test.go", "ai/live/session_test.go"} {
 		if name == file {
 			return true
 		}
 	}
-	for _, prefix := range []string{"ai/live/cmd/minimaxverify/", "ai/examples/requestid/", "ai/internal/testkit/minimax/", "ai/internal/testkit/minimaxlive/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/supportmatrix/", "ai/live/testdata/minimax/"} {
+	for _, prefix := range []string{"ai/live/cmd/minimaxverify/", "ai/examples/requestid/", "ai/internal/testkit/minimax/", "ai/internal/testkit/minimaxlive/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/", "ai/internal/testkit/grokhistory/", "ai/internal/testkit/livegrant/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/supportmatrix/", "ai/live/testdata/minimax/"} {
 		if strings.HasPrefix(name, prefix) && !strings.HasSuffix(name, "_test.go") {
 			return true
 		}

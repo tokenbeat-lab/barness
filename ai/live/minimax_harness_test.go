@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
@@ -179,6 +180,9 @@ func miniMaxOptions(p minimaxlive.Case) ai.Options {
 }
 func (s *minimaxSession) request(p minimaxlive.Case) (ai.Request, error) {
 	p.ID = strings.TrimPrefix(p.ID, "research-")
+	if p.ID == grokhistory.Scenario {
+		return grokhistory.Request(ai.CallScope{TenantID: liveTenant})
+	}
 	req := ai.Request{Messages: []ai.Message{ai.UserText("Synthetic protocol probe. Reply with the integer 42.")}}
 	if p.ID == "tool-call" {
 		req.Messages = []ai.Message{ai.UserText("Synthetic arithmetic task. You MUST call the add function with a=17 and b=25 before answering. Think through the calculation first.")}
@@ -257,6 +261,7 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	if !cs.Check("own complete history prerequisite", e == nil, "%v", e) {
 		return
 	}
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	raw, _ := json.Marshal(req)
 	input := len(raw) + 1024
 	if input < 2048 {
@@ -340,6 +345,17 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	}
 	obs := s.rec.observationsOf(scope.RequestID)
 	ex := s.rec.take()
+	if p.ID == grokhistory.Scenario {
+		after, _ := json.Marshal(req)
+		cs.Record("immutable-input", req)
+		provenance.After = grokhistory.Envelopes(req)
+		cs.Record("history-provenance", provenance)
+		rawProof, _ := json.Marshal(provenance)
+		cs.Check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
+		cs.Check("fixed Host input immutable", grokhistory.VerifyHost(after), "input changed")
+		cs.Check("two foreign assistant downgrades", capture.Result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "downgrades differ")
+		cs.Check("actual xAI collision/reuse wire", len(ex) == 1 && grokhistory.Verify(minimaxReport.Identity.API, []byte(ex[0].RequestBody)) == nil, "wire differs")
+	}
 	out.Attempts = append(out.Attempts, s.gate.receipts...)
 	cs.Record("result", capture)
 	cs.Record("events", events)

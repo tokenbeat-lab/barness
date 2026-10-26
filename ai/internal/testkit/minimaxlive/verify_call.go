@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"path/filepath"
 	"reflect"
 )
@@ -138,6 +139,14 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 	}
 	if ex[0].URL != r.Identity.Endpoint+suffix || ex[0].Method != "POST" {
 		return fmt.Errorf("MiniMax actual endpoint differs")
+	}
+	if c.ID == grokhistory.Scenario {
+		before, e1 := ReadFile(filepath.Join(base, "public-request.json"), 2<<20)
+		after, e2 := ReadFile(filepath.Join(base, "immutable-input.json"), 2<<20)
+		proof, e3 := ReadFile(filepath.Join(base, "history-provenance.json"), 4096)
+		if e1 != nil || e2 != nil || e3 != nil || grokhistory.VerifyProvenance(proof, meta.TenantID) != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || grokhistory.Verify(r.Identity.API, []byte(ex[0].RequestBody)) != nil || meta.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+			return fmt.Errorf("MiniMax fixed xAI input, wire or downgrades differ")
+		}
 	}
 	if c.ID == "tool-result-native" {
 		if e := verifyNativeContinuation(dir, r, req, result); e != nil {

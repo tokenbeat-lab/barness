@@ -44,7 +44,7 @@ func TestKimiQualificationPipeline(t *testing.T) {
 			raw, err := cmd.CombinedOutput()
 			ev.Record("native-process", map[string]any{"argv": cmd.Args, "error": errString(err), "output": regionalSafeOutput(raw), "vendorCalls": 0})
 			ev.Record("requests", srv.Requests())
-			if !ev.Check("nine actual own native scenarios execute", err == nil && len(srv.Requests()) == 9, "%v %s", err, regionalSafeOutput(raw)) {
+			if !ev.Check("ten actual own native scenarios execute", err == nil && len(srv.Requests()) == 10, "%v %s", err, regionalSafeOutput(raw)) {
 				return
 			}
 			paths, err := filepath.Glob(filepath.Join(base, "*", "manifest.json"))
@@ -61,7 +61,13 @@ func TestKimiQualificationPipeline(t *testing.T) {
 			var report supportmatrix.Report
 			data, _ := os.ReadFile(filepath.Join(dir, supportmatrix.RegionalReportFile))
 			mustUnmarshal(t, data, &report)
-			ev.Check("finite contract retains worst-one-hour spend reserve", report.Budget.MaxCalls == 9 && report.Budget.CallsUsed == 9 && report.Regional.MaxUSD == 10 && report.Regional.ReservedUSD > 0 && report.Regional.ReservedUSD <= 10, "%+v", report)
+			ev.Check("finite contract retains worst-one-hour spend reserve", report.Budget.MaxCalls == 10 && report.Budget.CallsUsed == 10 && report.Regional.MaxUSD == 10 && report.Regional.ReservedUSD > 0 && report.Regional.ReservedUSD <= 10, "%+v", report)
+			reserved := 0
+			for _, req := range srv.Requests() {
+				reserved += max(2048, len(req.Body)+1024)
+			}
+			ev.Record("fixture-reservation-proof", map[string]int{"tenSceneEncodedReservations": reserved, "retainedInputCap": 131072, "requestedOutputCap": 40960})
+			ev.Check("complete bounded fixture fits retained input reservation", report.Budget.MaxReservedInputTokens == 131072 && report.Budget.ReservedInputTokens == reserved && reserved <= 131072, "reserved=%d", reserved)
 			_, err = supportmatrix.VerifyRegionalQualification(dir)
 			ev.Check("controlled never grants actual live support", err != nil, "controlled promoted")
 			_, err = supportmatrix.NewRegionalReport(dir)
@@ -69,7 +75,8 @@ func TestKimiQualificationPipeline(t *testing.T) {
 			again := exec.CommandContext(ctxFor(t), cmd.Path, cmd.Args[1:]...)
 			again.Dir, again.Env = cmd.Dir, cmd.Env
 			araw, aerr := again.CombinedOutput()
-			ev.Check("one-use authorization prevents another request", aerr != nil && len(srv.Requests()) == 9, "%v %s", aerr, regionalSafeOutput(araw))
+			ev.Check("one-use authorization prevents another request", aerr != nil && len(srv.Requests()) == 10, "%v %s", aerr, regionalSafeOutput(araw))
+			grokHistoryRegionalRefusals(t, dir, combo)
 			kimiQualificationTamper(t, dir, combo, consumer)
 			grant.ID += "-relabeled"
 			if err := os.WriteFile(grantPath, mustMarshal(t, grant), 0600); err != nil {
@@ -78,7 +85,7 @@ func TestKimiQualificationPipeline(t *testing.T) {
 			relabeled := exec.CommandContext(ctxFor(t), cmd.Path, cmd.Args[1:]...)
 			relabeled.Dir, relabeled.Env = cmd.Dir, cmd.Env
 			rr, rer := relabeled.CombinedOutput()
-			ev.Check("same scope cannot regain authority by changing ID", rer != nil && len(srv.Requests()) == 9, "%s", regionalSafeOutput(rr))
+			ev.Check("same scope cannot regain authority by changing ID", rer != nil && len(srv.Requests()) == 10, "%s", regionalSafeOutput(rr))
 			manifest, _ := os.ReadFile(paths[0])
 			ev.Record("native-pointer", map[string]string{"manifest": paths[0], "sha256": evidence.Digest(manifest)})
 		})

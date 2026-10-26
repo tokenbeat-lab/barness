@@ -103,7 +103,7 @@ func TestFinalRenewalAuthorityChild(t *testing.T) {
 	for _, route := range []string{"chat", "responses", "messages"} {
 		id, _ := minimaxlive.Select(route, minimaxlive.M3, "standard")
 		l := minimaxlive.Ledger{Path: path, Stage: "formal", Session: "final-" + route, Identity: id}
-		for _, c := range minimaxlive.Plan(id) {
+		for _, c := range historicalM3Plan() {
 			if _, e = l.Reserve(c.ID, c.Output, 2048); e != nil {
 				t.Fatal(e)
 			}
@@ -153,7 +153,7 @@ func newFinalRenewalFixture(t *testing.T) *finalRenewalFixture {
 	for _, route := range []string{"chat", "responses", "messages"} {
 		id, _ := minimaxlive.Select(route, minimaxlive.M3, "standard")
 		l := minimaxlive.Ledger{Path: old, Stage: "formal", Session: "original-" + route, Identity: id}
-		for _, p := range minimaxlive.Plan(id) {
+		for _, p := range historicalM3Plan() {
 			if _, e = l.Reserve(p.ID, p.Output, 2048); e != nil {
 				t.Fatal(e)
 			}

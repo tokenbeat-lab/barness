@@ -4,6 +4,7 @@ package live
 
 import (
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 	"net/url"
 	"os"
 	"slices"
@@ -26,11 +27,12 @@ type processConfig struct {
 	notRun string
 	// refused, when set, is a misconfiguration that fails the run: an
 	// unknown combination, a missing alias or another combination's key.
-	refused string
-	combo   *combo
-	alias   string
-	proxy   *url.URL
-	key     string
+	refused       string
+	combo         *combo
+	alias         string
+	proxy         *url.URL
+	key           string
+	authorization *processAuthorization
 }
 
 // keyVar is the one variable a combination's key is read from.
@@ -86,6 +88,15 @@ func loadConfig() processConfig {
 			return cfg
 		}
 	}
+	if len(supportmatrix.GenericExpected(c.name)) > 0 {
+		for _, kv := range os.Environ() {
+			n, v, _ := strings.Cut(kv, "=")
+			if v != "" && n != keyVar(c.name) && (strings.HasSuffix(n, "_KEY") || strings.HasSuffix(n, "_TOKEN") || strings.HasSuffix(n, "_SECRET")) {
+				cfg.refused = "ambient vendor credential forbidden"
+				return cfg
+			}
+		}
+	}
 	cfg.key = strings.TrimSpace(os.Getenv(keyVar(c.name)))
 	if cfg.key == "" {
 		cfg.notRun = keyVar(c.name) + " is not set; without a key the combination is NOT_RUN"
@@ -93,6 +104,13 @@ func loadConfig() processConfig {
 	}
 	if strings.TrimSpace(cfg.alias) == "" {
 		cfg.refused = envAlias + " is required with a key: the support matrix records which test account and region ran"
+	}
+	if cfg.refused == "" && len(supportmatrix.GenericExpected(c.name)) > 0 {
+		var err error
+		cfg.authorization, err = loadProcessAuthorization(c.name, "live", "formal", cfg.alias, os.Getenv("BARNESS_AI_LIVE_REGION_ALIAS"), os.Getenv("BARNESS_AI_LIVE_PERMISSIONS_FILE"))
+		if err != nil {
+			cfg.refused = err.Error()
+		}
 	}
 	return cfg
 }

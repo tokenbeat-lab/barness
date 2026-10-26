@@ -21,6 +21,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 思考档位采样与 full/simple 边界 | [thinking-sampling.md](thinking-sampling.md) |
 | 地区服务、凭据用途、缓存 v2 与迁移 | [regional-providers.md](regional-providers.md) |
 | xAI / Grok 候选装配与精确 live 入口（付费资格 NOT_RUN） | [xai.md](xai.md) |
+| 旧目标 xAI 来源历史与新单进程授权（正式验证待执行） | [legacy-history-qualification.md](legacy-history-qualification.md) |
 | 历史差异研究 | [differences.md](differences.md)（历史说明；当前不运行冻结 pi 差分） |
 | 支持矩阵 | [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)（只经 `go run ./ai/live/cmd/supportmatrix` 合并冒烟报告更新） |
 | 模型/价格快照 | [`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json)，由公共目录 E2E 核对内容与哈希 |

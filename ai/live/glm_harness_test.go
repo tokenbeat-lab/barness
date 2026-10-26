@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"net/http"
 	"os"
 	"strings"
@@ -64,9 +65,25 @@ func driveGLMCandidate(t *testing.T) {
 	if r.Mode != "replay" && (os.Getenv("BARNESS_AI_LIVE") != "1" || glmKey == "") {
 		t.Skip("NOT_RUN: explicit live switch or selected key absent")
 	}
+	if r.Mode == "live" && (r.Route == "chat" || r.Route == "messages") {
+		stage := "candidate"
+		if os.Getenv("BARNESS_GLM_FORMAL") == "1" {
+			stage = "formal"
+		}
+		auth, e := loadProcessAuthorization("zhipu-"+r.Route, "live", stage, r.AccountAlias, r.RegionAlias, os.Getenv("BARNESS_GLM_GRANT"))
+		if e != nil {
+			glmFail(t, e.Error())
+			return
+		}
+		if e = auth.consume(); e != nil {
+			glmFail(t, e.Error())
+			return
+		}
+		glmApprovalDeadline = auth.grant.ExpiresAt
+	}
 	rec := newRecorder()
 	defer rec.next.(*http.Transport).CloseIdleConnections()
-	if err := configureDecisionsProxy(rec); err != nil {
+	if err := configureGLMProxy(rec); err != nil {
 		glmFail(t, err.Error())
 		return
 	}
@@ -94,6 +111,9 @@ func driveGLMCandidate(t *testing.T) {
 		r.ProcessDeadline = d
 	}
 	r.ExecutionDeadline = r.ProcessDeadline.Add(-20 * time.Second)
+	if !glmApprovalDeadline.IsZero() && glmApprovalDeadline.Before(r.ExecutionDeadline) {
+		r.ExecutionDeadline = glmApprovalDeadline
+	}
 	ctx, cancel := context.WithDeadline(context.Background(), r.ExecutionDeadline)
 	defer cancel()
 	s := &glmSession{ctx: ctx, client: client, rec: rec, results: map[string]ai.Result{}, requests: map[string]ai.Request{}, bodies: map[string]map[string]any{}}
@@ -122,49 +142,6 @@ func driveGLMCandidate(t *testing.T) {
 	}
 }
 
-func glmFullOptions(sc glmCasePlan) ai.Options {
-	kind := sc.Kind
-	if strings.HasPrefix(kind, "control-") {
-		kind = "full-stream"
-		if sc.Kind == "control-auto" {
-			kind = "tool-call"
-		}
-		if sc.Kind == "control-unsigned" {
-			kind = "native-history"
-		}
-	}
-	switch glmSelected.api {
-	case ai.APIOpenAICompletions:
-		effort := ai.ThinkingLevel("")
-		if kind == "full-stream" {
-			effort = ai.ThinkingHigh
-		}
-		if kind == "full-complete" {
-			effort = ai.ThinkingLow
-		}
-		o := ai.ChatOptions{MaxTokens: ai.Value(4096), ReasoningEffort: effort}
-		if sc.Kind == "control-temperature" {
-			o.Temperature = ai.Value(0.0)
-		}
-		if sc.Kind == "control-usage" {
-			o.SamplingParams = map[string]json.RawMessage{"stream_options": json.RawMessage(`{"include_usage":true}`)}
-		}
-		return o
-	case ai.APIOpenAIResponses:
-		return ai.ResponsesOptions{MaxTokens: ai.Value(4096), ReasoningEffort: ai.ThinkingHigh}
-	default:
-		o := ai.AnthropicOptions{MaxTokens: ai.Value(4096)}
-		if sc.Model == "glm-5.2" && (kind == "full-stream" || kind == "native-history") && sc.Kind != "control-default" {
-			o.ThinkingEnabled = ai.Value(true)
-			o.ThinkingBudgetTokens = 1024
-		}
-		if sc.Kind == "control-auto" {
-			o.ToolChoice = ai.Value(ai.AnthropicToolChoice{Mode: "auto"})
-		}
-		return o
-	}
-}
-
 func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	cs := run.Case(t, "GLM11-"+strings.ReplaceAll(sc.ID, "/", "-"))
 	setGLMReplay(cs)
@@ -179,6 +156,9 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	}()
 	req := ai.Request{Messages: []ai.Message{ai.UserText(glmFixedPlan.Prompts["text"])}}
 	kind := sc.Kind
+	if kind == grokhistory.Scenario {
+		req, _ = grokhistory.Request(ai.CallScope{TenantID: liveTenant})
+	}
 	if kind == "tool-call" || kind == "control-auto" {
 		req = ai.Request{Messages: []ai.Message{ai.UserText(glmFixedPlan.Prompts["tool"])}, Tools: []ai.Tool{glmAdd}}
 	}
@@ -268,6 +248,7 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	}
 	out.Calls = 1
 	s.requests[sc.ID] = req
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	cs.Record("public-request", req)
 	cs.Record("plan", sc)
 	cs.Record("options", glmFullOptions(sc))
@@ -341,6 +322,17 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	if glmReportState.Mode == "replay" {
 		out.ReplayAttempts = out.HTTPAttempts
 		out.HTTPAttempts = 0
+	}
+	if kind == grokhistory.Scenario {
+		after, _ := json.Marshal(req)
+		cs.Record("immutable-input", req)
+		provenance.After = grokhistory.Envelopes(req)
+		cs.Record("history-provenance", provenance)
+		rawProof, _ := json.Marshal(provenance)
+		cs.Check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
+		cs.Check("fixed synthetic Host history unchanged", grokhistory.VerifyHost(after), "input changed")
+		cs.Check("foreign history downgrades two turns", result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "%+v", result.Metadata.NativeStateDowngrades)
+		cs.Check("actual foreign history wire associations", len(ex) == 1 && grokhistory.Verify(glmSelected.api, []byte(ex[0].RequestBody)) == nil, "foreign wire proof")
 	}
 	cs.Record("attempt-1-exchanges", ex)
 	cs.Record("attempt-1-result", map[string]any{"result": result, "error": errText(err)})

@@ -43,7 +43,7 @@ func TestMiniMaxResearchPredecessor(t *testing.T) {
 		}
 	}
 	r, e := minimaxlive.Verify(dir, false)
-	cs.Check("full current report accounts prior research", e == nil && r.Budget.Calls == 13 && r.Cumulative.Calls == 16 && r.Cumulative.Attempts == 15, "err=%v budget=%+v cumulative=%+v", e, r.Budget, r.Cumulative)
+	cs.Check("full current report accounts prior research", e == nil && r.Budget.Calls == 14 && r.Cumulative.Calls == 17 && r.Cumulative.Attempts == 16, "err=%v budget=%+v cumulative=%+v", e, r.Budget, r.Cumulative)
 	raw, _ := os.ReadFile(filepath.Join(dir, "minimax-ledger.json"))
 	var ledger minimaxlive.LedgerEvidence
 	json.Unmarshal(raw, &ledger)
@@ -86,7 +86,7 @@ func TestMiniMaxFailedResearchPredecessor(t *testing.T) {
 		t.Fatal("missing current candidate")
 	}
 	r, e := minimaxlive.Verify(filepath.Dir(reports[0]), false)
-	cs.Check("complete candidate retains genuine failed research budget", e == nil && r.Complete && r.Cumulative.Calls == 15 && r.Cumulative.Attempts == 14, "%v %+v", e, r.Cumulative)
+	cs.Check("complete candidate retains genuine failed research budget", e == nil && r.Complete && r.Cumulative.Calls == 16 && r.Cumulative.Attempts == 15, "%v %+v", e, r.Cumulative)
 	archive, e := archiveMiniMaxProcess(filepath.Dir(reports[0]))
 	if cs.Check("failed research captures retained byte for byte", e == nil, "%v", e) {
 		cs.Fixture("failed-research-predecessor.tar.gz", archive)

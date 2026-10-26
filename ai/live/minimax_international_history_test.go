@@ -51,7 +51,7 @@ func TestMiniMaxInternationalHistoricalAccounting(t *testing.T) {
 	}
 	dir := filepath.Dir(reports[0])
 	r, e := minimaxlive.Verify(dir, false)
-	cs.Check("own inventory and shared slot are distinct", e == nil && r.Identity.Endpoint == "https://api.minimax.io/v1" && r.Budget.Calls == 13 && r.Budget.Attempts == 12 && r.Cumulative.Calls == 18 && r.Cumulative.Attempts == 17, "%v own=%+v cumulative=%+v", e, r.Budget, r.Cumulative)
+	cs.Check("own inventory and shared slot are distinct", e == nil && r.Identity.Endpoint == "https://api.minimax.io/v1" && r.Budget.Calls == 14 && r.Budget.Attempts == 13 && r.Cumulative.Calls == 19 && r.Cumulative.Attempts == 18, "%v own=%+v cumulative=%+v", e, r.Budget, r.Cumulative)
 	evidenceRaw, e := os.ReadFile(filepath.Join(dir, "minimax-ledger.json"))
 	if e != nil {
 		t.Fatal(e)

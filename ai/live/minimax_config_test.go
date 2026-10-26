@@ -94,6 +94,16 @@ func initializeMiniMax() {
 	if _, e = minimaxlive.Sources(); e != nil {
 		minimaxConfigError = e.Error()
 	}
+	if (r.Mode == "live" || os.Getenv("BARNESS_MINIMAX_GRANT") != "") && id.Model == minimaxlive.M3 && id.Purpose == "standard" {
+		if e := initializeFreshMiniMax(); e != nil {
+			minimaxConfigError = e.Error()
+		}
+		if minimaxConfigError == "" {
+			readMiniMaxCredential(r)
+		}
+		setMiniMaxVersions()
+		return
+	}
 	if renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL"); renewal != "" {
 		r.FormalRenewalID = renewal
 		r.Unknown = append(r.Unknown, "fixed final source renewal has independent60/72 cap; original formal39/36 and closed first renewal39/36 remain immutable and are pinned by the canonical grant")
@@ -136,6 +146,11 @@ func initializeMiniMax() {
 	if minimaxConfigError == "" {
 		readMiniMaxCredential(r)
 	}
+	setMiniMaxVersions()
+}
+
+func setMiniMaxVersions() {
+	r := minimaxReport
 	run.SetVersion("minimax_mode", r.Mode)
 	run.SetVersion("minimax_kind", r.Kind)
 	run.SetVersion("model_catalog_version", r.CatalogVersion)

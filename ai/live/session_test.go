@@ -14,6 +14,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -35,8 +36,11 @@ func scenariosOf(c *combo) []scenario {
 	if c.operation == ai.OperationClassifier {
 		return classifierScenarios()
 	}
-	return append([]scenario{textStream, textComplete, toolRoundTrip, cancelAfterFirstFrame, reasoningHistory, imageInput},
-		c.extra...)
+	out := append([]scenario{textStream, textComplete, toolRoundTrip, cancelAfterFirstFrame, reasoningHistory, imageInput}, c.extra...)
+	if grokhistory.Applies(c.name) {
+		out = append(out, grokHistoryScenario)
+	}
+	return out
 }
 
 // retryableCodes are vendor or environment faults: retried within the
@@ -91,10 +95,18 @@ func runScenario(t *testing.T, cs *evidence.Case, c *combo, selected bool, env *
 	began := time.Now()
 	var s *session
 	for attempt := 1; ; attempt++ {
-		ctx, cancel := context.WithTimeout(context.Background(), scenarioTimeLimit)
+		base := context.Background()
+		var stop context.CancelFunc
+		if cfg.authorization != nil {
+			base, stop = context.WithDeadline(base, processDeadline())
+		}
+		ctx, cancel := context.WithTimeout(base, scenarioTimeLimit)
 		s = &session{t: t, ctx: ctx, cs: cs, env: env, model: model, attempt: attempt}
 		sc.run(s)
 		cancel()
+		if stop != nil {
+			stop()
+		}
 		res.Calls += s.calls
 		res.Images += s.images
 		res.ImageCalls = append(res.ImageCalls, s.imageCalls...)

@@ -14,6 +14,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 )
 
 func readGLMJSON(path string, v any) error {
@@ -99,7 +100,7 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		Versions map[string]string
 		Cases    []glmCapturedCase
 	}
-	if readGLMJSON(filepath.Join(dir, "manifest.json"), &manifest) != nil || manifest.Package != "-tags live -timeout 1800s ./ai/live" || manifest.Commit != r.GitCommit || manifest.Started.IsZero() || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["glm_kind"] != "glm-formal" || manifest.Versions["glm_mode"] != "live" || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion || manifest.Versions["glm_source_manifest_hash"] != GLMSourcePin {
+	if readGLMJSON(filepath.Join(dir, "manifest.json"), &manifest) != nil || manifest.Package != "-tags live -timeout 1800s ./ai/live" || manifest.Commit != r.GitCommit || manifest.Started.IsZero() || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["glm_kind"] != "glm-formal" || manifest.Versions["glm_mode"] != detail.Mode || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion || manifest.Versions["glm_source_manifest_hash"] != GLMSourcePin {
 		return glmBad("manifest provenance differs")
 	}
 	source, e := glmRead(filepath.Join(dir, "GLM11-sources", "sources.json"))
@@ -227,6 +228,14 @@ func verifyGLMCall(base string, r Report, s ScenarioResult, sources []string) er
 		return glmBad("result absent")
 	}
 	md := outcome.Result.Metadata
+	if strings.HasSuffix(s.ID, "/"+grokhistory.Scenario) {
+		before, e1 := glmRead(filepath.Join(base, "public-request.json"))
+		after, e2 := glmRead(filepath.Join(base, "immutable-input.json"))
+		proof, e3 := glmRead(filepath.Join(base, "history-provenance.json"))
+		if e1 != nil || e2 != nil || e3 != nil || grokhistory.VerifyProvenance(proof, md.TenantID) != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || grokhistory.Verify(ai.API(r.API), request) != nil || md.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+			return glmBad("fixed xAI input, actual wire or downgrades differ")
+		}
+	}
 	if md.ProviderID != ai.ProviderZhipu || string(md.API) != r.API || md.ModelID != s.Model || md.CatalogHash != r.CatalogHash || md.CatalogVersion != r.CatalogVersion || md.Operation != ai.OperationChat || !md.Resolved || md.BindingID != r.Combo || md.TenantID != "live-smoke" || md.AccountScopeID != "live-"+r.Combo || md.BindingVersion != "live" || md.CredentialVersion != "live" || len(md.Attempts) != s.Attempts || md.RequestID == "" {
 		return glmBad("Result attribution differs")
 	}
