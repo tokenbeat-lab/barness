@@ -79,6 +79,10 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			return &http.Response{StatusCode: status, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(`{"error":{"type":"permission_error","message":"synthetic"}}`)), Request: req}, nil
 		}
 		body := ""
+		text := "42"
+		if strings.HasPrefix(name, "adaptive-probe") && strings.Contains(string(raw), "Synthetic reasoning task.") {
+			text = "5464"
+		}
 		input := 20
 		if name == "known-input-overrun" {
 			input = 100000
@@ -98,7 +102,7 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			if thinking {
 				emit(map[string]any{"id": "synthetic-chat", "model": model, "choices": []any{map[string]any{"index": 0, "delta": map[string]any{"reasoning_content": "Check arithmetic."}}}})
 			}
-			delta := map[string]any{"content": "42"}
+			delta := map[string]any{"content": text}
 			stop := "stop"
 			if tool {
 				delta = map[string]any{"tool_calls": []any{map[string]any{"index": 0, "id": "call:原|%", "type": "function", "function": map[string]any{"name": "add", "arguments": `{"a":17,"b":25}`}}}}
@@ -123,11 +127,11 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			if tool {
 				item = map[string]any{"type": "function_call", "id": "item:原|%", "call_id": "call:原|%", "name": "add", "arguments": `{"a":17,"b":25}`, "status": "completed"}
 			} else {
-				item = map[string]any{"type": "message", "id": "message:原|%", "role": "assistant", "content": []any{map[string]any{"type": "output_text", "text": "42"}}}
+				item = map[string]any{"type": "message", "id": "message:原|%", "role": "assistant", "content": []any{map[string]any{"type": "output_text", "text": text}}}
 			}
 			if !tool {
 				emit(map[string]any{"type": "response.output_item.added", "output_index": len(output), "item": map[string]any{"type": "message", "id": "message:原|%", "role": "assistant", "content": []any{}}})
-				emit(map[string]any{"type": "response.output_text.delta", "output_index": len(output), "delta": "42"})
+				emit(map[string]any{"type": "response.output_text.delta", "output_index": len(output), "delta": text})
 			}
 			emit(map[string]any{"type": "response.output_item.done", "output_index": len(output), "item": item})
 			output = append(output, item)
@@ -154,7 +158,7 @@ func installMiniMaxControlled(rec *recorder, name string) {
 				emit(map[string]any{"type": "content_block_delta", "index": index, "delta": map[string]any{"type": "input_json_delta", "partial_json": `{"a":17,"b":25}`}})
 			} else {
 				emit(map[string]any{"type": "content_block_start", "index": index, "content_block": map[string]any{"type": "text", "text": ""}})
-				emit(map[string]any{"type": "content_block_delta", "index": index, "delta": map[string]any{"type": "text_delta", "text": "42"}})
+				emit(map[string]any{"type": "content_block_delta", "index": index, "delta": map[string]any{"type": "text_delta", "text": text}})
 			}
 			emit(map[string]any{"type": "content_block_stop", "index": index})
 			stop := "end_turn"

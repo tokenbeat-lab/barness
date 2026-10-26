@@ -184,6 +184,11 @@ func (s *minimaxSession) request(p minimaxlive.Case) (ai.Request, error) {
 		return grokhistory.Request(ai.CallScope{TenantID: liveTenant})
 	}
 	req := ai.Request{Messages: []ai.Message{ai.UserText("Synthetic protocol probe. Reply with the integer 42.")}}
+	if p.ID == "thinking-on" && minimaxReport.Identity.Model == minimaxlive.M3 {
+		// Adaptive M3 may omit reasoning output for a trivial direct-answer task.
+		// Exercise a bounded calculation while still requiring its own thinking.
+		req.Messages = []ai.Message{ai.UserText("Synthetic reasoning task. Find the smallest positive integer n that gives remainders 7, 11, and 13 when divided by 17, 19, and 23 respectively. Work through the congruences and verify all three remainders before giving the final integer.")}
+	}
 	if p.ID == "tool-call" {
 		req.Messages = []ai.Message{ai.UserText("Synthetic arithmetic task. You MUST call the add function with a=17 and b=25 before answering. Think through the calculation first.")}
 		req.Tools = []ai.Tool{glmAdd}
