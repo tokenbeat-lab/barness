@@ -83,6 +83,10 @@ func verifyXAIOutput(c xaiCall) error {
 			return refuse("xAI unsupported output kind")
 		}
 	}
+	choice := xaiWireString(c.request["tool_choice"])
+	if choice == "none" && tools != 0 || choice == "required" && tools == 0 || string(c.request["parallel_tool_calls"]) == "false" && tools > 1 {
+		return refuse("xAI raw function output violates request policy")
+	}
 	if tools > 0 && c.message.StopReason != ai.StopReasonToolUse || tools == 0 && c.message.StopReason != ai.StopReasonStop {
 		return refuse("xAI legal stop reason differs")
 	}
