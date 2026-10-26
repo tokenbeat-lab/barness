@@ -164,6 +164,8 @@ Full 预算省略/null 时使用 Host 型号的已收窄上限；显式预算为
 
 候选可用于受控E2E和明确授权的本组合live，不能自动激活BuiltinCatalog。正式晋升必须具有明确来源的型号/价格约束、自身文本/推理/加密续接/工具/图片/用量证据、脱敏捕获回放、适用回归及当前SOP要求。不得以移除必交能力、改成UNSUPPORTED或借用DeepSeek证据完成此功能。
 
+维护者于2026-10-26明确选择“采用建议顺序，发布前保持未正式支持”：允许在未发布集成分支完成并审查最终目录接线、原生资格器和正式harness，再以同一冻结来源执行另行授权的正式live、race和压力；全部通过后才接受/发布正式晋升。目录源码接线本身不构成正式支持，候选PASS不自动触发该接线；不得在最终门槛完成后再修改运行源码或目录而继续复用旧pin。详见[冻结顺序方案](formal-qualification-plan.md)与[ADR-0054](../../docs/adr/0054-barness-ai-xai-responses.md)。
+
 ### R22 — Host 装配与回滚
 
 提供现有接口的完整装配说明：全局endpoint、绑定白名单、凭据快照、资源策略、持久化信任恢复、工具往返、成本状态和足够但有限的超时。优先使用现有Host resolver，不为单一路线新建认证框架。禁用并更新Binding版本阻止新调用；已固定调用按原快照结束或由Host取消。回滚不删除历史原件、不修改旧价格快照、不自动切换协议。
@@ -220,17 +222,17 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 候选实现及01–04、07–10已解决，JPEG修复与两轴0/0、冻结完整普通通过；05自身候选真实18/18已通过，正在准备脱敏回放与原生资格；06正式交付未关闭。集成分支 `codex/barness-ai-grok` |
-| 冻结来源 | 实际完整受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e`，1962个执行文件；选定输入 [cases-v3.json](verification/cases-v3.json)，SHA256 `a4b5e96b775a181547488f2fec98a373d79d045d586d75712270ffcca59ada0e`。收尾提交只改文档/索引，并另核对完整来源及选定输入集合与内容相等 |
+| 实现 | 候选实现及01–04、07–11已完成；05自身候选真实18/18 PASS，11已新增24份真实响应回放/19case定向PASS，正在实现12正式资格器/harness/目录最终接线及13已确认request-ID头采用。完整交付与06发布未完成 |
+| 冻结来源 | 当前已合入11回放，外层来源从历史1962文件扩大到1989，待12/13软件完成、全局两轴复核后重新冻结；历史完整普通v3受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e` 与565-case输入保留，不冒充新来源 |
 | 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留；JPEG增量[v4](review/review-v4.md)亦0/0 |
-| 完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [当前不可变索引v4](verification/record-v4.json)与[只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留真实argv/退出；完整普通通过。第3次候选采集PASS/exit0，正式消费者实际exit1/pass=false；不将候选通过改写成正式资格 |
+| 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
+| 原生消费 | [候选完成时索引v4](verification/record-v4.json)与[当时只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留：source/e2e=true，正式live/race/压力=false，CLI exit1；新软件来源另待冻结/索引，不改写旧原件 |
 | 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
 | 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | BuiltinCatalog未激活xAI，无正式支持声明；release.pass=false，保留付费与人工阶段所缺事实 |
+| 目录/发布 | 维护者已确认未发布分支可准备最终Builtin接线，但不得据此宣称正式支持或发布；新正式live/其他22路线/人工阶段未通过，release.pass=false |
 
-#### 当前完整普通v3与候选构建
+#### 历史完整普通v3与候选构建
 
 ```sh
 python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
@@ -269,12 +271,12 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 原v1普通采集器PASS，但其E04省略effort的case目录含中间`//`，原生消费者实际拒绝。该问题通过明确`default`证据标签修正，实际请求仍省略effort，并补真实公开CLI失败/成功回归；导入器合同保持。原[readonly-v1报告](../../.evidence/barness-ai-grok/release/readonly-v1/native/release-report.json)、[v1索引](verification/record-v1.json)、全部失败/无效/成功attempt及[修正前状态原字节](history/spec-before-canonical-case-fix-v2.json)独立保留，未改写旧原件。前一可变状态另存[收尾快照](history/spec-before-final-v2.json)。
 
-所有实施工作树原件已复制至原仓库 `.evidence/barness-ai-grok/` 并逐文件SHA256核对；JPEG修复原件另经preservation/20261026T044235Z核对。冻结普通v3之后只做文档/索引收尾，完整来源及选定输入集合与内容相等性另存。用户未提交AGENTS.md修改和两个scratch目录均保留。
+所有实施工作树原件已复制至原仓库 `.evidence/barness-ai-grok/` 并逐文件SHA256核对；11回放原件另经preservation/20261026T053443Z核对。v4索引只代表候选完成检查点；之后新增回放及资格源码须重新冻结，原件不改pin。用户未提交AGENTS.md修改和两个scratch目录保留。
 
 #### 编译产物与尚未执行项
 
 [候选构建](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)与[只读门禁构建](../../.evidence/barness-ai-grok/build/20261026T040254-releasegate-el73wpu7/build-receipt.json)实际exit0，GOENV=off、GOFLAGS为空、隔离HOME/凭据；source/binary/catalog/SDK机器事实已固定。候选无开关/无Key精确入口实际为NOT_RUN、Calls0，不产生真实资格。
 
-自身候选已在第3次运行取得完整真实PASS；前两次失败、授权/claim和原生拒绝结果独立保留。当前推进05的已脱敏捕获回放与原生资格消费准备；另外22条受影响旧聊天路线未授权，06正式晋升、人工race/压力未完成。release.pass=false；不自动再次付费运行，真实维护/隔离/purge未执行。
+自身候选已在第3次运行完整真实PASS；前两次失败、授权/claim及原生拒绝结果保留。11回放代码与19case定向普通已完成；12正式合同与最终目录接线按维护者确认的未发布分支顺序实施，13采用真实已确认的x-request-id。软件全部完成并审查冻结后，另行提出新正式live范围；另外22路线与race/压力未授权/未选择，release.pass=false。
 
 回滚先禁用并更新xAI Binding版本，固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照及验证原件，不自动切Provider/API；无数据库迁移。
