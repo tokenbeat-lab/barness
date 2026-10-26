@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "kind": "producer-evidence-pointer",
+  "implementationCommit": "d77e0159558ff41d3e2f93775b973932b4e0d5f7",
+  "evidence": {
+    "path": ".evidence/barness-ai-grok/formal-producer-v1.json",
+    "sha256": "e651030d5263d7470c72246810441359d2f9f463254bb5197249a8b3fefb612a"
+  },
+  "finalGreen": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T062522.489380Z-jnhxnipf/receipt.json",
+    "sha256": "2abb0f2af3f02df28824a7ecf7b0b3f70db87e09b694866cf78663354988a3f1"
+  },
+  "newTests": [
+    "TestXAIProposedBuiltinCatalog",
+    "TestXAIFormalHarnessProcess"
+  ],
+  "newCaseCount": 50,
+  "currentState": "../spec.md#唯一当前状态",
+  "formalLive": "NOT_RUN",
+  "publishedSupport": false
+}
