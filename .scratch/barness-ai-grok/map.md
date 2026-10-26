@@ -35,3 +35,5 @@
 - [15最终已解决](issues/15-formal-review-fixes.md)：辅助bundle归属fix421efc23、v8复核0/0、新受测812782ec完整三包15837测试/1457主必交/120入口及32辅助均PASS；真实readonly-v6 source/E2E均true。05现等待[计划v2](formal-live-plan-v2.md)的明确付费授权；不自动启动17路线或人工阶段。
 
 - 正式批次已按授权停止：xAI正式18/18通过；OpenAI9/9实际调用通过但非空消息证据解码被消费者拒绝，后15条NOT_RUN。[16修复前沿](issues/16-generic-capture-decoding.md)只处理离线消费，不启动新的付费调用；[当前状态](spec.md#本次正式17路线已授权并按失败规则停止)。
+
+- [16已解决](issues/16-generic-capture-decoding.md)：局部DTO修复5f933af9、mandatory-history回归fd02b56a，12项CLI回归与v10两轴0/0，受测81bdaeaf完整三包15,850测试/1469主必交/121入口及32辅助PASS。当前frontier回到05等待[新来源计划v3](formal-live-plan-v3.md)的新一次付费选择；旧批次停止原件与39次调用保持，不自动续跑。

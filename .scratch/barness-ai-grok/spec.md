@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–15已解决；16消费者局部DTO修复5f933af9与历史分支回归fd02b56a、v10两轴0/0已完成，完整普通待本次实际复验；05正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 消费者修复软件pin fd02b56aa6177106ae1ef348fec0c3a4920b8a57；2054默认来源文件，128项非秘密选定输入。537原生文件及8个冻结binary已核对，119实际外部读取输入未变；原批次5a8仅保留为旧来源真实事实 |
+| 实现 | 01–04及07–16软件工单已解决；16局部DTO修复5f933af9、历史分支回归fd02b56a、v10两轴0/0及完整普通通过。05当前来源正式live、06人工阶段/发布未完成 |
+| 冻结来源 | 软件pin fd02b56aa6177106ae1ef348fec0c3a4920b8a57；本轮完整普通实际受测81bdaeafbd2b79429daba6964d9c4d24fb37ae1d，2054默认来源文件及128选定输入固定；文档收尾沿用须全部文件/输入集合及内容相等，实际核验见final-source-equality-v8 |
 | 审查 | v1–v8历史发现均已修复；16新增v9 Standards0/Spec1 P2（mandatory-history反例缺失），同一实现者补齐，独立[v10](review/review-v10.md)两轴均0项 |
-| 当前完整普通（cases-v7） | 当前完整复验NOT_RUN，选定[cases-v7](verification/cases-v7.json)为1469必交/121入口及32辅助；计划三包20分钟Go超时/1500秒外层。旧5a8/164输入三包15837测试PASS、614.631秒仅为修复前历史，不冒充当前结果 |
+| 当前完整普通（cases-v7） | 三包15,850 Go测试实际PASS、exit0/audit0、628.736秒；1469/1469必交case、121/121入口全部通过，主15020 PASS/214压力NOT_RUN，辅助GLM32 PASS/每case最多393文件。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T122707.884222Z-3p40dgni/receipt.json)及[核验v7](../../.evidence/barness-ai-grok/final-ordinary-validation-v7.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | 原批次5a8的xAI实际正式消费PASS，OpenAI消费FAIL并停止后15条；当前新来源正式live均NOT_RUN。历史readonly-v8 source/E2E true、live/race/压力false原件保留，当前来源新索引/判定待完整普通完成 |
+| 原生消费 | 当前[索引v9](verification/record-v9.json)绑定新完整普通与本状态；source/E2E及其他五项事实由[readonly-v9原件](../../.evidence/barness-ai-grok/release/readonly-v9/native/release-report.json)逐项给出。原批次/readonly-v8仅为旧来源事实；当前正式live/race/压力未完成，release.pass=false |
 | 自身live | 历史批次5a8正式xAI18/18 PASS、24调用/24HTTP、正式消费者exit0/pass=true、响应估算上界0.029358 USD；消费者修复进入其原生source后，当前来源正式资格NOT_RUN，不改旧原件pin |
 | 共享历史live | 旧批次已按授权停止，2条执行/39调用39HTTP，后15条未跑；修复后的[冻结计划v3](formal-live-plan-v3.md)重新准备17路线，尚未获新付费授权；六条Kimi仍候选/受控 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI接线已完成；当前新来源正式live与人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI接线已完成；本次软件修复、独立复核与完整普通通过。当前新来源正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -323,4 +323,12 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 [16](issues/16-generic-capture-decoding.md)最小生产修改为`chat_capture.go`局部DTO，不改变公共领域JSON合同；保留归属、Observer、usage、预算及库存检查。原缺陷先在公开Audit/compiled CLI中RED，修复GREEN；v9指出的历史身份/终态/错误反例已补齐，使用公共Client实际loopback编码与Host/provenance/wire/CrossModel验证，共12/12定向case PASS、audit0，[v2原件索引](evidence/generic-capture-decoder-v2.json)。新反例在正确实现上直接GREEN，未虚构RED。
 
-[独立v10两轴复核](review/review-v10.md)均0项。[静态清单](verification/cases-v7.json)独立确认1469主必交/121入口，119额外读取未变。[新计划v3](formal-live-plan-v3.md)及[机器计划](verification/formal-plan-v3.json)固定同17路线预算/顺序/代理与新原生source/binary；所有模板id空、expiry零，尚未发放本次权限。当前完整普通尚待运行；新付费执行不在旧停止批次的剩余授权内，不自动续用grant。race/压力及发布继续NOT_RUN。
+[独立v10两轴复核](review/review-v10.md)均0项。[静态清单](verification/cases-v7.json)独立确认1469主必交/121入口，119额外读取未变。[新计划v3](formal-live-plan-v3.md)及[机器计划](verification/formal-plan-v3.json)固定同17路线预算/顺序/代理与新原生source/binary；所有模板id空、expiry零，尚未发放本次权限。完整普通已实际通过：三包15,850 Go测试、1469主必交/121入口与32辅助case齐全，628.736秒/exit0/audit0；新付费执行不在旧停止批次的剩余授权内，不自动续用grant。race/压力及发布继续NOT_RUN。
+
+#### 消费者修复后的完整验证与交付边界
+
+实际受测`81bdaeafbd2b79429daba6964d9c4d24fb37ae1d`，命令为`go test -json ./ai/e2e ./ai ./ai/internal/testkit/release -count=1 -timeout=20m`，外层1500秒且显式128项输入；[实际receipt](../../.evidence/barness-ai-grok/e2e/20261026T122707.884222Z-3p40dgni/receipt.json) exit0，628.736秒。主manifest含15234 case（15020 PASS、214压力NOT_RUN），辅助GLM32 PASS/audit0且最大393文件。独立有限清单1469/1469、121入口全部完成；[核验v7](../../.evidence/barness-ai-grok/final-ordinary-validation-v7.json)保存实际数字及来源/输入比对。
+
+[16软件票](issues/16-generic-capture-decoding.md)已解决，旧真实失败和合成RED/GREEN均保留。[v3计划独立准备核验](../../.evidence/barness-ai-grok/preflight/formal-plan-v3-independent-check/receipt.json)301项PASS/0错误，只证明配置和来源准备一致，不代表真实资格或新的授权。源码接线、软件修复与普通通过不构成正式支持；当前来源17条正式live均NOT_RUN，需[计划v3](formal-live-plan-v3.md)的新一次明确付费选择，之后才可分别选择race/压力。
+
+当前只读判定使用[record-v9](verification/record-v9.json)与[readonly-v9](../../.evidence/barness-ai-grok/release/readonly-v9/native/release-report.json)保存实际source/E2E及未完阶段检查；最终release.pass=false。纯文档/索引收尾与实际受测提交的2054来源及128输入集合/内容相等性另存[核验v8](../../.evidence/barness-ai-grok/final-source-equality-v8.json)，不改旧receipt的pin、时间或状态。
