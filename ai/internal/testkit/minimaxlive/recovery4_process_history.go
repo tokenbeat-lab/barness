@@ -61,7 +61,7 @@ func closedMiniMaxProcess(root *os.Root, files map[string]string, collection str
 	if e != nil || Hash(raw) != p.NativeReportSHA256 || files[p.NativeBundle+"/minimax-report.json"] != Hash(raw) || r.Schema != 1 || r.Mode != "live" || r.Stage != "formal" || r.Kind != "minimax-formal" || r.Outcome != "PASS" || !r.Complete || !r.AuditPassed || r.Identity != claim.Identity || r.Session != claim.Session || r.GitCommit != g.SourceCommit || r.FormalRenewalID != g.RenewalID || r.FormalRenewalGrantSHA256 != pin || r.Budget != b || r.Cumulative != b || Hash(source) != g.ExecutionSourceSHA256 {
 		return fmt.Errorf("closed third original native report/source differs: %v", e)
 	}
-	plan := Plan(claim.Identity)
+	plan := originalPlan13()
 	if len(r.Calls) != len(plan) || !reflect.DeepEqual(r.Expected, plan) {
 		return fmt.Errorf("closed third native complete13 calls required")
 	}

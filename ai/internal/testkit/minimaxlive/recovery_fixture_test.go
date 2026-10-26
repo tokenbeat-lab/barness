@@ -20,7 +20,7 @@ func (f *finalRenewalFixture) seedSecondCohort(t *testing.T) {
 	}
 	id, _ := minimaxlive.Select("chat", minimaxlive.M3, "standard")
 	l := minimaxlive.Ledger{Path: path, Stage: "formal", Session: "failed-chat", Identity: id}
-	for _, p := range minimaxlive.Plan(id) {
+	for _, p := range historicalM3Plan() {
 		if _, e = l.Reserve(p.ID, p.Output, 2048); e != nil {
 			t.Fatal(e)
 		}

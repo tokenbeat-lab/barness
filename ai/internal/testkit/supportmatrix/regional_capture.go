@@ -106,7 +106,8 @@ func verifyRegionalCase(root *os.Root, r Report, s ScenarioResult) error {
 	if kind == grokhistory.Scenario {
 		raw, e := regionalRead(root, s.CaseID+"/request.json")
 		after, e2 := regionalRead(root, s.CaseID+"/immutable-input.json")
-		if e != nil || e2 != nil || !grokhistory.VerifyHost(raw) || !grokhistory.VerifyHost(after) || m.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) || grokhistory.Verify(ai.API(r.API), []byte(x.RequestBody)) != nil {
+		proof, e3 := regionalRead(root, s.CaseID+"/history-provenance.json")
+		if e != nil || e2 != nil || e3 != nil || grokhistory.VerifyProvenance(proof, m.TenantID) != nil || !grokhistory.VerifyHost(raw) || !grokhistory.VerifyHost(after) || m.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) || grokhistory.Verify(ai.API(r.API), []byte(x.RequestBody)) != nil {
 			return refuse("regional fixed xAI history input, actual wire or downgrades differ")
 		}
 	}

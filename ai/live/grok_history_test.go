@@ -17,10 +17,15 @@ var grokHistoryScenario = scenario{id: grokhistory.Scenario, run: func(s *sessio
 	if !s.check("fixed Host history builds", err == nil, "%v", err) {
 		return
 	}
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	s.cs.Record("public-request", req)
 	d := drain(s.env.client.Stream(s.ctx, scope, s.target(), req, s.env.combo.full(1024, toolsDefault)), nil)
 	ex := s.observe("history", d.res, d.err)
 	s.cs.Record("immutable-input", req)
+	provenance.After = grokhistory.Envelopes(req)
+	s.cs.Record("history-provenance", provenance)
+	rawProof, _ := json.Marshal(provenance)
+	s.check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
 	if !s.ok("history", d.err) {
 		return
 	}

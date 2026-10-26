@@ -90,7 +90,6 @@ func TestGLMFormalKnownUsage(t *testing.T) {
 			dir := extractGLMFormalArchive(t, entry.ArchiveSHA256)
 			base := filepath.Dir(filepath.Join(dir, entry.ReportPath))
 			_, e := supportmatrix.NewGLMReport(base)
-			ev.Check("historical actual capture refuses changed execution source", glmExecutionSourceDrift(e), "%v", e)
 			// Read immutable original facts without certifying them as current.
 			// The archive and raw report remain bound to independent source pins.
 			formalBytes, readErr := os.ReadFile(filepath.Join(dir, entry.ReportPath))
@@ -99,6 +98,7 @@ func TestGLMFormalKnownUsage(t *testing.T) {
 			if !ev.Check("immutable historical support projection readable", loadErr == nil, "%v", loadErr) {
 				return
 			}
+			ev.Check("historical actual capture refuses current catalog/source scope", glmCurrentScopeRefusal(e, r.CatalogHash), "%v", e)
 			input, output, attempts, unknown := glmHistoricalAttemptUsage(t, base, r)
 			ev.Check("raw Attempts independently preserve known totals and unknowns", input == want[0] && output == want[1] && attempts == literal.ActualAttempts && unknown == literal.UnknownUsageAttempts, "got input=%d output=%d attempts=%d unknown=%d", input, output, attempts, unknown)
 			ev.Check("historical projection retains same known lower bounds", r.Budget.InputTokensUsed == want[0] && r.Budget.OutputTokensUsed == want[1], "got input=%d output=%d", r.Budget.InputTokensUsed, r.Budget.OutputTokensUsed)

@@ -30,6 +30,7 @@ func TestGrokHistoryAllOldTargets(t *testing.T) {
 				t.Fatal(err)
 			}
 			before := mustMarshal(t, req)
+			provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 			o := drain(w.client.StreamSimple(ctxFor(t), scope, ai.Target{BindingID: b.BindingID, ModelID: model}, req, ai.SimpleOptions{MaxTokens: ai.Value(64)}))
 			o.record(ev)
 			ev.Record("requests", w.provider.Requests())
@@ -38,6 +39,9 @@ func TestGrokHistoryAllOldTargets(t *testing.T) {
 			}
 			raw := w.provider.Requests()[0].Body
 			ev.Check("actual target wire preserves collision and reuse associations", grokhistory.Verify(b.API, raw) == nil, "%v", grokhistory.Verify(b.API, raw))
+			provenance.After = grokhistory.Envelopes(req)
+			ev.Record("history-provenance", provenance)
+			ev.Check("trusted source provenance remains immutable", grokhistory.VerifyProvenance(mustMarshal(t, provenance), scope.TenantID) == nil, "trusted envelopes changed")
 			ev.Check("Host source remains immutable", string(before) == string(mustMarshal(t, req)), "source changed")
 			m := o.result.Metadata
 			ev.Check("resolved destination metadata and foreign downgrade", m.ProviderID == b.ProviderID && m.API == b.API && m.ModelID == model && m.AccountScopeID == b.AccountScopeID && m.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "%+v", m)

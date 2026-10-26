@@ -118,7 +118,7 @@ func verifyRegionalBundle(dir string, r Report) error {
 		return refuse("regional captured inventory changed, missing or extra")
 	}
 	rootNames := []string{"manifest.json", "audit.json", RegionalReportFile, "regional-execution-source.json", "regional-catalog.json", "regional-candidate-facts.json", "regional-grant.json", "regional-authorization-receipt.json"}
-	caseNames := []string{"assertions.json", "request.json", "tools.json", "options.json", "result.json", "events.json", "exchanges.json", "observations.json", "resources.json", "immutable-input.json"}
+	caseNames := []string{"assertions.json", "request.json", "tools.json", "options.json", "result.json", "events.json", "exchanges.json", "observations.json", "resources.json", "immutable-input.json", "history-provenance.json"}
 	owned := map[string]bool{}
 	for _, s := range r.Scenarios {
 		owned[s.CaseID] = true
@@ -205,7 +205,7 @@ func verifyRegionalBundle(dir string, r Report) error {
 			if c.Dir != c.ID || filepath.Base(c.Dir) != c.Dir || c.Status != "PASS" {
 				return refuse("regional case identity/outcome differs")
 			}
-			required := caseNames[:len(caseNames)-1]
+			required := caseNames[:len(caseNames)-2]
 			if strings.HasSuffix(s.ID, "/xai-origin-history") {
 				required = caseNames
 			}

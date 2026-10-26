@@ -182,7 +182,7 @@ func TestRecoveryAuthorityChild(t *testing.T) {
 				t.Fatal(e)
 			}
 		}
-		for _, p := range minimaxlive.Plan(id) {
+		for _, p := range historicalM3Plan() {
 			if _, e = own.Reserve(p.ID, p.Output, 2048); e != nil {
 				t.Fatal(e)
 			}

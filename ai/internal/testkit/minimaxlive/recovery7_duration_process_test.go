@@ -58,8 +58,8 @@ func (f *finalRenewalFixture) verifySeventhLifetimeBoundary(t *testing.T) {
 			os.WriteFile(filepath.Join(dir, minimaxlive.SealFile), b, 0600)
 			_, e = minimaxlive.VerifyCapture(dir, false)
 			want := "provenance incomplete"
-			if tc.nextGate {
-				want = "selected catalog/price snapshot is stale"
+			if tc.renewal {
+				want = "fresh M3 process cannot use historical renewal authority"
 			}
 			if e == nil || !strings.Contains(e.Error(), want) {
 				t.Fatalf("public lifetime gate: want %q got %v", want, e)

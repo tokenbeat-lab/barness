@@ -18,7 +18,7 @@ func verifyArtifacts(dir string, r Report, files map[string]string) error {
 		cases[c.CaseID] = true
 	}
 	allowed := map[string]bool{}
-	for _, s := range []string{"immutable-input.json", "public-request.json", "options.json", "plan.json", "budget-before.json", "result.json", "events.json", "observations.json", "exchanges.json", "metrics.json", "budget-after.json", "request.json", "response.sse", "assertions.json", "incomplete-capability.json", "request-rerun.json"} {
+	for _, s := range []string{"history-provenance.json", "immutable-input.json", "public-request.json", "options.json", "plan.json", "budget-before.json", "result.json", "events.json", "observations.json", "exchanges.json", "metrics.json", "budget-after.json", "request.json", "response.sse", "assertions.json", "incomplete-capability.json", "request-rerun.json"} {
 		allowed[s] = true
 	}
 	for name := range files {

@@ -179,6 +179,7 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	if err != nil {
 		t.Skip("NOT_RUN: own tool prerequisite missing")
 	}
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	cs := run.Case(t, row.CaseID)
 	cs.ReplayRun(regionalEntry())
 	modelInfo, _ := s.p.cat.Lookup(ai.ProviderID(s.p.report.Provider), ai.API(s.p.report.API), row.Model)
@@ -271,6 +272,10 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	if kind == grokhistory.Scenario {
 		raw, _ := json.Marshal(req)
 		cs.Record("immutable-input", req)
+		provenance.After = grokhistory.Envelopes(req)
+		cs.Record("history-provenance", provenance)
+		rawProof, _ := json.Marshal(provenance)
+		cs.Check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
 		cs.Check("fixed Host history unchanged after call", grokhistory.VerifyHost(raw), "history changed")
 		cs.Check("foreign source downgrades exactly two assistant turns", result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "%+v", result.Metadata.NativeStateDowngrades)
 		proof := len(exchanges) == 1 && grokhistory.Verify(ai.API(s.p.report.API), []byte(exchanges[0].RequestBody)) == nil

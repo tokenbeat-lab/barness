@@ -1,8 +1,8 @@
 # 旧目标的 xAI 来源历史验证
 
-这份合同只准备验证软件，不授予厂商调用权限。新增场景名为 `xai-origin-history`：同一 assistant turn 中的两个长公共前缀 opaque pair，以及后续 turn 对第一个完整 pair 的复用，分别关联三个固定可见结果标记。输入由公共 Host 消息和 `TrustNativeState` 构造，全部标为合成数据，不复制实际 xAI 密文或资源 ID，也不需要 Grok 请求。
+这份合同只准备验证软件，不授予厂商调用权限。当前正式范围为 Grok 加16条已发布旧路线，共17条；六条 Kimi 保留候选及受控兼容验证，不晋升。新增场景名为 `xai-origin-history`：同一 assistant turn 中的两个长公共前缀 opaque pair，以及后续 turn 对第一个完整 pair 的复用，分别关联三个固定可见结果标记。输入由公共 Host 消息和 `TrustNativeState` 构造，全部标为合成数据，不复制实际 xAI 密文或资源 ID，也不需要 Grok 请求。
 
-`ai/internal/testkit/grokhistory` 检查实际目标 wire 的协议字段、三个唯一关联及结果顺序、可见历史、两个 cross-model downgrade 和不可变原输入。MiniMax/Kimi Responses 的关联值可以安全编码完整来源身份；这种关联值不等于向目标重放外来 native `id` 或密文。公共 Client 覆盖全部 22 条兼容路径；原生消费者仍要求完整能力集合，不能用单场景增量包替代。
+`ai/internal/testkit/grokhistory` 检查实际目标 wire 的协议字段、三个唯一关联及结果顺序、可见历史、两个 cross-model downgrade 和不可变原输入。由于 Message JSON 省略可信状态，另以 `history-provenance.json` 保存两个 assistant 的公开 Envelope() 在调用前后必要字段，消费者在4096字节边界内对固定合成来源及实际租户独立校验。MiniMax/Kimi Responses 的关联值可以安全编码完整来源身份；这种关联值不等于向目标重放外来 native `id` 或密文。公共 Client 覆盖全部 22 条兼容路径；原生消费者仍要求完整能力集合，不能用单场景增量包替代。
 
 | 原生族 | 完整场景 | 有限预算 |
 | --- | --- | --- |

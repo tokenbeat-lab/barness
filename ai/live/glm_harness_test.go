@@ -248,6 +248,7 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	}
 	out.Calls = 1
 	s.requests[sc.ID] = req
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	cs.Record("public-request", req)
 	cs.Record("plan", sc)
 	cs.Record("options", glmFullOptions(sc))
@@ -325,6 +326,10 @@ func (s *glmSession) execute(t *testing.T, sc glmCasePlan, out *glmOutcome) {
 	if kind == grokhistory.Scenario {
 		after, _ := json.Marshal(req)
 		cs.Record("immutable-input", req)
+		provenance.After = grokhistory.Envelopes(req)
+		cs.Record("history-provenance", provenance)
+		rawProof, _ := json.Marshal(provenance)
+		cs.Check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
 		cs.Check("fixed synthetic Host history unchanged", grokhistory.VerifyHost(after), "input changed")
 		cs.Check("foreign history downgrades two turns", result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "%+v", result.Metadata.NativeStateDowngrades)
 		cs.Check("actual foreign history wire associations", len(ex) == 1 && grokhistory.Verify(glmSelected.api, []byte(ex[0].RequestBody)) == nil, "foreign wire proof")

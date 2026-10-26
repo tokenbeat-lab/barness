@@ -35,6 +35,7 @@ func checkGLMArtifactContract(r Report, cases []glmCapturedCase, files map[strin
 		}
 		if strings.HasSuffix(sc.ID, "/"+grokhistory.Scenario) {
 			allowed["immutable-input.json"] = true
+			allowed["history-provenance.json"] = true
 		}
 		if strings.HasSuffix(sc.ID, "/cancel") {
 			allowed["capture-scope.json"] = true

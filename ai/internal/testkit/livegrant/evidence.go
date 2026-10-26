@@ -3,8 +3,10 @@ package livegrant
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
+	"syscall"
 	"time"
 )
 
@@ -15,7 +17,7 @@ func ReadEvidence(dir string) (Grant, []byte, Receipt, error) {
 		return Grant{}, nil, r, e
 	}
 	defer root.Close()
-	raw, e := root.ReadFile("process-grant.json")
+	raw, e := evidenceFile(root, "process-grant.json")
 	if e != nil || len(raw) > 1<<20 {
 		return Grant{}, nil, r, fmt.Errorf("fresh process approval evidence absent")
 	}
@@ -24,15 +26,36 @@ func ReadEvidence(dir string) (Grant, []byte, Receipt, error) {
 		return g, raw, r, e
 	}
 	var manifest struct{ Versions map[string]string }
-	mraw, me := root.ReadFile("manifest.json")
+	mraw, me := evidenceFile(root, "manifest.json")
 	if me != nil || json.Unmarshal(mraw, &manifest) != nil || manifest.Versions["process_build_source"] != g.Scope.SourceSHA256 {
 		return g, raw, r, fmt.Errorf("producer binary source attestation absent or differs")
 	}
-	claim, e := root.ReadFile("process-authorization-receipt.json")
+	claim, e := evidenceFile(root, "process-authorization-receipt.json")
 	if e != nil || len(claim) > 1<<20 || json.Unmarshal(claim, &r) != nil {
 		return g, raw, r, fmt.Errorf("fresh process claim evidence absent")
 	}
 	return g, raw, r, nil
+}
+
+func evidenceFile(root *os.Root, name string) ([]byte, error) {
+	info, e := root.Lstat(name)
+	if e != nil || !info.Mode().IsRegular() || info.Size() > 1<<20 {
+		return nil, fmt.Errorf("process evidence must be regular and bounded")
+	}
+	f, e := root.OpenFile(name, os.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK, 0)
+	if e != nil {
+		return nil, e
+	}
+	defer f.Close()
+	opened, e := f.Stat()
+	if e != nil || !os.SameFile(info, opened) {
+		return nil, fmt.Errorf("process evidence changed during open")
+	}
+	raw, e := io.ReadAll(io.LimitReader(f, 1<<20+1))
+	if e != nil || len(raw) > 1<<20 {
+		return nil, fmt.Errorf("process evidence read exceeds bound")
+	}
+	return raw, nil
 }
 
 func VerifyEvidence(g Grant, raw []byte, r Receipt, want Scope, account, region string, started, finished time.Time) error {

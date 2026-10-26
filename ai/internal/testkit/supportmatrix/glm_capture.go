@@ -231,7 +231,8 @@ func verifyGLMCall(base string, r Report, s ScenarioResult, sources []string) er
 	if strings.HasSuffix(s.ID, "/"+grokhistory.Scenario) {
 		before, e1 := glmRead(filepath.Join(base, "public-request.json"))
 		after, e2 := glmRead(filepath.Join(base, "immutable-input.json"))
-		if e1 != nil || e2 != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || grokhistory.Verify(ai.API(r.API), request) != nil || md.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+		proof, e3 := glmRead(filepath.Join(base, "history-provenance.json"))
+		if e1 != nil || e2 != nil || e3 != nil || grokhistory.VerifyProvenance(proof, md.TenantID) != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || grokhistory.Verify(ai.API(r.API), request) != nil || md.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
 			return glmBad("fixed xAI input, actual wire or downgrades differ")
 		}
 	}

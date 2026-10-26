@@ -34,7 +34,7 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 		t.Fatal("missing controlled capture")
 	}
 	original := filepath.Dir(files[0])
-	for _, name := range []string{"baseline", "honest-no-request-id", "fabricated-request-id", "source-plan", "source-candidate", "source-price", "foreign-operation", "stale-result-version", "execution-add", "execution-delete", "execution-change", "xai-missing-scene", "xai-substituted-scene", "xai-wire-marker", "xai-immutable-input"} {
+	for _, name := range []string{"baseline", "honest-no-request-id", "fabricated-request-id", "source-plan", "source-candidate", "source-price", "foreign-operation", "stale-result-version", "execution-add", "execution-delete", "execution-change", "xai-missing-scene", "xai-substituted-scene", "xai-wire-marker", "xai-immutable-input", "xai-native-envelope"} {
 		t.Run(name, func(t *testing.T) {
 			dir := t.TempDir()
 			if e := os.CopyFS(dir, os.DirFS(original)); e != nil {
@@ -86,6 +86,12 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 				path := filepath.Join(dir, "GLM11-glm-5.3-xai-origin-history/immutable-input.json")
 				raw, _ := os.ReadFile(path)
 				raw = []byte(strings.ReplaceAll(string(raw), "SYNTHETIC_XAI_RESULT_FIRST", "SYNTHETIC_XAI_RESULT_OTHER"))
+				os.WriteFile(path, raw, 0600)
+			}
+			if name == "xai-native-envelope" {
+				path := filepath.Join(dir, "GLM11-glm-5.3-xai-origin-history/history-provenance.json")
+				raw, _ := os.ReadFile(path)
+				raw = []byte(strings.ReplaceAll(string(raw), "synthetic-xai-source-account", "synthetic-xai-forged-account"))
 				os.WriteFile(path, raw, 0600)
 			}
 			if name == "honest-no-request-id" || name == "fabricated-request-id" {

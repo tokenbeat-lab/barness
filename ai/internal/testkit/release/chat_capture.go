@@ -45,7 +45,8 @@ func verifyChatCaptures(files verifiedCase, r supportmatrix.Report, s supportmat
 		if s.ID == grokhistory.Scenario {
 			before, e1 := files.read("public-request.json", maxInventoryFile)
 			after, e2 := files.read("immutable-input.json", maxInventoryFile)
-			if e1 != nil || e2 != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || len(exchanges) != 1 || grokhistory.Verify(ai.API(r.API), []byte(exchanges[0].RequestBody)) != nil || meta.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+			proof, e3 := files.read("history-provenance.json", 4096)
+			if e1 != nil || e2 != nil || e3 != nil || grokhistory.VerifyProvenance(proof, meta.TenantID) != nil || !grokhistory.VerifyHost(before) || !grokhistory.VerifyHost(after) || len(exchanges) != 1 || grokhistory.Verify(ai.API(r.API), []byte(exchanges[0].RequestBody)) != nil || meta.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
 				return usage, fmt.Errorf("fixed xAI Host input, actual wire or downgrades differ")
 			}
 		}

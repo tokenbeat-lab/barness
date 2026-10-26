@@ -33,7 +33,7 @@ func TestKimiQualificationPacing(t *testing.T) {
 			raw, err := cmd.CombinedOutput()
 			ev.Record("native-process", map[string]any{"argv": cmd.Args, "error": errString(err), "output": regionalSafeOutput(raw), "vendorCalls": 0})
 			ev.Record("requests", srv.Requests())
-			if !ev.Check("same nine logical calls and HTTP attempts", err == nil && len(srv.Requests()) == 9, "%v %s", err, regionalSafeOutput(raw)) {
+			if !ev.Check("same ten logical calls and HTTP attempts", err == nil && len(srv.Requests()) == 10, "%v %s", err, regionalSafeOutput(raw)) {
 				return
 			}
 			dir := kimiPacingBundle(t, base)
