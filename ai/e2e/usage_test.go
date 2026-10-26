@@ -3,6 +3,7 @@ package e2e
 import (
 	"errors"
 	"math"
+	"os"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -87,15 +88,26 @@ func TestUsageAndCost(t *testing.T) {
 		c := ai.BuiltinCatalog()
 		hash := catalogHash(t, c)
 		ev.Record("catalog", map[string]string{"version": c.Version, "hash": hash})
-		ev.Check("built-in catalog version", c.Version == f.Catalog.Version, "got %q want %q", c.Version, f.Catalog.Version)
-		ev.Check("built-in catalog content is the pinned one (bump Version, then the pin, on any change)", hash == f.Catalog.Hash,
-			"got %s want %s", hash, f.Catalog.Hash)
+		// The usage fixture retains its original price provenance. Current
+		// discovery is pinned by the independently stored release snapshot.
+		snapshot, err := os.ReadFile("../release/catalog-snapshot.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var pin struct {
+			Hash    string
+			Catalog struct{ Version string }
+		}
+		mustUnmarshal(t, snapshot, &pin)
+		ev.Fixture("current-catalog-snapshot.json", snapshot)
+		ev.Check("built-in catalog version", c.Version == pin.Catalog.Version, "got %q want %q", c.Version, pin.Catalog.Version)
+		ev.Check("built-in catalog content is the current release pin", hash == pin.Hash, "got %s want %s", hash, pin.Hash)
 		ev.Check("hash is stable", hash == catalogHash(t, ai.BuiltinCatalog()), "differs between copies")
 		changed := ai.BuiltinCatalog()
 		changed.Models[0].Cost.Output += 0.01
 		ev.Check("a price change changes the hash", catalogHash(t, changed) != hash, "unchanged")
 		changed.Models[0].Cost.Output = math.NaN()
-		_, err := changed.Hash()
+		_, err = changed.Hash()
 		ev.Check("an invalid catalog has no hash", errors.Is(err, ai.ErrInvalidConfig), "err=%v", err)
 	})
 
