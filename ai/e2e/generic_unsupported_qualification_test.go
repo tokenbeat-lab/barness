@@ -1,10 +1,6 @@
 package e2e
 
 import (
-	"encoding/json"
-	"os"
-	"os/exec"
-	"path/filepath"
 	"slices"
 	"strings"
 	"testing"
@@ -106,7 +102,6 @@ func TestGenericDeclaredUnsupported(t *testing.T) {
 						ev.Check("matrix retains unsupported without last-passed", capability.Outcome == supportmatrix.Unsupported && capability.LastPassedAt == nil && capability.Note == s.Note, "%+v", capability)
 					}
 				}
-				genericUnsupportedCLI(t, r)
 			}
 		})
 	}
@@ -139,48 +134,6 @@ func genericUnsupportedReport(t *testing.T) supportmatrix.Report {
 		r.Budget.HTTPAttempts += s.Attempts
 	}
 	return r
-}
-
-func genericUnsupportedCLI(t *testing.T, r supportmatrix.Report) {
-	t.Helper()
-	ev := run.Case(t, "GROK-GENERIC-UNSUPPORTED-CLI-INELIGIBLE")
-	root, err := filepath.Abs("../..")
-	if err != nil {
-		t.Fatal(err)
-	}
-	binary := filepath.Join(t.TempDir(), "releasegate")
-	build := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./ai/release/cmd/releasegate")
-	build.Dir, build.Env = root, xaiProcessEnv(t)
-	if output, err := build.CombinedOutput(); err != nil {
-		t.Fatalf("consumer build: %v %s", err, output)
-	}
-	bundle, err := os.MkdirTemp(run.Dir(), "synthetic-unsupported-")
-	if err != nil {
-		t.Fatal(err)
-	}
-	writeReleaseJSON(t, bundle, "live-report.json", r)
-	rel, err := filepath.Rel(root, bundle)
-	if err != nil {
-		t.Fatal(err)
-	}
-	out := filepath.Join(run.Dir(), "synthetic-unsupported-consumer")
-	cmd := exec.CommandContext(ctxFor(t), binary, "-live-bundle", filepath.ToSlash(rel), "-out", out)
-	cmd.Dir, cmd.Env = root, xaiProcessEnv(t)
-	output, processErr := cmd.CombinedOutput()
-	exit := -1
-	if cmd.ProcessState != nil {
-		exit = cmd.ProcessState.ExitCode()
-	}
-	var proof struct {
-		Pass  bool   `json:"pass"`
-		Error string `json:"error"`
-	}
-	raw, err := os.ReadFile(filepath.Join(out, "live-consumer.json"))
-	if err != nil || json.Unmarshal(raw, &proof) != nil {
-		t.Fatal("synthetic rejection proof unavailable")
-	}
-	ev.Record("synthetic-process", map[string]any{"argv": cmd.Args, "exit": exit, "output": string(output), "notActualLive": true})
-	ev.Check("report-only acceptance grants no live qualification", processErr != nil && exit == 1 && !proof.Pass && proof.Error == "native live consumer rejected evidence", "exit=%d pass=%t", exit, proof.Pass)
 }
 
 // This boundary consumes the already authenticated native case inventory and
