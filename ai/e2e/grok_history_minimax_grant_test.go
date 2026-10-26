@@ -5,6 +5,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/livegrant"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
+	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -56,9 +57,12 @@ func TestGrokHistoryMiniMaxFreshLedger(t *testing.T) {
 			ev.Check("independent native consumer verifies new one-process ledger", e == nil && r.Complete && r.Budget.Calls == 14 && r.ProcessGrantSHA256 != "" && r.Cumulative.Calls == 14, "%v", e)
 			_, formal := minimaxlive.Verify(dir, true)
 			ev.Check("controlled never formal", formal != nil, "formal accepted")
+			claimedStore := miniMaxRecordPrivateStore(t, ev, cmd, dir, "claimed")
 			raw, e = cmd.CombinedOutput()
 			ev.Check("same approval cannot restart process", e != nil, "reused process accepted")
 			ev.Record("restart", map[string]any{"output": regionalSafeOutput(raw), "refused": e != nil, "vendorCalls": 0})
+			restartedStore := miniMaxRecordPrivateStore(t, ev, cmd, dir, "refused-restart")
+			ev.Check("same private namespace keeps its original one-use guards", maps.Equal(claimedStore, restartedStore), "private store changed during refusal")
 			ev.Record("original-native-pointer", dir)
 		})
 	}

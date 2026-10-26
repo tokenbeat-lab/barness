@@ -40,8 +40,11 @@ func TestMiniMaxFreshLedgerIsolationProcess(t *testing.T) {
 			cmd := miniMaxFreshLedgerCommand(t, "TEST_ONLY_NOT_EXECUTED", "chat", "TEST_ONLY_UNUSED_GRANT", t.TempDir())
 			common := miniMaxGitProbe(t, cmd, "rev-parse", "--path-format=absolute", "--git-common-dir")
 			declared := miniMaxEnvValue(cmd.Env, "GIT_DIR")
-			ev.Record("read-only-discovery", map[string]any{"argv": cmd.Args, "declaredPrivateGit": declared, "discoveredCommonGit": common, "parentGit": parent.dir, "nativeLaunched": false, "claims": 0, "vendorCalls": 0})
-			if !ev.Check("native command owns a separate declared private namespace", declared != "" && common == declared && common != parent.dir, "declared=%s common=%s parent=%s", declared, common, parent.dir) {
+			sourceCmd := *cmd
+			sourceCmd.Env = xaiProcessEnv(t)
+			realCommon := miniMaxGitProbe(t, &sourceCmd, "rev-parse", "--path-format=absolute", "--git-common-dir")
+			ev.Record("read-only-discovery", map[string]any{"argv": cmd.Args, "declaredPrivateGit": declared, "discoveredCommonGit": common, "parentGit": parent.dir, "actualCheckoutCommonGit": realCommon, "nativeLaunched": false, "claims": 0, "vendorCalls": 0})
+			if !ev.Check("native command owns a separate declared private namespace", declared != "" && common == declared && common != parent.dir && common != realCommon, "declared=%s common=%s parent=%s real=%s", declared, common, parent.dir, realCommon) {
 				return
 			}
 			ev.Check("genuine source commit preserved", miniMaxGitProbe(t, cmd, "rev-parse", "HEAD") == parent.commit && miniMaxGitProbe(t, cmd, "cat-file", "-t", parent.commit) == "commit", "source HEAD differs")
@@ -53,10 +56,21 @@ func TestMiniMaxFreshLedgerIsolationProcess(t *testing.T) {
 			other := miniMaxFreshLedgerCommand(t, "TEST_ONLY_NOT_EXECUTED", "chat", "TEST_ONLY_UNUSED_GRANT", t.TempDir())
 			otherCommon := miniMaxGitProbe(t, other, "rev-parse", "--path-format=absolute", "--git-common-dir")
 			ev.Check("independent fixture commands never share common store", otherCommon != common && otherCommon != parent.dir, "common=%s other=%s", common, otherCommon)
-			entries, err := os.ReadDir(store)
-			raw, readErr := os.ReadFile(path)
-			ev.Check("parent namespace inventory and bytes unchanged", err == nil && readErr == nil && len(entries) == 1 && string(raw) == string(sentinel), "parent sentinel changed")
-			ev.Record("namespace-inventory", map[string]any{"parentFiles": len(entries), "sentinelSHA256": evidence.Digest(raw), "childA": common, "childB": otherCommon, "sourceCommit": parent.commit})
+			_, firstErr := os.Stat(filepath.Join(common, "barness-live-process-grants"))
+			_, otherErr := os.Stat(filepath.Join(otherCommon, "barness-live-process-grants"))
+			ev.Check("read-only probes acquired no guards", os.IsNotExist(firstErr) && os.IsNotExist(otherErr), "read-only fixture acquired authority")
+			if name == "independent-fixtures" {
+				firstStore := filepath.Join(common, "barness-live-process-grants")
+				if err := os.Mkdir(firstStore, 0700); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(firstStore, "TEST_ONLY_sentinel"), sentinel, 0600); err != nil {
+					t.Fatal(err)
+				}
+				_, err := os.Stat(filepath.Join(otherCommon, "barness-live-process-grants"))
+				ev.Check("owned fixture store writes remain isolated", os.IsNotExist(err), "second fixture borrowed the first store")
+			}
+			ev.Record("namespace-inventory", map[string]any{"childA": common, "childB": otherCommon, "sourceCommit": parent.commit, "sourceRoot": parent.root, "nativeLaunched": false})
 		})
 	}
 }
