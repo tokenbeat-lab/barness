@@ -22,6 +22,7 @@ type Call struct {
 	RequestIDSources []string          `json:"requestIdSources"`
 }
 type Report struct {
+	ProcessGrantSHA256       string            `json:"processGrantSha256,omitempty"`
 	FormalRenewalID          string            `json:"formalRenewalId,omitempty"`
 	FormalRenewalGrantSHA256 string            `json:"formalRenewalGrantSha256,omitempty"`
 	Session                  string            `json:"session"`

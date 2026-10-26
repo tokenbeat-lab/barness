@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
@@ -51,7 +52,11 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			srv := provider.New(map[string]string{"synthetic-regional-controlled": "key:regional-controlled"})
 			defer srv.Close()
 			for _, model := range supportmatrix.RegionalModels(combo) {
-				for _, kind := range []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"} {
+				kinds := []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"}
+				if grokhistory.Applies(combo) {
+					kinds = append(kinds, grokhistory.Scenario)
+				}
+				for _, kind := range kinds {
 					var reply provider.Reply
 					if combo == "zai-chat" && (kind == "full-stream" || kind == "tool-call") {
 						reply, _, _, _ = zaiChatSource(t, model, kind)
@@ -114,7 +119,8 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 			if combo == "zai-messages" {
 				for i, request := range srv.Requests() {
 					fields := bodyFields(t, request.Body)
-					full52 := i >= 9 && i%9 != 2 && i%9 != 3
+					width := len(supportmatrix.RegionalExpected(combo)) / len(supportmatrix.RegionalModels(combo))
+					full52 := i >= width && i%width != 2 && i%width != 3
 					if full52 {
 						ev.Check("GLM-5.2 full uses independently observed exact shape", jsonEqual(fields["thinking"], []byte(`{"type":"enabled","budget_tokens":1024}`)) && string(fields["max_tokens"]) == "4096", "scenario index=%d", i)
 					} else {
@@ -164,6 +170,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 				inputReserved += max(2048, len(request.Body)+1024)
 			}
 			ev.Check("reservation covers actual encoded wire", report.Budget.ReservedInputTokens == inputReserved, "reserved=%d encoded=%d", report.Budget.ReservedInputTokens, inputReserved)
+			grokHistoryRegionalRefusals(t, dir, combo)
 			regionalCaptureRefusals(t, dir, combo)
 			regionalCaptureCancellationPrefixes(t, dir, combo)
 

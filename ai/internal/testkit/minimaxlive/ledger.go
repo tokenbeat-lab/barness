@@ -23,6 +23,7 @@ type Budget struct {
 	ReservedInput    int `json:"reservedInput"`
 }
 type Receipt struct {
+	ProcessGrantSHA256 string    `json:"processGrantSha256,omitempty"`
 	RenewalID          string    `json:"renewalId,omitempty"`
 	RenewalGrantSHA256 string    `json:"renewalGrantSha256,omitempty"`
 	Session            string    `json:"session"`
@@ -38,6 +39,8 @@ type Receipt struct {
 	Hash               string    `json:"hash"`
 }
 type Ledger struct {
+	ProcessGrantSHA256 string
+
 	Path, Stage, Session string
 	Identity             Identity
 }
@@ -59,7 +62,10 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if e != nil || selected != l.Identity || l.Stage == "formal" && selected.Model != M3 {
 		return Receipt{}, fmt.Errorf("invalid stage identity")
 	}
-	renewal, grantPin, e := l.renewalAuthority(caseID)
+	renewal, grantPin := "", ""
+	if l.ProcessGrantSHA256 == "" {
+		renewal, grantPin, e = l.renewalAuthority(caseID)
+	}
 	if e != nil {
 		return Receipt{}, e
 	}
@@ -96,7 +102,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	reserved := 0
 	attempted := 0
 	for _, r := range receipts {
-		if r.Stage != l.Stage || r.RenewalID != renewal || r.RenewalGrantSHA256 != grantPin {
+		if r.ProcessGrantSHA256 != l.ProcessGrantSHA256 || r.Stage != l.Stage || r.RenewalID != renewal || r.RenewalGrantSHA256 != grantPin {
 			return Receipt{}, fmt.Errorf("mixed stage ledger")
 		}
 		seen[r.Identity.BudgetSlot()] = true
@@ -121,7 +127,7 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if len(seen) > maxIDs {
 		return Receipt{}, fmt.Errorf("stage identity budget exhausted")
 	}
-	r := Receipt{RenewalID: renewal, RenewalGrantSHA256: grantPin, Session: l.Session, Sequence: len(receipts) + 1, Stage: l.Stage, Identity: l.Identity, Case: caseID, Kind: kind, Output: output, Input: input, At: time.Now().UTC()}
+	r := Receipt{ProcessGrantSHA256: l.ProcessGrantSHA256, RenewalID: renewal, RenewalGrantSHA256: grantPin, Session: l.Session, Sequence: len(receipts) + 1, Stage: l.Stage, Identity: l.Identity, Case: caseID, Kind: kind, Output: output, Input: input, At: time.Now().UTC()}
 	if len(receipts) > 0 {
 		r.Previous = receipts[len(receipts)-1].Hash
 	}

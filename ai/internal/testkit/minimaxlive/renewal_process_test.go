@@ -72,7 +72,7 @@ func TestFormalRenewalAuthorityChild(t *testing.T) {
 	for _, route := range []string{"chat", "responses", "messages"} {
 		id, _ := minimaxlive.Select(route, minimaxlive.M3, "standard")
 		l := minimaxlive.Ledger{Path: old, Stage: "formal", Session: "historical-" + route, Identity: id}
-		for _, p := range minimaxlive.Plan(id) {
+		for _, p := range historicalM3Plan() {
 			if _, e = l.Reserve(p.ID, p.Output, 2048); e != nil {
 				t.Fatal(e)
 			}

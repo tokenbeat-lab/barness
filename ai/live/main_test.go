@@ -286,6 +286,11 @@ const liveTenant = "live-smoke"
 
 func newLiveEnv(t *testing.T, c *combo, key string) *liveEnv {
 	t.Helper()
+	if len(supportmatrix.GenericExpected(c.name)) > 0 {
+		if err := claimGenericProcess(); err != nil {
+			t.Fatalf("fresh process admission: %v", err)
+		}
+	}
 	rec := newRecorder()
 	if cfg.proxy != nil {
 		rec.next.(*http.Transport).Proxy = http.ProxyURL(cfg.proxy)

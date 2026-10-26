@@ -146,7 +146,7 @@ func (f *finalRenewalFixture) seedFourthCohort(t *testing.T) {
 					budget.Attempts++
 				}
 			}
-			for _, plan := range minimaxlive.Plan(id) {
+			for _, plan := range historicalM3Plan() {
 				c := minimaxlive.Call{ID: plan.ID, Outcome: "PASS"}
 				for _, row := range rows {
 					if row.Identity == id && row.Case == plan.ID {
@@ -159,7 +159,7 @@ func (f *finalRenewalFixture) seedFourthCohort(t *testing.T) {
 				}
 				cs = append(cs, c)
 			}
-			report = minimaxlive.Report{Schema: 1, Kind: "minimax-formal", Mode: "live", Stage: "formal", Identity: id, Outcome: "PASS", AuditPassed: true, Complete: true, Session: session, GitCommit: f.commit, FormalRenewalID: recovery4ID, FormalRenewalGrantSHA256: f.grantPin, Budget: budget, Cumulative: budget, ExecutionSource: source, Calls: cs, Expected: minimaxlive.Plan(id)}
+			report = minimaxlive.Report{Schema: 1, Kind: "minimax-formal", Mode: "live", Stage: "formal", Identity: id, Outcome: "PASS", AuditPassed: true, Complete: true, Session: session, GitCommit: f.commit, FormalRenewalID: recovery4ID, FormalRenewalGrantSHA256: f.grantPin, Budget: budget, Cumulative: budget, ExecutionSource: source, Calls: cs, Expected: historicalM3Plan()}
 		}
 		reportRaw := write(bundle+"/"+reportName, report)
 		usdAttempts := attempts

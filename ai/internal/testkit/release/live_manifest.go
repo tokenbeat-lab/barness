@@ -26,6 +26,11 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 	if r.Combo == supportmatrix.JevFormalCombo {
 		return supportmatrix.VerifyJevReport(r, true)
 	}
+	if len(supportmatrix.GenericExpected(r.Combo)) > 0 {
+		if err := supportmatrix.VerifyProcessAuthorization(dir, r.Combo, r.AccountAlias, "", r.StartedAt, r.FinishedAt); err != nil {
+			return err
+		}
+	}
 	source, root, err := openArtifactBundle(dir)
 	if err != nil {
 		return err

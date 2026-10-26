@@ -87,7 +87,7 @@ func (f *finalRenewalFixture) seedThirdCohort(t *testing.T) {
 		claim := map[string]any{"schema": 2, "renewalId": recoveryID, "grantSha256": f.grantPin, "session": session, "identity": id, "processNonce": minimaxlive.Hash([]byte("synthetic-" + route))}
 		write(".evidence/minimax-renewals/"+recoveryID+"/"+route+".json", claim)
 		calls := []minimaxlive.Call{}
-		for _, p := range minimaxlive.Plan(id) {
+		for _, p := range historicalM3Plan() {
 			call := minimaxlive.Call{ID: p.ID, Outcome: "PASS"}
 			for _, row := range thirdRows {
 				if row.Identity == id && row.Case == p.ID {
@@ -116,7 +116,7 @@ func (f *finalRenewalFixture) seedThirdCohort(t *testing.T) {
 		}
 		name := "mm-global-formal-m3-" + route
 		bundle := thirdOut + name + "/" + session
-		report := minimaxlive.Report{Schema: 1, Kind: "minimax-formal", Mode: "live", Stage: "formal", Identity: id, Outcome: "PASS", AuditPassed: true, Complete: true, Session: session, GitCommit: f.commit, FormalRenewalID: recoveryID, FormalRenewalGrantSHA256: f.grantPin, Budget: budget, Cumulative: budget, ExecutionSource: source, Calls: calls, Expected: minimaxlive.Plan(id)}
+		report := minimaxlive.Report{Schema: 1, Kind: "minimax-formal", Mode: "live", Stage: "formal", Identity: id, Outcome: "PASS", AuditPassed: true, Complete: true, Session: session, GitCommit: f.commit, FormalRenewalID: recoveryID, FormalRenewalGrantSHA256: f.grantPin, Budget: budget, Cumulative: budget, ExecutionSource: source, Calls: calls, Expected: historicalM3Plan()}
 		rb := write(bundle+"/minimax-report.json", report)
 		pb := map[string]any{"state": "REPORTED", "status": "PASS", "calls": 13, "attempts": 12}
 		receipt := write(thirdOut+name+"-consume-command.json", map[string]any{"state": "COMPLETED", "exitCode": 0, "credentialsRead": false})

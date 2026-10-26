@@ -143,7 +143,9 @@ func TestMiniMaxProcess(t *testing.T) {
 			formal, _ := filepath.Glob(filepath.Join(filepath.Dir(reports[0]), "live-report.json"))
 			cs.Check("no formal report", len(formal) == 0, "formal report was published")
 			if strings.HasPrefix(name, "success-") {
-				cs.Check("complete own identity", r.Outcome == "PASS" && r.Complete && ((name != "success-rerun-tool" && !strings.HasPrefix(name, "success-transient-") && r.Budget.Calls == 13 && r.Budget.Attempts == 12) || ((name == "success-rerun-tool" || strings.HasPrefix(name, "success-transient-")) && r.Budget.Calls == 14 && r.Budget.Attempts == 13)) && r.Budget.RequestedOutput < 40000, "%s", raw)
+				selected, _ := minimaxlive.Select(route, model, purpose)
+				planned := len(minimaxlive.Plan(selected))
+				cs.Check("complete own identity", r.Outcome == "PASS" && r.Complete && ((name != "success-rerun-tool" && !strings.HasPrefix(name, "success-transient-") && r.Budget.Calls == planned && r.Budget.Attempts == planned-1) || ((name == "success-rerun-tool" || strings.HasPrefix(name, "success-transient-")) && r.Budget.Calls == planned+1 && r.Budget.Attempts == planned)) && r.Budget.RequestedOutput < 40000, "%s", raw)
 			} else if strings.HasPrefix(name, "research-") {
 				cs.Check("research cannot certify full candidate", r.Outcome == "PASS" && !r.Complete && r.Kind == "minimax-research-only" && r.Budget.Calls == 3 && r.Budget.Attempts == 3, "%s", raw)
 			} else if ok {

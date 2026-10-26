@@ -33,6 +33,16 @@ func VerifyLedger(dir string, r Report) error {
 	if e = StrictJSON(raw, &ledger); e != nil {
 		return e
 	}
+	if r.ProcessGrantSHA256 != "" {
+		for _, row := range ledger.Receipts {
+			if row.Session != r.Session || row.Identity != r.Identity {
+				return fmt.Errorf("fresh process cannot borrow another session ledger")
+			}
+		}
+		if len(ledger.Predecessors) != 0 {
+			return fmt.Errorf("fresh process has historical predecessors")
+		}
+	}
 	previous := ""
 	stageBudget := Budget{}
 	identityBudget := map[string]Budget{}
@@ -46,7 +56,7 @@ func VerifyLedger(dir string, r Report) error {
 	own := []Receipt{}
 	predecessors := map[string]bool{}
 	for i, receipt := range ledger.Receipts {
-		if receipt.RenewalID != r.FormalRenewalID || receipt.RenewalGrantSHA256 != r.FormalRenewalGrantSHA256 {
+		if receipt.ProcessGrantSHA256 != r.ProcessGrantSHA256 || receipt.RenewalID != r.FormalRenewalID || receipt.RenewalGrantSHA256 != r.FormalRenewalGrantSHA256 {
 			return fmt.Errorf("MiniMax renewal receipt authority differs")
 		}
 		if receipt.Sequence != i+1 || receipt.Previous != previous || receipt.Hash != receiptHash(receipt) || receipt.Stage != r.Stage {

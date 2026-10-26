@@ -86,7 +86,7 @@ func TestMiniMaxRecovery7HarnessDeadlineChild(t *testing.T) {
 		name, mode, stage, model, renewal string
 		authorized                        bool
 	}{
-		{"trusted-formal", "live", "formal", minimaxlive.M3, recovery7ID, true},
+		{"historical-formal-refused", "live", "formal", minimaxlive.M3, recovery7ID, false},
 		{"unapproved-id7", "live", "formal", minimaxlive.M3, recovery7ID, false},
 		{"controlled", "controlled", "formal", minimaxlive.M3, recovery7ID, false},
 		{"replay", "replay", "formal", minimaxlive.M3, recovery7ID, false},

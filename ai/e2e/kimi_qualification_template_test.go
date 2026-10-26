@@ -37,7 +37,7 @@ func TestKimiQualificationTemplate(t *testing.T) {
 			if json.Unmarshal(raw, &g) != nil {
 				t.Fatal("template JSON")
 			}
-			ev.Check("fixed nine calls and finite route-owned token reservations", g["maxCalls"] == float64(9) && g["maxAttempts"] == float64(9) && g["maxRequestedOutputTokens"] == float64(36864) && g["maxReservedInputTokens"] == float64(131072), "%s", raw)
+			ev.Check("fixed ten calls and finite route-owned token reservations", g["maxCalls"] == float64(10) && g["maxAttempts"] == float64(10) && g["maxRequestedOutputTokens"] == float64(40960) && g["maxReservedInputTokens"] == float64(131072), "%s", raw)
 			ev.Check("actual Provider and independent Kimi authorization", strings.HasPrefix(g["provider"].(string), "moonshot") && strings.HasPrefix(g["contract"].(string), "kimi/"), "%s", raw)
 			ev.Check("template never grants human spend or executable identity", g["maxUSD"] == nil || g["maxUSD"] == float64(0), "%s", raw)
 		})

@@ -26,8 +26,8 @@ def selected_environment(route):
         identity = {'BARNESS_REGIONAL_': value, 'BARNESS_GLM_': 'zhipu-' + value,
                     'BARNESS_MINIMAX_': 'minimax-' + value}[prefix]
         suffixes = {'BARNESS_REGIONAL_': ('SERVICE', 'GRANT', 'STAGE', 'PROXY'),
-                    'BARNESS_GLM_': ('FORMAL',),
-                    'BARNESS_MINIMAX_': ('MODEL', 'PURPOSE', 'FORMAL', 'RESEARCH', 'LEDGER',
+                    'BARNESS_GLM_': ('FORMAL', 'GRANT', 'ACCOUNT_ALIAS', 'REGION_ALIAS', 'PROXY'),
+                    'BARNESS_MINIMAX_': ('MODEL', 'PURPOSE', 'FORMAL', 'RESEARCH', 'LEDGER', 'GRANT',
                                          'ACCOUNT_ALIAS', 'REGION_ALIAS', 'ENTITLEMENT', 'FORMAL_RENEWAL', 'PROXY')}[prefix]
         key = prefix + 'KEY'
         names = [selector, key] + [prefix + suffix for suffix in suffixes]

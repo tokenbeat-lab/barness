@@ -84,7 +84,7 @@ func (f *finalRenewalFixture) seedFifthCohort(t *testing.T) {
 			f.writeFifthFixture(t, ".evidence/minimax-renewals/"+recovery5ID+"/"+route+".json", map[string]any{"schema": 2, "renewalId": recovery5ID, "grantSha256": f.grantPin, "identity": id, "session": session, "processNonce": minimaxlive.Hash([]byte("fifth-" + route))})
 			budget := minimaxlive.Summarize(rows, id)
 			cs := []minimaxlive.Call{}
-			for _, p := range minimaxlive.Plan(id) {
+			for _, p := range historicalM3Plan() {
 				c := minimaxlive.Call{ID: p.ID, Outcome: "PASS"}
 				for _, r := range rows {
 					if r.Identity == id && r.Case == p.ID {
@@ -97,7 +97,7 @@ func (f *finalRenewalFixture) seedFifthCohort(t *testing.T) {
 				}
 				cs = append(cs, c)
 			}
-			f.writeFifthFixture(t, bundle+"/minimax-report.json", minimaxlive.Report{Schema: 1, Kind: "minimax-formal", Mode: "live", Stage: "formal", Identity: id, Outcome: "PASS", AuditPassed: true, Complete: true, Session: session, GitCommit: f.commit, FormalRenewalID: recovery5ID, FormalRenewalGrantSHA256: f.grantPin, Budget: budget, Cumulative: budget, ExecutionSource: source, Calls: cs, Expected: minimaxlive.Plan(id)})
+			f.writeFifthFixture(t, bundle+"/minimax-report.json", minimaxlive.Report{Schema: 1, Kind: "minimax-formal", Mode: "live", Stage: "formal", Identity: id, Outcome: "PASS", AuditPassed: true, Complete: true, Session: session, GitCommit: f.commit, FormalRenewalID: recovery5ID, FormalRenewalGrantSHA256: f.grantPin, Budget: budget, Cumulative: budget, ExecutionSource: source, Calls: cs, Expected: historicalM3Plan()})
 		} else {
 			scenarios := []any{}
 			for n := 0; n < calls; n++ {

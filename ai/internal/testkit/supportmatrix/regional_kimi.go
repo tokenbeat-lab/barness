@@ -59,7 +59,7 @@ func RegionalCandidateFacts(combo string) any {
 func RegionalBudgetFor(combo string) Budget {
 	b := Budget{MaxCalls: 24, MaxAttempts: 24, MaxRetries: 0, MaxOutputTokens: 4096, MaxRequestedOutputTokens: 98304, MaxReservedInputTokens: 120000, CallSeconds: 120, ProcessSeconds: 1800}
 	if RegionalIsKimi(combo) {
-		b.MaxCalls, b.MaxAttempts, b.MaxRequestedOutputTokens, b.MaxReservedInputTokens = 9, 9, 36864, 131072
+		b.MaxCalls, b.MaxAttempts, b.MaxRequestedOutputTokens, b.MaxReservedInputTokens = 10, 10, 40960, 131072
 	}
 	return b
 }
