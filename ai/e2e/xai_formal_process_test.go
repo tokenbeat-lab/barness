@@ -80,6 +80,17 @@ func TestXAIFormalHarnessProcess(t *testing.T) {
 		pb, ok := projected["budget"].(map[string]any)
 		caseProof.Check("standard budget preserves inclusive normalized accounting", ok && pb["maxCalls"] == float64(24) && pb["maxAttempts"] == float64(24) && pb["maxRetriesPerScenario"] == float64(0) && pb["maxOutputTokensPerCall"] == float64(1024) && pb["callsUsed"] == float64(24) && pb["httpAttempts"] == float64(24) && pb["inputTokensUsed"] == float64(768) && pb["outputTokensUsed"] == float64(26616) && b["reportedTokens"] == float64(27384), "standard budget differs")
 		caseProof.Check("standard projection preserves all own scenes and pins", projected["schema"] == float64(3) && projected["combo"] == "xai-responses" && projected["catalogHash"] == r["catalogHash"] && projected["gitCommit"] == r["gitCommit"] && reflect.DeepEqual(projected["expected"], r["expected"]) && reflect.DeepEqual(projected["scenarios"], r["scenarios"]), "projection differs")
+		intervalProof := run.Case(t, "E17-xai-formal-native-interval")
+		raw, manifestErr := os.ReadFile(filepath.Join(dir, "manifest.json"))
+		var manifest struct {
+			StartedAt  time.Time `json:"started_at"`
+			FinishedAt time.Time `json:"finished_at"`
+		}
+		manifestDecodeErr := json.Unmarshal(raw, &manifest)
+		started, startErr := time.Parse(time.RFC3339Nano, r["startedAt"].(string))
+		finished, finishErr := time.Parse(time.RFC3339Nano, r["finishedAt"].(string))
+		intervalProof.Record("actual-interval", map[string]any{"manifest": manifest, "reportStartedAt": started, "reportFinishedAt": finished, "projectionFinishedAt": projected["finishedAt"]})
+		intervalProof.Check("native manifest encloses finalized report and projection", manifestErr == nil && manifestDecodeErr == nil && startErr == nil && finishErr == nil && !manifest.StartedAt.Before(started) && !manifest.StartedAt.After(finished) && !manifest.FinishedAt.Before(finished) && projected["finishedAt"] == r["finishedAt"], "finalized report interval escapes native manifest")
 		for _, scene := range []string{"entry-stream", "entry-stream-simple"} {
 			raw, err := os.ReadFile(filepath.Join(dir, "E17-xai-"+scene, "text-events.json"))
 			var events []map[string]json.RawMessage
@@ -171,7 +182,7 @@ func TestXAIFormalHarnessProcess(t *testing.T) {
 			proof.Check("consumed formal grant cannot be reused", code != 0 && r["budget"].(map[string]any)["httpAttempts"] == float64(0), "grant was reused")
 		}
 	})
-	for _, mode := range []string{"final-write", "projection-write", "final-sync", "final-audit"} {
+	for _, mode := range []string{"final-write", "projection-write", "final-manifest", "final-sync", "final-audit"} {
 		t.Run(mode, func(t *testing.T) {
 			path := xaiWriteFormalGrant(t, xaiFormalGrant(t, baseline))
 			r, code, dir := xaiFormalChild(t, ctx, binary, mode, "^TestXAIFormal$", []string{"BARNESS_XAI_CONTROLLED=" + mode, "BARNESS_AI_LIVE_ACCOUNT_ALIAS=synthetic", "BARNESS_AI_LIVE_REGION_ALIAS=global", "BARNESS_AI_LIVE_PERMISSIONS_FILE=" + path})
@@ -186,7 +197,7 @@ func TestXAIFormalHarnessProcess(t *testing.T) {
 			var fault map[string]any
 			raw, readErr := os.ReadFile(filepath.Join(dir, "xai-finalization-failure.json"))
 			decodeErr := json.Unmarshal(raw, &fault)
-			steps := map[string]string{"final-write": "pending-write", "projection-write": "projection-pending-write", "final-sync": "directory-sync", "final-audit": "final-audit"}
+			steps := map[string]string{"final-write": "pending-write", "projection-write": "projection-pending-write", "final-manifest": "manifest-write", "final-sync": "directory-sync", "final-audit": "final-audit"}
 			proof.Check("retained actual filesystem failure step", readErr == nil && decodeErr == nil && fault["step"] == steps[mode], "formal failure proof missing")
 			var prior map[string]any
 			raw, readErr = os.ReadFile(filepath.Join(dir, "xai-formal-report.unfinalized.json"))
