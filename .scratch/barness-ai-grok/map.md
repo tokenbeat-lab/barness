@@ -16,7 +16,7 @@
 
 - [08 审查修复已解决](issues/08-review-fixes.md)：`51c95922`修复两轴审查五项发现，逐项保留公开 red/green；冻结定向范围605测试/564case通过。独立复核与完整集成普通回执仍待完成，05还需后续冻结及授权。
 
-- [09 规范证据标签](issues/09-canonical-evidence.md)：真实原生消费者发现空 effort 产生中间空目录段；标签改为default并加实际producer→collector→CLI回归。旧错误原件保留，05等待新的集成冻结。
+- [09 规范证据标签已解决](issues/09-canonical-evidence.md)：真实原生消费者发现空 effort 产生中间空目录段；标签改为default并加实际producer→collector→CLI回归。`8f77ecc8`冻结定向65顶层/565case通过，native source/e2e均true；旧错误原件保留，05等待新的集成冻结。
 
 ## Fog
 

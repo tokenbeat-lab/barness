@@ -1,7 +1,7 @@
 # 规范化 Grok 选项证据标签
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 08
 
 ## Contract
@@ -33,3 +33,18 @@ Blocked by: 08
 
 增加公开回归 `TestXAIOptionEvidenceConsumption` / case `XAI-E04-option-evidence-consumer`。它调用实际选项测试、现有 collector 和编译后的原生 releasegate，不使用合成 offline 包冒充真实 producer。有限必交case为full/default/0与simple/default/128000；同时检查source/e2e通过以及全部未执行阶段继续拒绝。新增case和十个 `/default/` 标签重命名须由集成维护覆盖清单。
 
+
+
+## Answer
+
+标签与公共子进程回归提交为 `8f77ecc8d126ce8d1fc9006c3171bd63f79c493d`，已合并当时最新集成 `6937e70a`。
+
+冻结定向命令（exit0）：
+
+```sh
+python3 tools/verification/run.py --feature barness-ai-grok --stage e2e -- go test -json ./ai/e2e -run '^(TestXAI.*|TestGLMResponsesOriginIDCollision|TestKimiResponsesCrossTargetIDs|TestKimiResponsesSequentialProvenanceIDs)$' -count=1 -timeout=5m
+```
+
+[不可变索引](../evidence/canonical-evidence-e2e-v1.json)绑定 `20261026T035455.163466Z-wri39emd`；65顶层、606实际测试、565原生case全部PASS，唯一主包及audit完整。真实consumer的source/e2e=true，live/race/pressure=false、CLI exit1，外层回归exit0。文档收尾后完整1962源码与空输入集合另核对相等，路径与受测来源见索引。
+
+本票关闭只表示标签修复与定向生产→原生消费验证完成。集成cases-v2、最终完整ordinary及只读门禁由主工作树重建；旧失败包仍不可消费且原件不修改。live/race/压力均未执行，release.pass=false。
