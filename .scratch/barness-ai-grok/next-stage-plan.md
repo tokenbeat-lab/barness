@@ -2,7 +2,7 @@
 
 Status: needs-info
 
-当前候选代码、两轴修复复核和冻结普通验收已完成；本计划等待本次明确授权。机器可读计划见[未授权计划 v2](verification/candidate-plan-v2.json)。唯一当前状态见[spec](spec.md#唯一当前状态)。
+原候选来源已执行两次授权运行，均失败并保留原件。代理运行已完成15场景，JPEG夹具低于上游报告的像素下限；10修复完成后需新来源、新二进制与新授权，不能复用已消耗grant。详见[实际汇总](evidence/live-attempts-v1.json)。本计划原v2范围只作历史设计指针。机器可读计划见[未授权计划 v2](verification/candidate-plan-v2.json)。唯一当前状态见[spec](spec.md#唯一当前状态)。
 
 ## 本次可选择的有限范围
 

@@ -225,7 +225,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留 |
 | 完整普通v2 | 采集器实际PASS/exit0；两个Go包15402个测试PASS；主包14586个原生case PASS、214个opt-in压力/压力消费者case NOT_RUN；必需565/565 PASS、65预期入口齐全，audit0、非规范目录0 |
 | 原生消费 | 真实565-case定向包的公开原生消费者已验证source/e2e=true、live/race/压力=false、CLI exit1；完整包只读结果见[readonly-v2](../../.evidence/barness-ai-grok/release/readonly-v2/)及[不可变索引](verification/record-v2.json) |
-| 自身live | 首次直连grant已消耗：entry-stream在15秒后deadline_exceeded，Calls1/Attempts1，余17场景NOT_RUN；原始失败包保留。用户另授权通过本机代理http://127.0.0.1:7890重新执行一次同范围候选，5 USD估算停止阈值；新grant `grok-20261026T043426Z-dbed29e7`，固定18场景/24调用、零自动重试，先完成新增输入匹配普通验证 |
+| 自身live | 两次独立授权均已消耗：首次直连1调用超时；代理运行20调用，15场景PASS、JPEG场景FAIL、余2场景NOT_RUN。上游明确报告8×8 JPEG共64像素低于512像素下限；已知响应累计估算上界0.023408 USD，缺失用量仍未知。真实失败包、grant/claim、两次原生消费者exit1/pass=false见[不可变汇总](evidence/live-attempts-v1.json)。下一次付费运行尚未授权 |
 | 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | BuiltinCatalog未激活xAI，无正式支持声明；release.pass=false，保留付费与人工阶段所缺事实 |
@@ -253,6 +253,6 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 [候选构建](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)与[只读门禁构建](../../.evidence/barness-ai-grok/build/20261026T040254-releasegate-el73wpu7/build-receipt.json)实际exit0，GOENV=off、GOFLAGS为空、隔离HOME/凭据；source/binary/catalog/SDK机器事实已固定。候选无开关/无Key精确入口实际为NOT_RUN、Calls0，不产生真实资格。
 
-自身候选已有一次失败事实，代理重运行另获明确授权；正式资格尚未取得。05须取得自身捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择后再只读判定。race候选是当前Client/Responses和共享opaque来源路径；压力候选含大工具参数、密文/重复终态、队列/准入/取消及消费者，精确argv和负载待人类选择。NOT_RUN不等于不适用；真实证据维护/隔离/purge未执行。
+自身候选已有两次失败事实；JPEG夹具修复正在独立工作树进行，随后复核并重新冻结来源。再次付费运行需新授权；05须取得自身完整捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择后再只读判定。race/压力保持NOT_RUN。真实证据维护/隔离/purge未执行。
 
 回滚先禁用并更新xAI Binding版本，固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照及验证原件，不自动切Provider/API；无数据库迁移。
