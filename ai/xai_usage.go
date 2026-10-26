@@ -58,6 +58,13 @@ func xaiUsage(model Model, raw json.RawMessage) (Usage, UsageReporting, CostEsti
 			return Usage{}, UsageUnreported, unreported, xaiUsageFailure()
 		}
 	}
+	minimumInput := r.cache.n
+	if r.input.present {
+		minimumInput = r.input.n
+	}
+	if !known && u.Output > math.MaxInt64-minimumInput {
+		return Usage{}, UsageUnreported, unreported, xaiUsageFailure()
+	}
 	reporting := UsagePartial
 	if r.input.present && r.output.present && r.total.present && r.cache.present && r.reasoning.present {
 		reporting = UsageComplete

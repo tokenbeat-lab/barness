@@ -32,8 +32,24 @@ func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMess
 			return nil, xaiStreamFailure()
 		}
 	}
+	if raw, has := obj["status"]; has {
+		if _, ok := rawString(raw); !ok {
+			return nil, xaiStreamFailure()
+		}
+	}
+	if kind == "message" {
+		if raw, has := obj["role"]; has {
+			role, ok := rawString(raw)
+			if !ok || role != "assistant" {
+				return nil, xaiStreamFailure()
+			}
+		}
+	}
 	cipher := ""
 	if kind == "reasoning" {
+		if _, err := xaiResponsesReasoning(raw); err != nil {
+			return nil, xaiStreamFailure()
+		}
 		if raw, has := obj["encrypted_content"]; has && string(raw) != "null" {
 			cipher, ok = rawString(raw)
 			if !ok {
@@ -87,6 +103,17 @@ func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMess
 }
 func (s *xaiResponsesState) closeItem(p *responsesParser, item *xaiStreamItem, raw json.RawMessage) *Error {
 	obj, _ := xaiStreamObject(raw)
+	if raw, has := obj["status"]; has {
+		status, ok := rawString(raw)
+		if !ok || status != "completed" && !(s.incomplete && status == "incomplete") {
+			return xaiStreamFailure()
+		}
+	}
+	if item.kind == "message" {
+		if _, has := obj["content"]; !has {
+			return xaiStreamFailure()
+		}
+	}
 	if item.kind == "function_call" {
 		return s.closeCall(p, item, obj, raw)
 	}
@@ -141,6 +168,9 @@ func (s *xaiResponsesState) closeItem(p *responsesParser, item *xaiStreamItem, r
 				return xaiStreamFailure()
 			}
 			texts[i] = text
+			if !s.partKind(item, channel, int64(i), kind) {
+				return xaiStreamFailure()
+			}
 			if failure := s.setPart(p, item, channel, int64(i), text, true); failure != nil {
 				return failure
 			}

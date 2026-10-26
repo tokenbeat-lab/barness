@@ -19,6 +19,9 @@ func (s *xaiResponsesState) arguments(p *responsesParser, typ string, ev map[str
 	if !ok {
 		return xaiStreamFailure()
 	}
+	if item.done && (!done || value != item.args.String()) {
+		return xaiStreamFailure()
+	}
 	if done {
 		return s.callSnapshot(p, item, value)
 	}
@@ -52,7 +55,12 @@ func (s *xaiResponsesState) closeCall(p *responsesParser, item *xaiStreamItem, o
 		return xaiStreamFailure()
 	}
 	if _, ok := xaiStreamObject([]byte(args)); !ok {
-		return xaiStreamFailure()
+		if !s.incomplete || item.done {
+			return xaiStreamFailure()
+		}
+		// A length/filtered terminal is a partial result, never an executable
+		// function completion. Preserve its authoritative raw prefix only.
+		return s.callSnapshot(p, item, args)
 	}
 	if failure := s.callSnapshot(p, item, args); failure != nil {
 		return failure

@@ -9,12 +9,13 @@ import (
 // All mutable protocol facts belong to one call. xAI's stricter snapshot
 // contract deliberately leaves the established Responses providers unchanged.
 type xaiResponsesState struct {
-	items    map[int64]*xaiStreamItem
-	ids      map[string]int64
-	calls    map[string]int64
-	terminal json.RawMessage
-	choice   string
-	parallel bool
+	items      map[int64]*xaiStreamItem
+	ids        map[string]int64
+	calls      map[string]int64
+	terminal   json.RawMessage
+	choice     string
+	parallel   bool
+	incomplete bool
 }
 type xaiStreamItem struct {
 	kind, id, call, name string
@@ -29,6 +30,7 @@ type xaiStreamItem struct {
 	argsDone             bool
 }
 type xaiStreamPart struct {
+	kind string
 	text *argumentText
 	done bool
 }
@@ -67,8 +69,16 @@ func (s *xaiResponsesState) handle(p *responsesParser, raw []byte, eventType str
 	if eventType == "error" {
 		typ, ok = "error", true
 	}
-	if !ok {
+	if !ok || eventType != "" && eventType != "message" && eventType != typ {
 		return xaiStreamFailure()
+	}
+	if typ == "error" {
+		return newError(CodeUpstreamError, PhaseStream, "xAI Responses reported an upstream error")
+	}
+	if seq, has := ev["sequence_number"]; has {
+		if _, ok := xaiStreamIndex(seq); !ok {
+			return xaiStreamFailure()
+		}
 	}
 	if p.terminal {
 		if typ == "response.completed" || typ == "response.incomplete" {
@@ -78,11 +88,7 @@ func (s *xaiResponsesState) handle(p *responsesParser, raw []byte, eventType str
 		}
 		return xaiStreamFailure()
 	}
-	if seq, has := ev["sequence_number"]; has {
-		if _, ok := xaiStreamIndex(seq); !ok {
-			return xaiStreamFailure()
-		}
-	}
+
 	switch typ {
 	case "error":
 		return newError(CodeUpstreamError, PhaseStream, "xAI Responses reported an upstream error")
@@ -140,7 +146,7 @@ func (s *xaiResponsesState) associated(ev map[string]json.RawMessage, kind strin
 		return nil, false
 	}
 	item, ok := s.items[key]
-	if !ok || item.kind != kind || item.done {
+	if !ok || item.kind != kind {
 		return nil, false
 	}
 	if raw, has := ev["item_id"]; has {
@@ -178,6 +184,20 @@ func (s *xaiResponsesState) finish(p *responsesParser, typ string, raw json.RawM
 		p.terminal = true
 		return newError(CodeUpstreamError, PhaseStream, "xAI Responses reported a failed response")
 	}
+	var response struct {
+		Usage   json.RawMessage `json:"usage"`
+		Tier    json.RawMessage `json:"service_tier"`
+		Details struct {
+			Reason string `json:"reason"`
+		} `json:"incomplete_details"`
+	}
+	if json.Unmarshal(raw, &response) != nil {
+		return xaiStreamFailure()
+	}
+	if status == "completed" && (response.Details.Reason != "" || len(r["error"]) != 0 && string(r["error"]) != "null") {
+		return xaiStreamFailure()
+	}
+	s.incomplete = status == "incomplete"
 	var output []json.RawMessage
 	if json.Unmarshal(r["output"], &output) != nil || output == nil {
 		return xaiStreamFailure()
@@ -205,16 +225,7 @@ func (s *xaiResponsesState) finish(p *responsesParser, typ string, raw json.RawM
 		}
 		p.out.responseID(value)
 	}
-	var response struct {
-		Usage   json.RawMessage `json:"usage"`
-		Tier    json.RawMessage `json:"service_tier"`
-		Details struct {
-			Reason string `json:"reason"`
-		} `json:"incomplete_details"`
-	}
-	if json.Unmarshal(raw, &response) != nil {
-		return xaiStreamFailure()
-	}
+
 	u, reporting, estimate, failure := xaiUsage(p.usage.model, response.Usage)
 	if failure != nil {
 		return failure

@@ -20,6 +20,9 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 	for dec.Next() {
 		event := dec.Event()
 		if bytes.HasPrefix(event.Data, []byte("[DONE]")) {
+			if p.xai != nil && !bytes.Equal(bytes.TrimSpace(event.Data), []byte("[DONE]")) {
+				return xaiStreamFailure()
+			}
 			break
 		}
 		if p.xai != nil {

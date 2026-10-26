@@ -79,3 +79,25 @@ func TestXAIStreamTools(t *testing.T) {
 		})
 	}
 }
+
+func TestXAITruncatedFunctionOutput(t *testing.T) {
+	ev := run.Case(t, "XAI-E06-truncated-function-length")
+	w := newXAIWorld(t, nil)
+	frame := json.RawMessage(`{"type":"response.incomplete","response":{"status":"incomplete","model":"grok-4.7","incomplete_details":{"reason":"max_output_tokens"},"output":[{"id":"f","type":"function_call","call_id":"c","name":"lookup","arguments":"{\"q\":"}],"usage":` + xaiUsage + `}}`)
+	enqueue(ev, w, xaiReply(t, frame))
+	o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), xaiTarget(), xaiToolRequest(), ai.ResponsesOptions{ToolChoice: ai.Value(ai.ResponsesToolChoice{Mode: "required"})}))
+	o.record(ev)
+	ev.Record("frames", []json.RawMessage{frame})
+	ev.Check("truncation preserves incomplete function and usage", o.err == nil && o.result.Message.StopReason == ai.StopReasonLength && o.result.Message.Usage.TotalTokens == 41 && len(o.result.Message.Content) == 1, "%v %+v", o.err, o.result)
+	if len(o.result.Message.Content) == 1 {
+		call, ok := o.result.Message.Content[0].(ai.ToolCall)
+		ev.Check("partial raw arguments stay non-executable", ok && call.RawArguments == `{"q":`, "%+v", call)
+	}
+	completed := 0
+	for _, event := range o.events {
+		if _, ok := event.(ai.ToolCallEndEvent); ok {
+			completed++
+		}
+	}
+	ev.Check("unfinished function never claims completion", completed == 0, "completed=%d", completed)
+}

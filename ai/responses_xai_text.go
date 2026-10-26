@@ -29,13 +29,26 @@ func (s *xaiResponsesState) text(p *responsesParser, typ string, ev map[string]j
 			field = "refusal"
 		}
 	}
+	partKind := "output_text"
+	if strings.Contains(typ, "refusal") {
+		partKind = "refusal"
+	}
+	if kind == "reasoning" {
+		partKind = "reasoning_text"
+		if channel == "summary" {
+			partKind = "summary_text"
+		}
+	}
 	text := ""
+	if item.done && !done {
+		return xaiStreamFailure()
+	}
 	if strings.Contains(typ, "_part.") {
 		part, ok := xaiStreamObject(ev["part"])
 		if !ok {
 			return xaiStreamFailure()
 		}
-		partKind, ok := rawString(part["type"])
+		partKind, ok = rawString(part["type"])
 		if !ok {
 			return xaiStreamFailure()
 		}
@@ -58,6 +71,15 @@ func (s *xaiResponsesState) text(p *responsesParser, typ string, ev map[string]j
 		if !ok {
 			return xaiStreamFailure()
 		}
+	}
+	if item.done {
+		part := item.parts[channel][index]
+		if part == nil || !part.done || part.text.String() != text {
+			return xaiStreamFailure()
+		}
+	}
+	if !s.partKind(item, channel, index, partKind) {
+		return xaiStreamFailure()
 	}
 	return s.setPart(p, item, channel, index, text, done)
 }
@@ -122,4 +144,20 @@ func (s *xaiResponsesState) emit(p *responsesParser, item *xaiStreamItem, text s
 	} else {
 		p.out.thinkingDelta(item.index, text)
 	}
+}
+
+func (s *xaiResponsesState) partKind(item *xaiStreamItem, channel string, index int64, kind string) bool {
+	if item.parts[channel] == nil {
+		item.parts[channel] = map[int64]*xaiStreamPart{}
+	}
+	part := item.parts[channel][index]
+	if part == nil {
+		part = &xaiStreamPart{text: newArgumentText("")}
+		item.parts[channel][index] = part
+	}
+	if part.kind != "" && part.kind != kind {
+		return false
+	}
+	part.kind = kind
+	return true
 }
