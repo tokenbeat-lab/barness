@@ -1,0 +1,54 @@
+{
+  "actualGoTests": 13,
+  "actualLiveQualification": false,
+  "allRequiredCases": [
+    "GROK-GENERIC-CAPTURE-attribution",
+    "GROK-GENERIC-CAPTURE-history-api",
+    "GROK-GENERIC-CAPTURE-history-call-error",
+    "GROK-GENERIC-CAPTURE-history-message-error",
+    "GROK-GENERIC-CAPTURE-history-model",
+    "GROK-GENERIC-CAPTURE-history-provider",
+    "GROK-GENERIC-CAPTURE-history-stop",
+    "GROK-GENERIC-CAPTURE-inventory",
+    "GROK-GENERIC-CAPTURE-negative-usage",
+    "GROK-GENERIC-CAPTURE-nonempty-content",
+    "GROK-GENERIC-CAPTURE-terminal",
+    "GROK-GENERIC-CAPTURE-usage-budget"
+  ],
+  "audit": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T121309.360358Z-mjj58320/bundles/20261026T121313.406822000Z/audit.json",
+    "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+  },
+  "changedTest": {
+    "path": "ai/e2e/generic_capture_decoder_test.go",
+    "sha256": "d833d5f6de8c756e0f4202118f846888013e960bec1f6fe93c38b7f855c4f191"
+  },
+  "claims": 0,
+  "controlledHistory": "Public Client loopback encodes grokhistory.Request; Host immutability, source envelopes, actual wire and CrossModel2 verified before positive capture audit.",
+  "entryPoint": "TestGenericChatCaptureDecoder",
+  "grants": 0,
+  "kind": "generic-capture-message-history-counterexamples",
+  "manifest": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T121309.360358Z-mjj58320/bundles/20261026T121313.406822000Z/manifest.json",
+    "sha256": "252b17214f3e45fa3fb54a04640f5b890b2fc11caa6ff37c82d05b6a6d45d399"
+  },
+  "newCases": [
+    "GROK-GENERIC-CAPTURE-history-api",
+    "GROK-GENERIC-CAPTURE-history-call-error",
+    "GROK-GENERIC-CAPTURE-history-message-error",
+    "GROK-GENERIC-CAPTURE-history-model",
+    "GROK-GENERIC-CAPTURE-history-provider",
+    "GROK-GENERIC-CAPTURE-history-stop"
+  ],
+  "productionChanges": [],
+  "receipt": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T121309.360358Z-mjj58320/receipt.json",
+    "sha256": "1ca4f1854937211f53b1854e49f21cdfa491f6e0a4ca07d401c3e8c4227c1946"
+  },
+  "redStatus": "No product RED fabricated: production DTO was already correct; new counterexamples passed directly. Existing original decoder RED and GREEN remain immutable in generic-capture-decoder-v1.json.",
+  "result": "PASS: 12/12 native cases, exit0, audit0",
+  "reviewFinding": "review-v9 Spec P2: mandatory history Message identity/stop/error counterexamples",
+  "schema": 1,
+  "sourceCommit": "5f933af973d1e0b3784df149f489c70d53973a0b",
+  "vendorCalls": 0
+}

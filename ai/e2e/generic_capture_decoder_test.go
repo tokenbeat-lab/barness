@@ -10,13 +10,16 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/release"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 // Failure inventory: nonempty domain text/thinking/tool content cannot be
 // unmarshaled into AssistantContent interfaces. Reading the capture must still
-// reject attribution, terminal, usage and inventory tampering. These synthetic
+// reject attribution, terminal, usage and inventory tampering. Mandatory
+// history must also reject message provider/API/model, stop and error changes.
+// These synthetic
 // bundles deliberately name an unknown route: consuming their captures never
 // produces real live qualification, a grant, a claim or a vendor request.
 func TestGenericChatCaptureDecoder(t *testing.T) {
@@ -30,10 +33,10 @@ func TestGenericChatCaptureDecoder(t *testing.T) {
 	if out, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("build public consumer: %v %s", err, out)
 	}
-	for _, mutation := range []string{"nonempty-content", "attribution", "terminal", "negative-usage", "usage-budget", "inventory"} {
+	for _, mutation := range []string{"nonempty-content", "attribution", "terminal", "negative-usage", "usage-budget", "inventory", "history-provider", "history-api", "history-model", "history-stop", "history-message-error", "history-call-error"} {
 		t.Run(mutation, func(t *testing.T) {
 			ev := run.Case(t, "GROK-GENERIC-CAPTURE-"+mutation)
-			dir, record := genericCaptureDecoderFixture(t, root)
+			dir, record := genericCaptureDecoderFixture(t, root, ev)
 			result := filepath.Join(dir, "synthetic-text", "attempt-1-result.json")
 			switch mutation {
 			case "attribution":
@@ -49,7 +52,25 @@ func TestGenericChatCaptureDecoder(t *testing.T) {
 					v["result"].(map[string]any)["message"].(map[string]any)["usage"].(map[string]any)["input"] = -1
 				})
 			case "usage-budget":
-				editXAINativeJSON(t, dir, "live-report.json", func(v map[string]any) { v["budget"].(map[string]any)["inputTokensUsed"] = 4 })
+				editXAINativeJSON(t, dir, "live-report.json", func(v map[string]any) { v["budget"].(map[string]any)["inputTokensUsed"] = 5 })
+			case "history-provider", "history-api", "history-model", "history-stop", "history-message-error", "history-call-error":
+				editXAINativeJSON(t, dir, "synthetic-"+grokhistory.Scenario+"/attempt-1-result.json", func(v map[string]any) {
+					message := v["result"].(map[string]any)["message"].(map[string]any)
+					switch mutation {
+					case "history-provider":
+						message["provider"] = "deepseek"
+					case "history-api":
+						message["api"] = "openai-completions"
+					case "history-model":
+						message["model"] = "gpt-5.4"
+					case "history-stop":
+						message["stopReason"] = "error"
+					case "history-message-error":
+						message["errorMessage"] = "synthetic failed generation"
+					case "history-call-error":
+						v["error"] = "synthetic failed call"
+					}
+				})
 			case "inventory":
 				raw, readErr := os.ReadFile(result)
 				if readErr != nil {
@@ -98,7 +119,7 @@ func TestGenericChatCaptureDecoder(t *testing.T) {
 	}
 }
 
-func genericCaptureDecoderFixture(t *testing.T, root string) (string, string) {
+func genericCaptureDecoderFixture(t *testing.T, root string, ev *evidence.Case) (string, string) {
 	t.Helper()
 	parent := filepath.Join(root, ".evidence/barness-ai-grok/live/synthetic-chat")
 	if err := os.MkdirAll(parent, 0700); err != nil {
@@ -125,19 +146,26 @@ func genericCaptureDecoderFixture(t *testing.T, root string) (string, string) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	r := supportmatrix.Report{Schema: 3, Combo: "synthetic-chat", Operation: "chat", Provider: "openai", API: "openai-responses", Endpoint: "https://api.openai.com/v1", Model: "gpt-5-mini", SDK: "synthetic capture only", AccountAlias: "synthetic", GitCommit: commit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: now, FinishedAt: now.Add(time.Second), Budget: supportmatrix.Budget{MaxCalls: 32, MaxRetries: 1, MaxOutputTokens: 4096, CallsUsed: 3, HTTPAttempts: 3, InputTokensUsed: 3, OutputTokensUsed: 3}}
+	r := supportmatrix.Report{Schema: 3, Combo: "synthetic-chat", Operation: "chat", Provider: "openai", API: "openai-responses", Endpoint: "https://api.openai.com/v1", Model: "gpt-5-mini", SDK: "synthetic capture only", AccountAlias: "synthetic", GitCommit: commit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: now, FinishedAt: now.Add(time.Second), Budget: supportmatrix.Budget{MaxCalls: 32, MaxRetries: 1, MaxOutputTokens: 4096, CallsUsed: 4, HTTPAttempts: 4, InputTokensUsed: 4, OutputTokensUsed: 4}}
 	var cases []map[string]any
-	blocks := []ai.AssistantContent{ai.Text{Text: "synthetic text"}, ai.Thinking{Thinking: "synthetic thinking"}, ai.ToolCall{ID: "synthetic-call", Name: "synthetic_tool", Arguments: ai.UncheckedArguments(`{"value":1}`)}}
-	for i, kind := range []string{"text", "thinking", "tool"} {
+	blocks := []ai.AssistantContent{ai.Text{Text: "synthetic text"}, ai.Thinking{Thinking: "synthetic thinking"}, ai.ToolCall{ID: "synthetic-call", Name: "synthetic_tool", Arguments: ai.UncheckedArguments(`{"value":1}`)}, ai.Text{Text: "history ready"}}
+	for i, kind := range []string{"text", "thinking", "tool", grokhistory.Scenario} {
 		id := "synthetic-" + kind
 		caseDir := filepath.Join(dir, id)
 		if err := os.Mkdir(caseDir, 0700); err != nil {
 			t.Fatal(err)
 		}
 		meta := ai.CallMetadata{CallAttribution: ai.CallAttribution{TenantID: "synthetic-tenant", RequestID: id, BindingID: r.Combo, Operation: ai.OperationChat, Resolved: true, ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIResponses, ModelID: r.Model}, CatalogVersion: r.CatalogVersion, CatalogHash: hash, Attempts: []ai.Attempt{{AttemptID: id + "#1", HTTPStatus: 200}}}
+		wire := `{"model":"gpt-5-mini"}`
+		if kind == grokhistory.Scenario {
+			wire = genericCaptureDecoderHistory(t, caseDir, ev)
+			meta.TenantID = tenantA.tenant
+			meta.AccountScopeID = "live-" + r.Combo
+			meta.NativeStateDowngrades = ai.NativeStateDowngrades{CrossModel: 2}
+		}
 		result := ai.Result{Message: ai.AssistantMessage{Content: []ai.AssistantContent{blocks[i]}, API: ai.APIOpenAIResponses, Provider: ai.ProviderOpenAI, Model: r.Model, Usage: ai.Usage{Input: 1, Output: 1}, StopReason: ai.StopReasonStop}, Metadata: meta}
 		writeReleaseJSON(t, caseDir, "attempt-1-result.json", map[string]any{"result": result, "error": ""})
-		writeReleaseJSON(t, caseDir, "attempt-1-exchanges.json", []map[string]any{{"method": "POST", "url": r.Endpoint + "/responses", "requestBody": `{"model":"gpt-5-mini"}`, "status": 200, "truncated": false}})
+		writeReleaseJSON(t, caseDir, "attempt-1-exchanges.json", []map[string]any{{"method": "POST", "url": r.Endpoint + "/responses", "requestBody": wire, "status": 200, "truncated": false}})
 		writeReleaseJSON(t, caseDir, "observations-attempt-1.json", []ai.Observation{{Kind: ai.ObservationCallFinished, Call: meta}})
 		writeReleaseJSON(t, caseDir, "assertions.json", map[string]any{"case_id": id, "status": "PASS", "assertions": []map[string]any{{"pass": true}}})
 		r.Expected = append(r.Expected, kind)
@@ -150,6 +178,34 @@ func genericCaptureDecoderFixture(t *testing.T, root string) (string, string) {
 	resealXAINativeManifest(t, dir)
 	recordPath := filepath.Join(attempt, "synthetic-record.json")
 	return dir, recordPath
+}
+
+// Reuse the public Client's actual encoding of the fixed trusted Host history;
+// this stays a loopback call and grants the enclosing synthetic route nothing.
+func genericCaptureDecoderHistory(t *testing.T, dir string, ev *evidence.Case) string {
+	t.Helper()
+	w, binding, model := grokHistoryWorld(t, "openai-responses")
+	reply, _ := regionalHostScript(t, binding, model)
+	enqueue(ev, w, reply)
+	scope := ai.CallScope{TenantID: tenantA.tenant, RequestID: t.Name()}
+	req, err := grokhistory.Request(scope)
+	if err != nil {
+		t.Fatal(err)
+	}
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
+	writeReleaseJSON(t, dir, "public-request.json", req)
+	got := drain(w.client.StreamSimple(ctxFor(t), scope, ai.Target{BindingID: binding.BindingID, ModelID: model}, req, ai.SimpleOptions{MaxTokens: ai.Value(64)}))
+	requests := w.provider.Requests()
+	if got.err != nil || got.result.Message.StopReason != ai.StopReasonStop || len(requests) != 1 {
+		t.Fatal("controlled mandatory history fixture did not complete")
+	}
+	provenance.After = grokhistory.Envelopes(req)
+	writeReleaseJSON(t, dir, "immutable-input.json", req)
+	writeReleaseJSON(t, dir, "history-provenance.json", provenance)
+	if !grokhistory.VerifyHost(mustMarshal(t, req)) || grokhistory.VerifyProvenance(mustMarshal(t, provenance), scope.TenantID) != nil || grokhistory.Verify(binding.API, requests[0].Body) != nil || got.result.Metadata.NativeStateDowngrades != (ai.NativeStateDowngrades{CrossModel: 2}) {
+		t.Fatal("controlled mandatory history fixture has invalid source, wire or downgrade")
+	}
+	return string(requests[0].Body)
 }
 
 func genericCaptureDecoderReceipt(t *testing.T, dir, recordPath string) {
