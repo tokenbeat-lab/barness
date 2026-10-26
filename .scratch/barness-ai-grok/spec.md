@@ -221,10 +221,10 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 项目 | 当前事实 |
 | --- | --- |
 | 设计与spec | ready-for-agent；公共Client验收接缝已获用户确认 |
-| 源码基线 | 2f58c68d8fbb30a07e71b9666feed9979c791d01；本次未修改执行代码 |
-| 实施 | IN_PROGRESS；集成分支 `codex/barness-ai-grok`；工单图见 [map](map.md)；正式目录未激活 |
+| 源码基线 | 起点 `2f58c68d8fbb30a07e71b9666feed9979c791d01`；候选执行代码已合并；实际受测提交与最终来源分别记录，不将基础回执当成后续来源通过 |
+| 实施 | IN_PROGRESS；集成分支 `codex/barness-ai-grok`；01–03 已合并，04/07 正在普通验收；05/06 待独立授权与真实资格；工单图见 [map](map.md)；正式目录未激活 |
 | 本次文档核对 | PASS；Python文档检查实际退出0：38个本地链接/锚点、57条用户故事、24项需求与18组验收映射、费用十进制验算、模板/格式/范围检查通过；不产生运行支持资格 |
-| 普通E2E / live / race / 压力 | 对本次纯文档修改不适用；对未来实现均为NOT_RUN，分别按SOP执行 |
+| 普通E2E / live / race / 压力 | 基础来源完整普通包 PASS；请求/历史 290 cases、流/用量 400 cases 定向 PASS，原件见下；最终集成来源完整普通包待执行。付费 live、race、压力均 NOT_RUN |
 | 发布 | 未执行Release Gate，未宣称release.pass=true或正式支持 |
 
 未来实施与证据只在本节更新权威当前状态，其他文档链接至此；历史失败、来源和授权保持独立原件，不改写为新来源通过。
@@ -239,3 +239,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 - 压力候选：受影响 Responses 大工具参数、加密终态字节与共享准入释放；须先有有效 live/race 并由人选择，NOT_RUN。
 - 输入与已有证据：设计/spec/research/ADR 为实现依据，不是运行证据；无 xAI 当前运行回执。不沿用其他 Provider 的支持资格。
 - 发布：待普通验证、真实资格及人工阶段；不能声称 `release.pass=true`。
+
+### 已留存的实施阶段原件
+
+以下是分阶段实际事实，不能替代尚未取得的最终集成回执或本路线真实资格。失败和无效 attempt 永久保留，最终通过不覆盖它们。
+
+| 范围 | 实际受测来源 / 命令结果 | 回执入口 |
+| --- | --- | --- |
+| 原旧 Responses 定向基线 | 文档集成来源；普通命令 exit 0，PASS | [原件](../../.evidence/barness-ai-grok/e2e/20261026T015751.277074Z-8roikj5t/receipt.json) |
+| 基础来源完整普通包 | `b058e0ba88aaaa5c383332962858f8fcef6028e6`；`go test -json ./ai/e2e ./ai -count=1 -timeout=20m`，exit 0，PASS/audit 有效 | [原件](../../.evidence/barness-ai-grok/e2e/20261026T020713.669852Z-jfjyiu6_/receipt.json) |
+| 02 请求/历史 | `119ddcc10aaf74303146d1beff7c48e925f69597`；`^TestXAI` 290 cases，exit 0；收尾来源集合相等 | [原件](../../.evidence/barness-ai-grok/e2e/20261026T022404.466029Z-kkfrh3ui/receipt.json)；[相等性](../../.evidence/barness-ai-grok/ticket02-source-equality.json) |
+| 03 流/用量 | `d1b80111257b075f2cd834aa1f7957185c2c96f2`；`^TestXAI` 400 cases，exit 0；1942 文件与选定输入集合相等 | [原件](../../.evidence/barness-ai-grok/e2e/20261026T022734.642299Z-a17jb0sl/receipt.json)；[相等性](../../.evidence/barness-ai-grok/ticket03-final-source-equality-20261026T0230.json) |
+
+所有原件均复制至原仓库 `.evidence/barness-ai-grok/`；各实施工作树的源/目标逐文件 SHA256 已核对一致。当前代码与这些旧来源的完整相等性尚未宣称；最终审查后将另取冻结普通回执。
