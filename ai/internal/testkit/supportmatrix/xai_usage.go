@@ -6,6 +6,7 @@ import (
 	"math"
 	"math/big"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/openai/openai-go/v3/packages/ssestream"
@@ -86,7 +87,21 @@ func xaiTerminal(body string) (map[string]json.RawMessage, []map[string]json.Raw
 	return terminal, ordered, visible, nil
 }
 func xaiCount(raw json.RawMessage) (int64, error) {
-	r, ok := new(big.Rat).SetString(string(raw))
+	s := string(raw)
+	if n, err := strconv.ParseInt(s, 10, 64); err == nil && n >= 0 {
+		return n, nil
+	}
+	value, err := strconv.ParseFloat(s, 64)
+	if err != nil || !xaiFinite(value) || math.Trunc(value) != value || value > float64(math.MaxInt64) {
+		return 0, refuse("xAI exact token count invalid")
+	}
+	if at := strings.IndexAny(s, "eE"); at >= 0 {
+		exponent, err := strconv.ParseInt(s[at+1:], 10, 32)
+		if err != nil || exponent > 256 || exponent < -256 {
+			return 0, refuse("xAI token exponent exceeds exact arithmetic bound")
+		}
+	}
+	r, ok := new(big.Rat).SetString(s)
 	if !ok || !r.IsInt() || r.Sign() < 0 || !r.Num().IsInt64() {
 		return 0, refuse("xAI raw token count is not a finite nonnegative exact integer")
 	}
@@ -96,6 +111,9 @@ func verifyXAIUsage(c *xaiCall) error {
 	var usage, inputs, outputs map[string]json.RawMessage
 	if regionalDecode(c.terminal["usage"], &usage) != nil || regionalDecode(usage["input_tokens_details"], &inputs) != nil || regionalDecode(usage["output_tokens_details"], &outputs) != nil {
 		return refuse("xAI required raw usage details missing")
+	}
+	if err := verifyXAIPricingScope(c.terminal, usage, inputs, outputs); err != nil {
+		return err
 	}
 	p, e1 := xaiCount(usage["input_tokens"])
 	o, e2 := xaiCount(usage["output_tokens"])
