@@ -1,7 +1,7 @@
 # 真实 JPEG 夹具满足已观测像素要求
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 09
 
 ## Contract
@@ -18,7 +18,7 @@ ai/live/xai_scenarios_test.go 的 JPEG 夹具及公共进程 E2E 捕获回归。
 
 ## Answer
 
-`00e7612c` 已修正JPEG为32×32；公共进程RED/GREEN原件保留，独立[两轴v4复核](../review/review-v4.md)0/0。最终完整普通冻结待采集。当前事实见 [spec](../spec.md#唯一当前状态)。
+`00e7612c` 已修正JPEG为32×32；公共进程RED/GREEN原件保留，独立[两轴v4复核](../review/review-v4.md)0/0。冻结普通v3实际565/565 case、65入口和15402 Go测试PASS，exit0、audit0；新候选二进制已无Key构建并绑定新来源。真实修复后场景等待新授权，不据受控通过声明厂商资格。当前事实见 [spec](../spec.md#唯一当前状态)。
 
 ## Comments
 

@@ -1,6 +1,6 @@
 # barness-ai 接入 Grok：OpenAI Responses
 
-Status: ready-for-agent
+Status: needs-info
 Type: feature
 Updated: 2026-10-26
 
@@ -220,17 +220,30 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 候选01–04、07–09已解决；10的JPEG夹具修复已合入 `cefa01f5607e219b60e115acf3378703ebdfa4cb`，增量两轴复核0/0，待重新冻结；集成分支 `codex/barness-ai-grok`。05真实资格、06正式交付仍未关闭 |
-| 冻结来源 | JPEG修复改变了live harness及公共进程测试来源，正在重新冻结。历史完整受测提交 `02b422bfffddefcfb0d95ec018867ed4dff816dc` 与cases-v2原件保留；新普通范围仍565必交case/65入口，选定新清单 [cases-v3.json](verification/cases-v3.json) |
+| 实现 | 候选实现及01–04、07–10已解决；JPEG修复合入 `cefa01f5607e219b60e115acf3378703ebdfa4cb`，增量两轴复核0/0，冻结完整普通已通过。集成分支 `codex/barness-ai-grok`；05真实资格、06正式交付仍未关闭 |
+| 冻结来源 | 实际完整受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e`，1962个执行文件；选定输入 [cases-v3.json](verification/cases-v3.json)，SHA256 `a4b5e96b775a181547488f2fec98a373d79d045d586d75712270ffcca59ada0e`。收尾提交只改文档/索引，并另核对完整来源及选定输入集合与内容相等 |
 | 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留；JPEG增量[v4](review/review-v4.md)亦0/0 |
-| 历史完整普通v2 | 采集器实际PASS/exit0；两个Go包15402个测试PASS；主包14586个原生case PASS、214个opt-in压力/压力消费者case NOT_RUN；必需565/565 PASS、65预期入口齐全，audit0、非规范目录0 |
-| 原生消费 | 历史普通v2只读结果source/e2e=true、live/race/压力=false、CLI exit1；见[readonly-v2](../../.evidence/barness-ai-grok/release/readonly-v2/)和[旧索引](verification/record-v2.json)，不冒充修复后新来源。两次实际live消费者均exit1/pass=false |
+| 完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
+| 原生消费 | 新[不可变索引v3](verification/record-v3.json)绑定本状态及完整普通v3；[只读报告](../../.evidence/barness-ai-grok/release/readonly-v3/native/release-report.json)保留真实argv/退出。两次历史live实际消费者均exit1/pass=false；候选不产生正式资格 |
 | 自身live | 两次独立授权均已消耗：首次直连1调用超时；代理运行20调用，15场景PASS、JPEG场景FAIL、余2场景NOT_RUN。上游明确报告8×8 JPEG共64像素低于512像素下限；已知响应累计估算上界0.023408 USD，缺失用量仍未知。真实失败包、grant/claim、两次原生消费者exit1/pass=false见[不可变汇总](evidence/live-attempts-v1.json)。下一次付费运行尚未授权 |
 | 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | BuiltinCatalog未激活xAI，无正式支持声明；release.pass=false，保留付费与人工阶段所缺事实 |
 
-#### 最终普通回执与可重复入口
+#### 当前完整普通v3与候选构建
+
+```sh
+python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
+  --input .scratch/barness-ai-grok/verification/cases-v3.json -- \
+  go test -json ./ai/e2e ./ai -count=1 -timeout=20m
+```
+
+- 真实完整回执：[receipt](../../.evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/receipt.json)，SHA256 `38d2f605589dfb1630bc03f4be713c6553ad6b7ae6780fc8ffd3d278a0c0e6f7`；实际受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e`，exit0、墙钟483.163秒。
+- 逐项核对：[validation-v4](../../.evidence/barness-ai-grok/final-ordinary-validation-v4.json)，SHA256 `95d055750c21a19149aec0771ee39eefcc8996ae6334d92c3796caa8e3b7bd20`；565必需case/65入口齐全，15402 Go测试PASS，audit0。v3手工核对误拒绝了原生合同允许的单一末尾斜杠，失败记录保留；v4按`load.go`的physical目录规则核对，未改原件或导入器。
+- [manifest](../../.evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/bundles/20261026T044541.122196000Z/manifest.json)，SHA256 `dcfdf94e7a74b9e23da2758394e947b16a0374e28e87d4e9164134d5935eb2b7`；[audit](../../.evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/bundles/20261026T044541.122196000Z/audit.json)，SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。
+- 新[候选构建](../../.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/build-receipt.json)实际PASS，native source `05e89a133ceb71b6725ad7a6ee889170f6e49fa7a72845928b202416a7d2838b`，binary SHA256 `bf0f618074775a5e2f2679ffe9e50c19a2ce148dd1c819050c50670b03d416c1`；无Key自检NOT_RUN/Calls0。旧构建和旧授权仅为历史事实。
+
+#### 历史普通v2回执与可重复入口
 
 ```sh
 python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
@@ -247,12 +260,12 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 原v1普通采集器PASS，但其E04省略effort的case目录含中间`//`，原生消费者实际拒绝。该问题通过明确`default`证据标签修正，实际请求仍省略effort，并补真实公开CLI失败/成功回归；导入器合同保持。原[readonly-v1报告](../../.evidence/barness-ai-grok/release/readonly-v1/native/release-report.json)、[v1索引](verification/record-v1.json)、全部失败/无效/成功attempt及[修正前状态原字节](history/spec-before-canonical-case-fix-v2.json)独立保留，未改写旧原件。前一可变状态另存[收尾快照](history/spec-before-final-v2.json)。
 
-所有实施工作树原件已复制至原仓库 `.evidence/barness-ai-grok/` 并逐文件SHA256核对；JPEG修复RED/GREEN另经preservation/20261026T044235Z核对。新来源须重新取得完整普通回执；其后纯文档/索引收尾再核对完整源码及选定输入集合与内容相等。用户另有未提交AGENTS.md修改及两个scratch目录，均保留。
+所有实施工作树原件已复制至原仓库 `.evidence/barness-ai-grok/` 并逐文件SHA256核对；JPEG修复原件另经preservation/20261026T044235Z核对。冻结普通v3之后只做文档/索引收尾，完整来源及选定输入集合与内容相等性另存。用户未提交AGENTS.md修改和两个scratch目录均保留。
 
 #### 编译产物与尚未执行项
 
 [候选构建](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)与[只读门禁构建](../../.evidence/barness-ai-grok/build/20261026T040254-releasegate-el73wpu7/build-receipt.json)实际exit0，GOENV=off、GOFLAGS为空、隔离HOME/凭据；source/binary/catalog/SDK机器事实已固定。候选无开关/无Key精确入口实际为NOT_RUN、Calls0，不产生真实资格。
 
-自身候选已有两次失败事实；JPEG夹具修复已合入，受控公共进程GREEN，正在复核并重新冻结来源。再次付费运行尚未授权；05须取得自身完整捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择后再只读判定。race/压力保持NOT_RUN。真实证据维护/隔离/purge未执行。
+自身候选已有两次失败事实；JPEG夹具修复完成，受控公共进程GREEN、两轴复核0/0，重新冻结普通565/565通过。修复后真实JPEG/工具结果图片/cache尾场景尚未执行；新来源、新二进制与[计划v3](next-stage-plan.md)等待一次新付费授权。05仍需自身完整捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择。race/压力NOT_RUN，release.pass=false；真实维护/隔离/purge未执行。
 
 回滚先禁用并更新xAI Binding版本，固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照及验证原件，不自动切Provider/API；无数据库迁移。

@@ -1,56 +1,33 @@
-# Grok 下一阶段：自身候选真实验证
+# Grok 下一阶段：修正 JPEG 后的候选真实验证
 
 Status: needs-info
 
-原候选来源已执行两次授权运行，均失败并保留原件。代理运行已完成15场景，JPEG夹具低于上游报告的像素下限；10修复完成后需新来源、新二进制与新授权，不能复用已消耗grant。详见[实际汇总](evidence/live-attempts-v1.json)。本计划原v2范围只作历史设计指针。机器可读计划见[未授权计划 v2](verification/candidate-plan-v2.json)。唯一当前状态见[spec](spec.md#唯一当前状态)。
+JPEG夹具修复、两轴复核0/0及新来源完整普通验收已完成。[机器计划v3](verification/candidate-plan-v3.json)等待一次新授权；此前两次grant均已消耗。唯一当前状态见[spec](spec.md#唯一当前状态)。
 
-## 本次可选择的有限范围
+## 已发生的两次运行
 
-固定 `chat / xai / openai-responses / grok-4.7`，官方全球目标 `https://api.x.ai/v1`；SDK `github.com/openai/openai-go/v3 v3.66.0`。18个必交场景共最多24个 Logical Call、24个HTTP Attempt，自动重试0；失败立即停止后续调用并消耗该次授权。
+[不可变汇总](evidence/live-attempts-v1.json)保留授权、grant/claim、原始捕获、预算和两次实际原生消费者exit1/pass=false。首次直连1调用超时；用户另授权代理运行，后者20调用、15场景PASS、JPEG场景FAIL、余2场景NOT_RUN。JPEG被明确以8×8=64总像素低于512像素下限拒绝。已知响应累计估算上界0.023408 USD；失败/未报告用量不能按零费用计算。
 
-每调用1024可见输出token，全部最多24576；每调用8192输入预留，总预留196608。每调用65秒，进程1800秒，最后30秒保留给证据收尾。`maxUSD`由本次人类明确选择，为按返回CostEstimate.Maximum累计的停止阈值；单次账单不能由本地事后停止逻辑硬封顶，可见输出预算也不限制推理总消耗。
+## 已完成的修复与冻结
 
-需要本次授权、账户别名、地区别名和有限正数USD停止阈值。密钥在本机专用环境变量 `BARNESS_AI_LIVE_KEY_XAI_RESPONSES` 配置，别名使用不敏感的账户标签。批准后才创建一次性source/binary/catalog-bound grant，固定其输入与原始授权；需要时按新增输入集合重取普通回执后才启动付费运行。
+- JPEG由8×8改为32×32；用户JPEG和工具结果JPEG场景完整保留。公共候选进程实际捕获先RED后GREEN，检查PNG/JPEG可解码、尺寸和数量，未增加公共输入约束。[回归原件](../../.evidence/barness-ai-grok/jpeg-fixture-e2e-v1.json)、[复核v4](review/review-v4.md)。
+- 完整普通实际受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e`：15402个Go测试PASS，565/565必交case、65预期入口齐全，audit0、exit0、墙钟483.163秒。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/receipt.json)、[逐项核对](../../.evidence/barness-ai-grok/final-ordinary-validation-v4.json)。
+- 新native source SHA256：`05e89a133ceb71b6725ad7a6ee889170f6e49fa7a72845928b202416a7d2838b`；SDK `github.com/openai/openai-go/v3 v3.66.0`。
+- 候选目录 `xai-grok-4.7-candidate-2026-10-26.1` / `sha256:bead32a65d2532dea261101a8b4c61c995c50168742243431844ab7394d6c97e`。
+- 新二进制：[xai-live.test](../../.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/xai-live.test)，SHA256 `bf0f618074775a5e2f2679ffe9e50c19a2ce148dd1c819050c50670b03d416c1`。[构建回执](../../.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/build-receipt.json)实际exit0；无Key自检NOT_RUN、Calls0、vendorHTTP0。
 
-## 已准备的可审阅事实
+## 本次待选择范围
 
-- 普通受测提交：`02b422bfffddefcfb0d95ec018867ed4dff816dc`；必需565 cases、65顶层入口实际完成，exit0，audit0。完整回执：[receipt](../../.evidence/barness-ai-grok/e2e/20261026T040239.130313Z-uw3gpgli/receipt.json)。
-- native source SHA256：`46c887f72ad264a0ca04266f0afc5541d986434840306504fc23e0ad67d274e0`。
-- 目录：`xai-grok-4.7-candidate-2026-10-26.1` / `sha256:bead32a65d2532dea261101a8b4c61c995c50168742243431844ab7394d6c97e`。
-- 实际冻结二进制：[xai-live.test](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/xai-live.test)；SHA256 `a6f0e31291d8c53a8b7a2c62a78a7cbb4ca2131696a847c5cd7eb476652e39c4`。来源通过 `-ldflags` 注入，实际构建argv/退出和二进制元数据见[构建回执](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)。
-- 无开关/无Key引导报告实际为NOT_RUN，Calls0、vendor HTTP0；该元数据自检不产生真实资格。
+固定 `chat / xai / openai-responses / grok-4.7`，官方全球目标 `https://api.x.ai/v1`，显式代理 `http://127.0.0.1:7890`；账户GROK、地区global、本机凭据`.env:GROK_KEY`。18场景、最多24 Logical Call/24 HTTP Attempt、自动重试0，每调用1024可见token，进程1800秒；任一失败即停止。
 
-原生精确argv（仅在该次grant和凭据就绪后）：
+建议沿用5 USD估算停止阈值，按已返回CostEstimate.Maximum累计；它不是单次账单硬上限，可见输出预算不限制推理总消耗。授权后创建新grant/claim，绑定新二进制/来源/目录和原始授权、显式代理配置；新增实际输入取得匹配普通回执后仅运行本路线。
 
 ```sh
-.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/xai-live.test -test.run=^TestXAICandidate$ -test.timeout=1800s
+.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/xai-live.test -test.run=^TestXAICandidate$ -test.timeout=1800s
 ```
 
-外层使用 `tools/verification/run.py --feature barness-ai-grok --stage live --route xai-responses`，为批准的grant及全部实际参与输入逐文件 `--input` 绑定；凭据经该路线专用环境变量注入。完整机器字段与顺序见[Host说明](../../docs/barness-ai/xai.md#候选-live-的精确合同)。
+外层使用 `tools/verification/run.py --feature barness-ai-grok --stage live --route xai-responses`，逐文件绑定cases-v3和新授权/grant/config；凭据仅进入本路线环境变量。完整18场景ID与预算见机器计划。旧grant、旧二进制及已通过的单场景不拼接成新来源完整通过。
 
-## 18个必交场景
+## 尚未取得的完整资格
 
-- `entry-stream`
-- `entry-complete`
-- `entry-stream-simple`
-- `entry-complete-simple`
-- `effort-default`
-- `effort-low`
-- `effort-medium`
-- `effort-high`
-- `effort-xhigh`
-- `encrypted-continuation`
-- `tools-auto`
-- `tools-required`
-- `tools-none`
-- `tools-parallel`
-- `user-png`
-- `user-jpeg`
-- `tool-result-image`
-- `cache-usage`
-
-## 后续完整交付范围
-
-本次候选运行不会关闭正式资格、目录晋升、共享历史目标或人工阶段。影响分析明确另外22条旧聊天目的路线需要各自的xAI来源碰撞/复用ID回放证据，详见[live影响表](live-impact.md)。两条GLM Responses及五条非chat身份没有本次运行行为变化；历史来源哈希失效与本次路线影响分别记录，不能改写旧报告为当前PASS。
-
-05仍需实际捕获、脱敏回放和原生资格消费；06仍需独立的正式支持、人工race与适用压力选择以及只读Release Gate。native candidate/controlled报告目前会被正式消费者拒绝，BuiltinCatalog未激活xAI。当前release.pass=false。
+本次仍为候选验证；05的完整真实捕获、脱敏回放、原生正式资格和另外22条受影响旧聊天目的路线仍待完成。[影响表](live-impact.md)。BuiltinCatalog未激活xAI。06的人工race和适用压力尚未选择，release.pass=false；本次新授权不包含这些阶段。
