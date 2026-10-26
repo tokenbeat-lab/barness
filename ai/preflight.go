@@ -55,6 +55,14 @@ func (c *Client) resolveBinding(ctx context.Context, scope CallScope, bindingID 
 	if b.AllowClassifierImages && b.Operation != OperationClassifier {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "classifier image permission requires a classifier binding")
 	}
+	if problem := xaiBindingProblem(b); problem != "" {
+		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, problem)
+	}
+	if b.ProviderID == ProviderXAI {
+		// Canonicalize the one supported target, including its optional slash
+		// and standard port, before the SDK constructs its request URL.
+		b.Endpoint = "https://api.x.ai/v1"
+	}
 	if !endpointAllowed(b.Endpoint, c.loopback) {
 		return Binding{}, newError(CodeInvalidRequest, PhaseBinding, "binding endpoint must be https (http only for loopback)")
 	}

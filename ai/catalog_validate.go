@@ -35,6 +35,9 @@ func (c Catalog) validate() error {
 			problem = kimiModelProblem(m)
 		}
 		if problem == "" {
+			problem = xaiModelProblem(m)
+		}
+		if problem == "" {
 			problem = defaultThinkingLevelProblem(m)
 		}
 		if problem == "" {
@@ -90,6 +93,9 @@ func modalitiesProblem(modalities []Modality) string {
 }
 
 func (m ImageModel) problem() string {
+	if m.Provider == ProviderXAI {
+		return "xAI image operation is outside the implemented subset"
+	}
 	if problem := modalitiesProblem(m.Input); problem != "" {
 		return problem
 	}
@@ -151,6 +157,9 @@ func (p ImagePricing) problem(input, output []Modality) string {
 }
 
 func (m ClassifierModel) problem() string {
+	if m.Provider == ProviderXAI {
+		return "xAI classifier operation is outside the implemented subset"
+	}
 	if problem := classifierModelProblem(m); problem != "" {
 		return problem
 	}
