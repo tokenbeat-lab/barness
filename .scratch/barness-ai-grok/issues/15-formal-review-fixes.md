@@ -1,7 +1,7 @@
 # 正式资格软件两轴审查修复
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 13
 
 ## Contract
@@ -31,3 +31,7 @@ v5修复已合入 `51eb2a24`，定向普通1010测试/884case/audit0，完整原
 ## 原生离线消费实际收尾失败
 
 完整Go执行97697bb2通过，但随后编译后releasegate实际拒绝主离线bundle，source=true/e2e=false。唯一已确定库存违约为新增`GROK-HISTORY-GLM-CONTROLLED-FULL`4350文件，超过既有每case512限制，原始[诊断](../../../.evidence/barness-ai-grok/offline-inventory-diagnosis-v1.json)与[实际报告](../../../.evidence/barness-ai-grok/release/readonly-v5/native/release-report.json)保留。重新打开15，仍由同一实现者修复该测试生成/归属边界；禁止放宽导入上限、删除原件或修改旧pin。修复后需公开producer→真实CLI消费GREEN和影响范围适用复验，再更新当前状态与新索引。
+
+## 真实库存边界最终验收
+
+421efc23仅改两个E2E文件，将GLM原始32case放到既有辅助bundle，各case最大393文件；原wrapperID保留，新公开`GROK-HISTORY-GLM-OFFLINE-RECORD`真实producer→collector→编译record CLI RED/GREEN。v8独立两轴0/0；812782ec完整受影响三包15837测试与1457/120主必交及辅助32全部PASS、audit0/exit0。实际readonly-v6检查source/e2e均true，live/race/压力未运行维持false。旧4350原件、原v5拒绝与全部失败/unknown保留，不改导入上限。软件工单关闭；05/06仍等待后续授权/执行。

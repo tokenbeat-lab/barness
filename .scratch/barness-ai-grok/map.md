@@ -31,3 +31,5 @@
 - [12软件已解决](issues/12-formal-native-contract.md)、[14已解决](issues/14-legacy-xai-history-proof.md)、[15已解决](issues/15-formal-review-fixes.md)：最终源码f89e59a6、v7两轴0/0、完整受测97697bb2，16184 Go测试与1456必交/119入口通过；原件全部逐SHA归档。当前frontier为05等待[17路线付费计划](formal-live-plan-v1.md)的明确授权；06仍被05及后续人工阶段阻塞，release.pass=false。
 
 - 真实收尾消费者随后拒绝新GLM包装case的4350项库存（原上限512），[15已重新打开](issues/15-formal-review-fixes.md)。保留完整Go PASS与实际CLI source=true/e2e=false原件；采用既有辅助bundle边界修复，导入规则不放宽，05继续被15阻塞。
+
+- [15最终已解决](issues/15-formal-review-fixes.md)：辅助bundle归属fix421efc23、v8复核0/0、新受测812782ec完整三包15837测试/1457主必交/120入口及32辅助均PASS；真实readonly-v6 source/E2E均true。05现等待[计划v2](formal-live-plan-v2.md)的明确付费授权；不自动启动17路线或人工阶段。
