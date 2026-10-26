@@ -313,6 +313,9 @@ func check(m Matrix, r Report) (int, error) {
 	if err := checkRegional(r); err != nil {
 		return 0, err
 	}
+	if err := checkXAI(r); err != nil {
+		return 0, err
+	}
 	if err := checkJev(r); err != nil {
 		return 0, err
 	}
