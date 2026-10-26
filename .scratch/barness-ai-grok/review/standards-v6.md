@@ -1,0 +1,11 @@
+Documented-standard findings:
+
+- **[P2] Reject special files without blocking admission.** [livegrant/json.go:71](/Users/cyber/RestoX/barness/ai/internal/testkit/livegrant/json.go:71) opens the supplied grant before checking its type, without `O_NONBLOCK`; [grant.go:58](/Users/cyber/RestoX/barness/ai/internal/testkit/livegrant/grant.go:58) does the same for the selected binary. A FIFO passed to `processgrant -check` or `-template ... -binary` blocks in open before either regular-file/size check, and this CLI has no process deadline. This violates **AGENTS.md §5** and **ai/README.md invariant2** (finite waits). Use the existing nonblocking/no-follow regular-file opening pattern and cover FIFO/directory refusal through the public CLI.
+
+- **[P2] Reserve both claim identities before writing either receipt.** [livegrant/claim.go:70](/Users/cyber/RestoX/barness/ai/internal/testkit/livegrant/claim.go:70) creates/writes/syncs the scope file before creating the approval-ID file. If the first write/sync fails after file creation, only the scope is consumed. Reusing the same approval ID with a different expiry produces another scope key (lines32–37), so the absent ID reservation permits a fresh claim after filesystem recovery. This contradicts **AGENTS.md §5**, **verification.md §4** (failure consumes the authorization), and the documented Legacy14 single-use claim contract. Reserve the ID and scope guards under the existing lock before receipt writes; retain failed reservations and test the partial-write boundary publicly.
+
+**Prior v5 findings resolved:** public streams now require all blocks and reconcile deltas; original SSE associations/snapshots are checked independently; native input fields/resource references are validated. The final catalog snapshot and affected evaluation/usage pins are synchronized.
+
+Judgement calls: no additional actionable Fowler smell. Shared admission has multiple actual route families; independent producer/consumer validation and the private immutable Plan13 historical reader follow documented boundaries. Changed Go files remain below500lines. Pending live/race/pressure stages remain disclosed and are not findings.
+
+Read-only pinned-source review; no tests, builds or vendor requests executed. **Total:2 Standards findings; worst:P2 special-file admission can hang.**

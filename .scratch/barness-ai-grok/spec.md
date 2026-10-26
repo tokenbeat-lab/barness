@@ -224,9 +224,9 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 候选及01–04、07–11、13已完成；自身候选真实18/18 PASS。12最终目录、正式producer及原生消费者均已合入，producer收尾修正后的全部xAI621case与消费者55个CLI case定向通过；14旧目标完整回归与15正式审查修复仍在实施。完整交付/发布未完成 |
+| 实现 | 候选及01–04、07–11、13已完成；自身候选真实18/18 PASS。12最终目录、正式producer及原生消费者均已合入，producer收尾修正后的全部xAI621case与消费者55个CLI case定向通过；15的v5修复已合入；14源码稳定、定向普通及有界历史正例通过，待原件归档合入。v6新增四项P2由15继续修复。完整交付/发布未完成 |
 | 冻结来源 | 当前已合入真实回放、request-ID采用、正式producer/目录及原生消费者；14旧目标和15审查修复完成后复核并重新冻结完整普通。历史受测36eaca/cases-v3及候选paid2ae875保留，不将它们当作当前源码的正式资格 |
-| 审查 | 核心及JPEG的[v1](review/review-v1.md)–[v4](review/review-v4.md)均已修复/复核0项；正式资格软件[v5](review/review-v5.md)新增Standards 3项、Spec 5项，保留两轴独立报告，由同一实现者在15逐项公共CLI先RED后修复；尚待独立复核，14增量亦待审查 |
+| 审查 | 核心及JPEG的[v1](review/review-v1.md)–[v4](review/review-v4.md)均已修复/复核0项；正式软件[v5](review/review-v5.md)的Standards3项/Spec5项已修复，并在含14的独立[v6](review/review-v6.md)复核确认；v6另新增Standards2项/Spec2项P2，由15同一实现者继续公共RED/GREEN修复，尚待再次独立复核 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | [候选完成时索引v4](verification/record-v4.json)与[当时只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留：source/e2e=true，正式live/race/压力=false，CLI exit1；新软件来源另待冻结/索引，不改写旧原件 |
 | 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
