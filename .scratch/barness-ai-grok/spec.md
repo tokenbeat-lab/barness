@@ -166,6 +166,8 @@ Full 预算省略/null 时使用 Host 型号的已收窄上限；显式预算为
 
 维护者于2026-10-26明确选择“采用建议顺序，发布前保持未正式支持”：允许在未发布集成分支完成并审查最终目录接线、原生资格器和正式harness，再以同一冻结来源执行另行授权的正式live、race和压力；全部通过后才接受/发布正式晋升。目录源码接线本身不构成正式支持，候选PASS不自动触发该接线；不得在最终门槛完成后再修改运行源码或目录而继续复用旧pin。详见[冻结顺序方案](formal-qualification-plan.md)与[ADR-0054](../../docs/adr/0054-barness-ai-xai-responses.md)。
 
+本次维护者另确认正式兼容范围为Grok自身与16条已发布旧目标，共17条正式路线。六条未晋升Kimi保持候选与受控兼容回归，未纳入本次正式兼容承诺，也不连带晋升；22条来源碰撞/复用受控路径全部保留。详见[已采用范围](formal-target-scope-plan.md)。
+
 ### R22 — Host 装配与回滚
 
 提供现有接口的完整装配说明：全局endpoint、绑定白名单、凭据快照、资源策略、持久化信任恢复、工具往返、成本状态和足够但有限的超时。优先使用现有Host resolver，不为单一路线新建认证框架。禁用并更新Binding版本阻止新调用；已固定调用按原快照结束或由Host取消。回滚不删除历史原件、不修改旧价格快照、不自动切换协议。
@@ -228,7 +230,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | [候选完成时索引v4](verification/record-v4.json)与[当时只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留：source/e2e=true，正式live/race/压力=false，CLI exit1；新软件来源另待冻结/索引，不改写旧原件 |
 | 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
-| 共享历史live | 另外22条身份路线的来源碰撞/复用未实际运行，14正补完整自身冒烟中的新增场景与缺失单次授权。已发现六条Kimi formal模板因未晋升/事实不匹配而拒绝；保留其候选/正式资格差异，不自动晋升、不借其他型号证据。[范围](legacy-live-scope.md) |
+| 共享历史live | 维护者已明确选择17条正式路线（Grok自身+16已发布旧目标）；六条Kimi保持候选与受控回归，不连带晋升。14仍保留22条代码路径/新增来源历史检查，正式目标尚未实际运行或授权；见[当前影响范围v2](live-impact-v2.md)与[选择](formal-target-scope-plan.md) |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | 未发布分支已准备最终Builtin2026-10-26.1/xAI接线；按维护者确认，此源码接线不代表正式支持或发布。新正式live、其他受影响路线及人工阶段未通过，release.pass=false |
 

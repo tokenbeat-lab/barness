@@ -1,10 +1,12 @@
 # Grok 正式兼容目标范围选择
 
-Status: needs-info
+Status: accepted
 
 [实际目录核对](legacy-formal-eligibility.md)确认：受影响22旧目标身份中，16条有已发布Builtin型号，六条Kimi仍为候选。`ai/catalog_kimi.json`明确active=false、models=[]；`supportmatrix/regional.go`的正式构造器因此拒绝Kimi。新增Grok历史场景前即如此，不能用Grok证据替Kimi晋升，也不能把候选报告改成正式。
 
-## 建议范围
+维护者已明确回复：“采用建议：17 条正式路线，Kimi 保留候选”。该选择不授予任何新付费请求或人工阶段权限。
+
+## 已采用范围
 
 正式Grok交付要求自身完整18能力与16条已正式支持旧目标的完整自身报告/新增xAI来源历史场景；六条候选Kimi继续完成受控兼容回归和候选合同准备，保留实验状态及实际live NOT_RUN，不在本次正式兼容性支持承诺内。22条受控代码路径均保留，不移除能力或改成UNSUPPORTED规避测试。
 
