@@ -20,6 +20,8 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	}
 	route := report.Combo
 	switch {
+	case route == "xai-responses":
+		report, err = supportmatrix.NewXAIReport(dir)
 	case isRegionalLiveRoute(route):
 		report, err = supportmatrix.NewRegionalReport(dir)
 	case strings.HasPrefix(route, "minimax-"):

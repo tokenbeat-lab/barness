@@ -8,6 +8,8 @@ func (r Row) ValidIdentity() bool {
 	}
 	var operation, provider, api string
 	switch r.Combo {
+	case "xai-responses":
+		operation, provider, api = "chat", "xai", "openai-responses"
 	case "openai-responses":
 		operation, provider, api = "chat", "openai", "openai-responses"
 	case "minimax-chat":
