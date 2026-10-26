@@ -2,7 +2,7 @@
 
 Status: needs-info
 
-当前候选代码、两轴修复复核和冻结普通验收已完成；本计划等待本次明确授权。机器可读计划见[未授权计划 v1](verification/candidate-plan-v1.json)。唯一当前状态见[spec](spec.md#唯一当前状态)。
+当前候选代码、两轴修复复核和冻结普通验收已完成；本计划等待本次明确授权。机器可读计划见[未授权计划 v2](verification/candidate-plan-v2.json)。唯一当前状态见[spec](spec.md#唯一当前状态)。
 
 ## 本次可选择的有限范围
 
@@ -14,16 +14,16 @@ Status: needs-info
 
 ## 已准备的可审阅事实
 
-- 普通受测提交：`86a255b746bc3688e93dac191811629f35dbce97`；必需564 cases、64顶层入口实际完成，exit0，audit0。完整回执：[receipt](../../.evidence/barness-ai-grok/e2e/20261026T031723.005911Z-syyrwbay/receipt.json)。
+- 普通受测提交：`02b422bfffddefcfb0d95ec018867ed4dff816dc`；必需565 cases、65顶层入口实际完成，exit0，audit0。完整回执：[receipt](../../.evidence/barness-ai-grok/e2e/20261026T040239.130313Z-uw3gpgli/receipt.json)。
 - native source SHA256：`46c887f72ad264a0ca04266f0afc5541d986434840306504fc23e0ad67d274e0`。
 - 目录：`xai-grok-4.7-candidate-2026-10-26.1` / `sha256:bead32a65d2532dea261101a8b4c61c995c50168742243431844ab7394d6c97e`。
-- 实际冻结二进制：[xai-live.test](../../.evidence/barness-ai-grok/build/20261026T031935-candidate-11ec3bpd/xai-live.test)；SHA256 `a6f0e31291d8c53a8b7a2c62a78a7cbb4ca2131696a847c5cd7eb476652e39c4`。来源通过 `-ldflags` 注入，实际构建argv/退出和二进制元数据见[构建回执](../../.evidence/barness-ai-grok/build/20261026T031935-candidate-11ec3bpd/build-receipt.json)。
+- 实际冻结二进制：[xai-live.test](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/xai-live.test)；SHA256 `a6f0e31291d8c53a8b7a2c62a78a7cbb4ca2131696a847c5cd7eb476652e39c4`。来源通过 `-ldflags` 注入，实际构建argv/退出和二进制元数据见[构建回执](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)。
 - 无开关/无Key引导报告实际为NOT_RUN，Calls0、vendor HTTP0；该元数据自检不产生真实资格。
 
 原生精确argv（仅在该次grant和凭据就绪后）：
 
 ```sh
-.evidence/barness-ai-grok/build/20261026T031935-candidate-11ec3bpd/xai-live.test -test.run=^TestXAICandidate$ -test.timeout=1800s
+.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/xai-live.test -test.run=^TestXAICandidate$ -test.timeout=1800s
 ```
 
 外层使用 `tools/verification/run.py --feature barness-ai-grok --stage live --route xai-responses`，为批准的grant及全部实际参与输入逐文件 `--input` 绑定；凭据经该路线专用环境变量注入。完整机器字段与顺序见[Host说明](../../docs/barness-ai/xai.md#候选-live-的精确合同)。
