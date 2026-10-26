@@ -66,12 +66,19 @@ func Claim(g Grant, raw []byte, session string, at time.Time) (Receipt, error) {
 		return r, e
 	}
 	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
-	data, _ := json.Marshal(r)
-	for _, k := range []string{scope, id} {
+	// Reserve both identities under the same lock before the first receipt
+	// write. Any later failure leaves both exclusive guards consumed.
+	var files []*os.File
+	for _, k := range []string{id, scope} {
 		f, e := root.OpenFile(k, os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW, 0600)
 		if e != nil {
 			return r, fmt.Errorf("fresh process approval already consumed or unavailable")
 		}
+		defer f.Close()
+		files = append(files, f)
+	}
+	data, _ := json.Marshal(r)
+	for _, f := range files {
 		n, e := f.Write(data)
 		if e == nil && n != len(data) {
 			e = fmt.Errorf("incomplete process claim")
