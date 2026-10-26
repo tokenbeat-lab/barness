@@ -24,8 +24,10 @@ chat_capture.go直接json.Unmarshal到ai.Result；Message.Content是非空Assist
 
 ## Answer
 
-进行中；当前正式live未完成，release.pass=false。
+软件修复及12项公开CLI回归完成，v10独立两轴0/0；当前等待完整受影响普通实测后关闭软件票。当前来源正式live未完成，release.pass=false。
 
 ## Comments
 
 - 2026-10-26：实际原生消费者拒绝触发；批次已停止、39调用/39HTTP原件全部保留，后15条未执行。修复为已授权implement-spec软件范围，付费重跑和后续人工阶段另取选择。
+
+- 原缺陷公开RED/GREEN分别115842/115932；v9 Spec P2补充历史分支后121309实际12/12 PASS，生产DTO未再改变，新反例直接GREEN。见[v2证据](../evidence/generic-capture-decoder-v2.json)与[v10复核](../review/review-v10.md)。完整普通由集成分支统一执行，不启动付费或人工阶段。
