@@ -11,6 +11,9 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report) error {
+	if r.Combo == "xai-responses" {
+		return supportmatrix.VerifyXAIReport(r)
+	}
 	if _, ok := supportmatrix.RegionalRouteOf(r.Combo); ok {
 		return supportmatrix.VerifyRegionalReport(r)
 	}

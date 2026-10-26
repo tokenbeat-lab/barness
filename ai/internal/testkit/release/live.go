@@ -22,6 +22,8 @@ func expectedCapabilities(combo string) []string {
 		return expected
 	}
 	switch combo {
+	case "xai-responses":
+		return supportmatrix.XAIExpected()
 	case "openai-decisions":
 		return supportmatrix.DecisionsExpected()
 	case "typesafe-classifier":
@@ -52,7 +54,7 @@ func capabilityProblems(row supportmatrix.Row) []string {
 			if c.Model == "" || ((row.Operation != "chat" || row.Provider == "minimax") && c.Model != row.Model) {
 				problems = append(problems, id+": missing or substituted capability model")
 			}
-			if c.Outcome == supportmatrix.Unsupported && (c.Note == "" || row.Provider == "zhipu" || row.Provider == "minimax" || row.Provider == "zai" || row.Provider == "minimax-cn" || (row.Operation != "chat" && !(row.Combo == "openai-images" && id == "mask-edit"))) {
+			if c.Outcome == supportmatrix.Unsupported && (c.Note == "" || row.Provider == "xai" || row.Provider == "zhipu" || row.Provider == "minimax" || row.Provider == "zai" || row.Provider == "minimax-cn" || (row.Operation != "chat" && !(row.Combo == "openai-images" && id == "mask-edit"))) {
 				problems = append(problems, id+": required capability cannot be UNSUPPORTED")
 			}
 		}
