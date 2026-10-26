@@ -1,7 +1,7 @@
 # xAI 自身正式资格合同与冻结版本
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 11
 
 ## Contract

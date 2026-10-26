@@ -25,3 +25,5 @@
 - [10 JPEG夹具已解决](issues/10-live-jpeg-fixture.md)：真实proxy运行暴露8×8像素过小；`00e7612c`改为32×32，用户/工具JPEG受控捕获先RED后GREEN，两轴v4复核0/0，新冻结完整普通565/565通过。修复后付费运行待新授权；05/06仍未关闭。
 
 - 自身候选v3真实18/18已通过；05余项拆为11公共真实捕获回放与12自身正式合同。12等待[晋升边界顺序选择](formal-qualification-plan.md)，11可独立推进；不以05整个工单阻塞其子任务形成环。
+
+- [13 已解决](issues/13-request-id-adoption.md)：真实24响应确认x-request-id后接入，34新增公共case先RED后GREEN，全部xAI568case通过；最终全局审查/冻结仍待12/14完成。12 producer已合入，consumer与14旧目标授权/来源历史合同并行实施；未启动新付费或人工阶段。

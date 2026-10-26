@@ -1,7 +1,7 @@
 # 受影响旧目标的 xAI 来源历史与单次验证授权
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 13
 
 ## Contract

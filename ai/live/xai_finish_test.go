@@ -25,11 +25,12 @@ func finishXAI(code int, auditOK bool) int {
 	if r.ClaimID != "" && !r.Complete {
 		code = 1
 		if p.problem == "" {
-			p.problem = "candidate scope failed or was interrupted"
+			p.problem = "selected xAI scope failed or was interrupted"
 		}
 	}
 	if r.Complete {
 		r.Outcome = "PASS"
+		r.FormalQualified = r.Stage == "formal" && r.Mode == "live"
 	} else if code != 0 || p.problem != "" {
 		r.Outcome = "FAIL"
 		if r.Failure == "" {
@@ -38,7 +39,7 @@ func finishXAI(code int, auditOK bool) int {
 	} else {
 		r.Outcome = "NOT_RUN"
 	}
-	if failure := finalizeXAICandidate(p); failure != nil {
+	if failure := finalizeXAI(p); failure != nil {
 		return failXAIFinalization(p, failure)
 	}
 	return code

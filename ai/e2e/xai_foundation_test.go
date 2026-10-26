@@ -105,7 +105,7 @@ func TestXAICandidateSnapshot(t *testing.T) {
 	ev.Record("candidate-catalog", cat)
 	ev.Check("one independent reviewed identity", len(cat.Models) == 1 && reflect.DeepEqual(cat.Models[0], xaiFoundationModel()), "catalog=%+v", cat)
 	_, formal := ai.BuiltinCatalog().Lookup(ai.ProviderXAI, ai.APIOpenAIResponses, "grok-4.7")
-	ev.Check("unqualified candidate is absent from formal catalog", !formal && ai.ProviderXAI == ai.ProviderID("xai"), "formal=%t", formal)
+	ev.Check("candidate remains distinct from the prepared unreleased Builtin snapshot", formal && cat.Version != ai.BuiltinCatalog().Version && ai.ProviderXAI == ai.ProviderID("xai"), "prepared=%t", formal)
 	w := newWorldWith(t, func(c *ai.Config) { c.Catalog = &cat }, tenantA)
 	hash, _ := w.client.Catalog().Hash()
 	cat.Models[0].Input[0] = ai.ModalityImage

@@ -222,15 +222,15 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 候选实现及01–04、07–11已完成；05自身候选真实18/18 PASS，11已新增24份真实响应回放/19case定向PASS，正在实现12正式资格器/harness/目录最终接线及13已确认request-ID头采用。完整交付与06发布未完成 |
-| 冻结来源 | 当前已合入11回放，外层来源从历史1962文件扩大到1989，待12/13软件完成、全局两轴复核后重新冻结；历史完整普通v3受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e` 与565-case输入保留，不冒充新来源 |
+| 实现 | 候选及01–04、07–11、13已完成；自身候选真实18/18 PASS。12最终目录与正式producer已合入，受控全部xAI618case通过；原生消费者受控41case通过、待最终提交。14补受影响旧目标来源历史和单次授权合同，尚在实现。完整交付/发布未完成 |
+| 冻结来源 | 当前实现已新增真实回放、已确认request-ID采用和正式producer/目录；12消费者与14旧目标软件完成后再统一审查、重新冻结完整普通。历史受测36eaca/cases-v3及候选paid2ae875保留，不将它们当作当前源码的正式资格 |
 | 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留；JPEG增量[v4](review/review-v4.md)亦0/0 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | [候选完成时索引v4](verification/record-v4.json)与[当时只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留：source/e2e=true，正式live/race/压力=false，CLI exit1；新软件来源另待冻结/索引，不改写旧原件 |
 | 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
-| 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
+| 共享历史live | 另外22条身份路线的来源碰撞/复用未实际运行，14正补完整自身冒烟中的新增场景与缺失单次授权。已发现六条Kimi formal模板因未晋升/事实不匹配而拒绝；保留其候选/正式资格差异，不自动晋升、不借其他型号证据。[范围](legacy-live-scope.md) |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 维护者已确认未发布分支可准备最终Builtin接线，但不得据此宣称正式支持或发布；新正式live/其他22路线/人工阶段未通过，release.pass=false |
+| 目录/发布 | 未发布分支已准备最终Builtin2026-10-26.1/xAI接线；按维护者确认，此源码接线不代表正式支持或发布。新正式live、其他受影响路线及人工阶段未通过，release.pass=false |
 
 #### 历史完整普通v3与候选构建
 

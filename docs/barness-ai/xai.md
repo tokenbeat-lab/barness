@@ -1,6 +1,6 @@
-# xAI 候选 Host 装配与有界验证
+# xAI Host 装配与有界验证
 
-首期身份固定为 `chat × xai × openai-responses × grok-4.7`，全球目标为 `https://api.x.ai/v1`。当前使用独立候选目录，未晋升 `BuiltinCatalog`；候选或 controlled PASS 都不构成正式支持。型号、价格和未证事实见 [spec](../../.scratch/barness-ai-grok/spec.md)、[研究](../../.scratch/barness-ai-grok/research.md)与 [候选快照](../../ai/internal/testkit/xai/candidate.json)。真实资格、人工 race、压力和发布保持各自未完成状态。xAI 运行时和 live 源码的加入也改变现有地区/Kimi/GLM 原生来源库存；旧路线历史证据只保留原来源事实，当前来源适用性与所需自身 live 明确等待后续审查，不继承旧 PASS。
+首期身份固定为 `chat × xai × openai-responses × grok-4.7`，全球目标为 `https://api.x.ai/v1`。独立候选目录继续保留；按维护者确认的 [ADR-0054](../adr/0054-barness-ai-xai-responses.md)，本未发布集成分支已准备最终 `BuiltinCatalog` 接线，但正式资格、人工门槛与发布仍未完成。目录源码接线、候选或 controlled PASS 都不构成正式支持。型号、价格和未证事实见 [spec](../../.scratch/barness-ai-grok/spec.md)、[研究](../../.scratch/barness-ai-grok/research.md)与 [候选快照](../../ai/internal/testkit/xai/candidate.json)。真实资格、人工 race、压力和发布保持各自未完成状态。xAI 运行时和 live 源码的加入也改变现有地区/Kimi/GLM 原生来源库存；旧路线历史证据只保留原来源事实，当前来源适用性与所需自身 live 明确等待后续审查，不继承旧 PASS。
 
 ## 接入现有 Host
 
@@ -95,7 +95,7 @@ Host 声明普通函数工具，收到完整成功的 `toolUse` 后逐个用 `ai
 
 唯一入口是编译后的 `-test.run=^TestXAICandidate$`，一个进程只运行本路线。配置复用现有通用转发字段：`BARNESS_AI_LIVE_COMBO=xai-responses`、`BARNESS_AI_LIVE=1`、唯一 `BARNESS_AI_LIVE_KEY_XAI_RESPONSES`、账户/地区别名、可选显式 `BARNESS_AI_LIVE_PROXY` 与 `BARNESS_AI_LIVE_PERMISSIONS_FILE`。账户/地区别名是 Host 声明，不是从 Key 推断的厂商权益证明。拒绝其他路线、凭据和 endpoint override。无 switch/key/grant 产出 NOT_RUN、零 vendor HTTP；错误身份/目录/来源/预算/别名/过期或重复授权失败。
 
-本次只运行普通受控进程，未发放付费授权。未来每次付费运行须先按 [SOP](../agents/verification.md) 固定当前来源、构建、目录、SDK 与完整场景，取得新的明确授权，保存原始 grant，并用工具的 `--input` 逐文件固定本次授权及所有实际参与输入；凭据只通过该路线专用环境字段注入，不进入 argv 或输入快照。grant 为严格 JSON，schema=1，字段如下：
+候选已取得自身完整真实验证，事实与原件由 [唯一当前状态](../../.scratch/barness-ai-grok/spec.md#唯一当前状态)维护；该次授权已消耗，不能转用为正式授权。以后每次付费运行须先按 [SOP](../agents/verification.md) 固定当前来源、构建、目录、SDK 与完整场景，取得新的明确授权，保存原始 grant，并用工具的 `--input` 逐文件固定本次授权及所有实际参与输入；凭据只通过该路线专用环境字段注入，不进入 argv 或输入快照。grant 为严格 JSON，schema=1，字段如下：
 
 | 字段 | 固定事实或人工选择 |
 | --- | --- |
@@ -128,3 +128,13 @@ maxUSD 是按每次实际报告的 Maximum 累加的停止阈值，未知/越界
 候选运行的编码请求上限 128 KiB，单图 4 KiB，frame 256 KiB，完整响应 512 KiB；输入 token 预留在实际报告后核对，越界即停止，不承诺厂商硬限额。每次调用保存完整受限 HTTP 捕获、事件、Result、终结 Observer，核对原始与规范 usage 算术及实际返回型号。截断捕获不能通过。成功、失败或取消均在 common Git 的 `barness-xai-grants/<id>.json` 以排他写消费 claim；不能删 claim 重用。候选只写 `xai-candidate-report.json`，不写通用正式 support report 或支持矩阵。
 
 普通 E2E `TestXAILiveHarnessProcess` 用新 HOME 与最小环境编译 live 二进制，只运行精确子进程；controlled 模式无 live 开关、无真实凭据且底层 transport 为合成响应，报告 `mode=controlled` 与 `vendorHTTPAttempts=0`。它保留原生子进程文件作为普通证据，正式消费者仍拒绝。`BARNESS_XAI_CONTROLLED` 不进入工具的 paid 环境转发白名单。
+
+## 未发布分支的正式验证入口
+
+最终源码准备完成并审查冻结后，正式运行只接受编译后的 `-test.run=^TestXAIFormal$ -test.timeout=1800s`。它使用完整当前 `ai.BuiltinCatalog()` 的版本/hash，唯一全球 xAI 路线及型号、同样18场景/24调用、零重试和显式USD停止阈值。grant的 `stage` 必须是 `formal`，不能把候选grant、目录hash或已消费claim复用到正式入口；凭据和环境转发字段不新增。
+
+正式元数据写入 `xai-formal-report.json`（kind=xai-formal、stage=formal），同时保存 `xai-execution-source.json` 的完整原生来源文件/hash库存。`sourceSha256` 是当前库存哈希，`buildSourceSha256` 是实际冻结构建通过现有ldflags注入的来源，`binarySha256` 是实际执行文件hash；付费运行必须逐项匹配。无开关/Key/grant仍为NOT_RUN和零厂商HTTP。
+
+完整正式进程还写通用 `live-report.json` 投影供现有 `releasegate -live-bundle` 消费；该投影不是另一套资格算法。预算InputTokensUsed包含缓存输入，OutputTokensUsed是total−input并已包含reasoning，不能按可见1024预算截断。正式流事件原件保留具体字段并补显式 `type` 供独立生命周期核对。只有live、formal、完整、自身审计通过的原件才能取得自身正式资格；controlled结构通过仍标记formalQualified=false，并被正式消费者拒绝。
+
+正式入口在最终报告与通用投影完成后重新写入并同步原生manifest，使其真实结束时间包含最终报告；manifest写入失败也按晚期故障处理。晚期写入、目录同步或审计失败会撤下通用成功投影，保留自身FAIL报告、原报告与实际预算及非零退出。控制故障目标和失败原件继续保留，不以重跑覆盖。正式验证及独立race/压力必须各自明确授权/选择；本分支不会自动合并main、push或发布。

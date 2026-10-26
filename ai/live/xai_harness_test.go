@@ -31,7 +31,7 @@ type xaiScenario struct {
 type xaiSession struct {
 	t      *testing.T
 	cs     *evidence.Case
-	p      *xaiCandidateProcess
+	p      *xaiProcess
 	client *ai.Client
 	rec    *recorder
 	ctx    context.Context
@@ -39,14 +39,17 @@ type xaiSession struct {
 	last   []exchange
 }
 
-func TestXAICandidate(t *testing.T) {
+func TestXAICandidate(t *testing.T) { runXAI(t) }
+func TestXAIFormal(t *testing.T)    { runXAI(t) }
+
+func runXAI(t *testing.T) {
 	p := xaiState
 	if p == nil {
 		t.Skip("NOT_RUN: explicitly select xai-responses")
 	}
 	cs := run.Case(t, "E17-xai-process-gate")
 	if p.problem != "" {
-		cs.Check("candidate configuration", false, "%s", p.problem)
+		cs.Check("selected xAI configuration", false, "%s", p.problem)
 		return
 	}
 	if p.notRun != "" {
@@ -58,8 +61,8 @@ func TestXAICandidate(t *testing.T) {
 		return
 	}
 	p.report.Outcome = "RUNNING"
-	if err := run.Record("xai-candidate-report", p.report); err != nil {
-		t.Fatal("candidate initial report unavailable")
+	if err := run.Record(p.reportName(), p.report); err != nil {
+		t.Fatal("selected xAI initial report unavailable")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 1770*time.Second)
 	defer cancel()
@@ -82,7 +85,7 @@ func TestXAICandidate(t *testing.T) {
 	rec.next = xaiRoundTripper(func(r *http.Request) (*http.Response, error) {
 		b := &p.report.Budget
 		if r.URL.String() != xaiEndpoint+"/responses" || b.HTTPAttempts >= b.MaxAttempts || !p.grant.ExpiresAt.After(time.Now().UTC()) {
-			return nil, fmt.Errorf("candidate transport scope exhausted")
+			return nil, fmt.Errorf("selected xAI transport scope exhausted")
 		}
 		b.HTTPAttempts++
 		if p.controlled == "" {
@@ -114,7 +117,7 @@ func TestXAICandidate(t *testing.T) {
 		beforeCalls, beforeHTTP := p.report.Budget.CallsUsed, p.report.Budget.HTTPAttempts
 		ok := t.Run(sc.id, func(t *testing.T) {
 			s := &xaiSession{t: t, cs: run.Case(t, "E17-xai-"+sc.id), p: p, client: client, rec: rec, ctx: ctx, row: row}
-			s.cs.ReplayRun(xaiEntry)
+			s.cs.ReplayRun(p.entry())
 			sc.run(s)
 		})
 		row.DurationMS = time.Since(began).Milliseconds()
@@ -123,6 +126,9 @@ func TestXAICandidate(t *testing.T) {
 		row.Outcome = supportmatrix.Pass
 		if !ok {
 			row.Outcome = supportmatrix.Fail
+			if row.ErrorCategory == "" {
+				row.ErrorCategory = supportmatrix.CategoryAssertion
+			}
 			break
 		}
 	}
@@ -131,7 +137,7 @@ func TestXAICandidate(t *testing.T) {
 func (s *xaiSession) call(label, entry string, req ai.Request, o ai.ResponsesOptions) ai.Result {
 	s.t.Helper()
 	b := &s.p.report.Budget
-	if !s.cs.Check("finite call reservation "+label, s.ctx.Err() == nil && b.CallsUsed < b.MaxCalls && b.RequestedOutputTokens+xaiCallOutput <= b.MaxRequestedOutputTokens && b.ReservedInputTokens+8192 <= b.MaxReservedInputTokens && b.ObservedMaximumUSD < s.p.grant.MaxUSD, "candidate budget exhausted") {
+	if !s.cs.Check("finite call reservation "+label, s.ctx.Err() == nil && b.CallsUsed < b.MaxCalls && b.RequestedOutputTokens+xaiCallOutput <= b.MaxRequestedOutputTokens && b.ReservedInputTokens+8192 <= b.MaxReservedInputTokens && b.ObservedMaximumUSD < s.p.grant.MaxUSD, "selected xAI budget exhausted") {
 		return ai.Result{}
 	}
 	b.CallsUsed++
@@ -149,12 +155,12 @@ func (s *xaiSession) call(label, entry string, req ai.Request, o ai.ResponsesOpt
 	case "Stream":
 		d := drain(s.client.Stream(ctx, scope, target, req, o), nil)
 		res, err = d.res, d.err
-		s.cs.Record(label+"-events", d.events)
+		s.recordEvents(label, d.events)
 		s.streamProof(label, d)
 	case "StreamSimple":
 		d := drain(s.client.StreamSimple(ctx, scope, target, req, simple), nil)
 		res, err = d.res, d.err
-		s.cs.Record(label+"-events", d.events)
+		s.recordEvents(label, d.events)
 		s.streamProof(label, d)
 	case "CompleteSimple":
 		res, err = s.client.CompleteSimple(ctx, scope, target, req, simple)
@@ -164,6 +170,9 @@ func (s *xaiSession) call(label, entry string, req ai.Request, o ai.ResponsesOpt
 	s.last = s.rec.take()
 	s.cs.Record(label+"-http", s.last)
 	s.cs.Record(label+"-result", res)
+	if len(res.Metadata.Attempts) == 1 {
+		s.row.ProviderRequestIDs = append(s.row.ProviderRequestIDs, res.Metadata.Attempts[0].ProviderRequestID)
+	}
 	obs := s.rec.observationsOf(scope.RequestID)
 	s.cs.Record(label+"-observer", obs)
 	if !s.cs.Check("successful call "+label, err == nil && res.Message.StopReason != ai.StopReasonError && res.Message.StopReason != ai.StopReasonAborted, "call failed") {
@@ -183,6 +192,8 @@ func (s *xaiSession) call(label, entry string, req ai.Request, o ai.ResponsesOpt
 		return res
 	}
 	b.ReportedTokens += u.TotalTokens
+	s.p.totalInput += u.Input + u.CacheRead + u.CacheWrite
+	s.p.totalOutput += u.Output
 	a := res.Metadata.Attempts[0]
 	maximum, known := a.CostEstimate.Maximum.Get()
 	if known {
@@ -228,7 +239,11 @@ func xaiFixtureResponse(r *http.Request) (*http.Response, error) {
 	} else {
 		output = append(output, map[string]any{"type": "message", "id": "msg-synthetic-" + suffix, "role": "assistant", "status": "completed", "content": []any{map[string]any{"type": "output_text", "text": "391. Red. Hello.", "annotations": []any{}}}})
 	}
-	response := map[string]any{"id": "resp-synthetic-" + suffix, "object": "response", "status": "completed", "model": "grok-4.7", "output": output, "usage": map[string]any{"input_tokens": 32, "input_tokens_details": map[string]any{"cached_tokens": 0}, "output_tokens": 9, "output_tokens_details": map[string]any{"reasoning_tokens": 110}, "total_tokens": 151}}
+	reasoning, total := 110, 151
+	if xaiState.report.Stage == "formal" {
+		reasoning, total = 1100, 1141
+	} // Reasoning is not part of the visible1024 cap.
+	response := map[string]any{"id": "resp-synthetic-" + suffix, "object": "response", "status": "completed", "model": "grok-4.7", "output": output, "usage": map[string]any{"input_tokens": 32, "input_tokens_details": map[string]any{"cached_tokens": 0}, "output_tokens": 9, "output_tokens_details": map[string]any{"reasoning_tokens": reasoning}, "total_tokens": total}}
 	event, _ := json.Marshal(map[string]any{"type": "response.completed", "response": response})
 	body := "event: response.completed\ndata: " + string(event) + "\n\ndata: [DONE]\n\n"
 	return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": {"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(body)), Request: r}, nil
