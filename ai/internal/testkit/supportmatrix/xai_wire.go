@@ -174,6 +174,11 @@ func (i *xaiWireItem) identity(v map[string]json.RawMessage) bool {
 		}
 	}
 	if i.kind == "function_call" {
+		if raw, present := v["arguments"]; present {
+			if _, ok := xaiWireText(raw); !ok {
+				return false
+			}
+		}
 		for _, key := range []string{"call_id", "name"} {
 			if !xaiJSONEqual(v[key], i.final[key]) {
 				return false

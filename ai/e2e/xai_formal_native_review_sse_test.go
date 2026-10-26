@@ -8,7 +8,11 @@ import (
 
 func prependXAIReviewFrames(t *testing.T, dir string, makeFrames func(map[string]any) []map[string]any) {
 	t.Helper()
-	editXAINativeArray(t, dir, "E17-xai-entry-stream/text-http.json", func(v []any) {
+	prependXAIReviewFramesAt(t, dir, "E17-xai-entry-stream/text", makeFrames)
+}
+func prependXAIReviewFramesAt(t *testing.T, dir, prefix string, makeFrames func(map[string]any) []map[string]any) {
+	t.Helper()
+	editXAINativeArray(t, dir, prefix+"-http.json", func(v []any) {
 		e := v[0].(map[string]any)
 		body := e["responseBody"].(string)
 		var terminal map[string]any
@@ -70,6 +74,27 @@ func TestXAIFormalNativeReviewSSE(t *testing.T) {
 				text := reason["summary"].([]any)[0].(map[string]any)["text"]
 				return []map[string]any{frame("response.output_item.done", map[string]any{"output_index": 0, "item": reason}), frame("response.reasoning_text.done", map[string]any{"output_index": 0, "content_index": 0, "item_id": reason["id"], "text": text}), frame("response.output_item.done", map[string]any{"output_index": 1, "item": withMessage(r)})}
 			})
+		}},
+
+		{"malformed-initial-function-arguments", false, func(d string) {
+			prependXAIReviewFramesAt(t, d, "E17-xai-tools-required/calls", func(r map[string]any) []map[string]any {
+				reason := r["output"].([]any)[0].(map[string]any)
+				call := r["output"].([]any)[1].(map[string]any)
+				return []map[string]any{frame("response.output_item.added", map[string]any{"output_index": 0, "item": map[string]any{"type": "reasoning", "id": reason["id"], "summary": []any{}}}), frame("response.output_item.added", map[string]any{"output_index": 1, "item": map[string]any{"type": "function_call", "id": call["id"], "call_id": call["call_id"], "name": call["name"], "arguments": nil}})}
+			})
+			record := readXAINativeObject(t, d+"/E17-xai-tools-required/calls-result.json")
+			args := record["message"].(map[string]any)["content"].([]any)[1].(map[string]any)["rawArguments"]
+			path := d + "/E17-xai-tools-required/calls-events.json"
+			events := readXAIReviewArray(t, path)
+			var next []any
+			for _, raw := range events {
+				e := raw.(map[string]any)
+				if e["type"] == "toolcall_end" {
+					next = append(next, map[string]any{"type": "toolcall_delta", "ContentIndex": e["ContentIndex"], "Partial": e["Partial"], "Delta": args})
+				}
+				next = append(next, e)
+			}
+			writeXAINativeJSON(t, path, next)
 		}},
 
 		{"unknown-event", false, func(d string) {

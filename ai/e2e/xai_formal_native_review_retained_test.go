@@ -2,6 +2,8 @@ package e2e
 
 import (
 	"encoding/json"
+	"github.com/tokenbeat-lab/barness/ai"
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -11,24 +13,43 @@ import (
 // paid bundle, source pin or claim is rewritten or promoted.
 func useXAIReviewRetainedEntry(t *testing.T, dir string) {
 	t.Helper()
+	useXAIReviewRetainedScenario(t, dir, "entry-complete")
+}
+func useXAIReviewRetainedScenario(t *testing.T, dir, scenario string) {
+	t.Helper()
 	_, captures, _ := loadXAIRealCaptures(t)
-	var capture xaiRealCapture
-	for _, c := range captures {
-		if c.Scenario == "entry-complete" {
-			capture = c
-			break
+	count := 0
+	for _, capture := range captures {
+		if capture.Scenario == scenario {
+			replaceXAIReviewRetainedCall(t, dir, capture)
+			count++
 		}
 	}
-	if capture.ResponseBody == "" {
-		t.Fatal("retained public fixture missing")
+	if count == 0 {
+		t.Fatal("retained public scenario missing")
 	}
+}
+func replaceXAIReviewRetainedCall(t *testing.T, dir string, capture xaiRealCapture) {
+	t.Helper()
+	prefix := "E17-xai-" + capture.Scenario + "/" + capture.Label
 	w := newXAIWorld(t, nil)
 	w.provider.Enqueue(capture.reply())
-	result, err := w.client.Complete(ctxFor(t), textScope("synthetic-retained-native"), xaiTarget(), capture.initial(t), capture.options(t))
-	if err != nil {
-		t.Fatal(err)
+	var request ai.Request
+	if capture.Label == "results" || capture.Label == "continued" {
+		request = ai.Request{Messages: []ai.Message{ai.UserText("Synthetic isolated response replay.")}, Tools: capture.body(t).Tools}
+	} else {
+		request = capture.initial(t)
 	}
-	prefix := "E17-xai-entry-complete/text"
+	var replay outcome
+	if _, err := os.Stat(filepath.Join(dir, prefix+"-events.json")); err == nil {
+		replay = drain(w.client.Stream(ctxFor(t), textScope("synthetic-retained-native"), xaiTarget(), request, capture.options(t)))
+	} else {
+		replay.result, replay.err = w.client.Complete(ctxFor(t), textScope("synthetic-retained-native"), xaiTarget(), request, capture.options(t))
+	}
+	if replay.err != nil {
+		t.Fatal(replay.err)
+	}
+	result := replay.result
 	record := readXAINativeObject(t, filepath.Join(dir, prefix+"-result.json"))
 	oldMessage := record["message"].(map[string]any)
 	oldUsage := oldMessage["usage"].(map[string]any)
@@ -44,6 +65,25 @@ func useXAIReviewRetainedEntry(t *testing.T, dir string) {
 	mustUnmarshal(t, raw, &cost)
 	attempt["usage"], attempt["costEstimate"] = message["usage"], cost
 	writeXAINativeJSON(t, filepath.Join(dir, prefix+"-result.json"), record)
+	if len(replay.events) > 0 {
+		var events []map[string]any
+		for _, event := range replay.events {
+			raw, err := json.Marshal(event)
+			if err != nil {
+				t.Fatal(err)
+			}
+			var e map[string]any
+			mustUnmarshal(t, raw, &e)
+			e["type"] = string(event.Type())
+			for _, key := range []string{"Partial", "Message"} {
+				if m, ok := e[key].(map[string]any); ok {
+					m["timestamp"], m["durationMs"] = oldMessage["timestamp"], oldMessage["durationMs"]
+				}
+			}
+			events = append(events, e)
+		}
+		writeXAINativeJSON(t, filepath.Join(dir, prefix+"-events.json"), events)
+	}
 	editXAINativeArray(t, dir, prefix+"-observer.json", func(v []any) {
 		v[2].(map[string]any)["attempt"] = attempt
 		last := v[3].(map[string]any)

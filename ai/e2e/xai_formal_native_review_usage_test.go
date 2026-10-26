@@ -5,6 +5,8 @@ import "testing"
 func TestXAIFormalNativeReviewUsage(t *testing.T) {
 	edit := func(d string, f func(map[string]any)) { editXAINativeTerminal(t, d, f) }
 	runXAINativeReview(t, "usage", []xaiNativeReviewCase{
+		{"retained-tools-required", true, func(d string) { useXAIReviewRetainedScenario(t, d, "tools-required") }},
+		{"retained-tools-parallel", true, func(d string) { useXAIReviewRetainedScenario(t, d, "tools-parallel") }},
 		{"retained-real-format", true, func(d string) { useXAIReviewRetainedEntry(t, d) }},
 		{"default-tier", true, func(d string) { edit(d, func(r map[string]any) { r["service_tier"] = "default" }) }},
 		{"null-tier", true, func(d string) { edit(d, func(r map[string]any) { r["service_tier"] = nil }) }},
