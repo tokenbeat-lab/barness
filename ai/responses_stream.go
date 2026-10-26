@@ -22,6 +22,15 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 		if bytes.HasPrefix(event.Data, []byte("[DONE]")) {
 			break
 		}
+		if p.xai != nil {
+			if failure := p.xai.handle(&p, event.Data, event.Type); failure != nil {
+				return failure
+			}
+			if failure := p.out.failure(); failure != nil {
+				return failure
+			}
+			continue
+		}
 		if json.Valid(event.Data) {
 			// The SDK wraps thread.* frames; pi's Responses adapter ignores
 			// that wrapper rather than treating its data as response events.
@@ -33,6 +42,7 @@ func readResponsesStream(ctx context.Context, dec ssestream.Decoder, p responses
 			}
 		}
 		data := event.Data
+
 		if p.kimi != nil {
 			if failure := p.validateKimiResponsesEvent(data); failure != nil {
 				return failure
