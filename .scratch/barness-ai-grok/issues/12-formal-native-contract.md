@@ -1,7 +1,7 @@
 # xAI 自身正式资格合同与冻结版本
 
 Type: task
-Status: needs-info
+Status: ready-for-agent
 Blocked by: 11
 
 ## Contract
@@ -10,7 +10,7 @@ Blocked by: 11
 
 ## Boundary to resolve
 
-等待明确未发布分支目录接线与正式发布的边界；公共回放可独立进行。选择推荐顺序时，一次完成最终目录、原生自身合同和正式harness后冻结；保留release.pass=false，正式live与人工阶段各自另行授权。
+维护者已明确选择推荐的未发布分支/正式发布边界；公共回放已合入。现在一次完成最终目录、原生自身合同和正式harness后冻结；保留release.pass=false，正式live与人工阶段各自另行授权。
 
 ## Ownership and flow
 
@@ -30,7 +30,7 @@ Blocked by: 11
 
 ## Answer
 
-待边界选择及实施。当前候选真实PASS事实见[索引](../evidence/candidate-live-v3.json)。
+边界已由维护者确认，待实施。当前候选真实PASS事实见[索引](../evidence/candidate-live-v3.json)。
 
 ## Comments
 

@@ -1,7 +1,7 @@
 # 脱敏真实捕获的公共 Client 回放
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 10
 
 ## Contract
@@ -24,3 +24,5 @@ Blocked by: 10
 续接从公共Result经持久化恢复与TrustNativeState重建，工具结果使用实际返回的ToolCallID；全部请求与捕获独立比对，PNG/JPEG顺序与调用配对不丢失。缓存仅把期望中的脱敏placeholder替换为独立固定测试向量，实际请求无字段删除。
 
 本工单不更改运行时/live harness/目录；原生source是否适用由原生规则判定，不伪造新付费证据。根代理负责独立复核、完整冻结、唯一状态和最终关闭，故本票仍claimed。
+
+- 2026-10-26：`7acb8698`经证据SHA核对后合入`4b016db8`；2新入口/19case定向PASS、24真实响应回放和25 JSON重复生成哈希一致。实现工单已解决；全局两轴复核、完整受影响包冻结与正式资格仍由集成阶段完成，不把此定向回执冒充最终完整普通。

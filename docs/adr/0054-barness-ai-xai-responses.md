@@ -26,3 +26,9 @@ Grok的Responses使用OpenAI兼容外形，但默认存储会话、默认加密�
 Host必须完整保存消息与Native State Envelope，持久化读回后担保来源，并消费成本完整性。max_output_tokens不构成总费用上限；store:false不构成团队ZDR承诺。首期不接入其他协议、地区、型号、服务等级或托管工具；自带Catalog与Hook不能扩大该子集。
 
 本决定已随2026-10-26的implement-spec请求采用：候选身份、无状态请求、opaque历史和用量/成本转换已进入集成分支。accepted记录的是架构取舍被采用，不表示真实资格、正式目录或发布已经通过，也不授权付费或人工验证阶段。交付契约见[spec](../../.scratch/barness-ai-grok/spec.md)，转换、验收和实施顺序见[design](../../.scratch/barness-ai-grok/design.md)；唯一当前状态只维护在[spec](../../.scratch/barness-ai-grok/spec.md#唯一当前状态)。
+
+## 最终源码接线与正式发布的边界
+
+维护者于2026-10-26明确确认“采用建议顺序，发布前保持未正式支持”。自身真实候选18/18通过后，先在未发布集成分支完成真实脱敏回放、xAI自身资格器/正式harness和最终Builtin目录接线，审查后冻结同一最终payload；之后才为该版本取得新的正式live授权及独立人工race/压力选择，全部适用门槛通过后接受/发布正式晋升。源码接线不等于已正式支持，不自动合并main、push或发布。
+
+这样排序是因为现有正式消费者要求report绑定当前全Builtin版本/hash；若全部门槛完成后才改目录源码，会改变原生/外层来源并使旧门槛失去适用性。候选原件保留自己的stage/catalog/source/binary，不改写为正式。实现不新增控制器、构建标签或兼容层；发布保持false直到所有要求具备事实。详见[已接受的冻结顺序](../../.scratch/barness-ai-grok/formal-qualification-plan.md)。

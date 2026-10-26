@@ -8,7 +8,7 @@ Blocked by: 05
 
 [Spec](../spec.md)；[设计](../design.md)；[验证 SOP](../../../docs/agents/verification.md)。
 
-R21/R23；E18。live 资格成立后取得人工选择的 race，再取得适用压力选择；满足来源/价格/能力证据后才激活正式目录并保存只读 Release Gate 回执。
+R21/R23；E18。按维护者已确认的[未发布分支顺序](../formal-qualification-plan.md)先准备并审查最终目录/资格源码，再冻结最终来源取得正式live；有效live后分别取得人工race和适用压力选择，全部通过后才接受/发布正式晋升并保存只读Release Gate。目录源码接线不代表已经正式支持。
 
 ## Ownership
 
