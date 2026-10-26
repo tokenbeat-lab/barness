@@ -15,7 +15,7 @@ import (
 
 // A grant is consumed in common Git storage, before requests, across worktrees
 // and reruns. An incomplete write consumes it too; failure never restores it.
-func (p *xaiCandidateProcess) claim() error {
+func (p *xaiProcess) claim() error {
 	cmd := exec.Command("git", "rev-parse", "--path-format=absolute", "--git-common-dir")
 	raw, err := cmd.Output()
 	if err != nil {

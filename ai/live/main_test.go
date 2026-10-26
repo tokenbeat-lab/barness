@@ -48,7 +48,7 @@ func TestMain(m *testing.M) {
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An isolated qualification process never executes a legacy live combination.
 	if xaiSelected() {
-		cfg = processConfig{notRun: "isolated xAI candidate"}
+		cfg = processConfig{notRun: "isolated xAI qualification"}
 	} else if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated new regional authorization"}
 	} else if glmDiagnosticSelected() {
@@ -136,7 +136,7 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if xaiState != nil && flag.Lookup("test.run").Value.String() != xaiEntry {
+	if xaiState != nil && flag.Lookup("test.run").Value.String() != xaiState.entry() {
 		xaiState.report.Outcome, xaiState.report.Failure = "FAIL", "exact isolated xAI entry required"
 		code = 1
 	} else if regionalState != nil && flag.Lookup("test.run").Value.String() != regionalEntry() {
@@ -189,7 +189,7 @@ func TestMain(m *testing.M) {
 	}
 	if xaiState != nil {
 		xaiState.report.FinishedAt = time.Now().UTC()
-		if err := run.Record("xai-candidate-report", xaiState.report); err != nil {
+		if err := run.Record(xaiState.reportName(), xaiState.report); err != nil {
 			code = 1
 		}
 	}
