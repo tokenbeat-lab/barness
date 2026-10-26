@@ -56,8 +56,11 @@ func (i *xaiWireItem) text(typ string, f map[string]json.RawMessage) error {
 	if !ok || !i.partKind(channel, partKind) {
 		return refuse("xAI raw part kind or value invalid")
 	}
-	if i.done && !done {
-		return refuse("xAI raw delta follows completed item")
+	if i.done {
+		p := i.parts[channel][index]
+		if !done || p == nil || !p.done || p.text != value {
+			return refuse("xAI raw part changed after completed item")
+		}
 	}
 	if i.primary == "" {
 		i.primary = channel
@@ -91,12 +94,16 @@ func (i *xaiWireItem) set(channel string, index int64, kind, value string, done 
 		}
 		p.text += value
 	}
-	if target, has := i.authority(i.final, channel, index); has && (!strings.HasPrefix(target, p.text) || done && target != p.text) {
+	target, has, err := i.authority(i.final, channel, index)
+	if err != nil {
+		return err
+	}
+	if has && (!strings.HasPrefix(target, p.text) || done && target != p.text) {
 		return refuse("xAI raw text contradicts final authority")
 	}
 	return nil
 }
-func (i *xaiWireItem) authority(item map[string]json.RawMessage, channel string, index int64) (string, bool) {
+func (i *xaiWireItem) authority(item map[string]json.RawMessage, channel string, index int64) (string, bool, error) {
 	raw, ok := item[channel]
 	if !ok && i.kind == "reasoning" {
 		raw, ok = item["summary"]
@@ -105,18 +112,18 @@ func (i *xaiWireItem) authority(item map[string]json.RawMessage, channel string,
 		}
 	}
 	if !ok {
-		return "", false
+		return "", false, nil
 	}
 	var parts []map[string]json.RawMessage
 	if regionalDecode(raw, &parts) != nil || index >= int64(len(parts)) {
-		return "\x00", true
+		return "", true, refuse("xAI raw part index exceeds authoritative snapshot")
 	}
 	p := parts[index]
 	field := "text"
 	if xaiWireString(p["type"]) == "refusal" {
 		field = "refusal"
 	}
-	return xaiWireString(p[field]), true
+	return xaiWireString(p[field]), true, nil
 }
 func (i *xaiWireItem) visible() string {
 	primary := i.primary

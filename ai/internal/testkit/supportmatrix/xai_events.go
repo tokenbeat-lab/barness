@@ -63,7 +63,7 @@ func verifyXAIEvents(root *os.Root, name string, c xaiCall) error {
 		}
 		switch parts[1] {
 		case "start":
-			if opened[index] != "" || closed[index] {
+			if opened[index] != "" || closed[index] || index != len(opened) {
 				return refuse("xAI stream duplicate block start")
 			}
 			opened[index] = parts[0]

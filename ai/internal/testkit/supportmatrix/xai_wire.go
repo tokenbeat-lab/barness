@@ -264,8 +264,8 @@ func (i *xaiWireItem) close(v map[string]json.RawMessage) error {
 		// describe those same logical parts. No absent channel can hide a conflict.
 		for channel, parts := range i.parts {
 			for n, p := range parts {
-				target, has := i.authority(v, channel, n)
-				if has && (!strings.HasPrefix(target, p.text) || p.done && p.text != target) {
+				target, has, err := i.authority(v, channel, n)
+				if err != nil || has && (!strings.HasPrefix(target, p.text) || p.done && p.text != target) {
 					return bad()
 				}
 			}

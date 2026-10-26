@@ -51,6 +51,27 @@ func TestXAIFormalNativeReviewSSE(t *testing.T) {
 				return []map[string]any{frame("response.output_item.done", map[string]any{"output_index": 0, "item": r["output"].([]any)[0]}), frame("response.output_item.done", map[string]any{"output_index": 1, "item": withMessage(r)})}
 			})
 		}},
+		{"incremental-prefix", true, func(d string) {
+			prependXAIReviewFrames(t, d, func(r map[string]any) []map[string]any {
+				reason := r["output"].([]any)[0].(map[string]any)
+				addedReason := map[string]any{"type": "reasoning", "id": reason["id"], "summary": []any{}}
+				return []map[string]any{frame("response.output_item.added", map[string]any{"output_index": 0, "item": addedReason}), add(r), frame("response.output_text.delta", map[string]any{"output_index": 1, "content_index": 0, "item_id": withMessage(r)["id"], "delta": "391."})}
+			})
+		}},
+		{"alternate-channel-out-of-range", false, func(d string) {
+			prependXAIReviewFrames(t, d, func(r map[string]any) []map[string]any {
+				reason := r["output"].([]any)[0].(map[string]any)
+				return []map[string]any{frame("response.output_item.added", map[string]any{"output_index": 0, "item": map[string]any{"type": "reasoning", "id": reason["id"], "summary": []any{}}}), frame("response.reasoning_text.delta", map[string]any{"output_index": 0, "content_index": 1, "item_id": reason["id"], "delta": "\x00"}), add(r)}
+			})
+		}},
+		{"new-channel-after-item-done", false, func(d string) {
+			prependXAIReviewFrames(t, d, func(r map[string]any) []map[string]any {
+				reason := r["output"].([]any)[0].(map[string]any)
+				text := reason["summary"].([]any)[0].(map[string]any)["text"]
+				return []map[string]any{frame("response.output_item.done", map[string]any{"output_index": 0, "item": reason}), frame("response.reasoning_text.done", map[string]any{"output_index": 0, "content_index": 0, "item_id": reason["id"], "text": text}), frame("response.output_item.done", map[string]any{"output_index": 1, "item": withMessage(r)})}
+			})
+		}},
+
 		{"unknown-event", false, func(d string) {
 			prependXAIReviewFrames(t, d, func(r map[string]any) []map[string]any {
 				return []map[string]any{frame("response.magic", map[string]any{})}
