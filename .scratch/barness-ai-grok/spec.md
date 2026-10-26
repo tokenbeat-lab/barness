@@ -224,13 +224,13 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 候选及01–04、07–11、13已完成；自身候选真实18/18 PASS。12最终目录与正式producer已合入，受控全部xAI618case通过；原生消费者受控41case通过、待最终提交。14补受影响旧目标来源历史和单次授权合同，尚在实现。完整交付/发布未完成 |
-| 冻结来源 | 当前实现已新增真实回放、已确认request-ID采用和正式producer/目录；12消费者与14旧目标软件完成后再统一审查、重新冻结完整普通。历史受测36eaca/cases-v3及候选paid2ae875保留，不将它们当作当前源码的正式资格 |
-| 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留；JPEG增量[v4](review/review-v4.md)亦0/0 |
+| 实现 | 候选及01–04、07–11、13已完成；自身候选真实18/18 PASS。12最终目录、正式producer及原生消费者均已合入，producer收尾修正后的全部xAI621case与消费者55个CLI case定向通过；14旧目标完整回归与15正式审查修复仍在实施。完整交付/发布未完成 |
+| 冻结来源 | 当前已合入真实回放、request-ID采用、正式producer/目录及原生消费者；14旧目标和15审查修复完成后复核并重新冻结完整普通。历史受测36eaca/cases-v3及候选paid2ae875保留，不将它们当作当前源码的正式资格 |
+| 审查 | 核心及JPEG的[v1](review/review-v1.md)–[v4](review/review-v4.md)均已修复/复核0项；正式资格软件[v5](review/review-v5.md)新增Standards 3项、Spec 5项，保留两轴独立报告，由同一实现者在15逐项公共CLI先RED后修复；尚待独立复核，14增量亦待审查 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | [候选完成时索引v4](verification/record-v4.json)与[当时只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留：source/e2e=true，正式live/race/压力=false，CLI exit1；新软件来源另待冻结/索引，不改写旧原件 |
 | 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
-| 共享历史live | 维护者已明确选择17条正式路线（Grok自身+16已发布旧目标）；六条Kimi保持候选与受控回归，不连带晋升。14仍保留22条代码路径/新增来源历史检查，正式目标尚未实际运行或授权；见[当前影响范围v2](live-impact-v2.md)与[选择](formal-target-scope-plan.md) |
+| 共享历史live | 维护者已明确选择17条正式路线（Grok自身+16已发布旧目标）；六条Kimi保持候选与受控回归，不连带晋升。14仍保留22条代码路径/新增来源历史检查，正式目标尚未实际运行或授权；已确认九项本机.env变量来源，只记录名称与账户/endpoint地区标签，不构成资格或调用授权；见[影响范围v2](live-impact-v2.md)、[选择](formal-target-scope-plan.md)、[凭据来源](verification/credential-sources-v1.json) |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | 未发布分支已准备最终Builtin2026-10-26.1/xAI接线；按维护者确认，此源码接线不代表正式支持或发布。新正式live、其他受影响路线及人工阶段未通过，release.pass=false |
 
@@ -279,6 +279,6 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 [候选构建](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)与[只读门禁构建](../../.evidence/barness-ai-grok/build/20261026T040254-releasegate-el73wpu7/build-receipt.json)实际exit0，GOENV=off、GOFLAGS为空、隔离HOME/凭据；source/binary/catalog/SDK机器事实已固定。候选无开关/无Key精确入口实际为NOT_RUN、Calls0，不产生真实资格。
 
-自身候选已在第3次运行完整真实PASS；前两次失败、授权/claim及原生拒绝结果保留。11回放代码与19case定向普通已完成；12正式合同与最终目录接线按维护者确认的未发布分支顺序实施，13采用真实已确认的x-request-id。软件全部完成并审查冻结后，另行提出新正式live范围；另外22路线与race/压力未授权/未选择，release.pass=false。
+自身候选已在第3次运行完整真实PASS；前两次失败、授权/claim及原生拒绝结果保留。11回放与13 request-ID已完成；12正式软件已合入，15审查修复和14旧目标回归尚未完成。软件完成并独立复核、冻结后，另行提出已选择17条正式路线的具体付费计划；六条Kimi仍为候选，race/压力未选择，release.pass=false。
 
 回滚先禁用并更新xAI Binding版本，固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照及验证原件，不自动切Provider/API；无数据库迁移。
