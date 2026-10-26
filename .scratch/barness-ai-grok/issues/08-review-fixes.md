@@ -1,7 +1,7 @@
 # 两轴审查修复
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 04, 07
 
 ## Contract
@@ -54,3 +54,18 @@ Blocked by: 04, 07
 
 提交源码和测试后，合并最新集成文档，再执行全部 TestXAI 与既有 GLM/Kimi opaque 来源回归。完整集成冻结普通回执及后续人工/付费阶段仍由主工作树负责。本工单不改 spec 当前状态。
 
+
+
+## Answer
+
+五项修复已提交于 `51c95922`，合并最新集成文档后的受测提交为 `e3ad302d5bffc234a7ad3563235bffdd95d4d819`。
+
+冻结定向普通命令（exit0）：
+
+```sh
+python3 tools/verification/run.py --feature barness-ai-grok --stage e2e -- go test -json ./ai/e2e -run '^(TestXAI.*|TestGLMResponsesOriginIDCollision|TestKimiResponsesCrossTargetIDs|TestKimiResponsesSequentialProvenanceIDs)$' -count=1 -timeout=5m
+```
+
+[不可变索引](../evidence/review-fixes-e2e-v1.json)绑定 receipt `20261026T030721.568691Z-pzit2yuv`（SHA256 `f23768eeb8242c7a4ff71d374720c155ea03735843c05ef91e23ee7ac57dbf3c`）：64顶层/605实际测试、564原生case全部PASS，唯一主 bundle `bundles/20261026T030725.014638000Z`，manifest SHA256 `f2ef5e24a68e5fb3332fe3b88a9cf2304fb68a962e197fe7d5575f1082ae1c85`，audit SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。1961项完整执行来源与空选定输入集合在文档收尾后独立核对相等；相等性原件路径见索引。
+
+本票关闭只表示审查修复与定向普通验证完成。独立复核、集成完整冻结普通回执仍待主工作树，live/race/压力未运行，release.pass=false。回滚可撤回修复提交，不改旧历史、候选授权或失败证据。
