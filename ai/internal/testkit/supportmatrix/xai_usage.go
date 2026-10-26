@@ -12,17 +12,18 @@ import (
 	"github.com/tokenbeat-lab/barness/ai"
 )
 
-func xaiTerminal(body string) (map[string]json.RawMessage, []map[string]json.RawMessage, error) {
+func xaiTerminal(body string) (map[string]json.RawMessage, []map[string]json.RawMessage, map[string]string, error) {
 	decoder := ssestream.NewDecoder(&http.Response{Header: http.Header{"Content-Type": {"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(body))})
 	defer decoder.Close()
 	var terminal map[string]json.RawMessage
+	var frames []map[string]json.RawMessage
 	ended := false
 	for decoder.Next() {
 		event := decoder.Event()
 		raw := strings.TrimSpace(string(event.Data))
 		if raw == "[DONE]" {
 			if terminal == nil || ended {
-				return nil, nil, refuse("xAI SSE done marker without unique terminal")
+				return nil, nil, nil, refuse("xAI SSE done marker without unique terminal")
 			}
 			ended = true
 			continue
@@ -31,53 +32,58 @@ func xaiTerminal(body string) (map[string]json.RawMessage, []map[string]json.Raw
 			continue
 		}
 		if ended || len(raw) > 256<<10 {
-			return nil, nil, refuse("xAI SSE data after terminal or oversized frame")
+			return nil, nil, nil, refuse("xAI SSE data after terminal or oversized frame")
 		}
 		var frame map[string]json.RawMessage
 		if regionalDecode([]byte(raw), &frame) != nil {
-			return nil, nil, refuse("xAI SSE frame malformed")
+			return nil, nil, nil, refuse("xAI SSE frame malformed")
 		}
 		var kind string
-		if json.Unmarshal(frame["type"], &kind) != nil || event.Type != "" && event.Type != kind {
-			return nil, nil, refuse("xAI SSE event name differs")
+		if json.Unmarshal(frame["type"], &kind) != nil || event.Type != "" && event.Type != "message" && event.Type != kind {
+			return nil, nil, nil, refuse("xAI SSE event name differs")
 		}
+		frames = append(frames, frame)
 		switch kind {
 		case "response.completed":
 			var complete map[string]json.RawMessage
 			if regionalDecode(frame["response"], &complete) != nil || complete == nil {
-				return nil, nil, refuse("xAI completed response absent")
+				return nil, nil, nil, refuse("xAI completed response absent")
 			}
 			if terminal != nil && !xaiEqual(terminal, complete) {
-				return nil, nil, refuse("xAI conflicting completed snapshots")
+				return nil, nil, nil, refuse("xAI conflicting completed snapshots")
 			}
 			terminal = complete
 		case "response.failed", "response.incomplete", "error", "response.error":
-			return nil, nil, refuse("xAI SSE did not complete successfully")
+			return nil, nil, nil, refuse("xAI SSE did not complete successfully")
 		default:
 			if terminal != nil {
-				return nil, nil, refuse("xAI SSE data after completed snapshot")
+				return nil, nil, nil, refuse("xAI SSE data after completed snapshot")
 			}
 		}
 	}
 	if decoder.Err() != nil || terminal == nil {
-		return nil, nil, refuse("xAI SSE lacks complete terminal")
+		return nil, nil, nil, refuse("xAI SSE lacks complete terminal")
 	}
 	var status, model string
 	json.Unmarshal(terminal["status"], &status)
 	json.Unmarshal(terminal["model"], &model)
 	if status != "completed" || model != xaiModel {
-		return nil, nil, refuse("xAI terminal model or outcome differs")
+		return nil, nil, nil, refuse("xAI terminal model or outcome differs")
 	}
 	for _, k := range []string{"error", "incomplete_details"} {
 		if v := strings.TrimSpace(string(terminal[k])); v != "" && v != "null" {
-			return nil, nil, refuse("xAI successful terminal contains failure detail")
+			return nil, nil, nil, refuse("xAI successful terminal contains failure detail")
 		}
 	}
 	var output []map[string]json.RawMessage
 	if regionalDecode(terminal["output"], &output) != nil || len(output) == 0 {
-		return nil, nil, refuse("xAI terminal output absent")
+		return nil, nil, nil, refuse("xAI terminal output absent")
 	}
-	return terminal, output, nil
+	ordered, visible, err := verifyXAIWire(frames, terminal, output)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	return terminal, ordered, visible, nil
 }
 func xaiCount(raw json.RawMessage) (int64, error) {
 	r, ok := new(big.Rat).SetString(string(raw))
