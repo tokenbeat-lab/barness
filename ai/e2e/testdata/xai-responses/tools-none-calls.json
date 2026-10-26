@@ -1,0 +1,70 @@
+{
+  "scenario": "tools-none",
+  "label": "calls",
+  "request": {
+    "include": [
+      "reasoning.encrypted_content"
+    ],
+    "input": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "input_text",
+            "text": "Say hello without using tools."
+          }
+        ]
+      }
+    ],
+    "max_output_tokens": 1024,
+    "model": "grok-4.7",
+    "reasoning": {
+      "effort": "low"
+    },
+    "store": false,
+    "stream": true,
+    "tool_choice": "none",
+    "tools": [
+      {
+        "type": "function",
+        "name": "get_weather",
+        "description": "Returns the current weather for a city.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City name"
+            }
+          },
+          "required": [
+            "city"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "responseBody": "event: response.created\ndata: {\"sequence_number\":0,\"type\":\"response.created\",\"response\":{\"created_at\":0,\"completed_at\":null,\"id\":\"replay-id-0048\",\"max_output_tokens\":1024,\"model\":\"grok-4.7\",\"object\":\"response\",\"output\":[],\"parallel_tool_calls\":true,\"previous_response_id\":null,\"reasoning\":{\"effort\":\"low\",\"summary\":\"detailed\"},\"temperature\":0.7,\"text\":{\"format\":{\"type\":\"text\"}},\"tool_choice\":\"none\",\"tools\":[{\"type\":\"function\",\"description\":\"Returns the current weather for a city.\",\"name\":\"get_weather\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\",\"description\":\"City name\"}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":null}],\"top_p\":0.95,\"usage\":null,\"user\":null,\"incomplete_details\":null,\"status\":\"in_progress\",\"store\":false,\"metadata\":{},\"background\":false,\"service_tier\":\"default\",\"truncation\":\"disabled\",\"top_logprobs\":0,\"presence_penalty\":0.0,\"frequency_penalty\":0.0,\"prompt_cache_key\":null,\"max_tool_calls\":null,\"safety_identifier\":null,\"error\":null,\"instructions\":null}}\n\nevent: response.in_progress\ndata: {\"sequence_number\":1,\"type\":\"response.in_progress\",\"response\":{\"created_at\":0,\"completed_at\":null,\"id\":\"replay-id-0048\",\"max_output_tokens\":1024,\"model\":\"grok-4.7\",\"object\":\"response\",\"output\":[],\"parallel_tool_calls\":true,\"previous_response_id\":null,\"reasoning\":{\"effort\":\"low\",\"summary\":\"detailed\"},\"temperature\":0.7,\"text\":{\"format\":{\"type\":\"text\"}},\"tool_choice\":\"none\",\"tools\":[{\"type\":\"function\",\"description\":\"Returns the current weather for a city.\",\"name\":\"get_weather\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\",\"description\":\"City name\"}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":null}],\"top_p\":0.95,\"usage\":null,\"user\":null,\"incomplete_details\":null,\"status\":\"in_progress\",\"store\":false,\"metadata\":{},\"background\":false,\"service_tier\":\"default\",\"truncation\":\"disabled\",\"top_logprobs\":0,\"presence_penalty\":0.0,\"frequency_penalty\":0.0,\"prompt_cache_key\":null,\"max_tool_calls\":null,\"safety_identifier\":null,\"error\":null,\"instructions\":null}}\n\nevent: response.output_item.added\ndata: {\"sequence_number\":2,\"type\":\"response.output_item.added\",\"item\":{\"id\":\"replay-id-0049\",\"summary\":[],\"type\":\"reasoning\",\"status\":\"in_progress\"},\"output_index\":0}\n\nevent: response.output_item.done\ndata: {\"sequence_number\":3,\"type\":\"response.output_item.done\",\"item\":{\"id\":\"replay-id-0049\",\"summary\":[],\"type\":\"reasoning\",\"status\":\"completed\",\"encrypted_content\":\"replay-encrypted-0016\"},\"output_index\":0}\n\nevent: response.output_item.added\ndata: {\"sequence_number\":4,\"type\":\"response.output_item.added\",\"item\":{\"content\":[],\"id\":\"replay-id-0050\",\"role\":\"assistant\",\"type\":\"message\",\"status\":\"in_progress\"},\"output_index\":1}\n\nevent: response.content_part.added\ndata: {\"sequence_number\":5,\"type\":\"response.content_part.added\",\"content_index\":0,\"item_id\":\"replay-id-0050\",\"output_index\":1,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"logprobs\":[],\"annotations\":[]}}\n\nevent: response.output_text.delta\ndata: {\"sequence_number\":6,\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"Hello\",\"item_id\":\"replay-id-0050\",\"output_index\":1,\"logprobs\":[]}\n\nevent: response.output_text.delta\ndata: {\"sequence_number\":7,\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\".\",\"item_id\":\"replay-id-0050\",\"output_index\":1,\"logprobs\":[]}\n\nevent: response.output_text.done\ndata: {\"sequence_number\":8,\"type\":\"response.output_text.done\",\"content_index\":0,\"item_id\":\"replay-id-0050\",\"output_index\":1,\"text\":\"Hello.\",\"logprobs\":[]}\n\nevent: response.content_part.done\ndata: {\"sequence_number\":9,\"type\":\"response.content_part.done\",\"content_index\":0,\"item_id\":\"replay-id-0050\",\"output_index\":1,\"part\":{\"type\":\"output_text\",\"text\":\"Hello.\",\"logprobs\":[],\"annotations\":[]}}\n\nevent: response.output_item.done\ndata: {\"sequence_number\":10,\"type\":\"response.output_item.done\",\"item\":{\"content\":[{\"type\":\"output_text\",\"text\":\"Hello.\",\"logprobs\":[],\"annotations\":[]}],\"id\":\"replay-id-0050\",\"role\":\"assistant\",\"type\":\"message\",\"status\":\"completed\"},\"output_index\":1}\n\nevent: response.completed\ndata: {\"sequence_number\":11,\"type\":\"response.completed\",\"response\":{\"created_at\":0,\"completed_at\":1792991112,\"id\":\"replay-id-0048\",\"max_output_tokens\":1024,\"model\":\"grok-4.7\",\"object\":\"response\",\"output\":[{\"id\":\"replay-id-0049\",\"summary\":[],\"type\":\"reasoning\",\"status\":\"completed\",\"encrypted_content\":\"replay-encrypted-0016\"},{\"content\":[{\"type\":\"output_text\",\"text\":\"Hello.\",\"logprobs\":[],\"annotations\":[]}],\"id\":\"replay-id-0050\",\"role\":\"assistant\",\"type\":\"message\",\"status\":\"completed\"}],\"parallel_tool_calls\":true,\"previous_response_id\":null,\"reasoning\":{\"effort\":\"low\",\"summary\":\"detailed\"},\"temperature\":0.7,\"text\":{\"format\":{\"type\":\"text\"}},\"tool_choice\":\"none\",\"tools\":[{\"type\":\"function\",\"description\":\"Returns the current weather for a city.\",\"name\":\"get_weather\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\",\"description\":\"City name\"}},\"required\":[\"city\"],\"additionalProperties\":false},\"strict\":null}],\"top_p\":0.95,\"usage\":{\"input_tokens\":1360,\"input_tokens_details\":{\"cached_tokens\":1152},\"output_tokens\":19,\"output_tokens_details\":{\"reasoning_tokens\":17},\"total_tokens\":1379,\"num_sources_used\":0,\"num_server_side_tools_used\":0,\"cost_in_usd_ticks\":11060000,\"context_details\":{\"input_tokens\":1360,\"output_tokens\":26}},\"user\":null,\"incomplete_details\":null,\"status\":\"completed\",\"store\":false,\"metadata\":{},\"background\":false,\"service_tier\":\"default\",\"truncation\":\"disabled\",\"top_logprobs\":0,\"presence_penalty\":0.0,\"frequency_penalty\":0.0,\"prompt_cache_key\":null,\"max_tool_calls\":null,\"safety_identifier\":null,\"error\":null,\"instructions\":null}}\n\n",
+  "expected": {
+    "text": "Hello.",
+    "usage": {
+      "input": 208,
+      "cacheRead": 1152,
+      "cacheWrite": 0,
+      "output": 19,
+      "totalTokens": 1379,
+      "reasoning": 17
+    },
+    "reasoning": [
+      {
+        "id": "replay-id-0049",
+        "summary": [],
+        "type": "reasoning",
+        "status": "completed",
+        "encrypted_content": "replay-encrypted-0016"
+      }
+    ],
+    "calls": []
+  }
+}
