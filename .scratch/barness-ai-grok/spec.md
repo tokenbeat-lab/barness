@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–17软件工单已解决；17狭窄合同修复268faeba、完整CLI回归b77859c0、v12两轴0/0及四包完整普通通过。05新来源正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 软件pin b77859c0；本批实际受测/执行HEAD `013b1046179dac08b78c818278a6354151ff64d7`，2057默认来源及165选定输入集合/内容完全匹配；当前仅非执行文档更新，HEAD保持不变 |
-| 审查 | 16的v10两轴0/0；17的v11两轴各1 P2公共CLI接线缺口已由同一完整fixture修复者补齐，v12独立两轴均0项；三份实际RED与完整61项定向GREEN保留 |
-| 当前完整普通（cases-v9） | v4匹配165输入的四包15,982测试、1518/1518必交、125/125入口全部PASS，657.659秒/exit0/audit0；主15069 PASS/214压力NOT_RUN，辅助GLM32 PASS。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T184249.442089Z-mwbqp_5d/receipt.json)/[核验](../../.evidence/barness-ai-grok/gf4-20261026T184225Z-e2beb101-ordinary-validation.json) |
+| 实现 | 01–04及07–17已解决；18 bounded thinking-on正例、19私有测试store/真实restart已完成定向RED/GREEN及v14双轴0/0，完整普通待最终冻结运行。05新源真实资格及06人工阶段/发布未完成 |
+| 冻结来源 | 软件pin d816aacb4538f735b76df7bdacb686b621aef382，2062默认来源/129执行与规划输入；新1522主必交/127入口与GLM32+MM18六aux独立。当前完整普通待运行，新源17正式live均NOT_RUN |
+| 审查 | [v14](review/review-v14.md) Standards0/Spec0；v13两轴各1 P2真实restart缺口已由同一实现者补真实第二进程/同private namespace/原生数字exit及四文件digest，原错误证明和RED保留 |
+| 当前完整普通（cases-v9） | 新cases-v11来源NOT_RUN，准备完整四包验证。历史v4普通15,982测试/1518必交/125入口PASS及所有辅助/原件保持历史，不改pin |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [索引v12](verification/record-v12.json)绑定同源完整普通、7条有效正式消费者、第8条失败及后9未跑；只读结果见[readonly-v12](../../.evidence/barness-ai-grok/release/readonly-v12/native/release-report.json)。旧索引/两次停止点保留；release.pass=false |
-| 自身live | 本批xAI已取得正式资格：18/18 PASS，24calls/24HTTP，原生schema2消费者exit0；原件与其他4条见[停止检查点](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/stopped-checkpoint-v1.json) |
-| 共享历史live | 已明确批准SOP3/4限定续跑例外；6智谱24/24、7 ZAI20/20及消费者通过，连同前5为7条QUALIFIED。8国际MiniMax Chat的thinking-on原始reasoning_tokens=0，13场景PASS/1 FAIL，原生进程exit1，已再次STOP，后9条NOT_RUN。本批137逻辑calls/136HTTP，历史104/104另计，合计241/240；[停止原件](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/continuation-1/stopped-checkpoint-v1.json)。Kimi六条仍候选 |
+| 原生消费 | 历史[索引v12](verification/record-v12.json)与[readonly-v12](../../.evidence/barness-ai-grok/release/readonly-v12/native/release-report.json)仅绑定13b实际普通/7资格/8失败/9未跑时的状态。当前新来源尚无冻结验收索引，普通/live/race/压力未通过，release.pass=false |
+| 自身live | 历史13b来源xAI正式18/18 PASS、24calls/24HTTP，及其他6路线实际资格均完整保留；18新探针/19测试fixture改变全局来源，当前新来源真实验证NOT_RUN |
+| 共享历史live | 历史v4含补充7 QUALIFIED、8 MiniMax thinking-on FAIL、后9 NOT_RUN；历史正式合计241逻辑calls/240HTTP。新[计划v5](formal-live-plan-v5.md)17路线/238场景、444/472新批上限，尚未授权，需人选收集独立结果或任一失败即停；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 最终目录源码及普通通过，正式live尚缺第8至17条有效资格，race/压力尚未选择；release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 软件修复与v14通过；新来源完整普通/17正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -374,3 +374,17 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 维护者明确回复“批准限定例外，续跑剩余 12 条”；[原始补充授权](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/continuation-authorization-v1.json)固定允许仅治理计划/原始回复不加入165输入、第6额外一次使用原未claim grant及解除STOP。没有改旧grant/config、source、pin或原失败记录，也未重复前5。新智谱24 PASS/24calls、ZAI20 PASS/20calls均取得正式资格。
 
 第8国际MiniMax-M3 Chat实际14逻辑calls/13HTTP、21.045秒，14场景中13 PASS（含xai-origin-history），thinking-on FAIL；其真实请求thinking.type=adaptive/reasoning_split=true/2048输出，服务器HTTP200直接回答42且原始reasoning_tokens=0，无法满足自身“实际观察推理”正例。另一full-stream原始8 reasoning tokens及Thinking被正确保留，当前未见适配器丢失证据；推断探针任务可能过于简单，尚未修正或重新验证，保留FAIL不降级。完整[停止检查点](../../.evidence/barness-ai-grok/live-batches/gf4-20261026T184225Z-e2beb101/continuation-1/stopped-checkpoint-v1.json)保存ledger/claim/原件和9条NOT_RUN；没有自动重试或启动第9条。后续只做离线诊断，不新增付费权限。
+
+#### 18/19离线修复与v13前沿
+
+[18](issues/18-minimax-reasoning-probe.md)仅为M3 thinking-on追加固定有界CRT任务、继续要求自身非空推理，原模型/场景/预算/消费者不变；公开受控旧任务RED、新正例/零推理反例GREEN原件由[摘要v1](evidence/minimax-reasoning-probe-v1.json)固定。新增wrapper主1 case、native auxiliary6 case，不能将其计为真实资格。
+
+18额外选择既有FreshLedger回归时漏查Git namespace隔离，实际追加3 synthetic ID/6 guards/3 ledgers；无真实Key或厂商请求，记录原样保留，根核对原件见[偏差核验](../../.evidence/barness-ai-grok/diagnosis/controlled-store-v1/receipt-v2.json)。[19](issues/19-controlled-grant-store-isolation.md)改为每用例私有Git common store，HEAD/object来源与真实checkout不伪造，先只读Git RED后私有GREEN；[原摘要v1](evidence/controlled-grant-isolation-v1.json)也保留。
+
+[v13两轴](review/review-v13.md)指出旧/新增重启检查复用exec.Cmd，第二CombinedOutput在启动前报错，库存不变不能证明原生单次权限拒绝。原实现者正先补真实数字exit的RED，再用新命令对象及同私有namespace执行实际restart；不改旧v1和原restart原件，完成后新摘要和独立复核另行版本。当前尚未完成，不发放新付费或人工权限。
+
+#### v14零发现与v5冻结准备
+
+18/19以及v13真实restart缺口已完成：定向真实RED/GREEN均保留，新[私有授权v2](evidence/controlled-grant-isolation-v2.json)绑定实际第二native PID/runID、数字exit1、原生已消耗拒绝及零新增调用/四文件digest；[v14](review/review-v14.md)两轴均0。旧v1错误证明已撤回而不改原件。新[1522有限清单](verification/cases-v11.json)、[独立库存](verification/cases-v11-inventory.json)、[119实际外部输入](verification/ordinary-inputs-v8.json)由源码枚举，不以PASS列表反推。
+
+[计划v5](formal-live-plan-v5.md)沿同17路线/237 PASS+1声明UNSUPPORTED合同，固定新8个image及正确package cwd/绝对grant路径。原始241/240正式调用及全部停止点保留；当前无新付费权限。先完成此129输入/2062来源的完整四包普通，再交付具体 paid选择。
