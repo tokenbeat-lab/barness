@@ -231,7 +231,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | 历史[索引v12](verification/record-v12.json)与[readonly-v12](../../.evidence/barness-ai-grok/release/readonly-v12/native/release-report.json)仅绑定13b实际普通/7资格/8失败/9未跑时的状态。当前新来源尚无冻结验收索引，普通/live/race/压力未通过，release.pass=false |
 | 自身live | 历史13b来源xAI正式18/18 PASS、24calls/24HTTP，及其他6路线实际资格均完整保留；18新探针/19测试fixture改变全局来源，当前新来源真实验证NOT_RUN |
-| 共享历史live | 历史v4含补充7 QUALIFIED、8 MiniMax thinking-on FAIL、后9 NOT_RUN；历史正式合计241逻辑calls/240HTTP。新[计划v5](formal-live-plan-v5.md)17路线/238场景、444/472新批上限，尚未授权，需人选收集独立结果或任一失败即停；Kimi六条仍候选 |
+| 共享历史live | 历史v4含补充7 QUALIFIED、8 MiniMax thinking-on FAIL、后9 NOT_RUN；历史正式合计241逻辑calls/240HTTP。新[计划v6](formal-live-plan-v6.md)17路线/238场景、444/472新批上限，尚未授权，需人选收集独立结果或任一失败即停；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | 软件修复与v14通过；新来源完整普通/17正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
 
@@ -387,4 +387,10 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 18/19以及v13真实restart缺口已完成：定向真实RED/GREEN均保留，新[私有授权v2](evidence/controlled-grant-isolation-v2.json)绑定实际第二native PID/runID、数字exit1、原生已消耗拒绝及零新增调用/四文件digest；[v14](review/review-v14.md)两轴均0。旧v1错误证明已撤回而不改原件。新[1522有限清单](verification/cases-v11.json)、[独立库存](verification/cases-v11-inventory.json)、[119实际外部输入](verification/ordinary-inputs-v8.json)由源码枚举，不以PASS列表反推。
 
-[计划v5](formal-live-plan-v5.md)沿同17路线/237 PASS+1声明UNSUPPORTED合同，固定新8个image及正确package cwd/绝对grant路径。原始241/240正式调用及全部停止点保留；当前无新付费权限。先完成此129输入/2062来源的完整四包普通，再交付具体 paid选择。
+[计划v6](formal-live-plan-v6.md)沿同17路线/237 PASS+1声明UNSUPPORTED合同，固定新8个image及正确package cwd/绝对grant路径。原始241/240正式调用及全部停止点保留；当前无新付费权限。先完成此129输入/2062来源的完整四包普通，再交付具体 paid选择。
+
+#### 计划scope哈希元数据修正与v6
+
+v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实际producer/inactive模板/8个新image始终正确。旧129输入完整普通在274.559秒由root主动SIGTERM取消，原生exit-9/CANCELLED及原件保留，没有厂商调用；相关Go进程组已清空。机器/人类v5和核验不覆盖。
+
+新[计划v6](formal-live-plan-v6.md)直接从实际模板生成11 scope，与v5仅这些binary字段值改变；代码2062、119执行输入与8个image不变。独立[867项准备核验](../../.evidence/barness-ai-grok/preflight/formal-plan-v6-independent-check/receipt.json)全部PASS/0发现，只证明准备一致，不产生普通/真实资格或付费权限。新的129集合仅替换两计划路径，先重新运行匹配完整普通。
