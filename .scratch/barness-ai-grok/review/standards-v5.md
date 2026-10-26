@@ -1,0 +1,13 @@
+Documented-standard breaches:
+
+- **[P2] Require complete, consistent public stream evidence.** [xai_events.go:75](/Users/cyber/RestoX/barness/ai/internal/testkit/supportmatrix/xai_events.go:75) only compares opened/closed counts. Keeping the original start and terminal done while deleting every block event passes for a nonempty Result. Lines52–56 also accept any delta string without reconciling its accumulated content. Thus altered evidence can retain formal qualification after manifest hashes are refreshed. This breaches **AGENTS.md §9**, **ADR-0016 decision2** (block lifecycle/content association) and **ADR-0051** (complete native evidence). Require every Result block's lifecycle and reconcile its emitted content; cover these mutations through the public native CLI.
+
+- **[P2] Validate captured preterminal SSE semantics.** [xai_usage.go:56](/Users/cyber/RestoX/barness/ai/internal/testkit/supportmatrix/xai_usage.go:56) ignores every nonterminal frame before response.completed. An unknown event or contradictory output_text delta inserted before an unchanged terminal therefore passes; the public event file is checked separately. This breaches **AGENTS.md §§3,9** and **ADR-0051's strict original-evidence requirement**. Independently validate frame kinds, item associations and authoritative snapshots against the normalized evidence instead of relying solely on the producer's PASS.
+
+- **[P2] Enforce native input resource boundaries.** [xai_input.go:15](/Users/cyber/RestoX/barness/ai/internal/testkit/supportmatrix/xai_input.go:15) checks only role for reasoning/function_call/function_call_output. Adding `file_id:"foreign"` to a valid function_call_output survives this check and xaiToolReplay, which reads only call_id/output. Runtime final validation rejects it. This breaches **AGENTS.md §§3,4**, **ai/README.md invariant9** and **ADR-0005**. Independently enforce native item field/resource restrictions while preserving permitted opaque reasoning extensions.
+
+Pending integration correction: [catalog.go:67](/Users/cyber/RestoX/barness/ai/catalog.go:67) changes Builtin content/version without updating `ai/release/catalog-snapshot.json`; the existing exact-equality public test necessarily rejects that snapshot. Synchronize it before freezing, as **ai/README.md, Common changes/Add a model** requires. The approved unreleased Builtin wiring itself is accepted scope.
+
+Judgement calls: no additional actionable baseline smell. Changed Go files remain below500lines; independent producer/consumer contracts justify their deliberate duplication. Candidate/controlled/synthetic evidence and pending paid/human stages are clearly distinguished.
+
+Read-only review; no tests, builds or vendor requests executed.
