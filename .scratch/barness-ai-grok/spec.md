@@ -225,7 +225,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留 |
 | 完整普通v2 | 采集器实际PASS/exit0；两个Go包15402个测试PASS；主包14586个原生case PASS、214个opt-in压力/压力消费者case NOT_RUN；必需565/565 PASS、65预期入口齐全，audit0、非规范目录0 |
 | 原生消费 | 真实565-case定向包的公开原生消费者已验证source/e2e=true、live/race/压力=false、CLI exit1；完整包只读结果见[readonly-v2](../../.evidence/barness-ai-grok/release/readonly-v2/)及[不可变索引](verification/record-v2.json) |
-| 自身live | NOT_RUN；18场景/24调用只有controlled证明，冻结二进制无Key自检Calls0；[有限待授权计划v2](next-stage-plan.md) |
+| 自身live | 本次xAI候选18场景/24调用已获授权，用户委托选择预算：5 USD估算停止阈值；账户GROK、地区global、凭据来源.env:GROK_KEY。原始授权与一次性grant见authorization目录；尚未发厂商请求，先取得本次输入集合匹配的普通回执 |
 | 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | BuiltinCatalog未激活xAI，无正式支持声明；release.pass=false，保留付费与人工阶段所缺事实 |
