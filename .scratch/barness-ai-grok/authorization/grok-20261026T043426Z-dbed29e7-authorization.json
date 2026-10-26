@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "kind": "explicit-candidate-authorization",
+  "issuedAt": "2026-10-26T04:34:26.628371+00:00",
+  "scope": {
+    "route": "xai-responses",
+    "model": "grok-4.7",
+    "scenarios": 18,
+    "maxCalls": 24,
+    "maxAttempts": 24,
+    "automaticRetries": 0,
+    "visibleOutputTokensPerCall": 1024,
+    "processSeconds": 1800
+  },
+  "humanScopeResponse": "账户别名：GROK，密钥在.env文件，GROK_KEY",
+  "humanBudgetDelegation": "你来决定",
+  "humanProxyRerunResponse": "通过本机代理重试",
+  "approvedQuestion": "是否通过本机代理 http://127.0.0.1:7890 重新执行一次相同 Grok 验证（18 场景、最多 24 次调用、零重试、5 USD 估算停止阈值）？",
+  "selectedAccountAlias": "GROK",
+  "selectedRegionAlias": "global",
+  "selectedMaxUSD": 5.0,
+  "explicitProxy": "http://127.0.0.1:7890",
+  "credentialSource": ".env:GROK_KEY",
+  "appliesToGrantId": "grok-20261026T043426Z-dbed29e7",
+  "previousConsumedGrantId": "grok-20261026T042502Z-9d5d74b3",
+  "otherRoutesAndManualStages": "NOT_AUTHORIZED"
+}
