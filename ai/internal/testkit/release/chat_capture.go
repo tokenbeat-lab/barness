@@ -26,9 +26,22 @@ func verifyChatCaptures(files verifiedCase, r supportmatrix.Report, s supportmat
 	attempts := 0
 	for _, name := range results {
 		prefix := strings.TrimSuffix(name, "-result.json")
+		// Captures are persisted JSON, not domain values. AssistantContent is a
+		// closed interface without JSON decoding; read only the fields this
+		// consumer owns instead of trying to reconstruct polymorphic content.
 		var result struct {
-			Result ai.Result `json:"result"`
-			Error  string    `json:"error"`
+			Result struct {
+				Message struct {
+					API          ai.API        `json:"api"`
+					Provider     ai.ProviderID `json:"provider"`
+					Model        string        `json:"model"`
+					Usage        ai.Usage      `json:"usage"`
+					StopReason   ai.StopReason `json:"stopReason"`
+					ErrorMessage string        `json:"errorMessage"`
+				} `json:"message"`
+				Metadata ai.CallMetadata `json:"metadata"`
+			} `json:"result"`
+			Error string `json:"error"`
 		}
 		var exchanges []struct {
 			Method, URL, RequestBody string

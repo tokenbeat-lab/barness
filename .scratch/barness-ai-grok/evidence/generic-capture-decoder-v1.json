@@ -1,0 +1,60 @@
+{
+  "actualLiveQualification": false,
+  "buildFailureRetained": ".evidence/barness-ai-grok/e2e/20261026T115816.247709Z-oluwtpyr/receipt.json",
+  "cases": [
+    "GROK-GENERIC-CAPTURE-attribution",
+    "GROK-GENERIC-CAPTURE-inventory",
+    "GROK-GENERIC-CAPTURE-negative-usage",
+    "GROK-GENERIC-CAPTURE-nonempty-content",
+    "GROK-GENERIC-CAPTURE-terminal",
+    "GROK-GENERIC-CAPTURE-usage-budget"
+  ],
+  "changes": [
+    "Consumer-local persisted result projection; no public ai.Result or interface JSON decoder",
+    "Nonempty actual marshal shapes for Text/Thinking/ToolCall and attribution, terminal, negative usage, budget and inventory negative cases"
+  ],
+  "claims": 0,
+  "command": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "-run",
+    "^TestGenericChatCaptureDecoder$",
+    "-count=1",
+    "-timeout=3m"
+  ],
+  "executionSource": {
+    "commit": "3a44c514414f8d1753ae2f66a07814a44bd27cef",
+    "fileMapSha256": "41244e8b9bdf9b9e36723cfddf9eb4240fe703537f9796a209eee01d3df6a08f",
+    "files": 2054,
+    "originalReceipt": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T115932.542647Z-tkg3ivsc/receipt.json",
+      "sha256": "8402ff3e50deb903a929901e06fb8ee92e4407adc27a71341af62a18005034cd"
+    }
+  },
+  "grants": 0,
+  "green": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T115932.542647Z-tkg3ivsc/receipt.json",
+    "sha256": "8402ff3e50deb903a929901e06fb8ee92e4407adc27a71341af62a18005034cd"
+  },
+  "greenAudit": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T115932.542647Z-tkg3ivsc/bundles/20261026T115935.576605000Z/audit.json",
+    "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+  },
+  "greenManifest": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T115932.542647Z-tkg3ivsc/bundles/20261026T115935.576605000Z/manifest.json",
+    "sha256": "bdf315b39d24dbc7d70ef7770200ef02914b948fd35b55a81ceeb700a569e82e"
+  },
+  "kind": "generic-capture-decoder-offline-regression",
+  "red": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T115842.256793Z-rhcnbv3u/receipt.json",
+    "sha256": "d884b72afa8dbe53c75d6eb14c331cc2df7e4fb7a5df1a3382375e96c777ad94"
+  },
+  "schema": 1,
+  "sourceImpact": "ai/internal/testkit/release/chat_capture.go is included by RegionalExecutionSource, so generic/regional/XAI frozen source and consumers must be rebuilt; no old paid qualification is renewed.",
+  "syntheticReceiptPurpose": "Only drive existing public compiled releasegate record through native audit; unknown synthetic route and deliberately empty source always refuse final qualification. Synthetic receipt does not claim an execution.",
+  "testedCommit": "3a44c514414f8d1753ae2f66a07814a44bd27cef",
+  "ticket": ".scratch/barness-ai-grok/issues/16-generic-capture-decoding.md",
+  "vendorCalls": 0
+}
