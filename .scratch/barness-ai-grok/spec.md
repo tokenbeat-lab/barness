@@ -223,7 +223,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 实现 | 候选实现完成：01–04、07、08已解决，集成分支 `codex/barness-ai-grok`；05真实资格、06正式交付仍未关闭 |
 | 源码/输入 | 冻结受测 `86a255b746bc3688e93dac191811629f35dbce97`，1961个完整执行文件；选定输入 [cases-v1.json](verification/cases-v1.json)，SHA256 `c7818e6041924511fb79cf313e7e63e7114d360b5f8726c956af77c5fd84050c`；文档收尾与受测提交的集合相等性另存 |
 | 两轴审查 | Standards原2项/Spec原3项均已修复，独立复核剩余0/0；[v1](review/review-v1.md)与[v2](review/review-v2.md)分别保留 |
-| 完整普通 | 实际exit0、PASS；两个Go包共15401个测试PASS；主包14585个原生case PASS、214个压力/压力消费者case NOT_RUN；必需564 cases全部PASS，64预期入口齐全，audit0 |
+| 完整普通 | 采集器实际exit0/PASS、必需564 cases齐全、audit0；只读原生消费者拒绝E04省略effort的非canonical case目录（中间`//`）。正在修复测试标签并重取完整回执；旧原件不改写 |
 | 自身live | NOT_RUN；现有18场景/24调用只有controlled证明，冻结二进制无Key自检Calls0；[本次有限待授权计划](next-stage-plan.md) |
 | 共享历史live影响 | 22条旧聊天目的路线存在xAI来源ID分配行为变化，须分别准备/授权自身证据；完整23路线见[影响表](live-impact.md)，不把旧来源报告当当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live，再依序选择；压力适用，普通运行的214个opt-in压力/消费者case未计为PASS |
@@ -252,3 +252,7 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 后续具体live场景/目标/型号/SDK/预算/凭据隔离及原生消费者按[待授权计划](next-stage-plan.md)逐路线固定。race候选为当前Client/Responses与共享opaque历史范围；压力候选包括大工具参数、加密/重复终态、队列/准入/取消及其消费者，须在人类明确选择后确定精确argv、负载和必交集合。当前没有付费、race或压力执行授权；NOT_RUN不等于不适用。真实证据维护/隔离/purge未执行。
 
 回滚先禁用并更新xAI Binding版本；已固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照、失败与资格原件，不自动切Provider/API。代码可从集成分支逐提交回退，无数据库迁移。
+
+#### 收尾原生消费差异
+
+[只读v1报告](../../.evidence/barness-ai-grok/release/readonly-v1/native/release-report.json)实际exit1：source=true，但e2e=false（native offline bundle invalid），其余live/race/压力仍NOT_RUN。只读输入未发厂商请求。已定位E04省略effort在case目录中生成中间空段，违反原生目录合同；代码业务断言PASS不替代可消费证据。正在以明确标签和公共CLI进程回归修复；前一状态原字节见[快照](history/spec-before-canonical-case-fix-v2.json)。
