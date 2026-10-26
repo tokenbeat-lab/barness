@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–17已解决；18 bounded thinking-on正例、19私有测试store/真实restart已完成定向RED/GREEN及v14双轴0/0，完整普通待最终冻结运行。05新源真实资格及06人工阶段/发布未完成 |
-| 冻结来源 | 软件pin d816aacb4538f735b76df7bdacb686b621aef382，2062默认来源/129执行与规划输入；新1522主必交/127入口与GLM32+MM18六aux独立。当前完整普通待运行，新源17正式live均NOT_RUN |
+| 实现 | 01–04及07–19软件工单均已解决；18严格推理正例任务/19私有store与真实restart补齐，v14两轴0/0及完整普通实际通过。05新源正式live、06人工阶段/发布未完成 |
+| 冻结来源 | 软件pin d816aacb4538f735b76df7bdacb686b621aef382，实际受测dcfa262278499aaf04f5153312f8672980880f51；2062默认来源及129输入集合/内容一致。1522主必交/127入口，GLM32+MM18六辅助独立有效；当前源17正式live均NOT_RUN |
 | 审查 | [v14](review/review-v14.md) Standards0/Spec0；v13两轴各1 P2真实restart缺口已由同一实现者补真实第二进程/同private namespace/原生数字exit及四文件digest，原错误证明和RED保留 |
-| 当前完整普通（cases-v9） | 新cases-v11来源NOT_RUN，准备完整四包验证。历史v4普通15,982测试/1518必交/125入口PASS及所有辅助/原件保持历史，不改pin |
+| 当前完整普通（cases-v11） | 四包15,987 Go测试实际PASS，1522/1522主必交、127/127入口、38辅助全部PASS，633.016秒/exit0/audit0；主15073 PASS/214压力NOT_RUN、GLM32 PASS/max393、MM18六PASS/max3。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T204948.851638Z-i8k_zy6j/receipt.json)/[核验v9](../../.evidence/barness-ai-grok/final-ordinary-validation-v9.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | 历史[索引v12](verification/record-v12.json)与[readonly-v12](../../.evidence/barness-ai-grok/release/readonly-v12/native/release-report.json)仅绑定13b实际普通/7资格/8失败/9未跑时的状态。当前新来源尚无冻结验收索引，普通/live/race/压力未通过，release.pass=false |
+| 原生消费 | [新索引v13](verification/record-v13.json)绑定新完整普通/129输入及唯一状态；五项实际判定见[readonly-v13](../../.evidence/barness-ai-grok/release/readonly-v13/native/release-report.json)。旧源7资格/8失败与旧索引均保留历史；当前新来源正式live/race/压力未完成，release.pass=false |
 | 自身live | 历史13b来源xAI正式18/18 PASS、24calls/24HTTP，及其他6路线实际资格均完整保留；18新探针/19测试fixture改变全局来源，当前新来源真实验证NOT_RUN |
 | 共享历史live | 历史v4含补充7 QUALIFIED、8 MiniMax thinking-on FAIL、后9 NOT_RUN；历史正式合计241逻辑calls/240HTTP。新[计划v6](formal-live-plan-v6.md)17路线/238场景、444/472新批上限，尚未授权，需人选收集独立结果或任一失败即停；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 软件修复与v14通过；新来源完整普通/17正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 新探针/测试隔离、v14复核及完整普通已完成；新来源17正式live及人工race/压力待执行，release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -394,3 +394,9 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实际producer/inactive模板/8个新image始终正确。旧129输入完整普通在274.559秒由root主动SIGTERM取消，原生exit-9/CANCELLED及原件保留，没有厂商调用；相关Go进程组已清空。机器/人类v5和核验不覆盖。
 
 新[计划v6](formal-live-plan-v6.md)直接从实际模板生成11 scope，与v5仅这些binary字段值改变；代码2062、119执行输入与8个image不变。独立[867项准备核验](../../.evidence/barness-ai-grok/preflight/formal-plan-v6-independent-check/receipt.json)全部PASS/0发现，只证明准备一致，不产生普通/真实资格或付费权限。新的129集合仅替换两计划路径，先重新运行匹配完整普通。
+
+#### 修订版完整普通实际完成
+
+实际受测dcfa262278499aaf04f5153312f8672980880f51/2062来源/129输入；完整四包15,987 Go测试PASS，1522主必交/127入口与GLM32、MM18六辅助全部PASS，633.015752秒/exit0/audit0。主15287 case中15073 PASS/214压力NOT_RUN；辅助32+6全部PASS。主/GLM/MM18每case最大131/393/3原件；没有扩大512上限。完整[实际核验](../../.evidence/barness-ai-grok/final-ordinary-validation-v9.json)固定所有bundle/manifest/audit/source/input哈希。v5元数据取消原件和所有历史失败继续保留。
+
+18/19软件票在上述完整普通与v14双轴0/0后关闭；真实MiniMax零推理FAIL和7条旧资格仍是历史，当前新来源没有正式live权限或资格。当前[计划v6](formal-live-plan-v6.md)准备核验867 PASS，模板ID空/expiry零；待维护者明确选择一次固定17的范围及失败处理策略，先生成新grant/config/授权并取得匹配普通后才可付费。race/压力后续分别人工选择，未正式支持或发布。

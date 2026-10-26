@@ -1,7 +1,7 @@
 # 受控账本回归的 Git grant store 隔离
 
 Type: task
-Status: claimed
+Status: resolved
 
 ## Contract
 
@@ -21,8 +21,10 @@ Status: claimed
 
 ## Answer
 
-待实现并独立复核。
+已完成：软件pin D816、v14独立两轴0/0及完整四包普通15,987 Go测试/1522主必交/127入口/38辅助全部PASS，633.016秒/exit0/audit0；原始失败/偏差及v13错误证明保留。真实资格及人工阶段不由本票授予。
 
 ## Comments
 
 - 2026-10-27：本轮选择旧回归时漏查隔离约束；已停止所有同类未隔离执行。该工单不授权新的付费验证、race或压力。
+
+- 2026-10-27：完整[普通核验](../../../.evidence/barness-ai-grok/final-ordinary-validation-v9.json)与[当前状态](../spec.md#唯一当前状态)保存受测dcfa/2062来源/129输入，局部受控正例不构成新来源正式支持。

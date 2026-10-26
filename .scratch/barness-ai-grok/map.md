@@ -45,3 +45,5 @@
 - v4限定续跑后7条QUALIFIED，第8国际MiniMax Chat实际13 PASS/1零推理正例FAIL，后9停止。新[18探针维护](issues/18-minimax-reasoning-probe.md)只改善thinking-on任务，保持自身实际推理正例门槛，先受控RED后实现；真实137逻辑calls/136HTTP及所有原件保留，未授权新付费或人工阶段。
 
 - [19隔离修复](issues/19-controlled-grant-store-isolation.md)：18补充验证漏查既有FreshLedger helper的Git store隔离，实际追加3个synthetic ID/6个合成guard，未读真实Key/未请求厂商；偏差记录保留不删除。与18同一实现者在私有namespace先RED后修复受控调用，不改真实授权合同或扩大产品范围。
+
+- [18](issues/18-minimax-reasoning-probe.md)/[19](issues/19-controlled-grant-store-isolation.md)已解决：M3仅thinking-on有界任务，私有Git store/真实第二进程拒绝补齐，v14两轴0/0；完整普通15,987测试/1522主必交/127入口/38辅助PASS。当前frontier回到05等待[计划v6](formal-live-plan-v6.md)新一次明确付费与失败策略选择；06人工阶段仍后置，旧241/240正式调用与全部失败/偏差原件不改。
