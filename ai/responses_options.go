@@ -15,8 +15,9 @@ type ResponsesOptions struct {
 	// Temperature is sent as temperature, null included.
 	Temperature Nullable[float64] `json:"temperature,omitzero"`
 	// MaxTokens is sent as max_output_tokens, raised to the protocol's
-	// minimum of 16 for OpenAI; GLM and MiniMax keep a minimum of 1.
-	// Unset, null and 0 send nothing.
+	// minimum of 16 for OpenAI; GLM, MiniMax and xAI keep a minimum of 1.
+	// On xAI, unset/null use the Host model limit and explicit 0 is rejected;
+	// on the other routes unset, null and 0 send nothing.
 	MaxTokens Nullable[int] `json:"maxTokens,omitzero"`
 	// SamplingParams override named request fields and model defaults, on
 	// both full and simple entries (pi-ai parity). Keys that change the
@@ -146,6 +147,20 @@ const responsesMinOutputTokens = 16
 // encode sets the option fields of body for model m, as pi's buildParams
 // does before samplingParams, leaving out what the provider does not serve.
 func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCapabilities, cacheKey string) {
+	if caps.implementation == responsesXAI {
+		body.MaxOutputTokens = m.MaxTokens
+		if n, ok := o.MaxTokens.Get(); ok {
+			body.MaxOutputTokens = n
+		}
+		body.Include = []string{"reasoning.encrypted_content"}
+		body.PromptCacheKey = cacheKey
+		body.Temperature = o.Temperature
+		body.ToolChoice = o.ToolChoice
+		if o.ReasoningEffort != "" {
+			body.Reasoning = &responsesReasoning{Effort: m.ThinkingLevelMap.wireValue(o.ReasoningEffort)}
+		}
+		return
+	}
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
 	longRetention := m.supportsLongCacheRetention()
 	explicit := m.Compat.SupportsExplicitPromptCacheMode
