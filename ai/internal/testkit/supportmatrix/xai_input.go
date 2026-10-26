@@ -13,23 +13,26 @@ func verifyXAIInputItem(item map[string]json.RawMessage) error {
 	json.Unmarshal(item["role"], &role)
 	switch kind {
 	case "reasoning", "function_call", "function_call_output":
-		if role != "" {
-			return refuse("xAI native item acquired a role")
-		}
+		return verifyXAINativeInput(item, kind)
 	case "", "message":
+		if err := xaiInputFields(item, "input message", "type", "role", "content", "id"); err != nil {
+			return err
+		}
+		if raw, present := item["id"]; present {
+			if id, ok := xaiWireText(raw); !ok || id == "" || role != "assistant" {
+				return refuse("xAI input message native ID invalid")
+			}
+		}
 		if role != "system" && role != "user" && role != "assistant" {
 			return refuse("xAI message role invalid")
 		}
 		raw := item["content"]
 		var text string
 		if json.Unmarshal(raw, &text) == nil && string(raw) != "null" {
-			if role != "system" {
-				return refuse("xAI non-system message lost typed content")
-			}
 			return nil
 		}
 		var blocks []map[string]json.RawMessage
-		if regionalDecode(raw, &blocks) != nil || len(blocks) == 0 {
+		if regionalDecode(raw, &blocks) != nil || blocks == nil {
 			return refuse("xAI typed input content missing")
 		}
 		for _, b := range blocks {

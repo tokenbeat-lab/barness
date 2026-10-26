@@ -76,7 +76,7 @@ func verifyXAIRequest(request map[string]json.RawMessage) error {
 			return err
 		}
 	}
-	return nil
+	return verifyXAIInputPairs(input)
 }
 func verifyXAIScenario(root *os.Root, s ScenarioResult, calls []xaiCall) error {
 	first := calls[0]
@@ -116,7 +116,7 @@ func verifyXAIScenario(root *os.Root, s ScenarioResult, calls []xaiCall) error {
 		for _, item := range first.output {
 			var kind string
 			json.Unmarshal(item["type"], &kind)
-			encrypted = encrypted || kind == "reasoning"
+			encrypted = encrypted || kind == "reasoning" && xaiWireString(item["encrypted_content"]) != ""
 		}
 		if !encrypted || len(calls) != 2 || !xaiNativeReplay(first, calls[1]) {
 			return refuse("xAI encrypted whole native continuation differs")
@@ -167,6 +167,9 @@ func verifyXAIScenario(root *os.Root, s ScenarioResult, calls []xaiCall) error {
 			return refuse("xAI tool policy not fulfilled")
 		}
 		if want > 0 {
+			if len(calls) != 2 || xaiWireString(calls[1].request["tool_choice"]) != "none" {
+				return refuse("xAI tool result turn must disable further calls")
+			}
 			if len(calls) != 2 || !xaiNativeReplay(first, calls[1]) || !xaiToolReplay(first, calls[1], s.ID == "tool-result-image") {
 				return refuse("xAI paired tool result or image order differs")
 			}
@@ -215,7 +218,7 @@ func xaiToolReplay(first, next xaiCall, images bool) bool {
 		}
 	}
 	matched := 0
-	for _, tool := range outputs {
+	for ordinal, tool := range outputs {
 		var id string
 		json.Unmarshal(tool["call_id"], &id)
 		callIndex, resultIndex := -1, -1
@@ -235,7 +238,11 @@ func xaiToolReplay(first, next xaiCall, images bool) bool {
 				}
 				resultIndex = n
 				var text string
-				if json.Unmarshal(in["output"], &text) != nil || text == "" {
+				marker := "synthetic-host-result-" + string(rune('a'+ordinal))
+				if images {
+					marker += "\n(see attached image)"
+				}
+				if json.Unmarshal(in["output"], &text) != nil || text != marker {
 					return false
 				}
 			}
@@ -310,6 +317,12 @@ func xaiImages(raw json.RawMessage) ([]string, error) {
 		json.Unmarshal(b["type"], &kind)
 		if kind != "input_image" {
 			continue
+		}
+		if err := xaiInputFields(b, "inline image part", "type", "image_url", "detail"); err != nil {
+			return nil, err
+		}
+		if detail, ok := b["detail"]; ok && xaiWireString(detail) != "auto" {
+			return nil, refuse("xAI inline image detail control is not integrated")
 		}
 		var value string
 		if json.Unmarshal(b["image_url"], &value) != nil {

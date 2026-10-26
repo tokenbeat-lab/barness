@@ -30,6 +30,7 @@ type xaiCall struct {
 	message                     ai.AssistantMessage
 	request                     map[string]json.RawMessage
 	terminal                    map[string]json.RawMessage
+	thinking                    map[string]string
 	output                      []map[string]json.RawMessage
 	input, outputTokens, tokens int64
 	usd                         float64
@@ -104,11 +105,11 @@ func readXAICall(root *os.Root, r xaiEvidence, s ScenarioResult, label string, s
 	if err := verifyXAIRequest(c.request); err != nil {
 		return c, err
 	}
-	response, output, err := xaiTerminal(c.ex.ResponseBody)
+	response, output, visible, err := xaiTerminal(c.ex.ResponseBody)
 	if err != nil {
 		return c, err
 	}
-	c.terminal, c.output = response, output
+	c.terminal, c.output, c.thinking = response, output, visible
 	if xaiReadJSON(root, prefix+"-result.json", &c.result) != nil {
 		return c, refuse("xAI actual Result missing")
 	}

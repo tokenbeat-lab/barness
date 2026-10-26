@@ -11,95 +11,82 @@ import (
 )
 
 func verifyXAIOutput(c xaiCall) error {
-	var id, model string
-	json.Unmarshal(c.terminal["id"], &id)
-	json.Unmarshal(c.terminal["model"], &model)
-	if id == "" || c.message.ResponseID != id || c.message.ResponseModel != "" && c.message.ResponseModel != model {
-		return refuse("xAI response identity not retained")
+	id, model := xaiWireString(c.terminal["id"]), xaiWireString(c.terminal["model"])
+	if id == "" || c.message.ResponseID != id || c.message.ResponseModel != "" && c.message.ResponseModel != model || len(c.output) != len(c.message.Content) {
+		return refuse("xAI response identity or block count differs")
 	}
-	text := ""
-	reasoning := []json.RawMessage{}
-	calls := []map[string]json.RawMessage{}
 	seenItem, seenCall := map[string]bool{}, map[string]bool{}
-	for _, item := range c.output {
-		var kind, itemID string
-		json.Unmarshal(item["type"], &kind)
-		json.Unmarshal(item["id"], &itemID)
+	tools := 0
+	for n, item := range c.output {
+		kind, itemID := xaiWireString(item["type"]), xaiWireString(item["id"])
 		if itemID == "" || seenItem[itemID] {
 			return refuse("xAI output item identity missing or duplicated")
 		}
 		seenItem[itemID] = true
 		switch kind {
 		case "reasoning":
-			var encrypted string
-			json.Unmarshal(item["encrypted_content"], &encrypted)
-			if encrypted == "" {
-				return refuse("xAI own encrypted reasoning missing")
+			if err := verifyXAIReasoning(item); err != nil {
+				return err
 			}
+			block, ok := c.message.Content[n].(ai.Thinking)
 			raw, _ := json.Marshal(item)
-			reasoning = append(reasoning, raw)
+			if !ok || block.Redacted || block.Thinking != c.thinking[itemID] || !xaiJSONEqual(raw, []byte(block.Signature)) {
+				return refuse("xAI visible reasoning, native signature or block order differs")
+			}
 		case "message":
-			var status, role string
-			json.Unmarshal(item["status"], &status)
-			json.Unmarshal(item["role"], &role)
-			if status != "completed" || role != "assistant" {
+			if xaiWireString(item["status"]) != "completed" || xaiWireString(item["role"]) != "assistant" {
 				return refuse("xAI output message not complete")
 			}
 			var content []map[string]json.RawMessage
-			if regionalDecode(item["content"], &content) != nil {
+			if regionalDecode(item["content"], &content) != nil || content == nil {
 				return refuse("xAI output content malformed")
 			}
-			for _, b := range content {
-				var k, v string
-				json.Unmarshal(b["type"], &k)
-				if k != "output_text" || json.Unmarshal(b["text"], &v) != nil {
+			text := ""
+			for _, part := range content {
+				k := xaiWireString(part["type"])
+				field := "text"
+				if k == "refusal" {
+					field = "refusal"
+				} else if k != "output_text" {
 					return refuse("xAI unsupported output modality")
 				}
-				text += v
+				value, ok := xaiWireText(part[field])
+				if !ok {
+					return refuse("xAI output text invalid")
+				}
+				text += value
+			}
+			block, ok := c.message.Content[n].(ai.Text)
+			if !ok || block.Text != text {
+				return refuse("xAI text or cross-kind block order differs")
 			}
 		case "function_call":
-			var call string
-			json.Unmarshal(item["call_id"], &call)
+			tools++
+			call := xaiWireString(item["call_id"])
 			if call == "" || seenCall[call] {
 				return refuse("xAI duplicate or missing function correlation")
 			}
 			seenCall[call] = true
-			calls = append(calls, item)
+			block, ok := c.message.Content[n].(ai.ToolCall)
+			if !ok {
+				return refuse("xAI function block order differs")
+			}
+			args, valid := xaiWireText(item["arguments"])
+			ids, err := xaiOpaque(block.ID)
+			var object map[string]json.RawMessage
+			var display ai.UncheckedArguments
+			if !valid || err != nil || len(ids) != 2 || ids[0] != call || ids[1] != itemID || block.Name != xaiWireString(item["name"]) || regionalDecode([]byte(args), &object) != nil || object == nil || json.Unmarshal([]byte(args), &display) != nil || !xaiJSONEqual([]byte(args), []byte(block.RawArguments)) || !xaiJSONEqual([]byte(display), []byte(block.Arguments)) {
+				return refuse("xAI raw/display arguments or opaque function identity differs")
+			}
 		default:
 			return refuse("xAI unsupported output kind")
 		}
 	}
-	actualText := ""
-	var actualReasoning []json.RawMessage
-	var actualCalls []ai.ToolCall
-	for _, b := range c.message.Content {
-		switch v := b.(type) {
-		case ai.Text:
-			actualText += v.Text
-		case ai.Thinking:
-			actualReasoning = append(actualReasoning, json.RawMessage(v.Signature))
-		case ai.ToolCall:
-			actualCalls = append(actualCalls, v)
-		default:
-			return refuse("xAI Result unsupported block")
-		}
+	choice := xaiWireString(c.request["tool_choice"])
+	if choice == "none" && tools != 0 || choice == "required" && tools == 0 || string(c.request["parallel_tool_calls"]) == "false" && tools > 1 {
+		return refuse("xAI raw function output violates request policy")
 	}
-	if text != actualText || !xaiJSONSequence(reasoning, actualReasoning) || len(calls) != len(actualCalls) {
-		return refuse("xAI terminal output differs from Result")
-	}
-	for i, w := range calls {
-		var call, item, name, args string
-		json.Unmarshal(w["call_id"], &call)
-		json.Unmarshal(w["id"], &item)
-		json.Unmarshal(w["name"], &name)
-		json.Unmarshal(w["arguments"], &args)
-		parts, err := xaiOpaque(actualCalls[i].ID)
-		var object map[string]json.RawMessage
-		if err != nil || len(parts) != 2 || parts[0] != call || parts[1] != item || actualCalls[i].Name != name || regionalDecode([]byte(args), &object) != nil || object == nil || !xaiJSONEqual([]byte(args), []byte(actualCalls[i].RawArguments)) {
-			return refuse("xAI opaque tool identity or executable arguments differ")
-		}
-	}
-	if len(calls) > 0 && c.message.StopReason != ai.StopReasonToolUse || len(calls) == 0 && c.message.StopReason != ai.StopReasonStop {
+	if tools > 0 && c.message.StopReason != ai.StopReasonToolUse || tools == 0 && c.message.StopReason != ai.StopReasonStop {
 		return refuse("xAI legal stop reason differs")
 	}
 	return nil
