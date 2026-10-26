@@ -105,15 +105,21 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 				}
 			}
 			var assertions struct {
-				ID         string `json:"case_id"`
-				Status     string
-				Assertions []struct{ Pass bool }
+				ID          string `json:"case_id"`
+				Status      string
+				Unsupported string `json:"unsupported"`
+				Assertions  []struct{ Pass bool }
 			}
 			if err := files.json("assertions.json", maxInventoryFile, &assertions); err != nil {
 				return err
 			}
 			if assertions.ID != c.ID || assertions.Status != c.Status || (s.Outcome == supportmatrix.Pass && len(assertions.Assertions) == 0) {
 				return fmt.Errorf("live assertions missing or inconsistent")
+			}
+			if r.Operation == "chat" && s.Outcome == supportmatrix.Unsupported {
+				if err := supportmatrix.VerifyGenericUnsupportedCase(r, s, c.Artifacts, assertions.Unsupported, len(assertions.Assertions)); err != nil {
+					return err
+				}
 			}
 			for _, a := range assertions.Assertions {
 				if !a.Pass && s.Outcome == supportmatrix.Pass {

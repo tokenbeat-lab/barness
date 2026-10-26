@@ -34,8 +34,11 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	if err != nil {
 		return report, fmt.Errorf("native live qualification unavailable")
 	}
-	if err := verifyChatQualification(report); err != nil {
-		return report, err
+	generic := len(supportmatrix.GenericExpected(route)) > 0
+	if generic {
+		if err := supportmatrix.VerifyGenericReport(report); err != nil {
+			return report, err
+		}
 	}
 	if err := verifyLiveManifest(dir, report); err != nil {
 		return report, err
@@ -51,12 +54,14 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	if err != nil {
 		return report, fmt.Errorf("native live qualification rejected: %w", err)
 	}
-	expected := expectedCapabilities(route)
-	a, b := slices.Clone(expected), slices.Clone(report.Expected)
-	slices.Sort(a)
-	slices.Sort(b)
-	if len(expected) == 0 || !slices.Equal(a, b) || len(report.Scenarios) != len(expected) {
-		return report, fmt.Errorf("incomplete native capability set")
+	if !generic {
+		expected := expectedCapabilities(route)
+		a, b := slices.Clone(expected), slices.Clone(report.Expected)
+		slices.Sort(a)
+		slices.Sort(b)
+		if len(expected) == 0 || !slices.Equal(a, b) || len(report.Scenarios) != len(expected) {
+			return report, fmt.Errorf("incomplete native capability set")
+		}
 	}
 	catalog := ai.BuiltinCatalog()
 	hash, err := catalog.Hash()
@@ -67,12 +72,15 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	if err != nil || staleSDK(report.SDK, modules) != "" {
 		return report, fmt.Errorf("live SDK drift")
 	}
-	seen := map[string]bool{}
-	for _, s := range report.Scenarios {
-		if seen[s.ID] || !slices.Contains(expected, s.ID) || s.Outcome != supportmatrix.Pass {
-			return report, fmt.Errorf("duplicate, substituted or unpassed native scenario")
+	if !generic {
+		expected := expectedCapabilities(route)
+		seen := map[string]bool{}
+		for _, s := range report.Scenarios {
+			if seen[s.ID] || !slices.Contains(expected, s.ID) || s.Outcome != supportmatrix.Pass {
+				return report, fmt.Errorf("duplicate, substituted or unpassed native scenario")
+			}
+			seen[s.ID] = true
 		}
-		seen[s.ID] = true
 	}
 	return report, nil
 }

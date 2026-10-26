@@ -56,3 +56,22 @@ go test -c -tags live -ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legac
 ## 本次软件交接
 
 精确来源、有限156项新增公共 case、26个按路线计的新原生场景、构建参数、所有改动文件及回执见[软件证据摘要](../../.scratch/barness-ai-grok/evidence/legacy-history-software-v1.md)和[机器索引](../../.scratch/barness-ai-grok/evidence/legacy-history-software-v1.json)。它们只说明离线软件准备与受控结果；完整集成冻结、17路线正式 live 及人工阶段仍由功能当前状态独立记录。
+
+## Generic 已声明不支持的资格边界
+
+完整场景清单保留原生 `UNSUPPORTED` 语义，不改记为 `PASS`。当前六条固定路线只有 `openai-chat × gpt-5-mini × reasoning-history` 的既有 `noReplay` 声明可在正式报告中保持 `UNSUPPORTED`：Chat Completions 不返回供原生续接的 reasoning 内容或签名，reasoning 只计入 usage。这不等于型号不执行推理。原因文本由 `supportmatrix.OpenAIChatNoReplay` 同时供 producer 和消费者使用。
+
+该例外要求固定官方路线、Provider/API/endpoint、默认和场景型号、精确原因，以及零 calls、attempts、retries、请求 ID、图片/问题/状态字节等活动，无 fault 或环境错误。认证后的该 case 库存只能包含 `assertions.json`，其 unsupported 原因必须一致且没有执行断言；不得有 HTTP、Result、Observer 或其他捕获。预算仍须与全部实际执行场景一致。其他全部必交场景，包括 `xai-origin-history`，须为真实 `PASS`；`FAIL`、`NOT_RUN`、任意其他 `UNSUPPORTED` 不取得正式资格。
+
+对 `scenarios_test.go` 与 `extras_test.go` 的动态跳过分支，当前固定目录事实如下。它们只是防守式旧分支，不构成可由报告自行选择的新例外；目录/固定型号变化必须重新评估。
+
+| 路线 | 原生默认型号 | 当前目录分支结论 |
+| --- | --- | --- |
+| OpenAI Responses | gpt-5-mini | Reasoning=true，含 image；不能借 no-reasoning/text-only 跳过 |
+| OpenAI Chat | gpt-5-mini | 同上；唯一 `noReplay` 明确声明与目录 Reasoning 独立 |
+| DeepSeek Responses | deepseek-flash | Reasoning=true、含 image，high/max 均非 null |
+| DeepSeek Chat | deepseek-flash | Reasoning=true、含 image；额外 reasoning-level 场景固定 deepseek-v4-pro，high/max 均非 null |
+| Anthropic Messages | claude-haiku-4-5 | Reasoning=true，含 image；不能借动态分支跳过 |
+| Google Gemini | gemini-3.8-flash | Reasoning=true，含 image；不能借动态分支跳过 |
+
+`VerifyGenericReport` 在 Generic 原生合同所属模块验证完整身份、场景、结果和有限计数；原生 artifact 消费者另验证真实授权、库存、捕获及断言，二者不相互替代。支持矩阵保存该 capability 的 `UNSUPPORTED` 和原始原因，不为它写入新的 `LastPassedAt`，也不声称具备原生推理回放能力。纯合成报告回归与没有真实授权的 CLI 仍不合格，不会产生 live 支持资格。

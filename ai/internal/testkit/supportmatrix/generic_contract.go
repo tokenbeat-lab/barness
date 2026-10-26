@@ -1,6 +1,9 @@
 package supportmatrix
 
-import "github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
+import (
+	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
+)
 
 // GenericExpected is the existing fixed complete smoke contract plus the
 // default-model xAI-origin history scene. Extra-model capabilities stay intact.
@@ -36,6 +39,32 @@ func checkGenericHistory(r Report) error {
 		if s.ID == grokhistory.Scenario && s.Outcome == Unsupported {
 			return refuse("mandatory xAI history cannot be unsupported")
 		}
+	}
+	return nil
+}
+
+// OpenAIChatNoReplay is the pre-existing native noReplay declaration. It says
+// nothing about model reasoning usage: Chat exposes no native state to replay.
+const OpenAIChatNoReplay = "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage"
+
+// declaredGenericUnsupported is intentionally fixed to the one reachable
+// native declaration for the six current routes/models. Dynamic catalog skips
+// are not authority to excuse a required capability in a formal report.
+func declaredGenericUnsupported(r Report, s ScenarioResult) bool {
+	return r.Combo == "openai-chat" && r.Operation == "chat" && r.Provider == "openai" && r.API == "openai-completions" &&
+		r.Endpoint == "https://api.openai.com/v1" && r.Model == "gpt-5-mini" &&
+		s.ID == "reasoning-history" && s.Model == r.Model && s.Outcome == Unsupported && s.Note == OpenAIChatNoReplay &&
+		s.Calls == 0 && s.Attempts == 0 && s.Retries == 0 && len(s.ProviderRequestIDs) == 0 &&
+		s.Images == 0 && s.Questions == 0 && s.StateBytes == 0 && s.DecodedImageBytes == 0 && len(s.ImageCalls) == 0 &&
+		s.ErrorCategory == "" && !s.Environment && s.DurationMS >= 0
+}
+
+// VerifyGenericUnsupportedCase checks the declaration after the caller has
+// authenticated case bytes and inventory. A no-request capability has only its
+// matching unsupported assertion record, never HTTP/results/Observer captures.
+func VerifyGenericUnsupportedCase(r Report, s ScenarioResult, artifacts map[string]string, reason string, assertions int) error {
+	if !declaredGenericUnsupported(r, s) || len(artifacts) != 1 || artifacts["assertions.json"] == "" || reason != s.Note || assertions != 0 {
+		return fmt.Errorf("unsupported generic case differs from native no-request declaration")
 	}
 	return nil
 }

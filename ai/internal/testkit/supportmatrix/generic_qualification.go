@@ -1,17 +1,16 @@
-package release
+package supportmatrix
 
 import (
 	"fmt"
 	"slices"
 	"strings"
-
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
-// Historical support-matrix merges accept partial/failed reports. A selected
-// release receipt additionally needs the fixed native smoke's identity and
-// bounded actual counters. Isolated regional/GLM/MiniMax use their own contracts.
-func verifyChatQualification(r supportmatrix.Report) error {
+// VerifyGenericReport checks the complete fixed native smoke report. Historical
+// matrix merges may retain partial outcomes; formal qualification requires every
+// capability to pass except the one declared zero-request native limitation.
+// Artifact integrity and process authority remain separate consumer boundaries.
+func VerifyGenericReport(r Report) error {
 	var provider, api, endpoint, model string
 	switch r.Combo {
 	case "openai-responses", "openai-chat":
@@ -31,7 +30,7 @@ func verifyChatQualification(r supportmatrix.Report) error {
 			api = "openai-completions"
 		}
 	default:
-		return nil
+		return fmt.Errorf("unknown fixed generic route")
 	}
 	if r.Operation != "chat" || r.Provider != provider || r.API != api || r.Model != model || r.Endpoint != endpoint ||
 		strings.TrimSpace(r.AccountAlias) == "" || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) {
@@ -52,8 +51,29 @@ func verifyChatQualification(r supportmatrix.Report) error {
 		b.OutputTokensUsed > b.CallsUsed*b.MaxOutputTokens || b.EnvironmentRetries < 0 {
 		return fmt.Errorf("chat budget missing, invalid or exceeded")
 	}
+	expected := GenericExpected(r.Combo)
+	got, want := slices.Clone(r.Expected), slices.Clone(expected)
+	slices.Sort(got)
+	slices.Sort(want)
+	if len(expected) == 0 || !slices.Equal(got, want) || len(r.Scenarios) != len(expected) {
+		return fmt.Errorf("incomplete generic native capability set")
+	}
+	seen := map[string]bool{}
 	calls, attempts, retries := 0, 0, 0
 	for _, s := range r.Scenarios {
+		if seen[s.ID] || !slices.Contains(expected, s.ID) {
+			return fmt.Errorf("duplicate or substituted generic native scenario")
+		}
+		seen[s.ID] = true
+		if r.Combo == "openai-chat" && s.ID == "reasoning-history" {
+			if !declaredGenericUnsupported(r, s) {
+				return fmt.Errorf("generic native no-replay declaration changed")
+			}
+			continue
+		}
+		if s.Outcome != Pass {
+			return fmt.Errorf("generic native capability did not pass")
+		}
 		fixedModel := model
 		switch {
 		case strings.HasPrefix(s.ID, "tool-changes-"):
