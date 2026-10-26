@@ -14,6 +14,9 @@ import (
 // Inspect the complete transcript before renaming so calls from separate
 // assistant turns share one collision domain with their matching results.
 func opaqueHistoryToolIDRules(target Model, messages []Message, rules historyRules) historyRules {
+	if target.Provider == ProviderXAI {
+		return rules
+	}
 	if rules.normalizeToolCallID == nil || (target.API == APIOpenAIResponses && responsesCapabilitiesOf(target.Provider).implementation == responsesGLM) {
 		return rules
 	}

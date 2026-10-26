@@ -12,6 +12,9 @@ import (
 // before credentials. GLM's model contract rejects unsupported full efforts;
 // the other providers retain their existing full-entry behavior.
 func validateResponsesModelOptions(m Model, options Options) *Error {
+	if m.Provider == ProviderXAI {
+		return validateXAIResponsesOptions(m, options)
+	}
 	if m.API == APIOpenAIResponses && isKimi(m.Provider) {
 		return validateKimiResponsesOptions(m, options)
 	}

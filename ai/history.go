@@ -83,6 +83,20 @@ func (o replayOrigin) prepareTranscript(req Request, rules historyRules) (transc
 			converted[i] = m
 		}
 	}
+	if o.model.Provider == ProviderXAI {
+		var out []Message
+		var downgrades NativeStateDowngrades
+		for _, message := range converted {
+			if a, ok := message.(replayedAssistant); ok {
+				if a.StopReason == StopReasonError || a.StopReason == StopReasonAborted {
+					continue
+				}
+				downgrades.add(a.downgrade)
+			}
+			out = append(out, message)
+		}
+		return transcript{messages: out, tools: tools, toolHistory: hasToolHistory(msgs)}, downgrades
+	}
 	out, downgrades := settleTurns(converted)
 	return transcript{messages: out, tools: tools, toolHistory: hasToolHistory(msgs)}, downgrades
 }

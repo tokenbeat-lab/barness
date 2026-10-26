@@ -11,6 +11,9 @@ import (
 // prepareTranscript: a signed thinking block as its reasoning item, text as
 // output messages and tool calls as function_call items.
 func responsesAssistantItems(model Model, m replayedAssistant, msgIndex int) ([]any, error) {
+	if model.Provider == ProviderXAI {
+		return xaiResponsesAssistantItems(m)
+	}
 	if isKimi(model.Provider) {
 		return kimiResponsesAssistantItems(m)
 	}

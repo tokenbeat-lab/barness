@@ -135,3 +135,65 @@ func TestXAIHistoryRejectsBrokenAssociations(t *testing.T) {
 		})
 	}
 }
+
+func TestXAIWholeOpaqueIDs(t *testing.T) {
+	for _, sc := range []struct{ name, call, item string }{
+		{"unicode", "调用|甲%7C", "条目|乙%25"},
+		{"long", strings.Repeat("调用%|α", 100), strings.Repeat("item%|β", 100)},
+		{"empty-item", "plain|call", ""},
+	} {
+		t.Run(sc.name, func(t *testing.T) {
+			ev := run.Case(t, "XAI-E07-opaque-pair-"+sc.name)
+			w := newXAIWorld(t, nil)
+			enqueue(ev, w, xaiReply(t))
+			call := ai.ToolCall{ID: xaiPublicPair(t, sc.call, sc.item), Name: "probe", Arguments: ai.UncheckedArguments(`{}`)}
+			req := xaiRequest()
+			req.Messages = append(req.Messages, xaiTrustedMessage(t, call), ai.ToolResultText(call, "result", false))
+			o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), xaiTarget(), req, nil))
+			o.record(ev)
+			ev.Record("requests", w.provider.Requests())
+			if !ev.Check("opaque pair accepted", o.err == nil && len(w.provider.Requests()) == 1, "%v", o.err) {
+				return
+			}
+			var input []map[string]any
+			mustUnmarshal(t, bodyFields(t, w.provider.Requests()[0].Body)["input"], &input)
+			var actualCall, actualItem, actualOutput string
+			for _, item := range input {
+				if item["type"] == "function_call" {
+					actualCall, _ = item["call_id"].(string)
+					actualItem, _ = item["id"].(string)
+				}
+				if item["type"] == "function_call_output" {
+					actualOutput, _ = item["call_id"].(string)
+				}
+			}
+			ev.Check("vendor identifiers remain exact without truncation or separators", actualCall == sc.call && actualItem == sc.item && actualOutput == sc.call, "call=%q item=%q result=%q", actualCall, actualItem, actualOutput)
+		})
+	}
+}
+
+func TestXAIReasoningPreservesExactJSON(t *testing.T) {
+	ev := run.Case(t, "XAI-E08-native-exact-json")
+	w := newXAIWorld(t, nil)
+	enqueue(ev, w, xaiReply(t))
+	native := `{"type":"reasoning","summary":[],"encrypted_content":"opaque","extra":{"integer":9007199254740993,"large":1e400,"nested":[null,true,"原样"]}}`
+	req := xaiRequest()
+	req.Messages = append(req.Messages, xaiTrustedMessage(t, ai.Thinking{Signature: native}))
+	o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), xaiTarget(), req, nil))
+	o.record(ev)
+	ev.Record("requests", w.provider.Requests())
+	if !ev.Check("all legal native JSON numbers accepted", o.err == nil && len(w.provider.Requests()) == 1, "%v", o.err) {
+		return
+	}
+	var input []map[string]json.RawMessage
+	mustUnmarshal(t, bodyFields(t, w.provider.Requests()[0].Body)["input"], &input)
+	for _, item := range input {
+		if string(item["type"]) == `"reasoning"` {
+			var extra map[string]json.RawMessage
+			mustUnmarshal(t, item["extra"], &extra)
+			ev.Check("native numeric types and exact values survive", string(extra["integer"]) == "9007199254740993" && string(extra["large"]) == "1e400", "%s", item["extra"])
+			return
+		}
+	}
+	ev.Check("native reasoning retained", false, "missing native item")
+}

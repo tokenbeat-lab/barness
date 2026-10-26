@@ -49,13 +49,13 @@ func (responsesAdapter) stream(ctx context.Context, ac adapterCall, out *assembl
 	// any retry of the initial request.
 	authorize := authorizeResponsesPayload(ac.model, cacheKey, ac.hostedTools)
 	if caps.implementation == responsesXAI {
-		authorize = authorizeXAIResponsesPayload(ac.model, cacheKey, ac.hostedTools)
+		authorize = authorizeXAIResponsesPayload(ac.model, cacheKey, ac.hostedTools, body)
 	}
 	body, failure := ac.hooks.payload(ctx, body, payloadAuthorization(authorize))
 	if failure != nil {
 		return failure
 	}
-	if failure := validateXAIResponsesFinalBody(ac.model, body, authorize, ac.hooks.hooks.OnPayload != nil); failure != nil {
+	if failure := validateXAIResponsesFinalBody(ctx, ac.model, body, authorize, ac.hooks.hooks.OnPayload != nil, ac.limits); failure != nil {
 		return failure
 	}
 	if failure := validateGLMResponsesFinalBody(ac.model, body, authorize); failure != nil {
