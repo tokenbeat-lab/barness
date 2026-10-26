@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–16软件已解决；17已完成狭窄资格合同修复268faeba、完整publicCLI回归b77859c0与v12两轴0/0，当前待完整普通。05正式live/06人工及发布未完成 |
-| 冻结来源 | 软件pin b77859c0a7b94b7ef874cd8a52196f544d0e01e1，默认2057文件/129选定输入（119执行输入+9规划前沿+新增合同文档）。所有4类native source相对旧付费f952已变，旧3条通过只保留历史资格 |
+| 实现 | 01–04及07–17软件工单已解决；17狭窄合同修复268faeba、完整CLI回归b77859c0、v12两轴0/0及四包完整普通通过。05新来源正式live、06人工阶段/发布未完成 |
+| 冻结来源 | 软件pin b77859c0a7b94b7ef874cd8a52196f544d0e01e1；实际受测edd01fabf46499abc1c420d8c1c4e7835b189e5a，2057默认来源文件及129输入固定。纯文档/索引收尾须全文件/输入集合内容相等；旧f952正式资格只保留历史 |
 | 审查 | 16的v10两轴0/0；17的v11两轴各1 P2公共CLI接线缺口已由同一完整fixture修复者补齐，v12独立两轴均0项；三份实际RED与完整61项定向GREEN保留 |
-| 当前完整普通（cases-v9） | 新来源完整普通NOT_RUN；[cases-v9](verification/cases-v9.json)1518必交/125入口，旧1469基线全保留，CLI旧弱用例由6条完整包回归语义替换。计划四包20m/outer1500秒；旧f952三包15850 PASS只为历史事实 |
+| 当前完整普通（cases-v9） | 四包15,982 Go测试实际PASS，1518/1518必交与125/125入口全部通过，626.207秒/exit0/audit0；主15069 PASS/214压力NOT_RUN，辅助GLM32 PASS/每case最多393。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T145222.873831Z-r808769f/receipt.json)/[核验v8](../../.evidence/barness-ai-grok/final-ordinary-validation-v8.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | 旧v3前三条通过、第4条真实拒绝/后13NOT_RUN已固定停止索引；当前17合同修复后的正式live均NOT_RUN。新索引/只读判定待完整普通，不改旧报告或借旧source资格 |
+| 原生消费 | 当前[索引v10](verification/record-v10.json)绑定新完整普通与状态；五项事实由[readonly-v10](../../.evidence/barness-ai-grok/release/readonly-v10/native/release-report.json)逐项给出。旧批次前三条通过/第四条拒绝保持历史；当前新来源17正式live/race/压力NOT_RUN，release.pass=false |
 | 自身live | 旧v3 f952 xAI正式18/18、24调用24HTTP、正式消费者PASS、响应估算0.029846 USD；当前原生source改变，当前来源真实验证NOT_RUN，未自动续跑或重买 |
 | 共享历史live | 历史正式两批共104calls/104HTTP（v2 39+v3 65）；新[计划v4](formal-live-plan-v4.md)同17路线/238必交，其中237要求PASS、1固定无调用UNSUPPORTED，尚未获新授权；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 未发布Builtin2026-10-26.1/xAI接线完成；17完整普通待实测，新source正式live/race/压力未完成，release.pass=false，未正式支持或发布 |
+| 目录/发布 | 未发布Builtin2026-10-26.1/xAI接线、软件修复、v12复核与完整四包普通已通过；当前新来源正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -347,4 +347,12 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 原报告合同RED与伪造PASS RED保留；[完整CLI证据](evidence/generic-unsupported-cli-v1.json)用11场景原生包和独立测试Git命名空间验证真正接线，三份实际RED分别证明原严格规则/报告接线/库存接线可被回归捕获，61项定向GREEN/audit0。合成全体release=false，未调用Claim或真实厂商/真实store。v11两轴P2经[v12](review/review-v12.md)独立复核均关闭。
 
-[计划v4](formal-live-plan-v4.md)及[机器计划](verification/formal-plan-v4.json)固定新source/8个image/旧native预算及明确237 PASS+1固定UNSUPPORTED/零请求合同。129输入中119执行输入未变，额外绑定修改的原生合同文档。完整普通尚待实际执行，旧批次104次正式调用与13未跑项原样保留，不自动续用旧权限。
+[计划v4](formal-live-plan-v4.md)及[机器计划](verification/formal-plan-v4.json)固定新source/8个image/旧native预算及明确237 PASS+1固定UNSUPPORTED/零请求合同。129输入中119执行输入未变，额外绑定修改的原生合同文档。完整四包普通已实际PASS：15,982测试/1518必交/125入口与32辅助齐全、626.207秒、exit0/audit0；旧批次104次正式调用与13未跑项原样保留，不自动续用旧权限。
+
+#### 原生限制修复后的完整验收与交付边界
+
+完整四包命令`go test -json ./ai/e2e ./ai ./ai/internal/testkit/release ./ai/internal/testkit/supportmatrix -count=1 -timeout=20m`，外层1500秒/显式129输入，实际受测edd01fab。完整15,982测试PASS，主15283case（15069 PASS、214压力NOT_RUN）、辅助GLM32 PASS，所有原件audit0；[核验v8](../../.evidence/barness-ai-grok/final-ordinary-validation-v8.json)记录1518必交/125入口逐项通过及来源/输入比对。supportmatrix新增包79个Go测试实际PASS，不把历史M3来源不变材料冒作当前原生资格。
+
+[17软件票](issues/17-declared-unsupported-qualification.md)已解决，完整公开CLI回归与三份实际RED由[证据索引](evidence/generic-unsupported-cli-v1.json)固定。[计划v4独立准备核验](../../.evidence/barness-ai-grok/preflight/formal-plan-v4-independent-check/receipt.json)348项PASS/0错误，只证明配置一致，不是调用授权或真实资格。当前新来源17正式live均NOT_RUN，等待[计划v4](formal-live-plan-v4.md)的新一次明确选择；原批次失败停止、不续用其13份剩余grant。
+
+[record-v10](verification/record-v10.json)与[readonly-v10](../../.evidence/barness-ai-grok/release/readonly-v10/native/release-report.json)保存当前只读事实；正式live/race/压力尚未完成，release.pass=false。纯文档/索引收尾与实际受测edd01fab的2057来源及129输入集合/内容相等性另存[核验v9](../../.evidence/barness-ai-grok/final-source-equality-v9.json)。不改旧执行pin/时间/状态，不将UNSUPPORTED当作PASS或推理回放能力。

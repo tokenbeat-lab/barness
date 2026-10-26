@@ -39,3 +39,5 @@
 - [16已解决](issues/16-generic-capture-decoding.md)：局部DTO修复5f933af9、mandatory-history回归fd02b56a，12项CLI回归与v10两轴0/0，受测81bdaeaf完整三包15,850测试/1469主必交/121入口及32辅助PASS。当前frontier回到05等待[新来源计划v3](formal-live-plan-v3.md)的新一次付费选择；旧批次停止原件与39次调用保持，不自动续跑。
 
 - v3正式资格在OpenAI Chat声明的UNSUPPORTED/零请求语义处拒绝，后13条停止。新[17](issues/17-declared-unsupported-qualification.md)负责原生合同一致性；前三条资格与65调用原件保持，05继续blocked17，未授权新付费重跑或人工阶段。
+
+- [17已解决](issues/17-declared-unsupported-qualification.md)：保留唯一原生UNSUPPORTED零活动合同、三份公共CLI接线RED/61项定向GREEN、v12两轴0/0；最终完整四包15,982测试/1518必交/125入口/32辅助PASS。05等待[新来源计划v4](formal-live-plan-v4.md)明确付费选择，06仍待有效live后人工race/压力；旧正式104调用及失败原件不续跑、不改pin。

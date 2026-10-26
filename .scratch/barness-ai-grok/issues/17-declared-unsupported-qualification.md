@@ -1,7 +1,7 @@
 # 已声明不支持的原生能力资格
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 16
 
 ## Contract
@@ -22,6 +22,8 @@ v3正式批次第4条OpenAI Chat：10场景PASS，reasoning-history依ai/live/co
 
 ## Answer
 
-最小生产修复268faeba、完整publicCLI回归b77859c0及独立v12两轴0/0完成；等待本来源完整四包普通验收后关闭软件票。旧批次停止不续跑，后续新source付费仍另取选择。
+最小生产修复268faeba、完整publicCLI回归b77859c0、独立v12两轴0/0及完整四包普通均已完成：实际15,982测试/1518必交/125入口/32辅助全部PASS，626.207秒/exit0/audit0。本票只关闭软件合同修复，旧批次停止不续跑，新source真实资格仍另取付费选择。
 
 - v11各1 P2已通过完整原生包公共CLI接线补齐：原strict规则、报告接线、原件接线三份实际RED，61项定向GREEN；[完整证据](../evidence/generic-unsupported-cli-v1.json)/[v12](../review/review-v12.md)。当前完整普通由集成统一执行，不把合成材料计为正式资格。
+
+- 最终完整普通实际edd01fab/2057来源/129输入：145222.873831Z-r808769f exit0，15,982测试全PASS。[核验v8](../../../.evidence/barness-ai-grok/final-ordinary-validation-v8.json)与唯一当前状态保留实际适用范围；不将合成claim/契约正例当真实资格。
