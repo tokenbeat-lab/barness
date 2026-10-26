@@ -62,11 +62,13 @@ func (i *xaiWireItem) text(typ string, f map[string]json.RawMessage) error {
 			return refuse("xAI raw part changed after completed item")
 		}
 	}
-	if i.primary == "" {
-		i.primary = channel
-	}
+	// An empty added part carries no visible text and cannot select the
+	// primary reasoning channel. The first effective text event selects it.
 	if strings.Contains(typ, "_part.added") && value == "" {
 		return nil
+	}
+	if i.primary == "" {
+		i.primary = channel
 	}
 	return i.set(channel, index, partKind, value, done)
 }
