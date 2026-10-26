@@ -43,3 +43,5 @@
 - [17已解决](issues/17-declared-unsupported-qualification.md)：保留唯一原生UNSUPPORTED零活动合同、三份公共CLI接线RED/61项定向GREEN、v12两轴0/0；最终完整四包15,982测试/1518必交/125入口/32辅助PASS。05等待[新来源计划v4](formal-live-plan-v4.md)明确付费选择，06仍待有效live后人工race/压力；旧正式104调用及失败原件不续跑、不改pin。
 
 - v4限定续跑后7条QUALIFIED，第8国际MiniMax Chat实际13 PASS/1零推理正例FAIL，后9停止。新[18探针维护](issues/18-minimax-reasoning-probe.md)只改善thinking-on任务，保持自身实际推理正例门槛，先受控RED后实现；真实137逻辑calls/136HTTP及所有原件保留，未授权新付费或人工阶段。
+
+- [19隔离修复](issues/19-controlled-grant-store-isolation.md)：18补充验证漏查既有FreshLedger helper的Git store隔离，实际追加3个synthetic ID/6个合成guard，未读真实Key/未请求厂商；偏差记录保留不删除。与18同一实现者在私有namespace先RED后修复受控调用，不改真实授权合同或扩大产品范围。
