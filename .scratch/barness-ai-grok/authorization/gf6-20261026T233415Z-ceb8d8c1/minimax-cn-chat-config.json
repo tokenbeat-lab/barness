@@ -1,0 +1,40 @@
+{
+  "accountAlias": "MINIMAX_CN",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261026T203229-probe-freeze-boskjyeq/generic-regional-live.test",
+    "-test.run=^TestRegionalFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/authorization.json",
+    "sha256": "6645b1ea00565f18be67863d6d306c09cfc7b0d5a504fc5de29c708afece7436"
+  },
+  "credentialEnvironment": "BARNESS_REGIONAL_KEY",
+  "credentialSource": ".env:MINIMAX_CN_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_REGIONAL_GRANT": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/minimax-cn-chat-grant.json",
+    "BARNESS_REGIONAL_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_REGIONAL_ROUTE": "minimax-cn-chat",
+    "BARNESS_REGIONAL_SERVICE": "minimax-cn",
+    "BARNESS_REGIONAL_STAGE": "formal"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/minimax-cn-chat-grant.json",
+    "sha256": "b5a2da8aab608935643f541841f4cc1d9edb4114191953d4d2ad777a3c313df8"
+  },
+  "grantEnvironment": "BARNESS_REGIONAL_GRANT",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b -X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b",
+    "nativeSourceSha256": "3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b",
+    "path": ".evidence/barness-ai-grok/build/20261026T203229-probe-freeze-boskjyeq/generic-regional-live.test",
+    "sha256": "4b8a1d578adb217c7cb0e7dbc4910e434c8b8bfa94ea4e6c36bd02beb37d4aa9"
+  },
+  "regionAlias": "cn",
+  "route": "minimax-cn-chat",
+  "schema": 1
+}

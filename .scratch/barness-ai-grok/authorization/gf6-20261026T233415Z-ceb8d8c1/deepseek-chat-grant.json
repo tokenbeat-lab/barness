@@ -1,0 +1,47 @@
+{
+  "accountAlias": "DEEPSEEK",
+  "expiresAt": "2026-10-27T11:34:15.609812Z",
+  "id": "gf6-20261026T233415Z-ceb8d8c1-05",
+  "regionAlias": "global",
+  "schema": 1,
+  "scope": {
+    "api": "openai-completions",
+    "binarySha256": "4b8a1d578adb217c7cb0e7dbc4910e434c8b8bfa94ea4e6c36bd02beb37d4aa9",
+    "callSeconds": 180,
+    "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+    "catalogVersion": "2026-10-26.1",
+    "endpoint": "https://api.deepseek.com",
+    "maxAttempts": 32,
+    "maxCalls": 32,
+    "maxOutputTokens": 4096,
+    "maxRequestReruns": 0,
+    "maxRequestedOutputTokens": 0,
+    "maxReservedInputTokens": 0,
+    "maxRetries": 1,
+    "mode": "live",
+    "models": [
+      "deepseek-flash",
+      "deepseek-v4-pro"
+    ],
+    "processSeconds": 1800,
+    "provider": "deepseek",
+    "route": "deepseek-chat",
+    "scenes": [
+      "text-stream",
+      "text-complete",
+      "tool-round-trip",
+      "cancel-after-first-frame",
+      "reasoning-history",
+      "image",
+      "usage-position",
+      "forced-tool-with-thinking",
+      "prompt-cache-long-retention",
+      "reasoning-level-high",
+      "reasoning-level-max",
+      "xai-origin-history"
+    ],
+    "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+    "sourceSha256": "3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b",
+    "stage": "formal"
+  }
+}

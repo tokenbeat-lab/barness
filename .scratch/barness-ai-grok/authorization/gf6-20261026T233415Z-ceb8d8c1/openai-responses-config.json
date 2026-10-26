@@ -1,0 +1,40 @@
+{
+  "accountAlias": "OPENAI",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261026T203229-probe-freeze-boskjyeq/generic-regional-live.test",
+    "-test.run=^TestLive$/^openai-responses$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/authorization.json",
+    "sha256": "6645b1ea00565f18be67863d6d306c09cfc7b0d5a504fc5de29c708afece7436"
+  },
+  "credentialEnvironment": "BARNESS_AI_LIVE_KEY_OPENAI_RESPONSES",
+  "credentialSource": ".env:OPENAI_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS": "OPENAI",
+    "BARNESS_AI_LIVE_COMBO": "openai-responses",
+    "BARNESS_AI_LIVE_PERMISSIONS_FILE": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/openai-responses-grant.json",
+    "BARNESS_AI_LIVE_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_AI_LIVE_REGION_ALIAS": "global"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/openai-responses-grant.json",
+    "sha256": "82062fe247384ba101cb54f399d3b8ee4672317adfa59c6997b6600901ddd673"
+  },
+  "grantEnvironment": "BARNESS_AI_LIVE_PERMISSIONS_FILE",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b -X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b",
+    "nativeSourceSha256": "3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b",
+    "path": ".evidence/barness-ai-grok/build/20261026T203229-probe-freeze-boskjyeq/generic-regional-live.test",
+    "sha256": "4b8a1d578adb217c7cb0e7dbc4910e434c8b8bfa94ea4e6c36bd02beb37d4aa9"
+  },
+  "regionAlias": "global",
+  "route": "openai-responses",
+  "schema": 1
+}

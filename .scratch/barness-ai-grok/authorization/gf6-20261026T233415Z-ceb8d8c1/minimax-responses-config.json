@@ -1,0 +1,44 @@
+{
+  "accountAlias": "MINIMAX",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261026T203229-probe-freeze-boskjyeq/minimax-live.test",
+    "-test.run=^TestMiniMaxFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/authorization.json",
+    "sha256": "6645b1ea00565f18be67863d6d306c09cfc7b0d5a504fc5de29c708afece7436"
+  },
+  "credentialEnvironment": "BARNESS_MINIMAX_KEY",
+  "credentialSource": ".env:MINIMAX_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_MINIMAX_ACCOUNT_ALIAS": "MINIMAX",
+    "BARNESS_MINIMAX_ENTITLEMENT": "confirmed",
+    "BARNESS_MINIMAX_FORMAL": "1",
+    "BARNESS_MINIMAX_GRANT": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/minimax-responses-grant.json",
+    "BARNESS_MINIMAX_MODEL": "MiniMax-M3",
+    "BARNESS_MINIMAX_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_MINIMAX_PURPOSE": "standard",
+    "BARNESS_MINIMAX_REGION_ALIAS": "global",
+    "BARNESS_MINIMAX_ROUTE": "responses"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf6-20261026T233415Z-ceb8d8c1/minimax-responses-grant.json",
+    "sha256": "5436bdbe976333454de1f4431256661784f88f805750287844787a8784effce2"
+  },
+  "grantEnvironment": "BARNESS_MINIMAX_GRANT",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=026282f08a15049da4021b49c87149f7e7a5c3850e2e8575e80801372fbb43d9",
+    "nativeSourceSha256": "026282f08a15049da4021b49c87149f7e7a5c3850e2e8575e80801372fbb43d9",
+    "path": ".evidence/barness-ai-grok/build/20261026T203229-probe-freeze-boskjyeq/minimax-live.test",
+    "sha256": "f7ddaf7e46e249ab765386b63a909f08b085f512cc015198beab04f6bc3e37fc"
+  },
+  "regionAlias": "global",
+  "route": "minimax-responses",
+  "schema": 1
+}
