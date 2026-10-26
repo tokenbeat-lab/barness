@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–16软件工单已解决；16局部DTO修复5f933af9、历史分支回归fd02b56a、v10两轴0/0及完整普通通过。05当前来源正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 软件pin fd02b56aa6177106ae1ef348fec0c3a4920b8a57；本轮完整普通实际受测81bdaeafbd2b79429daba6964d9c4d24fb37ae1d，2054默认来源文件及128选定输入固定；文档收尾沿用须全部文件/输入集合及内容相等，实际核验见final-source-equality-v8 |
+| 实现 | 01–04及07–16软件已解决；v3真实运行发现既有OpenAI Chat不支持推理历史的资格规则遗漏，已开17修复票。05正式live、06人工阶段/发布未完成 |
+| 冻结来源 | 本批v3实际普通与付费来源f952644bf0dc06f2397c966b4ef6376f8ed52b9c，2054默认文件及164输入固定。软件fd02/消费者DTO已真实验证；后续17资格规则修复需重新冻结，不改旧pin |
 | 审查 | v1–v8历史发现均已修复；16新增v9 Standards0/Spec1 P2（mandatory-history反例缺失），同一实现者补齐，独立[v10](review/review-v10.md)两轴均0项 |
-| 当前完整普通（cases-v7） | 三包15,850 Go测试实际PASS、exit0/audit0、628.736秒；1469/1469必交case、121/121入口全部通过，主15020 PASS/214压力NOT_RUN，辅助GLM32 PASS/每case最多393文件。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T122707.884222Z-3p40dgni/receipt.json)及[核验v7](../../.evidence/barness-ai-grok/final-ordinary-validation-v7.json) |
+| 当前完整普通（cases-v7） | 本批同164输入完整三包15,850测试/1469必交/121入口及32辅助全部PASS，629.895秒/exit0/audit0。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T131507.033844Z-tyztv0yc/receipt.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | 当前[索引v9](verification/record-v9.json)绑定新完整普通与本状态；source/E2E及其他五项事实由[readonly-v9原件](../../.evidence/barness-ai-grok/release/readonly-v9/native/release-report.json)逐项给出。原批次/readonly-v8仅为旧来源事实；当前正式live/race/压力未完成，release.pass=false |
-| 自身live | 历史批次5a8正式xAI18/18 PASS、24调用/24HTTP、正式消费者exit0/pass=true、响应估算上界0.029358 USD；消费者修复进入其原生source后，当前来源正式资格NOT_RUN，不改旧原件pin |
-| 共享历史live | 旧批次已按授权停止，2条执行/39调用39HTTP，后15条未跑；修复后的[冻结计划v3](formal-live-plan-v3.md)重新准备17路线，尚未获新付费授权；六条Kimi仍候选/受控 |
+| 原生消费 | 本批前三条xAI/OpenAI Responses/DeepSeek Responses实际正式消费者均PASS；第4条OpenAI Chat实际exit1/pass=false，原生声明reasoning-history为UNSUPPORTED/零调用被统一正调用/PASS规则拒绝。后13条NOT_RUN，批次STOPPED；[停止索引](../../.evidence/barness-ai-grok/live-batches/gf3-20261026T131257Z-6a9ba85b/stopped-checkpoint-v1.json) |
+| 自身live | 本批v3 xAI正式18/18、24调用24HTTP，实际正式消费者PASS，响应估算上界0.029846 USD；只读采集父目录遗漏在native child启动前修复，0付费重跑，原失败采集原件保留 |
+| 共享历史live | 本批4条执行：前三条QUALIFIED；OpenAI Chat 10PASS/1原生UNSUPPORTED、15调用/15HTTP、正式消费者FAIL；后13条未运行。共65调用65HTTP，前批39另计。本批已停止，不继续剩余grant；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI接线已完成；本次软件修复、独立复核与完整普通通过。当前新来源正式live及人工race/压力未完成，release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 未发布分支Builtin2026-10-26.1/xAI接线完成；本批17正式live未完整通过，17软件修复进行中，race/压力未选择，release.pass=false，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -336,3 +336,7 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 #### 正式计划v3已获本次执行授权
 
 维护者明确回复“授权 v3 全部17条”；新批次`gf3-20261026T131257Z-6a9ba85b`的原始回复、17份新grant/config与[执行范围](authorization/gf3-20261026T131257Z-6a9ba85b/execution-scope.json)已留存。新164项输入先取得同来源完整普通预检，再按冻结17路线串行、失败/取消/超时/原生资格拒绝即停。当前本批尚无厂商请求或claim；旧批次及候选grant不复用。race/压力及发布仍未授权。
+
+#### v3实际停止与资格合同修复
+
+新批次已在第4条的真实正式消费者拒绝后停止，前三条正式资格通过，后13条NOT_RUN。OpenAI Chat的`reasoning-history`依既有`ai/live/combos_test.go`/`scenarios_test.go`合同为不支持、零请求；支持矩阵原生保留UNSUPPORTED语义，当前release资格层却要求所有场景正调用及PASS。已建立[17修复工单](issues/17-declared-unsupported-qualification.md)，只修复合同一致性并保留该能力不支持，不伪造成功、不扩大型号/重放能力。所有真实捕获、消费者拒绝、原始授权及65次调用由[停止索引](../../.evidence/barness-ai-grok/live-batches/gf3-20261026T131257Z-6a9ba85b/stopped-checkpoint-v1.json)固定；后续新source/付费需重新冻结与选择，当前授权不续跑。
