@@ -116,7 +116,7 @@ func verifyXAIScenario(root *os.Root, s ScenarioResult, calls []xaiCall) error {
 		for _, item := range first.output {
 			var kind string
 			json.Unmarshal(item["type"], &kind)
-			encrypted = encrypted || kind == "reasoning"
+			encrypted = encrypted || kind == "reasoning" && xaiWireString(item["encrypted_content"]) != ""
 		}
 		if !encrypted || len(calls) != 2 || !xaiNativeReplay(first, calls[1]) {
 			return refuse("xAI encrypted whole native continuation differs")

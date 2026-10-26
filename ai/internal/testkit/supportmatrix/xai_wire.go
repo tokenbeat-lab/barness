@@ -189,6 +189,9 @@ func (i *xaiWireItem) identity(v map[string]json.RawMessage) bool {
 		}
 	}
 	if i.kind == "reasoning" {
+		if verifyXAIReasoning(v) != nil {
+			return false
+		}
 		if raw, ok := v["encrypted_content"]; ok && string(raw) != "null" {
 			cipher, valid := xaiWireText(raw)
 			if !valid || i.cipher != "" && cipher != "" && cipher != i.cipher {

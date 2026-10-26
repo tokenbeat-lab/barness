@@ -25,9 +25,8 @@ func verifyXAIOutput(c xaiCall) error {
 		seenItem[itemID] = true
 		switch kind {
 		case "reasoning":
-			encrypted := xaiWireString(item["encrypted_content"])
-			if encrypted == "" {
-				return refuse("xAI own encrypted reasoning missing")
+			if err := verifyXAIReasoning(item); err != nil {
+				return err
 			}
 			block, ok := c.message.Content[n].(ai.Thinking)
 			raw, _ := json.Marshal(item)
