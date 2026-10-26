@@ -24,3 +24,18 @@ func GenericExpected(combo string) []string {
 	}
 	return append(append(base, extras...), grokhistory.Scenario)
 }
+
+// Existing optional capabilities keep their historical reporting semantics.
+// The additive foreign-history probe is mandatory: UNSUPPORTED cannot be
+// merged as a successful current capability. FAIL/NOT_RUN remain partial facts.
+func checkGenericHistory(r Report) error {
+	if len(GenericExpected(r.Combo)) == 0 {
+		return nil
+	}
+	for _, s := range r.Scenarios {
+		if s.ID == grokhistory.Scenario && s.Outcome == Unsupported {
+			return refuse("mandatory xAI history cannot be unsupported")
+		}
+	}
+	return nil
+}

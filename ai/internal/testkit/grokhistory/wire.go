@@ -133,12 +133,39 @@ func Verify(api ai.API, raw []byte) error {
 	if !strings.Contains(text, visibleReasoning) || !strings.Contains(text, visibleAnswer) {
 		return fmt.Errorf("xAI history: visible source content missing")
 	}
-	for _, secret := range []string{cipher, reasoningID, messageID, "encrypted_content"} {
+	for _, secret := range []string{cipher, reasoningID, messageID} {
 		if strings.Contains(text, secret) {
 			return fmt.Errorf("xAI history: foreign native state leaked")
 		}
 	}
+	// The top-level include selector requests the destination's own future
+	// output. Only an encrypted_content field inside replayed history is foreign
+	// native state; substring matching would reject valid full OpenAI options.
+	for _, key := range []string{"input", "messages", "contents"} {
+		var history any
+		if value := body[key]; value != nil && json.Unmarshal(value, &history) == nil && encryptedHistoryField(history) {
+			return fmt.Errorf("xAI history: foreign encrypted history field")
+		}
+	}
 	return nil
+}
+
+func encryptedHistoryField(value any) bool {
+	switch value := value.(type) {
+	case map[string]any:
+		for key, child := range value {
+			if key == "encrypted_content" || encryptedHistoryField(child) {
+				return true
+			}
+		}
+	case []any:
+		for _, child := range value {
+			if encryptedHistoryField(child) {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func str(raw json.RawMessage) string { var out string; _ = json.Unmarshal(raw, &out); return out }

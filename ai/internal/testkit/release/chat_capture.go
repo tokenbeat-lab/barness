@@ -43,6 +43,10 @@ func verifyChatCaptures(files verifiedCase, r supportmatrix.Report, s supportmat
 		}
 		meta := result.Result.Metadata
 		if s.ID == grokhistory.Scenario {
+			message := result.Result.Message
+			if result.Error != "" || message.ErrorMessage != "" || message.StopReason != ai.StopReasonStop || message.Provider != meta.ProviderID || message.API != meta.API || message.Model != s.Model || meta.AccountScopeID != "live-"+r.Combo || len(exchanges) != 1 || exchanges[0].Status != 200 {
+				return usage, fmt.Errorf("mandatory xAI history lacks actual successful target Result")
+			}
 			before, e1 := files.read("public-request.json", maxInventoryFile)
 			after, e2 := files.read("immutable-input.json", maxInventoryFile)
 			proof, e3 := files.read("history-provenance.json", 4096)
