@@ -2,7 +2,7 @@
 
 Type: task
 Status: ready-for-agent
-Blocked by: 04, 07
+Blocked by: 04, 07, 08
 
 ## Contract
 

@@ -113,8 +113,32 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 			info, statErr := os.Stat(filepath.Join(filepath.Dir(files[0]), "xai-candidate-report.pending.json"))
 			cs.Check("filesystem refused final candidate write", statErr == nil && info.IsDir(), "expected retained filesystem failure target")
 		}
-		if name == "finite-controlled-plan" {
-			verifyOut := filepath.Join(run.Dir(), "xai-controlled-native-consumer")
+		if name == "final-sync" || name == "final-audit" {
+			var fault struct {
+				Step        string `json:"step"`
+				ClosedFile  bool   `json:"closedFile"`
+				IsDirectory bool   `json:"isDirectory"`
+			}
+			faultRaw, faultErr := os.ReadFile(filepath.Join(filepath.Dir(files[0]), "xai-finalization-failure.json"))
+			decodeErr := json.Unmarshal(faultRaw, &fault)
+			wantStep, actualFault := "directory-sync", fault.ClosedFile
+			if name == "final-audit" {
+				wantStep, actualFault = "final-audit", fault.IsDirectory
+			}
+			cs.Check("retained actual filesystem failure", faultErr == nil && decodeErr == nil && fault.Step == wantStep && actualFault, "failure=%s", faultRaw)
+			var audit struct {
+				Findings []json.RawMessage `json:"findings"`
+			}
+			auditRaw, readErr := os.ReadFile(filepath.Join(filepath.Dir(files[0]), "audit.json"))
+			decodeErr = json.Unmarshal(auditRaw, &audit)
+			cs.Check("failed report has complete final redaction audit", readErr == nil && decodeErr == nil && audit.Findings != nil && len(audit.Findings) == 0, "audit unavailable or failed")
+			priorRaw, readErr := os.ReadFile(filepath.Join(filepath.Dir(files[0]), "xai-candidate-report.unfinalized.json"))
+			var prior map[string]any
+			decodeErr = json.Unmarshal(priorRaw, &prior)
+			cs.Check("original nonPASS report retained", readErr == nil && decodeErr == nil && prior["outcome"] == "RUNNING" && prior["complete"] == false && prior["auditPassed"] == false, "prior=%s", priorRaw)
+		}
+		if name == "finite-controlled-plan" || name == "final-sync" || name == "final-audit" {
+			verifyOut := filepath.Join(run.Dir(), "xai-controlled-native-consumer-"+name)
 			rootPath, err := filepath.Abs("../..")
 			if err != nil {
 				t.Fatal(err)
@@ -295,4 +319,17 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 			t.Errorf("failed finalization passed: %v", r)
 		}
 	})
+	for _, fault := range []string{"final-sync", "final-audit"} {
+		t.Run(fault, func(t *testing.T) {
+			p := write(t, grant(t, "controlled"))
+			r, code := child(t, fault, "^TestXAICandidate$", []string{"BARNESS_XAI_CONTROLLED=" + fault, "BARNESS_AI_LIVE_ACCOUNT_ALIAS=synthetic", "BARNESS_AI_LIVE_REGION_ALIAS=global", "BARNESS_AI_LIVE_PERMISSIONS_FILE=" + p})
+			if r == nil {
+				return
+			}
+			if code != 1 || r["outcome"] == "PASS" || r["complete"] != false || r["auditPassed"] != false || r["claimId"] == "" || r["budget"].(map[string]any)["httpAttempts"] != float64(24) {
+				t.Errorf("late filesystem failure must retain consumed nonPASS evidence: code=%d report=%v", code, r)
+			}
+		})
+	}
+
 }

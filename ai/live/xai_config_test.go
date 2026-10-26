@@ -178,7 +178,7 @@ func initializeXAI() {
 			return
 		}
 	}
-	if p.controlled != "" && !slices.Contains([]string{"fixture", "cancel", "final-write"}, p.controlled) {
+	if p.controlled != "" && !slices.Contains([]string{"fixture", "cancel", "final-write", "final-sync", "final-audit"}, p.controlled) {
 		p.problem = "unknown controlled mode"
 		return
 	}
