@@ -1,33 +1,19 @@
-# Grok 下一阶段：修正 JPEG 后的候选真实验证
+# Grok 候选验证完成与后续资格
 
 Status: needs-info
 
-JPEG夹具修复、两轴复核0/0及新来源完整普通验收已完成。[机器计划v3](verification/candidate-plan-v3.json)等待一次新授权；此前两次grant均已消耗。唯一当前状态见[spec](spec.md#唯一当前状态)。
+[计划v3](verification/candidate-plan-v3.json)的一次明确授权已经实际执行并消耗，18/18场景PASS，24调用/24HTTP、零自动重试、审计0、采集器exit0；累计响应估算上界0.031036 USD，墙钟37.136秒。[完整候选事实与原件索引](evidence/candidate-live-v3.json)；唯一当前状态见[spec](spec.md#唯一当前状态)。
 
-## 已发生的两次运行
+前两次失败、各自授权/claim及消费结果独立保留。JPEG夹具已修复为32×32，真实用户JPEG与工具结果图片均通过。本次不再重复付费运行。
 
-[不可变汇总](evidence/live-attempts-v1.json)保留授权、grant/claim、原始捕获、预算和两次实际原生消费者exit1/pass=false。首次直连1调用超时；用户另授权代理运行，后者20调用、15场景PASS、JPEG场景FAIL、余2场景NOT_RUN。JPEG被明确以8×8=64总像素低于512像素下限拒绝。已知响应累计估算上界0.023408 USD；失败/未报告用量不能按零费用计算。
+## 当前可推进的离线工作
 
-## 已完成的修复与冻结
+05仍需按SOP将已脱敏的真实捕获纳入公共Client回放，保留原来源和哈希；核清候选完整性、原生正式资格与目录晋升的消费接缝。新增夹具/源码后重新冻结并取得相应普通回执；旧真实证据是否适用由原生来源规则判定，不改写旧pin或自动重买路线。
 
-- JPEG由8×8改为32×32；用户JPEG和工具结果JPEG场景完整保留。公共候选进程实际捕获先RED后GREEN，检查PNG/JPEG可解码、尺寸和数量，未增加公共输入约束。[回归原件](../../.evidence/barness-ai-grok/jpeg-fixture-e2e-v1.json)、[复核v4](review/review-v4.md)。
-- 完整普通实际受测 `36eaca012d45062242a67e5f48d01ef07bfe5c5e`：15402个Go测试PASS，565/565必交case、65预期入口齐全，audit0、exit0、墙钟483.163秒。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/receipt.json)、[逐项核对](../../.evidence/barness-ai-grok/final-ordinary-validation-v4.json)。
-- 新native source SHA256：`05e89a133ceb71b6725ad7a6ee889170f6e49fa7a72845928b202416a7d2838b`；SDK `github.com/openai/openai-go/v3 v3.66.0`。
-- 候选目录 `xai-grok-4.7-candidate-2026-10-26.1` / `sha256:bead32a65d2532dea261101a8b4c61c995c50168742243431844ab7394d6c97e`。
-- 新二进制：[xai-live.test](../../.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/xai-live.test)，SHA256 `bf0f618074775a5e2f2679ffe9e50c19a2ce148dd1c819050c50670b03d416c1`。[构建回执](../../.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/build-receipt.json)实际exit0；无Key自检NOT_RUN、Calls0、vendorHTTP0。
+## 未完成的完整交付
 
-## 本次待选择范围
+- 自身原生正式资格：候选report的formalQualified=false，正式消费者实际exit1/pass=false；BuiltinCatalog未激活xAI。
+- [live影响表](live-impact.md)中的另外22条受影响旧聊天目的路线尚未取得各自本次计划/账户地区/预算及授权。
+- 06的正式目录晋升、人工race与适用压力未完成，release.pass=false。阶段完成不自动授权下一阶段；后续付费运行和人工范围须另外明确选择。
 
-固定 `chat / xai / openai-responses / grok-4.7`，官方全球目标 `https://api.x.ai/v1`，显式代理 `http://127.0.0.1:7890`；账户GROK、地区global、本机凭据`.env:GROK_KEY`。18场景、最多24 Logical Call/24 HTTP Attempt、自动重试0，每调用1024可见token，进程1800秒；任一失败即停止。
-
-建议沿用5 USD估算停止阈值，按已返回CostEstimate.Maximum累计；它不是单次账单硬上限，可见输出预算不限制推理总消耗。授权后创建新grant/claim，绑定新二进制/来源/目录和原始授权、显式代理配置；新增实际输入取得匹配普通回执后仅运行本路线。
-
-```sh
-.evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/xai-live.test -test.run=^TestXAICandidate$ -test.timeout=1800s
-```
-
-外层使用 `tools/verification/run.py --feature barness-ai-grok --stage live --route xai-responses`，逐文件绑定cases-v3和新授权/grant/config；凭据仅进入本路线环境变量。完整18场景ID与预算见机器计划。旧grant、旧二进制及已通过的单场景不拼接成新来源完整通过。
-
-## 尚未取得的完整资格
-
-本次仍为候选验证；05的完整真实捕获、脱敏回放、原生正式资格和另外22条受影响旧聊天目的路线仍待完成。[影响表](live-impact.md)。BuiltinCatalog未激活xAI。06的人工race和适用压力尚未选择，release.pass=false；本次新授权不包含这些阶段。
+[完整普通验收](../../.evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/receipt.json)仍为565/565必需case、65入口和15402 Go测试PASS；收尾提交与受测源码/选定输入相等性另保留。
