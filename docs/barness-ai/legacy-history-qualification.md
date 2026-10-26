@@ -27,7 +27,7 @@ Generic 六条、Zhipu 两条和国际 MiniMax 三条使用 `livegrant` 的固�
 
 | 族 | 唯一所选 credential | 新授权及非秘密配置 |
 | --- | --- | --- |
-| Generic | `BARNESS_AI_LIVE_KEY_<ROUTE>` | `BARNESS_AI_LIVE_PERMISSIONS_FILE`、`ACCOUNT_ALIAS`、`REGION_ALIAS`；显式 `BARNESS_AI_LIVE_PROXY` |
+| Generic | `BARNESS_AI_LIVE_KEY_<ROUTE>` | `BARNESS_AI_LIVE_PERMISSIONS_FILE`、`BARNESS_AI_LIVE_ACCOUNT_ALIAS`、`BARNESS_AI_LIVE_REGION_ALIAS`；显式 `BARNESS_AI_LIVE_PROXY` |
 | GLM | `BARNESS_GLM_KEY` | `BARNESS_GLM_GRANT`、`BARNESS_GLM_ACCOUNT_ALIAS`、`BARNESS_GLM_REGION_ALIAS`；专用 `BARNESS_GLM_PROXY` |
 | 国际 M3 | `BARNESS_MINIMAX_KEY` | `BARNESS_MINIMAX_GRANT` 及原账户/地区、standard/entitlement 配置；显式 `BARNESS_MINIMAX_PROXY` |
 
@@ -52,3 +52,7 @@ go test -c -tags live -ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legac
 构建环境必须遵循 SOP，显式 `GOENV=off`、空 `GOFLAGS`，保留 argv、toolchain、来源 map 与 binary hash。之后 `processgrant -template ROUTE -stage formal -binary FROZEN_PRODUCER` 生成不完整模板，填入批准范围并冻结。producer 要求嵌入的 `legacyBuildSource` 等于当前 native source hash，并验证当前 executable hash；旧 binary 不能借用新磁盘源码。manifest 保存 `process_build_source`。不包含这个 flag 的旧构建不会取得新授权。
 
 `processgrant -check` 是只读校验。它的 `-claim` 仅允许显式 controlled admission 测试；真实授权必须由所选 producer 在执行边界领取。所有这类模板和构建操作都不替代用户对实际厂商调用的批准。
+
+## 本次软件交接
+
+精确来源、有限156项新增公共 case、26个按路线计的新原生场景、构建参数、所有改动文件及回执见[软件证据摘要](../../.scratch/barness-ai-grok/evidence/legacy-history-software-v1.md)和[机器索引](../../.scratch/barness-ai-grok/evidence/legacy-history-software-v1.json)。它们只说明离线软件准备与受控结果；完整集成冻结、17路线正式 live 及人工阶段仍由功能当前状态独立记录。

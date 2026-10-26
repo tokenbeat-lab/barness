@@ -29,6 +29,6 @@ Blocked by: 13
 
 ## Answer
 
-待实施；与12自身正式合同并行，最终一起审查/冻结后才提出具体付费范围。实际22路线仍NOT_RUN。
+软件已提交并合入根51eb2a24，软件 pin 为9ea3b9d3；正在按该 pin 独立审查，最终集成完整冻结仍待根执行。新增22条公共目标兼容证明与完整原生场景/消费者、11条新单次授权入口及闭合历史只读边界均已准备。合并后十个新公共根与有界历史正例通过，完整 minimaxlive 包曾15分钟超时，保留失败而不声称整包 GREEN。精确来源、有限 case/包范围、RED/GREEN/超时、辅助 manifest 与预算见[软件交接](../evidence/legacy-history-software-v1.md)和[机器索引](../evidence/legacy-history-software-v1.json)。当前17条正式 live、人工 race/压力、发布均 NOT_RUN；六条 Kimi 仅候选及受控，不在正式承诺中。
 
 - 2026-10-26：维护者明确采用17条正式路线（Grok+16已发布旧目标），六条Kimi保留候选与受控兼容回归，不连带晋升。14所有22代码路径继续实现，六条Kimi真实live不在本次正式承诺内；[已采用范围](../formal-target-scope-plan.md)。未增加任何实际调用授权。
