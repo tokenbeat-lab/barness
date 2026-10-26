@@ -58,6 +58,13 @@ func installMiniMaxControlled(rec *recorder, name string) {
 				thinking = false
 			}
 		}
+		// Adaptive thinking may legitimately omit reasoning for a direct-answer
+		// task. Keep the probe's own positive observation requirement exercised.
+		if strings.HasPrefix(name, "adaptive-probe") &&
+			(strings.Contains(string(raw), "Synthetic protocol probe. Reply with the integer 42.") ||
+				(name == "adaptive-probe-empty" && strings.Contains(string(raw), "Synthetic reasoning task."))) {
+			thinking = false
+		}
 		if tool {
 			toolCalls++
 			if name == "success-rerun-tool" && toolCalls == 1 {
