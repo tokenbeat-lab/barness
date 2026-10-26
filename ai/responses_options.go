@@ -146,6 +146,20 @@ const responsesMinOutputTokens = 16
 // encode sets the option fields of body for model m, as pi's buildParams
 // does before samplingParams, leaving out what the provider does not serve.
 func (o ResponsesOptions) encode(body *responsesBody, m Model, caps responsesCapabilities, cacheKey string) {
+	if caps.implementation == responsesXAI {
+		body.MaxOutputTokens = m.MaxTokens
+		if n, ok := o.MaxTokens.Get(); ok {
+			body.MaxOutputTokens = n
+		}
+		body.Include = []string{"reasoning.encrypted_content"}
+		body.PromptCacheKey = cacheKey
+		body.Temperature = o.Temperature
+		body.ToolChoice = o.ToolChoice
+		if o.ReasoningEffort != "" {
+			body.Reasoning = &responsesReasoning{Effort: m.ThinkingLevelMap.wireValue(o.ReasoningEffort)}
+		}
+		return
+	}
 	retention := cmp.Or(o.CacheRetention, CacheRetentionShort)
 	longRetention := m.supportsLongCacheRetention()
 	explicit := m.Compat.SupportsExplicitPromptCacheMode

@@ -112,7 +112,7 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 
 	// pi: reasoning models (that support it) take instructions as "developer".
 	role := "system"
-	if model.Reasoning && caps.implementation != responsesKimi {
+	if model.Reasoning && caps.implementation != responsesKimi && caps.implementation != responsesXAI {
 		role = "developer"
 	}
 	vision := model.acceptsImages()
@@ -207,6 +207,9 @@ func buildResponsesBody(model Model, history transcript, opts ResponsesOptions, 
 	level := opts.ReasoningEffort
 	if level == "" && opts.ReasoningSummary != "" {
 		level = ThinkingMedium
+	}
+	if caps.implementation == responsesXAI {
+		return applyXAIResponsesSampling(out, model, level, opts.SamplingParams)
 	}
 	out, err = applyModelSamplingParams(out, model, level, opts.SamplingParams)
 	if err == nil && caps.implementation == responsesKimi {
