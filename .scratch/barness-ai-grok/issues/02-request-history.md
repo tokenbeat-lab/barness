@@ -1,7 +1,7 @@
 # 无状态请求、选项、最终守卫与可信历史
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 01
 
 ## Contract
@@ -25,3 +25,5 @@ Responses 请求/选项/profile、xAI request/guard/history/ID codec 及对应 E
 ## Comments
 
 - 2026-10-26：由 implement-spec 从已就绪规格建立依赖工单；实现不授予后续人工或付费验证权限。
+
+- 2026-10-26：request_history 在 `codex/grok-request` 负责请求、原生历史与图片边界；当前进入独立 E2E 回执收尾，未修改功能唯一当前状态。
