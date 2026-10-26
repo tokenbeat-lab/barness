@@ -1,9 +1,14 @@
 package e2e
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"image"
+	_ "image/jpeg"
+	_ "image/png"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -109,6 +114,44 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 			return nil
 		})
 		cs.Record("native-file-map", nativeFiles)
+		if name == "finite-controlled-plan" {
+			// The live JPEG rejection reported a 512-total-pixel minimum.
+			// Check real scenario payloads, including projected tool images.
+			for capture, wantCount := range map[string]int{"E17-xai-user-png/image-http.json": 1, "E17-xai-user-jpeg/image-http.json": 1, "E17-xai-tool-result-image/results-http.json": 2} {
+				data, readErr := os.ReadFile(filepath.Join(filepath.Dir(files[0]), capture))
+				var attempts []struct {
+					RequestBody string `json:"requestBody"`
+				}
+				decodeErr := json.Unmarshal(data, &attempts)
+				if !cs.Check("image scenario capture available "+capture, readErr == nil && decodeErr == nil && len(attempts) == 1, "missing or invalid capture") {
+					continue
+				}
+				var request struct {
+					Input []map[string]any `json:"input"`
+				}
+				if !cs.Check("image request decodes "+capture, json.Unmarshal([]byte(attempts[0].RequestBody), &request) == nil, "invalid captured request") {
+					continue
+				}
+				count := 0
+				for _, item := range request.Input {
+					content, _ := item["content"].([]any)
+					for _, value := range content {
+						block, _ := value.(map[string]any)
+						if block["type"] != "input_image" {
+							continue
+						}
+						count++
+						url, _ := block["image_url"].(string)
+						header, encoded, ok := strings.Cut(url, ",")
+						raw, decodeErr := base64.StdEncoding.Strict().DecodeString(encoded)
+						config, format, imageErr := image.DecodeConfig(bytes.NewReader(raw))
+						valid := ok && decodeErr == nil && imageErr == nil && header == "data:image/"+format+";base64" && config.Width*config.Height >= 512
+						cs.Check("live image meets captured pixel minimum "+capture, valid, "format=%s dimensions=%dx%d", format, config.Width, config.Height)
+					}
+				}
+				cs.Check("all planned inline images captured "+capture, count == wantCount, "images=%d want=%d", count, wantCount)
+			}
+		}
 		if name == "final-write" {
 			info, statErr := os.Stat(filepath.Join(filepath.Dir(files[0]), "xai-candidate-report.pending.json"))
 			cs.Check("filesystem refused final candidate write", statErr == nil && info.IsDir(), "expected retained filesystem failure target")
