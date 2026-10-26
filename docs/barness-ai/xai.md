@@ -95,7 +95,7 @@ Host 声明普通函数工具，收到完整成功的 `toolUse` 后逐个用 `ai
 
 唯一入口是编译后的 `-test.run=^TestXAICandidate$`，一个进程只运行本路线。配置复用现有通用转发字段：`BARNESS_AI_LIVE_COMBO=xai-responses`、`BARNESS_AI_LIVE=1`、唯一 `BARNESS_AI_LIVE_KEY_XAI_RESPONSES`、账户/地区别名、可选显式 `BARNESS_AI_LIVE_PROXY` 与 `BARNESS_AI_LIVE_PERMISSIONS_FILE`。账户/地区别名是 Host 声明，不是从 Key 推断的厂商权益证明。拒绝其他路线、凭据和 endpoint override。无 switch/key/grant 产出 NOT_RUN、零 vendor HTTP；错误身份/目录/来源/预算/别名/过期或重复授权失败。
 
-本次只运行普通受控进程，未发放付费授权。未来每次付费运行须先按 [SOP](../agents/verification.md) 固定当前来源、构建、目录、SDK 与完整场景，取得新的明确授权，保存原始 grant。grant 为严格 JSON，schema=1，字段如下：
+本次只运行普通受控进程，未发放付费授权。未来每次付费运行须先按 [SOP](../agents/verification.md) 固定当前来源、构建、目录、SDK 与完整场景，取得新的明确授权，保存原始 grant，并用工具的 `--input` 逐文件固定本次授权及所有实际参与输入；凭据只通过该路线专用环境字段注入，不进入 argv 或输入快照。grant 为严格 JSON，schema=1，字段如下：
 
 | 字段 | 固定事实或人工选择 |
 | --- | --- |

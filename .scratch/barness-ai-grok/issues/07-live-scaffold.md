@@ -1,7 +1,7 @@
 # 独立 xAI 候选 live 入口与 Host 说明
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 01
 
 ## Contract
@@ -20,18 +20,30 @@ Blocked by: 01
 
 ## Answer
 
-独立候选入口与 Host 文档已实现，等待最新请求/历史/流/用量运行时合入后完成 controlled 全场景验证。
+已交付独立候选 runner 与完整 Host 装配说明；本票普通受控进程范围完成。
 
-- 入口 `^TestXAICandidate$`，显式 `internal/testkit/xai.CandidateCatalog()`，全球固定 endpoint 与 grok-4.7；复用公共 Client、现有 resolver、recorder/Observer、evidence Run。
-- 完整计划为 18 场景、24 调用、零自动重试；四入口、默认和四档 effort、非零 reasoning 算术、完整加密续接与 Host 信任恢复、auto/required/none/并行工具、用户及工具结果 PNG/JPEG、缓存/usage/实际型号。
-- 原生严格 grant 沿用 `BARNESS_AI_LIVE_PERMISSIONS_FILE`，固定来源/二进制/目录/身份/别名/完整计划/有限预算；common Git 排他 claim 在任何请求前消费，失败/取消不可重用。未扩大全局环境转发白名单，controlled 字段不进入 paid 转发。
-- [Host 装配](../../../docs/barness-ai/xai.md) 覆盖现有公共 Catalog/resolver、白名单、凭据快照、资源与超时、持久化、工具、费用及禁用/版本回滚；外部 Host 不导入 internal testkit。
-- 所有报告明确 candidate，controlled 的 vendorHTTPAttempts=0；不写正式 support report/支持矩阵、不激活内置目录。正式消费者拒绝检查已纳入普通进程验收。
+- 精确入口 `^TestXAICandidate$`，显式 `internal/testkit/xai.CandidateCatalog()`，固定全球目标和 grok-4.7；复用公共 Client、现有 resolver、recorder/Observer、evidence Run。
+- 有限完整计划为 18 场景、24 调用、零自动重试：四入口、默认/low/medium/high/xhigh、非零 reasoning 算术、JSON 持久化后完整密文续接和显式 Host 信任恢复、auto/required/none/并行工具、用户和工具结果 PNG/JPEG、缓存/usage/返回型号。
+- 严格一次性 grant 沿用通用 `BARNESS_AI_LIVE_PERMISSIONS_FILE`，绑定来源/二进制/目录/身份/别名/完整计划/有限预算；common Git 排他 claim 在任何请求前消费，失败和取消也不能重用。没有扩大环境转发白名单，controlled 开关不进入 paid 合同。
+- [Host 装配](../../../docs/barness-ai/xai.md) 使用已有公共 Catalog/resolver，包含白名单、显式凭据、资源/超时、持久化、工具、费用和禁用/版本回滚；外部 Host 不导入 internal testkit。`docs/barness-ai/README.md` 提供 candidate/NOT_RUN 发现入口。
+- 报告始终为 candidate，controlled 的 vendorHTTPAttempts=0，不写正式 support report 或支持矩阵，不激活内置目录。正式消费者已用合法仓库内完整候选包、全新输出目录实际执行，并保存绑定该候选报告哈希的拒绝回执、exit 1。
+- 最终报告先完整写入并同步 pending，再替换原非通过报告；普通子进程真实制造 pending 路径 EISDIR 写入失败，测试 PASS 标签不改变该进程 exit 1 与原 RUNNING/complete=false 状态。
 
-本工作树 `/tmp/barness-grok-live-scaffold` 保留普通原件。首个 red：`.evidence/barness-ai-grok/e2e/20261026T020919.278441Z-j12llsmn`（缺自身候选报告，exit 1）；配置/取消门禁 green：`20261026T021340.425058Z-pfas5r5r`；后续严格字段/代理/路线边界 red 与 green 均另留 attempt。最新 selected-route/no-switch green 为 `.evidence/barness-ai-grok/e2e/20261026T022350.363064Z-3t5pnyn3`（exit 0）。完整 controlled 计划目前在旧运行时用量转换处保持 red：`.evidence/barness-ai-grok/e2e/20261026T021614.466774Z-wzufh6vy`，只触发一次合成 HTTP，未触发厂商。
+冻结普通命令：
 
-paid live、race、压力均 NOT_RUN；未取得本次独立授权，不运行后续阶段。旧地区/Kimi/GLM 来源库存受新增源码影响，当前资格不能继承历史 PASS；由05/06与最终影响审查处理。
+```sh
+python3 tools/verification/run.py --feature barness-ai-grok --stage e2e -- \
+  go test -json ./ai/e2e -run '^TestXAILiveHarnessProcess$' -count=1 -timeout=3m
+```
+
+实际受测提交 `c42067f39f457d70742985eb94db6d204b67b2ff`；[不可变版本索引](../evidence/ticket07-controlled-process-v1.json) 记录完整 28 个主 case ID、argv、数字退出、manifest/audit 哈希和原件位置。主包 28/28 PASS、audit 0；完整受控计划 18 场景、24 次合成 HTTP、0 次厂商 HTTP。所有 red 与失败原件另留 attempt。
+
+原件保留于工作树 `/tmp/barness-grok-live-scaffold` 的 `.evidence/barness-ai-grok/e2e/20261026T023907.909775Z-mipzyz5h/`；路径均相对此保留工作树，未复制原生胶囊到 scratch。收尾只修改 Markdown/该索引，完整执行来源/选定输入相等性另留 `.evidence/barness-ai-grok/ticket07-source-equivalence/v1.json`。
+
+本票没有执行完整受影响普通包，统一集成验收由04与主工作树处理。paid live、race、压力均 NOT_RUN；未取得独立授权。地区/Kimi/GLM 原生来源库存因新增源码而变化，当前资格不能继承历史 PASS，由05/06和最终影响审查处理；release.pass=false。回滚为禁用/更新 Binding，保留历史、目录、授权/claim 和证据。
 
 ## Comments
 
 - 2026-10-26：从04拆出独立准备工作，允许01后与02/03并行；05仍负责真实资格。
+
+- 2026-10-26：受控公共子进程验收完成；来源 c42067f3，28 主 case 全部 PASS，完整候选计划 24 合成调用/0 vendor；实际正式拒绝及最终写入失败证据已保留。
