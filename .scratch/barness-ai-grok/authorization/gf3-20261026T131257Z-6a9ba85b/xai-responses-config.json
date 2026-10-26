@@ -1,0 +1,36 @@
+{
+  "accountAlias": "GROK",
+  "argv": [
+    ".evidence/barness-ai-grok/build/20261026T120807-decoder-freeze-yuu2ulfr/xai-live.test",
+    "-test.run=^TestXAIFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf3-20261026T131257Z-6a9ba85b/authorization.json",
+    "sha256": "8394314ac236a42673302bcb161d490bf76e6ede6e2de4207b4b277a55be684b"
+  },
+  "credentialEnvironment": "BARNESS_AI_LIVE_KEY_XAI_RESPONSES",
+  "credentialSource": ".env:GROK_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS": "GROK",
+    "BARNESS_AI_LIVE_COMBO": "xai-responses",
+    "BARNESS_AI_LIVE_PERMISSIONS_FILE": ".scratch/barness-ai-grok/authorization/gf3-20261026T131257Z-6a9ba85b/xai-responses-grant.json",
+    "BARNESS_AI_LIVE_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_AI_LIVE_REGION_ALIAS": "global"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf3-20261026T131257Z-6a9ba85b/xai-responses-grant.json",
+    "sha256": "a68454146e3efb9e4a2eb54c171a08eb66b9ac493aba0693478889e4824447e0"
+  },
+  "grantEnvironment": "BARNESS_AI_LIVE_PERMISSIONS_FILE",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.xaiBuildSource=df0862b89a684b4dddf0071a4ab4cdebb864f8ca568ff985385ef3f758dfc1e2",
+    "nativeSourceSha256": "df0862b89a684b4dddf0071a4ab4cdebb864f8ca568ff985385ef3f758dfc1e2",
+    "path": ".evidence/barness-ai-grok/build/20261026T120807-decoder-freeze-yuu2ulfr/xai-live.test",
+    "sha256": "af7a8a1b417aa21851ae9e5ece45ab3693c3ee825bff19d0e5ec4b8710b909bc"
+  },
+  "regionAlias": "global",
+  "route": "xai-responses",
+  "schema": 1
+}

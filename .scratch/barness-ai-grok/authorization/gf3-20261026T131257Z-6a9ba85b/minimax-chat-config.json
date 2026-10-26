@@ -1,0 +1,40 @@
+{
+  "accountAlias": "MINIMAX",
+  "argv": [
+    ".evidence/barness-ai-grok/build/20261026T120807-decoder-freeze-yuu2ulfr/minimax-live.test",
+    "-test.run=^TestMiniMaxFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf3-20261026T131257Z-6a9ba85b/authorization.json",
+    "sha256": "8394314ac236a42673302bcb161d490bf76e6ede6e2de4207b4b277a55be684b"
+  },
+  "credentialEnvironment": "BARNESS_MINIMAX_KEY",
+  "credentialSource": ".env:MINIMAX_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_MINIMAX_ACCOUNT_ALIAS": "MINIMAX",
+    "BARNESS_MINIMAX_ENTITLEMENT": "confirmed",
+    "BARNESS_MINIMAX_FORMAL": "1",
+    "BARNESS_MINIMAX_GRANT": ".scratch/barness-ai-grok/authorization/gf3-20261026T131257Z-6a9ba85b/minimax-chat-grant.json",
+    "BARNESS_MINIMAX_MODEL": "MiniMax-M3",
+    "BARNESS_MINIMAX_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_MINIMAX_PURPOSE": "standard",
+    "BARNESS_MINIMAX_REGION_ALIAS": "global",
+    "BARNESS_MINIMAX_ROUTE": "chat"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf3-20261026T131257Z-6a9ba85b/minimax-chat-grant.json",
+    "sha256": "dc7093bedcc0e1fc07e2ebb56eca4f64de4219bd17d15d2478288096b9b517cb"
+  },
+  "grantEnvironment": "BARNESS_MINIMAX_GRANT",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=1a7a3763cee833dbe892c544ca7a48bbdfbbdf7e316f845eaae3deb0b6a445e8",
+    "nativeSourceSha256": "1a7a3763cee833dbe892c544ca7a48bbdfbbdf7e316f845eaae3deb0b6a445e8",
+    "path": ".evidence/barness-ai-grok/build/20261026T120807-decoder-freeze-yuu2ulfr/minimax-live.test",
+    "sha256": "f656ab8e12cb9b39c3ead2d5f35510d6352fd259bf380548dab65c17068e71ad"
+  },
+  "regionAlias": "global",
+  "route": "minimax-chat",
+  "schema": 1
+}

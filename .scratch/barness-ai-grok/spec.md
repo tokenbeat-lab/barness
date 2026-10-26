@@ -332,3 +332,7 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 [16软件票](issues/16-generic-capture-decoding.md)已解决，旧真实失败和合成RED/GREEN均保留。[v3计划独立准备核验](../../.evidence/barness-ai-grok/preflight/formal-plan-v3-independent-check/receipt.json)301项PASS/0错误，只证明配置和来源准备一致，不代表真实资格或新的授权。源码接线、软件修复与普通通过不构成正式支持；当前来源17条正式live均NOT_RUN，需[计划v3](formal-live-plan-v3.md)的新一次明确付费选择，之后才可分别选择race/压力。
 
 当前只读判定使用[record-v9](verification/record-v9.json)与[readonly-v9](../../.evidence/barness-ai-grok/release/readonly-v9/native/release-report.json)保存实际source/E2E及未完阶段检查；最终release.pass=false。纯文档/索引收尾与实际受测提交的2054来源及128输入集合/内容相等性另存[核验v8](../../.evidence/barness-ai-grok/final-source-equality-v8.json)，不改旧receipt的pin、时间或状态。
+
+#### 正式计划v3已获本次执行授权
+
+维护者明确回复“授权 v3 全部17条”；新批次`gf3-20261026T131257Z-6a9ba85b`的原始回复、17份新grant/config与[执行范围](authorization/gf3-20261026T131257Z-6a9ba85b/execution-scope.json)已留存。新164项输入先取得同来源完整普通预检，再按冻结17路线串行、失败/取消/超时/原生资格拒绝即停。当前本批尚无厂商请求或claim；旧批次及候选grant不复用。race/压力及发布仍未授权。
