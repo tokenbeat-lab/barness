@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "kind": "offline-real-capture-replay-ticket-proof",
+  "outcome": "PASS",
+  "formalQualified": false,
+  "createdAt": "2026-10-26T05:29:45.739506+00:00",
+  "publicSeam": [
+    "Client.Stream",
+    "Client.Complete",
+    "Client.StreamSimple",
+    "Client.CompleteSimple",
+    "Host persistence + TrustNativeState",
+    "loopback HTTP transport"
+  ],
+  "red": {
+    "receipt": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T052102.652238Z-dg3wqgfm/receipt.json",
+      "sha256": "f44b27abbb0cf463e806c06efac85d64722597ff606350f8ae8d49ce06201f59"
+    },
+    "exitCode": 1,
+    "sourcePatch": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T052102.652238Z-dg3wqgfm/red-source.patch",
+      "sha256": "9425ac6bf1e95760ca6fe69127d02065da2ae2d86e659d81d6798b53e85fa5d4"
+    },
+    "failure": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T052102.652238Z-dg3wqgfm/assembly-failure.json",
+      "sha256": "407c3639cbf121d2243f2550ffc2e3715a5fd63e1f320d81bb6c778d31637ea1"
+    },
+    "meaning": "Real replay assembly missing deidentified fixture manifest; not a production protocol failure."
+  },
+  "green": {
+    "receipt": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T052742.429139Z-qcnzrlrx/receipt.json",
+      "sha256": "955bc2b77572f2192166e3e4da332d03e0d60a61de64c3d6990dc57b7140d0af"
+    },
+    "exitCode": 0,
+    "manifest": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T052742.429139Z-qcnzrlrx/bundles/20261026T052746.696045000Z/manifest.json",
+      "sha256": "fff033033e2b851170e1b26e4e17572c8d9c5a64c73652cbb009da3463581f45"
+    },
+    "audit": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T052742.429139Z-qcnzrlrx/bundles/20261026T052746.696045000Z/audit.json",
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    },
+    "auditFindings": 0,
+    "testedCommit": "8988656ec6da63cd6b0217643f8969804d196981",
+    "sourceFiles": 1989,
+    "workingSourceFilesEqual": true,
+    "caseIDs": [
+      "XAI-E17-real-replay-cache-usage",
+      "XAI-E17-real-replay-effort-default",
+      "XAI-E17-real-replay-effort-high",
+      "XAI-E17-real-replay-effort-low",
+      "XAI-E17-real-replay-effort-medium",
+      "XAI-E17-real-replay-effort-xhigh",
+      "XAI-E17-real-replay-encrypted-continuation",
+      "XAI-E17-real-replay-entry-complete",
+      "XAI-E17-real-replay-entry-complete-simple",
+      "XAI-E17-real-replay-entry-stream",
+      "XAI-E17-real-replay-entry-stream-simple",
+      "XAI-E17-real-replay-provenance",
+      "XAI-E17-real-replay-tool-result-image",
+      "XAI-E17-real-replay-tools-auto",
+      "XAI-E17-real-replay-tools-none",
+      "XAI-E17-real-replay-tools-parallel",
+      "XAI-E17-real-replay-tools-required",
+      "XAI-E17-real-replay-user-jpeg",
+      "XAI-E17-real-replay-user-png"
+    ]
+  },
+  "fixtures": {
+    "manifest": {
+      "path": "ai/e2e/testdata/xai-responses/manifest.json",
+      "sha256": "127ee41468e91bd7e5803b4d7719508e9f0d75e28dbeb208748e8143df7c9dcc"
+    },
+    "sourceResponseCount": 24,
+    "sourceScenarioCount": 18,
+    "deidentifiedOpaqueIDs": 78,
+    "deidentifiedEncryptedStrings": 24,
+    "originalPrivateValuesRemaining": 0,
+    "allHTTPHeadersOmitted": true,
+    "generator": {
+      "path": ".evidence/barness-ai-grok/replay-assembly-v1/sanitize.py",
+      "sha256": "8b4bfa88e43d7dfcf3d7550918d45e64ae10f9bd73513e39aed4f5a63741e2c5"
+    },
+    "reproduction": {
+      "path": ".evidence/barness-ai-grok/replay-assembly-v1/reproduce-invocation.json",
+      "sha256": "7c93fa9c4d46f37efa595de7ee083185457eaceaf9a019a785e7adb200facfb9"
+    },
+    "reproducedJSONFiles": 25,
+    "reproductionContentsEqual": true
+  },
+  "scopeNormalization": "Only captured prompt_cache_key stand-in is replaced in expected request with fixed independent ADR0049 replay-scope vector; actual entire request stays compared. No original account/session hint retained.",
+  "newTopLevelTests": [
+    "TestXAIRealCaptureProvenance",
+    "TestXAIRealCaptureReplay"
+  ],
+  "newEvidenceCases": 19,
+  "vendorHTTPAttempts": 0,
+  "race": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "fullFrozenOrdinary": "NOT_RUN by worker; root owns final freeze",
+  "retainedOtherAttempts": [
+    "20261026T051912.783857Z-f0dzk_3j compile type mismatch; not assembly RED",
+    "20261026T051930.639626Z-bdvfl_eb earlier assembly RED; later source patch explicitly marked inapplicable",
+    "20261026T052335.706183Z-60rohhdd initial provenance checker rejected captured null cache hint; actual18 replay groups already passed",
+    "20261026T052420.683139Z-lgpbrmci intermediate GREEN",
+    "20261026T052545.356735Z-grhp9kru intermediate GREEN",
+    "20261026T052628.102620Z-6tr_h04w intermediate GREEN"
+  ]
+}

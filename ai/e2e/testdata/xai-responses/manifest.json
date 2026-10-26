@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "kind": "deidentified-live-replay",
+  "sourceBundle": ".evidence/barness-ai-grok/live/xai-responses/20261026T050450.562258Z-tlbttr1o/bundles/20261026T050451.200594000Z",
+  "sourceReportSHA256": "2c3a8da8b41659c5500c8f840c5da05c51d016f858236b79609cc88fab8dc36f",
+  "sourceManifestSHA256": "0a2384b01e936098a2dd43725a26d734a7fb1c314db74b8ab5b160a983c9cea3",
+  "sourceAuditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+  "nativeSourceSHA256": "05e89a133ceb71b6725ad7a6ee889170f6e49fa7a72845928b202416a7d2838b",
+  "sourceCommit": "2ae8752704f8cbf4861f2f9693b420d3f79f3cdb",
+  "sourceMode": "live",
+  "sourceOutcome": "PASS",
+  "formalQualified": false,
+  "transformation": [
+    "Drop every HTTP request/response header, including authorization/cookies/trace metadata.",
+    "Replace all opaque id/item_id/call_id values consistently across24 responses and subsequent requests.",
+    "Replace every encrypted_content string with a consistent replay-encrypted-NNNN stand-in; never retain source ciphertext.",
+    "Replace scoped prompt_cache_key with replay-cache-hint; local tests independently assert derived shape/stability.",
+    "Normalize created_at to0, clear metadata/user, replace fingerprints, omit SSE comments.",
+    "Preserve model/protocol keys, event order/framing, text, function schemas/arguments, synthetic image bytes, and raw token reports.",
+    "Expected normalized counts use these observed inclusive reports: input=P-C, output=O, reasoning remains a subset, total=T.",
+    "Offline replay is not a new provider request, source qualification, or formal support claim."
+  ],
+  "captures": [
+    {
+      "scenario": "entry-stream",
+      "label": "text",
+      "file": "entry-stream-text.json",
+      "sha256": "0e9f25a57d8a317ecd45a19f9f6d3508834a63e0ca509a51058aa05ac3e220d8",
+      "originalFile": "E17-xai-entry-stream/text-http.json",
+      "originalSHA256": "a420ef247bcf3cbab4d52b0d04493215148ac4843da3fdeeb882fac39c65d22b"
+    },
+    {
+      "scenario": "entry-complete",
+      "label": "text",
+      "file": "entry-complete-text.json",
+      "sha256": "9b7241c1b0f4ac9a209f83e1193760c08e618f7fe08d8a03e6e96a04f0a72241",
+      "originalFile": "E17-xai-entry-complete/text-http.json",
+      "originalSHA256": "3e06ec33e83ed952d6420c4b9d7a8bf11c3a8a4c5a7c8db4b69db99209a5ebc9"
+    },
+    {
+      "scenario": "entry-stream-simple",
+      "label": "text",
+      "file": "entry-stream-simple-text.json",
+      "sha256": "fb71a724e23145dea42c674736364472d89715f58e1c637681adf1d5eb5a0ed5",
+      "originalFile": "E17-xai-entry-stream-simple/text-http.json",
+      "originalSHA256": "f65e65534bddc38f1681c6029c5f4c4ad5f59f19025099663009933c1a97e2d3"
+    },
+    {
+      "scenario": "entry-complete-simple",
+      "label": "text",
+      "file": "entry-complete-simple-text.json",
+      "sha256": "80bcda63329900707241638a24893de199b1bc43f1776952aaf20060ef728209",
+      "originalFile": "E17-xai-entry-complete-simple/text-http.json",
+      "originalSHA256": "32c5a2fc39968963a1cc81ddf43828648389d30e298bd337da6787e624b8b9a2"
+    },
+    {
+      "scenario": "effort-default",
+      "label": "text",
+      "file": "effort-default-text.json",
+      "sha256": "db7d43c07b23db0b83f810b46c2ea45b1129bf1b239f3e95bc6c66e6f1c44fec",
+      "originalFile": "E17-xai-effort-default/text-http.json",
+      "originalSHA256": "d02228c16d46a6fd8aa79b520d4a9424a0d816dcf949a4f66bd86f6ef87a11ab"
+    },
+    {
+      "scenario": "effort-low",
+      "label": "text",
+      "file": "effort-low-text.json",
+      "sha256": "ac1dac2bc7896379bcbb64550e654ddc6121abf7e898412880ef93e8524f5d3b",
+      "originalFile": "E17-xai-effort-low/text-http.json",
+      "originalSHA256": "d96e80955c169e3c61b653a596b643dfd6371d5e443a5c35a345e84b5f66ca6a"
+    },
+    {
+      "scenario": "effort-medium",
+      "label": "text",
+      "file": "effort-medium-text.json",
+      "sha256": "873f442cf58cbee7a504cd3b6b23b061d6568274da23346b9c485ba55868bfa8",
+      "originalFile": "E17-xai-effort-medium/text-http.json",
+      "originalSHA256": "6f8931f310aa4bbd51069f6cb0057c3a59da7bd961a460445a48d71bac5771bb"
+    },
+    {
+      "scenario": "effort-high",
+      "label": "text",
+      "file": "effort-high-text.json",
+      "sha256": "69ae9056c1b7d1c8657a7a283ef32f0c8c666ffe7c5ad28b10a2ce913aacf5c7",
+      "originalFile": "E17-xai-effort-high/text-http.json",
+      "originalSHA256": "d80c4abd18bd476a93ec1baa6208bae5a0a33970efa4f2cad105dcfc1ca2f976"
+    },
+    {
+      "scenario": "effort-xhigh",
+      "label": "text",
+      "file": "effort-xhigh-text.json",
+      "sha256": "e450b5fef3a744eef367cce64b35cfea1178ce1d77fc00c9d27dd6b614e36289",
+      "originalFile": "E17-xai-effort-xhigh/text-http.json",
+      "originalSHA256": "b2aaf67bb8f3a1f98fa75a668ce1826086d486537a65899994465b427a7accb9"
+    },
+    {
+      "scenario": "encrypted-continuation",
+      "label": "first",
+      "file": "encrypted-continuation-first.json",
+      "sha256": "170ed8bffdc4ba5d6ebb10f6d20248980d56a75b1cce3308d3fa9018b157cfeb",
+      "originalFile": "E17-xai-encrypted-continuation/first-http.json",
+      "originalSHA256": "065b3ac52947ca02b2c2fe52c6f114b0c02ce2708d1a6b93e56803da3cf981a1"
+    },
+    {
+      "scenario": "encrypted-continuation",
+      "label": "continued",
+      "file": "encrypted-continuation-continued.json",
+      "sha256": "c7dd4ffa7bf24e77484fe39427904f86afba233add01ed1391405dcfef662ee4",
+      "originalFile": "E17-xai-encrypted-continuation/continued-http.json",
+      "originalSHA256": "f578398e2ef43281ac4e80719e1dfe7ca3c87d00c283923aa59f95a47ca3a74c"
+    },
+    {
+      "scenario": "tools-auto",
+      "label": "calls",
+      "file": "tools-auto-calls.json",
+      "sha256": "a05a4c5cc4b16021185ebab7c134e4d225b9bd82810f178d6e8b1d1a556ea7f8",
+      "originalFile": "E17-xai-tools-auto/calls-http.json",
+      "originalSHA256": "99dead780ce47e609285e92193be73e10894bb093873a6be1acd6c47112dd27b"
+    },
+    {
+      "scenario": "tools-auto",
+      "label": "results",
+      "file": "tools-auto-results.json",
+      "sha256": "935d2123a2ec95bfb4510dbd87792816612aff6bb82d6fdbc59349ceeb31be6a",
+      "originalFile": "E17-xai-tools-auto/results-http.json",
+      "originalSHA256": "c3e4faf32d26eae007e016542bd80161ff782124def180527bfa3fe1e112628b"
+    },
+    {
+      "scenario": "tools-required",
+      "label": "calls",
+      "file": "tools-required-calls.json",
+      "sha256": "cc75cfd615b49fa2e4552b2c2e61220a44721ec5c260d28238ebdf807a9ddc3e",
+      "originalFile": "E17-xai-tools-required/calls-http.json",
+      "originalSHA256": "e65f8c8107fb738b662648f97726fb9d68eb4afcb0b46a2eef5e8926d5d4359c"
+    },
+    {
+      "scenario": "tools-required",
+      "label": "results",
+      "file": "tools-required-results.json",
+      "sha256": "fa91d1269d5211ad3daff969ddc8000fb088bc9e0a8030b3a7ed60aa714e8272",
+      "originalFile": "E17-xai-tools-required/results-http.json",
+      "originalSHA256": "5c517f9d1a36b3fc15b8aae54793f51eed1becfcfb4740a112ebe6861f4c8b61"
+    },
+    {
+      "scenario": "tools-none",
+      "label": "calls",
+      "file": "tools-none-calls.json",
+      "sha256": "53695c49f864d34d9d70b724bdbccf546c5e9744946c751e8d357af5982d87f1",
+      "originalFile": "E17-xai-tools-none/calls-http.json",
+      "originalSHA256": "3fe5a331d616c540d1cbe716ddefdf30e105eb33c44e3508bb50e504a94b9e93"
+    },
+    {
+      "scenario": "tools-parallel",
+      "label": "calls",
+      "file": "tools-parallel-calls.json",
+      "sha256": "c28c98e7932991dbdf32ffdd622d284252c7506d2f37b334e3a07f99f6b00070",
+      "originalFile": "E17-xai-tools-parallel/calls-http.json",
+      "originalSHA256": "db4205672d45d150ecd68d228d3092db5d515ec6576794e157cdd508abce926a"
+    },
+    {
+      "scenario": "tools-parallel",
+      "label": "results",
+      "file": "tools-parallel-results.json",
+      "sha256": "d93d0e81d27ab59f4054e1f0239cd1991e2535694d6ea8a54efa5ef7c1c6b745",
+      "originalFile": "E17-xai-tools-parallel/results-http.json",
+      "originalSHA256": "0ca1947fb9862ee3d23578361a7ad13b31bb844567f6ddd593b0568a9fd43308"
+    },
+    {
+      "scenario": "user-png",
+      "label": "image",
+      "file": "user-png-image.json",
+      "sha256": "09f89425ac609ca1870cc7aebcc0e67ed1127d2f7569f5d8ce2116ccc7f0341f",
+      "originalFile": "E17-xai-user-png/image-http.json",
+      "originalSHA256": "592ce923b29943224599ef767b40cf5ebe355a5e869315b5adf148a249de774c"
+    },
+    {
+      "scenario": "user-jpeg",
+      "label": "image",
+      "file": "user-jpeg-image.json",
+      "sha256": "9a4332e198e920f702d4d4469a6bacc7d5c317e5cfe442ba0c3eea38cc05422d",
+      "originalFile": "E17-xai-user-jpeg/image-http.json",
+      "originalSHA256": "7177a43c21a4f7dc9807c098b7b7fdf1be5154c1d4eeb1d551a81aeb9f003e49"
+    },
+    {
+      "scenario": "tool-result-image",
+      "label": "calls",
+      "file": "tool-result-image-calls.json",
+      "sha256": "021ff2ba24ebd50531ef911143c7d031db0aa19a836d1c6c21b873a3616be33f",
+      "originalFile": "E17-xai-tool-result-image/calls-http.json",
+      "originalSHA256": "e1548c1533c6dad6883904fa1cf2e0cdc564ac1fd0fd211eef5209fbcdab0b95"
+    },
+    {
+      "scenario": "tool-result-image",
+      "label": "results",
+      "file": "tool-result-image-results.json",
+      "sha256": "ebdb2f57a5d47c140bc720c55c17cde45003999c50d019c580ae3150aba9a533",
+      "originalFile": "E17-xai-tool-result-image/results-http.json",
+      "originalSHA256": "57b795fe9d408bab6042a298a8e5870efecd6c206a04a17b2c9c2ae8bc6dcaa6"
+    },
+    {
+      "scenario": "cache-usage",
+      "label": "first",
+      "file": "cache-usage-first.json",
+      "sha256": "4aad0391f8f1f6cc647bdf4a87d5ebe3deab12f19a7e52c560d402ce9e07ac8b",
+      "originalFile": "E17-xai-cache-usage/first-http.json",
+      "originalSHA256": "f83b8730e595ba3b6ad0cb3098c0cea2bd88e741a88e95f080fda5e4e57780d2"
+    },
+    {
+      "scenario": "cache-usage",
+      "label": "repeat",
+      "file": "cache-usage-repeat.json",
+      "sha256": "6b6c2433331434247e8880c3397d894025c76af917a6e0adfe20027e08f1b6fb",
+      "originalFile": "E17-xai-cache-usage/repeat-http.json",
+      "originalSHA256": "af5a7cb4bb638b1a13b9e803c6b8ea90a49caea01f75f71560443b534821a14e"
+    }
+  ],
+  "replacementCounts": {
+    "opaqueIDs": 78,
+    "encryptedStrings": 24,
+    "cacheHints": 8
+  },
+  "generatorSHA256": "8b4bfa88e43d7dfcf3d7550918d45e64ae10f9bd73513e39aed4f5a63741e2c5"
+}
