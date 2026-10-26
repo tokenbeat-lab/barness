@@ -230,7 +230,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | [候选完成时索引v4](verification/record-v4.json)与[当时只读报告](../../.evidence/barness-ai-grok/release/readonly-v4/native/release-report.json)保留：source/e2e=true，正式live/race/压力=false，CLI exit1；新软件来源另待冻结/索引，不改写旧原件 |
 | 自身live | 计划v3已实际完成：18/18场景PASS，24 Logical Call/24 HTTP Attempt、零自动重试，PNG/JPEG与工具结果图片全部通过，审计0、采集器exit0；返回用量累计估算上界0.031036 USD，墙钟37.136秒。新grant/claim已消耗，完整[证据索引](evidence/candidate-live-v3.json)保留；formalQualified=false |
-| 共享历史live | 维护者已明确选择17条正式路线（Grok自身+16已发布旧目标）；六条Kimi保持候选与受控回归，不连带晋升。14仍保留22条代码路径/新增来源历史检查，正式目标尚未实际运行或授权；已确认九项本机.env变量来源，只记录名称与账户/endpoint地区标签，不构成资格或调用授权；见[影响范围v2](live-impact-v2.md)、[选择](formal-target-scope-plan.md)、[凭据来源](verification/credential-sources-v1.json) |
+| 共享历史live | 维护者已明确选择17条正式路线（Grok自身+16已发布旧目标）；六条Kimi保持候选与受控回归，不连带晋升。14仍保留22条代码路径/新增来源历史检查，正式目标尚未实际运行或授权；已确认九项本机.env变量来源，只记录名称与账户/endpoint地区标签；国际MiniMax标准API/M3资格另获维护者明确确认，仍不构成本次调用授权；见[影响范围v2](live-impact-v2.md)、[选择](formal-target-scope-plan.md)、[凭据来源与账户确认v2](verification/credential-sources-v2.json) |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | 未发布分支已准备最终Builtin2026-10-26.1/xAI接线；按维护者确认，此源码接线不代表正式支持或发布。新正式live、其他受影响路线及人工阶段未通过，release.pass=false |
 
