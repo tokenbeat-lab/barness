@@ -112,8 +112,14 @@ func TestXAIReasoningAndBudget(t *testing.T) {
 			if entry == "full" && (level == ai.ThinkingMinimal || level == ai.ThinkingMax) {
 				continue
 			}
+			// Effort omission is semantic input; evidence path segments must
+			// still have explicit names for the native read-only consumer.
+			label := string(level)
+			if label == "" {
+				label = "default"
+			}
 			for _, budget := range []int{0, 1, 15, 16, 128000} {
-				name := fmt.Sprintf("%s/%s/%d", entry, level, budget)
+				name := fmt.Sprintf("%s/%s/%d", entry, label, budget)
 				t.Run(name, func(t *testing.T) {
 					ev := run.Case(t, "XAI-E04-mapped-options-"+name)
 					w := newXAIWorld(t, nil)
