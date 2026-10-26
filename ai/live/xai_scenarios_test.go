@@ -237,9 +237,10 @@ func xaiImage(mime string) ai.Image {
 	if mime == "image/png" {
 		return ai.Image{Data: redSquarePNG(), MimeType: mime}
 	}
-	img := image.NewRGBA(image.Rect(0, 0, 8, 8))
-	for y := range 8 {
-		for x := range 8 {
+	// The live service rejected 8x8 JPEGs below its 512-total-pixel floor.
+	img := image.NewRGBA(image.Rect(0, 0, 32, 32))
+	for y := range 32 {
+		for x := range 32 {
 			img.Set(x, y, color.RGBA{R: 220, A: 255})
 		}
 	}
