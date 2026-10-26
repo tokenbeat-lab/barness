@@ -8,6 +8,8 @@
 
 ## Decisions-so-far
 
+- [01 已解决](issues/01-foundation.md)：`04474e07` 交付候选/目录/目标授权；保留公共 E2E red/green，正式目录仍未激活。
+
 - 01–04 交付候选实现与普通验证；05/06 按 SOP 另取 live/race/压力授权，未满足前不能关闭或宣称正式支持。
 
 ## Fog

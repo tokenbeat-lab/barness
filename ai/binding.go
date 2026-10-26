@@ -47,6 +47,8 @@ const (
 	// Responses protocol with OpenAI but not OpenAI's server-side features
 	// (ADR-0014).
 	ProviderDeepSeek ProviderID = "deepseek"
+	// ProviderXAI is xAI, through the global standard Responses endpoint.
+	ProviderXAI ProviderID = "xai"
 	// ProviderZhipu is Zhipu's China-region service. Protocol and credential
 	// purpose remain explicit Host binding choices; Coding Plan is separate.
 	ProviderZhipu ProviderID = "zhipu"
