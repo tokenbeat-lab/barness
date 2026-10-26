@@ -113,11 +113,14 @@ class StageRunProcess(ProcessCase):
             ('deepseek-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_AI_LIVE_COMBO': 'deepseek-chat',
               'BARNESS_AI_LIVE_ACCOUNT_ALIAS': 'synthetic-account', 'BARNESS_AI_LIVE_KEY_DEEPSEEK_CHAT': 'synthetic-selected-key'},
              ['BARNESS_AI_LIVE_ACCOUNT_ALIAS']),
-            ('zhipu-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_GLM_ROUTE': 'chat', 'BARNESS_GLM_FORMAL': '1', 'BARNESS_GLM_KEY': 'synthetic-selected-key'}, ['BARNESS_GLM_FORMAL']),
+            ('zhipu-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_GLM_ROUTE': 'chat', 'BARNESS_GLM_FORMAL': '1', 'BARNESS_GLM_KEY': 'synthetic-selected-key',
+              'BARNESS_GLM_GRANT': 'synthetic-grant.json', 'BARNESS_GLM_ACCOUNT_ALIAS': 'synthetic-account',
+              'BARNESS_GLM_REGION_ALIAS': 'synthetic-region', 'BARNESS_GLM_PROXY': 'http://127.0.0.1:1'},
+             ['BARNESS_GLM_FORMAL', 'BARNESS_GLM_GRANT', 'BARNESS_GLM_ACCOUNT_ALIAS', 'BARNESS_GLM_REGION_ALIAS', 'BARNESS_GLM_PROXY']),
             ('minimax-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_MINIMAX_ROUTE': 'chat', 'BARNESS_MINIMAX_KEY': 'synthetic-selected-key',
-              'BARNESS_MINIMAX_LEDGER': 'synthetic-ledger.json', 'BARNESS_MINIMAX_ACCOUNT_ALIAS': 'synthetic-account',
+              'BARNESS_MINIMAX_LEDGER': 'synthetic-ledger.json', 'BARNESS_MINIMAX_GRANT': 'synthetic-grant.json', 'BARNESS_MINIMAX_ACCOUNT_ALIAS': 'synthetic-account',
               'BARNESS_MINIMAX_REGION_ALIAS': 'synthetic-region', 'BARNESS_MINIMAX_ENTITLEMENT': 'synthetic-standard'},
-             ['BARNESS_MINIMAX_LEDGER', 'BARNESS_MINIMAX_ACCOUNT_ALIAS', 'BARNESS_MINIMAX_REGION_ALIAS', 'BARNESS_MINIMAX_ENTITLEMENT']),
+             ['BARNESS_MINIMAX_LEDGER', 'BARNESS_MINIMAX_GRANT', 'BARNESS_MINIMAX_ACCOUNT_ALIAS', 'BARNESS_MINIMAX_REGION_ALIAS', 'BARNESS_MINIMAX_ENTITLEMENT']),
             ('typesafe-classifier-jev-1.14.0', {'BARNESS_MM_LIVE': '1', 'BARNESS_MM_ROUTE': 'jev', 'BARNESS_MM_FORMAL': '1',
               'BARNESS_MM_AUTHORIZATION': 'synthetic-authorization.json', 'BARNESS_MM_KEY': 'synthetic-selected-key'}, ['BARNESS_MM_AUTHORIZATION', 'BARNESS_MM_LIVE']),
             ('zai-chat', {'BARNESS_AI_LIVE': '1', 'BARNESS_REGIONAL_ROUTE': 'zai-chat', 'BARNESS_REGIONAL_SERVICE': 'zai',
@@ -128,8 +131,11 @@ class StageRunProcess(ProcessCase):
                           sys.executable, TOOLS / 'tests/fixture_child.py', 'live', env={**env, 'UNRELATED_API_KEY': 'synthetic-foreign-key'}, expected=0)
                 receipt_path = sorted((self.repo / '.evidence/sample/live' / route).glob('*/receipt.json'))[-1]
                 output = (receipt_path.parent / 'stdout.jsonl').read_text()
+                forwarded = next(json.loads(line)['environment'] for line in output.splitlines()
+                                 if 'environment' in json.loads(line))
                 for name in required:
                     self.assertIn(name, output)
+                    self.assertEqual(forwarded.get(name), env[name])
                 self.assertIn('[REDACTED]', output)
                 self.assertNotIn('synthetic-selected-key', output)
                 self.assertNotIn('UNRELATED_API_KEY', output)
