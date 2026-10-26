@@ -41,8 +41,7 @@ func TestGrokHistoryMiniMaxFreshLedger(t *testing.T) {
 			if e = os.WriteFile(approval, mustMarshal(t, grant), 0600); e != nil {
 				t.Fatal(e)
 			}
-			cmd := exec.CommandContext(ctxFor(t), binary, "-test.run=^TestMiniMaxCandidate$", "-test.timeout=1800s")
-			cmd.Dir, cmd.Env = "../..", append(xaiProcessEnv(t), "BARNESS_AI_LIVE=1", "BARNESS_MINIMAX_ROUTE="+route, "BARNESS_MINIMAX_MODEL=MiniMax-M3", "BARNESS_MINIMAX_PURPOSE=standard", "BARNESS_MINIMAX_KEY=synthetic-fresh-minimax-key", "BARNESS_MINIMAX_ENTITLEMENT=confirmed", "BARNESS_MINIMAX_CONTROLLED=success-"+route, "BARNESS_MINIMAX_ACCOUNT_ALIAS=synthetic-account", "BARNESS_MINIMAX_REGION_ALIAS=synthetic-region", "BARNESS_MINIMAX_GRANT="+approval, "BARNESS_AI_EVIDENCE_DIR="+base)
+			cmd := miniMaxFreshLedgerCommand(t, binary, route, approval, base)
 			raw, e := cmd.CombinedOutput()
 			ev.Record("process", map[string]any{"argv": cmd.Args, "output": regionalSafeOutput(raw), "success": e == nil, "vendorCalls": 0, "origin": "controlled"})
 			if !ev.Check("fresh process executes full fourteen-call native plan", e == nil, "%s", raw) {
