@@ -213,7 +213,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 ## Further Notes
 
-- 依据：[研究](research.md)、[详细设计](design.md)、[proposed ADR](../../docs/adr/0054-barness-ai-xai-responses.md)、[术语](../../GLOSSARY.md)、[测试SOP](../../docs/agents/verification.md)。研究仍保留此前两协议的历史范围，本spec以用户最新的Responses-only要求为准。
+- 依据：[研究](research.md)、[详细设计](design.md)、[ADR](../../docs/adr/0054-barness-ai-xai-responses.md)、[术语](../../GLOSSARY.md)、[测试SOP](../../docs/agents/verification.md)。研究仍保留此前两协议的历史范围，本spec以用户最新的Responses-only要求为准。
 - 本spec沿用已有Provider能力、回调授权、原生状态与目录原则；xAI用量转换和来源保留的设计取舍由ADR记录。官方示例存在歧义，不将本地算法冒称为xAI已证实的全量协议事实。
 
 ### 唯一当前状态

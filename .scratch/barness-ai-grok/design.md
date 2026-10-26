@@ -3,7 +3,7 @@
 Status: ready-for-agent
 Updated: 2026-10-26
 
-交付契约见[spec](spec.md)，官方依据及其歧义见[research](research.md)，关键取舍见[proposed ADR-0054](../../docs/adr/0054-barness-ai-xai-responses.md)。实现与验证的唯一当前状态维护在[spec](spec.md#唯一当前状态)。本文为待实施设计，不表示源码或真实资格已经完成。
+交付契约见[spec](spec.md)，官方依据及其歧义见[research](research.md)，关键取舍见[ADR-0054](../../docs/adr/0054-barness-ai-xai-responses.md)。实现与验证的唯一当前状态维护在[spec](spec.md#唯一当前状态)。本文记录候选实现采用的设计；实施进度、真实资格和正式发布以该唯一当前状态为准。
 
 ## 1. 目标与确定的交付边界
 
@@ -371,4 +371,4 @@ live必须覆盖四入口文本、low/medium/high/xhigh及默认行为、非零r
 
 待真实证据关闭的是厂商流的实际形状、双摘要是否同时出现、非零reasoning实际计数关系、图片工具结果投影、真实request-ID头及实际返回model标识。上述事实均有明确E2E与live场景；没有证据时不宣称已确认，也不影响编写失败测试和候选实现。与设计不符须保留捕获、更新来源与失败用例后改进方案，不静默放宽守卫。
 
-本文沿用[ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[ADR-0005](../../docs/adr/0005-barness-ai-payload-hosted-tools.md)、[ADR-0010](../../docs/adr/0010-barness-ai-usage-reporting-and-price-snapshot.md)、[ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[ADR-0052](../../docs/adr/0052-barness-ai-kimi-cost-estimates.md)和[当前测试SOP](../../docs/agents/verification.md)。xAI新转换不取代旧Provider的语义；proposed ADR只补充本路线的取舍，待实施采用时再记录accepted及其来源。
+本文沿用[ADR-0001](../../docs/adr/0001-barness-ai-protocol-boundary.md)、[ADR-0005](../../docs/adr/0005-barness-ai-payload-hosted-tools.md)、[ADR-0010](../../docs/adr/0010-barness-ai-usage-reporting-and-price-snapshot.md)、[ADR-0014](../../docs/adr/0014-barness-ai-deepseek-responses.md)、[ADR-0018](../../docs/adr/0018-barness-ai-catalog-inclusion-criterion.md)、[ADR-0032](../../docs/adr/0032-barness-ai-provider-automatic-fields.md)、[ADR-0052](../../docs/adr/0052-barness-ai-kimi-cost-estimates.md)和[当前测试SOP](../../docs/agents/verification.md)。xAI新转换不取代旧Provider的语义；ADR-0054记录本路线已采用的取舍，accepted不授予真实资格或正式支持。
