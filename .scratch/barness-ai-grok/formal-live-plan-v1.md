@@ -1,12 +1,12 @@
 # Grok 正式 live：17 路线待冻结计划 v1
 
-Status: draft — software/review/freeze incomplete; NOT_AUTHORIZED
+Status: proposed immutable contract — NOT_AUTHORIZED_AT_CREATION
 
 本计划准备维护者已选择的 Grok 自身与16条已发布旧目标。六条Kimi保持候选，只保留受控回归。此前候选v3授权已经消耗，不适用于本计划；本文件及已提供的 `.env` 来源均不授权调用。
 
 ## 执行边界
 
-先合入14旧目标与15审查修复，完成两轴独立复核、完整受影响普通验证、最终来源/实际输入冻结和无凭据构建，补齐本计划所引用的精确提交、source、binary与授权模板。待维护者明确授权后，每路线只启动一次所选正式原生进程，按下表顺序串行；任一路线失败、取消、超时或原生正式消费拒绝即停止后续路线。失败仍消耗该次授权，不自动重跑。每完成一路线，在同一paid HEAD取得其独立原生资格和外层schema2只读消费者原件。
+14与15软件已合入并完成两轴0项复核；无凭据构建、完整来源与非激活模板已准备，详见[不可变机器计划](verification/formal-plan-v1.json)。最终完整普通验证另由当前状态与新receipt记录。待维护者明确授权后，每路线只启动一次所选正式原生进程，按下表顺序串行；任一路线失败、取消、超时或原生正式消费拒绝即停止后续路线。失败仍消耗该次授权，不自动重跑。每完成一路线，在同一paid HEAD取得其独立原生资格和外层schema2只读消费者原件。
 
 所有路线拟显式使用已验证可用的本机代理 `http://127.0.0.1:7890`；此选择仍属本次待批准范围。仅所选路线从原仓库 `.env` 读取一个指定变量到进程环境；不 `source .env`，不把文件或密钥加入argv、来源快照、日志或哈希。账户别名和地区标签按[来源清单](verification/credential-sources-v2.json)，地区标签说明固定endpoint范围，不声称已证明账户资格。实际服务/账户拒绝保留为失败，不扩大权限或自动换模型/API。维护者另已确认国际MiniMax为标准API账户且有MiniMax-M3权限，只有该账户配置 `purpose=standard` 与 `entitlement=confirmed`；此事实确认仍不授予本次调用权限。
 
@@ -46,10 +46,10 @@ Status: draft — software/review/freeze incomplete; NOT_AUTHORIZED
 
 ## 冻结与产物（尚待完成）
 
-- 最终source提交、文件map、Builtin版本/hash、SDK、精确models/endpoint：PENDING。
-- 两轴复核、完整普通receipt与有限requiredCases：PENDING。
-- 独立冻结producer/只读consumer的真实build argv、exit与binary hash：PENDING。
-- 每路线完整机器scope、非秘密配置、拟grant与本次授权记录：PENDING；未签发实际调用权限。
+- 最终软件pin `f89e59a6942b815a8fbc9a776d91a3282034daf0`；完整source/file map、Builtin2026-10-26.1及hash、SDK、精确models/endpoint见[机器计划](verification/formal-plan-v1.json)。
+- 两轴[v7复核](review/review-v7.md)均0项；有限1456case/119入口为[cases-v4](verification/cases-v4.json)，119个额外实际输入列于[普通输入](verification/ordinary-inputs-v1.json)。最终完整普通receipt待执行，不由本不可变计划自报PASS。
+- 四种冻结producer与四种只读CLI的实际argv/exit/binary hash均已保存[构建回执](../../.evidence/barness-ai-grok/build/20261026T091716-formal-freeze-99enr2ih/formal-build-receipt.json)；无Key xAI正式精确入口NOT_RUN、零调用，不产生真实资格。
+- 每路线完整机器scope、非秘密配置与非激活grant模板见机器计划；id为空、expiry为零，本次原始人类付费授权仍缺少。尚未签发实际调用权限。
 - 真实live与原生消费：NOT_RUN。
 - race、压力、正式发布：NOT_RUN，须在适用live通过后另行人工选择。
 
