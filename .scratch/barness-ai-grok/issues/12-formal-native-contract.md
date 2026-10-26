@@ -1,7 +1,7 @@
 # xAI 自身正式资格合同与冻结版本
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 11
 
 ## Contract
@@ -35,3 +35,9 @@ Blocked by: 11
 ## Comments
 
 - 2026-10-26：由完整真实候选和原生消费者代码研究细化；没有执行新的厂商请求、race或压力。
+
+## 集成软件验收完成
+
+2026-10-26：源码已统一合入 `f89e59a6`，v7独立两轴复核0/0；冻结后的完整受影响普通实际受测 `97697bb2c2937974beb362aefc7a41bfaad3ee15`，16,184个Go测试PASS、1456/1456必交case与119/119入口PASS、audit0、exit0，墙钟1283.188秒。原15m/10m历史矩阵失败/超时与所有RED原件保留；本次完整minimaxlive包实际PASS。
+
+[独立完整核验](../../../.evidence/barness-ai-grok/final-ordinary-validation-v5.json)、[最终受测回执](../../../.evidence/barness-ai-grok/e2e/20261026T093152.246258Z-ua2zgcqn/receipt.json)、[复核](../review/review-v7.md)、[正式计划](../formal-live-plan-v1.md)。本工单仅关闭软件实现；05正式live、06人工阶段/完整发布尚未完成或授权，不构成正式支持。

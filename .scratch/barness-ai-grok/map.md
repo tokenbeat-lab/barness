@@ -4,7 +4,7 @@
 
 集成分支：`codex/barness-ai-grok`。契约：[spec](spec.md)；唯一当前状态：[spec](spec.md#唯一当前状态)。
 
-依赖：01 → {02, 03, 07}；{02, 03} → 04；{04, 07} → 08 → 09 → 10 → 11 → 12 → 05 → 06。07为独立候选入口兄弟工单。每工单在独立分支/工作树实现，合并到集成分支。
+依赖：01 → {02, 03, 07}；{02, 03} → 04；{04, 07} → 08 → 09 → 10 → 11 → 12；10 → 13 → {14, 15}；{12, 14, 15} → 05 → 06。07为独立候选入口兄弟工单。每工单在独立分支/工作树实现，合并到集成分支。
 
 ## Decisions-so-far
 
@@ -20,10 +20,14 @@
 
 ## Fog
 
-- 真实流形状、非零 reasoning 算术、工具结果图片投影、request-ID 与实际返回型号仍需本路线真实证据。
+- 历史候选v3已确认真实流形状、非零reasoning、图片与request-ID；当前最终冻结来源仍需17条正式live，六条Kimi仅保留受控/候选，不借旧pin完成正式资格。
 
 - [10 JPEG夹具已解决](issues/10-live-jpeg-fixture.md)：真实proxy运行暴露8×8像素过小；`00e7612c`改为32×32，用户/工具JPEG受控捕获先RED后GREEN，两轴v4复核0/0，新冻结完整普通565/565通过。修复后付费运行待新授权；05/06仍未关闭。
 
 - 自身候选v3真实18/18已通过；05余项拆为11公共真实捕获回放与12自身正式合同。12等待[晋升边界顺序选择](formal-qualification-plan.md)，11可独立推进；不以05整个工单阻塞其子任务形成环。
 
 - [13 已解决](issues/13-request-id-adoption.md)：真实24响应确认x-request-id后接入，34新增公共case先RED后GREEN，全部xAI568case通过；最终全局审查/冻结仍待12/14完成。12 producer已合入，consumer与14旧目标授权/来源历史合同并行实施；未启动新付费或人工阶段。
+
+- [12软件已解决](issues/12-formal-native-contract.md)、[14已解决](issues/14-legacy-xai-history-proof.md)、[15已解决](issues/15-formal-review-fixes.md)：最终源码f89e59a6、v7两轴0/0、完整受测97697bb2，16184 Go测试与1456必交/119入口通过；原件全部逐SHA归档。当前frontier为05等待[17路线付费计划](formal-live-plan-v1.md)的明确授权；06仍被05及后续人工阶段阻塞，release.pass=false。
+
+- 真实收尾消费者随后拒绝新GLM包装case的4350项库存（原上限512），[15已重新打开](issues/15-formal-review-fixes.md)。保留完整Go PASS与实际CLI source=true/e2e=false原件；采用既有辅助bundle边界修复，导入规则不放宽，05继续被15阻塞。

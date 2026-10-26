@@ -1,7 +1,7 @@
 # 受影响旧目标的 xAI 来源历史与单次验证授权
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 13
 
 ## Contract
@@ -32,3 +32,9 @@ Blocked by: 13
 软件已提交并合入根51eb2a24，软件 pin 为9ea3b9d3；正在按该 pin 独立审查，最终集成完整冻结仍待根执行。新增22条公共目标兼容证明与完整原生场景/消费者、11条新单次授权入口及闭合历史只读边界均已准备。合并后十个新公共根与有界历史正例通过，完整 minimaxlive 包曾15分钟超时，保留失败而不声称整包 GREEN。精确来源、有限 case/包范围、RED/GREEN/超时、辅助 manifest 与预算见[软件交接](../evidence/legacy-history-software-v1.md)和[机器索引](../evidence/legacy-history-software-v1.json)。当前17条正式 live、人工 race/压力、发布均 NOT_RUN；六条 Kimi 仅候选及受控，不在正式承诺中。
 
 - 2026-10-26：维护者明确采用17条正式路线（Grok+16已发布旧目标），六条Kimi保留候选与受控兼容回归，不连带晋升。14所有22代码路径继续实现，六条Kimi真实live不在本次正式承诺内；[已采用范围](../formal-target-scope-plan.md)。未增加任何实际调用授权。
+
+## 集成软件验收完成
+
+2026-10-26：源码已统一合入 `f89e59a6`，v7独立两轴复核0/0；冻结后的完整受影响普通实际受测 `97697bb2c2937974beb362aefc7a41bfaad3ee15`，16,184个Go测试PASS、1456/1456必交case与119/119入口PASS、audit0、exit0，墙钟1283.188秒。原15m/10m历史矩阵失败/超时与所有RED原件保留；本次完整minimaxlive包实际PASS。
+
+[独立完整核验](../../../.evidence/barness-ai-grok/final-ordinary-validation-v5.json)、[最终受测回执](../../../.evidence/barness-ai-grok/e2e/20261026T093152.246258Z-ua2zgcqn/receipt.json)、[复核](../review/review-v7.md)、[正式计划](../formal-live-plan-v1.md)。本工单仅关闭软件实现；05正式live、06人工阶段/完整发布尚未完成或授权，不构成正式支持。
