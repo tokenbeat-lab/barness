@@ -12,7 +12,7 @@ Blocked by: 01
 
 ## Ownership
 
-`ai/live/xai*_test.go`、live TestMain 的最小接线、普通 `ai/e2e/xai_live_process_test.go`、Host 装配文档及必需候选证据形状。实现说明见外部研究笔记 `/tmp/barness-grok-live-notes.md`（后续交付须保留到功能目录）。不改请求/history/stream/usage 实现，不激活正式目录，不运行任何厂商/race/压力。
+`ai/live/xai*_test.go`、live TestMain 的最小接线、普通 `ai/e2e/xai_live_process_test.go`、Host 装配文档及必需候选证据形状。实现说明见[live 接入研究笔记](../live-implementation-notes.md)（研究阶段原件位于 `/tmp/barness-grok-live-notes.md`）。不改请求/history/stream/usage 实现，不激活正式目录，不运行任何厂商/race/压力。
 
 ## Verification
 
