@@ -45,5 +45,5 @@ func (r xaiRuntimeWorld) released(ev *evidence.Case, label ...string) {
 
 func xaiHTTPFailure(status int) provider.Reply {
 	body := `{"error":{"code":"private-business-code","message":"private-prompt-and-ciphertext"}}`
-	return provider.Reply{Status: status, Header: map[string]string{"Content-Type": "application/json", "Retry-After-Ms": "1", "X-Request-Id": "unverified-xai-id", "Request-Id": "unverified-other-id"}, Script: body, Chunks: [][]byte{[]byte(body)}}
+	return provider.Reply{Status: status, Header: map[string]string{"Content-Type": "application/json", "Retry-After-Ms": "1", "X-Request-Id": "synthetic-xai-http-request-id", "Request-Id": "unverified-other-id"}, Script: body, Chunks: [][]byte{[]byte(body)}}
 }

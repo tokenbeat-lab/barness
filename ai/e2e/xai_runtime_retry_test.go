@@ -44,16 +44,16 @@ func TestXAIRuntimeHTTPFailures(t *testing.T) {
 				}
 				if !wantRetry {
 					var ae *ai.Error
-					ev.Check("precise HTTP classification", errors.Is(o.err, &ai.Error{Code: code, Phase: ai.PhaseRequest}) && errors.As(o.err, &ae) && ae.HTTPStatus == status && ae.ProviderRequestID == "", "%v", o.err)
+					ev.Check("precise HTTP classification", errors.Is(o.err, &ai.Error{Code: code, Phase: ai.PhaseRequest}) && errors.As(o.err, &ae) && ae.HTTPStatus == status && ae.ProviderRequestID == "synthetic-xai-http-request-id", "%v", o.err)
 					ev.Check("upstream echo is absent from diagnostics", !strings.Contains(errString(o.err), "private-"), "%v", o.err)
 				}
 				if len(o.result.Metadata.Attempts) > 0 {
 					a := o.result.Metadata.Attempts[0]
-					ev.Check("attempt preserves status and safe classification", a.HTTPStatus == status && a.Code == code && a.ProviderRequestID == "", "%+v", a)
+					ev.Check("attempt preserves status and safe classification", a.HTTPStatus == status && a.Code == code && a.ProviderRequestID == "synthetic-xai-http-request-id", "%+v", a)
 				}
 				obs := rec.awaitCall(ev, scope.RequestID)
 				checkCallRecords(ev, obs, scope, xaiTarget().BindingID, o, wantAttempts)
-				ev.Check("Observer has no body or fabricated ID", !strings.Contains(string(mustMarshal(t, obs)), "private-") && !strings.Contains(string(mustMarshal(t, obs)), "unverified-"), "%+v", obs)
+				ev.Check("Observer excludes body and alternate header ID", !strings.Contains(string(mustMarshal(t, obs)), "private-") && !strings.Contains(string(mustMarshal(t, obs)), "unverified-"), "%+v", obs)
 				w.released(ev)
 			})
 		}

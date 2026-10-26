@@ -52,7 +52,7 @@ func TestXAIHTTPFailures(t *testing.T) {
 		t.Run(jsonNumber(status), func(t *testing.T) {
 			ev := run.Case(t, "XAI-E10-http-"+jsonNumber(status))
 			w := newXAIWorld(t, nil)
-			reply := provider.Reply{Status: status, Header: map[string]string{"Content-Type": "application/json", "X-Request-Id": "unverified"}, Chunks: [][]byte{[]byte(`{"error":{"message":"private text and private-cipher","code":"private-code"}}`)}}
+			reply := provider.Reply{Status: status, Header: map[string]string{"Content-Type": "application/json", "X-Request-Id": "synthetic-xai-http-request-id"}, Chunks: [][]byte{[]byte(`{"error":{"message":"private text and private-cipher","code":"private-code"}}`)}}
 			enqueue(ev, w, reply)
 			res, err := w.client.Complete(ctxFor(t), textScope("xai-http-"+jsonNumber(status)), xaiTarget(), xaiRequest(), nil)
 			ev.Record("result", res)
@@ -67,7 +67,7 @@ func TestXAIHTTPFailures(t *testing.T) {
 				code = ai.CodeUpstreamError
 			}
 			var ae *ai.Error
-			ev.Check("HTTP status classified without private echo", errors.Is(err, &ai.Error{Code: code}) && errors.As(err, &ae) && ae.HTTPStatus == status && ae.ProviderRequestID == "" && !strings.Contains(err.Error(), "private"), "%v", err)
+			ev.Check("HTTP status classified without private echo", errors.Is(err, &ai.Error{Code: code}) && errors.As(err, &ae) && ae.HTTPStatus == status && ae.ProviderRequestID == "synthetic-xai-http-request-id" && !strings.Contains(err.Error(), "private"), "%v", err)
 			if len(res.Metadata.Attempts) == 1 {
 				a := res.Metadata.Attempts[0]
 				ev.Check("unaccepted error usage stays unreported", a.UsageReporting == ai.UsageUnreported && a.CostEstimate.Status == ai.CostUnreported, "%+v", a)

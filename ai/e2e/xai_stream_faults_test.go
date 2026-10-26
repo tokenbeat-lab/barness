@@ -57,7 +57,7 @@ func TestXAIStreamFaults(t *testing.T) {
 				chunks = append(chunks, []byte("data: "+frame+"\n\n"))
 			}
 			reply := provider.SSE(chunks)
-			reply.Header = map[string]string{"Content-Type": "text/event-stream", "X-Request-Id": "unverified-other-vendor-header"}
+			reply.Header = map[string]string{"Content-Type": "text/event-stream", "X-Request-Id": "synthetic-xai-stream-request-id"}
 			enqueue(ev, w, reply)
 			o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), xaiTarget(), xaiToolRequest(), nil))
 			o.record(ev)
@@ -69,12 +69,12 @@ func TestXAIStreamFaults(t *testing.T) {
 				ev.Check("fault is explicit and safe", errors.Is(o.err, &ai.Error{Code: sc.code, Phase: ai.PhaseStream}) && !strings.Contains(o.err.Error(), "private"), "%v", o.err)
 				var ae *ai.Error
 				if errors.As(o.err, &ae) {
-					ev.Check("received HTTP status survives stream failure", ae.HTTPStatus == 200 && ae.ProviderRequestID == "", "%+v", ae)
+					ev.Check("received HTTP status and request ID survive stream failure", ae.HTTPStatus == 200 && ae.ProviderRequestID == "synthetic-xai-stream-request-id", "%+v", ae)
 				}
 			}
 			if len(o.result.Metadata.Attempts) == 1 {
 				a := o.result.Metadata.Attempts[0]
-				ev.Check("attempt keeps status without inventing request ID", a.HTTPStatus == 200 && a.ProviderRequestID == "", "%+v", a)
+				ev.Check("attempt keeps status and received request ID", a.HTTPStatus == 200 && a.ProviderRequestID == "synthetic-xai-stream-request-id", "%+v", a)
 			}
 			ev.Check("stream never retried", len(w.provider.Requests()) == 1 && len(o.result.Metadata.Attempts) == 1, "%+v", o.result.Metadata)
 		})
