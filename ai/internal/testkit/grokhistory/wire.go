@@ -17,7 +17,20 @@ func Verify(api ai.API, raw []byte) error {
 	if json.Unmarshal(raw, &body) != nil {
 		return fmt.Errorf("xAI history: invalid request JSON")
 	}
-	var calls, results, outputs []string
+	var calls, results, outputs, names []string
+	var arguments []json.RawMessage
+	addCall := func(id, name string, args json.RawMessage, encoded bool) {
+		calls, names = append(calls, id), append(names, name)
+		if encoded {
+			var text string
+			if json.Unmarshal(args, &text) != nil {
+				args = nil
+			} else {
+				args = json.RawMessage(text)
+			}
+		}
+		arguments = append(arguments, args)
+	}
 	addResult := func(id string, content any) {
 		text, _ := json.Marshal(content)
 		results = append(results, id)
@@ -35,16 +48,22 @@ func Verify(api ai.API, raw []byte) error {
 				if item["id"] != nil {
 					return fmt.Errorf("xAI history: foreign function resource id")
 				}
-				calls = append(calls, str(item["call_id"]))
+				addCall(str(item["call_id"]), str(item["name"]), item["arguments"], true)
 			case "function_call_output":
 				addResult(str(item["call_id"]), item["output"])
 			}
 		}
 	case ai.APIOpenAICompletions:
 		var messages []struct {
-			Role       string
-			ToolCalls  []struct{ ID string } `json:"tool_calls"`
-			ToolCallID string                `json:"tool_call_id"`
+			Role      string
+			ToolCalls []struct {
+				ID       string
+				Function struct {
+					Name      string
+					Arguments json.RawMessage
+				}
+			} `json:"tool_calls"`
+			ToolCallID string `json:"tool_call_id"`
 			Content    json.RawMessage
 		}
 		if json.Unmarshal(body["messages"], &messages) != nil {
@@ -52,7 +71,7 @@ func Verify(api ai.API, raw []byte) error {
 		}
 		for _, m := range messages {
 			for _, c := range m.ToolCalls {
-				calls = append(calls, c.ID)
+				addCall(c.ID, c.Function.Name, c.Function.Arguments, true)
 			}
 			if m.Role == "tool" {
 				addResult(m.ToolCallID, m.Content)
@@ -67,7 +86,7 @@ func Verify(api ai.API, raw []byte) error {
 			for _, b := range m.Content {
 				switch str(b["type"]) {
 				case "tool_use":
-					calls = append(calls, str(b["id"]))
+					addCall(str(b["id"]), str(b["name"]), b["input"], false)
 				case "tool_result":
 					addResult(str(b["tool_use_id"]), b["content"])
 				}
@@ -76,9 +95,12 @@ func Verify(api ai.API, raw []byte) error {
 	case ai.APIGoogleGenerativeAI:
 		var contents []struct {
 			Parts []struct {
-				Call   *struct{ ID string } `json:"functionCall"`
+				Call *struct {
+					ID, Name string
+					Args     json.RawMessage
+				} `json:"functionCall"`
 				Result *struct {
-					ID       string
+					ID, Name string
 					Response json.RawMessage
 				} `json:"functionResponse"`
 			}
@@ -89,9 +111,12 @@ func Verify(api ai.API, raw []byte) error {
 		for _, c := range contents {
 			for _, p := range c.Parts {
 				if p.Call != nil {
-					calls = append(calls, p.Call.ID)
+					addCall(p.Call.ID, p.Call.Name, p.Call.Args, false)
 				}
 				if p.Result != nil {
+					if p.Result.Name != "inspect_xai_history" {
+						return fmt.Errorf("xAI history: result function name differs")
+					}
 					addResult(p.Result.ID, p.Result.Response)
 				}
 			}
@@ -101,6 +126,15 @@ func Verify(api ai.API, raw []byte) error {
 	}
 	if len(calls) != 3 || !slices.Equal(calls, results) || len(outputs) != 3 {
 		return fmt.Errorf("xAI history: three ordered call/result associations required")
+	}
+	// These values are the fixed public qualification contract, not values
+	// inferred from the captured IDs or the producer's claimed PASS.
+	labels := []string{"first", "second", "first"}
+	for i := range calls {
+		var args map[string]json.RawMessage
+		if names[i] != "inspect_xai_history" || json.Unmarshal(arguments[i], &args) != nil || len(args) != 1 || str(args["label"]) != labels[i] {
+			return fmt.Errorf("xAI history: function name or complete arguments differ at call %d", i)
+		}
 	}
 	seen := map[string]bool{}
 	for i, id := range calls {
