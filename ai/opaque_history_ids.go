@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// GLM and Kimi expose opaque source IDs. Allocate replacements only when
+// GLM, Kimi and xAI expose opaque source IDs. Allocate replacements only when
 // the target normalization would collapse distinct provenance owners.
 // Inspect the complete transcript before renaming so calls from separate
 // assistant turns share one collision domain with their matching results.
@@ -144,7 +144,7 @@ func opaqueHistoryIDSource(source AssistantMessage) bool {
 	case APIOpenAICompletions:
 		return chatCompatOf(source.Provider).implementation == chatGLM
 	case APIOpenAIResponses:
-		return responsesCapabilitiesOf(source.Provider).implementation == responsesGLM
+		return source.Provider == ProviderXAI || responsesCapabilitiesOf(source.Provider).implementation == responsesGLM
 	case APIAnthropicMessages:
 		return anthropicCapabilitiesOf(source.Provider).implementation == anthropicGLM
 	}

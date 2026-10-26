@@ -129,9 +129,11 @@ func xaiNativeReferenceKey(item map[string]any) string {
 		if id, ok := item["id"]; ok {
 			reference = []any{typ, id, item["call_id"]}
 		}
-	case "message":
+	case "", "message":
+		// Responses shorthand messages have an absent/null discriminator,
+		// but their assistant IDs carry the same native authority.
 		if id, ok := item["id"]; ok {
-			reference = []any{typ, id}
+			reference = []any{"message", id}
 		}
 	}
 	if reference == nil {

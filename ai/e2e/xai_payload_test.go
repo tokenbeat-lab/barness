@@ -120,3 +120,38 @@ func TestXAIToolsCountBoundary(t *testing.T) {
 		})
 	}
 }
+
+func TestXAIShorthandNativeAuthorization(t *testing.T) {
+	for _, mode := range []string{"omitted-foreign", "null-foreign", "omitted-authorized", "null-authorized", "plain"} {
+		t.Run(mode, func(t *testing.T) {
+			ev := run.Case(t, "XAI-review-shorthand-native-"+mode)
+			w := newXAIWorld(t, nil)
+			enqueue(ev, w, xaiReply(t))
+			req := xaiRequest()
+			req.Messages = append(req.Messages, xaiTrustedMessage(t, ai.Text{Text: "history", Signature: `{"v":1,"id":"original","phase":"final_answer"}`}))
+			h := ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
+				item := map[string]any{"role": "assistant", "content": "history"}
+				if mode == "null-foreign" || mode == "null-authorized" {
+					item["type"] = nil
+				}
+				if mode != "plain" {
+					item["id"] = "original"
+					if mode == "omitted-foreign" || mode == "null-foreign" {
+						item["id"] = "foreign"
+					}
+				}
+				p.Body["input"] = []any{item}
+				return ai.KeepPayload(), nil
+			}}
+			o := drain(w.client.WithHooks(h).Stream(ctxFor(t), textScope(t.Name()), xaiTarget(), req, nil))
+			o.record(ev)
+			ev.Record("requests", w.provider.Requests())
+			if mode == "omitted-foreign" || mode == "null-foreign" {
+				checkRejected(ev, o, ai.CodeTenantDenied, ai.PhaseRequest)
+				ev.Check("foreign shorthand ID never reaches HTTP", len(w.provider.Requests()) == 0, "requests=%d", len(w.provider.Requests()))
+			} else {
+				ev.Check("legal shorthand preserves original resource authorization", o.err == nil && len(w.provider.Requests()) == 1, "%v", o.err)
+			}
+		})
+	}
+}

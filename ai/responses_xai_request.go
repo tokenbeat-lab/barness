@@ -43,6 +43,7 @@ func validateXAIResponsesFinalBody(ctx context.Context, m Model, raw []byte, aut
 	if m.Provider != ProviderXAI {
 		return nil
 	}
+	duplicate, syntaxErr := xaiDuplicateControls(raw, "request")
 	var body map[string]any
 	d := json.NewDecoder(bytes.NewReader(raw))
 	d.UseNumber()
@@ -50,11 +51,14 @@ func validateXAIResponsesFinalBody(ctx context.Context, m Model, raw []byte, aut
 	if callback {
 		code = CodeCallbackFailed
 	}
-	if d.Decode(&body) != nil || body == nil {
+	if syntaxErr != nil || d.Decode(&body) != nil || body == nil {
 		return newError(code, PhaseRequest, "xAI request must be an object")
 	}
 	if problem := authorize(body); problem != "" {
 		return newError(CodeTenantDenied, PhaseRequest, problem)
+	}
+	if duplicate {
+		return newError(code, PhaseRequest, "xAI protocol controls must have unique keys")
 	}
 	if problem := validateXAIResponsesControls(m, body); problem != "" {
 		return newError(code, PhaseRequest, problem)

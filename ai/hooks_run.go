@@ -67,6 +67,11 @@ func (b boundHooks) headers(ctx context.Context, merged http.Header) (http.Heade
 		ck := http.CanonicalHeaderKey(k)
 		final[ck] = append(final[ck], vs...)
 	}
+	// xAI accepts this alternate cache routing header instead of the derived
+	// body key. It carries authority only on this Provider's route.
+	if b.identity.ProviderID == ProviderXAI && len(final.Values("X-Grok-Conv-Id")) > 0 {
+		return nil, newError(CodeTenantDenied, PhaseRequest, "header transform may not add the X-Grok-Conv-Id header")
+	}
 	for _, name := range guardedHeaders {
 		want := merged.Values(name)
 		if len(want) > 0 {
