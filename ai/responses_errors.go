@@ -47,6 +47,14 @@ func newResponsesFailures(provider ProviderID, apiKey Secret, c *clock.Clock) re
 		describe: func(res *http.Response, body []byte) (string, string) {
 			return describeHTTPError(prefix, res.StatusCode, body)
 		}}
+	if provider == ProviderXAI {
+		// Unverified provider messages may echo prompts, tool arguments or
+		// native ciphertext. Status and stable error code provide diagnosis.
+		f.describe = func(res *http.Response, _ []byte) (string, string) {
+			message := fmt.Sprintf("xAI Responses request failed (HTTP %d)", res.StatusCode)
+			return message, message
+		}
+	}
 	if isKimi(provider) {
 		f.kimi = APIOpenAIResponses
 	}

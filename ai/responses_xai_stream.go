@@ -1,6 +1,7 @@
 package ai
 
 import (
+	"bytes"
 	"encoding/json"
 	"reflect"
 )
@@ -17,6 +18,7 @@ type xaiResponsesState struct {
 }
 type xaiStreamItem struct {
 	kind, id, call, name string
+	cipher               string
 	index                int
 	done                 bool
 	native               json.RawMessage
@@ -51,7 +53,10 @@ func xaiStreamObject(raw []byte) (map[string]json.RawMessage, bool) {
 }
 func xaiStreamEqual(a, b json.RawMessage) bool {
 	var x, y any
-	return json.Unmarshal(a, &x) == nil && json.Unmarshal(b, &y) == nil && reflect.DeepEqual(x, y)
+	first, last := json.NewDecoder(bytes.NewReader(a)), json.NewDecoder(bytes.NewReader(b))
+	first.UseNumber()
+	last.UseNumber()
+	return first.Decode(&x) == nil && last.Decode(&y) == nil && reflect.DeepEqual(x, y)
 }
 func (s *xaiResponsesState) handle(p *responsesParser, raw []byte, eventType string) *Error {
 	ev, ok := xaiStreamObject(raw)

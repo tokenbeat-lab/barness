@@ -32,9 +32,21 @@ func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMess
 			return nil, xaiStreamFailure()
 		}
 	}
+	cipher := ""
+	if kind == "reasoning" {
+		if raw, has := obj["encrypted_content"]; has && string(raw) != "null" {
+			cipher, ok = rawString(raw)
+			if !ok {
+				return nil, xaiStreamFailure()
+			}
+		}
+	}
 	if item, has := s.items[key]; has {
-		if item.kind != kind || item.id != id || item.call != call || item.name != name {
+		if item.kind != kind || item.id != id || item.call != call || item.name != name || item.cipher != "" && cipher != "" && item.cipher != cipher {
 			return nil, xaiStreamFailure()
+		}
+		if cipher != "" {
+			item.cipher = cipher
 		}
 		return item, nil
 	}
@@ -44,7 +56,7 @@ func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMess
 	if prior, has := s.calls[call]; call != "" && has && prior != key {
 		return nil, xaiStreamFailure()
 	}
-	item := &xaiStreamItem{kind: kind, id: id, call: call, name: name, parts: map[string]map[int64]*xaiStreamPart{}}
+	item := &xaiStreamItem{kind: kind, id: id, call: call, name: name, cipher: cipher, parts: map[string]map[int64]*xaiStreamPart{}}
 	switch kind {
 	case "message":
 		item.index = p.out.textStart(Text{})
@@ -158,6 +170,14 @@ func (s *xaiResponsesState) closeItem(p *responsesParser, item *xaiStreamItem, r
 			primary = "summary"
 			if _, has := values[primary]; !has {
 				primary = "content"
+			}
+		}
+	}
+	if _, has := values[primary]; !has {
+		for _, channel := range channels {
+			if _, has := values[channel]; has {
+				primary = channel
+				break
 			}
 		}
 	}
