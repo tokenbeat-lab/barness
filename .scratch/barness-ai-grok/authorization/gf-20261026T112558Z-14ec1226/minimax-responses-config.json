@@ -1,0 +1,40 @@
+{
+  "accountAlias": "MINIMAX",
+  "argv": [
+    ".evidence/barness-ai-grok/build/20261026T091716-formal-freeze-99enr2ih/minimax-live.test",
+    "-test.run=^TestMiniMaxFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf-20261026T112558Z-14ec1226/authorization.json",
+    "sha256": "9b3964d0cd367925966247984d15ffe375f478417d43f60529c91056e23514e9"
+  },
+  "credentialEnvironment": "BARNESS_MINIMAX_KEY",
+  "credentialSource": ".env:MINIMAX_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_MINIMAX_ACCOUNT_ALIAS": "MINIMAX",
+    "BARNESS_MINIMAX_ENTITLEMENT": "confirmed",
+    "BARNESS_MINIMAX_FORMAL": "1",
+    "BARNESS_MINIMAX_GRANT": ".scratch/barness-ai-grok/authorization/gf-20261026T112558Z-14ec1226/minimax-responses-grant.json",
+    "BARNESS_MINIMAX_MODEL": "MiniMax-M3",
+    "BARNESS_MINIMAX_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_MINIMAX_PURPOSE": "standard",
+    "BARNESS_MINIMAX_REGION_ALIAS": "global",
+    "BARNESS_MINIMAX_ROUTE": "responses"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf-20261026T112558Z-14ec1226/minimax-responses-grant.json",
+    "sha256": "03325b4b0a4e23a2008e5accd1c103a6c56c13a72cf9527ca46a9558130980b0"
+  },
+  "grantEnvironment": "BARNESS_MINIMAX_GRANT",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=1a7a3763cee833dbe892c544ca7a48bbdfbbdf7e316f845eaae3deb0b6a445e8",
+    "nativeSourceSha256": "1a7a3763cee833dbe892c544ca7a48bbdfbbdf7e316f845eaae3deb0b6a445e8",
+    "path": ".evidence/barness-ai-grok/build/20261026T091716-formal-freeze-99enr2ih/minimax-live.test",
+    "sha256": "53d71ba7e401b734a199816456354e5872e153b89beb9e334d9ab1ff2a9790b1"
+  },
+  "regionAlias": "global",
+  "route": "minimax-responses",
+  "schema": 1
+}

@@ -1,0 +1,38 @@
+{
+  "credentialPolicy": "One selected route credential read from root .env only into that route process. No credential content or key hash in any snapshot/argv/log.",
+  "expiresAt": "2026-10-26T23:25:58.739603Z",
+  "humanAnswer": "授权全部17条路线",
+  "id": "gf-20261026T112558Z-14ec1226",
+  "kind": "explicit-human-paid-authorization",
+  "plan": {
+    "path": ".scratch/barness-ai-grok/verification/formal-plan-v2.json",
+    "sha256": "813ae3860f1672afc77ac071f7fe2eff9d4538a25ad37b55d22d19a3406234f3"
+  },
+  "policy": {
+    "billing": "Existing token/call bounds and response-estimate threshold are not an invoice cap. Unknown usage remains unknown. Other route native contracts contain no invented USD cap.",
+    "grokObservedEstimateStopUSD": 5,
+    "kimi": "Six remain candidate/controlled, actual live NOT_RUN; no promotion",
+    "laterStages": "race and pressure require separate later human scope selection; publication remains disabled",
+    "nativeConsumers": "At actual paid HEAD, own formal qualifier where required, then compiled releasegate through tools/verification/consume_live.py schema2; immutable originals.",
+    "newApproval": "One approved process per route; failed execution consumes approval; no automatic repeat/new cohort/closed-ledger reuse.",
+    "order": "sequential; stop subsequent routes after any route failure/cancellation/timeout/native refusal",
+    "proxy": "http://127.0.0.1:7890 explicitly proposed for each selected route"
+  },
+  "question": "是否授权按冻结计划 v2运行一次正式 live：17 条路线依次执行、最多444次调用/472次HTTP尝试（含预留）、显式代理127.0.0.1:7890、每路线仅使用对应.env密钥；Grok为5 USD响应估算停止阈值，其他路线按计划原生token预算、无USD硬上限；每路线30分钟，总原生时限上界8.5小时，任一路线失败即停后续？重试按各原生有限规则，不包含race、压力或发布。",
+  "questionItemId": "call_726b02711ba3450084328643e9fc52a5",
+  "recordedAt": "2026-10-26T11:25:58.739603+00:00",
+  "schema": 1,
+  "scope": {
+    "maxAttempts": 472,
+    "maxLogicalCalls": 444,
+    "perProcessSeconds": 1800,
+    "requiredScenes": 238,
+    "routes": 17,
+    "sequentialProcessUpperBoundSeconds": 30600
+  },
+  "originalHumanReply": {
+    "questionItemId": "[\"request_user_input_async\",\"call_726b02711ba3450084328643e9fc52a5\",0]",
+    "question": "是否授权按[冻结计划 v2](/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/formal-live-plan-v2.md)运行一次正式 live：17 条路线依次执行、最多444次调用/472次HTTP尝试（含预留）、显式代理127.0.0.1:7890、每路线仅使用对应.env密钥；Grok为5 USD响应估算停止阈值，其他路线按计划原生token预算、无USD硬上限；每路线30分钟，总原生时限上界8.5小时，任一路线失败即停后续？重试按各原生有限规则，不包含race、压力或发布。",
+    "answer": "授权全部17条路线"
+  }
+}

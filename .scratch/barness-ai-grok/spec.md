@@ -1,6 +1,6 @@
 # barness-ai 接入 Grok：OpenAI Responses
 
-Status: ready-for-human
+Status: ready-for-agent
 Type: feature
 Updated: 2026-10-26
 
@@ -308,3 +308,8 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 仅两个E2E测试文件调整，v8独立两轴0/0；[本次原件](../../.evidence/barness-ai-grok/e2e/20261026T103441.672150Z-zab9zi6a/receipt.json)实际完整执行 `go test -json ./ai/e2e ./ai ./ai/internal/testkit/release -count=1 -timeout=20m`，128项冻结输入、1457必交/120入口全部PASS、辅助GLM32case全部PASS且每case最多393文件、audit0/exit0。独立[核验v6](../../.evidence/barness-ai-grok/final-ordinary-validation-v6.json)保留实际数字与墙钟；此前M3完整269测试PASS仅按其源码未变范围沿用，不伪造本次Go包范围。
 
 原v5普通执行PASS与原生拒绝均保留；不放宽512文件上限、不删除原始4350文件。当前正式执行计划为[v2](formal-live-plan-v2.md)，四类native/binary来源未变，仍无新付费权限。
+
+
+#### 本次正式17路线已获授权
+
+维护者明确回复“授权全部17条路线”，对应冻结计划v2。一次性批次 `gf-20261026T112558Z-14ec1226` 的原始授权、17份新grant与配置见[执行范围](authorization/gf-20261026T112558Z-14ec1226/execution-scope.json)；每路线只持有所选.env凭据，依序执行并在任何路线失败/取消/超时/原生资格拒绝后停止后续。当前尚无本批厂商请求，先完成新增164项授权输入的同来源普通预检，再按冻结binary执行。race/压力及发布仍未授权；旧候选与旧失败grant不复用。

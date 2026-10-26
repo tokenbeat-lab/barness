@@ -1,0 +1,36 @@
+{
+  "accountAlias": "OPENAI",
+  "argv": [
+    ".evidence/barness-ai-grok/build/20261026T091716-formal-freeze-99enr2ih/generic-regional-live.test",
+    "-test.run=^TestLive$/^openai-chat$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf-20261026T112558Z-14ec1226/authorization.json",
+    "sha256": "9b3964d0cd367925966247984d15ffe375f478417d43f60529c91056e23514e9"
+  },
+  "credentialEnvironment": "BARNESS_AI_LIVE_KEY_OPENAI_CHAT",
+  "credentialSource": ".env:OPENAI_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS": "OPENAI",
+    "BARNESS_AI_LIVE_COMBO": "openai-chat",
+    "BARNESS_AI_LIVE_PERMISSIONS_FILE": ".scratch/barness-ai-grok/authorization/gf-20261026T112558Z-14ec1226/openai-chat-grant.json",
+    "BARNESS_AI_LIVE_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_AI_LIVE_REGION_ALIAS": "global"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf-20261026T112558Z-14ec1226/openai-chat-grant.json",
+    "sha256": "ca59d7c5f8335dc6ef02dc007ec8b7d96cf4a3ba7f52f1e01882d6376b5d72c6"
+  },
+  "grantEnvironment": "BARNESS_AI_LIVE_PERMISSIONS_FILE",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=ca31b2bcecfe67a717356f8d8c1a4b08e9111b0487c3377b069f44fff6d5cbe8 -X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=ca31b2bcecfe67a717356f8d8c1a4b08e9111b0487c3377b069f44fff6d5cbe8",
+    "nativeSourceSha256": "ca31b2bcecfe67a717356f8d8c1a4b08e9111b0487c3377b069f44fff6d5cbe8",
+    "path": ".evidence/barness-ai-grok/build/20261026T091716-formal-freeze-99enr2ih/generic-regional-live.test",
+    "sha256": "f2ca80cfc44cb4755720a714cf6618602aa58b2bb10ad8c52cb08407b06a631a"
+  },
+  "regionAlias": "global",
+  "route": "openai-chat",
+  "schema": 1
+}
