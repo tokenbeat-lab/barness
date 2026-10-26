@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-26
 ---
 
@@ -25,4 +25,4 @@ Grok的Responses使用OpenAI兼容外形，但默认存储会话、默认加密�
 
 Host必须完整保存消息与Native State Envelope，持久化读回后担保来源，并消费成本完整性。max_output_tokens不构成总费用上限；store:false不构成团队ZDR承诺。首期不接入其他协议、地区、型号、服务等级或托管工具；自带Catalog与Hook不能扩大该子集。
 
-本记录为proposed，不表示实现或正式支持已经通过，也不授权付费或人工验证阶段。交付契约见[spec](../../.scratch/barness-ai-grok/spec.md)，转换、验收和实施顺序见[design](../../.scratch/barness-ai-grok/design.md)；唯一当前状态只维护在[spec](../../.scratch/barness-ai-grok/spec.md#唯一当前状态)。
+本决定已随2026-10-26的implement-spec请求采用：候选身份、无状态请求、opaque历史和用量/成本转换已进入集成分支。accepted记录的是架构取舍被采用，不表示真实资格、正式目录或发布已经通过，也不授权付费或人工验证阶段。交付契约见[spec](../../.scratch/barness-ai-grok/spec.md)，转换、验收和实施顺序见[design](../../.scratch/barness-ai-grok/design.md)；唯一当前状态只维护在[spec](../../.scratch/barness-ai-grok/spec.md#唯一当前状态)。
