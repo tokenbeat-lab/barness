@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "kind": "explicit-candidate-authorization",
+  "issuedAt": "2026-10-26T05:03:33.662765+00:00",
+  "humanResponse": "授权按计划 v3 运行一次",
+  "approvedQuestion": "是否授权按计划 v3 重新运行一次 Grok 候选真实验证？使用修正后的 32×32 JPEG、本机代理 http://127.0.0.1:7890，18 场景、最多 24 次调用、零自动重试、5 USD 估算停止阈值、30 分钟总时限。",
+  "plan": {
+    "path": ".scratch/barness-ai-grok/verification/candidate-plan-v3.json",
+    "sha256": "6617d136dc2cc75e7a7cf88e12bb098f725c6aadf388fd5d3854387b82e65977"
+  },
+  "scope": {
+    "route": "xai-responses",
+    "model": "grok-4.7",
+    "scenarios": 18,
+    "maxCalls": 24,
+    "maxAttempts": 24,
+    "automaticRetries": 0,
+    "visibleOutputTokensPerCall": 1024,
+    "processSeconds": 1800
+  },
+  "selectedAccountAlias": "GROK",
+  "selectedRegionAlias": "global",
+  "selectedMaxUSD": 5.0,
+  "explicitProxy": "http://127.0.0.1:7890",
+  "credentialSource": ".env:GROK_KEY",
+  "appliesToGrantId": "grok-20261026T050333Z-83abbc44",
+  "previousGrants": "Two consumed grants retained; no reuse",
+  "otherRoutesAndManualStages": "NOT_AUTHORIZED"
+}

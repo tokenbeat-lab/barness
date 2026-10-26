@@ -225,7 +225,7 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 | 审查 | 原Standards2项、Spec3项全部修复并独立复核0/0；证据标签修正的增量复核亦0/0；[v1](review/review-v1.md)、[v2](review/review-v2.md)、[v3](review/review-v3.md)分别保留；JPEG增量[v4](review/review-v4.md)亦0/0 |
 | 完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
 | 原生消费 | 新[不可变索引v3](verification/record-v3.json)绑定本状态及完整普通v3；[只读报告](../../.evidence/barness-ai-grok/release/readonly-v3/native/release-report.json)保留真实argv/退出。两次历史live实际消费者均exit1/pass=false；候选不产生正式资格 |
-| 自身live | 两次独立授权均已消耗：首次直连1调用超时；代理运行20调用，15场景PASS、JPEG场景FAIL、余2场景NOT_RUN。上游明确报告8×8 JPEG共64像素低于512像素下限；已知响应累计估算上界0.023408 USD，缺失用量仍未知。真实失败包、grant/claim、两次原生消费者exit1/pass=false见[不可变汇总](evidence/live-attempts-v1.json)。下一次付费运行尚未授权 |
+| 自身live | 前两次真实失败均保留；用户已明确授权计划v3一次新运行，新grant `grok-20261026T050333Z-83abbc44`，绑定修正后的32×32 JPEG、新来源/二进制和显式本机代理；18场景/24调用、零自动重试、5 USD估算停止阈值。先取得新实际输入集合匹配的普通回执；其他22路线与人工阶段未授权 |
 | 共享历史live | xAI外另22条旧聊天目的路线存在xAI来源ID分配变化，分别待计划/授权；完整23路线见[影响表](live-impact.md)。旧来源报告不视为当前通过 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
 | 目录/发布 | BuiltinCatalog未激活xAI，无正式支持声明；release.pass=false，保留付费与人工阶段所缺事实 |
@@ -266,6 +266,6 @@ python3 tools/verification/run.py --feature barness-ai-grok --stage e2e \
 
 [候选构建](../../.evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json)与[只读门禁构建](../../.evidence/barness-ai-grok/build/20261026T040254-releasegate-el73wpu7/build-receipt.json)实际exit0，GOENV=off、GOFLAGS为空、隔离HOME/凭据；source/binary/catalog/SDK机器事实已固定。候选无开关/无Key精确入口实际为NOT_RUN、Calls0，不产生真实资格。
 
-自身候选已有两次失败事实；JPEG夹具修复完成，受控公共进程GREEN、两轴复核0/0，重新冻结普通565/565通过。修复后真实JPEG/工具结果图片/cache尾场景尚未执行；新来源、新二进制与[计划v3](next-stage-plan.md)等待一次新付费授权。05仍需自身完整捕获、脱敏回放、各受影响路线与原生正式资格；06另需正式晋升、人工race与适用压力选择。race/压力NOT_RUN，release.pass=false；真实维护/隔离/purge未执行。
+自身候选已有两次失败事实；JPEG修复、受控公共进程GREEN、两轴0/0、重新冻结普通565/565通过。用户已授权计划v3一次新候选运行，正在按授权固定输入并执行；05的脱敏回放、其他受影响路线及原生正式资格和06正式晋升、人工race/压力仍未完成。release.pass=false；真实维护/隔离/purge未执行。
 
 回滚先禁用并更新xAI Binding版本，固定调用按原快照结束或由Host取消。保留Transcript、Native State Envelope、旧价格快照及验证原件，不自动切Provider/API；无数据库迁移。
