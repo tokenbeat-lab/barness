@@ -68,7 +68,7 @@ func grantJSON(raw []byte) error {
 }
 
 func ReadFile(path string) ([]byte, error) {
-	f, e := os.OpenFile(path, os.O_RDONLY|syscall.O_NOFOLLOW, 0)
+	f, e := os.OpenFile(path, os.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK, 0)
 	if e != nil {
 		return nil, e
 	}

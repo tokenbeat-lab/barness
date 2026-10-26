@@ -14,6 +14,7 @@ import (
 	"reflect"
 	"regexp"
 	"strings"
+	"syscall"
 	"time"
 )
 
@@ -55,7 +56,7 @@ type Grant struct {
 
 func Hash(raw []byte) string { h := sha256.Sum256(raw); return hex.EncodeToString(h[:]) }
 func FileHash(path string) (string, error) {
-	f, e := os.Open(path)
+	f, e := os.OpenFile(path, os.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK, 0)
 	if e != nil {
 		return "", e
 	}
