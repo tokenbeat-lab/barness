@@ -20,6 +20,7 @@ func verifyXAIEvents(root *os.Root, name string, c xaiCall) error {
 	opened := map[int]string{}
 	closed := map[int]bool{}
 	terminals := 0
+	deltas := map[int]string{}
 	for i, e := range events {
 		k := kind(e)
 		if k == "done" || k == "error" {
@@ -33,6 +34,10 @@ func verifyXAIEvents(root *os.Root, name string, c xaiCall) error {
 				return refuse("xAI stream terminal differs from Result")
 			}
 			continue
+		}
+		var partial regionalMessage
+		if regionalDecode(e["Partial"], &partial) != nil || !xaiEqual(partial, c.result.Message) {
+			return refuse("xAI recorded public snapshot differs from final shared view")
 		}
 		if i == 0 {
 			continue
@@ -54,6 +59,7 @@ func verifyXAIEvents(root *os.Root, name string, c xaiCall) error {
 			if json.Unmarshal(e["Delta"], &delta) != nil || string(e["Delta"]) == "null" {
 				return refuse("xAI stream delta missing")
 			}
+			deltas[index] += delta
 		}
 		switch parts[1] {
 		case "start":
@@ -66,13 +72,26 @@ func verifyXAIEvents(root *os.Root, name string, c xaiCall) error {
 				return refuse("xAI stream block lifecycle differs")
 			}
 			if parts[1] == "end" {
+				want, seed := "", ""
+				switch b := c.message.Content[index].(type) {
+				case ai.Text:
+					want = b.Text
+				case ai.Thinking:
+					want = b.Thinking
+				case ai.ToolCall:
+					want = string(b.RawArguments)
+					seed = xaiEventToolSeed(c, b)
+				}
+				if seed+deltas[index] != want {
+					return refuse("xAI public deltas do not reconcile with block authority")
+				}
 				closed[index] = true
 			}
 		default:
 			return refuse("xAI stream event kind unknown")
 		}
 	}
-	if terminals != 1 || len(opened) != len(closed) {
+	if terminals != 1 || len(opened) != len(closed) || len(closed) != len(c.message.Content) {
 		return refuse("xAI stream terminal or block completion differs")
 	}
 	return nil
