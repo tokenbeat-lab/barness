@@ -3,6 +3,8 @@ package e2e
 import (
 	"encoding/hex"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -149,4 +151,44 @@ func miniMaxRecordPrivateStore(t *testing.T, ev *evidence.Case, cmd *exec.Cmd, n
 	ev.Check("exact native identity, scope, ledger and lock "+phase, len(snapshot) == len(want), "files=%d expected=%d", len(snapshot), len(want))
 	ev.Record("private-store-"+phase, map[string]any{"commonGitDir": common, "sourceCommit": miniMaxGitProbe(t, cmd, "rev-parse", "HEAD"), "sourceRoot": miniMaxGitProbe(t, cmd, "rev-parse", "--show-toplevel"), "files": snapshot})
 	return snapshot
+}
+
+func miniMaxCheckRefusedRestart(t *testing.T, ev *evidence.Case, cmd *exec.Cmd, base, originalDir string, originalPID int, output []byte, processErr error) {
+	t.Helper()
+	var exit *exec.ExitError
+	started := errors.As(processErr, &exit) && cmd.ProcessState != nil && cmd.ProcessState.Pid() != originalPID
+	var exitCode any
+	if started {
+		exitCode = exit.ExitCode()
+	}
+	ev.Record("restart", map[string]any{"argv": cmd.Args, "path": cmd.Path, "dir": cmd.Dir, "environmentSHA256": livegrant.Hash([]byte(strings.Join(cmd.Env, "\x00"))), "commonGitDir": miniMaxEnvValue(cmd.Env, "GIT_DIR"), "originalPID": originalPID, "processStarted": started, "exitCode": exitCode, "error": fmt.Sprint(processErr), "output": regionalSafeOutput(output), "vendorCalls": 0})
+	if !ev.Check("same approval restart is an actual native exit one", started && exit.ExitCode() == 1 && cmd.ProcessState.ExitCode() == 1, "started=%v exit=%v error=%v", started, exitCode, processErr) {
+		return
+	}
+	paths, err := filepath.Glob(filepath.Join(base, "*", minimaxlive.ReportFile))
+	if !ev.Check("restart retained its own native run", err == nil && len(paths) == 2, "reports=%d error=%v", len(paths), err) {
+		return
+	}
+	var restartedDir string
+	for _, path := range paths {
+		if filepath.Dir(path) != originalDir {
+			restartedDir = filepath.Dir(path)
+		}
+	}
+	raw, err := os.ReadFile(filepath.Join(restartedDir, minimaxlive.ReportFile))
+	var report minimaxlive.Report
+	if err != nil || json.Unmarshal(raw, &report) != nil {
+		t.Fatal("unreadable restarted native report")
+	}
+	const refusal = "fresh process approval already consumed or unavailable"
+	ev.Record("restart-native-pointer", map[string]any{"dir": restartedDir, "runID": report.Session, "pid": cmd.ProcessState.Pid(), "exitCode": exit.ExitCode(), "failure": report.Failure, "budget": report.Budget, "calls": len(report.Calls)})
+	ev.Check("restart is refused by native single-use admission", report.Session == filepath.Base(restartedDir) && report.Session != filepath.Base(originalDir) && report.Mode == "controlled" && report.Outcome == "FAIL" && !report.Complete && report.Failure == refusal && strings.Contains(string(output), refusal), "failure=%q session=%s", report.Failure, report.Session)
+	ev.Check("rejected native restart made zero reservations or HTTP attempts", report.Budget == (minimaxlive.Budget{}) && report.Cumulative == (minimaxlive.Budget{}) && len(report.Calls) == 0 && report.ProcessGrantSHA256 == "", "budget=%+v calls=%d", report.Budget, len(report.Calls))
+	var manifest struct{ Cases []json.RawMessage }
+	raw, err = os.ReadFile(filepath.Join(restartedDir, "manifest.json"))
+	ev.Check("rejected restart has no native scene or request captures", err == nil && json.Unmarshal(raw, &manifest) == nil && len(manifest.Cases) == 0, "unexpected restarted native cases")
+	for _, name := range []string{"process-grant.json", "process-authorization-receipt.json"} {
+		_, err := os.Stat(filepath.Join(restartedDir, name))
+		ev.Check("rejected restart acquired no "+name, os.IsNotExist(err), "unexpected restarted authorization artifact")
+	}
 }
