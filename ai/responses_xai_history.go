@@ -22,6 +22,11 @@ func xaiResponsesReasoning(raw json.RawMessage) (json.RawMessage, error) {
 	}
 	for _, key := range []string{"id", "status", "encrypted_content"} {
 		if v, present := item[key]; present {
+			// A null ciphertext records explicit absence; preserve it rather than
+			// fabricating an empty string or dropping the complete native item.
+			if key == "encrypted_content" && bytes.Equal(bytes.TrimSpace(v), []byte("null")) {
+				continue
+			}
 			if _, ok := rawString(v); !ok {
 				return nil, invalid
 			}

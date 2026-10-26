@@ -197,3 +197,27 @@ func TestXAIReasoningPreservesExactJSON(t *testing.T) {
 	}
 	ev.Check("native reasoning retained", false, "missing native item")
 }
+
+func TestXAIReasoningPreservesNullCiphertext(t *testing.T) {
+	ev := run.Case(t, "XAI-E08-native-null-ciphertext")
+	w := newXAIWorld(t, nil)
+	enqueue(ev, w, xaiReply(t))
+	native := `{"type":"reasoning","id":"r-null","summary":[{"type":"summary_text","text":"visible"}],"encrypted_content":null}`
+	req := xaiRequest()
+	req.Messages = append(req.Messages, xaiTrustedMessage(t, ai.Thinking{Thinking: "visible", Signature: native}))
+	o := drain(w.client.Stream(ctxFor(t), textScope(t.Name()), xaiTarget(), req, nil))
+	o.record(ev)
+	ev.Record("requests", w.provider.Requests())
+	if !ev.Check("native absence is preserved as null", o.err == nil && len(w.provider.Requests()) == 1, "%v", o.err) {
+		return
+	}
+	var input []map[string]json.RawMessage
+	mustUnmarshal(t, bodyFields(t, w.provider.Requests()[0].Body)["input"], &input)
+	for _, item := range input {
+		if string(item["type"]) == `"reasoning"` {
+			ev.Check("null never becomes empty or omitted ciphertext", string(item["encrypted_content"]) == "null", "%s", item["encrypted_content"])
+			return
+		}
+	}
+	ev.Check("native item retained", false, "missing")
+}
