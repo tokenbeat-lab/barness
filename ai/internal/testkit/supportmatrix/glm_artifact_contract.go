@@ -10,7 +10,7 @@ type glmCapturedCase struct {
 	Artifacts       map[string]string
 }
 
-// The fixed process owns exactly its 22 model-qualified calls and one source
+// The fixed process owns exactly its fixed model-qualified calls and one source
 // case. Coherently rehashing an extra case/attempt cannot hide HTTP work from
 // the counters. Failed cases may retain a prefix of their owned artifacts.
 func checkGLMArtifactContract(r Report, cases []glmCapturedCase, files map[string]string, snapshots map[string]string) error {
@@ -18,6 +18,9 @@ func checkGLMArtifactContract(r Report, cases []glmCapturedCase, files map[strin
 		return glmBad("finite case/inventory count exceeded")
 	}
 	root := map[string]bool{"audit.json": true, "formal-glm-report.json": true, "formal-glm-5.3-report.json": true, "formal-glm-5.2-report.json": true, "glm-execution-source.json": true, "manifest.json": true}
+	if r.GLM.Mode == "live" && (r.Combo == "zhipu-chat" || r.Combo == "zhipu-messages") {
+		root["process-grant.json"], root["process-authorization-receipt.json"] = true, true
+	}
 	owned := map[string]map[string]bool{}
 	source := map[string]bool{"sources.json": true, "assertions.json": true}
 	for name := range snapshots {

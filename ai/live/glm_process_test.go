@@ -137,7 +137,11 @@ func TestGLMCandidateProcess(t *testing.T) {
 			foreign, _ := filepath.Glob(filepath.Join(base, "*", "multimodal-report.json"))
 			cs.Check("no foreign route report", len(foreign) == 0, "foreign report was initialized")
 			if strings.HasPrefix(name, "success-") {
-				cs.Check("full own route", r.Outcome == "PASS" && r.Complete && r.AuditPassed && r.Budget.CallsUsed == 22 && r.Budget.HTTPAttempts == 22 && len(r.Expected) == 22, "%s", raw)
+				count := 22
+				if route == "chat" || route == "messages" {
+					count = 24
+				}
+				cs.Check("full own route", r.Outcome == "PASS" && r.Complete && r.AuditPassed && r.Budget.CallsUsed == count && r.Budget.HTTPAttempts == count && len(r.Expected) == count, "%s", raw)
 				dir := filepath.Dir(matches[0])
 				inventoryRaw, e := os.ReadFile(filepath.Join(dir, "glm-integrity.json"))
 				var inventory struct{ Files map[string]string }
@@ -176,7 +180,7 @@ func TestGLMCandidateProcess(t *testing.T) {
 						Scenarios           []struct{ ID, Model string }
 					}
 					json.Unmarshal(data, &detail)
-					cs.Check("independent model report "+model, e == nil && detail.Complete && detail.Outcome == "PASS" && detail.Model == model && detail.Calls == 11 && detail.HTTPAttempts == 11 && len(detail.Scenarios) == 11, "incomplete own model report")
+					cs.Check("independent model report "+model, e == nil && detail.Complete && detail.Outcome == "PASS" && detail.Model == model && detail.Calls == count/2 && detail.HTTPAttempts == count/2 && len(detail.Scenarios) == count/2, "incomplete own model report")
 					for _, sc := range detail.Scenarios {
 						cs.Check("model-qualified capability "+sc.ID, sc.Model == model && strings.HasPrefix(sc.ID, model+"/"), "cross-model certification")
 					}

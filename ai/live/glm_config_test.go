@@ -112,6 +112,9 @@ var glmConfigError string
 func initializeGLM() {
 	route := os.Getenv("BARNESS_GLM_ROUTE")
 	glmReportState = &glmReport{Schema: 1, Kind: "glm-candidate-only", Outcome: "NOT_RUN", Route: route, StartedAt: started, GitCommit: evidence.GitCommit(), SourceManifestHash: glmSourcePin, Mode: "live", AccountAlias: "local-glm", RegionAlias: "cn-standard-endpoint", AccountVerification: "unknown", RegionVerification: "unknown", PrivilegeVerification: "unknown", Models: map[string]string{}, Budget: glmBudget{PlannedCalls: 22, MaxCalls: 24, MaxAttempts: 32, MaxOutputTokens: 4096, CallSeconds: 120, ProcessSeconds: 1800, FinalizationReserveSeconds: 20}, Unknown: []string{"vendor account/region/permissions/billing", "capacity load not tested", "storage/time charges", "acceptance does not establish intensity"}}
+	if os.Getenv("BARNESS_GLM_CONTROLLED") != "" {
+		glmReportState.Mode = "controlled"
+	}
 	if os.Getenv("BARNESS_GLM_REPLAY_ARCHIVE") != "" {
 		glmReportState.Mode = "replay"
 		glmReportState.Kind = "glm-capture-replay-only"
@@ -140,6 +143,10 @@ func initializeGLM() {
 		glmConfigError = "unknown GLM candidate route"
 	}
 	r := glmReportState
+	if r.Mode == "live" {
+		r.AccountAlias = os.Getenv("BARNESS_GLM_ACCOUNT_ALIAS")
+		r.RegionAlias = os.Getenv("BARNESS_GLM_REGION_ALIAS")
+	}
 	r.API = string(glmSelected.api)
 	r.Endpoint = glmSelected.endpoint
 	r.SDK = glmSelected.sdk()

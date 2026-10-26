@@ -5,7 +5,6 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -34,19 +33,7 @@ func expectedCapabilities(combo string) []string {
 	case "google-interactions-image":
 		return supportmatrix.GoogleImagesExpected()
 	}
-	base := []string{"text-stream", "text-complete", "tool-round-trip", "cancel-after-first-frame", "reasoning-history", "image"}
-	extras := map[string][]string{
-		"openai-responses":   {"tool-changes-gpt-5.4", "tool-changes-gpt-6-sol"},
-		"anthropic-messages": {"tool-changes-claude-opus-4-8", "tool-changes-claude-fable-5", "effort-changes-claude-fable-5-1", "effort-changes-claude-opus-5", "effort-changes-claude-opus-5-5"},
-		"google-gemini":      {},
-		"openai-chat":        {"usage-position", "tool-changes-gpt-5.4", "tool-changes-gpt-6-sol", "pro-model-unavailable"},
-		"deepseek-responses": {"reasoning-level-high", "reasoning-level-max"},
-		"deepseek-chat":      {"usage-position", "forced-tool-with-thinking", "prompt-cache-long-retention", "reasoning-level-high", "reasoning-level-max"},
-	}
-	if extra, ok := extras[combo]; ok {
-		return append(append(base, extra...), grokhistory.Scenario)
-	}
-	return nil
+	return supportmatrix.GenericExpected(combo)
 }
 
 func capabilityProblems(row supportmatrix.Row) []string {

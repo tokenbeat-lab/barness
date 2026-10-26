@@ -65,9 +65,25 @@ func driveGLMCandidate(t *testing.T) {
 	if r.Mode != "replay" && (os.Getenv("BARNESS_AI_LIVE") != "1" || glmKey == "") {
 		t.Skip("NOT_RUN: explicit live switch or selected key absent")
 	}
+	if r.Mode == "live" && (r.Route == "chat" || r.Route == "messages") {
+		stage := "candidate"
+		if os.Getenv("BARNESS_GLM_FORMAL") == "1" {
+			stage = "formal"
+		}
+		auth, e := loadProcessAuthorization("zhipu-"+r.Route, "live", stage, r.AccountAlias, r.RegionAlias, os.Getenv("BARNESS_GLM_GRANT"))
+		if e != nil {
+			glmFail(t, e.Error())
+			return
+		}
+		if e = auth.consume(); e != nil {
+			glmFail(t, e.Error())
+			return
+		}
+		glmApprovalDeadline = auth.grant.ExpiresAt
+	}
 	rec := newRecorder()
 	defer rec.next.(*http.Transport).CloseIdleConnections()
-	if err := configureDecisionsProxy(rec); err != nil {
+	if err := configureGLMProxy(rec); err != nil {
 		glmFail(t, err.Error())
 		return
 	}
@@ -95,6 +111,9 @@ func driveGLMCandidate(t *testing.T) {
 		r.ProcessDeadline = d
 	}
 	r.ExecutionDeadline = r.ProcessDeadline.Add(-20 * time.Second)
+	if !glmApprovalDeadline.IsZero() && glmApprovalDeadline.Before(r.ExecutionDeadline) {
+		r.ExecutionDeadline = glmApprovalDeadline
+	}
 	ctx, cancel := context.WithDeadline(context.Background(), r.ExecutionDeadline)
 	defer cancel()
 	s := &glmSession{ctx: ctx, client: client, rec: rec, results: map[string]ai.Result{}, requests: map[string]ai.Request{}, bodies: map[string]map[string]any{}}

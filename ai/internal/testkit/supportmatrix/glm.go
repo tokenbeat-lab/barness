@@ -73,7 +73,24 @@ type glmDetail struct {
 
 // NewGLMReport derives the formal report from its sealed own route capture.
 // Candidate, controlled and replay documents cannot enter this boundary.
-func NewGLMReport(dir string) (Report, error) {
+func NewGLMReport(dir string) (Report, error) { return glmCaptureReport(dir, "live") }
+
+// VerifyGLMControlledCapture checks the complete sealed synthetic capture.
+// It returns no support report; NewGLMReport still requires actual live authority.
+func VerifyGLMControlledCapture(dir string) error {
+	r, e := glmCaptureReport(dir, "controlled")
+	if e != nil {
+		return e
+	}
+	for _, s := range r.Scenarios {
+		if s.Outcome != Pass {
+			return glmBad("controlled full capture contains a failed scene")
+		}
+	}
+	return nil
+}
+
+func glmCaptureReport(dir, mode string) (Report, error) {
 	var d glmDetail
 	if err := readGLMJSON(filepath.Join(dir, "formal-glm-report.json"), &d); err != nil {
 		return Report{}, err
@@ -91,8 +108,13 @@ func NewGLMReport(dir string) (Report, error) {
 	}
 	cat := ai.BuiltinCatalog()
 	hash, _ := cat.Hash()
-	if d.Schema != 1 || d.Kind != "glm-formal" || d.Mode != "live" || !d.AuditPassed || d.SourceManifestHash != GLMSourcePin || len(expected) == 0 || d.API != api || d.Endpoint != endpoint || d.CatalogVersion != cat.Version || d.CatalogHash != hash || d.GitCommit == "" || d.SDK == "" || d.AccountAlias == "" || d.StartedAt.IsZero() || d.FinishedAt.Before(d.StartedAt) || d.FinishedAt.Sub(d.StartedAt) > 1800*time.Second {
+	if d.Schema != 1 || d.Kind != "glm-formal" || d.Mode != mode || !d.AuditPassed || d.SourceManifestHash != GLMSourcePin || len(expected) == 0 || d.API != api || d.Endpoint != endpoint || d.CatalogVersion != cat.Version || d.CatalogHash != hash || d.GitCommit == "" || d.SDK == "" || d.AccountAlias == "" || d.StartedAt.IsZero() || d.FinishedAt.Before(d.StartedAt) || d.FinishedAt.Sub(d.StartedAt) > 1800*time.Second {
 		return Report{}, refuse("GLM formal identity, source, mode, catalog or execution provenance invalid")
+	}
+	if mode == "live" && (combo == "zhipu-chat" || combo == "zhipu-messages") {
+		if e := VerifyProcessAuthorization(dir, combo, d.AccountAlias, d.RegionAlias, d.StartedAt, d.FinishedAt); e != nil {
+			return Report{}, e
+		}
 	}
 	b := d.Budget
 	if b.PlannedCalls != len(expected) || b.MaxCalls != 24 || b.MaxAttempts != 32 || b.MaxOutputTokens != 4096 || b.CallSeconds != 120 || b.ProcessSeconds != 1800 || b.FinalizationReserveSeconds != 20 || b.CallsUsed < 0 || b.CallsUsed > 24 || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts < 0 || b.HTTPAttempts > b.AttemptsReserved || b.Retries != 0 || b.ReplayAttempts != 0 {

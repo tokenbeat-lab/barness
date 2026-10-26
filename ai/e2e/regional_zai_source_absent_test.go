@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
@@ -24,7 +25,11 @@ func regionalMissingNativeSource(t *testing.T, binary, combo string) {
 		defer srv.Close()
 		route, _ := supportmatrix.RegionalRouteOf(combo)
 		for _, model := range supportmatrix.RegionalModels(combo) {
-			for _, kind := range []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"} {
+			kinds := []string{"full-stream", "full-complete", "simple-stream", "simple-complete", "tool-call", "tool-result", "native-history", "cancel", "recovery"}
+			if grokhistory.Applies(combo) {
+				kinds = append(kinds, grokhistory.Scenario)
+			}
+			for _, kind := range kinds {
 				reply := regionalTextReply(t, ai.ProviderID(route.Provider), ai.API(route.API), model)
 				if kind == "full-stream" && combo == "zai-chat" {
 					reply = chatEvents(t, []json.RawMessage{

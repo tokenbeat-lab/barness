@@ -124,5 +124,5 @@ func kimiQualificationReply(t *testing.T, api, kind string) provider.Reply {
 }
 
 func kimiQualificationKinds() []string {
-	return strings.Fields("full-stream full-complete simple-stream simple-complete native-history tool-call tool-result cancel recovery")
+	return strings.Fields("full-stream full-complete simple-stream simple-complete native-history tool-call tool-result cancel recovery xai-origin-history")
 }

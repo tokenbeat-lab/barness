@@ -100,7 +100,7 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		Versions map[string]string
 		Cases    []glmCapturedCase
 	}
-	if readGLMJSON(filepath.Join(dir, "manifest.json"), &manifest) != nil || manifest.Package != "-tags live -timeout 1800s ./ai/live" || manifest.Commit != r.GitCommit || manifest.Started.IsZero() || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["glm_kind"] != "glm-formal" || manifest.Versions["glm_mode"] != "live" || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion || manifest.Versions["glm_source_manifest_hash"] != GLMSourcePin {
+	if readGLMJSON(filepath.Join(dir, "manifest.json"), &manifest) != nil || manifest.Package != "-tags live -timeout 1800s ./ai/live" || manifest.Commit != r.GitCommit || manifest.Started.IsZero() || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["glm_kind"] != "glm-formal" || manifest.Versions["glm_mode"] != detail.Mode || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion || manifest.Versions["glm_source_manifest_hash"] != GLMSourcePin {
 		return glmBad("manifest provenance differs")
 	}
 	source, e := glmRead(filepath.Join(dir, "GLM11-sources", "sources.json"))

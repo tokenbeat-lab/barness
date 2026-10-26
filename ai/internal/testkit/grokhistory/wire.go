@@ -108,6 +108,11 @@ func Verify(api ai.API, raw []byte) error {
 			return fmt.Errorf("xAI history: call identities empty or collide")
 		}
 		seen[id] = true
+		for _, r := range id {
+			if r < 33 || r > 126 {
+				return fmt.Errorf("xAI history: nonprintable or non-ASCII association")
+			}
+		}
 		// Responses has destination-specific opaque association syntax. The
 		// remaining codecs have the reviewed 64-character ASCII identifier rule.
 		if api != ai.APIOpenAIResponses {

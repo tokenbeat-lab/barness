@@ -12,7 +12,7 @@ import (
 )
 
 func verifyArtifacts(dir string, r Report, files map[string]string) error {
-	roots := map[string]bool{"manifest.json": true, "audit.json": true, ReportFile: true, "live-report.json": true, "minimax-catalog.json": true, "minimax-sources.json": true, "minimax-replay-origin.json": true, "minimax-ledger.json": true}
+	roots := map[string]bool{"process-grant.json": true, "process-authorization-receipt.json": true, "manifest.json": true, "audit.json": true, ReportFile: true, "live-report.json": true, "minimax-catalog.json": true, "minimax-sources.json": true, "minimax-replay-origin.json": true, "minimax-ledger.json": true}
 	cases := map[string]bool{}
 	for _, c := range r.Calls {
 		cases[c.CaseID] = true
