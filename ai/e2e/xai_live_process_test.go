@@ -28,6 +28,16 @@ func xaiProcessEnv(t *testing.T) []string {
 }
 
 func TestXAILiveHarnessProcess(t *testing.T) {
+	buildCase := run.Case(t, "E17-xai-process-build")
+	exitCode := func(err error) int {
+		if err == nil {
+			return 0
+		}
+		if ex, ok := err.(*exec.ExitError); ok {
+			return ex.ExitCode()
+		}
+		return -1
+	}
 	binary := filepath.Join(t.TempDir(), "xai-live.test")
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
@@ -35,6 +45,7 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 	build.Dir = "../.."
 	build.Env = xaiProcessEnv(t)
 	output, err := build.CombinedOutput()
+	buildCase.Record("live-build", map[string]any{"argv": build.Args, "exitCode": exitCode(err), "output": string(output)})
 	if err != nil {
 		t.Fatalf("isolated compile: %v %s", err, output)
 	}
@@ -42,8 +53,17 @@ func TestXAILiveHarnessProcess(t *testing.T) {
 	consumerBuild := exec.CommandContext(ctx, "go", "build", "-o", consumer, "./ai/release/cmd/releasegate")
 	consumerBuild.Dir = "../.."
 	consumerBuild.Env = xaiProcessEnv(t)
-	if output, err := consumerBuild.CombinedOutput(); err != nil {
+	output, err = consumerBuild.CombinedOutput()
+	buildCase.Record("consumer-build", map[string]any{"argv": consumerBuild.Args, "exitCode": exitCode(err), "output": string(output)})
+	if err != nil {
 		t.Fatalf("isolated consumer compile: %v %s", err, output)
+	}
+	for name, path := range map[string]string{"live-binary": binary, "consumer-binary": consumer} {
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		buildCase.Record(name, map[string]any{"sha256": evidence.Digest(raw), "bytes": len(raw)})
 	}
 
 	child := func(t *testing.T, name, entry string, env []string) (map[string]any, int) {
