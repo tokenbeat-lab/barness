@@ -210,15 +210,21 @@ func (s *xaiResponsesState) finish(p *responsesParser, typ string, raw json.RawM
 	if json.Unmarshal(raw, &response) != nil {
 		return xaiStreamFailure()
 	}
-	// Usage conversion is kept at this raw boundary; the initial snapshot path
-	// temporarily uses the existing converter until its separate usage slice.
-	var decoded responsesUsageSnapshot
-	if json.Unmarshal(raw, &decoded.Response) != nil {
-		return xaiStreamFailure()
+	u, reporting, estimate, failure := xaiUsage(p.usage.model, response.Usage)
+	if failure != nil {
+		return failure
 	}
-	u, reporting, _ := p.usage.of(decoded.Response)
+	if len(response.Tier) != 0 && string(response.Tier) != "null" {
+		tier, ok := rawString(response.Tier)
+		if !ok || tier != "default" {
+			estimate = CostEstimate{Status: CostPartial}
+			p.out.usage(u)
+			p.attempt.usageEstimate(reporting, u, estimate)
+			return xaiStreamFailure()
+		}
+	}
 	p.out.usage(u)
-	p.attempt.usage(reporting, u)
+	p.attempt.usageEstimate(reporting, u, estimate)
 	reason := response.Details.Reason
 	if reason != "" {
 		p.out.rawStopReason(status + "." + reason)
@@ -232,6 +238,9 @@ func (s *xaiResponsesState) finish(p *responsesParser, typ string, raw json.RawM
 		p.stop = StopReasonLength
 		p.out.stop(p.stop)
 		return nil
+	}
+	if s.choice == "required" && len(s.calls) == 0 || s.choice == "none" && len(s.calls) > 0 || !s.parallel && len(s.calls) > 1 {
+		return xaiStreamFailure()
 	}
 	p.stop = StopReasonStop
 	if len(s.calls) > 0 {

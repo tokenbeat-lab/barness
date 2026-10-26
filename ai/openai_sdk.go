@@ -14,9 +14,9 @@ import (
 // provider like responsesCapabilitiesOf and chatCompatOf. Error.
 // ProviderRequestID is a barness-ai extension; pi reads no such header.
 func requestIDHeaderOf(p ProviderID) string {
-	// No Kimi request-ID response header has its own retained source/capture
+	// No Kimi or xAI request-ID response header has its own retained source/capture
 	// evidence. Do not inherit another provider's diagnostic identity.
-	if isKimi(p) {
+	if isKimi(p) || p == ProviderXAI {
 		return ""
 	}
 	if p == ProviderDeepSeek {

@@ -123,6 +123,3 @@ func (s *xaiResponsesState) emit(p *responsesParser, item *xaiStreamItem, text s
 		p.out.thinkingDelta(item.index, text)
 	}
 }
-func (s *xaiResponsesState) arguments(p *responsesParser, typ string, ev map[string]json.RawMessage) *Error {
-	return xaiStreamFailure()
-}

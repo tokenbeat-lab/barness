@@ -3,11 +3,7 @@ package ai
 import (
 	"encoding/json"
 	"strings"
-
-	"github.com/openai/openai-go/v3/responses"
 )
-
-type responsesUsageSnapshot struct{ Response responses.Response }
 
 func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMessage) (*xaiStreamItem, *Error) {
 	obj, ok := xaiStreamObject(raw)
@@ -55,7 +51,18 @@ func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMess
 	case "reasoning":
 		item.index = p.out.thinkingStart(Thinking{})
 	case "function_call":
-		return nil, xaiStreamFailure()
+		args := ""
+		if raw, has := obj["arguments"]; has {
+			args, ok = rawString(raw)
+			if !ok {
+				return nil, xaiStreamFailure()
+			}
+		}
+		if !p.out.fitsToolJSON(len(args)) {
+			return nil, p.out.failure()
+		}
+		item.args = newArgumentText(args)
+		item.index = p.out.toolCallStart(xaiResponsesToolID(call, id), name, args)
 	}
 	s.items[key] = item
 	if id != "" {
@@ -68,6 +75,9 @@ func (s *xaiResponsesState) item(p *responsesParser, key int64, raw json.RawMess
 }
 func (s *xaiResponsesState) closeItem(p *responsesParser, item *xaiStreamItem, raw json.RawMessage) *Error {
 	obj, _ := xaiStreamObject(raw)
+	if item.kind == "function_call" {
+		return s.closeCall(p, item, obj, raw)
+	}
 	if item.done {
 		prior, _ := xaiStreamObject(item.native)
 		for _, field := range []string{"content", "summary", "arguments", "encrypted_content"} {

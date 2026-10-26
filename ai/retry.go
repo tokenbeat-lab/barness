@@ -253,7 +253,7 @@ func (r *initialRequest) usageEstimate(reporting UsageReporting, u Usage, estima
 }
 
 func unreportedCostEstimate(provider ProviderID) CostEstimate {
-	if isKimi(provider) {
+	if isKimi(provider) || provider == ProviderXAI {
 		return CostEstimate{Status: CostUnreported}
 	}
 	return CostEstimate{}
