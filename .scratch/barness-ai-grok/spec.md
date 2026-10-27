@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–22软件已解决；21完成GLM预算/取消子树，22严格补齐工具合成证明与私有store边界。05真实资格、06人工阶段及发布未完成 |
+| 实现 | 01–04及07–22软件已解决，普通验证保留；维护者明确暂缓真实验证，05正式资格及06人工阶段/发布未完成 |
 | 冻结来源 | 软件审查pin a80bfe1b；完整实际受测dcf73abd6740d2107352909ba3cd3d07ad6684fb，2068默认来源/175输入。四native完整map与八镜像、原17 grant/config/auth/index均未改变；原v8权限未用，验证来源变化须明确补充同意 |
 | 审查 | [v17](review/review-v17.md) Standards0/Spec0，原v16私有store符号链接P2已关闭；完整工具52/52 PASS。冻结前244项核验0未解决，操作脚本字段/哈希绑定P2在执行前修复；旧失败/审查原件均保留 |
 | 当前完整普通（cases-v13） | 四包16,038个Go测试PASS、1572主必交/130入口、GLM32及MiniMax六辅助全部PASS，665.060秒/exit0/audit0；主15122 PASS、214压力NOT_RUN/max131原件。[receipt](../../.evidence/barness-ai-grok/e2e/20261027T030431.092824Z-681i69ck/receipt.json)/[有限核验](../../.evidence/barness-ai-grok/live-batches/gf8-20261027T012011Z-d0c21717/ordinary-validation-glm21-preconsent.json)；旧165输入FAIL不改 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [索引v17](verification/record-v17.json)绑定本次实际完整普通、175输入及唯一状态；[实际只读报告](../../.evidence/barness-ai-grok/release/readonly-v17/native/release-report.json)另存。live/race/压力缺少，release.pass=false |
+| 原生消费 | [索引v18](verification/record-v18.json)保留实际175输入普通及人类暂缓状态；[只读报告](../../.evidence/barness-ai-grok/release/readonly-v18/native/release-report.json)另存。live/race/压力均未完成，release.pass=false |
 | 自身live | 历史v6源507自身18/18真实PASS保留；当前v8全部17路线仍NOT_RUN，0厂商请求/0真实claim，原权限未用且不能自动重绑新验证来源 |
-| 共享历史live | 原v8一次17授权仍未使用；本次仅[来源绑定补充提案](formal-live-source-amendment-v8.md)，不申请第二批付费额度。先175完整PASS、一次明确来源同意后新增两治理输入并取得177匹配普通，才可原17次。历史正式511逻辑/507HTTP保持，Kimi六条仍候选 |
+| 共享历史live | 维护者对来源补充提案选择“暂缓真实验证”，未批准新验证来源绑定；17个原v8 grant仍未使用，原ID/expiry不改，不自动恢复或续发。177输入匹配普通和本批live均NOT_RUN；历史正式511逻辑/507HTTP保持，Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 21/22软件、v17双轴与175完整普通已完成；尚待原未用v8权限的验证来源补充及177匹配普通、17原生正式资格、人工race/压力，仍未正式支持或发布 |
+| 目录/发布 | 软件、双轴及175完整普通成果保留；真实验证按人类决定暂缓，17条live、race、压力均未完成，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -434,3 +434,7 @@ v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实�
 本次实际受测dcf73abd6740d2107352909ba3cd3d07ad6684fb/2068来源/175输入，16,038个Go测试、1572主必交/130入口、32+6辅助全部PASS，665.060秒/exit0/audit0。原始654750/165普通FAIL、所有RED/INVALID_EVIDENCE/CANCELLED及真实已停止批次均保留。当前全局验证来源变化；四native map完整SET/内容与八个实际镜像仍相同，不等于自动取得来源重绑或本源真实资格。
 
 [来源补充提案](formal-live-source-amendment-v8.md)不新发或延长权限：保留原v8尚未使用17个grant及原21:20到期、每路线一次/同一444逻辑调用472HTTP预算。先完成本次175普通，再取得一次明确来源同意，新增原始回复与最终选择两项后冻结177并完成匹配普通；结果作输出不再改冻结输入，不再索要确认PASS。尚无此补充同意，厂商请求/真实claim均0。原授权和17配置/ID/expiry未改，历史正式511/507不变；race、压力和发布仍未授权。
+
+#### 人类暂缓真实验证
+
+维护者对来源绑定补充明确回复“暂缓真实验证”。[原始决定及精确guard核对](../../.evidence/barness-ai-grok/live-batches/gf8-20261027T012011Z-d0c21717/source-amendment-deferred-v1.json)独立保留；本回复不是来源批准或新付费授权。17个ID guard、5个地区scope guard及17个原付费步骤目录均不存在，本批0真实claim、0厂商调用；原grant/config/authorization/index及到期时间不改。未生成两项启动治理输入，未运行177匹配普通，不自动恢复、续期或重发。175输入完整普通和52工具验证仍按原来源与输入保留；当前发布仍为false。

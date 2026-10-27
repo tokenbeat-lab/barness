@@ -57,3 +57,5 @@
 - 21局部GLM/取消回归已取得实际通过；完整工具49项出现旧Google合成夹具缺Grok历史证明的公开CLI失败，拆[22](issues/22-tool-fixture-grok-history.md)仅修夹具并保持消费者严格拒绝。05同时被21/22及后续完整冻结验证阻塞，当前正式资格仍见spec唯一状态。
 
 - [21](issues/21-glm-controlled-process-budget.md)/[22](issues/22-tool-fixture-grok-history.md)软件已解决：有界预算/子树释放、严格Google合成历史及私有store，v17两轴0/0、52工具PASS；实际175完整四包16,038测试/1572主/130入口/38辅助PASS。05等待[原未用v8来源绑定补充](formal-live-source-amendment-v8.md)，不新增付费额度；06人工阶段后置，历史511/507不变。
+
+- 维护者选择暂缓真实验证：来源补充未获批准，05保持未完成、06后置；原17权限未使用，不自动恢复或续发。175完整普通/52工具成果保留，当前状态及索引v18见[spec](spec.md#唯一当前状态)。
