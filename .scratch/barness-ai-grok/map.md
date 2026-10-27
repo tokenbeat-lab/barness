@@ -49,3 +49,5 @@
 - [18](issues/18-minimax-reasoning-probe.md)/[19](issues/19-controlled-grant-store-isolation.md)已解决：M3仅thinking-on有界任务，私有Git store/真实第二进程拒绝补齐，v14两轴0/0；完整普通15,987测试/1522主必交/127入口/38辅助PASS。当前frontier回到05等待[计划v6](formal-live-plan-v6.md)新一次明确付费与失败策略选择；06人工阶段仍后置，旧241/240正式调用与全部失败/偏差原件不改。
 
 - v6一次17全部完成：14资格通过、2国际MiniMax旧origin资格拒绝、1Messages真实流失败；270calls/267HTTP，238必交236PASS+1声明UNSUPPORTED+1FAIL。新[20](issues/20-minimax-fresh-authority-dispatch.md)离线修权威分派，05被20及实际失败阻塞，06后置；不自动重跑或复用本批权限。[当前状态](spec.md#唯一当前状态)。
+
+- [20已解决](issues/20-minimax-fresh-authority-dispatch.md)：fresh/legacy分派保持严格原生验证，公开CLI45新case和既有53主/6辅助PASS，v15双轴0/0；实际10326/2064来源完整16,033测试/1568主/129入口/38辅助PASS。05等待[计划v8](formal-live-plan-v8.md)新一次17付费授权；06人工阶段后置。旧v6及全部失败/guard保持，不自动重跑。

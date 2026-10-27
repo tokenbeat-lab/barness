@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–19软件已解决；v6真实批次发现[20资格分派修复](issues/20-minimax-fresh-authority-dispatch.md)，现claimed且离线实现中。05正式资格及06人工阶段/发布未完成 |
-| 冻结来源 | 软件pin d816aacb4538f735b76df7bdacb686b621aef382；本批实际受测507601386083f1d21d83875a8ce46c892117ed54，2062默认来源/165选定输入。17路线已各一次执行，未因失败重发grant或重跑 |
-| 审查 | [v14](review/review-v14.md) Standards0/Spec0；v13两轴各1 P2真实restart缺口已由同一实现者补真实第二进程/同private namespace/原生数字exit及四文件digest，原错误证明和RED保留 |
-| 当前完整普通（cases-v11） | 匹配本批165输入的四包15,987 Go测试PASS，1522主必交/127入口/38辅助齐全，655.604秒/exit0/audit0。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T233441.912786Z-m6n0v15i/receipt.json)/[有限核验](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/ordinary-validation.json) |
+| 实现 | 01–04及07–20软件工单均已解决；20新/旧授权分派及foreignmodel防绕过有真实公共CLI RED/GREEN、v15双轴0/0与完整普通。05新源正式live、06人工阶段/发布未完成 |
+| 冻结来源 | 软件/构建pin e1f6986677c905b48d80a6b01fc0c0f125427c82；完整实际受测10326a583b847c8916b0cc091aeca4d3cee67cdc，2064默认来源/129选定输入。1568主必交/129入口/38辅助，当前源17正式live均NOT_RUN |
+| 审查 | [v15](review/review-v15.md) Standards0/Spec0，覆盖20增量；v14对未改部分保留。v7准备检查的SOP3/4排序P2由[计划v8](formal-live-plan-v8.md)修正，830项有限核验0发现；旧失败原件不改 |
+| 当前完整普通（cases-v12） | 四包16,033 Go测试PASS，1568主必交/129入口/38辅助全部PASS，642.833秒/exit0/audit0；主15118 PASS/214压力NOT_RUN，GLM32 PASS/max393、MM18六PASS/max3；主max131。[receipt](../../.evidence/barness-ai-grok/e2e/20261027T005157.680563Z-tqbpaf8x/receipt.json)/[核验v10](../../.evidence/barness-ai-grok/final-ordinary-validation-v10.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [索引v14](verification/record-v14.json)绑定本批完整普通/165输入和14条实际正式消费者；其余3条保留FAIL。[只读判定原件](../../.evidence/barness-ai-grok/release/readonly-v14/native/release-report.json)另存；不宣称正式发布 |
-| 自身live | 当前507来源Grok正式18/18 PASS，24calls/24HTTP，原生资格及schema2消费者通过；候选/旧源材料仍保留历史 |
-| 共享历史live | v6明确授权一次17条、收集全部独立结果：14 QUALIFIED、8/16国际M3资格拒绝、13国际M3 Messages原生流FAIL；完整必交236 PASS+1固定UNSUPPORTED+1 FAIL。新270逻辑/267HTTP，历史正式241/240另计，合计511/507（候选另计）。[完整检查点](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/completed-checkpoint-v1.json)/[独立审计](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/independent-audit-v2/barness-grok-v6-final-audit-v2.json)；Kimi六条仍候选 |
+| 原生消费 | [索引v15](verification/record-v15.json)绑定新完整普通/129输入及唯一当前状态；[实际只读报告](../../.evidence/barness-ai-grok/release/readonly-v15/native/release-report.json)另存。当前新源live/race/压力未完成，不宣称正式发布 |
+| 自身live | 历史v6源507的Grok正式18/18 PASS、24calls/24HTTP及其真实消费者保留；20修改全局来源/部分原生source，当前新源自身正式live NOT_RUN，不将旧pin资格转为当前通过 |
+| 共享历史live | 历史v6一次17完成：14 QUALIFIED、2国际M3资格拒绝、1国际M3 Messages流FAIL，236PASS+1固定UNSUPPORTED+1FAIL，270逻辑/267HTTP；历史正式合计511/507（候选另计）。当前源17路线均NOT_RUN；[新计划v8](formal-live-plan-v8.md)仅提一次17/444calls472HTTP，未授权，Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 本批17真实调用已全部执行；3条正式资格未通过，20仅离线修复中。race/压力NOT_RUN，release.pass=false，未正式支持或发布，当前无新付费重跑权限 |
+| 目录/发布 | 20软件、独立审查及新来源完整普通已完成；新17正式live及人工race/压力待执行，release.pass=false，仍未正式支持或发布。当前无新付费权限 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -410,3 +410,11 @@ v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实�
 - 238必交实际236 PASS/1固定声明UNSUPPORTED/1 FAIL；逻辑270/HTTP267。进度消息曾口算HTTP多1，检查点与原始预算始终是267，未改旧原件。与此前正式241/240合计511/507，候选费用另计。
 
 所有live原件仍绑定507/2062/165；20改变来源后必须独立评估适用性，不能预报新源合格。本次授权已全部消耗，没有自动付费重跑、race、压力或发布权限。
+
+#### MM20 完整普通闭环与 v8 待授权
+
+20只修复MiniMax正式消费者的权威分派：fresh ProcessGrant材料始终经过完整原生校验，不依赖旧legacy origin；没有fresh材料的历史路径仍保持原origin校验。任何fresh marker都受其源、binary、scope、claim/namespace、账本及完整场景约束，foreignmodel或混合renewal不能绕过。公开CLI先保留三个协议实际RED，再得45新场景GREEN；既有受影响回归53主/6辅助通过，v15两轴各0。新源完整普通又实际通过16,033 Go测试、1568主/129入口/38辅助；20软件据此关闭，不产生真实支持资格。
+
+[计划v8](formal-live-plan-v8.md)保持既定17路线、模型、SDK、完整238场景与预算，收集已确定独立结果、每路线一次，不新增进程重跑或备用权限。v7尚未执行的提案将付费授权放在SOP3完整普通前，独立核查P2后保留原稿及FAIL；v8严格先取得本次129完整普通，再提新付费授权；若批准，再生成新36授权/config/grant/index，冻结实际新提交/165输入并完成同范围完整匹配普通，之后才可发任何厂商请求。v8有限核验830项0发现，源/镜像/范围未因文案排序修正改变。
+
+本次普通实际受测10326/2064/129；构建E1的全部相关源码/实际119读取字节与受测来源匹配，单列原生合同文档新hash固定。三个原生来源map改变、GLM342 map未变；全局Stage来源/选定输入已经变化，旧v6的14资格仅保留历史。当前新源17正式live均NOT_RUN，race/压力尚未人工选择，发布保持false。原真实失败、transport中断及所有已消耗grant/ledger不修改，不借本软件闭环自动重买路线。

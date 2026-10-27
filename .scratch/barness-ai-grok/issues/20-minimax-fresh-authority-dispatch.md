@@ -1,7 +1,7 @@
 # MiniMax 正式资格器的新进程授权分派
 
 Type: task
-Status: claimed
+Status: resolved
 
 ## Contract
 
@@ -26,3 +26,7 @@ v6 第8条 MiniMax 国际 Chat 和第16条 Responses 各自14场景原生PASS（
 ## Comments
 
 - 2026-10-27：v6已一次执行全部17条，14资格通过、2资格拒绝、1Messages原生流失败；270逻辑/268HTTP。当前无新的付费重跑权限，所有历史成功/失败原件保留。此票仅授予原实现任务所需离线修复；修复后来源适用性须独立评估，不能预报旧live已对新源合格。
+
+## Answer
+
+已完成最小新/旧授权分派及foreignmodel防绕过，公开三协议CLI真实RED后45场景GREEN；既有53主/6辅助回归PASS，v15两轴0/0。实际10326/2064来源完整四包16,033 Go测试、1568主/129入口/38辅助PASS，642.833秒/exit0/audit0。[完整核验](../../../.evidence/barness-ai-grok/final-ordinary-validation-v10.json)及[当前状态](../spec.md#唯一当前状态)。软件关闭不授予付费或当前新源正式资格；旧v6原件和3条失败保留。
