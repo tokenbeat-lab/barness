@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–19软件工单均已解决；18严格推理正例任务/19私有store与真实restart补齐，v14两轴0/0及完整普通实际通过。05新源正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 软件pin d816aacb4538f735b76df7bdacb686b621aef382，实际受测dcfa262278499aaf04f5153312f8672980880f51；2062默认来源及129输入集合/内容一致。1522主必交/127入口，GLM32+MM18六辅助独立有效；当前源17正式live均NOT_RUN |
+| 实现 | 01–04及07–19软件已解决；v6真实批次发现[20资格分派修复](issues/20-minimax-fresh-authority-dispatch.md)，现claimed且离线实现中。05正式资格及06人工阶段/发布未完成 |
+| 冻结来源 | 软件pin d816aacb4538f735b76df7bdacb686b621aef382；本批实际受测507601386083f1d21d83875a8ce46c892117ed54，2062默认来源/165选定输入。17路线已各一次执行，未因失败重发grant或重跑 |
 | 审查 | [v14](review/review-v14.md) Standards0/Spec0；v13两轴各1 P2真实restart缺口已由同一实现者补真实第二进程/同private namespace/原生数字exit及四文件digest，原错误证明和RED保留 |
-| 当前完整普通（cases-v11） | 四包15,987 Go测试实际PASS，1522/1522主必交、127/127入口、38辅助全部PASS，633.016秒/exit0/audit0；主15073 PASS/214压力NOT_RUN、GLM32 PASS/max393、MM18六PASS/max3。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T204948.851638Z-i8k_zy6j/receipt.json)/[核验v9](../../.evidence/barness-ai-grok/final-ordinary-validation-v9.json) |
+| 当前完整普通（cases-v11） | 匹配本批165输入的四包15,987 Go测试PASS，1522主必交/127入口/38辅助齐全，655.604秒/exit0/audit0。[receipt](../../.evidence/barness-ai-grok/e2e/20261026T233441.912786Z-m6n0v15i/receipt.json)/[有限核验](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/ordinary-validation.json) |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [新索引v13](verification/record-v13.json)绑定新完整普通/129输入及唯一状态；五项实际判定见[readonly-v13](../../.evidence/barness-ai-grok/release/readonly-v13/native/release-report.json)。旧源7资格/8失败与旧索引均保留历史；当前新来源正式live/race/压力未完成，release.pass=false |
-| 自身live | 历史13b来源xAI正式18/18 PASS、24calls/24HTTP，及其他6路线实际资格均完整保留；18新探针/19测试fixture改变全局来源，当前新来源真实验证NOT_RUN |
-| 共享历史live | 历史v4含补充7 QUALIFIED、8 MiniMax thinking-on FAIL、后9 NOT_RUN；历史正式合计241逻辑calls/240HTTP。新[计划v6](formal-live-plan-v6.md)17路线/238场景、444/472新批上限，尚未授权，需人选收集独立结果或任一失败即停；Kimi六条仍候选 |
+| 原生消费 | [索引v14](verification/record-v14.json)绑定本批完整普通/165输入和14条实际正式消费者；其余3条保留FAIL。[只读判定原件](../../.evidence/barness-ai-grok/release/readonly-v14/native/release-report.json)另存；不宣称正式发布 |
+| 自身live | 当前507来源Grok正式18/18 PASS，24calls/24HTTP，原生资格及schema2消费者通过；候选/旧源材料仍保留历史 |
+| 共享历史live | v6明确授权一次17条、收集全部独立结果：14 QUALIFIED、8/16国际M3资格拒绝、13国际M3 Messages原生流FAIL；完整必交236 PASS+1固定UNSUPPORTED+1 FAIL。新270逻辑/267HTTP，历史正式241/240另计，合计511/507（候选另计）。[完整检查点](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/completed-checkpoint-v1.json)/[独立审计](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/independent-audit-v2/barness-grok-v6-final-audit-v2.json)；Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 新探针/测试隔离、v14复核及完整普通已完成；新来源17正式live及人工race/压力待执行，release.pass=false，仍未正式支持或发布 |
+| 目录/发布 | 本批17真实调用已全部执行；3条正式资格未通过，20仅离线修复中。race/压力NOT_RUN，release.pass=false，未正式支持或发布，当前无新付费重跑权限 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -400,3 +400,13 @@ v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实�
 实际受测dcfa262278499aaf04f5153312f8672980880f51/2062来源/129输入；完整四包15,987 Go测试PASS，1522主必交/127入口与GLM32、MM18六辅助全部PASS，633.015752秒/exit0/audit0。主15287 case中15073 PASS/214压力NOT_RUN；辅助32+6全部PASS。主/GLM/MM18每case最大131/393/3原件；没有扩大512上限。完整[实际核验](../../.evidence/barness-ai-grok/final-ordinary-validation-v9.json)固定所有bundle/manifest/audit/source/input哈希。v5元数据取消原件和所有历史失败继续保留。
 
 18/19软件票在上述完整普通与v14双轴0/0后关闭；真实MiniMax零推理FAIL和7条旧资格仍是历史，当前新来源没有正式live权限或资格。当前[计划v6](formal-live-plan-v6.md)准备核验867 PASS，模板ID空/expiry零；待维护者明确选择一次固定17的范围及失败处理策略，先生成新grant/config/授权并取得匹配普通后才可付费。race/压力后续分别人工选择，未正式支持或发布。
+
+#### v6 一次17路线全部执行与已定位余项
+
+维护者明确选择“授权17条，收集全部独立结果”。原始回复与新36授权/config/grant/index保存在[本批授权](authorization/gf6-20261026T233415Z-ceb8d8c1/authorization.json)，有效期间17条均按顺序只运行一次；匹配普通、实际消费者、调用与原生预算原件完整保留。整批14正式资格通过、2资格器拒绝、1原生失败，未重发权限或重跑。独立总账实际exit1表示完整已知失败，integrityPass=true/0errors；前版审计脚本误把Markdown当JSON的失败原件同样保留。
+
+- 国际MiniMax Chat与Responses各14原生场景全PASS，thinking-on自身非空推理通过；正式资格器在验证fresh ProcessGrant之前无条件读取legacy one-shot origin，旧sourceCommit与本批507不符，真实exit1。[20工单](issues/20-minimax-fresh-authority-dispatch.md)仅离线修复权威分派，不能改旧origin或据原生PASS冒称正式资格。
+- 国际MiniMax Messages thinking-on的HTTP200流已有并保留非空推理，随后读取在可见正文/成功终态前中断，保持FAIL；底层vendor/代理/网络原因无法由原件确定。thinking-control初始unexpectedEOF已按原合同rerun1恢复，不能把它的错误原文套给thinking-on。精确诊断见[独立原件](../../.evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/read-only-diagnoses/receipt.json)。不降低推理或成功终态门槛，不擅自增加重试。
+- 238必交实际236 PASS/1固定声明UNSUPPORTED/1 FAIL；逻辑270/HTTP267。进度消息曾口算HTTP多1，检查点与原始预算始终是267，未改旧原件。与此前正式241/240合计511/507，候选费用另计。
+
+所有live原件仍绑定507/2062/165；20改变来源后必须独立评估适用性，不能预报新源合格。本次授权已全部消耗，没有自动付费重跑、race、压力或发布权限。
