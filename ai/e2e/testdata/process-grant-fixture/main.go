@@ -45,6 +45,20 @@ func writeFixture(binary, output string) error {
 	if err != nil || strings.TrimSpace(string(common)) != git {
 		return fmt.Errorf("external Git common directory refused")
 	}
+	// Claim opens this root itself. Validate it before Claim or any output
+	// allocation so an existing symlink cannot redirect the private store.
+	store := filepath.Join(git, "barness-live-process-grants")
+	if info, err := os.Lstat(store); err == nil {
+		if !info.IsDir() || info.Mode()&os.ModeSymlink != 0 {
+			return fmt.Errorf("private claim store directory required")
+		}
+		physical, err := filepath.EvalSymlinks(store)
+		if err != nil || physical != store {
+			return fmt.Errorf("external private claim store refused")
+		}
+	} else if !os.IsNotExist(err) {
+		return fmt.Errorf("private claim store unavailable")
+	}
 	out, err := filepath.Abs(output)
 	if err != nil {
 		return err
