@@ -37,7 +37,7 @@ func TestMiniMaxFreshAuthorityConsumerProcess(t *testing.T) {
 			}
 			ev.Fixture("synthetic-projection.json", projection)
 			ev.Record("fixture-purpose", map[string]any{"actualLive": false, "producerMode": "controlled", "consumerContractFixture": true, "realCredentials": false, "vendorCalls": 0})
-			for _, name := range []string{"missing-grant", "changed-grant", "missing-claim", "untrusted-claim", "changed-session", "mixed-renewal", "source-change", "ledger-change", "missing-scene", "terminal-change", "seal-change", "legacy-without-fresh"} {
+			for _, name := range []string{"missing-grant", "changed-grant", "missing-claim", "untrusted-claim", "changed-session", "mixed-renewal", "foreign-identity", "source-change", "ledger-change", "missing-scene", "terminal-change", "seal-change", "legacy-without-fresh"} {
 				t.Run(name, func(t *testing.T) {
 					proof := run.Case(t, "MM20-fresh-authority-"+route+"-"+name)
 					mutated := formal
@@ -101,6 +101,11 @@ func miniMaxAuthorityMutation(t *testing.T, dir, name string) {
 	case "mixed-renewal":
 		mutate(minimaxlive.ReportFile, func(v map[string]any) {
 			v["formalRenewalId"], v["formalRenewalGrantSha256"] = "synthetic-old-renewal", strings.Repeat("0", 64)
+		})
+	case "foreign-identity":
+		mutate(minimaxlive.ReportFile, func(v map[string]any) {
+			v["identity"].(map[string]any)["model"] = minimaxlive.M31
+			v["identity"].(map[string]any)["purpose"] = "mplan"
 		})
 	case "source-change":
 		mutate(minimaxlive.ReportFile, func(v map[string]any) {

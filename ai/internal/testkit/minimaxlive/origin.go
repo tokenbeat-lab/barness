@@ -35,7 +35,10 @@ func Verify(dir string, formal bool) (Report, error) {
 	if e != nil {
 		return r, e
 	}
-	if r.Mode == "live" {
+	// Fresh processes use their independently consumed grant and ledger, fully
+	// checked by VerifyCapture. Historical reports still require their original
+	// external launcher origin; neither authority falls back to the other.
+	if r.Mode == "live" && r.ProcessGrantSHA256 == "" {
 		if e := verifyOrigin(dir, r); e != nil {
 			return r, e
 		}
