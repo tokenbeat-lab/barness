@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"testing"
 	"time"
 
@@ -38,7 +39,7 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 		t.Fatalf("locate test2json: %v", err)
 	}
 	test2json := strings.TrimSpace(string(output))
-	for _, mode := range []string{"slow-start", "cancel-tree"} {
+	for _, mode := range []string{"slow-start", "cancel-tree", "collector-cancel"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "GROK-HISTORY-GLM-BUDGET-"+strings.ToUpper(mode))
 			private := t.TempDir()
@@ -73,7 +74,7 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 			defer cancel()
 			args := []string{"-p", "github.com/tokenbeat-lab/barness/ai/e2e", "-t", binary, "-test.v=test2json", "-test.run=^TestGrokHistoryGLMControlledFullCapture$", "-test.count=1", "-test.timeout=15s"}
 			program, directory := test2json, filepath.Join(root, "ai/e2e")
-			if mode == "slow-start" {
+			if mode != "cancel-tree" {
 				program, directory = "python3", root
 				args[len(args)-1] = "-test.timeout=80s"
 				// The collector remains at the repo root; only the public Go
@@ -97,7 +98,26 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 			// Files avoid inherited-pipe hangs in this regression's own observer.
 			cmd.Stdout, cmd.Stderr = stdout, stderr
 			start := time.Now()
-			runErr := cmd.Run()
+			var runErr error
+			if mode == "collector-cancel" {
+				if err := cmd.Start(); err != nil {
+					t.Fatal(err)
+				}
+				readyBy := time.Now().Add(10 * time.Second)
+				ready := false
+				for time.Now().Before(readyBy) {
+					if raw, _ := os.ReadFile(config["heartbeat"]); len(raw) > 0 {
+						ready = true
+						break
+					}
+					time.Sleep(20 * time.Millisecond)
+				}
+				signalErr := cmd.Process.Signal(syscall.SIGTERM)
+				runErr = cmd.Wait()
+				ev.Check("outer collector cancelled only after descendant starts", ready && signalErr == nil, "ready=%v signal=%v", ready, signalErr)
+			} else {
+				runErr = cmd.Run()
+			}
 			elapsed := time.Since(start)
 			out, _ := os.ReadFile(stdout.Name())
 			errOut, _ := os.ReadFile(stderr.Name())
@@ -136,18 +156,31 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 				ev.Check("collector validates independent main and full32 auxiliary inventories and audits", receipt.Status == "PASS" && len(receipt.Bundles) == 2 && nativeCases == 32, "bundles=%d nativeCases=%d", len(receipt.Bundles), nativeCases)
 				return
 			}
-			// Preserve the failed public wrapper's own process observation.
-			// No native bundle is invented for this cancellation countercase.
-			processFiles, _ := filepath.Glob(filepath.Join(private, "bundles", "*", "GROK-HISTORY-GLM-CONTROLLED-FULL", "process.json"))
-			var process glmProcessResult
-			if len(processFiles) == 1 {
-				raw, readErr := os.ReadFile(processFiles[0])
-				if readErr == nil {
-					_ = json.Unmarshal(raw, &process)
+			if mode == "cancel-tree" {
+				// Preserve the failed public wrapper's own process observation.
+				// No native bundle is invented for this cancellation countercase.
+				processFiles, _ := filepath.Glob(filepath.Join(private, "bundles", "*", "GROK-HISTORY-GLM-CONTROLLED-FULL", "process.json"))
+				var process glmProcessResult
+				if len(processFiles) == 1 {
+					raw, readErr := os.ReadFile(processFiles[0])
+					if readErr == nil {
+						_ = json.Unmarshal(raw, &process)
+					}
+					ev.Record("cancelled-capture", process)
 				}
-				ev.Record("cancelled-capture", process)
+				ev.Check("parent context interrupts the capture owner before its fallback timeout", process.Status == "CANCELLED" && process.ContextError == context.DeadlineExceeded.Error() && process.ExitCode != nil, "%+v", process)
+			} else {
+				var result struct{ Attempt string }
+				mustUnmarshal(t, out, &result)
+				raw, readErr := os.ReadFile(filepath.Join(root, result.Attempt, "receipt.json"))
+				if readErr != nil {
+					t.Fatal(readErr)
+				}
+				var receipt release.StageReceipt
+				mustUnmarshal(t, raw, &receipt)
+				ev.Record("cancelled-collector", map[string]any{"path": result.Attempt + "/receipt.json", "sha256": evidence.Digest(raw), "status": receipt.Status, "exitCode": receipt.ExitCode})
+				ev.Check("actual outer collector records cancellation and native exit", receipt.Status == "CANCELLED" && receipt.ExitCode != nil, "status=%s exit=%v", receipt.Status, receipt.ExitCode)
 			}
-			ev.Check("parent context interrupts the capture owner before its fallback timeout", process.Status == "CANCELLED" && process.ContextError == context.DeadlineExceeded.Error() && process.ExitCode != nil, "%+v", process)
 			before, e := os.ReadFile(config["heartbeat"])
 			time.Sleep(200 * time.Millisecond)
 			after, e2 := os.ReadFile(config["heartbeat"])
