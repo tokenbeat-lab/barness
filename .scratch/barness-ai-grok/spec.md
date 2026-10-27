@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–20软件工单均已解决；20新/旧授权分派及foreignmodel防绕过有真实公共CLI RED/GREEN、v15双轴0/0与完整普通。05新源正式live、06人工阶段/发布未完成 |
-| 冻结来源 | 软件/构建pin e1f6986677c905b48d80a6b01fc0c0f125427c82；完整实际受测10326a583b847c8916b0cc091aeca4d3cee67cdc，2064默认来源/129选定输入。1568主必交/129入口/38辅助，当前源17正式live均NOT_RUN |
+| 实现 | 01–04及07–20软件已解决；新[21 GLM受控子进程时限/终止](issues/21-glm-controlled-process-budget.md)claimed。v8匹配普通暴露旧10秒包装context不足，尚未执行厂商；05/06未完成 |
+| 冻结来源 | v8实际冻结654750edb2e22a8700f56028c061df16487adec1，2064默认来源/165输入；代码字节与授权前10326及构建E1一致。真实17grant均未用，后续来源变化不得自动重绑原批准pin |
 | 审查 | [v15](review/review-v15.md) Standards0/Spec0，覆盖20增量；v14对未改部分保留。v7准备检查的SOP3/4排序P2由[计划v8](formal-live-plan-v8.md)修正，830项有限核验0发现；旧失败原件不改 |
-| 当前完整普通（cases-v12） | 四包16,033 Go测试PASS，1568主必交/129入口/38辅助全部PASS，642.833秒/exit0/audit0；主15118 PASS/214压力NOT_RUN，GLM32 PASS/max393、MM18六PASS/max3；主max131。[receipt](../../.evidence/barness-ai-grok/e2e/20261027T005157.680563Z-tqbpaf8x/receipt.json)/[核验v10](../../.evidence/barness-ai-grok/final-ordinary-validation-v10.json) |
+| 授权后匹配普通（cases-v12） | 授权后165输入匹配普通实际FAIL/exit1，637.400秒，16031个Go测试PASS、2公共根FAIL；GLM完整辅助包未定稿。原件[receipt](../../.evidence/barness-ai-grok/e2e/20261027T012038.355447Z-1hopb8rs/receipt.json)保留；授权前129输入完整16,033/1568主/129入口/38辅助PASS仍为历史事实，不替代本次失败 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [索引v15](verification/record-v15.json)绑定新完整普通/129输入及唯一当前状态；[实际只读报告](../../.evidence/barness-ai-grok/release/readonly-v15/native/release-report.json)另存。当前新源live/race/压力未完成，不宣称正式发布 |
-| 自身live | 历史v6源507的Grok正式18/18 PASS、24calls/24HTTP及其真实消费者保留；20修改全局来源/部分原生source，当前新源自身正式live NOT_RUN，不将旧pin资格转为当前通过 |
-| 共享历史live | 历史v6一次17完成：14 QUALIFIED、2国际M3资格拒绝、1国际M3 Messages流FAIL，236PASS+1固定UNSUPPORTED+1FAIL，270逻辑/267HTTP；历史正式合计511/507（候选另计）。当前源17路线均NOT_RUN；[新计划v8](formal-live-plan-v8.md)仅提一次17/444calls472HTTP，未授权，Kimi六条仍候选 |
+| 原生消费 | [索引v16](verification/record-v16.json)绑定本次实际FAIL/165输入和唯一状态；[只读报告](../../.evidence/barness-ai-grok/release/readonly-v16/native/release-report.json)另存。当前不能通过普通或live门槛，release.pass=false |
+| 自身live | 历史v6源507自身18/18真实PASS保持；当前v8源17路线均未启动，真实请求/claim均0，尚无本源资格 |
+| 共享历史live | 维护者已授权v8一次17/收集独立结果，但165普通失败使条件未满足，17真实grant原样未用。历史正式511逻辑/507HTTP不变，Kimi六条仍候选；不新增或重发权限、不预判原批准已消耗或可自动重绑 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 20软件、独立审查及新来源完整普通已完成；新17正式live及人工race/压力待执行，release.pass=false，仍未正式支持或发布。当前无新付费权限 |
+| 目录/发布 | 当前停在普通阶段，21仅离线修复中；付费路线0启动，race/压力NOT_RUN，release.pass=false，未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -418,3 +418,11 @@ v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实�
 [计划v8](formal-live-plan-v8.md)保持既定17路线、模型、SDK、完整238场景与预算，收集已确定独立结果、每路线一次，不新增进程重跑或备用权限。v7尚未执行的提案将付费授权放在SOP3完整普通前，独立核查P2后保留原稿及FAIL；v8严格先取得本次129完整普通，再提新付费授权；若批准，再生成新36授权/config/grant/index，冻结实际新提交/165输入并完成同范围完整匹配普通，之后才可发任何厂商请求。v8有限核验830项0发现，源/镜像/范围未因文案排序修正改变。
 
 本次普通实际受测10326/2064/129；构建E1的全部相关源码/实际119读取字节与受测来源匹配，单列原生合同文档新hash固定。三个原生来源map改变、GLM342 map未变；全局Stage来源/选定输入已经变化，旧v6的14资格仅保留历史。当前新源17正式live均NOT_RUN，race/压力尚未人工选择，发布保持false。原真实失败、transport中断及所有已消耗grant/ledger不修改，不借本软件闭环自动重买路线。
+
+#### v8 授权后普通失败，厂商执行未启动
+
+原始v8回复、36新授权/config/grant/index与11份keyless scope检查全部留存；实际654750/2064/165完整普通以exit1结束，两个公共GLM包装在10.01秒失败。直接native32个断言PASS但未完成manifest/audit，有写入发生在父包装失败之后；内嵌包装完成9个formal case后进入验证。共享ctxFor只有10秒，不能据此宣称全耗于Go编译，也不能把未定稿辅助包当通过。此前同源码授权前129完整PASS/包装8.69秒仅说明余量很窄。
+
+[21](issues/21-glm-controlled-process-budget.md)先做有界受控RED，修正完整受控子进程预算与真正子树终止边界，保持GLM32辅助归属/512上限和严格普通门槛；不预热缓存掩盖失败，不全局放宽公共调用context。真实普通与两级不完整native原件都保留。四原生map与8镜像仍逐字节匹配；测试-only改动是否继续保持需以实际diff独立核验。
+
+本批全部17厂商路线NOT_RUN，真实vendor调用/真实claim均0，原grant和expiry不改；不能把普通失败推断成付费额度已花，也不据原批准自动重绑变化的全局来源。修复后的完整普通与授权适用性另按SOP明确判断后，才可进入厂商阶段。历史正式511/507不变，race/压力及发布未授权。
