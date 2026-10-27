@@ -39,6 +39,7 @@
           "sha256": "9320a8945034ef51cf25c715405d46f294a2c5ed7e3d4c4f91ef8dfc060e090f"
         }
       ],
+      "rawFailedBundles": [],
       "receipt": {
         "path": ".evidence/barness-ai-grok/e2e/20261027T001930.129578Z-enu5c0_u/receipt.json",
         "sha256": "f0d9193227826cb4efad95da8cd765f96846a7e3bdbae74321ea1306a2059235"
@@ -80,6 +81,19 @@
           "sha256": "92a976a19ad7ac91a26dd463c264b3b55a24f5caa0d176c00e5aa5322ad29530"
         }
       ],
+      "rawFailedBundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "caseOutcomes": {
+            "MM20-fresh-authority-chat": "FAIL",
+            "MM20-fresh-authority-messages": "FAIL",
+            "MM20-fresh-authority-responses": "FAIL"
+          },
+          "manifestSHA256": "b52c4c46d9c7d34a66ba0253b145744ffbce318a527d3a3d3389aa3eccb43594",
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/bundles/20261027T002008.580305000Z",
+          "qualification": "FAIL, preserved raw; collector rejected failing case outcomes"
+        }
+      ],
       "receipt": {
         "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/receipt.json",
         "sha256": "a367dd2fed9084b4aeb65a9e56d250b9ced6b11192e7ecb4f551be8e129d4064"
@@ -119,6 +133,19 @@
         {
           "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/stdout.jsonl",
           "sha256": "04c03e7bdbfdbdf9b7c34e2f4db5a960cd8c5806a0738f36bbef08f5b1f7a005"
+        }
+      ],
+      "rawFailedBundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "caseOutcomes": {
+            "MM20-fresh-authority-chat": "FAIL",
+            "MM20-fresh-authority-messages": "FAIL",
+            "MM20-fresh-authority-responses": "FAIL"
+          },
+          "manifestSHA256": "5b6ba761ccaefc38bd8787f373cec221e7f80ed6949bbb80d337676ccf095d43",
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/bundles/20261027T002110.912980000Z",
+          "qualification": "FAIL, preserved raw; collector rejected failing case outcomes"
         }
       ],
       "receipt": {
