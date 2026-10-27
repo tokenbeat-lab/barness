@@ -15,6 +15,8 @@ Status: claimed
 
 单一 implementer 复用21的 native-proof 独立工作树，最终同步集成 tip。你不是唯一工作者，不得回退他人编辑。拥有 `tools/verification/tests/live_fixture.py` 和既有 `test_live_release.py` 的最小正反例：先保存 label-only/provenance 篡改仍被拒绝的公共 CLI 证明，再补齐完整七场景合成夹具。以当前类型合同及捕获校验为依据，不复制其他 Provider 证明冒充 Google。不修改生产消费者、原生 harness、目录、模型、SDK、预算、来源选择器或已冻结授权。文件小于500行。
 
+另明确拥有 test-only `ai/e2e/testdata/process-grant-fixture/main.go` 类型桥：现有 processgrant CLI 禁止非受控模式的独立 claim，该限制保持。合成正例由既有 livegrant 类型/API 生成证明，写入前必须验证 cwd 是每例独立的 `barness-process-e2e-*` 目录，真实 Git common-dir 精确等于其自身 `.git`，拒绝 worktree、外置目录及符号链接逃逸；仅写自己的私有 bundle/store。先列全失败方式，保留缺 grant 的公共拒绝证据。不得手造 claim、放宽生产 CLI，或读取真实根 common store/凭据。
+
 不拥有 root Spec/map/05/21/22 状态；不读 `.env` 或真实 Key，不写真实 grant/store，不发厂商请求，不执行全完整普通、race、压力或正式镜像构建。root 负责合并、双轴审查、冻结完整普通及授权适用性。
 
 ## Verification
