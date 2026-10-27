@@ -15,9 +15,9 @@ v8新增36授权输入后完整普通在654750/2064/165实际exit1，637.400秒�
 
 ## Ownership
 
-单一implementer在现有native-proof独立工作树，先同步集成654750edb2e22a8700f56028c061df16487adec1。你不是唯一工作者，不得回退他人编辑；最终同步root集成tip。拥有最小ai/e2e的GLM包装器/离线包装预算与必要受控进程E2E/本地helper、说明和局部证据摘要。优先复用现有有界进程/进程组能力，避免新框架和推测抽象。文件<500行。
+单一implementer在现有native-proof独立工作树，先同步集成654750edb2e22a8700f56028c061df16487adec1。你不是唯一工作者，不得回退他人编辑；最终同步root集成tip。拥有最小ai/e2e的GLM包装器/离线包装预算与必要受控进程E2E/本地helper、说明和局部证据摘要。经真实外层取消RED后，另明确拥有既有tools/verification/run_process.py的有界进程组关闭及其公开CLI/进程回归；不新增执行器或授权框架。优先复用现有有界进程/进程组能力，避免新框架和推测抽象。文件<500行。
 
-不拥有rootSpec/map/05/21状态、任何真实授权/grant/账本/原件、全局ctxFor、生产/原生harness/库/目录/模型/SDK/预算/重试。不得读.env/真实Key、写真实commonGit授权store或发厂商请求；受控合成grants若需要只用既有私有namespace。不得编译新正式冻结镜像、全完整普通、race/压力/正式消费者或修改/激活v8权限。root负责合并/独立双轴/完整冻结与授权适用性判断。
+不拥有rootSpec/map/05/21状态、任何真实授权/grant/账本/原件、全局ctxFor、Provider生产/原生harness/库/目录/模型/SDK/预算/重试。既有采集器允许的增量仅限原有cancel/timeout/收尾的有界组关闭，不改变授权、环境、红字脱敏、输出上限或发布语义。不得读.env/真实Key、写真实commonGit授权store或发厂商请求；受控合成grants若需要只用既有私有namespace。不得编译新正式冻结镜像、全完整普通、race/压力/正式消费者或修改/激活v8权限。root负责合并/独立双轴/完整冻结与授权适用性判断。
 
 ## Verification
 
@@ -26,3 +26,5 @@ v8新增36授权输入后完整普通在654750/2064/165实际exit1，637.400秒�
 ## Comments
 
 - 2026-10-27：本次v8厂商路线0启动、0请求、0真实claim；原17grant原样未用。E2E-only修复预计不改342/407/538/539原生map及8镜像，但会改变全局普通来源，必须在实际diff冻结后独立评估，不自动重绑原v8批准pin，也不预判权限已消耗。当前停在普通阶段，无新增付费动作。
+
+- 2026-10-27：真实外层采集取消RED78e2cf88证明run.py返回后心跳40→100，单纯E2E watchdog不能等待分离的inner PG。root明确扩展ownership至既有run_process.stop有界SIGTERM→组内owner清理/静默→剩余SIGKILL及等待；先RED后改，不动原生源码/镜像/授权。Python公开CLI回归随影响纳入，实际source差异与授权适用性由root独立复核。
