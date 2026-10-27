@@ -47,7 +47,9 @@ def isolate_go_home(env, stage, out):
     env['HOME'] = str(home)
 
 
-def capture(argv, cwd, env, out, timeout, secrets):
+def capture(argv, cwd, env, out, timeout, secrets, shutdown_grace=5):
+    if not 0 < shutdown_grace <= 5:
+        raise ValueError('shutdown grace outside bounds')
     state = {'exitCode': None, 'status': 'START_FAILED', 'error': None}
     try:
         process = subprocess.Popen(argv, cwd=cwd, env=env, stdout=subprocess.PIPE,
@@ -60,15 +62,40 @@ def capture(argv, cwd, env, out, timeout, secrets):
     streams = []
     hold = max([len(x) for x in secrets] or [1]) - 1
 
-    def stop():
+    def signal_group(signum):
         try:
-            os.killpg(process.pid, signal.SIGKILL)
+            os.killpg(process.pid, signum)
+            return True
         except ProcessLookupError:
-            pass
+            return False
         except PermissionError:
             # Darwin can report EPERM for a reaped group; never target another PID.
             if process.poll() is None:
-                process.kill()
+                process.send_signal(signum)
+            return False
+
+    def stop():
+        # Nested capture owners must receive cancellation before their parent
+        # group is killed: they own separate native groups and finalize those
+        # in their SIGTERM handler. Probe only this owned group, never a global
+        # process tree. A non-cooperative member still has a finite grace. Nested owners
+        # use a shorter grace than their enclosing collector so force-killing
+        # the leaf group always precedes the outer owner deadline.
+        if not signal_group(signal.SIGTERM):
+            return
+        until = time.monotonic() + shutdown_grace
+        while time.monotonic() < until:
+            process.poll()  # Reap the direct child before probing its group.
+            try:
+                os.killpg(process.pid, 0)
+            except ProcessLookupError:
+                return
+            except PermissionError:
+                if process.poll() is not None:
+                    return
+                break
+            time.sleep(.01)
+        signal_group(signal.SIGKILL)
 
     def write(stream, block, final=False):
         stream['total'] += len(block)

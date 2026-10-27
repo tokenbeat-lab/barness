@@ -71,7 +71,7 @@ sys.path.insert(0, sys.argv[1])
 from run_process import capture
 request = json.load(sys.stdin)
 state = capture(request['argv'], Path(request['root']), dict(os.environ),
-                Path(request['out']), request['timeout'], [])
+                Path(request['out']), request['timeout'], [], shutdown_grace=2)
 print(json.dumps(state))
 `
 	cmd := exec.CommandContext(ctx, "python3", "-c", bridge, filepath.Join(root, "tools/verification"))
