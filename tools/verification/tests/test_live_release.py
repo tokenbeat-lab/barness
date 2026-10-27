@@ -55,6 +55,55 @@ class LiveQualificationProcess(Base):
                 self.assertFalse(out.exists())
                 self.assertFalse((self.repo / '.git/barness-live-process-grants').exists())
 
+    def test_claim_fixture_rejects_escaped_store_and_accepts_owned_directory(self):
+        import tempfile
+        from pathlib import Path
+        from process_support import ARTIFACT, digest, write_json
+        store = self.repo / '.git/barness-live-process-grants'
+        observations = []
+        with tempfile.TemporaryDirectory(prefix='barness-owned-store-target-') as temporary:
+            external = Path(temporary).resolve()
+            internal = self.repo / 'owned-store-target'
+            internal.mkdir()
+            for mode, target in (('external-link', external), ('internal-link', internal),
+                                 ('regular-file', None), ('owned-directory', store)):
+                with self.subTest(mode=mode):
+                    out = self.repo / ('store-boundary-' + mode)
+                    if mode.endswith('-link'):
+                        (target / 'sentinel').write_text('owned target must remain unchanged')
+                        store.symlink_to(target, target_is_directory=True)
+                    elif mode == 'regular-file':
+                        store.write_text('owned regular-file sentinel')
+                    else:
+                        store.mkdir(mode=0o700)
+                        (store / 'sentinel').write_text('owned directory remains supported')
+                    def snapshot():
+                        if mode == 'regular-file':
+                            return {'store-file': digest(store)}
+                        return {path.name: digest(path) for path in target.iterdir() if path.is_file()}
+                    before = snapshot()
+                    try:
+                        result = self.call(self.claim_fixture, '-binary', self.binary, '-out', out)
+                        after = snapshot()
+                        observations.append({'mode': mode, 'exitCode': result.returncode,
+                                             'before': before, 'after': after,
+                                             'stdout': result.stdout, 'stderr': result.stderr})
+                        if ARTIFACT:
+                            write_json(Path(ARTIFACT) / 'private-store-boundary.json', observations)
+                        if mode == 'owned-directory':
+                            self.assertEqual(result.returncode, 0, result.stderr)
+                            self.assertEqual(before['sentinel'], after['sentinel'])
+                            self.assertTrue((out / 'process-authorization-receipt.json').is_file())
+                            self.assertTrue(any(name.startswith('id-') for name in after))
+                        else:
+                            self.assertNotEqual(result.returncode, 0,
+                                                'helper accepted escaped/file store: ' + str(observations[-1]))
+                            self.assertEqual(before, after, 'helper changed an unowned store target')
+                            self.assertFalse(out.exists(), 'store validation must precede output writes')
+                    finally:
+                        if store.is_symlink() or store.is_file():
+                            store.unlink()
+
     def consume(self, bundle, out, expected=None, binary=None, env=None):
         return self.call(sys.executable, TOOLS / 'consume_live.py', '--binary', binary or self.binary,
                          '--bundle', bundle.relative_to(self.repo), '--out', out.relative_to(self.repo),
