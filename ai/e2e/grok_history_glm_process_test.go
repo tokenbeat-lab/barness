@@ -3,9 +3,9 @@ package e2e
 import (
 	"encoding/json"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
@@ -24,11 +24,15 @@ func TestGrokHistoryGLMControlledFullCapture(t *testing.T) {
 	for _, entry := range before {
 		seen[entry.Name()] = true
 	}
-	cmd := exec.CommandContext(ctxFor(t), "go", "test", "-tags", "live", "./ai/live", "-run", "^TestGLM(CandidateProcess|FormalProcess|FormalCaptureValidation)$", "-count=1", "-timeout=180s")
-	cmd.Dir, cmd.Env = "../..", append(xaiProcessEnv(t), "BARNESS_AI_EVIDENCE_DIR="+base)
-	raw, e := cmd.CombinedOutput()
-	ev.Record("process", map[string]any{"argv": cmd.Args, "output": regionalSafeOutput(raw), "success": e == nil, "vendorCalls": 0, "origin": "controlled"})
-	ev.Check("all full GLM producer and independent controlled-native checks pass", e == nil, "%s", raw)
+	root, err := filepath.Abs("../..")
+	if err != nil {
+		t.Fatal(err)
+	}
+	process := glmCapture(t, glmProcessContext(t, 4*time.Minute), root,
+		append(xaiProcessEnv(t), "BARNESS_AI_EVIDENCE_DIR="+base),
+		"go", "test", "-tags", "live", "./ai/live", "-run", "^TestGLM(CandidateProcess|FormalProcess|FormalCaptureValidation)$", "-count=1", "-timeout=180s")
+	ev.Record("process", process)
+	ev.Check("all full GLM producer and independent controlled-native checks pass", process.success(), "%s %s", process.Status, regionalSafeOutput(process.output()))
 	after, err := os.ReadDir(base)
 	if err != nil {
 		t.Fatal(err)

@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"testing"
 	"time"
@@ -17,17 +16,27 @@ import (
 // offline check can pass; this controlled fixture supplies no race authority.
 func TestGrokHistoryGLMOfflineRecordProcess(t *testing.T) {
 	ev := run.Case(t, "GROK-HISTORY-GLM-OFFLINE-RECORD")
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
-	defer cancel()
+	ctx := glmProcessContext(t, 8*time.Minute)
 	root, err := filepath.Abs("../..")
 	if err != nil {
 		t.Fatal(err)
 	}
-	cmd := exec.CommandContext(ctx, "python3", "tools/verification/run.py", "--feature", "barness-ai-grok-glm-offline", "--stage", "e2e", "--", "go", "test", "-json", "./ai/e2e", "-run", "^TestGrokHistoryGLMControlledFullCapture$", "-count=1", "-timeout=3m")
-	cmd.Dir, cmd.Env = root, xaiProcessEnv(t)
-	out, err := cmd.CombinedOutput()
-	ev.Record("producer-collector", map[string]any{"argv": cmd.Args, "output": string(out), "success": err == nil, "vendorCalls": 0})
-	if !ev.Check("actual controlled producer collector completes", err == nil, "%v %s", err, out) {
+	producerCtx, producerCancel := context.WithTimeout(ctx, 6*time.Minute)
+	defer producerCancel()
+	// Propagate a shorter caller deadline into the nested Go test as well;
+	// otherwise an outer timeout could kill its capture owner mid-finalization.
+	innerBudget := 5 * time.Minute
+	deadline, _ := producerCtx.Deadline()
+	if available := time.Until(deadline) - 2*glmProcessCleanup; available < innerBudget {
+		innerBudget = available
+	}
+	if !ev.Check("parent deadline leaves bounded child and cleanup time", innerBudget > 0, "remaining=%s", innerBudget) {
+		return
+	}
+	producer := glmCollect(t, producerCtx, root, xaiProcessEnv(t), "python3", "tools/verification/run.py", "--feature", "barness-ai-grok-glm-offline", "--stage", "e2e", "--timeout", "360", "--", "go", "test", "-json", "./ai/e2e", "-run", "^TestGrokHistoryGLMControlledFullCapture$", "-count=1", "-timeout="+innerBudget.String())
+	out := []byte(producer.Stdout)
+	ev.Record("producer-collector", producer)
+	if !ev.Check("actual controlled producer collector completes", producer.success(), "%s %s", producer.Status, regionalSafeOutput(producer.output())) {
 		return
 	}
 	var result struct {
@@ -65,18 +74,20 @@ func TestGrokHistoryGLMOfflineRecordProcess(t *testing.T) {
 		t.Fatal(err)
 	}
 	binary := filepath.Join(t.TempDir(), "releasegate")
-	build := exec.CommandContext(ctx, "go", "build", "-o", binary, "./ai/release/cmd/releasegate")
-	build.Dir, build.Env = root, xaiProcessEnv(t)
-	if output, e := build.CombinedOutput(); e != nil {
-		t.Fatalf("build: %v %s", e, output)
+	buildCtx, buildCancel := context.WithTimeout(ctx, time.Minute)
+	defer buildCancel()
+	build := glmCapture(t, buildCtx, root, xaiProcessEnv(t), "go", "build", "-o", binary, "./ai/release/cmd/releasegate")
+	ev.Record("consumer-build", build)
+	if !build.success() {
+		t.Fatalf("build: %s %s", build.Status, regionalSafeOutput(build.output()))
 	}
 	reportDir := filepath.Join(base, "consumer")
-	consume := exec.CommandContext(ctx, binary, "-record", rel(recordPath), "-out", reportDir)
-	consume.Dir, consume.Env = root, xaiProcessEnv(t)
-	output, consumeErr := consume.CombinedOutput()
+	consumeCtx, consumeCancel := context.WithTimeout(ctx, 30*time.Second)
+	defer consumeCancel()
+	consume := glmCapture(t, consumeCtx, root, xaiProcessEnv(t), binary, "-record", rel(recordPath), "-out", reportDir)
 	exit := -1
-	if consume.ProcessState != nil {
-		exit = consume.ProcessState.ExitCode()
+	if consume.ExitCode != nil {
+		exit = *consume.ExitCode
 	}
 	reportRaw, err := os.ReadFile(filepath.Join(reportDir, "release-report.json"))
 	if err != nil {
@@ -86,12 +97,12 @@ func TestGrokHistoryGLMOfflineRecordProcess(t *testing.T) {
 	if err = json.Unmarshal(reportRaw, &report); err != nil {
 		t.Fatal(err)
 	}
-	ev.Record("offline-consumer", map[string]any{"argv": consume.Args, "exit": exit, "output": string(output), "report": report})
+	ev.Record("offline-consumer", map[string]any{"process": consume, "report": report})
 	checks := map[string]bool{}
 	for _, check := range report.Checks {
 		checks[check.ID] = check.Pass
 	}
 	ev.Check("actual release consumer accepts complete offline native inventories", checks["source"] && checks["e2e"], "checks=%+v", report.Checks)
-	ev.Check("controlled evidence never supplies missing manual stages", consumeErr != nil && exit == 1 && !report.Pass && !checks["race"], "exit=%d report=%+v", exit, report)
+	ev.Check("controlled evidence never supplies missing manual stages", consume.Status == "FAIL" && consume.ContextError == "" && exit == 1 && !report.Pass && !checks["race"], "exit=%d report=%+v", exit, report)
 	ev.Check("collector independently registers the original GLM auxiliary bundle", len(receipt.Bundles) == 2, "bundles=%v", receipt.Bundles)
 }

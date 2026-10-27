@@ -117,9 +117,37 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 				var receipt release.StageReceipt
 				mustUnmarshal(t, raw, &receipt)
 				ev.Record("collector", map[string]any{"receipt": result.Attempt + "/receipt.json", "sha256": evidence.Digest(raw), "bundles": receipt.Bundles})
-				ev.Check("collector validates independent main and full32 auxiliary inventories and audits", receipt.Status == "PASS" && len(receipt.Bundles) == 2, "%+v", receipt)
+				nativeCases := 0
+				for _, bundle := range receipt.Bundles {
+					if bundle.Package != "-tags live ./ai/live" {
+						continue
+					}
+					manifest, readErr := os.ReadFile(filepath.Join(root, result.Attempt, bundle.Path, "manifest.json"))
+					if readErr != nil {
+						t.Fatal(readErr)
+					}
+					var native struct{ Cases []struct{ ID, Status string } }
+					mustUnmarshal(t, manifest, &native)
+					nativeCases = len(native.Cases)
+					for _, c := range native.Cases {
+						ev.Check("native case "+c.ID+" passed", c.Status == "PASS", "%s", c.Status)
+					}
+				}
+				ev.Check("collector validates independent main and full32 auxiliary inventories and audits", receipt.Status == "PASS" && len(receipt.Bundles) == 2 && nativeCases == 32, "bundles=%d nativeCases=%d", len(receipt.Bundles), nativeCases)
 				return
 			}
+			// Preserve the failed public wrapper's own process observation.
+			// No native bundle is invented for this cancellation countercase.
+			processFiles, _ := filepath.Glob(filepath.Join(private, "bundles", "*", "GROK-HISTORY-GLM-CONTROLLED-FULL", "process.json"))
+			var process glmProcessResult
+			if len(processFiles) == 1 {
+				raw, readErr := os.ReadFile(processFiles[0])
+				if readErr == nil {
+					_ = json.Unmarshal(raw, &process)
+				}
+				ev.Record("cancelled-capture", process)
+			}
+			ev.Check("parent context interrupts the capture owner before its fallback timeout", process.Status == "CANCELLED" && process.ContextError == context.DeadlineExceeded.Error() && process.ExitCode != nil, "%+v", process)
 			before, e := os.ReadFile(config["heartbeat"])
 			time.Sleep(200 * time.Millisecond)
 			after, e2 := os.ReadFile(config["heartbeat"])
