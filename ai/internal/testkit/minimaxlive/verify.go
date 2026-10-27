@@ -32,7 +32,7 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if e != nil {
 		return r, e
 	}
-	if (r.Mode == "live" || r.ProcessGrantSHA256 != "") && r.Identity.Model == M3 && r.Identity.Purpose == "standard" {
+	if r.ProcessGrantSHA256 != "" || r.Mode == "live" && r.Identity.Model == M3 && r.Identity.Purpose == "standard" {
 		if e = verifyProcessAuthorization(dir, r); e != nil {
 			return r, e
 		}

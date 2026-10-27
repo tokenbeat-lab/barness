@@ -25,6 +25,8 @@ Generic 六条、Zhipu 两条和国际 MiniMax 三条使用 `livegrant` 的固�
 
 国际 M3 的当前实际入口拒绝 `BARNESS_MINIMAX_FORMAL_RENEWAL` 和 `BARNESS_MINIMAX_LEDGER`，使用新 claim 所属的独立有限账本。历史 stage/renewal 原件和固定历史 pins 保留，不恢复、不改写，也不新建恢复代次。显式受控授权可走同一新单次账本进行离线验证，仍不能正式发布。
 
+MiniMax 公共资格器按证据所用的授权合同分派：含 `processGrantSha256` 的新进程必须通过完整 fresh scope、原始授权、权威双 claim、同 session 独立账本及全部捕获/来源/场景校验，不再借读旧批次的 launcher origin。任意 fresh 标记都进入严格 scope 校验，不能给其他型号或账户用途跳过来源检查；缺失、篡改或混合历史 renewal 的 fresh 证据不回退旧 origin。没有 fresh 标记的历史实际证据仍先校验其原始外部 origin。这个分派不降低正式 live/完整终态、推理、价格/用量或 artifact 校验，受控与 replay 仍不产生正式资格。
+
 | 族 | 唯一所选 credential | 新授权及非秘密配置 |
 | --- | --- | --- |
 | Generic | `BARNESS_AI_LIVE_KEY_<ROUTE>` | `BARNESS_AI_LIVE_PERMISSIONS_FILE`、`BARNESS_AI_LIVE_ACCOUNT_ALIAS`、`BARNESS_AI_LIVE_REGION_ALIAS`；显式 `BARNESS_AI_LIVE_PROXY` |
