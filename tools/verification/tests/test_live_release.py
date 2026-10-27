@@ -133,6 +133,32 @@ class LiveQualificationProcess(Base):
         self.gate(0)
         self.assertEqual(before, {str(p.relative_to(bundle)): digest(p) for p in bundle.rglob('*') if p.is_file()})
 
+    def test_chat_history_requires_complete_host_provenance_and_downgrade_proof(self):
+        from live_fixture import chat_bundle, refresh_chat_receipt
+        from process_support import write_json
+        for mode in ('label-only', 'provenance', 'downgrade'):
+            with self.subTest(mode=mode):
+                bundle, stage, _ = chat_bundle(self)
+                case = bundle / 'xai-origin-history'
+                self.assertTrue(case.is_dir(), 'complete mandatory history fixture is missing')
+                if mode == 'label-only':
+                    for name in ('public-request.json', 'immutable-input.json', 'history-provenance.json'):
+                        (case / name).unlink()
+                if mode == 'provenance':
+                    path = case / 'history-provenance.json'
+                    value = json.loads(path.read_text())
+                    value['after'][0]['accountScopeId'] = 'different-source'
+                    write_json(path, value)
+                if mode == 'downgrade':
+                    path = case / 'attempt-1-call-result.json'
+                    value = json.loads(path.read_text())
+                    value['result']['metadata']['nativeStateDowngrades'] = {}
+                    write_json(path, value)
+                    write_json(case / 'observations-attempt-1-call.json',
+                               [{'kind': 'call_finished', 'call': value['result']['metadata']}])
+                refresh_chat_receipt(bundle, stage)
+                self.consume(bundle, bundle.parent.parent / ('history-invalid-' + mode), expected=1)
+
     def test_zero_call_pass_labels_do_not_substitute_for_native_live_qualification(self):
         from process_support import digest
         bundle, stage, _ = live_bundle(self)
