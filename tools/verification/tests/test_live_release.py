@@ -160,7 +160,7 @@ class LiveQualificationProcess(Base):
                 if mode == 'reused-call':
                     for p in (bundle / 'text-complete').glob('*call*.json'):
                         p.write_bytes((case / p.name).read_bytes())
-                if mode == 'wrong-counters': report['budget']['httpAttempts'] = 7
+                if mode == 'wrong-counters': report['budget']['httpAttempts'] += 1
                 write_json(bundle / 'live-report.json', report)
                 refresh_chat_receipt(bundle, stage)
                 out = bundle.parent.parent / ('consumer-chat-' + mode)
