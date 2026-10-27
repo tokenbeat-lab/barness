@@ -1,0 +1,404 @@
+{
+  "actualLiveStatusUnchanged": {
+    "v6MiniMaxChat": "QUALIFICATION_FAILED",
+    "v6MiniMaxMessages": "FAIL",
+    "v6MiniMaxResponses": "QUALIFICATION_FAILED"
+  },
+  "attempts": [
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshAuthorityConsumerProcess$",
+        "-count=1",
+        "-timeout=300s"
+      ],
+      "bundles": [],
+      "defaultSourceFileCount": 2064,
+      "elapsedSeconds": 0.6587638333439827,
+      "error": "expected exactly one primary native bundle",
+      "exitCode": 1,
+      "files": [
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T001930.129578Z-enu5c0_u/command.json",
+          "sha256": "96e391e6ca15d14e1090d772482c319dbd9aae8a20353e5aa3d05db3f145580b"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T001930.129578Z-enu5c0_u/exit-code",
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T001930.129578Z-enu5c0_u/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T001930.129578Z-enu5c0_u/stdout.jsonl",
+          "sha256": "9320a8945034ef51cf25c715405d46f294a2c5ed7e3d4c4f91ef8dfc060e090f"
+        }
+      ],
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261027T001930.129578Z-enu5c0_u/receipt.json",
+        "sha256": "f0d9193227826cb4efad95da8cd765f96846a7e3bdbae74321ea1306a2059235"
+      },
+      "status": "FAIL",
+      "testedCommit": "507601386083f1d21d83875a8ce46c892117ed54"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshAuthorityConsumerProcess$",
+        "-count=1",
+        "-timeout=300s"
+      ],
+      "bundles": [],
+      "defaultSourceFileCount": 2064,
+      "elapsedSeconds": 10.633263290859759,
+      "error": "invalid case outcome",
+      "exitCode": 1,
+      "files": [
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/command.json",
+          "sha256": "96e391e6ca15d14e1090d772482c319dbd9aae8a20353e5aa3d05db3f145580b"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/exit-code",
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/stdout.jsonl",
+          "sha256": "92a976a19ad7ac91a26dd463c264b3b55a24f5caa0d176c00e5aa5322ad29530"
+        }
+      ],
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261027T002003.383570Z-6s9u5c6q/receipt.json",
+        "sha256": "a367dd2fed9084b4aeb65a9e56d250b9ced6b11192e7ecb4f551be8e129d4064"
+      },
+      "status": "FAIL",
+      "testedCommit": "507601386083f1d21d83875a8ce46c892117ed54"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshAuthorityConsumerProcess$",
+        "-count=1",
+        "-timeout=300s"
+      ],
+      "bundles": [],
+      "defaultSourceFileCount": 2064,
+      "elapsedSeconds": 10.09877433301881,
+      "error": "invalid case outcome",
+      "exitCode": 1,
+      "files": [
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/command.json",
+          "sha256": "96e391e6ca15d14e1090d772482c319dbd9aae8a20353e5aa3d05db3f145580b"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/exit-code",
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/stdout.jsonl",
+          "sha256": "04c03e7bdbfdbdf9b7c34e2f4db5a960cd8c5806a0738f36bbef08f5b1f7a005"
+        }
+      ],
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261027T002106.278395Z-vqrfo8md/receipt.json",
+        "sha256": "c954ce5e0810c74ed00e5747c227c5e229167e5d343a5c5ee7658ccaf447a6be"
+      },
+      "status": "FAIL",
+      "testedCommit": "507601386083f1d21d83875a8ce46c892117ed54"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshAuthorityConsumerProcess$",
+        "-count=1",
+        "-timeout=300s"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/bundles/20261027T002221.179702000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": 45,
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/bundles/20261027T002221.179702000Z/manifest.json",
+            "sha256": "2b17e59082181c8612bc9e8cda553f2088243946c8d6ef0f286fdbe0624f9ddd"
+          },
+          "maxCaseArtifacts": 7,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/bundles/20261027T002221.179702000Z",
+          "statusCounts": {
+            "PASS": 45
+          }
+        }
+      ],
+      "defaultSourceFileCount": 2064,
+      "elapsedSeconds": 16.545567207969725,
+      "error": null,
+      "exitCode": 0,
+      "files": [
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/command.json",
+          "sha256": "96e391e6ca15d14e1090d772482c319dbd9aae8a20353e5aa3d05db3f145580b"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/exit-code",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/stdout.jsonl",
+          "sha256": "9574f0d04a2fcbce87f15b28c8bfc63568f82544116bf2922ce9b5610ef0b7fc"
+        }
+      ],
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261027T002216.252714Z-3_w9qeve/receipt.json",
+        "sha256": "b75206c31ad7b0c1cee3f4f65726f087690a052d35e69aa0889c784546e7899c"
+      },
+      "status": "PASS",
+      "testedCommit": "0a16084f67751bbc906c2795842bdd4f37207eac"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(MiniMaxFreshAuthorityConsumerProcess|GrokHistoryMiniMaxFreshLedger|MiniMaxFreshLedgerIsolationProcess|MiniMaxReasoningProbeProcess|MiniMaxLiveEvidenceTools)$",
+        "-count=1",
+        "-timeout=420s"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/bundles/20261027T002352.376598000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": 53,
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/bundles/20261027T002352.376598000Z/manifest.json",
+            "sha256": "bf6bc77e4b0aadde8b9afaa2ec2db1722801e9b15bcc7b7742fd3e3faedad686"
+          },
+          "maxCaseArtifacts": 13,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/bundles/20261027T002352.376598000Z",
+          "statusCounts": {
+            "PASS": 53
+          }
+        },
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/bundles/20261027T002428.411415000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": 6,
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/bundles/20261027T002428.411415000Z/manifest.json",
+            "sha256": "6dbd13128537bb126ad10313da21dd94e53b589c7d79c08608a97cebb994b506"
+          },
+          "maxCaseArtifacts": 3,
+          "package": "-tags live ./ai/live",
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/bundles/20261027T002428.411415000Z",
+          "statusCounts": {
+            "PASS": 6
+          }
+        }
+      ],
+      "defaultSourceFileCount": 2064,
+      "elapsedSeconds": 44.167955209035426,
+      "error": null,
+      "exitCode": 0,
+      "files": [
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/command.json",
+          "sha256": "1ce26ca31da65f3c793204a9da56552c58d2970de4aa2ac9dfc58e6a5013117c"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/exit-code",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/stdout.jsonl",
+          "sha256": "b102ac846fb64523072cca827c36348dd14d08d906e73d9a8d4dc6a3e9f59a98"
+        }
+      ],
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261027T002348.643787Z-w9xxbtbz/receipt.json",
+        "sha256": "b661a32704a1459d2aff97e99135dad19443f439ada785c60f383aec5a3038d2"
+      },
+      "status": "PASS",
+      "testedCommit": "5dd263f87a2296e7bc8d574799b4bd2c20c50c74"
+    }
+  ],
+  "changes": {
+    "contract": "docs/barness-ai/legacy-history-qualification.md",
+    "contractSHA256": "be56be93a418bd2cb0d880ba1da90f32d61f9a8e19fd0a566100090cacd3debb",
+    "runtime": [
+      "ai/internal/testkit/minimaxlive/origin.go",
+      "ai/internal/testkit/minimaxlive/verify.go"
+    ],
+    "tests": [
+      "ai/e2e/minimax_authority_fixture_test.go",
+      "ai/e2e/minimax_authority_process_test.go"
+    ]
+  },
+  "currentCommit": "48a45f36be65363b3debb8b5ab6c0c65c717c838",
+  "currentSourceContentEqualsTestedGreen": true,
+  "fixCommit": "5dd263f87a2296e7bc8d574799b4bd2c20c50c74",
+  "kind": "synthetic-public-minimax-authority-dispatch-regression",
+  "negativeContracts": [
+    "missing or changed grant",
+    "missing or mismatched claim",
+    "foreign canonical claim namespace",
+    "mixed renewal",
+    "foreign identity",
+    "changed source",
+    "authoritative ledger differs",
+    "missing scene",
+    "changed terminal with rehashed artifact",
+    "changed seal",
+    "legacy report still needs original origin",
+    "controlled never formal"
+  ],
+  "next": [
+    "Independent Standards/Spec review",
+    "Root complete affected ordinary at final source/input pin",
+    "Fresh live applicability/authorization assessment",
+    "No automatic race, pressure or publication"
+  ],
+  "recordedAt": "2026-10-27T00:26:48.949242+00:00",
+  "redCommit": "0a16084f",
+  "safety": {
+    "actualVendorRequests": 0,
+    "realCredentialsRead": false,
+    "realUserApprovalClaims": 0,
+    "syntheticPrivateClaims": "Explicit synthetic controlled and verifier-contract grants consumed only under private Git namespaces; own guards and ledgers captured in main artifacts. Synthetic formal outputs are mechanisms, not actual vendor proof."
+  },
+  "schema": 1,
+  "scope": {
+    "existingGLMAuxiliary": "NOT_SELECTED in this targeted regression; root full ordinary owns it",
+    "newAuxiliaryCases": [],
+    "newRequiredCaseCount": 45,
+    "newRequiredCases": [
+      "MM20-fresh-authority-chat",
+      "MM20-fresh-authority-chat-changed-grant",
+      "MM20-fresh-authority-chat-changed-session",
+      "MM20-fresh-authority-chat-controlled",
+      "MM20-fresh-authority-chat-foreign-identity",
+      "MM20-fresh-authority-chat-ledger-change",
+      "MM20-fresh-authority-chat-legacy-without-fresh",
+      "MM20-fresh-authority-chat-missing-claim",
+      "MM20-fresh-authority-chat-missing-grant",
+      "MM20-fresh-authority-chat-missing-scene",
+      "MM20-fresh-authority-chat-mixed-renewal",
+      "MM20-fresh-authority-chat-seal-change",
+      "MM20-fresh-authority-chat-source-change",
+      "MM20-fresh-authority-chat-terminal-change",
+      "MM20-fresh-authority-chat-untrusted-claim",
+      "MM20-fresh-authority-messages",
+      "MM20-fresh-authority-messages-changed-grant",
+      "MM20-fresh-authority-messages-changed-session",
+      "MM20-fresh-authority-messages-controlled",
+      "MM20-fresh-authority-messages-foreign-identity",
+      "MM20-fresh-authority-messages-ledger-change",
+      "MM20-fresh-authority-messages-legacy-without-fresh",
+      "MM20-fresh-authority-messages-missing-claim",
+      "MM20-fresh-authority-messages-missing-grant",
+      "MM20-fresh-authority-messages-missing-scene",
+      "MM20-fresh-authority-messages-mixed-renewal",
+      "MM20-fresh-authority-messages-seal-change",
+      "MM20-fresh-authority-messages-source-change",
+      "MM20-fresh-authority-messages-terminal-change",
+      "MM20-fresh-authority-messages-untrusted-claim",
+      "MM20-fresh-authority-responses",
+      "MM20-fresh-authority-responses-changed-grant",
+      "MM20-fresh-authority-responses-changed-session",
+      "MM20-fresh-authority-responses-controlled",
+      "MM20-fresh-authority-responses-foreign-identity",
+      "MM20-fresh-authority-responses-ledger-change",
+      "MM20-fresh-authority-responses-legacy-without-fresh",
+      "MM20-fresh-authority-responses-missing-claim",
+      "MM20-fresh-authority-responses-missing-grant",
+      "MM20-fresh-authority-responses-missing-scene",
+      "MM20-fresh-authority-responses-mixed-renewal",
+      "MM20-fresh-authority-responses-seal-change",
+      "MM20-fresh-authority-responses-source-change",
+      "MM20-fresh-authority-responses-terminal-change",
+      "MM20-fresh-authority-responses-untrusted-claim"
+    ],
+    "publicRoot": "TestMiniMaxFreshAuthorityConsumerProcess",
+    "selectedRegressionMM18AuxiliaryCases": 6,
+    "selectedRegressionMainCases": 53
+  },
+  "sourceApplicability": {
+    "defaultSourceFiles": 2064,
+    "globalLiveSourceStatus": "NOT_RUN at changed source; v6 actual PASS/FAIL/qualification refusals retained",
+    "nativeFamilies": {
+      "glm": {
+        "changedPaths": [],
+        "fileCount": 342,
+        "oldPaidProofApplicableToNewSource": "GLM native map unchanged; global-stage/selected-input applicability is a separate decision"
+      },
+      "minimax": {
+        "changedPaths": [
+          "ai/internal/testkit/minimaxlive/origin.go",
+          "ai/internal/testkit/minimaxlive/verify.go"
+        ],
+        "fileCount": 407,
+        "oldPaidProofApplicableToNewSource": false
+      },
+      "regional": {
+        "changedPaths": [
+          "ai/internal/testkit/minimaxlive/origin.go",
+          "ai/internal/testkit/minimaxlive/verify.go"
+        ],
+        "fileCount": 538,
+        "oldPaidProofApplicableToNewSource": false
+      },
+      "xai": {
+        "changedPaths": [
+          "ai/internal/testkit/minimaxlive/origin.go",
+          "ai/internal/testkit/minimaxlive/verify.go"
+        ],
+        "fileCount": 539,
+        "oldPaidProofApplicableToNewSource": false
+      }
+    },
+    "newPaidAuthorityOrQualificationCreated": false
+  },
+  "ticket": "issues/20-minimax-fresh-authority-dispatch.md"
+}
