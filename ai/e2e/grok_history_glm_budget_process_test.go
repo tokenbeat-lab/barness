@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"syscall"
 	"testing"
@@ -39,7 +40,7 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 		t.Fatalf("locate test2json: %v", err)
 	}
 	test2json := strings.TrimSpace(string(output))
-	for _, mode := range []string{"slow-start", "cancel-tree", "collector-cancel"} {
+	for _, mode := range []string{"slow-start", "cancel-tree", "collector-cancel", "collector-force"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "GROK-HISTORY-GLM-BUDGET-"+strings.ToUpper(mode))
 			private := t.TempDir()
@@ -99,7 +100,7 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 			cmd.Stdout, cmd.Stderr = stdout, stderr
 			start := time.Now()
 			var runErr error
-			if mode == "collector-cancel" {
+			if strings.HasPrefix(mode, "collector-") {
 				if err := cmd.Start(); err != nil {
 					t.Fatal(err)
 				}
@@ -185,6 +186,25 @@ func TestGrokHistoryGLMProcessBudget(t *testing.T) {
 			time.Sleep(200 * time.Millisecond)
 			after, e2 := os.ReadFile(config["heartbeat"])
 			ev.Record("descendant", map[string]any{"beforeBytes": len(before), "afterBytes": len(after), "unchanged": string(before) == string(after)})
+			var pids []int
+			pidRaw, _ := os.ReadFile(config["pids"])
+			_ = json.Unmarshal(pidRaw, &pids)
+			names := make([]string, len(pids))
+			for i, pid := range pids {
+				names[i] = strconv.Itoa(pid)
+			}
+			inspect := exec.Command("ps", "-p", strings.Join(names, ","), "-o", "pid=,stat=")
+			inspect.Env = xaiProcessEnv(t)
+			states, inspectErr := inspect.CombinedOutput()
+			active := false
+			for _, line := range strings.Split(string(states), "\n") {
+				fields := strings.Fields(line)
+				if len(fields) == 2 && !strings.HasPrefix(fields[1], "Z") {
+					active = true
+				}
+			}
+			ev.Record("owned-descendants", map[string]any{"pids": pids, "argv": inspect.Args, "states": string(states), "exitCode": inspect.ProcessState.ExitCode()})
+			ev.Check("owned proxy and heartbeat have no running process before cleanup", len(pids) == 2 && !active && (inspectErr == nil || inspect.ProcessState.ExitCode() == 1), "pids=%v states=%s error=%v", pids, states, inspectErr)
 			ev.Check("parent deadline rejects incomplete native capture", runErr != nil, "exit=%v", runErr)
 			ev.Check("wrapper returns before Go's emergency test timeout", elapsed < 14*time.Second && !strings.Contains(string(out), "test timed out"), "elapsed=%s", elapsed)
 			ev.Check("all descendant writers stop before wrapper returns without inherited-pipe hang", e == nil && e2 == nil && len(before) > 0 && string(before) == string(after), "before=%d after=%d errors=%v,%v", len(before), len(after), e, e2)

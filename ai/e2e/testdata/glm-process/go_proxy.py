@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+import signal
 import subprocess
 import sys
 import time
@@ -18,14 +19,18 @@ if config['mode'] == 'slow-start':
     os.execv(config['go'], [config['go'], *args])
 # The heartbeat inherits both pipes and the process group, just like a native
 # test executable under `go test`. It must stop before its wrapper returns.
+if config['mode'] == 'collector-force':
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
 child = subprocess.Popen([sys.executable, '-c', '''
 from pathlib import Path
-import sys, time
+import signal, sys, time
+if sys.argv[2] == 'collector-force':
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
 path = Path(sys.argv[1])
 while True:
     with path.open('a') as out:
         out.write('heartbeat\\n')
     time.sleep(.03)
-''', config['heartbeat']])
+''', config['heartbeat'], config['mode']])
 Path(config['pids']).write_text(json.dumps([os.getpid(), child.pid]))
 child.wait()

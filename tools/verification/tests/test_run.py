@@ -196,3 +196,15 @@ class StageRunProcess(ProcessCase):
             with self.subTest(package=package):
                 self.call(sys.executable, TOOLS / 'run.py', '--feature', 'sample', '--stage', 'live', '--route', 'deepseek-chat',
                           '--', sys.executable, TOOLS / 'tests/fixture_child.py', 'live', package, env=env, expected=1)
+
+    def test_timeout_force_kills_non_cooperative_owned_child(self):
+        import time
+        started = time.monotonic()
+        self.call(sys.executable, TOOLS / 'run.py', '--feature', 'sample', '--stage', 'e2e',
+                  '--timeout', '0.3', '--', sys.executable, TOOLS / 'tests/fixture_child.py',
+                  'ignore-term', expected=1, timeout=10)
+        receipt = json.loads(self.attempts()[0].read_text())
+        self.assertTrue((self.repo / 'ignore-term.pid').is_file())
+        self.assertEqual(receipt['status'], 'TIMEOUT')
+        self.assertEqual(receipt['exitCode'], -9)
+        self.assertLess(time.monotonic() - started, 9)
