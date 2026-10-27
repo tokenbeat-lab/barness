@@ -6,6 +6,42 @@ from test_release import ReleaseRecordProcess as Base
 
 # Inherited setup builds the actual public CLI. All records live in a fake repository.
 class LiveQualificationProcess(Base):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        import subprocess
+        from process_support import safe_environment
+        from test_release import PROJECT
+        cls.claim_fixture = cls.build.name + '/process-grant-fixture'
+        built = subprocess.run(['go', 'build', '-o', cls.claim_fixture,
+                                './ai/e2e/testdata/process-grant-fixture'], cwd=PROJECT,
+                               env=safe_environment(), capture_output=True, text=True, timeout=180)
+        if built.returncode:
+            raise RuntimeError(built.stderr)
+
+    def test_claim_fixture_rejects_unowned_git_and_output_boundaries(self):
+        targets = []
+        ordinary = self.repo / 'ordinary-checkout'
+        ordinary.mkdir()
+        targets.append((ordinary, ordinary / 'bundle'))
+        linked = self.repo / 'barness-process-e2e-linked'
+        self.call('git', 'worktree', 'add', '--detach', str(linked), 'HEAD', expected=0)
+        targets.append((linked, linked / 'bundle'))
+        symbolic = self.repo / 'barness-process-e2e-symbolic'
+        symbolic.mkdir()
+        (symbolic / '.git').symlink_to(self.repo / '.git', target_is_directory=True)
+        targets.append((symbolic, symbolic / 'bundle'))
+        targets.append((self.repo, self.repo.parent / ('outside-' + self.repo.name)))
+        (self.repo / 'escape').symlink_to(self.repo.parent, target_is_directory=True)
+        targets.append((self.repo, self.repo / 'escape' / 'bundle'))
+        for cwd, out in targets:
+            with self.subTest(cwd=cwd.name, out=str(out)):
+                self.call(sys.executable, '-c',
+                          'import os,sys; os.chdir(sys.argv[1]); os.execv(sys.argv[2],sys.argv[2:])',
+                          cwd, self.claim_fixture, '-binary', self.binary, '-out', out, expected=1)
+                self.assertFalse(out.exists())
+                self.assertFalse((self.repo / '.git/barness-live-process-grants').exists())
+
     def consume(self, bundle, out, expected=None, binary=None, env=None):
         return self.call(sys.executable, TOOLS / 'consume_live.py', '--binary', binary or self.binary,
                          '--bundle', bundle.relative_to(self.repo), '--out', out.relative_to(self.repo),
@@ -136,11 +172,13 @@ class LiveQualificationProcess(Base):
     def test_chat_history_requires_complete_host_provenance_and_downgrade_proof(self):
         from live_fixture import chat_bundle, refresh_chat_receipt
         from process_support import write_json
-        for mode in ('label-only', 'provenance', 'downgrade'):
+        for mode in ('missing-grant', 'label-only', 'provenance', 'downgrade'):
             with self.subTest(mode=mode):
                 bundle, stage, _ = chat_bundle(self)
                 case = bundle / 'xai-origin-history'
                 self.assertTrue(case.is_dir(), 'complete mandatory history fixture is missing')
+                if mode == 'missing-grant':
+                    (bundle / 'process-grant.json').unlink()
                 if mode == 'label-only':
                     for name in ('public-request.json', 'immutable-input.json', 'history-provenance.json'):
                         (case / name).unlink()
