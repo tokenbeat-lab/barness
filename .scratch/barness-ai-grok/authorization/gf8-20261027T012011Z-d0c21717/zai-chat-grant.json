@@ -1,0 +1,26 @@
+{
+  "accountAlias": "ZAI",
+  "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+  "catalogVersion": "2026-10-26.1",
+  "combo": "zai-chat",
+  "contract": "provider-sites/zai-chat/standard/v1",
+  "endpoint": "https://api.z.ai/api/paas/v4",
+  "expiresAt": "2026-10-27T13:20:11.395960Z",
+  "id": "gf8-20261027T012011Z-d0c21717-07",
+  "maxAttempts": 24,
+  "maxCalls": 24,
+  "maxRequestedOutputTokens": 98304,
+  "maxReservedInputTokens": 120000,
+  "mode": "live",
+  "models": [
+    "glm-5.3",
+    "glm-5.2"
+  ],
+  "provider": "zai",
+  "purpose": "standard",
+  "regionAlias": "global",
+  "schema": 1,
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "sourceSha256": "3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b",
+  "stage": "formal"
+}

@@ -1,0 +1,44 @@
+{
+  "accountAlias": "MINIMAX",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/minimax-live.test",
+    "-test.run=^TestMiniMaxFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/authorization.json",
+    "sha256": "2478dadbf97a25f815bf329c5aef707388796c5d6b60e2ac781453990d614f59"
+  },
+  "credentialEnvironment": "BARNESS_MINIMAX_KEY",
+  "credentialSource": ".env:MINIMAX_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_MINIMAX_ACCOUNT_ALIAS": "MINIMAX",
+    "BARNESS_MINIMAX_ENTITLEMENT": "confirmed",
+    "BARNESS_MINIMAX_FORMAL": "1",
+    "BARNESS_MINIMAX_GRANT": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/minimax-chat-grant.json",
+    "BARNESS_MINIMAX_MODEL": "MiniMax-M3",
+    "BARNESS_MINIMAX_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_MINIMAX_PURPOSE": "standard",
+    "BARNESS_MINIMAX_REGION_ALIAS": "global",
+    "BARNESS_MINIMAX_ROUTE": "chat"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/minimax-chat-grant.json",
+    "sha256": "2f48df49af27b2f1eef372e9bff97ab8c8ff98a3e8a811322fe4813b831b028d"
+  },
+  "grantEnvironment": "BARNESS_MINIMAX_GRANT",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=6c4dd6adb51172c4673b99d11cbc49b1822015b5778538994d17cc5cf51d6d0c",
+    "nativeSourceSha256": "6c4dd6adb51172c4673b99d11cbc49b1822015b5778538994d17cc5cf51d6d0c",
+    "path": ".evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/minimax-live.test",
+    "sha256": "ad3ee72f76cc87d7262c016e8e762fb2eb66a95d9f4aa6e0af6ab5338de6b11b"
+  },
+  "regionAlias": "global",
+  "route": "minimax-chat",
+  "schema": 1
+}

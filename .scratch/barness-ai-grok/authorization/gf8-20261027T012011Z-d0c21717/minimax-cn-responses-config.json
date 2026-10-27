@@ -1,0 +1,40 @@
+{
+  "accountAlias": "MINIMAX_CN",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/generic-regional-live.test",
+    "-test.run=^TestRegionalFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/authorization.json",
+    "sha256": "2478dadbf97a25f815bf329c5aef707388796c5d6b60e2ac781453990d614f59"
+  },
+  "credentialEnvironment": "BARNESS_REGIONAL_KEY",
+  "credentialSource": ".env:MINIMAX_CN_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_REGIONAL_GRANT": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/minimax-cn-responses-grant.json",
+    "BARNESS_REGIONAL_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_REGIONAL_ROUTE": "minimax-cn-responses",
+    "BARNESS_REGIONAL_SERVICE": "minimax-cn",
+    "BARNESS_REGIONAL_STAGE": "formal"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/minimax-cn-responses-grant.json",
+    "sha256": "cb77a68e481ac0bb1cc0b34a3aac69b7073b26fc246f30af5cc28cd66f9b5977"
+  },
+  "grantEnvironment": "BARNESS_REGIONAL_GRANT",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b -X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b",
+    "nativeSourceSha256": "3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b",
+    "path": ".evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/generic-regional-live.test",
+    "sha256": "eb2ddee277d2bb4e70c837c60dce0f5d6669222e5be9d7e473a599b538e41fd8"
+  },
+  "regionAlias": "cn",
+  "route": "minimax-cn-responses",
+  "schema": 1
+}

@@ -1,0 +1,48 @@
+{
+  "accountAlias": "MINIMAX",
+  "expiresAt": "2026-10-27T13:20:11.395960Z",
+  "id": "gf8-20261027T012011Z-d0c21717-16",
+  "regionAlias": "global",
+  "schema": 1,
+  "scope": {
+    "api": "openai-responses",
+    "binarySha256": "ad3ee72f76cc87d7262c016e8e762fb2eb66a95d9f4aa6e0af6ab5338de6b11b",
+    "callSeconds": 120,
+    "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+    "catalogVersion": "2026-10-26.1",
+    "endpoint": "https://api.minimax.io/v1",
+    "maxAttempts": 24,
+    "maxCalls": 20,
+    "maxOutputTokens": 4096,
+    "maxRequestReruns": 3,
+    "maxRequestedOutputTokens": 40000,
+    "maxReservedInputTokens": 120000,
+    "maxRetries": 1,
+    "mode": "live",
+    "models": [
+      "MiniMax-M3"
+    ],
+    "processSeconds": 1800,
+    "provider": "minimax",
+    "route": "minimax-responses",
+    "scenes": [
+      "full-stream",
+      "full-complete",
+      "simple-stream",
+      "simple-complete",
+      "thinking-on",
+      "thinking-control",
+      "tool-call",
+      "tool-result-native",
+      "truncate",
+      "cache-first",
+      "cache-repeat",
+      "cancel",
+      "preflight-error",
+      "xai-origin-history"
+    ],
+    "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+    "sourceSha256": "6c4dd6adb51172c4673b99d11cbc49b1822015b5778538994d17cc5cf51d6d0c",
+    "stage": "formal"
+  }
+}

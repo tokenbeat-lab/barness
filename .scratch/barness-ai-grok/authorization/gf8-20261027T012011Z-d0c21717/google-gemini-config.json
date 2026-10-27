@@ -1,0 +1,40 @@
+{
+  "accountAlias": "GOOGLE",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/generic-regional-live.test",
+    "-test.run=^TestLive$/^google-gemini$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/authorization.json",
+    "sha256": "2478dadbf97a25f815bf329c5aef707388796c5d6b60e2ac781453990d614f59"
+  },
+  "credentialEnvironment": "BARNESS_AI_LIVE_KEY_GOOGLE_GEMINI",
+  "credentialSource": ".env:GEMINI_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_AI_LIVE_ACCOUNT_ALIAS": "GOOGLE",
+    "BARNESS_AI_LIVE_COMBO": "google-gemini",
+    "BARNESS_AI_LIVE_PERMISSIONS_FILE": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/google-gemini-grant.json",
+    "BARNESS_AI_LIVE_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_AI_LIVE_REGION_ALIAS": "global"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/google-gemini-grant.json",
+    "sha256": "fbf92a91a9e484489b770ef5ebb871e0daea0ee85e5c503622b936aa75722e77"
+  },
+  "grantEnvironment": "BARNESS_AI_LIVE_PERMISSIONS_FILE",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b -X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b",
+    "nativeSourceSha256": "3e4bbfba55698484a035ae3e5fb305ea20cf1ad09b59b74c3b45d5bf4ec8a14b",
+    "path": ".evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/generic-regional-live.test",
+    "sha256": "eb2ddee277d2bb4e70c837c60dce0f5d6669222e5be9d7e473a599b538e41fd8"
+  },
+  "regionAlias": "global",
+  "route": "google-gemini",
+  "schema": 1
+}
