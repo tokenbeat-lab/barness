@@ -53,3 +53,5 @@
 - [20已解决](issues/20-minimax-fresh-authority-dispatch.md)：fresh/legacy分派保持严格原生验证，公开CLI45新case和既有53主/6辅助PASS，v15双轴0/0；实际10326/2064来源完整16,033测试/1568主/129入口/38辅助PASS。05等待[计划v8](formal-live-plan-v8.md)新一次17付费授权；06人工阶段后置。旧v6及全部失败/guard保持，不自动重跑。
 
 - v8获17一次授权但165匹配普通实际FAIL：两GLM公共包装10秒截断，native32断言PASS仍无完整定稿且有晚写。新[21](issues/21-glm-controlled-process-budget.md)修测试时限/子树终止；真实路线0启动/0调用/0claim，原权限未用且不得自动重绑，05被21阻塞。
+
+- 21局部GLM/取消回归已取得实际通过；完整工具49项出现旧Google合成夹具缺Grok历史证明的公开CLI失败，拆[22](issues/22-tool-fixture-grok-history.md)仅修夹具并保持消费者严格拒绝。05同时被21/22及后续完整冻结验证阻塞，当前正式资格仍见spec唯一状态。
