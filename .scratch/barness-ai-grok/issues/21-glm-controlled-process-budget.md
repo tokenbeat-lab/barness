@@ -1,7 +1,7 @@
 # GLM 受控子进程时限与终止边界
 
 Type: task
-Status: claimed
+Status: resolved
 
 ## Contract
 
@@ -28,3 +28,7 @@ v8新增36授权输入后完整普通在654750/2064/165实际exit1，637.400秒�
 - 2026-10-27：本次v8厂商路线0启动、0请求、0真实claim；原17grant原样未用。E2E-only修复预计不改342/407/538/539原生map及8镜像，但会改变全局普通来源，必须在实际diff冻结后独立评估，不自动重绑原v8批准pin，也不预判权限已消耗。当前停在普通阶段，无新增付费动作。
 
 - 2026-10-27：真实外层采集取消RED78e2cf88证明run.py返回后心跳40→100，单纯E2E watchdog不能等待分离的inner PG。root明确扩展ownership至既有run_process.stop有界SIGTERM→组内owner清理/静默→剩余SIGKILL及等待；先RED后改，不动原生源码/镜像/授权。Python公开CLI回归随影响纳入，实际source差异与授权适用性由root独立复核。
+
+## Answer
+
+软件修复已完成，公开过程真实RED/GREEN、v17独立双轴0/0；实际dcf73abd6740d2107352909ba3cd3d07ad6684fb/2068/175完整四包16,038个Go测试、1572主必交/130入口及32+6辅助全部PASS，665.060秒/exit0/audit0。完整Python工具52/52通过，源字节适用性独立核验。[完整核验](../../../.evidence/barness-ai-grok/live-batches/gf8-20261027T012011Z-d0c21717/ordinary-validation-glm21-preconsent.json)及[当前状态](../spec.md#唯一当前状态)。软件关闭不消耗或重绑原未用v8权限，不产生本源真实支持资格；全部失败及原v16P2保留。

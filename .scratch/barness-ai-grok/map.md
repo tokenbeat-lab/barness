@@ -55,3 +55,5 @@
 - v8获17一次授权但165匹配普通实际FAIL：两GLM公共包装10秒截断，native32断言PASS仍无完整定稿且有晚写。新[21](issues/21-glm-controlled-process-budget.md)修测试时限/子树终止；真实路线0启动/0调用/0claim，原权限未用且不得自动重绑，05被21阻塞。
 
 - 21局部GLM/取消回归已取得实际通过；完整工具49项出现旧Google合成夹具缺Grok历史证明的公开CLI失败，拆[22](issues/22-tool-fixture-grok-history.md)仅修夹具并保持消费者严格拒绝。05同时被21/22及后续完整冻结验证阻塞，当前正式资格仍见spec唯一状态。
+
+- [21](issues/21-glm-controlled-process-budget.md)/[22](issues/22-tool-fixture-grok-history.md)软件已解决：有界预算/子树释放、严格Google合成历史及私有store，v17两轴0/0、52工具PASS；实际175完整四包16,038测试/1572主/130入口/38辅助PASS。05等待[原未用v8来源绑定补充](formal-live-source-amendment-v8.md)，不新增付费额度；06人工阶段后置，历史511/507不变。

@@ -1,7 +1,7 @@
 # 工具公开 CLI 夹具补齐 Grok 历史证明
 
 Type: task
-Status: claimed
+Status: resolved
 
 ## Contract
 
@@ -26,3 +26,7 @@ Status: claimed
 ## Comments
 
 - 2026-10-27：从21工具完整回归发现并拆票；仅离线合成夹具修复，v8 仍0真实调用/0 claim，原17权限未使用。
+
+## Answer
+
+软件修复已完成，公开过程真实RED/GREEN、v17独立双轴0/0；实际dcf73abd6740d2107352909ba3cd3d07ad6684fb/2068/175完整四包16,038个Go测试、1572主必交/130入口及32+6辅助全部PASS，665.060秒/exit0/audit0。完整Python工具52/52通过，源字节适用性独立核验。[完整核验](../../../.evidence/barness-ai-grok/live-batches/gf8-20261027T012011Z-d0c21717/ordinary-validation-glm21-preconsent.json)及[当前状态](../spec.md#唯一当前状态)。软件关闭不消耗或重绑原未用v8权限，不产生本源真实支持资格；全部失败及原v16P2保留。

@@ -224,16 +224,16 @@ Messages协议整体、Chat Completions、xAI自有协议；其他型号、US/�
 
 | 项目 | 当前事实 |
 | --- | --- |
-| 实现 | 01–04及07–20软件已解决；新[21 GLM受控子进程时限/终止](issues/21-glm-controlled-process-budget.md)claimed。v8匹配普通暴露旧10秒包装context不足，尚未执行厂商；05/06未完成 |
-| 冻结来源 | v8实际冻结654750edb2e22a8700f56028c061df16487adec1，2064默认来源/165输入；代码字节与授权前10326及构建E1一致。真实17grant均未用，后续来源变化不得自动重绑原批准pin |
-| 审查 | [v15](review/review-v15.md) Standards0/Spec0，覆盖20增量；v14对未改部分保留。v7准备检查的SOP3/4排序P2由[计划v8](formal-live-plan-v8.md)修正，830项有限核验0发现；旧失败原件不改 |
-| 授权后匹配普通（cases-v12） | 授权后165输入匹配普通实际FAIL/exit1，637.400秒，16031个Go测试PASS、2公共根FAIL；GLM完整辅助包未定稿。原件[receipt](../../.evidence/barness-ai-grok/e2e/20261027T012038.355447Z-1hopb8rs/receipt.json)保留；授权前129输入完整16,033/1568主/129入口/38辅助PASS仍为历史事实，不替代本次失败 |
+| 实现 | 01–04及07–22软件已解决；21完成GLM预算/取消子树，22严格补齐工具合成证明与私有store边界。05真实资格、06人工阶段及发布未完成 |
+| 冻结来源 | 软件审查pin a80bfe1b；完整实际受测dcf73abd6740d2107352909ba3cd3d07ad6684fb，2068默认来源/175输入。四native完整map与八镜像、原17 grant/config/auth/index均未改变；原v8权限未用，验证来源变化须明确补充同意 |
+| 审查 | [v17](review/review-v17.md) Standards0/Spec0，原v16私有store符号链接P2已关闭；完整工具52/52 PASS。冻结前244项核验0未解决，操作脚本字段/哈希绑定P2在执行前修复；旧失败/审查原件均保留 |
+| 当前完整普通（cases-v13） | 四包16,038个Go测试PASS、1572主必交/130入口、GLM32及MiniMax六辅助全部PASS，665.060秒/exit0/audit0；主15122 PASS、214压力NOT_RUN/max131原件。[receipt](../../.evidence/barness-ai-grok/e2e/20261027T030431.092824Z-681i69ck/receipt.json)/[有限核验](../../.evidence/barness-ai-grok/live-batches/gf8-20261027T012011Z-d0c21717/ordinary-validation-glm21-preconsent.json)；旧165输入FAIL不改 |
 | 历史完整普通v3 | 采集器PASS/exit0；两个Go包15402测试PASS；主包14586个原生case PASS、214个opt-in压力/消费者case NOT_RUN；必需565/565 PASS、65入口齐全、audit0。v1/v2与手工校验失败原件均保留 |
-| 原生消费 | [索引v16](verification/record-v16.json)绑定本次实际FAIL/165输入和唯一状态；[只读报告](../../.evidence/barness-ai-grok/release/readonly-v16/native/release-report.json)另存。当前不能通过普通或live门槛，release.pass=false |
-| 自身live | 历史v6源507自身18/18真实PASS保持；当前v8源17路线均未启动，真实请求/claim均0，尚无本源资格 |
-| 共享历史live | 维护者已授权v8一次17/收集独立结果，但165普通失败使条件未满足，17真实grant原样未用。历史正式511逻辑/507HTTP不变，Kimi六条仍候选；不新增或重发权限、不预判原批准已消耗或可自动重绑 |
+| 原生消费 | [索引v17](verification/record-v17.json)绑定本次实际完整普通、175输入及唯一状态；[实际只读报告](../../.evidence/barness-ai-grok/release/readonly-v17/native/release-report.json)另存。live/race/压力缺少，release.pass=false |
+| 自身live | 历史v6源507自身18/18真实PASS保留；当前v8全部17路线仍NOT_RUN，0厂商请求/0真实claim，原权限未用且不能自动重绑新验证来源 |
+| 共享历史live | 原v8一次17授权仍未使用；本次仅[来源绑定补充提案](formal-live-source-amendment-v8.md)，不申请第二批付费额度。先175完整PASS、一次明确来源同意后新增两治理输入并取得177匹配普通，才可原17次。历史正式511逻辑/507HTTP保持，Kimi六条仍候选 |
 | race / 压力 | 均NOT_RUN；尚未人工选择，须先满足适用live后依序选择；压力适用，普通运行的214个opt-in场景未计为PASS |
-| 目录/发布 | 当前停在普通阶段，21仅离线修复中；付费路线0启动，race/压力NOT_RUN，release.pass=false，未正式支持或发布 |
+| 目录/发布 | 21/22软件、v17双轴与175完整普通已完成；尚待原未用v8权限的验证来源补充及177匹配普通、17原生正式资格、人工race/压力，仍未正式支持或发布 |
 
 #### 最终完整普通与构建（当前来源）
 
@@ -426,3 +426,11 @@ v5独立准备核验765项发现11条重复route.scope.binarySha256仍旧，实�
 [21](issues/21-glm-controlled-process-budget.md)先做有界受控RED，修正完整受控子进程预算与真正子树终止边界，保持GLM32辅助归属/512上限和严格普通门槛；不预热缓存掩盖失败，不全局放宽公共调用context。真实普通与两级不完整native原件都保留。四原生map与8镜像仍逐字节匹配；测试-only改动是否继续保持需以实际diff独立核验。
 
 本批全部17厂商路线NOT_RUN，真实vendor调用/真实claim均0，原grant和expiry不改；不能把普通失败推断成付费额度已花，也不据原批准自动重绑变化的全局来源。修复后的完整普通与授权适用性另按SOP明确判断后，才可进入厂商阶段。历史正式511/507不变，race/压力及发布未授权。
+
+#### 21/22 完整普通闭环与 v8 未用来源绑定
+
+21通过真实公共过程RED修复短调用context截断完整native工作及收尾，并在外层取消时给予内层owner有界清理窗口，非合作子树强制终止；新增4项主case，原32项GLM辅助及每case512上限保持。22只更新Google七场景合成证明和测试专用类型桥；缺grant、标签占位、provenance/downgrade篡改及目录逃逸均严格拒绝。v16发现store根符号链接P2后，先在完全测试拥有目录复现外写，再于输出/Claim前拒绝；v17独立两轴均0。完整52项Python过程实际通过，作为独立工具范围旁证，与主Go bundle分开。
+
+本次实际受测dcf73abd6740d2107352909ba3cd3d07ad6684fb/2068来源/175输入，16,038个Go测试、1572主必交/130入口、32+6辅助全部PASS，665.060秒/exit0/audit0。原始654750/165普通FAIL、所有RED/INVALID_EVIDENCE/CANCELLED及真实已停止批次均保留。当前全局验证来源变化；四native map完整SET/内容与八个实际镜像仍相同，不等于自动取得来源重绑或本源真实资格。
+
+[来源补充提案](formal-live-source-amendment-v8.md)不新发或延长权限：保留原v8尚未使用17个grant及原21:20到期、每路线一次/同一444逻辑调用472HTTP预算。先完成本次175普通，再取得一次明确来源同意，新增原始回复与最终选择两项后冻结177并完成匹配普通；结果作输出不再改冻结输入，不再索要确认PASS。尚无此补充同意，厂商请求/真实claim均0。原授权和17配置/ID/expiry未改，历史正式511/507不变；race、压力和发布仍未授权。
