@@ -19,6 +19,19 @@ class LiveQualificationProcess(Base):
         if built.returncode:
             raise RuntimeError(built.stderr)
 
+    def setUp(self):
+        super().setUp()
+        from process_support import digest
+        # Typed native scope includes both module files. Rebuild these purely
+        # synthetic stage documents after completing their private source set.
+        (self.repo / 'go.sum').write_text('')
+        self.source['files']['go.sum'] = digest(self.repo / 'go.sum')
+        for stage in ('e2e', 'race'):
+            # The synthetic builder inventories pre-existing top-level files;
+            # remove its old document before rebuilding to avoid a self-hash.
+            (self.repo / '.evidence/sample' / stage / 'attempt/receipt.json').unlink()
+            self.record[stage] = self.stage(stage)
+
     def test_claim_fixture_rejects_unowned_git_and_output_boundaries(self):
         targets = []
         ordinary = self.repo / 'ordinary-checkout'
@@ -166,7 +179,10 @@ class LiveQualificationProcess(Base):
         self.consume(bundle, out, expected=0)
         proof = out / 'live-consumer.json'
         stage['consumers'] = [{'path': str(proof.relative_to(self.repo)), 'sha256': digest(proof)}]
-        self.gate(0)
+        try:
+            self.gate(0)
+        except AssertionError:
+            self.fail((self.repo / ('report-' + str(self.out_number)) / 'release-report.json').read_text())
         self.assertEqual(before, {str(p.relative_to(bundle)): digest(p) for p in bundle.rglob('*') if p.is_file()})
 
     def test_chat_history_requires_complete_host_provenance_and_downgrade_proof(self):
