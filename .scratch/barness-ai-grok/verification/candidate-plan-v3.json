@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "kind": "unapproved-candidate-validation-plan",
+  "authorization": "NOT_GRANTED",
+  "stage": "candidate",
+  "mode": "live",
+  "sourceCommit": "36eaca012d45062242a67e5f48d01ef07bfe5c5e",
+  "machineFacts": {
+    "api": "openai-responses",
+    "catalogHash": "sha256:bead32a65d2532dea261101a8b4c61c995c50168742243431844ab7394d6c97e",
+    "catalogVersion": "xai-grok-4.7-candidate-2026-10-26.1",
+    "combo": "xai-responses",
+    "endpoint": "https://api.x.ai/v1",
+    "expected": [
+      "entry-stream",
+      "entry-complete",
+      "entry-stream-simple",
+      "entry-complete-simple",
+      "effort-default",
+      "effort-low",
+      "effort-medium",
+      "effort-high",
+      "effort-xhigh",
+      "encrypted-continuation",
+      "tools-auto",
+      "tools-required",
+      "tools-none",
+      "tools-parallel",
+      "user-png",
+      "user-jpeg",
+      "tool-result-image",
+      "cache-usage"
+    ],
+    "model": "grok-4.7",
+    "provider": "xai",
+    "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+    "sourceSha256": "05e89a133ceb71b6725ad7a6ee889170f6e49fa7a72845928b202416a7d2838b"
+  },
+  "binary": {
+    "path": ".evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/xai-live.test",
+    "sha256": "bf0f618074775a5e2f2679ffe9e50c19a2ce148dd1c819050c50670b03d416c1"
+  },
+  "buildReceipt": {
+    "path": ".evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/build-receipt.json",
+    "sha256": "ad7d13f1fa87e439db29779e6de55d6635939b68797db4fa78ce6c8dfa354fdd"
+  },
+  "ordinaryReceipt": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T044535.989494Z-dh_qlt7t/receipt.json",
+    "sha256": "38d2f605589dfb1630bc03f4be713c6553ad6b7ae6780fc8ffd3d278a0c0e6f7"
+  },
+  "requiredCasesInput": {
+    "path": ".scratch/barness-ai-grok/verification/cases-v3.json",
+    "sha256": "a4b5e96b775a181547488f2fec98a373d79d045d586d75712270ffcca59ada0e"
+  },
+  "scope": {
+    "maxCalls": 24,
+    "maxAttempts": 24,
+    "automaticRetries": 0,
+    "visibleOutputTokensPerCall": 1024,
+    "maxRequestedOutputTokens": 24576,
+    "reservedInputTokensPerCall": 8192,
+    "maxReservedInputTokens": 196608,
+    "callSeconds": 65,
+    "processSeconds": 1800,
+    "finalizationReserveSeconds": 30,
+    "expected": [
+      "entry-stream",
+      "entry-complete",
+      "entry-stream-simple",
+      "entry-complete-simple",
+      "effort-default",
+      "effort-low",
+      "effort-medium",
+      "effort-high",
+      "effort-xhigh",
+      "encrypted-continuation",
+      "tools-auto",
+      "tools-required",
+      "tools-none",
+      "tools-parallel",
+      "user-png",
+      "user-jpeg",
+      "tool-result-image",
+      "cache-usage"
+    ]
+  },
+  "humanFields": {
+    "accountAlias": "GROK",
+    "regionAlias": "global",
+    "maxUSD": 5.0
+  },
+  "credentialEnvironment": "BARNESS_AI_LIVE_KEY_XAI_RESPONSES",
+  "proposedNativeArgv": [
+    ".evidence/barness-ai-grok/build/20261026T044535-candidate-hvl6pw73/xai-live.test",
+    "-test.run=^TestXAICandidate$",
+    "-test.timeout=1800s"
+  ],
+  "remainingFullFeatureLiveRoutes": [
+    "openai-responses",
+    "deepseek-responses",
+    "openai-chat",
+    "deepseek-chat",
+    "zhipu-chat",
+    "zai-chat",
+    "minimax-chat",
+    "minimax-cn-chat",
+    "kimi-cn-chat",
+    "kimi-intl-chat",
+    "anthropic-messages",
+    "zhipu-messages",
+    "zai-messages",
+    "minimax-messages",
+    "minimax-cn-messages",
+    "kimi-cn-messages",
+    "kimi-intl-messages",
+    "google-gemini",
+    "minimax-responses",
+    "minimax-cn-responses",
+    "kimi-cn-responses",
+    "kimi-intl-responses"
+  ],
+  "race": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "formalPromotion": "NOT_RUN",
+  "version": 3,
+  "proxy": "http://127.0.0.1:7890",
+  "credentialSource": ".env:GROK_KEY",
+  "previousConsumedAttempts": {
+    "path": ".scratch/barness-ai-grok/evidence/live-attempts-v1.json",
+    "sha256": "5cc7e5c7161ca8771b0fbdd83860040289a21d3e15fb1556b9091fefd8163f6b"
+  },
+  "jpegFixture": {
+    "commit": "00e7612c95f53dfaab5d5c604e62e3f21550d649",
+    "size": "32x32",
+    "publicRegression": ".evidence/barness-ai-grok/jpeg-fixture-e2e-v1.json",
+    "review": ".scratch/barness-ai-grok/review/review-v4.md",
+    "sourceChanged": true,
+    "actualJPEGSuccessAfterFix": "NOT_RUN"
+  },
+  "approvalRequiredFor": "One fresh source/binary/catalog-bound grant. Previous two grants are consumed; no vendor requests until new explicit approval.",
+  "selectedInputsAfterApproval": "cases-v3 plus new immutable authorization/grant/config; matching bounded ordinary receipt before live, with runtime equality to full baseline."
+}

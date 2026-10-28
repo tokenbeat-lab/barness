@@ -3,6 +3,7 @@ import copy
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import tempfile
@@ -30,7 +31,7 @@ class ReleaseRecordProcess(ProcessCase):
         super().setUp()
         self.source = {'commit': self.call('git', 'rev-parse', 'HEAD', expected=0).stdout.strip(),
                        'files': {'ai/example.go': digest(self.repo / 'ai/example.go'), 'go.mod': digest(self.repo / 'go.mod')}}
-        self.record = {'schema': 1, 'feature': 'sample',
+        self.record = {'schema': 2, 'feature': 'sample',
             'currentState': {'path': 'state.md', 'sha256': digest(self.repo / 'state.md')},
             'source': self.source, 'selectedInputs': {},
             'impact': {'liveRoutes': [], 'pressureRequired': False, 'reason': 'synthetic local change'},
@@ -93,6 +94,19 @@ class ReleaseRecordProcess(ProcessCase):
         self.gate(0, env={'PATH': str(bin_dir) + os.pathsep + os.environ['PATH']})
         self.assertFalse((self.repo / 'started-verification').exists())
 
+    def test_stage_inputs_and_original_feature_are_independent(self):
+        # An approval added after ordinary verification is not an input to it.
+        approval = write_json(self.repo / 'approval.json', {'decision': 'fixture-only'})
+        self.record['selectedInputs'] = {'approval.json': digest(approval)}
+        self.record['feature'] = 'new-feature'
+        self.gate(0)
+
+    def test_unaffected_race_can_be_explicitly_not_applicable(self):
+        self.record['impact']['raceRequired'] = False
+        self.record['race'] = {'status': 'NOT_APPLICABLE',
+                               'reason': 'only read-only evidence interpretation changed'}
+        self.gate(0)
+
     def test_missing_failed_not_run_and_fake_na_are_rejected(self):
         original = copy.deepcopy(self.record)
         for mode in ('missing', 'fail', 'not-run', 'no-human', 'fake-live-na', 'fake-pressure-na', 'no-reason', 'missing-impact'):
@@ -123,7 +137,7 @@ class ReleaseRecordProcess(ProcessCase):
 
     def test_case_alias_and_race_warning_cannot_be_rehashed_into_pass(self):
         write_json(self.record_path, self.record)
-        raw = self.record_path.read_text().replace('"schema": 1', '"schema": 1, "Schema": 1', 1)
+        raw = self.record_path.read_text().replace('"schema": 2', '"schema": 2, "Schema": 2', 1)
         self.record_path.write_text(raw)
         result = self.call(self.binary, '-record', self.record_path, '-out', self.repo / 'alias-report')
         self.assertNotEqual(result.returncode, 0, 'ambiguous JSON field accepted')
@@ -172,3 +186,43 @@ class ReleaseRecordProcess(ProcessCase):
                 write_json(path, receipt)
                 self.record['e2e']['receipt']['sha256'] = digest(path)
                 self.gate(1)
+
+    def test_historical_live_inputs_bind_original_git_bytes(self):
+        # Public CLI seam: a newer status document must not preempt native
+        # qualification of an older measurement. This synthetic bundle has no
+        # live report, so it must still fail at that independent boundary.
+        original_state_hash = digest(self.repo / 'state.md')
+        old = self.repo / self.record['e2e']['receipt']['path']
+        attempt = self.repo / '.evidence/sample/live/xai-responses/attempt'
+        shutil.copytree(old.parent, attempt)
+        manifest = attempt / 'bundles/native/manifest.json'
+        native = json.loads(manifest.read_text())
+        native['package'] = '-tags live ./ai/live'
+        write_json(manifest, native)
+        receipt = json.loads(old.read_text())
+        argv = ['synthetic-process-not-executed']
+        command = json.loads((attempt / 'command.json').read_text())
+        command.update(stage='live', route='xai-responses', argv=argv)
+        write_json(attempt / 'command.json', command)
+        receipt.update(stage='live', route='xai-responses', argv=argv,
+                       selectedInputs={'state.md': original_state_hash})
+        receipt['commandSHA256'] = receipt['files']['command.json'] = digest(attempt / 'command.json')
+        receipt['bundles'][0].update(package='-tags live ./ai/live', manifestSHA256=digest(manifest))
+        path = attempt / 'receipt.json'
+        (self.repo / 'state.md').write_text('Current consumer status differs from original measurement.\n')
+        self.record['currentState']['sha256'] = digest(self.repo / 'state.md')
+        stage = {'status': 'PASS', 'requiredCases': ['fixture-case'],
+                 'selection': {'by': 'human', 'argv': argv}}
+        self.record['impact']['liveRoutes'] = ['xai-responses']
+        self.record['live'] = {'status': 'PASS', 'routes': {'xai-responses': stage}}
+        for mode in ('retained', 'missing-original'):
+            with self.subTest(mode=mode):
+                receipt['selectedInputs']['state.md'] = original_state_hash if mode == 'retained' else 'f' * 64
+                write_json(path, receipt)
+                stage['receipt'] = {'path': str(path.relative_to(self.repo)), 'sha256': digest(path)}
+                report = self.gate(1)
+                live = next(c for c in report['checks'] if c['id'] == 'live')
+                if mode == 'retained':
+                    self.assertEqual(live['problem'], 'native live report missing')
+                else:
+                    self.assertEqual(live['problem'], 'original selected input unavailable or changed')

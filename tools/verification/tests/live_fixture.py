@@ -71,12 +71,14 @@ def chat_bundle(test):
     for path in bundle.iterdir():
         if path.is_dir():
             shutil.rmtree(path)
-    expected = ['text-stream', 'text-complete', 'tool-round-trip', 'cancel-after-first-frame', 'reasoning-history', 'image']
+        elif path.name in ('process-grant.json', 'process-authorization-receipt.json'):
+            path.unlink()
+    expected = ['text-stream', 'text-complete', 'tool-round-trip', 'cancel-after-first-frame', 'reasoning-history', 'image', 'xai-origin-history']
     endpoint, model = 'https://generativelanguage.googleapis.com/v1beta', 'gemini-3.8-flash'
     report.update(operation='chat', provider='google', api='google-generative-ai', model=model, endpoint=endpoint,
                   expected=expected, scenarios=[], budget={'maxCalls': 32, 'maxRetriesPerScenario': 1,
-                  'maxOutputTokensPerCall': 4096, 'callsUsed': 6, 'httpAttempts': 6,
-                  'inputTokensUsed': 6, 'outputTokensUsed': 6})
+                  'maxOutputTokensPerCall': 4096, 'callsUsed': 7, 'httpAttempts': 7,
+                  'inputTokensUsed': 7, 'outputTokensUsed': 7})
     cases = []
     for ident in expected:
         case = bundle / ident
@@ -84,11 +86,13 @@ def chat_bundle(test):
                     'operation': 'chat', 'providerId': 'google', 'api': 'google-generative-ai', 'modelId': model,
                     'catalogVersion': report['catalogVersion'], 'catalogHash': report['catalogHash'],
                     'attempts': [{'attemptId': ident + '#1', 'httpStatus': 200, 'providerRequestId': ident}]}
+        message = {'usage': {'input': 1, 'output': 1}}
+        body = xai_history_fixture(case, metadata, message) if ident == 'xai-origin-history' else '{}'
         write_json(case / 'attempt-1-call-result.json', {'error': '', 'result': {
-            'metadata': metadata, 'message': {'usage': {'input': 1, 'output': 1}}}})
+            'metadata': metadata, 'message': message}})
         write_json(case / 'attempt-1-call-exchanges.json', [{'method': 'POST',
             'url': endpoint + '/models/' + model + ':streamGenerateContent',
-            'requestBody': '{}', 'status': 200, 'responseHeaders': {}, 'responseBody': '{}'}])
+            'requestBody': body, 'status': 200, 'responseHeaders': {}, 'responseBody': '{}'}])
         write_json(case / 'observations-attempt-1-call.json', [{'kind': 'call_finished', 'call': metadata}])
         write_json(case / 'assertions.json', {'case_id': ident, 'status': 'PASS', 'assertions': [{'pass': True}]})
         cases.append({'id': ident, 'dir': ident, 'status': 'PASS',
@@ -97,7 +101,14 @@ def chat_bundle(test):
                                     'calls': 1, 'attempts': 1, 'providerRequestIds': [ident]})
     write_json(bundle / 'live-report.json', report)
     manifest = json.loads((bundle / 'manifest.json').read_text())
-    manifest.update(package='-tags live ./ai/live', cases=cases)
+    # The helper derives typed native scope and burns only this fixture's
+    # independent Git store; the real checkout's grant namespace is inaccessible.
+    claim = json.loads(test.call(test.claim_fixture, '-binary', test.binary, '-out', bundle, expected=0).stdout)
+    report.update(startedAt=claim['startedAt'], finishedAt=claim['finishedAt'], sdk=claim['sdk'])
+    write_json(bundle / 'live-report.json', report)
+    manifest.update(package='-tags live ./ai/live', cases=cases,
+                    started_at=report['startedAt'], finished_at=report['finishedAt'])
+    manifest['versions'].update(live_sdk=report['sdk'], process_build_source=claim['sourceSha256'])
     write_json(bundle / 'manifest.json', manifest)
     stage['requiredCases'] = expected
     refresh_chat_receipt(bundle, stage)
@@ -115,3 +126,55 @@ def refresh_chat_receipt(bundle, stage):
     receipt['bundles'][0].update(package=manifest['package'], manifestSHA256=digest(bundle / 'manifest.json'))
     write_json(path, receipt)
     stage['receipt']['sha256'] = digest(path)
+
+
+def xai_history_fixture(case, metadata, message):
+    """Fixed synthetic Host contract from grokhistory.Request, not vendor evidence.
+
+    The independent compiled consumer checks this public ai.Request JSON and
+    source NativeStateEnvelope proof, plus the destination's Gemini wire form.
+    No proof is imported from another provider or from retained live captures.
+    """
+    import base64
+    import copy
+    compact = lambda value: json.dumps(value, separators=(',', ':'))
+    def call(suffix, label):
+        pair = ['same-prefix_' * 8 + suffix, 'SYNTHETIC_XAI_FOREIGN_ITEM_' + suffix]
+        ident = 'xar1|' + base64.urlsafe_b64encode(compact(pair).encode()).decode().rstrip('=')
+        return {'id': ident, 'name': 'inspect_xai_history', 'arguments': {'label': label}}
+    first, second = call('a+b', 'first'), call('a/b', 'second')
+    def assistant(content):
+        return {'content': content, 'api': 'openai-responses', 'provider': 'xai', 'model': 'grok-4.7',
+                'usage': {**dict.fromkeys(('input', 'output', 'cacheRead', 'cacheWrite', 'totalTokens'), 0),
+                          'cost': dict.fromkeys(('input', 'output', 'cacheRead', 'cacheWrite', 'total'), 0)},
+                'stopReason': 'toolUse', 'timestamp': 0}
+    def user(text): return {'content': [{'text': text}]}
+    def result(call, marker):
+        return {'toolCallId': call['id'], 'toolName': call['name'],
+                'content': [{'text': 'SYNTHETIC_XAI_RESULT_' + marker}], 'isError': False}
+    host = {'SystemPrompt': '', 'Messages': [user('Inspect the synthetic stored history.'),
+        assistant([{'thinking': 'SYNTHETIC_XAI_VISIBLE_REASONING', 'thinkingSignature': compact({
+            'type': 'reasoning', 'id': 'SYNTHETIC_XAI_FOREIGN_REASONING_RESOURCE',
+            'summary': [], 'encrypted_content': 'SYNTHETIC_XAI_FOREIGN_CIPHER'})},
+            {'text': 'SYNTHETIC_XAI_VISIBLE_ANSWER', 'textSignature': compact({
+                'v': 1, 'id': 'SYNTHETIC_XAI_FOREIGN_MESSAGE_RESOURCE'})}, first, second]),
+        result(first, 'FIRST'), result(second, 'SECOND'), user('Repeat the first inspection in another turn.'),
+        assistant([first]), result(first, 'REUSED'),
+        user('The tools have finished. Reply with exactly history ready, without calling tools.')],
+        'Tools': [{'name': 'inspect_xai_history', 'description': 'Inspect a synthetic stored history label.',
+                   'parameters': {'type': 'object', 'properties': {'label': {'type': 'string'}},
+                                  'required': ['label'], 'additionalProperties': False}}]}
+    write_json(case / 'public-request.json', host)
+    write_json(case / 'immutable-input.json', copy.deepcopy(host))
+    envelope = {'tenantId': metadata['tenantId'], 'accountScopeId': 'synthetic-xai-source-account',
+                'providerId': 'xai', 'api': 'openai-responses', 'modelId': 'grok-4.7'}
+    write_json(case / 'history-provenance.json', {'before': [envelope, envelope], 'after': [envelope, envelope]})
+    metadata.update(accountScopeId='live-google-gemini', nativeStateDowngrades={'crossModel': 2})
+    message.update(api=metadata['api'], provider=metadata['providerId'], model=metadata['modelId'], stopReason='stop')
+    parts = [{'text': 'SYNTHETIC_XAI_VISIBLE_REASONING SYNTHETIC_XAI_VISIBLE_ANSWER'}]
+    for index, (label, marker) in enumerate(zip(('first', 'second', 'first'), ('FIRST', 'SECOND', 'REUSED'))):
+        ident = 'synthetic_call_' + str(index)
+        parts.extend([{'functionCall': {'id': ident, 'name': 'inspect_xai_history', 'args': {'label': label}}},
+                      {'functionResponse': {'id': ident, 'name': 'inspect_xai_history',
+                                            'response': {'result': 'SYNTHETIC_XAI_RESULT_' + marker}}}])
+    return compact({'contents': [{'role': 'model', 'parts': parts}]})

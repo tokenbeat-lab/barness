@@ -105,6 +105,12 @@ func FindBundle(base string) (string, error) {
 // which alone knew the run's registered test secrets: a bundle without it,
 // or whose recorded audit has findings, fails too.
 func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
+	return auditBundle(dir, forbidden, true)
+}
+
+// Native qualification has already authenticated its capture. Re-audit the
+// bytes and recorded redaction findings without recursively qualifying again.
+func auditBundle(dir string, forbidden []audit.Forbidden, checkLive bool, supplement ...string) AuditResult {
 	a := AuditResult{Bundle: dir}
 	findings, err := audit.Bundle(dir, forbidden)
 	if err != nil {
@@ -133,9 +139,9 @@ func AuditBundle(dir string, forbidden []audit.Forbidden) AuditResult {
 		a.Err = "evidence bundle failed redaction audit"
 		return a
 	}
-	if a.Live != nil && a.Err == "" && len(a.Findings) == 0 {
+	if checkLive && a.Live != nil && a.Err == "" && len(a.Findings) == 0 {
 		r := a.Live
-		if err := verifyLiveManifest(dir, *r); err != nil {
+		if err := verifyLiveManifest(dir, *r, supplement...); err != nil {
 			a.Err = "live artifact integrity verification failed"
 			return a
 		}

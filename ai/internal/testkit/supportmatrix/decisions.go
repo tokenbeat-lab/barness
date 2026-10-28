@@ -4,8 +4,6 @@ import (
 	"slices"
 	"strings"
 	"time"
-
-	"github.com/tokenbeat-lab/barness/ai"
 )
 
 // DecisionsEvidence distinguishes official live acceptance from controlled
@@ -32,10 +30,8 @@ func checkDecisions(r Report) error {
 	if r.Operation != "classifier" || r.Provider != "openai" || r.API != "openai-decisions" || r.Model != "gpt-6-luna" || r.Endpoint != "https://api.openai.com/v1" {
 		return refuse("Decisions report does not name the fixed official route and model")
 	}
-	cat := ai.BuiltinCatalog()
-	hash, err := cat.Hash()
-	if err != nil || r.CatalogVersion != cat.Version || r.CatalogHash != hash {
-		return refuse("Decisions requires its current formal catalog version and hash")
+	if _, err := RouteCatalog(r.evidenceDir, r); err != nil {
+		return err
 	}
 	expected := DecisionsExpected()
 	if err := checkExpected(r, expected); err != nil {

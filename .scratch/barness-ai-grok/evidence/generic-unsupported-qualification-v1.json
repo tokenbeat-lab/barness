@@ -1,0 +1,126 @@
+{
+  "actualLiveQualification": false,
+  "additionalRed": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T140123.760599Z-jj_y679r/receipt.json",
+    "sha256": "510eeedaa6fb4ba6ff8c74e89b580307b295c293c6c249c93abedc91eace4807"
+  },
+  "additionalRedReason": "A fabricated PASS must not turn the fixed noReplay limitation into a capability; pretended-pass was observed accepted before tightening.",
+  "allNativeCasesPassed": true,
+  "changedFiles": {
+    "ai/e2e/generic_unsupported_qualification_test.go": "e12db2c3c4567baa765b18a0949f6ed6bdf45cb57e2f0165a1760e5bf1d40fdf",
+    "ai/internal/testkit/release/chat_qualification.go": "DELETED",
+    "ai/internal/testkit/release/live_manifest.go": "7d0aef95653d5b7d983a32f3c0a9d791447e7208c12338f6af4fc34160a9c4f1",
+    "ai/internal/testkit/release/record_live.go": "97389d9afffe9b26b3a46c917c8abf1b355205d7d423533cffeb69f9bda960b6",
+    "ai/internal/testkit/supportmatrix/generic_contract.go": "7e70c44351ff400de8cd11ecd1fbc620a21e7c43dc73a263d7ab500b91fbdd89",
+    "ai/internal/testkit/supportmatrix/generic_qualification.go": "3f1d79a0c27bcf24b53055531ada3e2ab1e6e3d6a7620e685a5943332151fde7",
+    "ai/live/combos_test.go": "cf3e1478c1bf1abc7b537004363d9c20ea0278c426e0fbadf289ae7b5d9b2d21",
+    "docs/barness-ai/legacy-history-qualification.md": "39e1709a2d426bd01ce485d0306c07f0ba06b7d4bc0e4d0dfe05683951c7c354"
+  },
+  "claims": 0,
+  "earlierGreens": [
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T135918.205229Z-5poofmi7/receipt.json",
+      "sha256": "139d63a717cec7060a6b5f3f566098c03e2fcb461c915f453540990146c808f7"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T140043.749973Z-jyzo_8_l/receipt.json",
+      "sha256": "26b07b37f80b52162f28d6b885bbc38ac83754bc3ae6487d3911d7d7ff638b39"
+    }
+  ],
+  "grants": 0,
+  "green": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T140154.200000Z-v7duyr5_/receipt.json",
+    "sha256": "40f75f044b5ca63e8565c8be94840c4b5e7cc471c82314b9c83a512b62d497e2"
+  },
+  "greenAudit": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T140154.200000Z-v7duyr5_/bundles/20261026T140157.429467000Z/audit.json",
+    "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+  },
+  "greenManifest": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T140154.200000Z-v7duyr5_/bundles/20261026T140157.429467000Z/manifest.json",
+    "sha256": "a6a442e58f00364a9d62732583858f901fd825f43150d6a4102141045b59934b"
+  },
+  "greenNativeCases": 56,
+  "kind": "declared-generic-unsupported-software-regression",
+  "nativeCompile": "ai/live -tags=live and own CLI builds by root; no live-tag paid execution by worker",
+  "newCaseCount": 44,
+  "newCases": [
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-assertions",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-assertions-only",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-calls",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-http",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-missing-assertions",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-observer",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-reason",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-result",
+    "GROK-GENERIC-UNSUPPORTED-ARTIFACT-unrecognized-capture",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-anthropic-messages",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-deepseek-chat",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-deepseek-responses",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-google-gemini",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-openai-chat",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-openai-responses",
+    "GROK-GENERIC-UNSUPPORTED-CLI-INELIGIBLE",
+    "GROK-GENERIC-UNSUPPORTED-api",
+    "GROK-GENERIC-UNSUPPORTED-attempts",
+    "GROK-GENERIC-UNSUPPORTED-budget",
+    "GROK-GENERIC-UNSUPPORTED-calls",
+    "GROK-GENERIC-UNSUPPORTED-declared",
+    "GROK-GENERIC-UNSUPPORTED-decoded-bytes",
+    "GROK-GENERIC-UNSUPPORTED-default-model",
+    "GROK-GENERIC-UNSUPPORTED-duplicate",
+    "GROK-GENERIC-UNSUPPORTED-endpoint",
+    "GROK-GENERIC-UNSUPPORTED-environment",
+    "GROK-GENERIC-UNSUPPORTED-fault",
+    "GROK-GENERIC-UNSUPPORTED-image-call",
+    "GROK-GENERIC-UNSUPPORTED-images",
+    "GROK-GENERIC-UNSUPPORTED-mandatory-history",
+    "GROK-GENERIC-UNSUPPORTED-missing",
+    "GROK-GENERIC-UNSUPPORTED-other-fail",
+    "GROK-GENERIC-UNSUPPORTED-other-not-run",
+    "GROK-GENERIC-UNSUPPORTED-other-unsupported",
+    "GROK-GENERIC-UNSUPPORTED-pretended-pass",
+    "GROK-GENERIC-UNSUPPORTED-provider",
+    "GROK-GENERIC-UNSUPPORTED-questions",
+    "GROK-GENERIC-UNSUPPORTED-reason",
+    "GROK-GENERIC-UNSUPPORTED-request-id",
+    "GROK-GENERIC-UNSUPPORTED-retries",
+    "GROK-GENERIC-UNSUPPORTED-route",
+    "GROK-GENERIC-UNSUPPORTED-scene",
+    "GROK-GENERIC-UNSUPPORTED-scene-model",
+    "GROK-GENERIC-UNSUPPORTED-state-bytes"
+  ],
+  "newExtraReadInputs": [],
+  "newRoots": [
+    "TestGenericDeclaredUnsupported",
+    "TestGenericUnsupportedCaseInventory",
+    "TestGenericUnsupportedFixedCatalog"
+  ],
+  "readScope": "New tests use compiled source/BuiltinCatalog and existing compiled CLI source snapshot; no external fixture files, credentials or new helper scripts. Contract documentation is a changed planning/reference input, not executable source.",
+  "red": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T135725.089427Z-6odiy_uv/receipt.json",
+    "sha256": "c0b91d4e6c7f1df2946b1af0fc2f6ad41dbf57c1878fcca5936e61894e12f4ed"
+  },
+  "redReason": "Unchanged qualification logic moved to its owning native contract module first: complete OpenAI Chat declared UNSUPPORTED report failed with chat scenario lacks fixed model or actual bounded calls. Root retains the actual original paid CLI refusal independently.",
+  "retainedRoot": "TestGenericChatCaptureDecoder",
+  "runtimeStateNotes": "Matrix semantics unchanged: the fixed capability retains UNSUPPORTED and no new LastPassedAt. Public compiled CLI has no real grant/claim and always exits1/pass=false even when report contract passes.",
+  "schema": 1,
+  "sourceCommit": "4c9cd7c61178beedfd50651fe9a15fb176ffaf2c",
+  "sourceFileCount": 2055,
+  "sourceImpact": "Moved/deleted native consumer file, added owning generic contract validator, changed manifest qualification and native combo shared constant. RegionalExecutionSource/derived xAI and relevant generic/regional producers plus consumer binaries require rebuild/refreeze; E2E file and contract documentation also change. No old paid material renewed.",
+  "suggestedOrdinary": [
+    "./ai/e2e",
+    "./ai/internal/testkit/release",
+    "./ai/internal/testkit/supportmatrix"
+  ],
+  "ticket": ".scratch/barness-ai-grok/issues/17-declared-unsupported-qualification.md",
+  "unsupportedAudit": {
+    "Anthropic Messages": "Fixed claude-haiku-4-5 Reasoning=true/image.",
+    "DeepSeek Chat": "Fixed deepseek-flash Reasoning=true/image; extra fixed deepseek-v4-pro high/max nonnull.",
+    "DeepSeek Responses": "Fixed deepseek-flash Reasoning=true/image; high/max nonnull.",
+    "Google Gemini": "Fixed gemini-3.8-flash Reasoning=true/image.",
+    "OpenAI Chat": "Only fixed noReplay statement applies; model still Reasoning=true and accepts image.",
+    "OpenAI Responses": "Fixed gpt-5-mini Reasoning=true/image."
+  },
+  "vendorCalls": 0
+}

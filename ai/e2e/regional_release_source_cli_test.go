@@ -11,7 +11,7 @@ import (
 
 func TestRegionalProviderReleaseSourceCLI(t *testing.T) {
 	ev := run.Case(t, "RP18-source-cli")
-	cmd := exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/regionalverify", "-source")
+	cmd := exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/processgrant", "-source", "regional")
 	cmd.Dir = "../.."
 	cmd.Env = regionalChildEnvironment()
 	raw, err := cmd.CombinedOutput()
@@ -30,14 +30,14 @@ func TestRegionalProviderReleaseSourceCLI(t *testing.T) {
 		ev.Check("full selected source retains "+name, len(snapshot.Files[name]) == 64, "missing source")
 	}
 	ev.Check("digest represents complete selected bytes", len(snapshot.SourceSHA256) == 64, "%s", snapshot.SourceSHA256)
-	cmd = exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/regionalverify", "-grant-template", "zai-chat")
+	cmd = exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/processgrant", "-template", "zai-chat", "-stage", "candidate")
 	cmd.Dir = "../.."
 	cmd.Env = regionalChildEnvironment()
 	raw, err = cmd.CombinedOutput()
 	var grant supportmatrix.RegionalGrant
 	ev.Check("template cannot authorize spend", err == nil && json.Unmarshal(raw, &grant) == nil && grant.Check("zai-chat", time.Now().UTC()) != nil, "template became a grant")
 	ev.Record("incomplete-grant-template", grant)
-	cmd = exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/regionalverify", "-source", "-grant-template", "zai-chat")
+	cmd = exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/processgrant", "-source", "regional", "-template", "zai-chat", "-stage", "candidate")
 	cmd.Dir, cmd.Env = "../..", regionalChildEnvironment()
 	raw, err = cmd.CombinedOutput()
 	ev.Check("ambiguous consumer mode rejected", err != nil, "%s", regionalSafeOutput(raw))

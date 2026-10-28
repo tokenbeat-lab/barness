@@ -241,7 +241,7 @@ func Merge(m Matrix, r Report) (Matrix, error) {
 }
 
 // check validates r against m and returns its row's index.
-func check(m Matrix, r Report) (int, error) {
+func checkShape(m Matrix, r Report) (int, error) {
 	if r.Schema != SchemaVersion || m.Schema != SchemaVersion {
 		return 0, refuse("schema %d (matrix %d), want %d", r.Schema, m.Schema, SchemaVersion)
 	}
@@ -292,6 +292,9 @@ func check(m Matrix, r Report) (int, error) {
 		}
 		seen[s.ID] = true
 	}
+	if err := checkGenericHistory(r); err != nil {
+		return 0, err
+	}
 	if err := checkImages(r); err != nil {
 		return 0, err
 	}
@@ -304,6 +307,21 @@ func check(m Matrix, r Report) (int, error) {
 	if err := checkDecisions(r); err != nil {
 		return 0, err
 	}
+	return idx, nil
+}
+
+// VerifyReportShape checks the common report and operation contracts. Native
+// capture authentication is separate: this function alone grants no support.
+func VerifyReportShape(r Report) error {
+	_, err := checkShape(Matrix{Schema: SchemaVersion, Rows: []Row{{Combo: r.Combo, Operation: r.Operation, Provider: r.Provider, API: r.API}}}, r)
+	return err
+}
+
+func check(m Matrix, r Report) (int, error) {
+	idx, err := checkShape(m, r)
+	if err != nil {
+		return idx, err
+	}
 	if err := checkGLM(r); err != nil {
 		return 0, err
 	}
@@ -311,6 +329,9 @@ func check(m Matrix, r Report) (int, error) {
 		return 0, err
 	}
 	if err := checkRegional(r); err != nil {
+		return 0, err
+	}
+	if err := checkXAI(r); err != nil {
 		return 0, err
 	}
 	if err := checkJev(r); err != nil {

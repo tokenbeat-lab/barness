@@ -22,6 +22,8 @@ func requestIDHeaderOf(p ProviderID) string {
 	if p == ProviderDeepSeek {
 		return "x-ds-trace-id"
 	}
+	// xAI independently confirmed this header in all 24 own live responses
+	// on 2026-10-26; source and public regression are retained in issue 13.
 	return "x-request-id"
 }
 

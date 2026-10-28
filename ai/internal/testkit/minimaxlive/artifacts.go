@@ -12,14 +12,17 @@ import (
 )
 
 func verifyArtifacts(dir string, r Report, files map[string]string) error {
-	roots := map[string]bool{"manifest.json": true, "audit.json": true, ReportFile: true, "live-report.json": true, "minimax-catalog.json": true, "minimax-sources.json": true, "minimax-replay-origin.json": true, "minimax-ledger.json": true}
+	roots := map[string]bool{"model-catalog.json": true, "execution-source.json": true, "process-grant.json": true, "process-authorization-receipt.json": true, "manifest.json": true, "audit.json": true, ReportFile: true, "live-report.json": true, "minimax-catalog.json": true, "minimax-sources.json": true, "minimax-replay-origin.json": true, "minimax-ledger.json": true}
 	cases := map[string]bool{}
 	for _, c := range r.Calls {
 		cases[c.CaseID] = true
 	}
 	allowed := map[string]bool{}
-	for _, s := range []string{"public-request.json", "options.json", "plan.json", "budget-before.json", "result.json", "events.json", "observations.json", "exchanges.json", "metrics.json", "budget-after.json", "request.json", "response.sse", "assertions.json", "incomplete-capability.json", "request-rerun.json"} {
+	for _, s := range []string{"history-provenance.json", "immutable-input.json", "public-request.json", "options.json", "plan.json", "budget-before.json", "result.json", "events.json", "observations.json", "exchanges.json", "metrics.json", "budget-after.json", "request.json", "response.sse", "assertions.json", "incomplete-capability.json", "request-rerun.json"} {
 		allowed[s] = true
+	}
+	if r.Kind == ThinkingKind {
+		allowed["thinking-budget.json"] = true
 	}
 	for name := range files {
 		parts := strings.Split(name, "/")

@@ -1,0 +1,15 @@
+event: message_start
+data: {"type":"message_start","message":{"id":"072f1d2d600a988abe5e9e01798d3a25","type":"message","role":"assistant","content":[],"model":"MiniMax-M3","stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":0,"output_tokens":0,"service_tier":"standard"},"service_tier":"standard"}}
+
+event: ping
+data: {"type":"ping"}
+
+event: content_block_start
+data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":""}}
+
+event: content_block_delta
+data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"We"}}
+
+event: content_block_delta
+data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" need solve CRT. Need work through congruences verify. Need find smallest"}}
+

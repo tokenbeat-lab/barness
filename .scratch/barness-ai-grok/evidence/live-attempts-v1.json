@@ -1,0 +1,481 @@
+{
+  "schema": 1,
+  "createdAt": "2026-10-26T04:38:26.250273+00:00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "outerReceipt": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T042710.053359Z-rg_2_2z0/receipt.json",
+        "sha256": "1fa4d604f9b105979d26f89eeb102af76eb6a87e316f520328c18750318fc3bb"
+      },
+      "nativeReport": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T042710.053359Z-rg_2_2z0/bundles/20261026T042711.366031000Z/xai-candidate-report.json",
+        "sha256": "8b606b16dcea0ee3984128d746b5ce1cb64ee7c464f48ea1a93142ea42086a63"
+      },
+      "nativeManifest": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T042710.053359Z-rg_2_2z0/bundles/20261026T042711.366031000Z/manifest.json",
+        "sha256": "fd31ffa93521f3b13a0d8c54a3cfab8154392c340548c76d2a16c4856899b11f"
+      },
+      "nativeAudit": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T042710.053359Z-rg_2_2z0/bundles/20261026T042711.366031000Z/audit.json",
+        "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+      },
+      "grant": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T042710.053359Z-rg_2_2z0/bundles/20261026T042711.366031000Z/xai-authorization-grant.json",
+        "sha256": "6ded30fede91f350acf3dc32daf9b24b87e0ea407681079056700ce1702305b3"
+      },
+      "claim": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T042710.053359Z-rg_2_2z0/bundles/20261026T042711.366031000Z/xai-authorization-claim.json",
+        "sha256": "231d45031f833b0a8df0d43e79de6826317477d708260da57f91b889ca3cdcef"
+      },
+      "collectorStatus": "FAIL",
+      "collectorExitCode": 1,
+      "collectorError": "invalid case outcome",
+      "sourceCommit": "6101e76750e21e3edcb2537227082fd1a11b9b5f",
+      "selectedInputs": {
+        ".scratch/barness-ai-grok/authorization/grok-20261026T042502Z-9d5d74b3-authorization.json": "5b35a6a48f86adfa2109ad4ac93249bad71b44e1638d2c2e017cfccee2f2c3c5",
+        ".scratch/barness-ai-grok/authorization/grok-20261026T042502Z-9d5d74b3-grant.json": "6ded30fede91f350acf3dc32daf9b24b87e0ea407681079056700ce1702305b3",
+        ".scratch/barness-ai-grok/verification/cases-v2.json": "c14e8116158c5213e6560fa87fb745221cae11c3ffc016d7c1905556acb31a1f"
+      },
+      "startedAt": "2026-10-26T04:27:10.067395+00:00",
+      "finishedAt": "2026-10-26T04:27:26.788352+00:00",
+      "elapsedSeconds": 16.720909332856536,
+      "formalQualified": false,
+      "auditPassed": true,
+      "scenarios": [
+        {
+          "id": "entry-stream",
+          "caseId": "E17-xai-entry-stream",
+          "model": "grok-4.7",
+          "outcome": "FAIL",
+          "errorCategory": "deadline_exceeded",
+          "durationMs": 15004,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "entry-complete",
+          "caseId": "E17-xai-entry-complete",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "entry-stream-simple",
+          "caseId": "E17-xai-entry-stream-simple",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "entry-complete-simple",
+          "caseId": "E17-xai-entry-complete-simple",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "effort-default",
+          "caseId": "E17-xai-effort-default",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "effort-low",
+          "caseId": "E17-xai-effort-low",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "effort-medium",
+          "caseId": "E17-xai-effort-medium",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "effort-high",
+          "caseId": "E17-xai-effort-high",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "effort-xhigh",
+          "caseId": "E17-xai-effort-xhigh",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "encrypted-continuation",
+          "caseId": "E17-xai-encrypted-continuation",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "tools-auto",
+          "caseId": "E17-xai-tools-auto",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "tools-required",
+          "caseId": "E17-xai-tools-required",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "tools-none",
+          "caseId": "E17-xai-tools-none",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "tools-parallel",
+          "caseId": "E17-xai-tools-parallel",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "user-png",
+          "caseId": "E17-xai-user-png",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "user-jpeg",
+          "caseId": "E17-xai-user-jpeg",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "tool-result-image",
+          "caseId": "E17-xai-tool-result-image",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "cache-usage",
+          "caseId": "E17-xai-cache-usage",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        }
+      ],
+      "budget": {
+        "maxCalls": 24,
+        "maxAttempts": 24,
+        "maxRequestedOutputTokens": 24576,
+        "maxReservedInputTokens": 196608,
+        "callsUsed": 1,
+        "httpAttempts": 1,
+        "vendorHTTPAttempts": 1,
+        "requestedOutputTokens": 1024,
+        "reservedInputTokens": 8192,
+        "reportedTokens": 0,
+        "observedMaximumUSD": 0,
+        "processSeconds": 1800,
+        "callSeconds": 65,
+        "finalizationReserveSeconds": 30
+      },
+      "consumer": {
+        "path": ".evidence/barness-ai-grok/live-consumers/attempt1-wrapper-v1/consumer/live-consumer.json",
+        "sha256": "4b277934568993d7110f11e1c885f963eed5aa50cf6b7d8223a773273c85a01e"
+      },
+      "consumerStatus": "FAIL",
+      "consumerPass": false,
+      "consumerExitCode": 1,
+      "usageCaveat": "observedMaximumUSD only sums responses with reported estimates; missing usage is unknown, never proof of zero billing"
+    },
+    {
+      "attempt": 2,
+      "outerReceipt": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/receipt.json",
+        "sha256": "53b948d34bc91ad262c835ebc306c9e2cc69a71847807a108a230ac74015c0dd"
+      },
+      "nativeReport": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/bundles/20261026T043508.611300000Z/xai-candidate-report.json",
+        "sha256": "01e8dd83920bc680e6ec383ae6e79bbcb38cada524f7e942e7d0ee151d4ea612"
+      },
+      "nativeManifest": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/bundles/20261026T043508.611300000Z/manifest.json",
+        "sha256": "c23697276d7abe2b2983b9bd275be20183c0f05dbab96f6cffd69ae35ca77bd4"
+      },
+      "nativeAudit": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/bundles/20261026T043508.611300000Z/audit.json",
+        "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+      },
+      "grant": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/bundles/20261026T043508.611300000Z/xai-authorization-grant.json",
+        "sha256": "07c4c759bf9dfd39e9d159053c2db91a38a5e3f3239e8aa491fc3ff5d1f886cd"
+      },
+      "claim": {
+        "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/bundles/20261026T043508.611300000Z/xai-authorization-claim.json",
+        "sha256": "23999e0bed413d568ced3818da2ecea1949ce534ae79142262a94e5640f528d5"
+      },
+      "collectorStatus": "FAIL",
+      "collectorExitCode": 1,
+      "collectorError": "invalid case outcome",
+      "sourceCommit": "c6819b27e79de2b8e6aea6573253ae8bdf2d1ca4",
+      "selectedInputs": {
+        ".scratch/barness-ai-grok/authorization/grok-20261026T043426Z-dbed29e7-authorization.json": "a7e5f34bbb2c7e6022570625b54532d204a6af79aaded69f8edb1c1c73d09d83",
+        ".scratch/barness-ai-grok/authorization/grok-20261026T043426Z-dbed29e7-config.json": "ea52c475b4b8a0d5386d80a00a0e3cc8cff3bb60cc1247dd5dacce3aa5784612",
+        ".scratch/barness-ai-grok/authorization/grok-20261026T043426Z-dbed29e7-grant.json": "07c4c759bf9dfd39e9d159053c2db91a38a5e3f3239e8aa491fc3ff5d1f886cd",
+        ".scratch/barness-ai-grok/verification/cases-v2.json": "c14e8116158c5213e6560fa87fb745221cae11c3ffc016d7c1905556acb31a1f"
+      },
+      "startedAt": "2026-10-26T04:35:08.596254+00:00",
+      "finishedAt": "2026-10-26T04:35:37.682067+00:00",
+      "elapsedSeconds": 29.085726000368595,
+      "formalQualified": false,
+      "auditPassed": true,
+      "scenarios": [
+        {
+          "id": "entry-stream",
+          "caseId": "E17-xai-entry-stream",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 2294,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "entry-complete",
+          "caseId": "E17-xai-entry-complete",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1343,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "entry-stream-simple",
+          "caseId": "E17-xai-entry-stream-simple",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1225,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "entry-complete-simple",
+          "caseId": "E17-xai-entry-complete-simple",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 2517,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "effort-default",
+          "caseId": "E17-xai-effort-default",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1139,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "effort-low",
+          "caseId": "E17-xai-effort-low",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1185,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "effort-medium",
+          "caseId": "E17-xai-effort-medium",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1157,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "effort-high",
+          "caseId": "E17-xai-effort-high",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1205,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "effort-xhigh",
+          "caseId": "E17-xai-effort-xhigh",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1572,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "encrypted-continuation",
+          "caseId": "E17-xai-encrypted-continuation",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 2648,
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "tools-auto",
+          "caseId": "E17-xai-tools-auto",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 2945,
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "tools-required",
+          "caseId": "E17-xai-tools-required",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 3304,
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "tools-none",
+          "caseId": "E17-xai-tools-none",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 833,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tools-parallel",
+          "caseId": "E17-xai-tools-parallel",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 3764,
+          "calls": 2,
+          "attempts": 2
+        },
+        {
+          "id": "user-png",
+          "caseId": "E17-xai-user-png",
+          "model": "grok-4.7",
+          "outcome": "PASS",
+          "durationMs": 1327,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "user-jpeg",
+          "caseId": "E17-xai-user-jpeg",
+          "model": "grok-4.7",
+          "outcome": "FAIL",
+          "errorCategory": "invalid_request",
+          "durationMs": 261,
+          "calls": 1,
+          "attempts": 1
+        },
+        {
+          "id": "tool-result-image",
+          "caseId": "E17-xai-tool-result-image",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        },
+        {
+          "id": "cache-usage",
+          "caseId": "E17-xai-cache-usage",
+          "model": "grok-4.7",
+          "outcome": "NOT_RUN",
+          "durationMs": 0,
+          "calls": 0,
+          "attempts": 0
+        }
+      ],
+      "budget": {
+        "maxCalls": 24,
+        "maxAttempts": 24,
+        "maxRequestedOutputTokens": 24576,
+        "maxReservedInputTokens": 196608,
+        "callsUsed": 20,
+        "httpAttempts": 20,
+        "vendorHTTPAttempts": 20,
+        "requestedOutputTokens": 20480,
+        "reservedInputTokens": 163840,
+        "reportedTokens": 26092,
+        "observedMaximumUSD": 0.023408,
+        "processSeconds": 1800,
+        "callSeconds": 65,
+        "finalizationReserveSeconds": 30
+      },
+      "consumer": {
+        "path": ".evidence/barness-ai-grok/live-consumers/attempt2-wrapper-v1/consumer/live-consumer.json",
+        "sha256": "6cc76746c31527c9363973ae58e78000c696d05f4e5bc2971e28fddb3301152f"
+      },
+      "consumerStatus": "FAIL",
+      "consumerPass": false,
+      "consumerExitCode": 1,
+      "usageCaveat": "observedMaximumUSD only sums responses with reported estimates; missing usage is unknown, never proof of zero billing"
+    }
+  ],
+  "allConsumed": true,
+  "remainingAuthorization": false,
+  "vendorRetries": 0,
+  "rootCauseAttempt2": {
+    "category": "fixture-below-provider-reported-pixel-minimum",
+    "reportedPixels": 64,
+    "reportedWidth": 8,
+    "reportedHeight": 8,
+    "reportedMinimumTotalPixels": 512,
+    "source": {
+      "path": ".evidence/barness-ai-grok/live/xai-responses/20261026T043508.582052Z-301pwtug/bundles/20261026T043508.611300000Z/E17-xai-user-jpeg/image-http.json",
+      "sha256": "569a4173012aa17a5c8ed8d0d14c1e775d0880fca667d435ff1659eb2222e8c3"
+    }
+  }
+}

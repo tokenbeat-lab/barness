@@ -1,0 +1,218 @@
+{
+  "completeOrdinary": "PENDING_ROOT",
+  "controlledEvidenceIsNotFormalQualification": true,
+  "failureModesBeforeImplementation": "# Issue18 failure modes before implementation\n\n1. Thinking-on reuses the direct-answer42 task; a legal adaptive zero-reasoning reply fails its own nonempty-reasoning assertion.\n2. A reasoning task still returns no thinking: preserve native FAIL and no thinking-on rerun.\n3. Probe change widens model, adaptive/split/output/attempt limits or scene identity: reject captured config drift.\n4. Simple/Full/cache/tool/history request text changes accidentally: compare captured baseline/tasks.\n5. Controlled proof touches vendor/real grant store or produces formal qualification: keep explicit controlled transport, omit grants, fresh legacy-ledger paths, reject formal.\n6. Only Chat is fixed, while Responses/Messages retain trivial task: exercise all three native routes through exact public subprocess.\n",
+  "independentTaskOracle": {
+    "answerNotInPrompt": true,
+    "finiteSearchUpperBound": 7429,
+    "moduli": [
+      17,
+      19,
+      23
+    ],
+    "remainders": [
+      7,
+      11,
+      13
+    ],
+    "smallestPositiveAnswer": 5464
+  },
+  "kind": "minimax-adaptive-reasoning-probe-software-evidence",
+  "knownExecutionDeviation": {
+    "actualPaidGrantUsed": false,
+    "existingTest": "TestGrokHistoryMiniMaxFreshLedger",
+    "followUp": "Parent is preparing issue19 for private Git-store isolation; no additional old common-store test runs authorized before isolation.",
+    "observation": {
+      "path": ".evidence/barness-ai-grok/issue18-controlled-store-observation.json",
+      "sha256": "cab810ef5fefd683ae18d359084ed4a11af1c781016ae03026c9476afc14bf21"
+    },
+    "removedOrReset": false,
+    "syntheticCommonStoreGuardFiles": 6,
+    "syntheticGrantIDs": 3
+  },
+  "nativeFreeze": "PENDING_ROOT",
+  "newAuxiliaryRequiredCases": [
+    "MM18-thinking-probe-chat-adaptive-probe",
+    "MM18-thinking-probe-chat-adaptive-probe-empty",
+    "MM18-thinking-probe-responses-adaptive-probe",
+    "MM18-thinking-probe-responses-adaptive-probe-empty",
+    "MM18-thinking-probe-messages-adaptive-probe",
+    "MM18-thinking-probe-messages-adaptive-probe-empty"
+  ],
+  "newPrimaryRequiredCases": [
+    "MM18-reasoning-probe-public-process"
+  ],
+  "newPublicRoot": "TestMiniMaxReasoningProbeProcess",
+  "originalOwnPositiveAssertionPreserved": "own reasoning actually observed",
+  "pressure": "NOT_RUN",
+  "race": "NOT_RUN",
+  "results": [
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxReasoningProbeProcess$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/bundles/20261026T194418.764215000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM18-reasoning-probe-public-process": "FAIL"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/bundles/20261026T194418.764215000Z/manifest.json",
+            "sha256": "34bd02bb3dabc593396436eaf1719801fcc848e33b77c7a2f2a56ee38a8b5006"
+          },
+          "maxCaseArtifacts": 3,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/bundles/20261026T194418.764215000Z"
+        },
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/bundles/20261026T194420.203894000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM18-thinking-probe-chat-adaptive-probe": "FAIL",
+            "MM18-thinking-probe-chat-adaptive-probe-empty": "FAIL",
+            "MM18-thinking-probe-messages-adaptive-probe": "FAIL",
+            "MM18-thinking-probe-messages-adaptive-probe-empty": "FAIL",
+            "MM18-thinking-probe-responses-adaptive-probe": "FAIL",
+            "MM18-thinking-probe-responses-adaptive-probe-empty": "FAIL"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/bundles/20261026T194420.203894000Z/manifest.json",
+            "sha256": "a78267f189952e3d1593da6ea3c4836395c851e98e12e1f3bb66c0a9607d230b"
+          },
+          "maxCaseArtifacts": 3,
+          "package": "-tags live ./ai/live",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/bundles/20261026T194420.203894000Z"
+        }
+      ],
+      "elapsedSeconds": 8.713066500145942,
+      "exitCode": 1,
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T194413.595655Z-8k2ulnp6/receipt.json",
+        "sha256": "a37a904837e4caa41e7875abcae8444b2a897c86da5d17c5ee4a21787c56a276"
+      },
+      "stage": "red",
+      "status": "FAIL"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxReasoningProbeProcess$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/bundles/20261026T194637.168881000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM18-reasoning-probe-public-process": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/bundles/20261026T194637.168881000Z/manifest.json",
+            "sha256": "4daf1552c8903f55278a49be3b6fed6a1e85316ce2010284918f8eff3507badf"
+          },
+          "maxCaseArtifacts": 3,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/bundles/20261026T194637.168881000Z"
+        },
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/bundles/20261026T194638.783592000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM18-thinking-probe-chat-adaptive-probe": "PASS",
+            "MM18-thinking-probe-chat-adaptive-probe-empty": "PASS",
+            "MM18-thinking-probe-messages-adaptive-probe": "PASS",
+            "MM18-thinking-probe-messages-adaptive-probe-empty": "PASS",
+            "MM18-thinking-probe-responses-adaptive-probe": "PASS",
+            "MM18-thinking-probe-responses-adaptive-probe-empty": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/bundles/20261026T194638.783592000Z/manifest.json",
+            "sha256": "8398c2779a73bea216fffb9644e3c0b3ae3c53936c03a6033f79daf3205e27e6"
+          },
+          "maxCaseArtifacts": 3,
+          "package": "-tags live ./ai/live",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/bundles/20261026T194638.783592000Z"
+        }
+      ],
+      "elapsedSeconds": 7.538507791701704,
+      "exitCode": 0,
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T194633.340708Z-1qgmd3tw/receipt.json",
+        "sha256": "91a5f66e57b2789a356c9bd332e97aab90047e8078f82b0cfc95303de095aa55"
+      },
+      "stage": "green",
+      "status": "PASS"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(MiniMaxLiveEvidenceTools|GrokHistoryMiniMaxFreshLedger)$",
+        "-count=1",
+        "-timeout=7m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194750.764843Z-cryyxr84/bundles/20261026T194752.551751000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "GROK-HISTORY-MINIMAX-FRESH-chat": "PASS",
+            "GROK-HISTORY-MINIMAX-FRESH-messages": "PASS",
+            "GROK-HISTORY-MINIMAX-FRESH-responses": "PASS",
+            "MM10-live-evidence-tools": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T194750.764843Z-cryyxr84/bundles/20261026T194752.551751000Z/manifest.json",
+            "sha256": "9b3df78c486f3c7bdc85064c9027c26f93f7276ac1a5e64914f169e897beaa74"
+          },
+          "maxCaseArtifacts": 4,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T194750.764843Z-cryyxr84/bundles/20261026T194752.551751000Z"
+        }
+      ],
+      "elapsedSeconds": 24.71749108284712,
+      "exitCode": 0,
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T194750.764843Z-cryyxr84/receipt.json",
+        "sha256": "ce57a7e48da5b4d04c8df4ad6f7597bb403f78ed96012b3c8c0170b5b5042f6c"
+      },
+      "stage": "affected",
+      "status": "PASS"
+    }
+  ],
+  "schema": 1,
+  "scope": "Only MiniMax-M3 thinking-on uses a finite three-congruence calculation; own positive observation assertion, modes/IDs/limits/consumers unchanged. M3.1 and other request tasks unchanged.",
+  "vendorCalls": 0
+}

@@ -41,7 +41,7 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 	for name := range original {
 		saved[name], _ = os.ReadFile(filepath.Join(dir, name))
 	}
-	for _, name := range []string{"cn-identity", "cn-provider", "cn-source", "cn-prices", "candidate-mode-spoof", "formal-mode-spoof", "formal-controlled", "invented-case", "omitted-attempt", "altered-usage", "coordinated-usage", "altered-request", "altered-events", "source-addition", "source-deletion", "ledger-omission", "unknown-field", "duplicate-field", "noncanonical-field", "extra-file", "unsafe-file"} {
+	for _, name := range []string{"cn-identity", "cn-provider", "cn-source", "cn-prices", "candidate-mode-spoof", "formal-mode-spoof", "formal-controlled", "invented-case", "omitted-attempt", "altered-usage", "coordinated-usage", "altered-request", "altered-events", "source-addition", "source-deletion", "ledger-omission", "unknown-field", "duplicate-field", "noncanonical-field", "extra-file", "unsafe-file", "xai-missing-scene", "xai-substituted-scene", "xai-wire-marker", "xai-immutable-input", "xai-native-envelope"} {
 		t.Run(name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-validator-"+name)
 			for path, raw := range saved {
@@ -58,6 +58,39 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 			}
 			switch name {
 
+			case "xai-missing-scene", "xai-substituted-scene":
+				mutate(minimaxlive.ReportFile, func(v map[string]any) {
+					rows := v["calls"].([]any)
+					for i, x := range rows {
+						row := x.(map[string]any)
+						if row["id"] != "xai-origin-history" {
+							continue
+						}
+						if name == "xai-missing-scene" {
+							rows = append(rows[:i], rows[i+1:]...)
+						} else {
+							row["id"] = "native-history"
+						}
+						break
+					}
+					v["calls"] = rows
+				})
+			case "xai-wire-marker":
+				path := "MM07-xai-origin-history/exchanges.json"
+				var ex []map[string]any
+				json.Unmarshal(saved[path], &ex)
+				ex[0]["requestBody"] = strings.ReplaceAll(ex[0]["requestBody"].(string), "SYNTHETIC_XAI_RESULT_FIRST", "SYNTHETIC_XAI_RESULT_OTHER")
+				raw, _ := json.Marshal(ex)
+				os.WriteFile(filepath.Join(dir, path), raw, 0600)
+				os.WriteFile(filepath.Join(dir, "MM07-xai-origin-history/request.json"), []byte(ex[0]["requestBody"].(string)), 0600)
+			case "xai-native-envelope":
+				path := "MM07-xai-origin-history/history-provenance.json"
+				raw := []byte(strings.ReplaceAll(string(saved[path]), "synthetic-xai-source-account", "synthetic-xai-forged-account"))
+				os.WriteFile(filepath.Join(dir, path), raw, 0600)
+			case "xai-immutable-input":
+				path := "MM07-xai-origin-history/immutable-input.json"
+				raw := []byte(strings.ReplaceAll(string(saved[path]), "SYNTHETIC_XAI_RESULT_FIRST", "SYNTHETIC_XAI_RESULT_OTHER"))
+				os.WriteFile(filepath.Join(dir, path), raw, 0600)
 			case "cn-identity":
 				mutate(minimaxlive.ReportFile, func(v map[string]any) { v["identity"].(map[string]any)["endpoint"] = "https://api.minimax.cn/v1" })
 			case "cn-provider":
@@ -156,7 +189,7 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 			_, err := minimaxlive.Verify(dir, name == "formal-controlled")
 			cs.Check("tampered or ineligible report refused", err != nil, "accepted %s", name)
 			if strings.HasSuffix(name, "mode-spoof") {
-				cs.Check("actual-only external origin required", err != nil && strings.Contains(err.Error(), "origin"), "%v", err)
+				cs.Check("actual-only external origin required", err != nil && strings.Contains(err.Error(), "fresh process approval missing"), "%v", err)
 			}
 		})
 	}

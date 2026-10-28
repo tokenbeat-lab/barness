@@ -23,6 +23,7 @@ type ExecutionSource struct {
 	Files  map[string]string `json:"files"`
 }
 type Impact struct {
+	RaceRequired     *bool    `json:"raceRequired,omitempty"`
 	LiveRoutes       []string `json:"liveRoutes"`
 	PressureRequired *bool    `json:"pressureRequired"`
 	Reason           string   `json:"reason"`

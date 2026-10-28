@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "path": ".scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip",
+      "existsLocally": true,
+      "bytes": 15769676,
+      "gitObjectExitCode": 128,
+      "gitObjectStderr": "fatal: path '.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip' exists on disk, but not in 'HEAD'\n",
+      "ignoreExitCode": 0,
+      "ignoreRule": ".gitignore:5:/.scratch/**/*.zip\t.scratch/barness-ai-openai-decisions/runtime-evidence/runtime.zip\n"
+    },
+    {
+      "path": ".scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip",
+      "existsLocally": true,
+      "bytes": 4139346,
+      "gitObjectExitCode": 128,
+      "gitObjectStderr": "fatal: path '.scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip' exists on disk, but not in 'HEAD'\n",
+      "ignoreExitCode": 0,
+      "ignoreRule": ".gitignore:5:/.scratch/**/*.zip\t.scratch/barness-ai-openai-decisions/jev-baseline/baseline.zip\n"
+    }
+  ]
+}

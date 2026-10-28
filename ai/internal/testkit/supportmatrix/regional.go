@@ -51,30 +51,49 @@ func VerifyRegionalControlledCapture(dir string) (Report, error) {
 }
 
 func regionalReport(dir string, formal bool, mode string) (Report, error) {
+	return regionalSelectedReport(dir, formal, mode, regionalFull)
+}
+
+func regionalSelectedReport(dir string, formal bool, mode string, selection regionalSelection) (Report, error) {
 	var r Report
 	if err := readJSON(filepath.Join(dir, RegionalReportFile), &r); err != nil {
 		return Report{}, err
 	}
 	r.evidenceDir = dir
 	route, ok := RegionalRouteOf(r.Combo)
+	if selection != regionalFull && (!RegionalIsKimi(r.Combo) || formal) {
+		return Report{}, refuse("partial evidence cannot grant standalone formal support")
+	}
+	purpose, contract := "standard", selectedRegionalContract(r.Combo, selection)
+	if selection == kimiHistoryOne {
+		purpose = KimiHistoryPurpose
+	}
+	limits := selectedRegionalBudget(r.Combo, selection)
 	e := r.Regional
 	alias := regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
-	if !ok || r.Schema != SchemaVersion || r.Operation != "chat" || r.Provider != route.Provider || r.API != route.API || r.Endpoint != route.Endpoint || r.Model != RegionalModels(r.Combo)[0] || e == nil || e.Schema != 1 || e.Mode != mode || !slices.Contains([]string{"candidate", "formal"}, e.Stage) || formal && e.Stage != "formal" || e.Purpose != "standard" || e.CredentialProvider != r.Provider || e.Contract != RegionalAuthorization(r.Combo) || !alias.MatchString(e.GrantID) || len(e.GrantSHA256) != 64 || !alias.MatchString(r.AccountAlias) || !alias.MatchString(e.RegionAlias) || mode == "live" && e.BuildSourceSHA256 != e.SourceSHA256 || len(e.BinarySHA256) != 64 || !e.Complete || !e.AuditPassed || r.GLM != nil || r.MiniMax != nil {
+	if !ok || r.Schema != SchemaVersion || r.Operation != "chat" || r.Provider != route.Provider || r.API != route.API || r.Endpoint != route.Endpoint || r.Model != RegionalModels(r.Combo)[0] || e == nil || e.Schema != 1 || e.Mode != mode || !slices.Contains([]string{"candidate", "formal"}, e.Stage) || e.Purpose != purpose || e.CredentialProvider != r.Provider || e.Contract != contract || !alias.MatchString(e.GrantID) || len(e.GrantSHA256) != 64 || !alias.MatchString(r.AccountAlias) || !alias.MatchString(e.RegionAlias) || mode == "live" && e.BuildSourceSHA256 != e.SourceSHA256 || len(e.BinarySHA256) != 64 || e.Complete != (selection != kimiHistoryOne) || !e.AuditPassed || r.GLM != nil || r.MiniMax != nil {
 		return Report{}, refuse("regional own service, grant, stage or mode invalid")
 	}
-	if r.GitCommit == "" || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > 1800*time.Second {
+	if r.GitCommit == "" || r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > time.Duration(limits.ProcessSeconds)*time.Second {
 		return Report{}, refuse("regional execution time/source missing")
 	}
-	if !reflect.DeepEqual(e.NativeSourceCases, regionalNativeSources(r.Combo)) {
+	nativeSources := regionalNativeSources(r.Combo)
+	if selection == kimiHistoryOne {
+		nativeSources = map[string]string{}
+	}
+	if !reflect.DeepEqual(e.NativeSourceCases, nativeSources) {
 		return Report{}, refuse("regional native source case selection differs")
+	}
+	if selection != regionalFull && e.Stage != "candidate" {
+		return Report{}, refuse("Kimi selected measurement must retain candidate stage")
 	}
 	sdk, err := RegionalSDK(r.Combo)
 	if err != nil || r.SDK != sdk {
 		return Report{}, refuse("regional SDK differs from selected dependency")
 	}
 	cat, err := RegionalCandidateCatalog(r.Combo)
-	if e.Stage == "formal" {
-		cat, err = RegionalFormalCatalog(r.Combo)
+	if e.Stage == "formal" || formal {
+		cat, err = RouteCatalog(dir, r)
 	}
 	if err != nil {
 		return Report{}, err
@@ -89,14 +108,13 @@ func regionalReport(dir string, formal bool, mode string) (Report, error) {
 		}
 	}
 	b := r.Budget
-	limits := RegionalBudgetFor(r.Combo)
-	if b.MaxCalls != limits.MaxCalls || b.MaxAttempts != limits.MaxAttempts || b.MaxOutputTokens != 4096 || b.MaxRequestedOutputTokens != limits.MaxRequestedOutputTokens || b.MaxReservedInputTokens != limits.MaxReservedInputTokens || b.MaxRetries != 0 || b.CallSeconds != 120 || b.ProcessSeconds != 1800 || b.CallsUsed < 0 || b.CallsUsed > limits.MaxCalls || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts != b.CallsUsed || b.RequestedOutputTokens < b.CallsUsed || b.RequestedOutputTokens > b.CallsUsed*4096 || b.ReservedInputTokens < b.CallsUsed*2048 || b.ReservedInputTokens > b.MaxReservedInputTokens {
+	if b.MaxCalls != limits.MaxCalls || b.MaxAttempts != limits.MaxAttempts || b.MaxOutputTokens != 4096 || b.MaxRequestedOutputTokens != limits.MaxRequestedOutputTokens || b.MaxReservedInputTokens != limits.MaxReservedInputTokens || b.MaxRetries != 0 || b.CallSeconds != 120 || b.ProcessSeconds != limits.ProcessSeconds || b.CallsUsed < 0 || b.CallsUsed > limits.MaxCalls || b.AttemptsReserved != b.CallsUsed || b.HTTPAttempts != b.CallsUsed || b.RequestedOutputTokens < b.CallsUsed || b.RequestedOutputTokens > b.CallsUsed*4096 || b.ReservedInputTokens < b.CallsUsed*2048 || b.ReservedInputTokens > b.MaxReservedInputTokens {
 		return Report{}, refuse("regional own fixed budget differs")
 	}
 	if RegionalIsKimi(r.Combo) && (!regionalValidUSD(e.MaxUSD) || e.ReservedUSD < 0 || e.ReservedUSD > e.MaxUSD) {
 		return Report{}, refuse("Kimi explicit USD reservation invalid")
 	}
-	expected := RegionalExpected(r.Combo)
+	expected := selectedRegionalExpected(r.Combo, selection)
 	if !slices.Equal(r.Expected, expected) || len(r.Scenarios) != len(expected) || b.CallsUsed != len(expected) {
 		return Report{}, refuse("regional complete model-qualified set required")
 	}
@@ -106,14 +124,14 @@ func regionalReport(dir string, formal bool, mode string) (Report, error) {
 			return Report{}, refuse("regional own scenario incomplete or substituted")
 		}
 	}
-	if err := verifyRegionalBundle(dir, r); err != nil {
+	if err := verifyRegionalBundle(dir, r, selection); err != nil {
 		return Report{}, err
 	}
 	return r, nil
 }
 
-// Formal promotion is a reviewed data change followed by its own fresh live
-// execution. Catalog existence alone cannot replace the accepted regional facts.
+// Formal promotion is a reviewed data change. Complete actual measurements may
+// qualify offline; catalog existence alone cannot replace accepted own facts.
 func RegionalFormalCatalog(combo string) (ai.Catalog, error) {
 	route, ok := RegionalRouteOf(combo)
 	if !ok {

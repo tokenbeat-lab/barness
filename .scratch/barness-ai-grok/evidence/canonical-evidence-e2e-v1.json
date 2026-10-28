@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "kind": "grok-canonical-evidence-targeted-e2e",
+  "testedCommit": "8f77ecc8d126ce8d1fc9006c3171bd63f79c493d",
+  "sourceFileCount": 1962,
+  "selectedInputs": {},
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "-run",
+    "^(TestXAI.*|TestGLMResponsesOriginIDCollision|TestKimiResponsesCrossTargetIDs|TestKimiResponsesSequentialProvenanceIDs)$",
+    "-count=1",
+    "-timeout=5m"
+  ],
+  "status": "PASS",
+  "exitCode": 0,
+  "receipt": ".evidence/barness-ai-grok/e2e/20261026T035455.163466Z-wri39emd/receipt.json",
+  "receiptSHA256": "03d3becc0240b458c68eedfb43c5a329c0ecf3aeb6c5550798f1d8a36bbb88d2",
+  "bundles": [
+    {
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "manifestSHA256": "9a7d0a6e661b6956e2b948269335ce8d3ab1488c3d46bc39205123433a516058",
+      "package": "./ai/e2e",
+      "path": "bundles/20261026T035459.058642000Z"
+    }
+  ],
+  "tests": 606,
+  "rootTests": 65,
+  "cases": 565,
+  "caseOutcomes": [
+    "PASS"
+  ],
+  "nativeConsumerChecks": {
+    "source": true,
+    "e2e": true,
+    "race": false,
+    "pressure": false,
+    "live": false
+  },
+  "nativeConsumerExitCode": 1,
+  "releasePass": false,
+  "sourceEquality": ".evidence/barness-ai-grok/canonical-evidence/20261026T035455Z/source-equality.json"
+}

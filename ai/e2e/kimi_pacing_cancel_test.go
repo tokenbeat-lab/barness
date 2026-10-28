@@ -13,6 +13,12 @@ import (
 )
 
 func TestKimiPacingInterruptedWait(t *testing.T) {
+	privateGrantStore(t)
+	probe := exec.CommandContext(ctxFor(t), "git")
+	probe.Dir, probe.Env = "../..", regionalChildEnvironment()
+	if !privateGrantProcess(t, run.Case(t, "PD-isolation-kimi-wait"), probe) {
+		return
+	}
 	binary, digest := kimiQualificationBinary(t)
 	for _, mode := range []string{"expiry", "signal"} {
 		t.Run(mode, func(t *testing.T) {

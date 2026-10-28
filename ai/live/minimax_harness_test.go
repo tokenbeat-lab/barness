@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -14,6 +13,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
@@ -94,7 +94,7 @@ func driveMiniMax(t *testing.T) {
 	for _, p := range r.Expected {
 		retry := false
 		t.Run(p.ID, func(t *testing.T) { retry = s.execute(t, p, 0) })
-		if retry {
+		if retry && r.Kind != minimaxlive.ThinkingKind {
 			if r.Kind == "minimax-research-only" {
 				t.Errorf("research own tool/reasoning remains unproven")
 			} else {
@@ -132,115 +132,6 @@ func miniMaxPolicy() *ai.ResourcePolicy {
 	return policy
 }
 
-func miniMaxOptions(p minimaxlive.Case) ai.Options {
-	p.ID = strings.TrimPrefix(p.ID, "research-")
-	id := minimaxReport.Identity
-	level := ai.ThinkingLevel("")
-	if p.ID == "thinking-on" || p.ID == "tool-call" || p.ID == "tool-result-native" {
-		level = ai.ThinkingHigh
-	}
-	if p.ID == "thinking-control" {
-		level = ai.ThinkingLevel("")
-		if id.Model == minimaxlive.M31 {
-			level = ai.ThinkingMax
-		}
-	}
-	n := p.Output
-	if p.ID == "preflight-error" {
-		n = 131073
-	}
-	switch id.API {
-	case ai.APIOpenAICompletions:
-		o := ai.ChatOptions{MaxTokens: ai.Value(n), ReasoningEffort: level}
-		if p.ID == "thinking-control" && id.Model == minimaxlive.M3 {
-			o.SamplingParams = map[string]json.RawMessage{"thinking": json.RawMessage(`{"type":"disabled"}`)}
-		}
-		return o
-	case ai.APIOpenAIResponses:
-		o := ai.ResponsesOptions{MaxTokens: ai.Value(n), ReasoningEffort: level}
-		if strings.HasPrefix(p.ID, "cache-") {
-			o.SessionID = "synthetic-fixed-prefix"
-			o.CacheRetention = ai.CacheRetentionShort
-		}
-		return o
-	default:
-		o := ai.AnthropicOptions{MaxTokens: ai.Value(n)}
-		if p.ID == "thinking-control" && id.Model == minimaxlive.M3 {
-			o.ThinkingEnabled = ai.Value(false)
-		}
-		if level != "" {
-			o.ThinkingEnabled = ai.Value(level != ai.ThinkingLevel("off"))
-		}
-		if id.Model == minimaxlive.M31 && level != "" {
-			o.Effort = ai.AnthropicEffort(level)
-		}
-		return o
-	}
-}
-func (s *minimaxSession) request(p minimaxlive.Case) (ai.Request, error) {
-	p.ID = strings.TrimPrefix(p.ID, "research-")
-	req := ai.Request{Messages: []ai.Message{ai.UserText("Synthetic protocol probe. Reply with the integer 42.")}}
-	if p.ID == "tool-call" {
-		req.Messages = []ai.Message{ai.UserText("Synthetic arithmetic task. You MUST call the add function with a=17 and b=25 before answering. Think through the calculation first.")}
-		req.Tools = []ai.Tool{glmAdd}
-	}
-	if p.ID == "tool-result-native" {
-		if s.tool.Message.StopReason != ai.StopReasonToolUse {
-			return req, fmt.Errorf("own tool prerequisite missing")
-		}
-		req = s.toolRequest
-		req.Messages = append([]ai.Message{}, req.Messages...)
-		msg := s.tool.Message
-		env, ok := msg.NativeState.Envelope()
-		if !ok {
-			return req, fmt.Errorf("own native provenance missing")
-		}
-		// Exercise the Host's persisted state integrity/trust boundary as documented.
-		raw, e := json.Marshal(msg)
-		if e != nil {
-			return req, e
-		}
-		restored, e := minimaxlive.DecodeMessage(raw)
-		if e != nil {
-			return req, e
-		}
-		restored.NativeState, e = ai.TrustNativeState(newScope(), env)
-		if e != nil {
-			return req, e
-		}
-		req.Messages = append(req.Messages, restored)
-		count := 0
-		for i, part := range restored.Content {
-			call, ok := part.(ai.ToolCall)
-			if !ok {
-				continue
-			}
-			v, e := ai.ValidateToolCall(restored, i, req.Tools)
-			if e != nil {
-				return req, e
-			}
-			var args struct{ A, B int }
-			if e = v.Decode(&args); e != nil || args.A != 17 || args.B != 25 {
-				return req, fmt.Errorf("unexpected synthetic tool arguments")
-			}
-			req.Messages = append(req.Messages, ai.ToolResultText(call, "42", false))
-			count++
-		}
-		if count == 0 {
-			return req, fmt.Errorf("own tool absent")
-		}
-	}
-	if strings.HasPrefix(p.ID, "cache-") {
-		req.Messages = []ai.Message{ai.UserText(strings.Repeat("Synthetic prefix, no personal data. ", 64) + "Reply 42.")}
-	}
-	if p.ID == "truncate" {
-		req.Messages = []ai.Message{ai.UserText("Write a long explanation of all integers from one to one hundred.")}
-	}
-	if p.ID == "cancel" {
-		req.Messages = []ai.Message{ai.UserText("Write the integers from one to one thousand slowly and explain each integer.")}
-	}
-	return req, nil
-}
 func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (needsRerun bool) {
 	cs := run.Case(t, minimaxlive.CaseID(p.ID, rerun))
 	cs.ReplayRun("^TestMiniMaxProcess$/^success-" + minimaxReport.Identity.Route + "$")
@@ -257,6 +148,7 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	if !cs.Check("own complete history prerequisite", e == nil, "%v", e) {
 		return
 	}
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	raw, _ := json.Marshal(req)
 	input := len(raw) + 1024
 	if input < 2048 {
@@ -340,6 +232,17 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	}
 	obs := s.rec.observationsOf(scope.RequestID)
 	ex := s.rec.take()
+	if p.ID == grokhistory.Scenario {
+		after, _ := json.Marshal(req)
+		cs.Record("immutable-input", req)
+		provenance.After = grokhistory.Envelopes(req)
+		cs.Record("history-provenance", provenance)
+		rawProof, _ := json.Marshal(provenance)
+		cs.Check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
+		cs.Check("fixed Host input immutable", grokhistory.VerifyHost(after), "input changed")
+		cs.Check("two foreign assistant downgrades", capture.Result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "downgrades differ")
+		cs.Check("actual xAI collision/reuse wire", len(ex) == 1 && grokhistory.Verify(minimaxReport.Identity.API, []byte(ex[0].RequestBody)) == nil, "wire differs")
+	}
 	out.Attempts = append(out.Attempts, s.gate.receipts...)
 	cs.Record("result", capture)
 	cs.Record("events", events)
@@ -347,6 +250,9 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	cs.Record("exchanges", ex)
 	cs.Record("metrics", map[string]any{"activeBodies": s.gate.active.Load(), "observer": s.client.ObserverStats(), "hookCalls": hookCalls})
 	cs.Record("budget-after", *b)
+	if minimaxReport.Kind == minimaxlive.ThinkingKind {
+		cs.Record("thinking-budget", s.gate.thinkingBudget)
+	}
 	compareMiniMaxReplay(cs, cs.ID(), capture, events)
 	if p.ID == "preflight-error" {
 		if cs.Check("preflight refuses with zero attempts", err != nil && len(ex) == 0 && len(capture.Result.Metadata.Attempts) == 0, "code=%s", capture.ErrorCode) {
@@ -360,7 +266,7 @@ func (s *minimaxSession) execute(t *testing.T, p minimaxlive.Case, rerun int) (n
 	res := capture.Result
 	cs.Check("exact identity snapshot", res.Metadata.ProviderID == ai.ProviderMiniMax && res.Metadata.API == minimaxReport.Identity.API && res.Metadata.ModelID == minimaxReport.Identity.Model && res.Metadata.CatalogHash == minimaxReport.CatalogHash, "identity mismatch")
 	cs.Check("body and Observer resources settled", s.gate.active.Load() == 0 && s.client.ObserverStats().Dropped == 0 && s.client.ObserverStats().Failed == 0, "resource not settled")
-	if rerun == 0 && minimaxReport.Kind != "minimax-research-only" && s.requestReruns < minimaxlive.MaxRequestReruns && minimaxlive.RequestRerunnable(capture, events, ex[0].Status, ex[0].ResponseBody) {
+	if rerun == 0 && minimaxReport.Kind != "minimax-research-only" && minimaxReport.Kind != minimaxlive.ThinkingKind && s.requestReruns < minimaxlive.MaxRequestReruns && minimaxlive.RequestRerunnable(capture, events, ex[0].Status, ex[0].ResponseBody) {
 		for _, x := range ex {
 			cs.Check("bounded initial request failure capture", !x.Truncated, "truncated")
 			cs.Fixture("request.json", []byte(x.RequestBody))

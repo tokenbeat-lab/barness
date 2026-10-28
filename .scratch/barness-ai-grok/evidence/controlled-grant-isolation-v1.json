@@ -1,0 +1,331 @@
+{
+  "actualPaidGrantsUsed": false,
+  "attempts": [
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshLedgerIsolationProcess$",
+        "-count=1",
+        "-timeout=2m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T195731.300354Z-1_ogmnag/bundles/20261026T195735.921725000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM19-private-ledger-independent-fixtures": "FAIL",
+            "MM19-private-ledger-parent-git-dir": "FAIL",
+            "MM19-private-ledger-parent-git-overrides": "FAIL"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T195731.300354Z-1_ogmnag/bundles/20261026T195735.921725000Z/manifest.json",
+            "sha256": "26ddbaf514cea8914c6fa10d77414ccb8909d308a6e28e5d8001bfbf8ccb45f8"
+          },
+          "maxCaseArtifacts": 2,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T195731.300354Z-1_ogmnag/bundles/20261026T195735.921725000Z"
+        }
+      ],
+      "elapsedSeconds": 4.947115708142519,
+      "exitCode": 1,
+      "nestedControlledNativeContainer": null,
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T195731.300354Z-1_ogmnag/receipt.json",
+        "sha256": "75db338a542d6deb222bee3fa0e5a551bba30456176d684b201ec169c5296764"
+      },
+      "selectedInputs": 0,
+      "sourceCommit": "2589fe42271334b4ed818731b564efb3a90f2ebe",
+      "sourceFiles": 2062,
+      "stage": "readonly-red",
+      "status": "FAIL"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshLedgerIsolationProcess$",
+        "-count=1",
+        "-timeout=2m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T195911.229748Z-zx1npudt/bundles/20261026T195915.932810000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM19-private-ledger-independent-fixtures": "FAIL",
+            "MM19-private-ledger-parent-git-dir": "FAIL",
+            "MM19-private-ledger-parent-git-overrides": "FAIL"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T195911.229748Z-zx1npudt/bundles/20261026T195915.932810000Z/manifest.json",
+            "sha256": "a1162ffcc9201d1f867df125d0af5633eb09df1028c121e7f31f81d7817da232"
+          },
+          "maxCaseArtifacts": 2,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T195911.229748Z-zx1npudt/bundles/20261026T195915.932810000Z"
+        }
+      ],
+      "elapsedSeconds": 5.189668749924749,
+      "exitCode": 1,
+      "nestedControlledNativeContainer": null,
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T195911.229748Z-zx1npudt/receipt.json",
+        "sha256": "1da58f87fa675537ba8bb92ced30a8d05e6b4609a77363fc9a9362106cceabc8"
+      },
+      "selectedInputs": 0,
+      "sourceCommit": "2c5309320ff69ee940280f5dcfd070fb41a9e6ba",
+      "sourceFiles": 2062,
+      "stage": "canonical-path-preflight-refusal",
+      "status": "FAIL"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestMiniMaxFreshLedgerIsolationProcess$",
+        "-count=1",
+        "-timeout=2m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200003.165059Z-4stk29qh/bundles/20261026T200007.198236000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "MM19-private-ledger-independent-fixtures": "PASS",
+            "MM19-private-ledger-parent-git-dir": "PASS",
+            "MM19-private-ledger-parent-git-overrides": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200003.165059Z-4stk29qh/bundles/20261026T200007.198236000Z/manifest.json",
+            "sha256": "12ca9f4deef1531fcf8217a6c2bac372a65677242050690e5dc3dd521f9a1cbe"
+          },
+          "maxCaseArtifacts": 4,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T200003.165059Z-4stk29qh/bundles/20261026T200007.198236000Z"
+        }
+      ],
+      "elapsedSeconds": 5.184659583028406,
+      "exitCode": 0,
+      "nestedControlledNativeContainer": null,
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T200003.165059Z-4stk29qh/receipt.json",
+        "sha256": "d9aa8516f453d1905cbab11f9feac2330ff91ddfd5735316c8e1f41e02aa2a6b"
+      },
+      "selectedInputs": 0,
+      "sourceCommit": "2c5309320ff69ee940280f5dcfd070fb41a9e6ba",
+      "sourceFiles": 2062,
+      "stage": "readonly-green",
+      "status": "PASS"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(MiniMaxFreshLedgerIsolationProcess|GrokHistoryMiniMaxFreshLedger)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200133.683652Z-s92aw2wj/bundles/20261026T200137.340748000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "GROK-HISTORY-MINIMAX-FRESH-chat": "FAIL",
+            "GROK-HISTORY-MINIMAX-FRESH-messages": "FAIL",
+            "GROK-HISTORY-MINIMAX-FRESH-responses": "FAIL",
+            "MM19-private-ledger-independent-fixtures": "PASS",
+            "MM19-private-ledger-parent-git-dir": "PASS",
+            "MM19-private-ledger-parent-git-overrides": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200133.683652Z-s92aw2wj/bundles/20261026T200137.340748000Z/manifest.json",
+            "sha256": "6c85ef517eff96b4d015684ea0f820af1e60a964205c93abc7b3b5150e832543"
+          },
+          "maxCaseArtifacts": 10,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T200133.683652Z-s92aw2wj/bundles/20261026T200137.340748000Z"
+        }
+      ],
+      "elapsedSeconds": 8.071244874969125,
+      "exitCode": 1,
+      "nestedControlledNativeContainer": ".evidence/barness-ai-grok/e2e/20261026T200133.683652Z-s92aw2wj/bundles/minimax-fresh-native",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T200133.683652Z-s92aw2wj/receipt.json",
+        "sha256": "a6d6e9977abeb1b0352f7fd2d18e4a3da8f70fa6f923249a623d93d21bd401a1"
+      },
+      "selectedInputs": 0,
+      "sourceCommit": "2c5309320ff69ee940280f5dcfd070fb41a9e6ba",
+      "sourceFiles": 2062,
+      "stage": "private-ledger-inventory-failure",
+      "status": "FAIL"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(MiniMaxFreshLedgerIsolationProcess|GrokHistoryMiniMaxFreshLedger)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200406.318191Z-cbg0uqij/bundles/20261026T200410.330878000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "GROK-HISTORY-MINIMAX-FRESH-chat": "PASS",
+            "GROK-HISTORY-MINIMAX-FRESH-messages": "PASS",
+            "GROK-HISTORY-MINIMAX-FRESH-responses": "PASS",
+            "MM19-private-ledger-independent-fixtures": "PASS",
+            "MM19-private-ledger-parent-git-dir": "PASS",
+            "MM19-private-ledger-parent-git-overrides": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200406.318191Z-cbg0uqij/bundles/20261026T200410.330878000Z/manifest.json",
+            "sha256": "8eea6ecbb6ef667be5da963f79e570a23fc809e41083022aaa18de073d20b800"
+          },
+          "maxCaseArtifacts": 12,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T200406.318191Z-cbg0uqij/bundles/20261026T200410.330878000Z"
+        }
+      ],
+      "elapsedSeconds": 8.003391374833882,
+      "exitCode": 0,
+      "nestedControlledNativeContainer": ".evidence/barness-ai-grok/e2e/20261026T200406.318191Z-cbg0uqij/bundles/minimax-fresh-native",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T200406.318191Z-cbg0uqij/receipt.json",
+        "sha256": "5e1b5d1b746fc3b6d9a8638f14e5da0e2cb90fe8a3fdab254cf3bdd89bf0261a"
+      },
+      "selectedInputs": 0,
+      "sourceCommit": "2c5309320ff69ee940280f5dcfd070fb41a9e6ba",
+      "sourceFiles": 2062,
+      "stage": "private-ledger-inventory-green",
+      "status": "PASS"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(MiniMaxFreshLedgerIsolationProcess|GrokHistoryMiniMaxFreshLedger)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200652.018014Z-l8pz6457/bundles/20261026T200655.822244000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "auditFindings": 0,
+          "caseOutcomes": {
+            "GROK-HISTORY-MINIMAX-FRESH-chat": "PASS",
+            "GROK-HISTORY-MINIMAX-FRESH-messages": "PASS",
+            "GROK-HISTORY-MINIMAX-FRESH-responses": "PASS",
+            "MM19-private-ledger-independent-fixtures": "PASS",
+            "MM19-private-ledger-parent-git-dir": "PASS",
+            "MM19-private-ledger-parent-git-overrides": "PASS"
+          },
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T200652.018014Z-l8pz6457/bundles/20261026T200655.822244000Z/manifest.json",
+            "sha256": "4784b32f99e40895829f24075b68ad282c6ac75a6dda71c01d10f7a896cf6e01"
+          },
+          "maxCaseArtifacts": 12,
+          "package": "./ai/e2e",
+          "path": ".evidence/barness-ai-grok/e2e/20261026T200652.018014Z-l8pz6457/bundles/20261026T200655.822244000Z"
+        }
+      ],
+      "elapsedSeconds": 7.867485458962619,
+      "exitCode": 0,
+      "nestedControlledNativeContainer": ".evidence/barness-ai-grok/e2e/20261026T200652.018014Z-l8pz6457/bundles/minimax-fresh-native",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T200652.018014Z-l8pz6457/receipt.json",
+        "sha256": "847b25cfa61eda683406d053c550e713831e33deb356f6090f159c8ecdd75e81"
+      },
+      "selectedInputs": 0,
+      "sourceCommit": "2c5309320ff69ee940280f5dcfd070fb41a9e6ba",
+      "sourceFiles": 2062,
+      "stage": "strict-private-inventory-green",
+      "status": "PASS"
+    }
+  ],
+  "completeOrdinary": "PENDING_ROOT",
+  "existingPrimaryCasesRetained": [
+    "GROK-HISTORY-MINIMAX-FRESH-chat",
+    "GROK-HISTORY-MINIMAX-FRESH-responses",
+    "GROK-HISTORY-MINIMAX-FRESH-messages"
+  ],
+  "failureModesBeforeImplementation": "# Issue19 isolation failure modes before implementation\n\n1. Native command filters Git env then rediscovers the real checkout common store. RED must only execute read-only git rev-parse and return before any native launch.\n2. Parent GIT_DIR/GIT_COMMON_DIR/object/namespace overrides leak into child.\n3. Independent fixture invocations share the same grant namespace.\n4. Parent direct native verifier consults a different store than its child.\n5. Private store points at a synthetic or unresolved commit instead of genuine checkout HEAD.\n6. Source-root discovery changes or files are copied/faked.\n7. Existing restart accidentally creates a new store, defeating one-use rejection.\n8. Store inventory or parent sentinel changes unexpectedly; retain exact private guard bytes in evidence.\n",
+  "finalReview": "PENDING_ROOT",
+  "formalQualification": false,
+  "historicalExecutionDeviation": {
+    "fixedPathLedgerSupplement": {
+      "path": ".evidence/barness-ai-grok/issue18-controlled-ledger-followup.json",
+      "sha256": "94888df7df8bafcd5f0a78e2b4765409ebd117a36c077c27e9355e24112b7d91"
+    },
+    "guardObservation": {
+      "path": ".evidence/barness-ai-grok/issue18-controlled-store-observation.json",
+      "sha256": "cab810ef5fefd683ae18d359084ed4a11af1c781016ae03026c9476afc14bf21"
+    },
+    "removedOrReset": false,
+    "sharedGuardFiles": 6,
+    "sharedLedgerFiles": 3,
+    "syntheticGrantIDs": 3,
+    "totalKnownSharedPayloadFiles": 9,
+    "unrelatedStoreBodiesScanned": false
+  },
+  "implementation": {
+    "artifacts": "All private native reports, raw captures, grants, claim receipts and ledger originals remain under each attempt controlled native container. Private claim-store bytes separately captured in primary case artifacts before TempDir cleanup.",
+    "childPreflight": "Public git rev-parse validates actual common namespace before native can start; no native/claim for readonly RED.",
+    "namespace": "One owned temporary Git_DIR per t.Run; genuine checkout GIT_WORK_TREE and actual HEAD object via read-only objects/info/alternates.",
+    "parentVerifier": "Same owned GIT_DIR and GIT_WORK_TREE via sequential t.Setenv, with all other ambient GIT_* overrides removed and restored on cleanup.",
+    "privateInventory": "Exactly lock, id-<actualGrantIDHash>.json, scope-<verifiedScopeSHA256>.json, ledger-<verifiedScopeSHA256>.jsonl; raw guard/ledger files and digest snapshots retained for first claim and refused restart.",
+    "restart": "Same command retains same namespace, original grant remains one-use and second process refuses."
+  },
+  "kind": "controlled-minimax-fresh-ledger-private-git-isolation-evidence",
+  "newPrimaryRequiredCases": [
+    "MM19-private-ledger-parent-git-dir",
+    "MM19-private-ledger-parent-git-overrides",
+    "MM19-private-ledger-independent-fixtures"
+  ],
+  "newPublicRoot": "TestMiniMaxFreshLedgerIsolationProcess",
+  "newSharedStoreClaimsAfterFix": 0,
+  "pressure": "NOT_RUN",
+  "race": "NOT_RUN",
+  "schema": 1,
+  "scope": "Only TestGrokHistoryMiniMaxFreshLedger command fixture and its dedicated public Git-process isolation regression. Generic xaiProcessEnv and production/native authority/consumer contracts unchanged.",
+  "sourceAndCommitAreGenuineCheckout": true,
+  "vendorCalls": 0
+}

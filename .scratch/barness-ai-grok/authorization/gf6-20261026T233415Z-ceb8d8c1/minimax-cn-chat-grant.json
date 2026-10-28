@@ -1,0 +1,25 @@
+{
+  "accountAlias": "MINIMAX_CN",
+  "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+  "catalogVersion": "2026-10-26.1",
+  "combo": "minimax-cn-chat",
+  "contract": "provider-sites/minimax-cn-chat/standard/v1",
+  "endpoint": "https://api.minimax.cn/v1",
+  "expiresAt": "2026-10-27T11:34:15.609812Z",
+  "id": "gf6-20261026T233415Z-ceb8d8c1-09",
+  "maxAttempts": 24,
+  "maxCalls": 24,
+  "maxRequestedOutputTokens": 98304,
+  "maxReservedInputTokens": 120000,
+  "mode": "live",
+  "models": [
+    "MiniMax-M3"
+  ],
+  "provider": "minimax-cn",
+  "purpose": "standard",
+  "regionAlias": "cn",
+  "schema": 1,
+  "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+  "sourceSha256": "3db5898952cdfe27176820b0535b8be659d7416cbafdc6026dd87b0a14b2d83b",
+  "stage": "formal"
+}

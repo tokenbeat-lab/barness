@@ -3,7 +3,6 @@ package e2e
 import (
 	"encoding/json"
 	"github.com/tokenbeat-lab/barness/ai"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/kimi"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/provider"
 	"slices"
 	"strings"
@@ -16,9 +15,8 @@ func TestKimiResponsesCrossTargetIDs(t *testing.T) {
 			for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
 				t.Run(string(market)+"/"+source+"/"+destination, func(t *testing.T) {
 					ev := run.Case(t, kimiResponsesID(market, "K06-collision-")+t.Name())
-					cat := kimi.CandidateCatalog()
-					cat.Models = append(cat.Models, ai.BuiltinCatalog().Models...)
-					w := newWorldWith(t, func(c *ai.Config) { c.Catalog = &cat }, tenantA)
+					// The activated builtin already contains Kimi and the destination models.
+					w := newWorld(t, tenantA)
 					api := ai.APIOpenAICompletions
 					prefix := "/v1"
 					ids := []string{"same/a", "same?a"}

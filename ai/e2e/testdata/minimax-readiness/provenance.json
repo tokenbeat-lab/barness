@@ -1,0 +1,25 @@
+{
+  "kind": "retained-partial-response-fixture",
+  "mode": "offline-fixture",
+  "sourceBundle": ".evidence/barness-ai-grok/live/minimax-messages/20261027T000249.194767Z-krdog6id/bundles/20261027T000249.211139000Z",
+  "sourceCase": "MM07-thinking-on",
+  "responseSHA256": "78b30e5cffc1f84225813067eb30f1a5ff1cebfdeec1c163b1f75357de6612c5",
+  "sourceRequestSHA256": "00f815b8e41a2a92c6d265a1bf0fbc0428c72fb6f559a350930a77abc91344bd",
+  "request": {
+    "SystemPrompt": "",
+    "Messages": [
+      {
+        "content": [
+          {
+            "text": "Synthetic reasoning task. Find the smallest positive integer n that gives remainders 7, 11, and 13 when divided by 17, 19, and 23 respectively. Work through the congruences and verify all three remainders before giving the final integer."
+          }
+        ]
+      }
+    ],
+    "Tools": null
+  },
+  "thinking": "We need solve CRT. Need work through congruences verify. Need find smallest",
+  "realOutcome": "FAIL",
+  "originalReadCause": "NOT_RETAINED",
+  "injectedReadCause": "synthetic controlled non-EOF read error, not a vendor diagnosis"
+}

@@ -209,7 +209,7 @@ func TestGLMFormalReports(t *testing.T) {
 				_, e = supportmatrix.Merge(m, originalReport)
 			}
 			want := known.Routes[route]
-			ev.Check("historical raw totals survive while current execution acceptance refuses", glmExecutionSourceDrift(e) && originalReport.GitCommit == known.SourceCommit && originalReport.Budget.InputTokensUsed == want.InputSide && originalReport.Budget.OutputTokensUsed == want.Output && r.GLM.Derivation.RawArchiveSHA256 == want.ArchiveSHA256 && r.GLM.Derivation.OriginalFormalReportSHA256 == want.ReportSHA256, "err=%v budget=%+v expected=%+v", e, originalReport.Budget, want)
+			ev.Check("historical raw totals survive while current execution acceptance refuses", glmCurrentScopeRefusal(e, originalReport.CatalogHash) && originalReport.GitCommit == known.SourceCommit && originalReport.Budget.InputTokensUsed == want.InputSide && originalReport.Budget.OutputTokensUsed == want.Output && r.GLM.Derivation.RawArchiveSHA256 == want.ArchiveSHA256 && r.GLM.Derivation.OriginalFormalReportSHA256 == want.ReportSHA256, "err=%v budget=%+v expected=%+v", e, originalReport.Budget, want)
 			zero := originalReport
 			zero.Budget.InputTokensUsed, zero.Budget.OutputTokensUsed = 0, 0
 			_, zeroError := supportmatrix.Merge(m, zero)
@@ -223,14 +223,15 @@ func TestGLMFormalReports(t *testing.T) {
 			ev.Check("history cannot be replaced by fabricated newer metadata", err != nil && len(m.Rows[0].Capabilities) == 0 && m.Rows[0].AllPassedAt.Equal(r.FinishedAt), "history lost")
 			cat := ai.BuiltinCatalog()
 			hash, _ := cat.Hash()
-			ev.Check("historical catalog snapshot still exact despite changed execution source", r.CatalogHash == hash && r.CatalogVersion == cat.Version, "stale")
+			ev.Check("historical catalog provenance is preserved", r.CatalogHash == originalReport.CatalogHash && r.CatalogVersion == originalReport.CatalogVersion && r.CatalogHash != "", "historical catalog rewritten")
+			ev.Record("catalog-applicability", map[string]any{"historicalHash": r.CatalogHash, "historicalVersion": r.CatalogVersion, "currentHash": hash, "currentVersion": cat.Version, "currentQualification": false})
 			ev.Record("historical-report-current-source-refused", r)
 			ev.Record("unchanged-own-row", m.Rows[0])
 		})
 	}
 }
 
-// Shared implementation/cache changes invalidate old own live execution bytes.
+// Relevant product changes invalidate old own live execution applicability.
 // Exact classification distinguishes source staleness from missing archives,
 // a malformed report, or any unrelated consumer failure.
 func glmExecutionSourceDrift(err error) bool {
@@ -241,4 +242,16 @@ func glmExecutionSourceDrift(err error) bool {
 // execution source. Keep this exact refusal separate from direct raw captures.
 func glmImporterSourceDrift(err error) bool {
 	return errors.Is(err, supportmatrix.ErrInvalidReport) && err.Error() == "supportmatrix: invalid report: GLM consumer/importer source drift"
+}
+
+// An old archive without its original catalog cannot prove model applicability.
+// Keep that missing-origin refusal separate from unrelated catalog additions.
+func glmCurrentScopeRefusal(err error, capturedHash string) bool {
+	if glmExecutionSourceDrift(err) {
+		return true
+	}
+	hash, _ := ai.BuiltinCatalog().Hash()
+	// This immutable old archive lacks its original complete catalog snapshot.
+	// Unrelated current catalog changes alone are no longer a refusal reason.
+	return capturedHash != hash && err != nil && err.Error() == "original catalog snapshot unavailable or changed"
 }

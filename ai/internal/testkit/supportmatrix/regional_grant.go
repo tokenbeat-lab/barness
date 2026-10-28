@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"regexp"
 	"slices"
 	"strings"
@@ -38,13 +39,33 @@ type RegionalGrant struct {
 	MaxUSD                   float64   `json:"maxUSD,omitempty"`
 	BinarySHA256             string    `json:"binarySha256,omitempty"`
 	CallIntervalMs           int       `json:"callIntervalMs,omitempty"`
+	ScenarioIDs              []string  `json:"scenarioIds,omitempty"`
+	BaselineManifestSHA256   string    `json:"baselineManifestSha256,omitempty"`
 }
 
 func (g RegionalGrant) Check(combo string, at time.Time) error {
 	want, err := RegionalGrantSnapshot(combo, g.Stage)
+	if g.Schema == 2 {
+		want, err = KimiHistoryGrantSnapshot(combo, g.BaselineManifestSHA256)
+	}
+	return g.check(combo, at, want, err)
+}
+
+// checkMeasurement validates historical authority at execution time, without
+// granting new execution or substituting current source/catalog into originals.
+func (g RegionalGrant) checkMeasurement(r Report, at time.Time) error {
+	return g.checkSelectedMeasurement(r, at, regionalFull)
+}
+func (g RegionalGrant) check(combo string, at time.Time, want RegionalGrant, err error) error {
 	r, ok := RegionalRouteOf(combo)
+	if !slices.Equal(g.ScenarioIDs, want.ScenarioIDs) || g.BaselineManifestSHA256 != want.BaselineManifestSHA256 {
+		return refuse("regional selected evidence scope differs")
+	}
+	if g.Schema == 2 && (g.Stage != "candidate" || g.Purpose != KimiHistoryPurpose || g.MaxUSD != 0.10 || g.Mode == "live" && g.CallIntervalMs != 60000) {
+		return refuse("Kimi supplement spend, stage or pacing differs")
+	}
 	alias := regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`)
-	if g.CallIntervalMs < 0 || g.CallIntervalMs > 60000 || g.CallIntervalMs != 0 && !RegionalIsKimi(combo) || !slices.Contains([]string{"live", "controlled"}, g.Mode) || err != nil || g.Endpoint != want.Endpoint || g.SourceSHA256 != want.SourceSHA256 || g.CatalogVersion != want.CatalogVersion || g.CatalogHash != want.CatalogHash || g.SDK != want.SDK || !ok || g.Schema != 1 || !alias.MatchString(g.ID) || g.Contract != RegionalAuthorization(combo) || g.Combo != combo || g.Provider != r.Provider || g.Purpose != "standard" || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !slices.Equal(g.Models, RegionalModels(combo)) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || g.MaxCalls != want.MaxCalls || g.MaxAttempts != want.MaxAttempts || g.MaxRequestedOutputTokens != want.MaxRequestedOutputTokens || g.MaxReservedInputTokens != want.MaxReservedInputTokens || RegionalIsKimi(combo) && (!regionalValidUSD(g.MaxUSD) || len(g.BinarySHA256) != 64) {
+	if g.CallIntervalMs < 0 || g.CallIntervalMs > 60000 || g.CallIntervalMs != 0 && !RegionalIsKimi(combo) || !slices.Contains([]string{"live", "controlled"}, g.Mode) || err != nil || g.Endpoint != want.Endpoint || g.SourceSHA256 != want.SourceSHA256 || g.CatalogVersion != want.CatalogVersion || g.CatalogHash != want.CatalogHash || g.SDK != want.SDK || !ok || g.Schema != want.Schema || !alias.MatchString(g.ID) || g.Contract != want.Contract || g.Combo != combo || g.Provider != r.Provider || g.Purpose != want.Purpose || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !slices.Equal(g.Models, RegionalModels(combo)) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || g.MaxCalls != want.MaxCalls || g.MaxAttempts != want.MaxAttempts || g.MaxRequestedOutputTokens != want.MaxRequestedOutputTokens || g.MaxReservedInputTokens != want.MaxReservedInputTokens || RegionalIsKimi(combo) && (!regionalValidUSD(g.MaxUSD) || len(g.BinarySHA256) != 64) {
 		return fmt.Errorf("regional explicit own identity, account, purpose, expiry or budget authorization invalid")
 	}
 	return nil
@@ -117,6 +138,31 @@ func (g *RegionalGrant) UnmarshalJSON(raw []byte) error {
 		return err
 	}
 	type wireGrant RegionalGrant
+	var meta struct{ Schema int }
+	if json.Unmarshal(raw, &meta) != nil {
+		return fmt.Errorf("invalid grant JSON")
+	}
+	if meta.Schema == 2 {
+		guard := json.NewDecoder(bytes.NewReader(raw))
+		guard.UseNumber()
+		if err := uniqueFields(guard, 0); err != nil {
+			return err
+		}
+		var keys map[string]json.RawMessage
+		if json.Unmarshal(raw, &keys) != nil {
+			return fmt.Errorf("invalid selected grant")
+		}
+		allowed := map[string]bool{}
+		typ := reflect.TypeFor[wireGrant]()
+		for i := 0; i < typ.NumField(); i++ {
+			allowed[strings.Split(typ.Field(i).Tag.Get("json"), ",")[0]] = true
+		}
+		for key := range keys {
+			if !allowed[key] {
+				return fmt.Errorf("unknown or noncanonical selected grant field")
+			}
+		}
+	}
 	var value wireGrant
 	if err := json.Unmarshal(raw, &value); err != nil {
 		return err

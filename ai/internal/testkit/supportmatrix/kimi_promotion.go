@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"slices"
+	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/kimi"
@@ -16,89 +17,97 @@ import (
 const kimiActivationVersion = "kimi-k3-formal-2026-10-22.1"
 const kimiInactiveSHA256 = "c4daa0ee0c4219762157a4a506768e40f034eb4c2cc014ffb5f8a0ba42ab4109"
 
-// Kimi promotion has its own fixed six-route domain and data target. Repeated
-// selection/proof checks are intentional: future Kimi reviews must not widen
-// the old regional nine-model activation or inherit its approved receipts.
-func KimiPromotionProposal(dirs []string) (RegionalPromotion, error) {
+// KimiPromotionProof keeps a fixed pair and its entire transitive inventory.
+// It cannot be represented by the regional single-measurement proof: original
+// source, commit, time, grant and budget belong to each measurement separately.
+type KimiPromotionProof struct {
+	Combo         string            `json:"combo"`
+	Composition   string            `json:"composition"`
+	Qualification KimiQualification `json:"qualification"`
+	Inputs        map[string]string `json:"inputs"`
+}
+
+type KimiPromotion struct {
+	Schema                  int                  `json:"schema"`
+	Kind                    string               `json:"kind"`
+	Mode                    string               `json:"mode"`
+	CandidateCatalogVersion string               `json:"candidateCatalogVersion"`
+	CandidateCatalogHash    string               `json:"candidateCatalogHash"`
+	CatalogSHA256           string               `json:"catalogSha256"`
+	PreviousCatalogSHA256   string               `json:"previousCatalogSha256"`
+	Target                  string               `json:"target"`
+	Candidates              []KimiPromotionProof `json:"candidates"`
+	Catalog                 json.RawMessage      `json:"catalog"`
+}
+
+// This dedicated seam consumes six fixed nine-plus-one compositions. Native
+// verification checks each original against current route facts; equality of
+// unrelated measurements' source/build/binary/commit is not applicability.
+func KimiPromotionProposal(dirs []string) (KimiPromotion, error) {
 	return kimiPromotionProposal(dirs, "live")
 }
 
-func kimiPromotionProposal(dirs []string, mode string) (RegionalPromotion, error) {
-	out := RegionalPromotion{Schema: 1, Kind: "verified-kimi-catalog-activation-intent", Mode: mode, PreviousCatalogSHA256: kimiInactiveSHA256, Target: "ai/catalog_kimi.json"}
+func kimiPromotionProposal(dirs []string, mode string) (KimiPromotion, error) {
+	out := KimiPromotion{Schema: 2, Kind: "verified-kimi-catalog-activation-intent", Mode: mode, PreviousCatalogSHA256: kimiInactiveSHA256, Target: "ai/catalog_kimi.json"}
 	if mode == "controlled" {
 		out.Kind = "controlled-kimi-catalog-proposal"
 	}
 	if len(dirs) != 6 {
-		return out, refuse("Kimi promotion requires exactly six own candidates")
+		return out, refuse("Kimi promotion requires exactly six fixed nine-plus-one compositions")
+	}
+	root, err := kimiRepositoryRoot()
+	if err != nil {
+		return out, err
 	}
 	seen := map[string]bool{}
-	var source, build, binary, commit string
 	for _, dir := range dirs {
-		r, err := regionalReport(dir, false, mode)
-		if err != nil {
-			return out, fmt.Errorf("Kimi own candidate proof rejected: %w", err)
-		}
-		e := r.Regional
-		if !RegionalIsKimi(r.Combo) || e.Stage != "candidate" || e.Mode != mode || seen[r.Combo] {
-			return out, refuse("Kimi promotion requires six distinct own candidate routes")
-		}
-		if source != "" && (source != e.SourceSHA256 || build != e.BuildSourceSHA256 || binary != e.BinarySHA256 || commit != r.GitCommit || out.CandidateCatalogVersion != r.CatalogVersion || out.CandidateCatalogHash != r.CatalogHash) {
-			return out, refuse("Kimi current candidate source/build/catalog differs")
-		}
-		source, build, binary, commit = e.SourceSHA256, e.BuildSourceSHA256, e.BinarySHA256, r.GitCommit
-		out.CandidateCatalogVersion, out.CandidateCatalogHash = r.CatalogVersion, r.CatalogHash
-		seen[r.Combo] = true
-		proof := RegionalPromotionProof{Combo: r.Combo, Session: filepath.Base(filepath.Clean(dir)), GitCommit: r.GitCommit, SDK: r.SDK, SourceSHA256: e.SourceSHA256, BuildSourceSHA256: e.BuildSourceSHA256, BinarySHA256: e.BinarySHA256, Files: map[string]string{}}
-		root, err := os.OpenRoot(dir)
+		absolute, err := filepath.Abs(dir)
 		if err != nil {
 			return out, err
 		}
-		for _, name := range []string{RegionalReportFile, regionalSealFile, "manifest.json", "regional-grant.json", "regional-authorization-receipt.json", "regional-execution-source.json", "regional-catalog.json", "regional-candidate-facts.json"} {
-			raw, err := regionalRead(root, name)
-			if err != nil {
-				root.Close()
-				return out, err
-			}
-			proof.Files[name] = glmHash(raw)
-		}
-		if err := root.Close(); err != nil {
-			return out, err
-		}
-		again, err := regionalReport(dir, false, mode)
-		if err != nil || !reflect.DeepEqual(r, again) {
-			return out, refuse("Kimi candidate changed during promotion")
-		}
-		root, err = os.OpenRoot(dir)
+		relative, err := filepath.Rel(root, absolute)
 		if err != nil {
 			return out, err
 		}
-		for name, pin := range proof.Files {
-			raw, err := regionalRead(root, name)
-			if err != nil || glmHash(raw) != pin {
-				root.Close()
-				return out, refuse("Kimi candidate pins changed during promotion")
-			}
-		}
-		if err := root.Close(); err != nil {
+		relative = filepath.ToSlash(relative)
+		checked, err := kimiLocalPath(root, relative)
+		if err != nil {
 			return out, err
 		}
-		out.Candidates = append(out.Candidates, proof)
+		q, err := VerifyKimiComposition(checked, false)
+		if err != nil {
+			return out, fmt.Errorf("Kimi paired candidate proof rejected: %w", err)
+		}
+		if q.Mode != mode || seen[q.Combo] {
+			return out, refuse("Kimi promotion requires six distinct own compositions in the requested mode")
+		}
+		inputs, err := KimiCompositionInputs(checked)
+		if err != nil {
+			return out, err
+		}
+		again, err := VerifyKimiComposition(checked, false)
+		if err != nil || !reflect.DeepEqual(q, again) {
+			return out, refuse("Kimi composition changed during promotion")
+		}
+		pinned, err := KimiCompositionInputs(checked)
+		if err != nil || !reflect.DeepEqual(inputs, pinned) {
+			return out, refuse("Kimi transitive input pins changed during promotion")
+		}
+		seen[q.Combo] = true
+		out.Candidates = append(out.Candidates, KimiPromotionProof{Combo: q.Combo, Composition: relative, Qualification: q, Inputs: inputs})
 	}
 	for _, combo := range []string{"kimi-cn-chat", "kimi-cn-responses", "kimi-cn-messages", "kimi-intl-chat", "kimi-intl-responses", "kimi-intl-messages"} {
 		if !seen[combo] {
-			return out, refuse("Kimi own candidate route missing")
+			return out, refuse("Kimi own composition route missing")
 		}
 	}
-	slices.SortFunc(out.Candidates, func(a, b RegionalPromotionProof) int {
-		if a.Combo < b.Combo {
-			return -1
-		}
-		if a.Combo > b.Combo {
-			return 1
-		}
-		return 0
-	})
+	slices.SortFunc(out.Candidates, func(a, b KimiPromotionProof) int { return strings.Compare(a.Combo, b.Combo) })
 	cat := kimi.CandidateCatalog()
+	out.CandidateCatalogVersion = cat.Version
+	out.CandidateCatalogHash, err = cat.Hash()
+	if err != nil {
+		return out, err
+	}
 	payload := struct {
 		Schema           int        `json:"schema"`
 		Active           bool       `json:"active"`
@@ -145,6 +154,9 @@ func ActivateKimiCatalog(dirs []string, receiptPath string) error {
 	}
 	proposal, err := KimiPromotionProposal(dirs)
 	if err != nil {
+		return err
+	}
+	if err := kimiPromotionProtectOriginals(receiptPath, proposal); err != nil {
 		return err
 	}
 	raw, err := Encode(proposal)

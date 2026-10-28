@@ -17,11 +17,14 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/probe"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 var regionalTool = ai.Tool{Name: "inspect_regional", Description: "Return the synthetic regional probe value for label alpha.", Parameters: json.RawMessage(`{"type":"object","properties":{"label":{"type":"string","enum":["alpha"]}},"required":["label"],"additionalProperties":false}`)}
+
+func TestKimiHistorySupplement(t *testing.T) { driveRegional(t) }
 
 func TestRegionalCandidate(t *testing.T) { driveRegional(t) }
 func TestRegionalFormal(t *testing.T)    { driveRegional(t) }
@@ -87,7 +90,7 @@ func driveRegional(t *testing.T) {
 	if err != nil {
 		t.Fatal("regional public Client assembly failed")
 	}
-	deadline := p.report.StartedAt.Add(1780 * time.Second)
+	deadline := p.report.StartedAt.Add(time.Duration(p.report.Budget.ProcessSeconds-20) * time.Second)
 	if supportmatrix.RegionalIsKimi(p.report.Combo) && p.grant.ExpiresAt.Before(deadline) {
 		deadline = p.grant.ExpiresAt
 	}
@@ -125,6 +128,9 @@ func regionalOptions(model ai.Model, budget int) ai.Options {
 }
 
 func (s *regionalSession) request(model, kind string) (ai.Request, error) {
+	if kind == grokhistory.Scenario {
+		return grokhistory.Request(ai.CallScope{TenantID: liveTenant})
+	}
 	req := ai.Request{Messages: []ai.Message{ai.UserText("Reply with the exact short text regional ready.")}}
 	if kind == "cancel" {
 		req.Messages = []ai.Message{ai.UserText("Write a detailed long explanation of ocean currents in at least 1000 words.")}
@@ -175,6 +181,7 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	if err != nil {
 		t.Skip("NOT_RUN: own tool prerequisite missing")
 	}
+	provenance := grokhistory.Provenance{Before: grokhistory.Envelopes(req)}
 	cs := run.Case(t, row.CaseID)
 	cs.ReplayRun(regionalEntry())
 	modelInfo, _ := s.p.cat.Lookup(ai.ProviderID(s.p.report.Provider), ai.API(s.p.report.API), row.Model)
@@ -262,7 +269,20 @@ func (s *regionalSession) execute(t *testing.T, i int) {
 	cs.Record("options", opts)
 	cs.Record("result", result)
 	cs.Record("events", events)
-	cs.Record("exchanges", s.rec.take())
+	exchanges := s.rec.take()
+	cs.Record("exchanges", exchanges)
+	if kind == grokhistory.Scenario {
+		raw, _ := json.Marshal(req)
+		cs.Record("immutable-input", req)
+		provenance.After = grokhistory.Envelopes(req)
+		cs.Record("history-provenance", provenance)
+		rawProof, _ := json.Marshal(provenance)
+		cs.Check("original trusted envelopes unchanged", grokhistory.VerifyProvenance(rawProof, scope.TenantID) == nil, "source envelopes changed")
+		cs.Check("fixed Host history unchanged after call", grokhistory.VerifyHost(raw), "history changed")
+		cs.Check("foreign source downgrades exactly two assistant turns", result.Metadata.NativeStateDowngrades == (ai.NativeStateDowngrades{CrossModel: 2}), "%+v", result.Metadata.NativeStateDowngrades)
+		proof := len(exchanges) == 1 && grokhistory.Verify(ai.API(s.p.report.API), []byte(exchanges[0].RequestBody)) == nil
+		cs.Check("actual wire preserves foreign collision and reuse", proof, "fixed actual wire proof")
+	}
 	cs.Record("observations", s.rec.observationsOf(scope.RequestID))
 	deadline := time.Now().Add(time.Second)
 	for s.probe.ActiveCalls() != 0 && time.Now().Before(deadline) {

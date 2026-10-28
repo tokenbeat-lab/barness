@@ -94,48 +94,32 @@ func initializeMiniMax() {
 	if _, e = minimaxlive.Sources(); e != nil {
 		minimaxConfigError = e.Error()
 	}
-	if renewal := os.Getenv("BARNESS_MINIMAX_FORMAL_RENEWAL"); renewal != "" {
-		r.FormalRenewalID = renewal
-		r.Unknown = append(r.Unknown, "fixed final source renewal has independent60/72 cap; original formal39/36 and closed first renewal39/36 remain immutable and are pinned by the canonical grant")
-		if r.Mode != "live" || r.Stage != "formal" || r.Identity.Model != minimaxlive.M3 {
-			minimaxConfigError = "fixed formal renewal requires actual M3 formal live"
-		} else if _, pin, e := minimaxlive.RenewalAuthority(renewal, true); e != nil {
+	if (r.Mode == "live" || os.Getenv("BARNESS_MINIMAX_GRANT") != "") && id.Model == minimaxlive.M3 && id.Purpose == "standard" {
+		if e := initializeFreshMiniMax(); e != nil {
 			minimaxConfigError = e.Error()
-		} else {
-			r.FormalRenewalGrantSHA256 = pin
-			if renewal == minimaxlive.Recovery7RenewalID && r.Kind == "minimax-formal" && minimaxConfigError == "" {
-				// Only the independently verified fixed7 grant carries the
-				// reviewed one-hour process bound (issue26), never its env ID.
-				r.Deadline = started.Add(3600 * time.Second)
-			}
 		}
+		if minimaxConfigError == "" {
+			readMiniMaxCredential(r)
+		}
+		setMiniMaxVersions()
+		return
+	}
+	if r.Mode == "live" {
+		minimaxConfigError = "live requires an explicit fresh single-process grant"
 	}
 	path := os.Getenv("BARNESS_MINIMAX_LEDGER")
-	if r.Mode == "live" {
-		canonical, e := minimaxlive.StageLedgerPath(r.Stage)
-		if e != nil {
-			minimaxConfigError = e.Error()
-		} else if path != "" && path != canonical {
-			minimaxConfigError = "actual live requires common-Git durable stage ledger"
-		} else {
-			path = canonical
-		}
-	} else if path == "" {
-		root, _ := minimaxlive.Root()
-		path = filepath.Join(root, ".evidence", "minimax-controlled-stages", r.Stage+".jsonl")
+	if path == "" {
+		path = filepath.Join(run.Dir(), "controlled-ledger.jsonl")
 	}
-
 	minimaxLedger = minimaxlive.Ledger{Path: path, Stage: r.Stage, Session: r.Session, Identity: id}
-	// Renewals require the canonical process claim before even reading this
-	// child's selected credential. A failed begin is consumed, never resumable.
-	if r.FormalRenewalID != "" && minimaxConfigError == "" {
-		if e = minimaxLedger.BeginRenewal(); e != nil {
-			minimaxConfigError = e.Error()
-		}
-	}
 	if minimaxConfigError == "" {
 		readMiniMaxCredential(r)
 	}
+	setMiniMaxVersions()
+}
+
+func setMiniMaxVersions() {
+	r := minimaxReport
 	run.SetVersion("minimax_mode", r.Mode)
 	run.SetVersion("minimax_kind", r.Kind)
 	run.SetVersion("model_catalog_version", r.CatalogVersion)
@@ -170,16 +154,6 @@ func readMiniMaxCredential(r *minimaxlive.Report) {
 	}
 }
 func miniMaxContextDeadline(r *minimaxlive.Report, testDeadline time.Time) time.Time {
-	if r.Mode == "live" && r.Stage == "formal" && r.Kind == "minimax-formal" && r.Identity.Model == minimaxlive.M3 && r.FormalRenewalID == minimaxlive.Recovery7RenewalID && r.FormalRenewalGrantSHA256 != "" && r.Deadline.Equal(r.StartedAt.Add(3600*time.Second)) {
-		// initializeMiniMax assigns this bound only after active authority
-		// verification. Reserve the full uncached tail under either outer clock.
-		deadline := r.Deadline
-		if !testDeadline.IsZero() && testDeadline.Before(deadline) {
-			deadline = testDeadline
-		}
-		return deadline.Add(-120 * time.Second)
-	}
-	// Older cohorts and nonlive processes retain their original two bounds.
 	deadline := r.Deadline.Add(-20 * time.Second)
 	if !testDeadline.IsZero() && testDeadline.Before(deadline) {
 		deadline = testDeadline.Add(-time.Second)
@@ -188,6 +162,9 @@ func miniMaxContextDeadline(r *minimaxlive.Report, testDeadline time.Time) time.
 }
 
 func minimaxEntry() string {
+	if minimaxReport.Kind == minimaxlive.ThinkingKind {
+		return "^TestMiniMaxThinkingOnSupplement$"
+	}
 	if minimaxReport.Kind == "minimax-research-only" {
 		return "^TestMiniMaxResearch$"
 	}

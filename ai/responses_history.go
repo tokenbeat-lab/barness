@@ -11,7 +11,7 @@ var responsesToolCallProviders = map[ProviderID]bool{ProviderOpenAI: true}
 
 func (responsesAdapter) historyRules(m Model) historyRules {
 	return historyRules{
-		midConvoSystem: m.Compat.SupportsMidConvoSystemMessages,
+		midConvoSystem: m.Compat.SupportsMidConvoSystemMessages || m.Provider == ProviderXAI,
 		normalizeToolCallID: func(id string, source AssistantMessage) string {
 			return responsesToolCallID(m, id, source)
 		},
@@ -24,6 +24,9 @@ func (responsesAdapter) historyRules(m Model) historyRules {
 // hash of it, since the target never issued it; and the item id always
 // starts with "fc".
 func responsesToolCallID(target Model, id string, source AssistantMessage) string {
+	if target.Provider == ProviderXAI {
+		return xaiResponsesHistoryToolID(id, source)
+	}
 	if isKimi(target.Provider) {
 		return kimiResponsesHistoryToolID(id, source)
 	}

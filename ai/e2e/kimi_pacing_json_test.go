@@ -52,7 +52,7 @@ func TestKimiPacingGrantJSONAmbiguity(t *testing.T) {
 			ev.Check("ambiguous new authorization field refuses before HTTP", err != nil && len(srv.Requests()) == 0, "%v requests=%d", err, len(srv.Requests()))
 			if err == nil {
 				dir := kimiPacingBundle(t, base)
-				verify := exec.CommandContext(ctxFor(t), consumer, "-controlled", dir)
+				verify := exec.CommandContext(ctxFor(t), consumer, "-inspect-bundle", dir, "-mode", "controlled", "-stage", "candidate")
 				verify.Dir, verify.Env = "../..", regionalChildEnvironment()
 				vr, ve := verify.CombinedOutput()
 				ev.Record("consumer", map[string]any{"argv": verify.Args, "error": errString(ve), "output": regionalSafeOutput(vr)})

@@ -1,0 +1,826 @@
+{
+  "head": "69ff4af880e68ef3ca245e5128bdae5e59a2ef7b",
+  "providers": [
+    "openai",
+    "typesafe",
+    "anthropic",
+    "google",
+    "deepseek",
+    "xai",
+    "zhipu",
+    "zai",
+    "minimax",
+    "minimax-cn",
+    "moonshot",
+    "moonshot-cn"
+  ],
+  "catalogVersion": "2026-10-26.1",
+  "catalogIdentities": {
+    "openai": {
+      "chat/openai-responses": 27,
+      "chat/openai-completions": 24,
+      "image/openai-images": 1,
+      "classifier/openai-decisions": 1
+    },
+    "typesafe": {
+      "classifier/typesafe-system-one": 2
+    },
+    "anthropic": {
+      "chat/anthropic-messages": 16
+    },
+    "google": {
+      "chat/google-generative-ai": 17,
+      "image/google-interactions": 1
+    },
+    "deepseek": {
+      "chat/openai-responses": 1,
+      "chat/openai-completions": 2
+    },
+    "xai": {
+      "chat/openai-responses": 1
+    },
+    "zhipu": {
+      "chat/openai-completions": 2,
+      "chat/openai-responses": 2,
+      "chat/anthropic-messages": 2
+    },
+    "zai": {
+      "chat/openai-completions": 2,
+      "chat/openai-responses": 2,
+      "chat/anthropic-messages": 2
+    },
+    "minimax": {
+      "chat/openai-completions": 1,
+      "chat/openai-responses": 1,
+      "chat/anthropic-messages": 1
+    },
+    "minimax-cn": {
+      "chat/openai-completions": 1,
+      "chat/openai-responses": 1,
+      "chat/anthropic-messages": 1
+    },
+    "moonshot": {},
+    "moonshot-cn": {}
+  },
+  "caseOwnership": {
+    "openai": {
+      "PASS": 3185
+    },
+    "typesafe": {
+      "PASS": 1336
+    },
+    "anthropic": {
+      "PASS": 293
+    },
+    "google": {
+      "PASS": 593
+    },
+    "deepseek": {
+      "PASS": 690
+    },
+    "xai": {
+      "PASS": 738
+    },
+    "zhipu": {
+      "PASS": 2040,
+      "NOT_RUN": 1
+    },
+    "zai": {
+      "PASS": 274
+    },
+    "minimax": {
+      "PASS": 1489,
+      "NOT_RUN": 7
+    },
+    "minimax-cn": {
+      "PASS": 213
+    },
+    "moonshot": {
+      "PASS": 913
+    },
+    "moonshot-cn": {
+      "PASS": 885
+    },
+    "shared": {
+      "PASS": 2473,
+      "NOT_RUN": 206
+    }
+  },
+  "caseFamilies": {
+    "shared": {
+      "D1": 35,
+      "E01": 23,
+      "E02": 256,
+      "E03": 670,
+      "E04": 20,
+      "E06": 165,
+      "E07": 154,
+      "E08": 411,
+      "E09": 11,
+      "E10": 30,
+      "E11": 8,
+      "GROK": 261,
+      "KIMI": 188,
+      "RP02": 1,
+      "RP04": 11,
+      "RP06": 11,
+      "RP07": 6,
+      "RP12": 8,
+      "RP13": 21,
+      "RP14": 3,
+      "RP17": 6,
+      "RP18": 17,
+      "UC09": 191,
+      "UC10": 52,
+      "VQ12": 116,
+      "catalog": 1,
+      "regional": 3
+    },
+    "xai": {
+      "E17": 82,
+      "XAI": 656
+    },
+    "zhipu": {
+      "GLM02": 166,
+      "GLM03": 192,
+      "GLM04": 209,
+      "GLM05": 352,
+      "GLM06": 66,
+      "GLM07": 127,
+      "GLM08": 348,
+      "GLM09": 359,
+      "GLM10": 3,
+      "GLM12": 10,
+      "P0": 112,
+      "RP12": 3,
+      "RP15": 6,
+      "RP16": 21,
+      "RP17": 9,
+      "regional": 58
+    },
+    "moonshot-cn": {
+      "KIMI": 885
+    },
+    "moonshot": {
+      "KIMI": 913
+    },
+    "minimax": {
+      "MM01": 30,
+      "MM02": 579,
+      "MM03": 185,
+      "MM04": 183,
+      "MM05": 205,
+      "MM06": 20,
+      "MM08": 80,
+      "MM10": 88,
+      "MM11": 4,
+      "MM18": 1,
+      "MM19": 3,
+      "MM20": 45,
+      "RP12": 3,
+      "RP15": 6,
+      "RP16": 21,
+      "RP17": 9,
+      "regional": 34
+    },
+    "openai": {
+      "OD55": 46,
+      "OD56": 26,
+      "OD57": 41,
+      "OD58": 42,
+      "P01": 960,
+      "P04": 574,
+      "P08": 265,
+      "P10": 1032,
+      "RP12": 3,
+      "UC02": 112,
+      "UC03": 84
+    },
+    "anthropic": {
+      "P02": 293
+    },
+    "google": {
+      "P03": 293,
+      "P09": 300
+    },
+    "deepseek": {
+      "P05": 338,
+      "P06": 350,
+      "RP12": 2
+    },
+    "typesafe": {
+      "P07": 469,
+      "UC04": 137,
+      "UC05": 130,
+      "UC06": 149,
+      "UC07": 184,
+      "UC08": 246,
+      "UC13": 21
+    },
+    "minimax-cn": {
+      "RP02": 3,
+      "RP05": 12,
+      "RP07": 12,
+      "RP12": 18,
+      "RP13": 2,
+      "RP14": 21,
+      "RP15": 10,
+      "RP16": 21,
+      "RP17": 9,
+      "RP18": 79,
+      "regional": 26
+    },
+    "zai": {
+      "RP02": 3,
+      "RP05": 24,
+      "RP07": 30,
+      "RP12": 18,
+      "RP13": 2,
+      "RP14": 21,
+      "RP15": 10,
+      "RP16": 21,
+      "RP17": 9,
+      "RP18": 86,
+      "regional": 50
+    }
+  },
+  "totalNativeCases": 15336,
+  "nativeStatuses": {
+    "PASS": 15122,
+    "NOT_RUN": 214
+  },
+  "goPassNodes": {
+    "github.com/tokenbeat-lab/barness/ai/internal/testkit/release": 15,
+    "github.com/tokenbeat-lab/barness/ai/e2e": 15918,
+    "github.com/tokenbeat-lab/barness/ai": 26,
+    "github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix": 79
+  },
+  "latestCompletedLiveBatch": {
+    "checkpoint": ".evidence/barness-ai-grok/live-batches/gf6-20261026T233415Z-ceb8d8c1/completed-checkpoint-v1.json",
+    "status": "COMPLETE_WITH_FAILURES",
+    "activity": {
+      "calls": 270,
+      "historicalFormalCallsExcluded": 241,
+      "historicalFormalHTTPAttemptsExcluded": 240,
+      "httpAttempts": 267
+    },
+    "routes": [
+      {
+        "route": "xai-responses",
+        "status": "QUALIFIED",
+        "scenariosPass": 18,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 24,
+          "httpAttempts": 24
+        }
+      },
+      {
+        "route": "openai-responses",
+        "status": "QUALIFIED",
+        "scenariosPass": 9,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 15,
+          "httpAttempts": 15
+        }
+      },
+      {
+        "route": "deepseek-responses",
+        "status": "QUALIFIED",
+        "scenariosPass": 9,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 11,
+          "httpAttempts": 11
+        }
+      },
+      {
+        "route": "openai-chat",
+        "status": "QUALIFIED",
+        "scenariosPass": 10,
+        "scenariosUnsupported": 1,
+        "activity": {
+          "calls": 15,
+          "httpAttempts": 15
+        }
+      },
+      {
+        "route": "deepseek-chat",
+        "status": "QUALIFIED",
+        "scenariosPass": 12,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 14,
+          "httpAttempts": 14
+        }
+      },
+      {
+        "route": "zhipu-chat",
+        "status": "QUALIFIED",
+        "scenariosPass": 24,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 24,
+          "httpAttempts": 24
+        }
+      },
+      {
+        "route": "zai-chat",
+        "status": "QUALIFIED",
+        "scenariosPass": 20,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 20,
+          "httpAttempts": 20
+        }
+      },
+      {
+        "route": "minimax-chat",
+        "status": "QUALIFICATION_FAILED",
+        "scenariosPass": null,
+        "scenariosUnsupported": null,
+        "activity": {
+          "calls": 14,
+          "httpAttempts": 13
+        }
+      },
+      {
+        "route": "minimax-cn-chat",
+        "status": "QUALIFIED",
+        "scenariosPass": 10,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 10,
+          "httpAttempts": 10
+        }
+      },
+      {
+        "route": "anthropic-messages",
+        "status": "QUALIFIED",
+        "scenariosPass": 12,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 21,
+          "httpAttempts": 21
+        }
+      },
+      {
+        "route": "zhipu-messages",
+        "status": "QUALIFIED",
+        "scenariosPass": 24,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 24,
+          "httpAttempts": 24
+        }
+      },
+      {
+        "route": "zai-messages",
+        "status": "QUALIFIED",
+        "scenariosPass": 20,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 20,
+          "httpAttempts": 20
+        }
+      },
+      {
+        "route": "minimax-messages",
+        "status": "FAIL",
+        "scenariosPass": null,
+        "scenariosUnsupported": null,
+        "activity": {
+          "calls": 15,
+          "httpAttempts": 14
+        }
+      },
+      {
+        "route": "minimax-cn-messages",
+        "status": "QUALIFIED",
+        "scenariosPass": 10,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 10,
+          "httpAttempts": 10
+        }
+      },
+      {
+        "route": "google-gemini",
+        "status": "QUALIFIED",
+        "scenariosPass": 7,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 9,
+          "httpAttempts": 9
+        }
+      },
+      {
+        "route": "minimax-responses",
+        "status": "QUALIFICATION_FAILED",
+        "scenariosPass": null,
+        "scenariosUnsupported": null,
+        "activity": {
+          "calls": 14,
+          "httpAttempts": 13
+        }
+      },
+      {
+        "route": "minimax-cn-responses",
+        "status": "QUALIFIED",
+        "scenariosPass": 10,
+        "scenariosUnsupported": 0,
+        "activity": {
+          "calls": 10,
+          "httpAttempts": 10
+        }
+      }
+    ]
+  },
+  "persistedSupportMatrix": [
+    {
+      "combo": "openai-responses",
+      "provider": "openai",
+      "api": "openai-responses",
+      "model": "gpt-5-mini",
+      "allPassedAt": "2026-10-18T08:24:14.403087Z",
+      "outcomes": {
+        "PASS": 8
+      }
+    },
+    {
+      "combo": "anthropic-messages",
+      "provider": "anthropic",
+      "api": "anthropic-messages",
+      "model": "claude-haiku-4-5",
+      "allPassedAt": "2026-10-18T08:25:00.103561Z",
+      "outcomes": {
+        "PASS": 11
+      }
+    },
+    {
+      "combo": "google-gemini",
+      "provider": "google",
+      "api": "google-generative-ai",
+      "model": "gemini-3.8-flash",
+      "allPassedAt": "2026-10-18T08:25:18.840591Z",
+      "outcomes": {
+        "PASS": 6
+      }
+    },
+    {
+      "combo": "openai-chat",
+      "provider": "openai",
+      "api": "openai-completions",
+      "model": "gpt-5-mini",
+      "allPassedAt": "2026-10-18T08:24:32.037623Z",
+      "outcomes": {
+        "PASS": 9,
+        "UNSUPPORTED": 1
+      }
+    },
+    {
+      "combo": "deepseek-responses",
+      "provider": "deepseek",
+      "api": "openai-responses",
+      "model": "deepseek-flash",
+      "allPassedAt": "2026-10-18T08:25:29.62946Z",
+      "outcomes": {
+        "PASS": 8
+      }
+    },
+    {
+      "combo": "deepseek-chat",
+      "provider": "deepseek",
+      "api": "openai-completions",
+      "model": "deepseek-flash",
+      "allPassedAt": "2026-10-18T08:25:43.433358Z",
+      "outcomes": {
+        "PASS": 11
+      }
+    },
+    {
+      "combo": "typesafe-classifier",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "model": "jev-1.13.0",
+      "allPassedAt": "2026-10-18T08:26:50.724188Z",
+      "outcomes": {
+        "PASS": 3
+      }
+    },
+    {
+      "combo": "openai-images",
+      "provider": "openai",
+      "api": "openai-images",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "allPassedAt": "2026-10-18T08:26:12.416873Z",
+      "outcomes": {
+        "PASS": 3
+      }
+    },
+    {
+      "combo": "google-interactions-image",
+      "provider": "google",
+      "api": "google-interactions",
+      "model": "gemini-nano-banana-2.1",
+      "allPassedAt": "2026-10-18T08:26:42.63404Z",
+      "outcomes": {
+        "PASS": 2
+      }
+    },
+    {
+      "combo": "openai-decisions",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "model": "gpt-6-luna",
+      "allPassedAt": "2026-10-18T08:26:47.939974Z",
+      "outcomes": {
+        "PASS": 9
+      }
+    },
+    {
+      "combo": "typesafe-classifier-jev-1.14.0",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "model": "jev-1.14.0",
+      "allPassedAt": "2026-10-19T09:17:28.023187Z",
+      "outcomes": {
+        "PASS": 12
+      }
+    },
+    {
+      "combo": "zhipu-chat",
+      "provider": "zhipu",
+      "api": "openai-completions",
+      "model": "glm-5.3",
+      "allPassedAt": "2026-10-19T06:06:52.303996Z",
+      "outcomes": {
+        "PASS": 22
+      }
+    },
+    {
+      "combo": "zhipu-responses",
+      "provider": "zhipu",
+      "api": "openai-responses",
+      "model": "glm-5.3",
+      "allPassedAt": "2026-10-19T06:08:54.730362Z",
+      "outcomes": {
+        "PASS": 22
+      }
+    },
+    {
+      "combo": "zhipu-messages",
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "model": "glm-5.3",
+      "allPassedAt": "2026-10-19T06:11:30.72089Z",
+      "outcomes": {
+        "PASS": 22
+      }
+    },
+    {
+      "combo": "minimax-chat",
+      "provider": "minimax",
+      "api": "openai-completions",
+      "model": "MiniMax-M3",
+      "allPassedAt": "2026-10-19T06:21:58.652805Z",
+      "outcomes": {
+        "PASS": 13
+      }
+    },
+    {
+      "combo": "minimax-responses",
+      "provider": "minimax",
+      "api": "openai-responses",
+      "model": "MiniMax-M3",
+      "allPassedAt": "2026-10-19T06:23:30.36732Z",
+      "outcomes": {
+        "PASS": 13
+      }
+    },
+    {
+      "combo": "minimax-messages",
+      "provider": "minimax",
+      "api": "anthropic-messages",
+      "model": "MiniMax-M3",
+      "allPassedAt": "2026-10-19T06:24:00.633366Z",
+      "outcomes": {
+        "PASS": 13
+      }
+    },
+    {
+      "combo": "zai-chat",
+      "provider": "zai",
+      "api": "openai-completions",
+      "model": "glm-5.3",
+      "allPassedAt": null,
+      "outcomes": {
+        "NOT_RUN": 18
+      }
+    },
+    {
+      "combo": "zai-responses",
+      "provider": "zai",
+      "api": "openai-responses",
+      "model": "glm-5.3",
+      "allPassedAt": null,
+      "outcomes": {
+        "NOT_RUN": 18
+      }
+    },
+    {
+      "combo": "zai-messages",
+      "provider": "zai",
+      "api": "anthropic-messages",
+      "model": "glm-5.3",
+      "allPassedAt": null,
+      "outcomes": {
+        "NOT_RUN": 18
+      }
+    },
+    {
+      "combo": "minimax-cn-chat",
+      "provider": "minimax-cn",
+      "api": "openai-completions",
+      "model": "MiniMax-M3",
+      "allPassedAt": null,
+      "outcomes": {
+        "NOT_RUN": 9
+      }
+    },
+    {
+      "combo": "minimax-cn-responses",
+      "provider": "minimax-cn",
+      "api": "openai-responses",
+      "model": "MiniMax-M3",
+      "allPassedAt": null,
+      "outcomes": {
+        "NOT_RUN": 9
+      }
+    },
+    {
+      "combo": "minimax-cn-messages",
+      "provider": "minimax-cn",
+      "api": "anthropic-messages",
+      "model": "MiniMax-M3",
+      "allPassedAt": null,
+      "outcomes": {
+        "NOT_RUN": 9
+      }
+    }
+  ],
+  "code": {
+    "ai/runtime": {
+      "files": 212,
+      "lines": 30767,
+      "testFunctions": 0
+    },
+    "ai/root-tests": {
+      "files": 2,
+      "lines": 138,
+      "testFunctions": 2
+    },
+    "ai/e2e": {
+      "files": 584,
+      "lines": 70358,
+      "testFunctions": 812
+    },
+    "ai/examples": {
+      "files": 62,
+      "lines": 7378,
+      "testFunctions": 5
+    },
+    "ai/internal/clock": {
+      "files": 1,
+      "lines": 103,
+      "testFunctions": 0
+    },
+    "ai/internal/probe": {
+      "files": 1,
+      "lines": 102,
+      "testFunctions": 0
+    },
+    "ai/internal/testkit": {
+      "files": 214,
+      "lines": 28874,
+      "testFunctions": 54
+    },
+    "ai/live": {
+      "files": 121,
+      "lines": 17243,
+      "testFunctions": 74
+    },
+    "ai/release": {
+      "files": 1,
+      "lines": 67,
+      "testFunctions": 0
+    },
+    "tools/verification": {
+      "files": 17,
+      "lines": 2574,
+      "testFunctions": 0
+    }
+  },
+  "testkit": {
+    "audit": {
+      "files": 4,
+      "lines": 629
+    },
+    "evidence": {
+      "files": 3,
+      "lines": 430
+    },
+    "finalbudget": {
+      "files": 2,
+      "lines": 303
+    },
+    "glm": {
+      "files": 3,
+      "lines": 99
+    },
+    "grokhistory": {
+      "files": 3,
+      "lines": 331
+    },
+    "host": {
+      "files": 2,
+      "lines": 288
+    },
+    "jevformal": {
+      "files": 4,
+      "lines": 1049
+    },
+    "kimi": {
+      "files": 2,
+      "lines": 145
+    },
+    "livegrant": {
+      "files": 4,
+      "lines": 407
+    },
+    "minimax": {
+      "files": 2,
+      "lines": 125
+    },
+    "minimaxlive": {
+      "files": 88,
+      "lines": 12014
+    },
+    "provider": {
+      "files": 5,
+      "lines": 719
+    },
+    "regional": {
+      "files": 3,
+      "lines": 256
+    },
+    "release": {
+      "files": 29,
+      "lines": 3887
+    },
+    "supportmatrix": {
+      "files": 59,
+      "lines": 8159
+    },
+    "xai": {
+      "files": 1,
+      "lines": 33
+    }
+  },
+  "filesOver500Lines": [],
+  "evidence": {
+    "record": ".scratch/barness-ai-grok/verification/record-v18.json",
+    "receipt": ".evidence/barness-ai-grok/e2e/20261027T030431.092824Z-681i69ck/receipt.json",
+    "manifest": ".evidence/barness-ai-grok/e2e/20261027T030431.092824Z-681i69ck/bundles/20261027T030436.278895000Z/manifest.json",
+    "audit": ".evidence/barness-ai-grok/e2e/20261027T030431.092824Z-681i69ck/bundles/20261027T030436.278895000Z/audit.json",
+    "testedCommit": "dcf73abd6740d2107352909ba3cd3d07ad6684fb",
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "./ai",
+      "./ai/internal/testkit/release",
+      "./ai/internal/testkit/supportmatrix",
+      "-count=1",
+      "-timeout=20m"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 665.060211583972,
+    "receiptHashMatches": true,
+    "manifestHashMatches": true,
+    "auditHashMatches": true,
+    "sourceFiles": 2068,
+    "inputs": 175,
+    "sourceChanged": [],
+    "sourceAdded": [],
+    "sourceRemoved": [],
+    "inputsChanged": []
+  },
+  "probe": {
+    "kind": "public-BuiltinCatalog-and-Hash",
+    "exitCode": 0,
+    "goEnvironment": "GOENV=off; GOFLAGS=; isolated HOME; allowlisted environment"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "accountAlias": "GOOGLE",
+  "expiresAt": "2026-10-27T01:12:57.093635Z",
+  "id": "gf3-20261026T131257Z-6a9ba85b-15",
+  "regionAlias": "global",
+  "schema": 1,
+  "scope": {
+    "api": "google-generative-ai",
+    "binarySha256": "7523c11d954b9f411e4a44bdaaf4b0f17537bdce6b61670a2e45caf47dea3771",
+    "callSeconds": 180,
+    "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+    "catalogVersion": "2026-10-26.1",
+    "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+    "maxAttempts": 32,
+    "maxCalls": 32,
+    "maxOutputTokens": 4096,
+    "maxRequestReruns": 0,
+    "maxRequestedOutputTokens": 0,
+    "maxReservedInputTokens": 0,
+    "maxRetries": 1,
+    "mode": "live",
+    "models": [
+      "gemini-3.8-flash"
+    ],
+    "processSeconds": 1800,
+    "provider": "google",
+    "route": "google-gemini",
+    "scenes": [
+      "text-stream",
+      "text-complete",
+      "tool-round-trip",
+      "cancel-after-first-frame",
+      "reasoning-history",
+      "image",
+      "xai-origin-history"
+    ],
+    "sdk": "direct HTTP (ADR-0012)",
+    "sourceSha256": "686e0f512baf6ac99321d6aad0d5a519c9791def72e0d3594b397534ed28fb50",
+    "stage": "formal"
+  }
+}

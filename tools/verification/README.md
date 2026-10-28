@@ -2,7 +2,7 @@
 
 日常操作步骤、阶段顺序与完成条件统一见[测试流程 SOP](../../docs/agents/verification.md)；本文件定义现有工具合同。
 
-Scratch脚本的活动/测试/历史/诊断身份、逐文件输入输出、副作用与来源限制见[当前归属/历史后继映射](../../.scratch/scratch-artifact-remediation/tool-migration.md)。旧生成器、两组MJS、整轮run-14及封存README里的命令只按原轮次阅读，日常操作使用本页与SOP；现有普通测试仍调用的verifier/rollback继续由原公共入口消费。地区recovery7保持[当前暂停入口](../../.scratch/barness-provider-sites/tools/README.md)所述边界，合成测试消费旧控制器不构成恢复授权。[本页修订前原字节](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/test-process-tools-README.md)与[原基址/哈希](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/index.json)另存。
+Scratch脚本的活动/测试/历史/诊断身份、逐文件输入输出、副作用与来源限制见[当前归属/历史后继映射](../../.scratch/scratch-artifact-remediation/tool-migration.md)。旧生成器、两组MJS、整轮run-14及封存README里的命令只按原轮次阅读，日常操作使用本页与SOP；现有普通测试仍调用的verifier/rollback继续由原公共入口消费。固定轮次控制器已按[ADR-0055](../../docs/adr/0055-route-scoped-evidence-applicability.md)退役；原地区recovery7保持[当前暂停入口](../../.scratch/barness-provider-sites/tools/README.md)所述边界，原消费者/源码在固定历史版本保留，当前测试不再执行旧控制器。[本页修订前原字节](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/test-process-tools-README.md)与[原基址/哈希](../../.scratch/scratch-artifact-remediation/history/phase3-before-20261024/index.json)另存。
 
 这些工具只负责一条已选择命令的回执、或一批已审阅文件的清理。不会发放授权、编排厂商轮次或自动进入下一阶段。当前实施范围没有真实 race、压力、付费 live 或证据清理许可；清理相关进程测试仅使用临时合成仓库。
 
@@ -14,17 +14,17 @@ Scratch脚本的活动/测试/历史/诊断身份、逐文件输入输出、副�
 
 ## 只读发布 CLI
 
-`go run ./ai/release/cmd/releasegate -record <不可变回执索引.json> -out <新目录>` 只消费已有事实。schema 1 形状以 `ai/internal/testkit/release/record.go` 和 `tests/test_release.py` 的合成公共输入为准。索引包含 feature、currentState 文件指针/哈希、source、selectedInputs、impact，以及 e2e/live/race/pressure。
+`go run ./ai/release/cmd/releasegate -record <不可变回执索引.json> -out <新目录>` 只消费已有事实。schema 2 形状以 `ai/internal/testkit/release/record.go` 和 `tests/test_release.py` 的合成公共输入为准。索引包含 feature、currentState、source、selectedInputs、impact 与各阶段。各阶段使用各自真实输入，允许引用原功能和旧提交的不可变证据；普通来源须覆盖当前受影响实现，live 按原测量和当前路线适用性核验。impact.raceRequired=false 时须有不适用依据。
 
 PASS 阶段必须有 receipt 路径/哈希和来自主包的 requiredCases；其余包的完整库存与审计同时检查；race/压力/live 另有 selection.by=human 与精确 argv。live 每条路线有独立记录，`consumers` 为恰好一份 `{path, sha256}` 原生消费者回执引用；旧自填 argv/exit/files 格式已删除。对精确原生 bundle 显式运行只读命令（不发厂商请求，不写支持矩阵）：
 
 `python3 tools/verification/consume_live.py --binary <已编译的 releasegate 路径> --bundle <仓库相对 bundle 目录> --out <仓库相对的新消费者目录>`
 
-外层工具只执行一次原生 `releasegate -live-bundle ... -out <消费者目录>/native`，移除凭据和重负载环境，固定 GOENV=off / 空 GOFLAGS。原生命令复用各路线报告构造器、manifest/audit 和 `supportmatrix.Merge`；普通 chat 另核对固定官方目标/型号/SDK、预算、各场景调用与实际捕获/结果/终结 Observer，不能将支持矩阵接纳历史部分报告的语义当成完整发布资格。
+外层工具只执行一次原生 `releasegate -live-bundle ... -out <消费者目录>/native`，移除凭据和重负载环境，固定 GOENV=off / 空 GOFLAGS。原生命令复用各路线报告构造器与 manifest/audit；普通 chat 另核对固定官方目标/型号/SDK、预算、各场景调用与实际捕获/结果/终结 Observer，不能将支持矩阵接纳历史部分报告的语义当成完整发布资格。
 
 原生命令只写 `native/live-consumer.json` 资格结果并输出该结果；它不生成自己的数字退出或日志快照。外层实际采集子进程 stdout.jsonl、stderr.log、exit-code，完成后原子保存 schema 2 的 `live-consumer.json`，绑定真实 argv、起止、墙钟、可执行文件摘要、完整来源、全部输入与四份文件哈希（含 native 资格原件）。`consumers` 必须引用这份外层回执，旧 schema 1 的自采集格式已删除。外层先落 RUNNING/非通过记录；最终保存失败时保留该记录，不能把原生子进程成功冒充整个采集完成。原生最终写入失败、输出管道失败或取消均按实际子进程事实记录，不能提前声明退出0。
 
-消费者目录必须在仓库内且位于 native bundle 外，拒绝符号链接；输出不得写回原件。发布判定重新执行只读资格检查并比对外层回执、原生结果、实际输出与日志，不能用 `true`、过期来源、controlled 或零调用 PASS 标签代替。消费者不授予厂商或后续阶段执行权限，合成自测不产生真实支持资格。
+消费者目录必须在仓库内且位于 native bundle 外，拒绝符号链接；输出不得写回原件。发布判定重新执行只读资格检查并比对外层回执、原生结果、实际输出与日志，不能用自报 `true`、相关产品来源漂移、controlled 或零调用 PASS 标签代替。消费者不授予厂商或后续阶段执行权限，合成自测不产生真实支持资格。
 
 NA 必须有原因且与影响分析一致。Source.Files 是采集器选定的完整 Go/夹具/维护工具来源集合（含被 Git 忽略的源码，排除 Markdown 展示文档与生成缓存；参与实际消费的文档另用 --input 固定）；正式状态只能引用真实回执，不能拿自测的合成 race/live 字段冒充实际执行。
 
@@ -51,3 +51,34 @@ live 只转发一个选定生产者的变量，不授予调用权限。通用路
 普通 E2E 的 TestMain 同时注册宿主账户 HOME 的脱敏，防止隔离 HOME 后进程报告泄露原宿主路径。消费者成功/拒绝的 stdout、stderr 文件与进程实际输出逐字相等，exit-code 与实际返回一致；不能以磁盘快照冒充标准输出。
 
 活动目录归属与迁移边界见[ADR-0053](../../docs/adr/0053-verification-tool-ownership.md)；迁移前原路径与原字节仅按[历史索引](../../.scratch/scratch-artifact-remediation/history/phase5-before-20261024/index.json)读取。这里不保留旧路径执行wrapper。
+
+## 原生合同与模板入口
+
+`releasegate -inspect-bundle <目录> -mode controlled -stage candidate` 只读验证受控原件；`-mode live -stage candidate|formal` 验证真实测量对应合同，输出 JSON，不写回 bundle。正式外层回执继续使用 consume_live.py。
+
+`processgrant -source regional|glm` 输出完整追溯清单；`processgrant -template <地区或Kimi路线> -stage candidate|formal` 输出无授权效力的模板。固定 renewal/recovery flags 已移除，旧版本只读消费者见本次[历史保留索引](../../.evidence/verification-simplification/history-before-retirement/source-index.json)。源码/目录完整哈希保留原测量身份，当前适用性核对实际路线和型号，不因工具/其他型号变化自动重买。
+
+来源适用性使用有限的 Provider/协议规则和实际型号投影；未知产品源码（含新子包）保守拒绝沿用。go.mod/go.sum 等尚未细分的共享依赖变化需要明确差异审查，不自动授权任何厂商调用；不引入 AST 依赖图或第二套型号配置。
+
+
+### 补充留存的原执行来源
+
+旧 bundle 未内嵌执行来源时，可显式传入已追溯的原映射，不回写或复制原 bundle：
+
+```sh
+python3 tools/verification/consume_live.py --binary '<releasegate 绝对路径>' \
+  --bundle '<原 bundle 相对路径>' --out '<新的消费目录>' \
+  --execution-source '<留存原来源 map JSON 相对路径>'
+```
+
+补充必须与原 grant 的 sourceSha256 完全一致；原 bundle 若已有来源也必须独立一致。文件字节以 `@execution-source/<路径>` 纳入消费者 inputs，执行前后及最终 release 消费均核验。它仅适用于通用路线的只读资格消费，不接入 producer、发放 grant、续期或清除 claim。缺原件、相关产品差异、raw/授权/账本/场景缺项仍拒绝。来源追溯须另保留构建回执、二进制及原授权/执行回执的引用哈希。
+
+## MiniMax 国际 Messages 固定补项
+
+实现合同见[spec](../../.scratch/minimax-thinking-supplement/spec.md)，当前状态见[status](../../.scratch/minimax-thinking-supplement/status.md)。仅 `minimax-messages-thinking-on/v1`，账户用途仍为 standard。`processgrant -template minimax-messages -mode live -stage candidate -profile minimax-messages-thinking-on/v1 -baseline-manifest-sha256 <原manifest SHA> -binary <冻结原生二进制>` 仅输出缺少人类 ID/账户/地区/有效期的模板，不能执行。本轮材料是待批准提案，不签发该模板。
+
+获独立批准后的唯一入口为 `-test.run=^TestMiniMaxThinkingOnSupplement$ -test.count=1 -test.timeout=180s`：1调用/1HTTP，零重试/重跑，输入预留与输出各2048，call120s/process180s，USD0.01，冻结最高已知费率预留0.006144。按路线实际计费合同校验counter；仅M3/standard无cache_control的creation省略允许独立写费NOT_APPLICABLE，raw缺失及partial保持。其他必需计费counter缺失、显式null、正写入/TTL未定价、payload/价格越界或失败均停止，消费不退回。四项计费counter及终态均须留存；不是厂商账单封顶。
+
+只读 `minimax-thinking-composition.json` 固定原十三项＋新thinking-on，保留两包完整原件、失败、预算、producer和权威账本。`releasegate -inspect-bundle <组合目录> -mode controlled -stage candidate` 仅证明机制；`-live-bundle` 的正式消费者拒绝受控组合并保留传递输入库存。原失败 producer 的空成功库存，只能以已绑定原stderr精确路径、固定目录布局、同session claim及完整封存包核验；成功单项必须有真实成功库存。普通完整入口和 VerifyCapture 不接纳任一单包为完整十四项。
+
+本次仅测试/消费者与采集合同变化，不改产品、SDK、正式型号或价格。重建尚未批准的 MiniMax/Kimi 采集器并更新提案机器绑定，不刷新历史授权、不牵动其他 Provider 付费复验、不恢复暂停轮次。

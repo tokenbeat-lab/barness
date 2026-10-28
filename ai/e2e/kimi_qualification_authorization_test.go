@@ -14,8 +14,9 @@ import (
 )
 
 func TestKimiQualificationAuthorization(t *testing.T) {
+	privateGrantStore(t)
 	binary, digest := kimiQualificationBinary(t)
-	for _, mode := range []string{"missing-usd", "negative-usd", "tiny-usd", "binary", "source", "provider", "expiry", "mixed-route", "wrong-entry", "controlled-with-live"} {
+	for _, mode := range []string{"missing-usd", "negative-usd", "tiny-usd", "binary", "source", "provider", "expiry", "mixed-route", "wrong-entry", "controlled-with-live", "old-nine-call"} {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-K16-authorization-"+mode)
 			combo := "kimi-intl-messages"
@@ -34,6 +35,8 @@ func TestKimiQualificationAuthorization(t *testing.T) {
 			grant.MaxUSD = 10
 			grant.BinarySHA256 = digest
 			switch mode {
+			case "old-nine-call":
+				grant.MaxCalls, grant.MaxAttempts, grant.MaxRequestedOutputTokens = 9, 9, 36864
 			case "missing-usd":
 				grant.MaxUSD = 0
 			case "negative-usd":

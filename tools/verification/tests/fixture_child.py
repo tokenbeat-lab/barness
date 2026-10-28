@@ -7,6 +7,11 @@ import sys
 import time
 
 mode = sys.argv[1]
+if mode == "ignore-term":
+    import signal
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    Path('ignore-term.pid').write_text(str(os.getpid()))
+    time.sleep(60)
 if mode == "timeout":
     time.sleep(10)
 if mode == "fail":

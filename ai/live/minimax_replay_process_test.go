@@ -82,7 +82,7 @@ func TestMiniMaxReplayProcess(t *testing.T) {
 			seal, _ := json.Marshal(minimaxlive.Seal{Schema: 1, Files: files})
 			os.WriteFile(filepath.Join(replayDir, minimaxlive.SealFile), seal, 0600)
 			_, e = minimaxlive.Verify(replayDir, false)
-			cs.Check("removed replay provenance cannot forge actual origin", e != nil && strings.Contains(e.Error(), "origin"), "%v", e)
+			cs.Check("removed replay provenance cannot forge actual origin", e != nil && strings.Contains(e.Error(), "fresh process approval missing"), "%v", e)
 
 		})
 	}

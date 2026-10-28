@@ -8,8 +8,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"time"
-
-	"github.com/tokenbeat-lab/barness/ai"
 )
 
 // VisualEffectsEvidence imports ticket 12's independent fixed labeled tasks.
@@ -36,14 +34,12 @@ func visualEffect(route, dir string) EvidenceCheck {
 		e.Detail = "visual report missing or invalid"
 		return e
 	}
-	cat := ai.BuiltinCatalog()
-	hash, err := cat.Hash()
 	model := "jev-1.14.0"
 	if route == "decisions" {
 		model = "gpt-6-luna"
 	}
-	if err != nil || r.Schema != 1 || r.Route != route || r.Model != model || r.CatalogKind != "formal" || r.CatalogHash != hash || r.CatalogVersion != cat.Version {
-		e.Detail = "visual route/model/current formal catalog mismatch"
+	if r.Schema != 1 || r.Route != route || r.Model != model || r.CatalogKind != "formal" || r.CatalogHash == "" || r.CatalogVersion == "" {
+		e.Detail = "visual route/model/original catalog identity missing"
 		return e
 	}
 	root, err := sourceRoot()

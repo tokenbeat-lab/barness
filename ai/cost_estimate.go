@@ -1,6 +1,6 @@
 package ai
 
-// CostEstimateStatus describes which amounts a Kimi usage report supports.
+// CostEstimateStatus describes which amounts a usage report supports.
 // It is independent of UsageReporting: reasoning can be absent while all
 // billable tokens are known, and cache TTL can be absent with complete tokens.
 type CostEstimateStatus string

@@ -11,6 +11,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/examples/chineseeval"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 // ChineseEffectsEvidence requires two independently attributed current runs.
@@ -49,7 +50,12 @@ func ChineseEffectEvidence(routeName, dir string) EvidenceCheck {
 		e.Detail = "config missing"
 		return e
 	}
-	plan, err := chineseeval.Load(data, config, ai.BuiltinCatalog())
+	snapshot, err := readArtifact(filepath.Join(dir, "catalog.json"), 2<<20)
+	if err != nil {
+		e.Detail = "original evaluation catalog missing"
+		return e
+	}
+	plan, err := chineseeval.LoadRecorded(data, config, snapshot)
 	if err != nil {
 		e.Detail = "dataset/config/catalog drift"
 		return e
@@ -57,6 +63,10 @@ func ChineseEffectEvidence(routeName, dir string) EvidenceCheck {
 	route, err := chineseeval.RouteNamed(routeName)
 	if err != nil || plan.Route() != route {
 		e.Detail = "evaluation route identity mismatch"
+		return e
+	}
+	if err := evidence.VerifyRouteCatalog(plan.Catalog(), ai.BuiltinCatalog(), route.Operation, route.Provider, route.API, []string{route.Model}); err != nil {
+		e.Detail = "route catalog differs"
 		return e
 	}
 	// These independent fixed-task pins exclude only the two evolving global
@@ -94,7 +104,7 @@ func ChineseEffectEvidence(routeName, dir string) EvidenceCheck {
 		e.Detail = "source root unavailable"
 		return e
 	}
-	if err = currentEvaluationSource(root, dir, r.CodeHash); err != nil {
+	if err = currentEvaluationSource(root, dir, r.CodeHash, string(route.Provider), string(route.API)); err != nil {
 		e.Detail = "evaluation execution source is stale or incomplete"
 		return e
 	}

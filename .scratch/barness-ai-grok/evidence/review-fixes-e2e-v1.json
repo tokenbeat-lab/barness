@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "kind": "grok-review-fixes-targeted-e2e",
+  "testedCommit": "e3ad302d5bffc234a7ad3563235bffdd95d4d819",
+  "sourceFileCount": 1961,
+  "selectedInputs": {},
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "./ai/e2e",
+    "-run",
+    "^(TestXAI.*|TestGLMResponsesOriginIDCollision|TestKimiResponsesCrossTargetIDs|TestKimiResponsesSequentialProvenanceIDs)$",
+    "-count=1",
+    "-timeout=5m"
+  ],
+  "status": "PASS",
+  "exitCode": 0,
+  "receipt": ".evidence/barness-ai-grok/e2e/20261026T030721.568691Z-pzit2yuv/receipt.json",
+  "receiptSHA256": "f23768eeb8242c7a4ff71d374720c155ea03735843c05ef91e23ee7ac57dbf3c",
+  "bundles": [
+    {
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "manifestSHA256": "f2ef5e24a68e5fb3332fe3b88a9cf2304fb68a962e197fe7d5575f1082ae1c85",
+      "package": "./ai/e2e",
+      "path": "bundles/20261026T030725.014638000Z"
+    }
+  ],
+  "tests": 605,
+  "rootTests": 64,
+  "cases": 564,
+  "caseOutcomes": [
+    "PASS"
+  ],
+  "releasePass": false,
+  "remaining": [
+    "independent rereview",
+    "integration final ordinary source freeze",
+    "authorized live",
+    "human-selected race",
+    "human-selected pressure"
+  ],
+  "sourceEquality": ".evidence/barness-ai-grok/review-fixes/20261026T030721Z/source-equality.json"
+}

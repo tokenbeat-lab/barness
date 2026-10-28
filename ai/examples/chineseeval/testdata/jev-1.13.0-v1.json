@@ -1,10 +1,10 @@
 {
-  "version": "zh-eval-jev-v5",
+  "version": "zh-eval-jev-v6",
   "datasetVersion": "zh-support-v1",
   "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
   "model": "jev-1.13.0",
-  "catalogVersion": "2026-10-20.1-regional",
-  "catalogHash": "sha256:9f00cfa579948ea506ce56eb1f901572b03ea64bfcd9ff4fcae3cb5347a674a1",
+  "catalogVersion": "2026-10-26.1",
+  "catalogHash": "sha256:50b41024da15d6c1bbe144c92b5d21b6c0db02b092d182fcbb3d1e6043c134a7",
   "questionKey": "intent",
   "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
   "maxCalls": 24,

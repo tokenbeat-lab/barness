@@ -6,6 +6,104 @@ from test_release import ReleaseRecordProcess as Base
 
 # Inherited setup builds the actual public CLI. All records live in a fake repository.
 class LiveQualificationProcess(Base):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        import subprocess
+        from process_support import safe_environment
+        from test_release import PROJECT
+        cls.claim_fixture = cls.build.name + '/process-grant-fixture'
+        built = subprocess.run(['go', 'build', '-o', cls.claim_fixture,
+                                './ai/e2e/testdata/process-grant-fixture'], cwd=PROJECT,
+                               env=safe_environment(), capture_output=True, text=True, timeout=180)
+        if built.returncode:
+            raise RuntimeError(built.stderr)
+
+    def setUp(self):
+        super().setUp()
+        from process_support import digest
+        # Typed native scope includes both module files. Rebuild these purely
+        # synthetic stage documents after completing their private source set.
+        (self.repo / 'go.sum').write_text('')
+        self.source['files']['go.sum'] = digest(self.repo / 'go.sum')
+        for stage in ('e2e', 'race'):
+            # The synthetic builder inventories pre-existing top-level files;
+            # remove its old document before rebuilding to avoid a self-hash.
+            (self.repo / '.evidence/sample' / stage / 'attempt/receipt.json').unlink()
+            self.record[stage] = self.stage(stage)
+
+    def test_claim_fixture_rejects_unowned_git_and_output_boundaries(self):
+        targets = []
+        ordinary = self.repo / 'ordinary-checkout'
+        ordinary.mkdir()
+        targets.append((ordinary, ordinary / 'bundle'))
+        linked = self.repo / 'barness-process-e2e-linked'
+        self.call('git', 'worktree', 'add', '--detach', str(linked), 'HEAD', expected=0)
+        targets.append((linked, linked / 'bundle'))
+        symbolic = self.repo / 'barness-process-e2e-symbolic'
+        symbolic.mkdir()
+        (symbolic / '.git').symlink_to(self.repo / '.git', target_is_directory=True)
+        targets.append((symbolic, symbolic / 'bundle'))
+        targets.append((self.repo, self.repo.parent / ('outside-' + self.repo.name)))
+        (self.repo / 'escape').symlink_to(self.repo.parent, target_is_directory=True)
+        targets.append((self.repo, self.repo / 'escape' / 'bundle'))
+        for cwd, out in targets:
+            with self.subTest(cwd=cwd.name, out=str(out)):
+                self.call(sys.executable, '-c',
+                          'import os,sys; os.chdir(sys.argv[1]); os.execv(sys.argv[2],sys.argv[2:])',
+                          cwd, self.claim_fixture, '-binary', self.binary, '-out', out, expected=1)
+                self.assertFalse(out.exists())
+                self.assertFalse((self.repo / '.git/barness-live-process-grants').exists())
+
+    def test_claim_fixture_rejects_escaped_store_and_accepts_owned_directory(self):
+        import tempfile
+        from pathlib import Path
+        from process_support import ARTIFACT, digest, write_json
+        store = self.repo / '.git/barness-live-process-grants'
+        observations = []
+        with tempfile.TemporaryDirectory(prefix='barness-owned-store-target-') as temporary:
+            external = Path(temporary).resolve()
+            internal = self.repo / 'owned-store-target'
+            internal.mkdir()
+            for mode, target in (('external-link', external), ('internal-link', internal),
+                                 ('regular-file', None), ('owned-directory', store)):
+                with self.subTest(mode=mode):
+                    out = self.repo / ('store-boundary-' + mode)
+                    if mode.endswith('-link'):
+                        (target / 'sentinel').write_text('owned target must remain unchanged')
+                        store.symlink_to(target, target_is_directory=True)
+                    elif mode == 'regular-file':
+                        store.write_text('owned regular-file sentinel')
+                    else:
+                        store.mkdir(mode=0o700)
+                        (store / 'sentinel').write_text('owned directory remains supported')
+                    def snapshot():
+                        if mode == 'regular-file':
+                            return {'store-file': digest(store)}
+                        return {path.name: digest(path) for path in target.iterdir() if path.is_file()}
+                    before = snapshot()
+                    try:
+                        result = self.call(self.claim_fixture, '-binary', self.binary, '-out', out)
+                        after = snapshot()
+                        observations.append({'mode': mode, 'exitCode': result.returncode,
+                                             'before': before, 'after': after,
+                                             'stdout': result.stdout, 'stderr': result.stderr})
+                        if ARTIFACT:
+                            write_json(Path(ARTIFACT) / 'private-store-boundary.json', observations)
+                        if mode == 'owned-directory':
+                            self.assertEqual(result.returncode, 0, result.stderr)
+                            self.assertEqual(before['sentinel'], after['sentinel'])
+                            self.assertTrue((out / 'process-authorization-receipt.json').is_file())
+                            self.assertTrue(any(name.startswith('id-') for name in after))
+                        else:
+                            self.assertNotEqual(result.returncode, 0,
+                                                'helper accepted escaped/file store: ' + str(observations[-1]))
+                            self.assertEqual(before, after, 'helper changed an unowned store target')
+                            self.assertFalse(out.exists(), 'store validation must precede output writes')
+                    finally:
+                        if store.is_symlink() or store.is_file():
+                            store.unlink()
+
     def consume(self, bundle, out, expected=None, binary=None, env=None):
         return self.call(sys.executable, TOOLS / 'consume_live.py', '--binary', binary or self.binary,
                          '--bundle', bundle.relative_to(self.repo), '--out', out.relative_to(self.repo),
@@ -111,7 +209,7 @@ class LiveQualificationProcess(Base):
                 if mode == 'reused-call':
                     for p in (bundle / 'text-complete').glob('*call*.json'):
                         p.write_bytes((case / p.name).read_bytes())
-                if mode == 'wrong-counters': report['budget']['httpAttempts'] = 7
+                if mode == 'wrong-counters': report['budget']['httpAttempts'] += 1
                 write_json(bundle / 'live-report.json', report)
                 refresh_chat_receipt(bundle, stage)
                 out = bundle.parent.parent / ('consumer-chat-' + mode)
@@ -130,8 +228,39 @@ class LiveQualificationProcess(Base):
         self.consume(bundle, out, expected=0)
         proof = out / 'live-consumer.json'
         stage['consumers'] = [{'path': str(proof.relative_to(self.repo)), 'sha256': digest(proof)}]
-        self.gate(0)
+        try:
+            self.gate(0)
+        except AssertionError:
+            self.fail((self.repo / ('report-' + str(self.out_number)) / 'release-report.json').read_text())
         self.assertEqual(before, {str(p.relative_to(bundle)): digest(p) for p in bundle.rglob('*') if p.is_file()})
+
+    def test_chat_history_requires_complete_host_provenance_and_downgrade_proof(self):
+        from live_fixture import chat_bundle, refresh_chat_receipt
+        from process_support import write_json
+        for mode in ('missing-grant', 'label-only', 'provenance', 'downgrade'):
+            with self.subTest(mode=mode):
+                bundle, stage, _ = chat_bundle(self)
+                case = bundle / 'xai-origin-history'
+                self.assertTrue(case.is_dir(), 'complete mandatory history fixture is missing')
+                if mode == 'missing-grant':
+                    (bundle / 'process-grant.json').unlink()
+                if mode == 'label-only':
+                    for name in ('public-request.json', 'immutable-input.json', 'history-provenance.json'):
+                        (case / name).unlink()
+                if mode == 'provenance':
+                    path = case / 'history-provenance.json'
+                    value = json.loads(path.read_text())
+                    value['after'][0]['accountScopeId'] = 'different-source'
+                    write_json(path, value)
+                if mode == 'downgrade':
+                    path = case / 'attempt-1-call-result.json'
+                    value = json.loads(path.read_text())
+                    value['result']['metadata']['nativeStateDowngrades'] = {}
+                    write_json(path, value)
+                    write_json(case / 'observations-attempt-1-call.json',
+                               [{'kind': 'call_finished', 'call': value['result']['metadata']}])
+                refresh_chat_receipt(bundle, stage)
+                self.consume(bundle, bundle.parent.parent / ('history-invalid-' + mode), expected=1)
 
     def test_zero_call_pass_labels_do_not_substitute_for_native_live_qualification(self):
         from process_support import digest

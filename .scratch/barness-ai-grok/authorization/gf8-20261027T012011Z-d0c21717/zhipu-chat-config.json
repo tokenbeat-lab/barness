@@ -1,0 +1,41 @@
+{
+  "accountAlias": "ZHIPU",
+  "argv": [
+    "/usr/bin/env",
+    "-C",
+    "/Users/cyber/RestoX/barness/ai/live",
+    "/Users/cyber/RestoX/barness/.evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/glm-live.test",
+    "-test.run=^TestGLMFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/authorization.json",
+    "sha256": "2478dadbf97a25f815bf329c5aef707388796c5d6b60e2ac781453990d614f59"
+  },
+  "credentialEnvironment": "BARNESS_GLM_KEY",
+  "credentialSource": ".env:ZHIPU_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_GLM_ACCOUNT_ALIAS": "ZHIPU",
+    "BARNESS_GLM_FORMAL": "1",
+    "BARNESS_GLM_GRANT": "/Users/cyber/RestoX/barness/.scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/zhipu-chat-grant.json",
+    "BARNESS_GLM_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_GLM_REGION_ALIAS": "cn",
+    "BARNESS_GLM_ROUTE": "chat"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf8-20261027T012011Z-d0c21717/zhipu-chat-grant.json",
+    "sha256": "2d1d4e12d221f837368f22b70b4fc5502f593ee27b0b5cd822416879b672183f"
+  },
+  "grantEnvironment": "BARNESS_GLM_GRANT",
+  "nativeWorkingDirectory": "/Users/cyber/RestoX/barness/ai/live",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=6a04686df4a95ed1a103622f4ac3f9c3f7abc66821ffca9e0798026e3892c5e8",
+    "nativeSourceSha256": "6a04686df4a95ed1a103622f4ac3f9c3f7abc66821ffca9e0798026e3892c5e8",
+    "path": ".evidence/barness-ai-grok/build/20261027T003444-authority-freeze-z_mdumhu/glm-live.test",
+    "sha256": "45483483c2515fca6d9ea52d11034e48ae227704a75f6d1cc667d6aa77941a9c"
+  },
+  "regionAlias": "cn",
+  "route": "zhipu-chat",
+  "schema": 1
+}

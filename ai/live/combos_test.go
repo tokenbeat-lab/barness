@@ -5,6 +5,7 @@ package live
 import (
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
 // combo is one first-phase Provider × API combination and how the smoke
@@ -124,7 +125,7 @@ var combos = []combo{
 		operation: ai.OperationChat, name: "openai-chat", spec: "P04", provider: ai.ProviderOpenAI, api: ai.APIOpenAICompletions,
 		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
 		quiet: ai.ThinkingMinimal, full: chatOptions(ai.ThinkingMinimal), forcesTool: true,
-		noReplay: "OpenAI Chat Completions returns no reasoning content or signature to replay; reasoning is only counted in usage",
+		noReplay: supportmatrix.OpenAIChatNoReplay,
 		extra:    []scenario{chatUsagePosition, toolChanges("gpt-5.4"), toolChanges("gpt-6-sol"), chatProUnavailable},
 	},
 	{

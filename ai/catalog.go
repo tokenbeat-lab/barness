@@ -53,6 +53,7 @@ func BuiltinCatalog() Catalog {
 	minimax := builtinMiniMaxCatalog()
 	regional := builtinRegionalCatalog()
 	kimi := builtinKimiCatalog()
+	xai := builtinXAICatalog()
 	version := "2026-10-17.2"
 	if len(minimax.Models) > 0 {
 		version = minimax.Version
@@ -63,10 +64,13 @@ func BuiltinCatalog() Catalog {
 	if len(kimi.Models) > 0 {
 		version = kimi.Version
 	}
+	if len(xai.Models) > 0 {
+		version = xai.Version
+	}
 	return Catalog{
 		Version: version,
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
-			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models, regional.Models, kimi.Models),
+			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models, regional.Models, kimi.Models, xai.Models),
 		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels()),
 		ClassifierModels: slices.Concat(builtinTypeSafeModels(), builtinDecisionsModels()),
 	}

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "kind": "explicit-candidate-authorization",
+  "issuedAt": "2026-10-26T04:25:02.637540+00:00",
+  "scope": {
+    "route": "xai-responses",
+    "model": "grok-4.7",
+    "scenarios": 18,
+    "maxCalls": 24,
+    "maxAttempts": 24,
+    "automaticRetries": 0,
+    "visibleOutputTokensPerCall": 1024,
+    "processSeconds": 1800
+  },
+  "humanScopeResponse": "账户别名：GROK，密钥在.env文件，GROK_KEY",
+  "humanBudgetDelegation": "你来决定",
+  "selectedAccountAlias": "GROK",
+  "selectedRegionAlias": "global",
+  "selectedMaxUSD": 5.0,
+  "budgetChosenBy": "agent under explicit human delegation",
+  "credentialSource": ".env:GROK_KEY",
+  "appliesToGrantId": "grok-20261026T042502Z-9d5d74b3",
+  "otherRoutesAndManualStages": "NOT_AUTHORIZED"
+}

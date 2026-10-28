@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "evidence": {
+    "path": ".evidence/barness-ai-grok/request-id-adoption-v1.json",
+    "sha256": "e163d69702ba5db449c7d46685a5ed4d37b3a86ac4e36d58f08ac68e0670123b"
+  },
+  "implementationCommit": "511fa00c",
+  "red": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T053514.144809Z-m8s_fq6x/receipt.json",
+    "sha256": "a2400658a9f743d81b3691d6e2111f39ab9f76658cbadecc3f5428373807ab48"
+  },
+  "green": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T053716.039174Z-3k6uowiz/receipt.json",
+    "sha256": "440b2ef29f02f3e6d72ab2610f9aa20970219b33b0a670598d97fcad006c7514"
+  },
+  "affected": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T053823.107642Z-1fmdjdnb/receipt.json",
+    "sha256": "43bf93068ae7e0a0ed9e5059d153718f751536724c7d22d98aef337e7643da0e"
+  },
+  "newTopLevelTests": [
+    "TestXAIRequestIDAttribution",
+    "TestXAIRequestIDExistingProviders"
+  ],
+  "newCaseCount": 34,
+  "existingCaseIdsUnchanged": true,
+  "scope": "Public Client/controlled HTTP/Result/Error/Observer only; no vendor, race, pressure, or final full-package freeze."
+}

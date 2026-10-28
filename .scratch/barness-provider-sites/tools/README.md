@@ -1,3 +1,5 @@
+> 固定轮次控制器已按 [ADR-0055](../../../docs/adr/0055-route-scoped-evidence-applicability.md) 从活动实现退役。原暂停、授权、账本和失败事实保留；本页旧接口仅按固定 Git 版本追溯，不再作为执行入口。
+
 # 地区 Provider 验收工具入口
 
 唯一当前状态见[地区 Provider spec 的当前状态](../spec.md#当前状态)，对应[恢复7当前索引](../../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/index.json)与[暂停交接](../../../.evidence/provider-sites/final-acceptance-20261020/recovery7-preparation/pause-handoff.md)。本页只导航，不另维护轮次、预算、授权或发布结果。

@@ -212,6 +212,54 @@ func checkInputFiles(root string, files map[string]string) error {
 	return nil
 }
 
+// Measured inputs describe the original execution. Mutable documentation may
+// have advanced; its original committed bytes still authenticate the old fact.
+// Untracked grants/captures must remain available at their immutable paths.
+func checkMeasuredInputFiles(root, commit string, files map[string]string) error {
+	if files == nil {
+		return fmt.Errorf("selected inputs must be explicit")
+	}
+	commitBytes, commitErr := hex.DecodeString(commit)
+	for name, hash := range files {
+		if _, err := verifyRecordFile(root, FileRef{name, hash}); err == nil {
+			continue
+		}
+		bad := fmt.Errorf("original selected input unavailable or changed")
+		hashBytes, err := hex.DecodeString(hash)
+		if commitErr != nil || len(commitBytes) != 20 || err != nil || len(hashBytes) != 32 || !filepath.IsLocal(name) || filepath.ToSlash(filepath.Clean(name)) != name {
+			return bad
+		}
+		ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+		cmd := exec.CommandContext(ctx, "git", "cat-file", "blob", commit+":"+name)
+		cmd.Dir, cmd.Stderr = root, io.Discard
+		for _, pair := range os.Environ() {
+			if !strings.HasPrefix(pair, "GIT_") {
+				cmd.Env = append(cmd.Env, pair)
+			}
+		}
+		pipe, err := cmd.StdoutPipe()
+		if err != nil {
+			cancel()
+			return bad
+		}
+		if err := cmd.Start(); err != nil {
+			cancel()
+			return bad
+		}
+		h := sha256.New()
+		n, readErr := io.Copy(h, io.LimitReader(pipe, (64<<20)+1))
+		if readErr != nil || n > 64<<20 {
+			cancel()
+		}
+		waitErr := cmd.Wait()
+		cancel()
+		if readErr != nil || waitErr != nil || n > 64<<20 || hex.EncodeToString(h.Sum(nil)) != hash {
+			return bad
+		}
+	}
+	return nil
+}
+
 // Field spelling is exact; encoding/json's case aliases are not a receipt contract.
 func canonicalRecordFields(value any, kind reflect.Type) error {
 	for kind.Kind() == reflect.Pointer {

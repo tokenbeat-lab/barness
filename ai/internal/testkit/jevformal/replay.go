@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 type replayHost struct {
@@ -98,7 +99,10 @@ func ReplayProtocol(root string, p Protocol) error {
 	if json.Unmarshal(raw, &config) != nil || config.Binding.Endpoint != "https://api.typesafe.ai/v1" || config.Target.ModelID != "jev-1.14.0" {
 		return errors.New("invalid formal replay configuration")
 	}
-	cat := ai.BuiltinCatalog()
+	cat, err := evidence.MeasuredCatalog(root, p.CatalogVersion, p.CatalogHash, ai.BuiltinCatalog())
+	if err != nil {
+		return err
+	}
 	for _, id := range p.Expected {
 		dir := filepath.Join(root, "MM11-"+id)
 		raw, err = Read(filepath.Join(dir, "public-request.json"))

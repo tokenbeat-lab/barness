@@ -37,12 +37,13 @@ func GLMExecutionSource() (map[string]string, error) {
 		}
 		name, _ := filepath.Rel(root, path)
 		name = filepath.ToSlash(name)
-		runtime := filepath.Dir(name) == "ai" && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go")
+		// Unknown product subpackages must reach the conservative route guard.
+		runtime := strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go") && !strings.HasPrefix(name, "ai/internal/testkit/") && !strings.HasPrefix(name, "ai/examples/") && !strings.HasPrefix(name, "ai/e2e/") && !strings.HasPrefix(name, "ai/live/") && !strings.HasPrefix(name, "ai/release/")
 		capture := strings.HasPrefix(name, "ai/live/glm_") && strings.HasSuffix(name, ".go")
-		for _, file := range []string{"ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/decisions_config_test.go", "ai/live/decisions_sources_test.go", "ai/live/session_test.go"} {
+		for _, file := range []string{"ai/live/grok_process_grant_test.go", "ai/live/main_test.go", "ai/live/recorder_test.go", "ai/live/proxy_test.go", "ai/live/combos_test.go", "ai/live/decisions_config_test.go", "ai/live/decisions_sources_test.go", "ai/live/session_test.go"} {
 			capture = capture || name == file
 		}
-		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/glm/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/"} {
+		for _, prefix := range []string{"ai/examples/requestid/", "ai/internal/testkit/evidence/", "ai/internal/testkit/audit/", "ai/internal/testkit/glm/", "ai/internal/testkit/finalbudget/", "ai/internal/testkit/regional/", "ai/internal/testkit/supportmatrix/", "ai/internal/testkit/grokhistory/", "ai/internal/testkit/livegrant/"} {
 			if strings.HasPrefix(name, prefix) && strings.HasSuffix(name, ".go") && !strings.HasSuffix(name, "_test.go") {
 				capture = true
 			}

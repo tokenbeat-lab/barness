@@ -3,14 +3,17 @@
 package live
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
+	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -33,7 +36,7 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 		t.Fatal("missing controlled capture")
 	}
 	original := filepath.Dir(files[0])
-	for _, name := range []string{"baseline", "honest-no-request-id", "fabricated-request-id", "source-plan", "source-candidate", "source-price", "foreign-operation", "stale-result-version", "execution-add", "execution-delete", "execution-change"} {
+	for _, name := range []string{"baseline", "unrelated-catalog", "own-catalog-change", "honest-no-request-id", "fabricated-request-id", "source-plan", "source-candidate", "source-price", "foreign-operation", "stale-result-version", "execution-add", "execution-delete", "execution-change", "xai-missing-scene", "xai-substituted-scene", "xai-wire-marker", "xai-immutable-input", "xai-native-envelope"} {
 		t.Run(name, func(t *testing.T) {
 			dir := t.TempDir()
 			if e := os.CopyFS(dir, os.DirFS(original)); e != nil {
@@ -52,8 +55,92 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 				b, _ := json.MarshalIndent(v, "", "  ")
 				os.WriteFile(filepath.Join(dir, path), append(b, '\n'), 0600)
 			}
-			edit("formal-glm-report.json", func(v map[string]any) { v["mode"] = "live" })
-			edit("manifest.json", func(v map[string]any) { v["versions"].(map[string]any)["glm_mode"] = "live" })
+			if name == "unrelated-catalog" || name == "own-catalog-change" {
+				old := ai.BuiltinCatalog()
+				oldHash, _ := old.Hash()
+				catalog := ai.BuiltinCatalog()
+				catalog.Version = "TEST_ONLY_original-catalog"
+				if name == "unrelated-catalog" {
+					other := catalog.Models[0]
+					other.ID += "-historical-fixture"
+					catalog.Models = append(catalog.Models, other)
+				} else {
+					for i := range catalog.Models {
+						if catalog.Models[i].Provider == ai.ProviderZhipu && catalog.Models[i].ID == "glm-5.3" {
+							catalog.Models[i].MaxTokens--
+						}
+					}
+				}
+				hash, err := catalog.Hash()
+				if err != nil {
+					t.Fatal(err)
+				}
+				// Rebind only an explicitly synthetic measurement and its raw
+				// metadata; fixed vendor facts and real historical bundles stay intact.
+				if err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+					if err != nil || d.IsDir() {
+						return err
+					}
+					rel, _ := filepath.Rel(dir, path)
+					if strings.HasPrefix(rel, "GLM11-sources/") || !strings.HasSuffix(path, ".json") {
+						return nil
+					}
+					raw, err := os.ReadFile(path)
+					if err != nil {
+						t.Fatal(err)
+					}
+					raw = bytes.ReplaceAll(raw, []byte(oldHash), []byte(hash))
+					raw = bytes.ReplaceAll(raw, []byte(old.Version), []byte(catalog.Version))
+					return os.WriteFile(path, raw, 0600)
+				}); err != nil {
+					t.Fatal(err)
+				}
+				raw, _ := json.Marshal(catalog)
+				if err := os.WriteFile(filepath.Join(dir, "model-catalog.json"), raw, 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			// Keep the controlled origin. Positive structural validation cannot acquire formal eligibility.
+			if name == "xai-missing-scene" || name == "xai-substituted-scene" {
+				edit("formal-glm-report.json", func(v map[string]any) {
+					rows := v["scenarios"].([]any)
+					for i, x := range rows {
+						row := x.(map[string]any)
+						if row["id"] != "glm-5.3/xai-origin-history" {
+							continue
+						}
+						if name == "xai-missing-scene" {
+							rows = append(rows[:i], rows[i+1:]...)
+						} else {
+							row["id"] = "glm-5.3/native-history"
+						}
+						break
+					}
+					v["scenarios"] = rows
+				})
+			}
+			if name == "xai-wire-marker" {
+				path := filepath.Join(dir, "GLM11-glm-5.3-xai-origin-history")
+				raw, _ := os.ReadFile(filepath.Join(path, "attempt-1-exchanges.json"))
+				var ex []map[string]any
+				json.Unmarshal(raw, &ex)
+				ex[0]["requestBody"] = strings.ReplaceAll(ex[0]["requestBody"].(string), "SYNTHETIC_XAI_RESULT_FIRST", "SYNTHETIC_XAI_RESULT_OTHER")
+				raw, _ = json.Marshal(ex)
+				os.WriteFile(filepath.Join(path, "attempt-1-exchanges.json"), raw, 0600)
+				os.WriteFile(filepath.Join(path, "request.json"), []byte(ex[0]["requestBody"].(string)), 0600)
+			}
+			if name == "xai-immutable-input" {
+				path := filepath.Join(dir, "GLM11-glm-5.3-xai-origin-history/immutable-input.json")
+				raw, _ := os.ReadFile(path)
+				raw = []byte(strings.ReplaceAll(string(raw), "SYNTHETIC_XAI_RESULT_FIRST", "SYNTHETIC_XAI_RESULT_OTHER"))
+				os.WriteFile(path, raw, 0600)
+			}
+			if name == "xai-native-envelope" {
+				path := filepath.Join(dir, "GLM11-glm-5.3-xai-origin-history/history-provenance.json")
+				raw, _ := os.ReadFile(path)
+				raw = []byte(strings.ReplaceAll(string(raw), "synthetic-xai-source-account", "synthetic-xai-forged-account"))
+				os.WriteFile(path, raw, 0600)
+			}
 			if name == "honest-no-request-id" || name == "fabricated-request-id" {
 				id := ""
 				if name == "fabricated-request-id" {
@@ -182,10 +269,12 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 			})
 			raw, _ := json.Marshal(map[string]any{"schema": 1, "files": hashes})
 			os.WriteFile(filepath.Join(dir, "glm-integrity.json"), raw, 0600)
-			_, err := supportmatrix.NewGLMReport(dir)
-			want := name == "baseline" || name == "honest-no-request-id"
-			cs.Check("captured import "+name, (err == nil) == want, "%v", err)
+			err := supportmatrix.VerifyGLMControlledCapture(dir)
+			want := name == "baseline" || name == "honest-no-request-id" || name == "unrelated-catalog"
+			cs.Check("controlled captured import "+name, (err == nil) == want, "%v", err)
+			_, formalErr := supportmatrix.NewGLMReport(dir)
+			cs.Check("controlled never acquires formal authority "+name, formalErr != nil, "formal accepted")
 		})
 	}
-	cs.Record("scope", "Synthetic controlled captures transformed solely to exercise public import validation; zero vendor HTTP calls; never published support")
+	cs.Record("scope", "Synthetic controlled full captures exercise public structural validation; zero vendor HTTP calls; actual formal import always refuses")
 }

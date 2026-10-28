@@ -3,9 +3,7 @@ package release
 import (
 	"crypto/sha256"
 	"encoding/json"
-	"flag"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -80,17 +78,18 @@ func liveInventory(dir string) (map[string]string, error) {
 	return files, err
 }
 
-func liveReportHash(report supportmatrix.Report) string {
+func liveReportHash(report any) string {
 	raw, _ := json.Marshal(report)
 	return fmt.Sprintf("%x", sha256.Sum256(raw))
 }
 
 // ConsumeNativeLive writes only the native qualification. An outer process
 // captures actual streams and exit, including errors after this write.
-func ConsumeNativeLive(root, bundle, out string) (bool, error) {
+func ConsumeNativeLive(root, bundle, out, supplement string) (bool, error) {
 	started := time.Now().UTC()
 	proof := nativeLiveQualification{Schema: 1, Consumer: liveConsumer, Bundle: bundle, StartedAt: started}
 	var report supportmatrix.Report
+	sourcePath := ""
 	dir, err := recordPath(root, bundle)
 	absoluteOut, outErr := filepath.Abs(out)
 	if outErr != nil {
@@ -118,17 +117,36 @@ func ConsumeNativeLive(root, bundle, out string) (bool, error) {
 		return false, e
 	}
 	if err == nil {
-		proof.Inputs, err = liveInventory(dir)
+		proof.Inputs, sourcePath, err = liveInputs(root, dir, supplement)
 	}
 	if err == nil {
-		report, err = qualifiedLive(root, dir)
+		if supportmatrix.IsMiniMaxThinkingComposition(dir) {
+			var q supportmatrix.MiniMaxThinkingQualification
+			q, err = supportmatrix.VerifyMiniMaxThinkingComposition(dir, true)
+			if err == nil {
+				proof.ReportSHA256 = liveReportHash(q)
+			}
+		} else if supportmatrix.IsKimiComposition(dir) {
+			var qualification supportmatrix.KimiQualification
+			qualification, err = supportmatrix.VerifyKimiComposition(dir, true)
+			if err == nil {
+				proof.ReportSHA256 = liveReportHash(qualification)
+			}
+		} else {
+			report, err = QualifyNativeLive(root, dir, sourcePath)
+		}
 	}
-	if err == nil && report.GitCommit != proof.Source.Commit {
-		err = fmt.Errorf("live source commit mismatch")
+	if err == nil && sourcePath != "" {
+		hash, e := recordHash(sourcePath)
+		if e != nil || hash != proof.Inputs[executionSourceInput+supplement] {
+			err = fmt.Errorf("source supplement changed during consumption")
+		}
 	}
 	if err == nil {
 		proof.Pass = true
-		proof.ReportSHA256 = liveReportHash(report)
+		if proof.ReportSHA256 == "" {
+			proof.ReportSHA256 = liveReportHash(report)
+		}
 	}
 	if err != nil {
 		proof.Error = "native live consumer rejected evidence"
@@ -150,31 +168,20 @@ func ConsumeNativeLive(root, bundle, out string) (bool, error) {
 	return proof.Pass, nil
 }
 
-func verifyLiveConsumer(root, dir string, ref FileRef, source ExecutionSource, report supportmatrix.Report) error {
-	path, err := verifyRecordFile(root, ref)
+func verifyLiveConsumer(root, dir string, ref FileRef, source ExecutionSource, reportHash string) error {
+	proof, args, err := readLiveConsumer(root, ref)
 	if err != nil {
 		return err
 	}
-	var proof LiveConsumerReceipt
-	if recordJSON(path, &proof) != nil {
-		return fmt.Errorf("invalid native consumer receipt")
-	}
-	bundle, err := filepath.Rel(root, dir)
-	inputs, inputErr := liveInventory(dir)
-	invocation := flag.NewFlagSet("native-live-consumer", flag.ContinueOnError)
-	invocation.SetOutput(io.Discard)
-	argBundle := invocation.String("live-bundle", "", "")
-	argOut := invocation.String("out", "", "")
-	validArgs := len(proof.Argv) > 0 && filepath.Base(proof.Argv[0]) == "releasegate"
-	if validArgs {
-		validArgs = invocation.Parse(proof.Argv[1:]) == nil && invocation.NArg() == 0
-	}
-	outputDir, _ := filepath.Abs(*argOut)
+	path, err := recordPath(root, ref.Path)
+	bundle, bundleErr := filepath.Rel(root, dir)
+	inputs, _, inputErr := liveInputs(root, dir, args.supplement)
+	outputDir, _ := filepath.Abs(args.out)
 
-	if err != nil || inputErr != nil || proof.Schema != 2 || proof.Consumer != liveConsumer || proof.Status != "PASS" || !proof.Pass || proof.ExitCode != 0 || proof.Error != "" || proof.GoEnv != "off" || proof.GoFlags == nil || *proof.GoFlags != "" || proof.ElapsedSeconds < 0 ||
+	if err != nil || bundleErr != nil || inputErr != nil || proof.Schema != 2 || proof.Consumer != liveConsumer || proof.Status != "PASS" || !proof.Pass || proof.ExitCode != 0 || proof.Error != "" || proof.GoEnv != "off" || proof.GoFlags == nil || *proof.GoFlags != "" || proof.ElapsedSeconds < 0 ||
 		proof.Bundle != filepath.ToSlash(bundle) || proof.Source.Commit != source.Commit || !sameRecordSource(proof.Source, source) ||
-		!reflect.DeepEqual(proof.Inputs, inputs) || proof.ReportSHA256 != liveReportHash(report) ||
-		outputDir != filepath.Join(filepath.Dir(path), "native") || !validArgs || *argBundle != proof.Bundle ||
+		!reflect.DeepEqual(proof.Inputs, inputs) || proof.ReportSHA256 != reportHash ||
+		outputDir != filepath.Join(filepath.Dir(path), "native") || args.bundle != proof.Bundle ||
 		len(proof.ExecutableSHA256) != 64 || proof.StartedAt.IsZero() || proof.FinishedAt.Before(proof.StartedAt) || len(proof.Files) != 4 {
 		return fmt.Errorf("native consumer disagrees with actual input, result or invocation")
 	}

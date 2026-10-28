@@ -12,11 +12,11 @@ import (
 func main() {
 	receipt := flag.String("receipt", "", "new exclusive live candidate-lineage receipt under repository .evidence")
 	proposal := flag.String("proposal", "", "new exclusive nonproduction controlled proposal")
-	kimi := flag.Bool("kimi", false, "use the independent Kimi six-route contract and catalog target")
+	kimi := flag.Bool("kimi", false, "consume exactly six fixed Kimi nine-plus-one compositions")
 	controlled := flag.Bool("controlled", false, "nonproduction controlled proposal only")
 	flag.Parse()
 	if flag.NArg() != 6 || *controlled && (*proposal == "" || *receipt != "") || !*controlled && (*receipt == "" || *proposal != "") {
-		fmt.Fprintln(os.Stderr, "regional promotion requires six live candidates and -receipt; controlled captures cannot activate")
+		fmt.Fprintln(os.Stderr, "promotion requires six live inputs and -receipt (Kimi: fixed nine-plus-one compositions); controlled captures cannot activate")
 		os.Exit(2)
 	}
 	var err error

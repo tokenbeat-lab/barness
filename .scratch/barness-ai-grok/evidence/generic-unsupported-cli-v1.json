@@ -1,0 +1,880 @@
+{
+  "schema": 1,
+  "kind": "synthetic-public-cli-regression-evidence",
+  "issue": 17,
+  "reviewFinding": "v11 Standards P2 / Spec P2: complete native fixture must reach successful unsupported-case qualification through compiled public releasegate",
+  "evidenceRoot": "/Users/cyber/.codex/worktrees/grok-native-proof/barness",
+  "baseCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+  "scope": {
+    "productionChanges": [],
+    "changedTestFiles": [
+      {
+        "path": "ai/e2e/generic_unsupported_qualification_test.go",
+        "sha256": "7a1275ff2cd3897cd94ad5b46036caf0900cd566f553890dccc049f18a4ed08d"
+      },
+      {
+        "path": "ai/e2e/generic_unsupported_cli_test.go",
+        "sha256": "4140820962115c3d12432a870e5cf0749c5d3b95d8616e2a5e90e288d112e88c"
+      },
+      {
+        "path": "ai/e2e/generic_unsupported_native_fixture_test.go",
+        "sha256": "d9efdd92b4568e6e5f137be68e39ec1bafded3307133bcb236b3dd15877235bd"
+      }
+    ],
+    "targetedCases": 61,
+    "issue17Cases": 49,
+    "issue16DecoderCases": 12,
+    "newRoot": "TestGenericDeclaredUnsupportedCLI",
+    "removedCaseIds": [
+      "GROK-GENERIC-UNSUPPORTED-CLI-INELIGIBLE"
+    ],
+    "newCaseIds": [
+      "GROK-GENERIC-UNSUPPORTED-CLI-declared",
+      "GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run",
+      "GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason",
+      "GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture",
+      "GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes",
+      "GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace"
+    ],
+    "sourceRelation": "Final targeted source files equal current test bytes. Commit records source label 268faeba plus the three test edits; production bytes are unchanged. Markdown/JSON evidence summary does not change executed Go sources."
+  },
+  "fixtureContract": {
+    "nativeScenes": 11,
+    "passingScenes": 10,
+    "reasoningHistory": "UNSUPPORTED with exact existing OpenAIChatNoReplay note, zero calls/attempts/retries and assertions.json only",
+    "callsAndHTTPAttempts": 10,
+    "inputTokens": 10,
+    "outputTokens": 10,
+    "authority": "Static TEST_ONLY grant and compact id/scope receipt bytes in each fixture own bare Git namespace; only releasegate subprocess receives GIT_DIR; no livegrant.Claim, real producer, real grants or common Git store mutation. Missing-namespace negative proves authority is not accepted outside that namespace.",
+    "history": "Loopback public Client encodes mandatory xAI-origin trusted history using OpenAI Chat; full provenance/wire/result/observer/usage/artifact inventory consumed.",
+    "qualification": "Positive reaches live qualification stale or consumer receipt missing after native artifact/report gates. Every public command exits 1 with total release.pass=false, no consumer receipt and deliberately invalid empty release source. UNSUPPORTED remains unchanged; matrix no-last-passed contract remains covered by prior case."
+  },
+  "failureInventory": [
+    "old all-PASS/positive-call semantics reject the valid declared zero-request native limitation",
+    "missing report integration lets mandatory NOT_RUN advance",
+    "missing unsupported artifact integration lets arbitrary reason or hidden capture advance",
+    "inventory byte tampering bypasses authentication",
+    "synthetic authority escapes isolated Git namespace"
+  ],
+  "attempts": [
+    {
+      "kind": "RED",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-strict-ktghzcox/.evidence/barness-ai-grok/e2e/20261026T143316.756622Z-6p2b3s4j/receipt.json",
+        "sha256": "f9ccf741d24fa615065b70260f0c73d7e511461290833428a75643bb19f10783"
+      },
+      "command": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-strict-ktghzcox/.evidence/barness-ai-grok/e2e/20261026T143316.756622Z-6p2b3s4j/command.json",
+        "sha256": "ad098983027dfd637d4841f757b8a9e08efde364822c827a2a6bce185b3df94e"
+      },
+      "stdout": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-strict-ktghzcox/.evidence/barness-ai-grok/e2e/20261026T143316.756622Z-6p2b3s4j/stdout.jsonl",
+        "sha256": "d0290df8cbda07ff04979791f5750512ea3bba6a0fa9a522478a5807ccd7e5f5"
+      },
+      "stderr": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-strict-ktghzcox/.evidence/barness-ai-grok/e2e/20261026T143316.756622Z-6p2b3s4j/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "FAIL",
+      "exitCode": 1,
+      "testedCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+      "sourceFileCount": 2057,
+      "elapsedSeconds": 8.20703824982047,
+      "bundles": [],
+      "failingCaseIds": [],
+      "publicCLI": [],
+      "privateBaselineMutation": "Private module copy removes only the fixed OpenAI Chat reasoning-history exception from VerifyGenericReport, restoring all-PASS report behavior."
+    },
+    {
+      "kind": "intermediate GREEN (5 public CLI cases)",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/receipt.json",
+        "sha256": "e3fa404f2ce1a500da71720485850c64106433a3f90dfe060e53a6863878dc5b"
+      },
+      "command": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/command.json",
+        "sha256": "ad098983027dfd637d4841f757b8a9e08efde364822c827a2a6bce185b3df94e"
+      },
+      "stdout": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/stdout.jsonl",
+        "sha256": "bfe212c486bb45496181217ebb0b1ff336cf227377835bf426d77c1695f290f0"
+      },
+      "stderr": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "PASS",
+      "exitCode": 0,
+      "testedCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+      "sourceFileCount": 2057,
+      "elapsedSeconds": 4.95881358301267,
+      "bundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/manifest.json",
+            "sha256": "f5b0362034e2455c5160396732d7eff66eb17554ef19f94b63e8ddad14ac14c4"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": 5,
+          "caseStatusCounts": {
+            "PASS": 5
+          },
+          "auditFindings": 0
+        }
+      ],
+      "failingCaseIds": [],
+      "publicCLI": [
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason/public-consumer-process.json",
+            "sha256": "3890084f7ad02c49a7472c1570bdd2663660092898514fb597fd2a6f55a328d7"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1666139671/synthetic-record.json",
+              "sha256": "1fbb544f8531ceb60ee831864f076d07f677faa656ded2f0b4212da3e9975b4c"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1666139671/bundles/synthetic/manifest.json",
+              "sha256": "af75d90d5433315c6f96d33186c22a66c0c4dfdcb009425aa5ebd41a68a7227c"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1666139671/bundles/synthetic/live-report.json",
+              "sha256": "20b861bd9cb8e7b0fbf68f4e75e47e54b743334a225bd31a262f0bd9d850faf6"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1666139671/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "812149e5d4a21b68bfa3764c4548613c232f7d7ff49172a1842f2c7fe3a877f3"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-declared",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-declared/public-consumer-process.json",
+            "sha256": "708e359befd67600f886b274ea62f70ad5c44ec7f785b59dd88a67c2377777cf"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-declared/public-consumer-report.json",
+            "sha256": "bae8ec038de4306df68cbca4f6c9865fd2d372ce2e9418dc4063a9d03b8889a7"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "live qualification stale or consumer receipt missing",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-187827031/synthetic-record.json",
+              "sha256": "6a7d0532e357b7c20221a2cfc85a64c107530f872c4b84f829596b12afa46709"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-187827031/bundles/synthetic/manifest.json",
+              "sha256": "5b8f1fb4f603d29c5aa45b3123e1c488d030d84954bbec65a73ad6bd4c660cc0"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-187827031/bundles/synthetic/live-report.json",
+              "sha256": "5d832cb768febe0600228bcae0c92753f9049d0385263903e9a85d312e17c7cb"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-187827031/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture/public-consumer-process.json",
+            "sha256": "f1b421a0dfb39b42d92eb13cdd59ae5317fa93f49420bafa262f2c50bc7d11e3"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3699000735/synthetic-record.json",
+              "sha256": "858e99957602c8d62b76a75634ddf95ceb8502936dd5c58e4dd82171108b6d06"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3699000735/bundles/synthetic/manifest.json",
+              "sha256": "30576006fdff5fce0bc0e503d6636db316378f3b4aca0b3199722331d221929d"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3699000735/bundles/synthetic/live-report.json",
+              "sha256": "1535fc1d0a5c2338b29acf5acaa869d26368678cfcd4fba967bd408eff8b5e33"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3699000735/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes/public-consumer-process.json",
+            "sha256": "b2f834177af12067fa7d9058e0d6e5beb91122ab05556e3d290cf60007d20bf3"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1865942214/synthetic-record.json",
+              "sha256": "c0b5573ede6d0779ca63f0d968bf8642ed124520b882161a383fc2c359cefc7b"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1865942214/bundles/synthetic/manifest.json",
+              "sha256": "351cafc5f64f95d00cd7dd4f534bc395dd1b89f3f07c983cef29ee1ac862892b"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1865942214/bundles/synthetic/live-report.json",
+              "sha256": "ada8d164cd5eff17dd783d80fe760858f2dc417e2a1935c5d24df64cba7f1181"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1865942214/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "347e37ff76dd0017773459f9ecacebe5142a2d8a14221072a1eeca48296e43d2"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace/public-consumer-process.json",
+            "sha256": "65bbd33cc80255865f8af24d6c91018c84e966862fd954dfba5b6b25a6d33395"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143354.408150Z-os38gtmu/bundles/20261026T143357.449674000Z/GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1636037803/synthetic-record.json",
+              "sha256": "b8459a158b01ab3014090d21494e34515bd5e75b7e7be6c2979a047095e5b5a4"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1636037803/bundles/synthetic/manifest.json",
+              "sha256": "56abd43216ee7d8a2ac226bfb88c2891e8127a29a6abe7e42e06f4a7dad00a18"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1636037803/bundles/synthetic/live-report.json",
+              "sha256": "0bae2ea7e235790790577e0f4ee458a556ed49446ff6acf13da109aff6fed5c0"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1636037803/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        }
+      ]
+    },
+    {
+      "kind": "RED",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-inventory-mh5yz2ve/.evidence/barness-ai-grok/e2e/20261026T143415.978257Z-nu73qnjf/receipt.json",
+        "sha256": "1084b9a0bd3cdff801acbaf62769f4594bf753953afbddcd2f60e4e04b948e95"
+      },
+      "command": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-inventory-mh5yz2ve/.evidence/barness-ai-grok/e2e/20261026T143415.978257Z-nu73qnjf/command.json",
+        "sha256": "ad098983027dfd637d4841f757b8a9e08efde364822c827a2a6bce185b3df94e"
+      },
+      "stdout": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-inventory-mh5yz2ve/.evidence/barness-ai-grok/e2e/20261026T143415.978257Z-nu73qnjf/stdout.jsonl",
+        "sha256": "3c60b0bdd3f94a297297d68763815fb5527fe1d2b0c81a0fc149f59d945f746d"
+      },
+      "stderr": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-inventory-mh5yz2ve/.evidence/barness-ai-grok/e2e/20261026T143415.978257Z-nu73qnjf/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "FAIL",
+      "exitCode": 1,
+      "testedCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+      "sourceFileCount": 2057,
+      "elapsedSeconds": 7.1161037920974195,
+      "bundles": [],
+      "failingCaseIds": [],
+      "publicCLI": [],
+      "privateBaselineMutation": "Private module copy removes only VerifyGenericUnsupportedCase call from release/live_manifest.go."
+    },
+    {
+      "kind": "RED",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-report-wiring-qpy4qeu7/.evidence/barness-ai-grok/e2e/20261026T143534.340815Z-raocblej/receipt.json",
+        "sha256": "cca9e231e397ae6457483032f8faecd85999f2f8a68ab8693a8a1007547ec7c0"
+      },
+      "command": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-report-wiring-qpy4qeu7/.evidence/barness-ai-grok/e2e/20261026T143534.340815Z-raocblej/command.json",
+        "sha256": "ad098983027dfd637d4841f757b8a9e08efde364822c827a2a6bce185b3df94e"
+      },
+      "stdout": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-report-wiring-qpy4qeu7/.evidence/barness-ai-grok/e2e/20261026T143534.340815Z-raocblej/stdout.jsonl",
+        "sha256": "86f0f7bd67d31b26455dd3a4988c8e84e8967c4a0d264c7415e7198004fccf31"
+      },
+      "stderr": {
+        "path": ".evidence/barness-ai-grok/review17-cli/baseline-report-wiring-qpy4qeu7/.evidence/barness-ai-grok/e2e/20261026T143534.340815Z-raocblej/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "FAIL",
+      "exitCode": 1,
+      "testedCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+      "sourceFileCount": 2057,
+      "elapsedSeconds": 8.291157915722579,
+      "bundles": [],
+      "failingCaseIds": [],
+      "publicCLI": [],
+      "privateBaselineMutation": "Private module copy removes only VerifyGenericReport call from release/record_live.go."
+    },
+    {
+      "kind": "intermediate GREEN (61 cases; before comment correction)",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/receipt.json",
+        "sha256": "834287a683b8d27c4b59f3ad286af94430dea1a88ed01b20d3e187b251f96d84"
+      },
+      "command": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/command.json",
+        "sha256": "357b0a07dc34bee9ed86ee80205bba9e22f1e89ce355b494908077cfc8f0ce2f"
+      },
+      "stdout": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/stdout.jsonl",
+        "sha256": "2bf234d0c3038fb7869dc19ac52575a41d85a1eaf60f4029091152fafe2e3a29"
+      },
+      "stderr": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "PASS",
+      "exitCode": 0,
+      "testedCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+      "sourceFileCount": 2057,
+      "elapsedSeconds": 7.473801250103861,
+      "bundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/manifest.json",
+            "sha256": "da0c5eb42b1c916ed61368ce8f8d4d0528f9e25d90b59cb00ba258f6aaa45844"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": 61,
+          "caseStatusCounts": {
+            "PASS": 61
+          },
+          "auditFindings": 0
+        }
+      ],
+      "failingCaseIds": [],
+      "publicCLI": [
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason/public-consumer-process.json",
+            "sha256": "5ba4a75de983bbfe423e1af7dc939e771f2d88eb2ab65fd6591eb3c78d245e66"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1804974072/synthetic-record.json",
+              "sha256": "255c154256d9b974d79972e130e862ea90cc41d98e40524f0b4389b299b5adaa"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1804974072/bundles/synthetic/manifest.json",
+              "sha256": "e98b1d9fb91bf6cdb71372368d6a5b450aee8fed17da33593c3638f0526b9201"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1804974072/bundles/synthetic/live-report.json",
+              "sha256": "fa639c5c4ecaafeb65ab62ea5155ad897477b6c6c1e1c1bb139d646bdeabd857"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1804974072/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "812149e5d4a21b68bfa3764c4548613c232f7d7ff49172a1842f2c7fe3a877f3"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-declared",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-declared/public-consumer-process.json",
+            "sha256": "7b85c85f88d1c76c186f0f192619ec1ffc4f40c11071c5bc0565aa0d521b79ce"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-declared/public-consumer-report.json",
+            "sha256": "bae8ec038de4306df68cbca4f6c9865fd2d372ce2e9418dc4063a9d03b8889a7"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "live qualification stale or consumer receipt missing",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3930068564/synthetic-record.json",
+              "sha256": "6943017e2721293853680c6fd0dd61076f268b3f52bb15e8e22915247d43c87a"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3930068564/bundles/synthetic/manifest.json",
+              "sha256": "82d849f19ff667019a625035d3358eb7517165ffb4b4702cc1c4d7eda9d9d5c5"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3930068564/bundles/synthetic/live-report.json",
+              "sha256": "127eaa46850127b606e4c91ab8f5ef1a94bd1ef9fe9ec50eafb54225662a5952"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3930068564/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture/public-consumer-process.json",
+            "sha256": "ac4e365e7100ee53dd93494897a8da1610ef7d83a4d94b464c8dc89d82ee6807"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1526361734/synthetic-record.json",
+              "sha256": "10ccfc4bbeb811290e90c1bfa0cca782543f459ba151da76a3a9cfc56b5877c5"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1526361734/bundles/synthetic/manifest.json",
+              "sha256": "a48dd26330b79c6afa1eeb428cb9da631ccef026fef1f6dd4aabe1ed0196058c"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1526361734/bundles/synthetic/live-report.json",
+              "sha256": "856d7e85c1dc02e671f18c7f2c2f85db404b3cae02380390c978fd690a5a9f96"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1526361734/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes/public-consumer-process.json",
+            "sha256": "da2f2bad5c62a77f4e8bb519ffd37bc8494db3d3d510114591b819de0d1a0aa8"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3752699030/synthetic-record.json",
+              "sha256": "aa8061b90eab8b928d1d5b24eee7126fb75d70b84915a395e29ed45a26233af3"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3752699030/bundles/synthetic/manifest.json",
+              "sha256": "871c029b30165c5691cea5b6078aff77f3ab8371ab8f901334774f79558c928c"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3752699030/bundles/synthetic/live-report.json",
+              "sha256": "37c71d35d00237b937f0c565a9f89c8b40bf35ca01e1e71d3713dbb2bef2220e"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-3752699030/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "347e37ff76dd0017773459f9ecacebe5142a2d8a14221072a1eeca48296e43d2"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run/public-consumer-process.json",
+            "sha256": "092285f39f10398c86caa15118c2870dd4b4e8f64aee77b52246098b587aa26a"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run/public-consumer-report.json",
+            "sha256": "dd7c4765f79bf88179fd8a57b094ee2d5363cd468d2f77c20387f86d2e1a165e"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "generic native capability did not pass",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1113766425/synthetic-record.json",
+              "sha256": "0c986c3f524bfd431ab19085763c1afe2563fd394d444d9d2bec502e6bb49e67"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1113766425/bundles/synthetic/manifest.json",
+              "sha256": "e1ba26b98e5e101a6609acc4f4c1c03ceb5dd84d8092745d129ef9a5ee206320"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1113766425/bundles/synthetic/live-report.json",
+              "sha256": "b0ba3ae9dca29de4f7f48faab81daa0a2183de9a45a011836cb643335414f11e"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1113766425/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace/public-consumer-process.json",
+            "sha256": "ca9291562354404697cfb57323c629e60bef61f68b49b5fd306756dfbcd10878"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143547.442924Z-i8z8fp9k/bundles/20261026T143550.440298000Z/GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-379204025/synthetic-record.json",
+              "sha256": "10681d6d3744915de427ee9c38dd825a0f0bde2e01687ac73c08da30c0b79096"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-379204025/bundles/synthetic/manifest.json",
+              "sha256": "60fd8ea1b451b74c0f7eb3ed47e87ceab8f2846299947b4178c4f53367eded07"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-379204025/bundles/synthetic/live-report.json",
+              "sha256": "ff3793f7683ef57bda222430ffe6f40f8af1286e9464201a0478a1777c59c099"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-379204025/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        }
+      ]
+    },
+    {
+      "kind": "final targeted GREEN",
+      "receipt": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/receipt.json",
+        "sha256": "29a52b6982a66d14cbeaad43074183f9bb8db9c67146f4ab781da68958d2095e"
+      },
+      "command": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/command.json",
+        "sha256": "43c587d07c95d639c1928b0ba36efc1759daa861ea293d31cd65e9f5118990c6"
+      },
+      "stdout": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/stdout.jsonl",
+        "sha256": "d5db3b5a5eb07c1a602ec2e2aded95220564e08d755e8fd0bce07ec2564fe314"
+      },
+      "stderr": {
+        "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "PASS",
+      "exitCode": 0,
+      "testedCommit": "268faebaba0874248a41539fbf5069e4276e167e",
+      "sourceFileCount": 2057,
+      "elapsedSeconds": 7.718899124767631,
+      "bundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/manifest.json",
+            "sha256": "eb78f44808ae7ec1aeec191d40ac526128b7bd35050bb9f8f0dce78a8ec158a2"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": 61,
+          "caseStatusCounts": {
+            "PASS": 61
+          },
+          "auditFindings": 0
+        }
+      ],
+      "failingCaseIds": [],
+      "publicCLI": [
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason/public-consumer-process.json",
+            "sha256": "6b363bcbfb7b946d10c7dc110b0a1fc26e90a8d50cd9d246af36dbf583f5e50f"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-assertion-reason/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2758611630/synthetic-record.json",
+              "sha256": "d20a9000a7b103ca6ddc4363efce6b2d57aa243ad86c21fd712f86ef5d0540ca"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2758611630/bundles/synthetic/manifest.json",
+              "sha256": "9e80b1e0d63e5d7c425ad4257af5e984afbfadea015f7191a2a67d6bdb036332"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2758611630/bundles/synthetic/live-report.json",
+              "sha256": "f57f4db7b18be322f017b486314329aa823c76bc6799cf2df475942148542115"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2758611630/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "812149e5d4a21b68bfa3764c4548613c232f7d7ff49172a1842f2c7fe3a877f3"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-declared",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-declared/public-consumer-process.json",
+            "sha256": "2e3f1a21b5228b898825681de626733123167b9cdf7d8abe26e278cff0623353"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-declared/public-consumer-report.json",
+            "sha256": "bae8ec038de4306df68cbca4f6c9865fd2d372ce2e9418dc4063a9d03b8889a7"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "live qualification stale or consumer receipt missing",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1949606608/synthetic-record.json",
+              "sha256": "fb8d85faffec20a255efa61959ad14963c7484a27888063a61934019d2a859e5"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1949606608/bundles/synthetic/manifest.json",
+              "sha256": "7cbcc91fc85ffc59fef918b32049f0a3ae9512f64e5aa4643255a903046527f5"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1949606608/bundles/synthetic/live-report.json",
+              "sha256": "3580f27aa5746b61c9d1d31ca12cf71220e309e9fd60456b62ac95c181dcad63"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1949606608/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture/public-consumer-process.json",
+            "sha256": "6e3ec2d1e3fad8600f34c45c39a04dee56631511542b2fc31c7a4d5ebb8306ff"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-hidden-capture/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2349803263/synthetic-record.json",
+              "sha256": "cb243786c542469cec8cbf85bdbd48cd163c5ba31b3dcbfaff0a16ebcf9eec19"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2349803263/bundles/synthetic/manifest.json",
+              "sha256": "e5ec7cd3b098fdf85458c12778741e12dbc38a90789834d5252b199d16b889be"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2349803263/bundles/synthetic/live-report.json",
+              "sha256": "59412cb308ded7b32ad0dbc1740d8880239e4cf50d9239d855e8b4a331140dda"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-2349803263/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes/public-consumer-process.json",
+            "sha256": "f9694398d21c3829e816b8b8e2c0614a64ddaa0c0508a4d25e29d9057cd414a1"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-inventory-bytes/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-946266518/synthetic-record.json",
+              "sha256": "10e33f65db758f8ce8c82e490ff2223dd178f2e39e10fb436f536c272fafe60b"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-946266518/bundles/synthetic/manifest.json",
+              "sha256": "787ab4279dcf052f688979665df406114c94fe5372cf26e4cbeac3655bc7f8fb"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-946266518/bundles/synthetic/live-report.json",
+              "sha256": "4463a35c6e2ef0563613ca414fc7bb2690b0041afab96b91de9b4448784bdcf9"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-946266518/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "347e37ff76dd0017773459f9ecacebe5142a2d8a14221072a1eeca48296e43d2"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run/public-consumer-process.json",
+            "sha256": "bcae3116e1480b19fbf81e51b18b28944fd0a6902f3d649f8b0fd368a23b26e8"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-mandatory-not-run/public-consumer-report.json",
+            "sha256": "dd7c4765f79bf88179fd8a57b094ee2d5363cd468d2f77c20387f86d2e1a165e"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "generic native capability did not pass",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1834549440/synthetic-record.json",
+              "sha256": "d4c610ca5340da17aa16280efa814ff84a8c06f18f52b409c335f5d8ab077ba9"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1834549440/bundles/synthetic/manifest.json",
+              "sha256": "1603f641118357b5aa400a71195ad2bf5ad7a46bb92d5960fb982d54ae50bd21"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1834549440/bundles/synthetic/live-report.json",
+              "sha256": "1a8cc25fffca9e9acad6f73b5b1f97764487a77d3e96276fe5b65b9a6da0779c"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-1834549440/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        },
+        {
+          "caseId": "GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace",
+          "testStatus": "PASS",
+          "process": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace/public-consumer-process.json",
+            "sha256": "79578a5cc69247c30b83719ca98e034e7bd5bc0dc6fede6ea8e44582c8760cc3"
+          },
+          "report": {
+            "path": ".evidence/barness-ai-grok/e2e/20261026T143715.125505Z-b7zioy_f/bundles/20261026T143718.668996000Z/GROK-GENERIC-UNSUPPORTED-CLI-missing-namespace/public-consumer-report.json",
+            "sha256": "3b0f69644588ab0404d553b4a4f01bd8ffe13755a2b1fad019e4775d76083cbd"
+          },
+          "binarySHA256": "a6536ddfc79a45f75f0bb968a3300700840307ddc122ab935f4828929254a2fd",
+          "publicExitCode": 1,
+          "releasePass": false,
+          "liveProblem": "native evidence audit failed",
+          "syntheticFixture": {
+            "record": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-17932380/synthetic-record.json",
+              "sha256": "81a8da5a6b2bc642e29a1b55057e5a724dcfdd53e66cef50b6679f1e545dcd8c"
+            },
+            "manifest": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-17932380/bundles/synthetic/manifest.json",
+              "sha256": "0366ce4b47a5bbd55960f6467d23e03bfec3cdff9713d2e03088c084be5f88c0"
+            },
+            "report": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-17932380/bundles/synthetic/live-report.json",
+              "sha256": "bc6b223b29417942339864aa1a8ac25328c58f8d6681325f5ab5d8717957a527"
+            },
+            "unsupportedAssertions": {
+              "path": ".evidence/barness-ai-grok/live/openai-chat/TEST_ONLY-unsupported-17932380/bundles/synthetic/synthetic-reasoning-history/assertions.json",
+              "sha256": "cb614033b99a704eb85039130408c85289d5f5f7b5106821269aeff416d9bd01"
+            },
+            "nativeCaseCount": 11
+          }
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "fullOrdinary": "NOT_RUN by this worker; root owns final ordinary acceptance",
+    "live": "No new paid calls, no real approvals/claims; current stopped 65-call/65-HTTP v3 batch unchanged",
+    "race": "NOT_RUN",
+    "pressure": "NOT_RUN",
+    "releasePass": false
+  },
+  "rollback": "Revert test-only commit; no production or evidence files are deleted."
+}

@@ -21,8 +21,12 @@ func TestReleaseRecordedBundleDiagnosticProcess(t *testing.T) {
 		t.Run(mode, func(t *testing.T) {
 			ev := run.Case(t, "OD57-release-diagnostic-process-"+mode)
 			base := t.TempDir()
-			cmd := exec.CommandContext(ctxFor(t), "go", "test", "./ai/e2e", "-count=1", "-run", "^TestReleaseRecordedBundleDiagnostic$")
-			cmd.Dir = "../.."
+			binary, err := os.Executable()
+			if err != nil {
+				t.Fatal(err)
+			}
+			cmd := exec.CommandContext(ctxFor(t), binary, "-test.count=1", "-test.timeout=60s", "-test.run=^TestReleaseRecordedBundleDiagnostic$")
+			cmd.Dir = "."
 			for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {
 				if value, ok := os.LookupEnv(key); ok {
 					cmd.Env = append(cmd.Env, key+"="+value)

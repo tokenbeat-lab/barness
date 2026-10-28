@@ -1,0 +1,36 @@
+{
+  "accountAlias": "ZAI",
+  "argv": [
+    ".evidence/barness-ai-grok/build/20261026T141636-unsupported-freeze-i5jh1jou/generic-regional-live.test",
+    "-test.run=^TestRegionalFormal$",
+    "-test.timeout=1800s"
+  ],
+  "authorization": {
+    "path": ".scratch/barness-ai-grok/authorization/gf4-20261026T184225Z-e2beb101/authorization.json",
+    "sha256": "70c6d924e2360a79bf920b9a46a39d2dd9978cef47f6e6ec096bc5a638a4bf92"
+  },
+  "credentialEnvironment": "BARNESS_REGIONAL_KEY",
+  "credentialSource": ".env:ZAI_KEY",
+  "environmentWithoutCredential": {
+    "BARNESS_AI_LIVE": "1",
+    "BARNESS_REGIONAL_GRANT": ".scratch/barness-ai-grok/authorization/gf4-20261026T184225Z-e2beb101/zai-messages-grant.json",
+    "BARNESS_REGIONAL_PROXY": "http://127.0.0.1:7890",
+    "BARNESS_REGIONAL_ROUTE": "zai-messages",
+    "BARNESS_REGIONAL_SERVICE": "zai",
+    "BARNESS_REGIONAL_STAGE": "formal"
+  },
+  "grant": {
+    "path": ".scratch/barness-ai-grok/authorization/gf4-20261026T184225Z-e2beb101/zai-messages-grant.json",
+    "sha256": "2caab9b16806689dab015fc831dabac1c57cc383cc445501aae3a4461fab133a"
+  },
+  "grantEnvironment": "BARNESS_REGIONAL_GRANT",
+  "producer": {
+    "ldflags": "-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=89fa05c733b078dadd4a767701fec2b05ce5b52f8e21afdf436256ddd58ff348 -X=github.com/tokenbeat-lab/barness/ai/live.regionalBuildSource=89fa05c733b078dadd4a767701fec2b05ce5b52f8e21afdf436256ddd58ff348",
+    "nativeSourceSha256": "89fa05c733b078dadd4a767701fec2b05ce5b52f8e21afdf436256ddd58ff348",
+    "path": ".evidence/barness-ai-grok/build/20261026T141636-unsupported-freeze-i5jh1jou/generic-regional-live.test",
+    "sha256": "26ca9a4c2ddb63a8d9e2087a8d9a4ebd704b56be6d22fcf4428d74aceea796b7"
+  },
+  "regionAlias": "global",
+  "route": "zai-messages",
+  "schema": 1
+}

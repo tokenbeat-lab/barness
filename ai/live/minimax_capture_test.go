@@ -3,6 +3,7 @@
 package live
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -20,13 +21,29 @@ type minimaxHTTPGate struct {
 	active   atomic.Int64
 	// A controlled process may synchronize local authorization work without
 	// replacing the actual durable Ledger.Attempt below.
-	beforeAttempt func(context.Context)
+	beforeAttempt  func(context.Context)
+	thinkingBudget minimaxlive.ThinkingBudget
 }
 
 func (g *minimaxHTTPGate) RoundTrip(req *http.Request) (*http.Response, error) {
 	b := &minimaxReport.Budget
 	if b.Attempts >= 24 || b.Attempts >= b.ReservedAttempts {
 		return nil, fmt.Errorf("MiniMax actual attempt budget exhausted")
+	}
+	if minimaxReport.Kind == minimaxlive.ThinkingKind {
+		if minimaxLedger.Scope == nil || b.Attempts >= minimaxLedger.Scope.MaxAttempts || req.Method != "POST" || req.URL.String() != minimaxReport.Identity.Endpoint+"/v1/messages?beta=true" {
+			return nil, fmt.Errorf("thinking-on attempt or endpoint differs")
+		}
+		raw, e := io.ReadAll(io.LimitReader(req.Body, 2049))
+		req.Body.Close()
+		req.Body = io.NopCloser(bytes.NewReader(raw))
+		if e != nil || len(raw) > 2048 {
+			return nil, fmt.Errorf("thinking-on final wire exceeds reservation")
+		}
+		g.thinkingBudget, e = minimaxlive.ThinkingWireBudget(raw, *minimaxLedger.Scope)
+		if e != nil {
+			return nil, e
+		}
 	}
 	if g.beforeAttempt != nil {
 		g.beforeAttempt(req.Context())

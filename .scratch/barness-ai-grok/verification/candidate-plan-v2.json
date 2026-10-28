@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "kind": "unapproved-candidate-validation-plan",
+  "authorization": "NOT_GRANTED",
+  "stage": "candidate",
+  "mode": "live",
+  "sourceCommit": "02b422bfffddefcfb0d95ec018867ed4dff816dc",
+  "machineFacts": {
+    "api": "openai-responses",
+    "catalogHash": "sha256:bead32a65d2532dea261101a8b4c61c995c50168742243431844ab7394d6c97e",
+    "catalogVersion": "xai-grok-4.7-candidate-2026-10-26.1",
+    "combo": "xai-responses",
+    "endpoint": "https://api.x.ai/v1",
+    "expected": [
+      "entry-stream",
+      "entry-complete",
+      "entry-stream-simple",
+      "entry-complete-simple",
+      "effort-default",
+      "effort-low",
+      "effort-medium",
+      "effort-high",
+      "effort-xhigh",
+      "encrypted-continuation",
+      "tools-auto",
+      "tools-required",
+      "tools-none",
+      "tools-parallel",
+      "user-png",
+      "user-jpeg",
+      "tool-result-image",
+      "cache-usage"
+    ],
+    "model": "grok-4.7",
+    "provider": "xai",
+    "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+    "sourceSha256": "46c887f72ad264a0ca04266f0afc5541d986434840306504fc23e0ad67d274e0"
+  },
+  "binary": {
+    "path": ".evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/xai-live.test",
+    "sha256": "a6f0e31291d8c53a8b7a2c62a78a7cbb4ca2131696a847c5cd7eb476652e39c4"
+  },
+  "buildReceipt": {
+    "path": ".evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/build-receipt.json",
+    "sha256": "d8ad4802930e52327a7dc1508837d310f2ac4f7159ea6c0f4ce43c71ccc1658a"
+  },
+  "ordinaryReceipt": {
+    "path": ".evidence/barness-ai-grok/e2e/20261026T040239.130313Z-uw3gpgli/receipt.json",
+    "sha256": "aac6ba38aa6c33e1a4ec61d5e91c6fa5ce765e8ea040bdda7f080d5b40e36cba"
+  },
+  "requiredCasesInput": {
+    "path": ".scratch/barness-ai-grok/verification/cases-v2.json",
+    "sha256": "c14e8116158c5213e6560fa87fb745221cae11c3ffc016d7c1905556acb31a1f"
+  },
+  "scope": {
+    "maxCalls": 24,
+    "maxAttempts": 24,
+    "automaticRetries": 0,
+    "visibleOutputTokensPerCall": 1024,
+    "maxRequestedOutputTokens": 24576,
+    "reservedInputTokensPerCall": 8192,
+    "maxReservedInputTokens": 196608,
+    "callSeconds": 65,
+    "processSeconds": 1800,
+    "finalizationReserveSeconds": 30,
+    "expected": [
+      "entry-stream",
+      "entry-complete",
+      "entry-stream-simple",
+      "entry-complete-simple",
+      "effort-default",
+      "effort-low",
+      "effort-medium",
+      "effort-high",
+      "effort-xhigh",
+      "encrypted-continuation",
+      "tools-auto",
+      "tools-required",
+      "tools-none",
+      "tools-parallel",
+      "user-png",
+      "user-jpeg",
+      "tool-result-image",
+      "cache-usage"
+    ]
+  },
+  "humanFields": {
+    "accountAlias": null,
+    "regionAlias": null,
+    "maxUSD": null
+  },
+  "credentialEnvironment": "BARNESS_AI_LIVE_KEY_XAI_RESPONSES",
+  "proposedNativeArgv": [
+    ".evidence/barness-ai-grok/build/20261026T040254-candidate-6uadcnzf/xai-live.test",
+    "-test.run=^TestXAICandidate$",
+    "-test.timeout=1800s"
+  ],
+  "remainingFullFeatureLiveRoutes": [
+    "openai-responses",
+    "deepseek-responses",
+    "openai-chat",
+    "deepseek-chat",
+    "zhipu-chat",
+    "zai-chat",
+    "minimax-chat",
+    "minimax-cn-chat",
+    "kimi-cn-chat",
+    "kimi-intl-chat",
+    "anthropic-messages",
+    "zhipu-messages",
+    "zai-messages",
+    "minimax-messages",
+    "minimax-cn-messages",
+    "kimi-cn-messages",
+    "kimi-intl-messages",
+    "google-gemini",
+    "minimax-responses",
+    "minimax-cn-responses",
+    "kimi-cn-responses",
+    "kimi-intl-responses"
+  ],
+  "race": "NOT_RUN",
+  "pressure": "NOT_RUN",
+  "formalPromotion": "NOT_RUN",
+  "version": 2
+}

@@ -1,0 +1,3104 @@
+{
+  "schema": 1,
+  "identity": "ticket14 offline software handoff; not a release record or paid authority",
+  "softwareCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+  "executionSourceFileCount": 2048,
+  "executionSourceMapSHA256": "e10616158c7329bacd7d53a5f0dd05ef163325d00c8f7082374acefae080136d",
+  "executionSourceReference": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/receipt.json#/source/files",
+  "sourceAndSelectedInputEquality": {
+    "currentVsMainReceipt": true,
+    "currentVsBoundedReceipt": true,
+    "selectedInputs": {},
+    "method": "exact source_snapshot file map and commit equality before documentation-only handoff"
+  },
+  "scope": {
+    "formalRoutes": [
+      "xai-responses",
+      "openai-responses",
+      "deepseek-responses",
+      "openai-chat",
+      "deepseek-chat",
+      "anthropic-messages",
+      "google-gemini",
+      "zhipu-chat",
+      "zhipu-messages",
+      "zai-chat",
+      "zai-messages",
+      "minimax-chat",
+      "minimax-responses",
+      "minimax-messages",
+      "minimax-cn-chat",
+      "minimax-cn-responses",
+      "minimax-cn-messages"
+    ],
+    "controlledRoutes": [
+      "openai-responses",
+      "deepseek-responses",
+      "openai-chat",
+      "deepseek-chat",
+      "anthropic-messages",
+      "google-gemini",
+      "zhipu-chat",
+      "zhipu-messages",
+      "zai-chat",
+      "zai-messages",
+      "minimax-chat",
+      "minimax-responses",
+      "minimax-messages",
+      "minimax-cn-chat",
+      "minimax-cn-responses",
+      "minimax-cn-messages",
+      "kimi-cn-chat",
+      "kimi-cn-responses",
+      "kimi-cn-messages",
+      "kimi-intl-chat",
+      "kimi-intl-responses",
+      "kimi-intl-messages"
+    ],
+    "candidateOnlyRoutes": [
+      "kimi-cn-chat",
+      "kimi-cn-responses",
+      "kimi-cn-messages",
+      "kimi-intl-chat",
+      "kimi-intl-responses",
+      "kimi-intl-messages"
+    ],
+    "actualLive": "NOT_RUN",
+    "race": "NOT_RUN",
+    "pressure": "NOT_RUN",
+    "releasePass": false,
+    "newVendorCalls": 0
+  },
+  "codeCommits": [
+    "bcf02865",
+    "30781642",
+    "bac0499e",
+    "57072890",
+    "18ecfc65",
+    "ce09a11c"
+  ],
+  "modifiedFiles": {
+    "ai/e2e/glm_formal_reports_test.go": "5db94ef6f903be8ac5efdb9eaa793c8e56d5d5afca82054c84063a31c3a46f9f",
+    "ai/e2e/glm_formal_usage_test.go": "3b81a9d456d15d458394e1a8aaf218a2831f5f63547446ca1ffde642713d87ac",
+    "ai/e2e/grok_history_admission_test.go": "b9e3f8c768b2239ce93859970336f8527237e5112d03cc81035ac57470ae1891",
+    "ai/e2e/grok_history_contract_test.go": "b9fee5adef835fa59b8be74fdca2c010cf1ccc8d1f108bb1a9b32a768cd1c557",
+    "ai/e2e/grok_history_glm_process_test.go": "08320364f4599982599f93d3298b3f34a6708136a4a451dc365a60ad83d4cb68",
+    "ai/e2e/grok_history_grant_test.go": "910d344629fe934137a836e49670a61d721199455d057425bc3a5632b706a1fd",
+    "ai/e2e/grok_history_minimax_grant_test.go": "e442fe003a1781c5a7863926dd995764e381469d3acbedc4aa85a4bd036d782c",
+    "ai/e2e/grok_history_native_tamper_test.go": "9dadab1d2e326f729dae227c34f9530e2c7bde7d23ec288388c2b8615029533a",
+    "ai/e2e/grok_history_required_test.go": "2c4c8a0ff269a4646c93ee183519a8af5a67821f67c3be7089b15d7589742e56",
+    "ai/e2e/grok_history_wire_test.go": "4bea9540dc5a814b03b8a7cb01ffc81f2d97d02c5ee7498092c49c64dbc21c38",
+    "ai/e2e/kimi_pacing_test.go": "fff90ca49230a50cae464d5057d9e1b267cacc088733ddafc3bd2fb97cf20ea1",
+    "ai/e2e/kimi_qualification_authorization_test.go": "e63506f45651cf93547d155ff6f1078dacf36689636f3190d650fb41c18b771c",
+    "ai/e2e/kimi_qualification_fixture_test.go": "9cb6fad781142acdf1d434bde5ba604c25b647bd2429d203b4209e34e86b36e8",
+    "ai/e2e/kimi_qualification_pipeline_test.go": "a3c35f7c765c003a89656330c40df87751ca67dd915bf44536d7faf65a7f78d6",
+    "ai/e2e/kimi_qualification_template_test.go": "0b96d73fdffccbedc841883644f0f33ab0ea91a24dc5d675bed37eb0087393ce",
+    "ai/e2e/regional_release_pipeline_test.go": "cb61b5f35ee7cc290b5397db76ca43773843dab9cd8edac59acc9b3c9866edce",
+    "ai/e2e/regional_zai_source_absent_test.go": "1e94b192c67818e2f10ba6f6213aa9d494f73cb515d1b63841b146d40db0ee45",
+    "ai/internal/testkit/grokhistory/history.go": "d8db592f43fbcadb1503ab13b6663eee670cac3a2de7351b21deaf010ba01b4e",
+    "ai/internal/testkit/grokhistory/provenance.go": "1589d6402ebbccf6bb8bd3099c0dadcace78198dc3982afcaef6673672e64fc8",
+    "ai/internal/testkit/grokhistory/wire.go": "3053d8f68fd0c68633977385cada59d1485868f687b4c274a30b3b638cecda49",
+    "ai/internal/testkit/livegrant/claim.go": "ae39a3bcabe5122de6c056b0b3fc1e9da0b3d148290b224b44e1c3618b8f33fe",
+    "ai/internal/testkit/livegrant/evidence.go": "975b6213086241cf6a120526c77bea3e66307c77c4978014e9067d9a0d135673",
+    "ai/internal/testkit/livegrant/grant.go": "fee16932258a19ba9da768f5ab68c748982e27285f2af4233f5ab739ea7447a8",
+    "ai/internal/testkit/livegrant/json.go": "c80b789265ea2e9ded4fd83e942aaccfb12730b8cbfd398994e3639826e041c6",
+    "ai/internal/testkit/minimaxlive/artifacts.go": "149b1f467ebaaae7e87e5c646a5f5cae83a3805e22d89adcb7951d20ba993c73",
+    "ai/internal/testkit/minimaxlive/final_renewal_process_test.go": "c0abb2d653efdd40862aaa02993e9c46635f0199a2fb8a0df25d39b63d587e95",
+    "ai/internal/testkit/minimaxlive/historical_plan.go": "5d2bab21a9ac2514f238819effcef5980745b02e842022fafdf8233185286ba6",
+    "ai/internal/testkit/minimaxlive/historical_plan_fixture_test.go": "3e92245b43cf1d64dda4b74fe40d230ada6148769282e8d5a41e894a756054bb",
+    "ai/internal/testkit/minimaxlive/ledger.go": "6b1e31a7236fd9158ac6f98ef146ce1b951ff37fb33d613fbe2d7625b7f5a5b7",
+    "ai/internal/testkit/minimaxlive/ledger_evidence.go": "d304bbe07e249e3251c326bf7e09dfbc805fdff4d2e65356d1fe6014c9ff1c97",
+    "ai/internal/testkit/minimaxlive/minimax_harness_deadline_process_test.go": "1166bd36ada485cdc26463b00f936183907caf0b434df32935ff3e86b4f60cc5",
+    "ai/internal/testkit/minimaxlive/plan.go": "2b6b8626921fb168baec2e29773cac86d54e43649d2318badfdd8f106c75f75a",
+    "ai/internal/testkit/minimaxlive/process_evidence.go": "6c22dac42d16e95aebb6fbdd95f339b4defd40532cd3ee715f00df0e121495f1",
+    "ai/internal/testkit/minimaxlive/process_scope.go": "71250d30289461c0947d2fa7551dd6b232ebc07bbd24cfa62a141a5e30c25bc2",
+    "ai/internal/testkit/minimaxlive/recovery4_fixture_test.go": "541eb712e2f5a40149b28e245f55ab26acbb2bb27194fefdee0ddb0caee8ee3e",
+    "ai/internal/testkit/minimaxlive/recovery4_process_history.go": "42bc5006a8c9573028c6cfa40ca45d927b8978cddd6b133f60889902c4b5b20a",
+    "ai/internal/testkit/minimaxlive/recovery4_process_test.go": "cabf8cd0ff68ec456ddc507a0a777a7d78aabd9dd191b015b4c41ee34c424235",
+    "ai/internal/testkit/minimaxlive/recovery5_fixture_test.go": "d0593508234d9083e271dfaee3ecd267e9f35eaa01c4c147b303119bf28c72c6",
+    "ai/internal/testkit/minimaxlive/recovery5_process_test.go": "f1ffc2786f77b59c382e80cd1d5b45f5b8c07770de0ffd84711908d9d57d1015",
+    "ai/internal/testkit/minimaxlive/recovery6_fixture_test.go": "09b45b6da57fee58dfa0cd1a49ff8e8f60ceb1b990bd71d3f5f9ff617008b7e4",
+    "ai/internal/testkit/minimaxlive/recovery7_duration_process_test.go": "ed31fbfa4654a288854e1516878d9ce2e53850c532f80df6ccf693ca5a0cbd78",
+    "ai/internal/testkit/minimaxlive/recovery_fixture_test.go": "53f6302e644a16d64a40d04ee504a7426ca3f25d505a16c596bba1ad0f680ab2",
+    "ai/internal/testkit/minimaxlive/recovery_process_test.go": "b5ae2dcc1b06abcb7036d0329c1d2b356557de14b107026e311ae9e3eb761410",
+    "ai/internal/testkit/minimaxlive/renewal_process_test.go": "995756a00332388fb3e65dbfc3f521c13b08766f749b67640ec4ce2b0abcbb44",
+    "ai/internal/testkit/minimaxlive/report.go": "3fbcc4f894612d13fbcca3e6d1e93ef13f8cede4ed12d628da42b0323f3e767c",
+    "ai/internal/testkit/minimaxlive/source.go": "8a06f0990ec64f842983cb1ec42e2e06f94ca43bb086f9edb889ecbfedc6f2ff",
+    "ai/internal/testkit/minimaxlive/verify.go": "1596d260ecd96697948470d9dae5294d233a03f51c92fb3faec0b03fa9615c1f",
+    "ai/internal/testkit/minimaxlive/verify_call.go": "2d1358620d9137ce174b6be7eb12abe6eadc9df37933c0d2d6af1381d3ad4f91",
+    "ai/internal/testkit/release/chat_capture.go": "6f2e1393740d5d9210d718e14d20a64a05cf1c24800665d8907584d180d25d34",
+    "ai/internal/testkit/release/live.go": "baed2568de4fb70059a5c4b640bd5afca6cda940989884f518d4da9e440bb553",
+    "ai/internal/testkit/release/live_manifest.go": "ae06c3f4d6690ba5f45dadf667779e2a0c21d06c262f54c8797fa70124c29fe6",
+    "ai/internal/testkit/supportmatrix/generic_contract.go": "a47f445c641abeb2cf78c1d5a7396fe8b88335219091e1d79617acb4573b7b1b",
+    "ai/internal/testkit/supportmatrix/glm.go": "eed1462eb2cf84e7957bba7a7649e684825b1b977cceadeb0d1cd896c014cf1c",
+    "ai/internal/testkit/supportmatrix/glm_artifact_contract.go": "1e584ea9ec29010d628e0de736b4e33127fd7e14a5eadf4ee2efcc78da9d5f54",
+    "ai/internal/testkit/supportmatrix/glm_capture.go": "9ead9210c6155a23adbe146aee409dfd982014ad5af3623e080eb660ba70222b",
+    "ai/internal/testkit/supportmatrix/glm_source.go": "0870c13699daeabd287e85a33c5574dcc74614c494ddb13d336df923bbae0a03",
+    "ai/internal/testkit/supportmatrix/matrix.go": "48ff349c83627272ef3ca40e165e9d7fbe83dc56ed75e8184afb20984085e600",
+    "ai/internal/testkit/supportmatrix/process_evidence.go": "bff4844db398bade6aa51fe2dc10e94083aa7a49de8e39156548669bc9f9cae0",
+    "ai/internal/testkit/supportmatrix/process_scope.go": "714e264a5c237164558ec72a9a0ab6f0aafd00bc4ed5865b149c2288db1a892a",
+    "ai/internal/testkit/supportmatrix/regional_capture.go": "8cbda2a31876b239f50cb7b1eb7b3c80648556681ce7982b332f1cac93c67c79",
+    "ai/internal/testkit/supportmatrix/regional_contract.go": "1fc96161a5e99dd55d9cba5f0ccbc6e80f36135e7545a7e91fcef3044db46018",
+    "ai/internal/testkit/supportmatrix/regional_files.go": "cd7703e74ac985baac5d13e75318ff4c4e0e727687a8f893b5d8353849545b3d",
+    "ai/internal/testkit/supportmatrix/regional_kimi.go": "f47d846bbe64fee1302e53127749e3dce834636b7ec01ee6afc57b60ef96ddd2",
+    "ai/live/cmd/processgrant/main.go": "893c627688c0298cc8a8d02f571507846357887d419b2769a3622358ca0cd97e",
+    "ai/live/config_test.go": "3f3505b77b720c9d7b83c3f6577f0c79322f77dd8b13f0fbbc2505df69d8773c",
+    "ai/live/glm_config_test.go": "1bc24cfed961c5956e17f777366199832dbb74cefbf1f9e67821f9142730d182",
+    "ai/live/glm_formal_validation_test.go": "1f85ae7f03eb11ec1f7d407700df5d57b77b86fd61d082fbda9fb229c40f25e2",
+    "ai/live/glm_harness_test.go": "7235ea6db59c9a1b5b29a3b42425cd387388913c91b0c9f3764fad337e7c0897",
+    "ai/live/glm_options_test.go": "eac5e944ae2d29817e99c00a96c2edcc637f80755255c258b801d62d5d827ef2",
+    "ai/live/glm_process_test.go": "874baa211b6d2f0da40d0a1051c67ed9493ca6453881ee8bbaf7a0c13420c642",
+    "ai/live/glm_proxy_test.go": "5dea9ebee848a5508e87a87128cf5d4d450ad39c5ab5fff5b7888a0e8d885fcc",
+    "ai/live/grok_history_test.go": "d98a35c86aca34c49ec5c124f99f7156329d7c9ee6375e5cdce4d6ef74c50b29",
+    "ai/live/grok_process_grant_test.go": "001ecf44f9d48b6d4b02f83a49916ce4ad73ab7645a02fcabbd45e66910dac54",
+    "ai/live/main_test.go": "b4ab6f03bf4ff3e26659cb1bdee935929c6f385ea28d6a875354ab93d94cd2a9",
+    "ai/live/minimax_config_test.go": "c45274ce5a22a4d743ad8e74d3cbaf37bafb75cfa53c8ae63bbfea372e6f061f",
+    "ai/live/minimax_evidence_test.go": "30e8de99db0419ab970f024e34f75472936d7e304b30e705a6bf898dd72ba314",
+    "ai/live/minimax_harness_test.go": "74592d6c903259ab416f42b5bdb5dc0fc226f8fcab51feed2f0669f54d09ebe3",
+    "ai/live/minimax_international_history_test.go": "41cc75528f45e6990100c454f9022c9c08d73ff419b153e214e0748811d135dc",
+    "ai/live/minimax_process_grant_test.go": "c8cc5d05e6a65c05175b75fa8b2f8d903a4a24454b88ecf97b6cc8dd33e05d3f",
+    "ai/live/minimax_process_test.go": "101c178ef9e98ac6ef43dbc5d6e955c79bb3474f7f0667804e9240c99feb8ef3",
+    "ai/live/minimax_research_process_test.go": "61656051c6da835c073621857721059a6cc76e68d4892de8e78797ef3c5c9207",
+    "ai/live/regional_harness_test.go": "fd06b676753a59449a3ed7c5f22fd543b3520cdf664a7d8f723a6e73b3fa1e71",
+    "ai/live/session_test.go": "d1a727f77c9f4d4fb372e465298bdfdb637ea9fef2b1a330a7ebc4d1468fa0fe",
+    "docs/barness-ai/legacy-history-qualification.md": "6d458334dc4a877f6db7a653e20daf8dec5f66508e7439bedeccd8ba71f894a2",
+    "tools/verification/live_environment.py": "d04e75a859f8559a99f1eabcec4b63fcd7814676960b4ad930dba8f3a2caa397"
+  },
+  "documentation": "docs/barness-ai/legacy-history-qualification.md",
+  "newRequiredCasesDefinedFromSource": [
+    "GROK-HISTORY-FRESH-GRANT-anthropic-messages",
+    "GROK-HISTORY-FRESH-GRANT-deepseek-chat",
+    "GROK-HISTORY-FRESH-GRANT-deepseek-responses",
+    "GROK-HISTORY-FRESH-GRANT-google-gemini",
+    "GROK-HISTORY-FRESH-GRANT-minimax-chat",
+    "GROK-HISTORY-FRESH-GRANT-minimax-messages",
+    "GROK-HISTORY-FRESH-GRANT-minimax-responses",
+    "GROK-HISTORY-FRESH-GRANT-openai-chat",
+    "GROK-HISTORY-FRESH-GRANT-openai-responses",
+    "GROK-HISTORY-FRESH-GRANT-zhipu-chat",
+    "GROK-HISTORY-FRESH-GRANT-zhipu-messages",
+    "GROK-HISTORY-FULL-PLAN-kimi-cn-chat",
+    "GROK-HISTORY-FULL-PLAN-kimi-cn-messages",
+    "GROK-HISTORY-FULL-PLAN-kimi-cn-responses",
+    "GROK-HISTORY-FULL-PLAN-kimi-intl-chat",
+    "GROK-HISTORY-FULL-PLAN-kimi-intl-messages",
+    "GROK-HISTORY-FULL-PLAN-kimi-intl-responses",
+    "GROK-HISTORY-FULL-PLAN-minimax-chat",
+    "GROK-HISTORY-FULL-PLAN-minimax-cn-chat",
+    "GROK-HISTORY-FULL-PLAN-minimax-cn-messages",
+    "GROK-HISTORY-FULL-PLAN-minimax-cn-responses",
+    "GROK-HISTORY-FULL-PLAN-minimax-messages",
+    "GROK-HISTORY-FULL-PLAN-minimax-responses",
+    "GROK-HISTORY-FULL-PLAN-zai-chat",
+    "GROK-HISTORY-FULL-PLAN-zai-messages",
+    "GROK-HISTORY-FULL-PLAN-zhipu-chat",
+    "GROK-HISTORY-FULL-PLAN-zhipu-messages",
+    "GROK-HISTORY-GENERIC-MANDATORY-PROJECTION",
+    "GROK-HISTORY-GLM-CONTROLLED-FULL",
+    "GROK-HISTORY-KIMI-GRANT-kimi-cn-chat",
+    "GROK-HISTORY-KIMI-GRANT-kimi-cn-messages",
+    "GROK-HISTORY-KIMI-GRANT-kimi-cn-responses",
+    "GROK-HISTORY-KIMI-GRANT-kimi-intl-chat",
+    "GROK-HISTORY-KIMI-GRANT-kimi-intl-messages",
+    "GROK-HISTORY-KIMI-GRANT-kimi-intl-responses",
+    "GROK-HISTORY-MINIMAX-FRESH-chat",
+    "GROK-HISTORY-MINIMAX-FRESH-messages",
+    "GROK-HISTORY-MINIMAX-FRESH-responses",
+    "GROK-HISTORY-NATIVE-kimi-cn-chat-immutable-input",
+    "GROK-HISTORY-NATIVE-kimi-cn-chat-missing-scene",
+    "GROK-HISTORY-NATIVE-kimi-cn-chat-native-envelope",
+    "GROK-HISTORY-NATIVE-kimi-cn-chat-substituted-scene",
+    "GROK-HISTORY-NATIVE-kimi-cn-chat-wire-marker",
+    "GROK-HISTORY-NATIVE-kimi-cn-messages-immutable-input",
+    "GROK-HISTORY-NATIVE-kimi-cn-messages-missing-scene",
+    "GROK-HISTORY-NATIVE-kimi-cn-messages-native-envelope",
+    "GROK-HISTORY-NATIVE-kimi-cn-messages-substituted-scene",
+    "GROK-HISTORY-NATIVE-kimi-cn-messages-wire-marker",
+    "GROK-HISTORY-NATIVE-kimi-cn-responses-immutable-input",
+    "GROK-HISTORY-NATIVE-kimi-cn-responses-missing-scene",
+    "GROK-HISTORY-NATIVE-kimi-cn-responses-native-envelope",
+    "GROK-HISTORY-NATIVE-kimi-cn-responses-substituted-scene",
+    "GROK-HISTORY-NATIVE-kimi-cn-responses-wire-marker",
+    "GROK-HISTORY-NATIVE-kimi-intl-chat-immutable-input",
+    "GROK-HISTORY-NATIVE-kimi-intl-chat-missing-scene",
+    "GROK-HISTORY-NATIVE-kimi-intl-chat-native-envelope",
+    "GROK-HISTORY-NATIVE-kimi-intl-chat-substituted-scene",
+    "GROK-HISTORY-NATIVE-kimi-intl-chat-wire-marker",
+    "GROK-HISTORY-NATIVE-kimi-intl-messages-immutable-input",
+    "GROK-HISTORY-NATIVE-kimi-intl-messages-missing-scene",
+    "GROK-HISTORY-NATIVE-kimi-intl-messages-native-envelope",
+    "GROK-HISTORY-NATIVE-kimi-intl-messages-substituted-scene",
+    "GROK-HISTORY-NATIVE-kimi-intl-messages-wire-marker",
+    "GROK-HISTORY-NATIVE-kimi-intl-responses-immutable-input",
+    "GROK-HISTORY-NATIVE-kimi-intl-responses-missing-scene",
+    "GROK-HISTORY-NATIVE-kimi-intl-responses-native-envelope",
+    "GROK-HISTORY-NATIVE-kimi-intl-responses-substituted-scene",
+    "GROK-HISTORY-NATIVE-kimi-intl-responses-wire-marker",
+    "GROK-HISTORY-NATIVE-minimax-cn-chat-immutable-input",
+    "GROK-HISTORY-NATIVE-minimax-cn-chat-missing-scene",
+    "GROK-HISTORY-NATIVE-minimax-cn-chat-native-envelope",
+    "GROK-HISTORY-NATIVE-minimax-cn-chat-substituted-scene",
+    "GROK-HISTORY-NATIVE-minimax-cn-chat-wire-marker",
+    "GROK-HISTORY-NATIVE-minimax-cn-messages-immutable-input",
+    "GROK-HISTORY-NATIVE-minimax-cn-messages-missing-scene",
+    "GROK-HISTORY-NATIVE-minimax-cn-messages-native-envelope",
+    "GROK-HISTORY-NATIVE-minimax-cn-messages-substituted-scene",
+    "GROK-HISTORY-NATIVE-minimax-cn-messages-wire-marker",
+    "GROK-HISTORY-NATIVE-minimax-cn-responses-immutable-input",
+    "GROK-HISTORY-NATIVE-minimax-cn-responses-missing-scene",
+    "GROK-HISTORY-NATIVE-minimax-cn-responses-native-envelope",
+    "GROK-HISTORY-NATIVE-minimax-cn-responses-substituted-scene",
+    "GROK-HISTORY-NATIVE-minimax-cn-responses-wire-marker",
+    "GROK-HISTORY-NATIVE-zai-chat-immutable-input",
+    "GROK-HISTORY-NATIVE-zai-chat-missing-scene",
+    "GROK-HISTORY-NATIVE-zai-chat-native-envelope",
+    "GROK-HISTORY-NATIVE-zai-chat-substituted-scene",
+    "GROK-HISTORY-NATIVE-zai-chat-wire-marker",
+    "GROK-HISTORY-NATIVE-zai-messages-immutable-input",
+    "GROK-HISTORY-NATIVE-zai-messages-missing-scene",
+    "GROK-HISTORY-NATIVE-zai-messages-native-envelope",
+    "GROK-HISTORY-NATIVE-zai-messages-substituted-scene",
+    "GROK-HISTORY-NATIVE-zai-messages-wire-marker",
+    "GROK-HISTORY-OPENAI-FULL-SELECTOR",
+    "GROK-HISTORY-PREHTTP-anthropic-messages-invalid",
+    "GROK-HISTORY-PREHTTP-anthropic-messages-missing",
+    "GROK-HISTORY-PREHTTP-anthropic-messages-mixed-route",
+    "GROK-HISTORY-PREHTTP-deepseek-chat-invalid",
+    "GROK-HISTORY-PREHTTP-deepseek-chat-missing",
+    "GROK-HISTORY-PREHTTP-deepseek-chat-mixed-route",
+    "GROK-HISTORY-PREHTTP-deepseek-responses-invalid",
+    "GROK-HISTORY-PREHTTP-deepseek-responses-missing",
+    "GROK-HISTORY-PREHTTP-deepseek-responses-mixed-route",
+    "GROK-HISTORY-PREHTTP-google-gemini-invalid",
+    "GROK-HISTORY-PREHTTP-google-gemini-missing",
+    "GROK-HISTORY-PREHTTP-google-gemini-mixed-route",
+    "GROK-HISTORY-PREHTTP-minimax-chat-closed-renewal",
+    "GROK-HISTORY-PREHTTP-minimax-chat-historical-ledger",
+    "GROK-HISTORY-PREHTTP-minimax-chat-invalid",
+    "GROK-HISTORY-PREHTTP-minimax-chat-missing",
+    "GROK-HISTORY-PREHTTP-minimax-chat-mixed-route",
+    "GROK-HISTORY-PREHTTP-minimax-messages-closed-renewal",
+    "GROK-HISTORY-PREHTTP-minimax-messages-historical-ledger",
+    "GROK-HISTORY-PREHTTP-minimax-messages-invalid",
+    "GROK-HISTORY-PREHTTP-minimax-messages-missing",
+    "GROK-HISTORY-PREHTTP-minimax-messages-mixed-route",
+    "GROK-HISTORY-PREHTTP-minimax-responses-closed-renewal",
+    "GROK-HISTORY-PREHTTP-minimax-responses-historical-ledger",
+    "GROK-HISTORY-PREHTTP-minimax-responses-invalid",
+    "GROK-HISTORY-PREHTTP-minimax-responses-missing",
+    "GROK-HISTORY-PREHTTP-minimax-responses-mixed-route",
+    "GROK-HISTORY-PREHTTP-openai-chat-invalid",
+    "GROK-HISTORY-PREHTTP-openai-chat-missing",
+    "GROK-HISTORY-PREHTTP-openai-chat-mixed-route",
+    "GROK-HISTORY-PREHTTP-openai-responses-invalid",
+    "GROK-HISTORY-PREHTTP-openai-responses-missing",
+    "GROK-HISTORY-PREHTTP-openai-responses-mixed-route",
+    "GROK-HISTORY-PREHTTP-zhipu-chat-invalid",
+    "GROK-HISTORY-PREHTTP-zhipu-chat-missing",
+    "GROK-HISTORY-PREHTTP-zhipu-chat-mixed-route",
+    "GROK-HISTORY-PREHTTP-zhipu-messages-invalid",
+    "GROK-HISTORY-PREHTTP-zhipu-messages-missing",
+    "GROK-HISTORY-PREHTTP-zhipu-messages-mixed-route",
+    "GROK-HISTORY-PRODUCER-BUILD",
+    "GROK-HISTORY-WIRE-anthropic-messages",
+    "GROK-HISTORY-WIRE-deepseek-chat",
+    "GROK-HISTORY-WIRE-deepseek-responses",
+    "GROK-HISTORY-WIRE-google-gemini",
+    "GROK-HISTORY-WIRE-kimi-cn-chat",
+    "GROK-HISTORY-WIRE-kimi-cn-messages",
+    "GROK-HISTORY-WIRE-kimi-cn-responses",
+    "GROK-HISTORY-WIRE-kimi-intl-chat",
+    "GROK-HISTORY-WIRE-kimi-intl-messages",
+    "GROK-HISTORY-WIRE-kimi-intl-responses",
+    "GROK-HISTORY-WIRE-minimax-chat",
+    "GROK-HISTORY-WIRE-minimax-cn-chat",
+    "GROK-HISTORY-WIRE-minimax-cn-messages",
+    "GROK-HISTORY-WIRE-minimax-cn-responses",
+    "GROK-HISTORY-WIRE-minimax-messages",
+    "GROK-HISTORY-WIRE-minimax-responses",
+    "GROK-HISTORY-WIRE-openai-chat",
+    "GROK-HISTORY-WIRE-openai-responses",
+    "GROK-HISTORY-WIRE-zai-chat",
+    "GROK-HISTORY-WIRE-zai-messages",
+    "GROK-HISTORY-WIRE-zhipu-chat",
+    "GROK-HISTORY-WIRE-zhipu-messages"
+  ],
+  "nativeNewCaseIDsByRoute": {
+    "openai-responses": [
+      "LIVE-P01-xai-origin-history"
+    ],
+    "deepseek-responses": [
+      "LIVE-P05-xai-origin-history"
+    ],
+    "openai-chat": [
+      "LIVE-P04-xai-origin-history"
+    ],
+    "deepseek-chat": [
+      "LIVE-P06-xai-origin-history"
+    ],
+    "anthropic-messages": [
+      "LIVE-P02-xai-origin-history"
+    ],
+    "google-gemini": [
+      "LIVE-P03-xai-origin-history"
+    ],
+    "zhipu-chat": [
+      "GLM11-glm-5.3-xai-origin-history",
+      "GLM11-glm-5.2-xai-origin-history"
+    ],
+    "zhipu-messages": [
+      "GLM11-glm-5.3-xai-origin-history",
+      "GLM11-glm-5.2-xai-origin-history"
+    ],
+    "minimax-chat": [
+      "MM07-xai-origin-history"
+    ],
+    "minimax-responses": [
+      "MM07-xai-origin-history"
+    ],
+    "minimax-messages": [
+      "MM07-xai-origin-history"
+    ],
+    "zai-chat": [
+      "REGIONAL-zai-chat-glm-5.3-xai-origin-history",
+      "REGIONAL-zai-chat-glm-5.2-xai-origin-history"
+    ],
+    "zai-messages": [
+      "REGIONAL-zai-messages-glm-5.3-xai-origin-history",
+      "REGIONAL-zai-messages-glm-5.2-xai-origin-history"
+    ],
+    "minimax-cn-chat": [
+      "REGIONAL-minimax-cn-chat-MiniMax-M3-xai-origin-history"
+    ],
+    "minimax-cn-responses": [
+      "REGIONAL-minimax-cn-responses-MiniMax-M3-xai-origin-history"
+    ],
+    "minimax-cn-messages": [
+      "REGIONAL-minimax-cn-messages-MiniMax-M3-xai-origin-history"
+    ],
+    "kimi-cn-chat": [
+      "REGIONAL-kimi-cn-chat-kimi-k3-xai-origin-history"
+    ],
+    "kimi-cn-responses": [
+      "REGIONAL-kimi-cn-responses-kimi-k3-xai-origin-history"
+    ],
+    "kimi-cn-messages": [
+      "REGIONAL-kimi-cn-messages-kimi-k3-xai-origin-history"
+    ],
+    "kimi-intl-chat": [
+      "REGIONAL-kimi-intl-chat-kimi-k3-xai-origin-history"
+    ],
+    "kimi-intl-responses": [
+      "REGIONAL-kimi-intl-responses-kimi-k3-xai-origin-history"
+    ],
+    "kimi-intl-messages": [
+      "REGIONAL-kimi-intl-messages-kimi-k3-xai-origin-history"
+    ]
+  },
+  "receipts": [
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T063518.839803Z-1z0nj2v9/receipt.json",
+      "sha256": "36ac7467a7459e59f4f4d499f70baa2036c4b080d99b881cfbbf1f37687b8468",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 6.463245832826942,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryKimiGrantTemplates$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T063829.620396Z-eziy0rlg/receipt.json",
+      "sha256": "739d1f63b31d868abc7bd2b55cb66c8c5e972fe5df3db6358e50bf836bdea310",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 7.099207458086312,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryKimiGrantTemplates$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064342.026216Z-ql5vpgd3/receipt.json",
+      "sha256": "b64b0283798a0ef24d2349936c1e56453f942285d17922040d1f66f8fb3dea38",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 5.247865666169673,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryKimiGrantTemplates$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064442.981187Z-9qjrm5sc/receipt.json",
+      "sha256": "d2fe8b8f0205ea7510c46ca16898f34175fb30d8df296054fe2ad96c436e0073",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 4.7465825830586255,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryKimiGrantTemplates$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "a0af4272ec5c4ebbf28185c2d85d7e3bbfccf97083e62ddea37b99016642fc29",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T064446.204595000Z"
+        }
+      ],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064651.343748Z-g6a1wifc/receipt.json",
+      "sha256": "9135b55fd4a438d526634ee58d3678024e0b3619e024a6170bd42b13db424de6",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 3.9781592078506947,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryAllOldTargets$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "6c3810ba3a5dea21670fbcd0baf4a35a1d40ad8f6824021fe5f05578d6c75f3e",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T064655.054426000Z"
+        }
+      ],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064724.228156Z-392m666w/receipt.json",
+      "sha256": "4d2528818b26d12cabe0f32ecf771be5a6bca7002ce412b7e0d9b6c0b286d697",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 3.9297569999471307,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryNativeFullPlans$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T065510.297300Z-1etezt_5/receipt.json",
+      "sha256": "50a54181c1799f7920e2cef4515a1f1c9067b7c0cfd120142e21dd561d9cd68b",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "empty evidence cases",
+      "elapsedSeconds": 3.147247292101383,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryFreshProcessGrant$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T065529.490001Z-5vkf7xb8/receipt.json",
+      "sha256": "554d3fa9b54da5b8e1d3dbfb369dbec1e2c9a58fa6b7cad85141e8d87f485858",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 3.808005957864225,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory(AllOldTargets|KimiGrantTemplates|NativeFullPlans|ProducerBuild)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "22590e1f6395a7a85bf750314bd4fdbe0423e8d46da5200e46afa42cde5a7943",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T065530.633031000Z"
+        }
+      ],
+      "testedCommit": "388f0aebdae904b83c184870fb2d7f5a2ca37ca9"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T070313.190541Z-gczhmmzd/receipt.json",
+      "sha256": "dc1aff481eefaae5daf243d178358e0c18d8f341d8d3d4a5d545ae5df9656187",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 10.936627082992345,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory(FreshProcessGrant|ProducerBuild)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "0bebcf1a1ab5000bb8e169edf719e7e280a34af2e333ca403ec5d8336dc47a6b",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T070317.982906000Z"
+        }
+      ],
+      "testedCommit": "7c47c44ac8008bd8b1700c4f4f2aaa4aa0b7a5c6"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T072528.993808Z-fv3e_61s/receipt.json",
+      "sha256": "2ad5600481f4302217f0c4f4529736d01414827749edad27352cd8668682b0fc",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 27.391316582914442,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory(MiniMaxFreshLedger|FreshProcessGrant|ProducerRequiresFreshGrant|GLMControlledFullCapture)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "fc7633406a024401bc3cbe51b9b5d19d8ff54f57d1afb5f3d565e52a5d950303",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T072534.725187000Z"
+        }
+      ],
+      "testedCommit": "7c47c44ac8008bd8b1700c4f4f2aaa4aa0b7a5c6"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T072911.358077Z-3ed0v7zg/receipt.json",
+      "sha256": "d7857244c809f659b7087f5e7fce3386a784bca215816c590e1082b47fb71769",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 106.41293058404699,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^Test(GrokHistory.*|RegionalProviderReleaseCapturePipeline|KimiQualification(Pipeline|Template|Authorization)|MiniMaxLiveEvidenceTools)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "ef59283cdbd4d804cd6e028be9d90964814867ca3e250cfc9ee16751d91db93d",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T072916.406000000Z"
+        }
+      ],
+      "testedCommit": "7c47c44ac8008bd8b1700c4f4f2aaa4aa0b7a5c6"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T073620.609517Z-f7xaql1a/receipt.json",
+      "sha256": "073c6eebcde51dee8e67768a14081cc23f4f49427b464ad8179a098ae760b056",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 5.581186417024583,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistoryFreshProcessGrant$/^google-gemini$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "7c47c44ac8008bd8b1700c4f4f2aaa4aa0b7a5c6"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T073652.571516Z-or5e219i/receipt.json",
+      "sha256": "07cf217321dd2ca1b18e41ad6d7b00dfc380c0c82e3602290b5b06ab6d320e0c",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 23.013910667039454,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory(FreshProcessGrant|MiniMaxFreshLedger|GLMControlledFullCapture)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "e50a6e04f4b22bde9465efedd6887c13aa0c58a9c91d2de48e83d64e0f10093c",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T073655.981810000Z"
+        }
+      ],
+      "testedCommit": "7c47c44ac8008bd8b1700c4f4f2aaa4aa0b7a5c6"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T073901.341862Z-m5iubzq7/receipt.json",
+      "sha256": "1bb534448819fbbd831923db43efe4d7747178d88e89a810059127592d36a3ed",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "execution source changed during stage",
+      "elapsedSeconds": 537.3063920000568,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/internal/testkit/supportmatrix",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/internal/testkit/release",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=15m"
+      ],
+      "bundles": [],
+      "testedCommit": "83557f33c2e7b4a2d1032062c90ccb65ed65b236"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T075115.921276Z-bom7sc_7/receipt.json",
+      "sha256": "9152afcdd1fc77eb49a9c23136d4e7b55cae5e4a6dd8c59a11949dbebb34fcd6",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": null,
+      "elapsedSeconds": 520.3430732497945,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/e2e",
+        "-run",
+        "^Test(.*Authority.*|MiniMaxRecovery7HarnessDeadlineProcess|GrokHistory.*|KimiQualificationPacing|GLMFormalReports|GLMFormalKnownUsage)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "637e52297b0017d90beab10acf7dcd9a20d4c273c46113b6ad90d990988c212f",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T075120.751696000Z"
+        }
+      ],
+      "testedCommit": "bac0499e902898231cb12542907d8f42937fb07d"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T080218.328564Z-xkckgxoh/receipt.json",
+      "sha256": "ed0d0791e3da12a0ec72e927c1ba02004c8d999ba6a9ec2479f0dc5346e48244",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 6.8660884173586965,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestKimiQualificationPipeline$/^kimi-cn-chat$/^grok-native-envelope$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "bac0499e902898231cb12542907d8f42937fb07d"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T080411.739937Z-wo4mxqqm/receipt.json",
+      "sha256": "dd6541f5b4215af068fe7c274cb67babe326761a9df58b90987ffcb9a4bac438",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 23.631087000016123,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory(AllOldTargets|ProducerBuild|MiniMaxFreshLedger|GLMControlledFullCapture)$|^TestKimiQualificationPipeline$/^kimi-cn-chat$/^grok-native-envelope$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "346600b58dd4c7b16fc083db7a88cfe06384dedfedd06e3bb85bbdde6b92e79c",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T080416.895266000Z"
+        }
+      ],
+      "testedCommit": "bac0499e902898231cb12542907d8f42937fb07d"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T080840.331048Z-b_exsapv/receipt.json",
+      "sha256": "eb2dcd3d98ee7a9f2f037f179c01327467ec00c3be95da1c1b4da3cd0991caa3",
+      "status": "CANCELLED",
+      "exitCode": -9,
+      "error": "expected exactly one primary native bundle",
+      "elapsedSeconds": 38.77862774999812,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai",
+        "./ai/internal/testkit/grokhistory",
+        "./ai/internal/testkit/livegrant",
+        "./ai/internal/testkit/supportmatrix",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/internal/testkit/release",
+        "./ai/live/cmd/processgrant",
+        "./ai/live/cmd/regionalverify",
+        "./ai/live/cmd/minimaxverify",
+        "./ai/live/cmd/glmformal",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=15m"
+      ],
+      "bundles": [],
+      "testedCommit": "6e7616685e5a7a7dd0ef0f94855dd43dfe19702d"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T080940.049899Z-7kxgpk_x/receipt.json",
+      "sha256": "9e884b9a0db85862554b32e8c55e5e3bbacab4a4c0ac64f0375dbe55255638fd",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 910.0395468748175,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai",
+        "./ai/internal/testkit/grokhistory",
+        "./ai/internal/testkit/livegrant",
+        "./ai/internal/testkit/supportmatrix",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/internal/testkit/release",
+        "./ai/live/cmd/processgrant",
+        "./ai/live/cmd/regionalverify",
+        "./ai/live/cmd/minimaxverify",
+        "./ai/live/cmd/glmformal",
+        "./ai/e2e",
+        "-count=1",
+        "-timeout=15m"
+      ],
+      "bundles": [],
+      "testedCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T083025.429638Z-tc_yjqev/receipt.json",
+      "sha256": "398d0feffad9087cf444c57bee54bf7785027555451dfcde63a2fda4da163296",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "invalid case outcome",
+      "elapsedSeconds": 5.141191833186895,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory(GenericMandatoryProjection|OpenAIFullSelector)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "bundles": [],
+      "testedCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/receipt.json",
+      "sha256": "b7bc9b9e5fa0e111d6a6741757c62fe92c61f83b4fde1d6c06409dc52ee9ab5d",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 145.4616696247831,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/internal/testkit/supportmatrix",
+        "./ai/internal/testkit/release",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory.*$|^TestMiniMaxLiveEvidenceTools$|^TestRegionalProviderReleaseCapturePipeline$|^TestKimiQualification(Pipeline|Pacing|Authorization|Template)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "26f3a1647af46f603470ab7fa4bbfa90db4fcdd5154824743a3e26b0b82f4945",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T083312.510911000Z"
+        }
+      ],
+      "testedCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T083431.519506Z-3v9kpaly/receipt.json",
+      "sha256": "bb01c238423635c08e15197425088f56d8e7dbf5ab255d7cd9690940400bf4fd",
+      "status": "FAIL",
+      "exitCode": 1,
+      "error": "execution source changed during stage",
+      "elapsedSeconds": 601.6618116246536,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/internal/testkit/minimaxlive",
+        "-run",
+        "^(TestFormalRenewalAuthorityProcess|TestFinalRenewalAuthorityProcess|TestRecoveryAuthorityProcess|TestRecovery4AuthorityProcess|TestRecovery5AuthorityProcess|TestRecovery6AuthorityProcess|TestRecovery7AuthorityProcess|TestMiniMaxRecovery7HarnessDeadlineProcess)$/^(facts|valid-three)$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [],
+      "testedCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/receipt.json",
+      "sha256": "26d1e59c2a11efa35e62086a620fd096dde8db6f29a033275be7d8a35857c5f1",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 48.88214641576633,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai",
+        "./ai/internal/testkit/grokhistory",
+        "./ai/internal/testkit/livegrant",
+        "./ai/internal/testkit/supportmatrix",
+        "./ai/internal/testkit/release",
+        "./ai/live/cmd/processgrant",
+        "./ai/live/cmd/regionalverify",
+        "./ai/live/cmd/minimaxverify",
+        "./ai/live/cmd/glmformal",
+        "./ai/e2e",
+        "-run",
+        "^TestGrokHistory.*$|^TestChineseEvaluation.*$|^TestUsageAndCost$|^TestBuiltinCatalogReleaseSnapshot$",
+        "-count=1",
+        "-timeout=10m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "e861f6d7531e429a63dae0f0561f279d730a2bd80d713846fc66e326ee8ab3ac",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T084154.871552000Z"
+        }
+      ],
+      "testedCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084711.661876Z-hnsepeqb/receipt.json",
+      "sha256": "9e336245f31f1e46ad2b2f8078b30ec3ddf8c3f8de566c74c99c097fd80afa57",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": null,
+      "elapsedSeconds": 45.40962279122323,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/internal/testkit/minimaxlive",
+        "./ai/e2e",
+        "-run",
+        "^(TestFinalRenewalAuthorityProcess|TestRecovery4AuthorityProcess|TestGrokHistoryProducerBuild)$/^valid-three$",
+        "-count=1",
+        "-timeout=20m"
+      ],
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "cb08afb5606962e597fa34319fc00f5b6726adbc45decc01a2d0bbb2d6e66c69",
+          "package": "./ai/e2e",
+          "path": "bundles/20261026T084715.611149000Z"
+        }
+      ],
+      "testedCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7"
+    }
+  ],
+  "retainedRedSources": [
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064342.026216Z-ql5vpgd3/red-test.patch",
+      "sha256": "cf25bc2b62caae9fe58491daf9a242037b2667c4f165d0f6e012651069e0f65a"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064724.228156Z-392m666w/red-test-source.go.txt",
+      "sha256": "b046921109f390931759d5b9d0aa36ebf81824364feb406fd48990b9e61ddf96"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T064724.228156Z-392m666w/red-test.patch",
+      "sha256": "7f9f40d3ec8d249b77c6cccd596a2bfca2665208d134ff0d08eb9734ab3b7f29"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T080218.328564Z-xkckgxoh/red-test-source.go.txt",
+      "sha256": "9dadab1d2e326f729dae227c34f9530e2c7bde7d23ec288388c2b8615029533a"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T083025.429638Z-tc_yjqev/red-test-source.go.txt",
+      "sha256": "69ac8e149c38fe21862292a461ef58d2bb35c44477a25a34ea978d1789339b88"
+    },
+    {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T083025.429638Z-tc_yjqev/red-test.patch",
+      "sha256": "c4224f7cdc0fd7af190a55412ef9ac31baa670557ce7233bfa0335cbbde412f3"
+    }
+  ],
+  "newPublicRoots": [
+    "TestGrokHistoryKimiGrantTemplates",
+    "TestGrokHistoryNativeFullPlans",
+    "TestGrokHistoryProducerBuild",
+    "TestGrokHistoryAllOldTargets",
+    "TestGrokHistoryFreshProcessGrant",
+    "TestGrokHistoryProducerRequiresFreshGrant",
+    "TestGrokHistoryGLMControlledFullCapture",
+    "TestGrokHistoryMiniMaxFreshLedger",
+    "TestGrokHistoryGenericMandatoryProjection",
+    "TestGrokHistoryOpenAIFullSelector"
+  ],
+  "caseEvidence": {
+    "mergedSource101Cases": {
+      "receipt": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/receipt.json",
+      "cases": [
+        "GROK-HISTORY-FRESH-GRANT-anthropic-messages",
+        "GROK-HISTORY-FRESH-GRANT-deepseek-chat",
+        "GROK-HISTORY-FRESH-GRANT-deepseek-responses",
+        "GROK-HISTORY-FRESH-GRANT-google-gemini",
+        "GROK-HISTORY-FRESH-GRANT-minimax-chat",
+        "GROK-HISTORY-FRESH-GRANT-minimax-messages",
+        "GROK-HISTORY-FRESH-GRANT-minimax-responses",
+        "GROK-HISTORY-FRESH-GRANT-openai-chat",
+        "GROK-HISTORY-FRESH-GRANT-openai-responses",
+        "GROK-HISTORY-FRESH-GRANT-zhipu-chat",
+        "GROK-HISTORY-FRESH-GRANT-zhipu-messages",
+        "GROK-HISTORY-FULL-PLAN-kimi-cn-chat",
+        "GROK-HISTORY-FULL-PLAN-kimi-cn-messages",
+        "GROK-HISTORY-FULL-PLAN-kimi-cn-responses",
+        "GROK-HISTORY-FULL-PLAN-kimi-intl-chat",
+        "GROK-HISTORY-FULL-PLAN-kimi-intl-messages",
+        "GROK-HISTORY-FULL-PLAN-kimi-intl-responses",
+        "GROK-HISTORY-FULL-PLAN-minimax-chat",
+        "GROK-HISTORY-FULL-PLAN-minimax-cn-chat",
+        "GROK-HISTORY-FULL-PLAN-minimax-cn-messages",
+        "GROK-HISTORY-FULL-PLAN-minimax-cn-responses",
+        "GROK-HISTORY-FULL-PLAN-minimax-messages",
+        "GROK-HISTORY-FULL-PLAN-minimax-responses",
+        "GROK-HISTORY-FULL-PLAN-zai-chat",
+        "GROK-HISTORY-FULL-PLAN-zai-messages",
+        "GROK-HISTORY-FULL-PLAN-zhipu-chat",
+        "GROK-HISTORY-FULL-PLAN-zhipu-messages",
+        "GROK-HISTORY-GENERIC-MANDATORY-PROJECTION",
+        "GROK-HISTORY-GLM-CONTROLLED-FULL",
+        "GROK-HISTORY-KIMI-GRANT-kimi-cn-chat",
+        "GROK-HISTORY-KIMI-GRANT-kimi-cn-messages",
+        "GROK-HISTORY-KIMI-GRANT-kimi-cn-responses",
+        "GROK-HISTORY-KIMI-GRANT-kimi-intl-chat",
+        "GROK-HISTORY-KIMI-GRANT-kimi-intl-messages",
+        "GROK-HISTORY-KIMI-GRANT-kimi-intl-responses",
+        "GROK-HISTORY-MINIMAX-FRESH-chat",
+        "GROK-HISTORY-MINIMAX-FRESH-messages",
+        "GROK-HISTORY-MINIMAX-FRESH-responses",
+        "GROK-HISTORY-OPENAI-FULL-SELECTOR",
+        "GROK-HISTORY-PREHTTP-anthropic-messages-invalid",
+        "GROK-HISTORY-PREHTTP-anthropic-messages-missing",
+        "GROK-HISTORY-PREHTTP-anthropic-messages-mixed-route",
+        "GROK-HISTORY-PREHTTP-deepseek-chat-invalid",
+        "GROK-HISTORY-PREHTTP-deepseek-chat-missing",
+        "GROK-HISTORY-PREHTTP-deepseek-chat-mixed-route",
+        "GROK-HISTORY-PREHTTP-deepseek-responses-invalid",
+        "GROK-HISTORY-PREHTTP-deepseek-responses-missing",
+        "GROK-HISTORY-PREHTTP-deepseek-responses-mixed-route",
+        "GROK-HISTORY-PREHTTP-google-gemini-invalid",
+        "GROK-HISTORY-PREHTTP-google-gemini-missing",
+        "GROK-HISTORY-PREHTTP-google-gemini-mixed-route",
+        "GROK-HISTORY-PREHTTP-minimax-chat-closed-renewal",
+        "GROK-HISTORY-PREHTTP-minimax-chat-historical-ledger",
+        "GROK-HISTORY-PREHTTP-minimax-chat-invalid",
+        "GROK-HISTORY-PREHTTP-minimax-chat-missing",
+        "GROK-HISTORY-PREHTTP-minimax-chat-mixed-route",
+        "GROK-HISTORY-PREHTTP-minimax-messages-closed-renewal",
+        "GROK-HISTORY-PREHTTP-minimax-messages-historical-ledger",
+        "GROK-HISTORY-PREHTTP-minimax-messages-invalid",
+        "GROK-HISTORY-PREHTTP-minimax-messages-missing",
+        "GROK-HISTORY-PREHTTP-minimax-messages-mixed-route",
+        "GROK-HISTORY-PREHTTP-minimax-responses-closed-renewal",
+        "GROK-HISTORY-PREHTTP-minimax-responses-historical-ledger",
+        "GROK-HISTORY-PREHTTP-minimax-responses-invalid",
+        "GROK-HISTORY-PREHTTP-minimax-responses-missing",
+        "GROK-HISTORY-PREHTTP-minimax-responses-mixed-route",
+        "GROK-HISTORY-PREHTTP-openai-chat-invalid",
+        "GROK-HISTORY-PREHTTP-openai-chat-missing",
+        "GROK-HISTORY-PREHTTP-openai-chat-mixed-route",
+        "GROK-HISTORY-PREHTTP-openai-responses-invalid",
+        "GROK-HISTORY-PREHTTP-openai-responses-missing",
+        "GROK-HISTORY-PREHTTP-openai-responses-mixed-route",
+        "GROK-HISTORY-PREHTTP-zhipu-chat-invalid",
+        "GROK-HISTORY-PREHTTP-zhipu-chat-missing",
+        "GROK-HISTORY-PREHTTP-zhipu-chat-mixed-route",
+        "GROK-HISTORY-PREHTTP-zhipu-messages-invalid",
+        "GROK-HISTORY-PREHTTP-zhipu-messages-missing",
+        "GROK-HISTORY-PREHTTP-zhipu-messages-mixed-route",
+        "GROK-HISTORY-PRODUCER-BUILD",
+        "GROK-HISTORY-WIRE-anthropic-messages",
+        "GROK-HISTORY-WIRE-deepseek-chat",
+        "GROK-HISTORY-WIRE-deepseek-responses",
+        "GROK-HISTORY-WIRE-google-gemini",
+        "GROK-HISTORY-WIRE-kimi-cn-chat",
+        "GROK-HISTORY-WIRE-kimi-cn-messages",
+        "GROK-HISTORY-WIRE-kimi-cn-responses",
+        "GROK-HISTORY-WIRE-kimi-intl-chat",
+        "GROK-HISTORY-WIRE-kimi-intl-messages",
+        "GROK-HISTORY-WIRE-kimi-intl-responses",
+        "GROK-HISTORY-WIRE-minimax-chat",
+        "GROK-HISTORY-WIRE-minimax-cn-chat",
+        "GROK-HISTORY-WIRE-minimax-cn-messages",
+        "GROK-HISTORY-WIRE-minimax-cn-responses",
+        "GROK-HISTORY-WIRE-minimax-messages",
+        "GROK-HISTORY-WIRE-minimax-responses",
+        "GROK-HISTORY-WIRE-openai-chat",
+        "GROK-HISTORY-WIRE-openai-responses",
+        "GROK-HISTORY-WIRE-zai-chat",
+        "GROK-HISTORY-WIRE-zai-messages",
+        "GROK-HISTORY-WIRE-zhipu-chat",
+        "GROK-HISTORY-WIRE-zhipu-messages"
+      ],
+      "allPass": true
+    },
+    "priorGreen55NativeMutations": {
+      "receipt": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/receipt.json",
+      "cases": [
+        "GROK-HISTORY-NATIVE-kimi-cn-chat-immutable-input",
+        "GROK-HISTORY-NATIVE-kimi-cn-chat-missing-scene",
+        "GROK-HISTORY-NATIVE-kimi-cn-chat-native-envelope",
+        "GROK-HISTORY-NATIVE-kimi-cn-chat-substituted-scene",
+        "GROK-HISTORY-NATIVE-kimi-cn-chat-wire-marker",
+        "GROK-HISTORY-NATIVE-kimi-cn-messages-immutable-input",
+        "GROK-HISTORY-NATIVE-kimi-cn-messages-missing-scene",
+        "GROK-HISTORY-NATIVE-kimi-cn-messages-native-envelope",
+        "GROK-HISTORY-NATIVE-kimi-cn-messages-substituted-scene",
+        "GROK-HISTORY-NATIVE-kimi-cn-messages-wire-marker",
+        "GROK-HISTORY-NATIVE-kimi-cn-responses-immutable-input",
+        "GROK-HISTORY-NATIVE-kimi-cn-responses-missing-scene",
+        "GROK-HISTORY-NATIVE-kimi-cn-responses-native-envelope",
+        "GROK-HISTORY-NATIVE-kimi-cn-responses-substituted-scene",
+        "GROK-HISTORY-NATIVE-kimi-cn-responses-wire-marker",
+        "GROK-HISTORY-NATIVE-kimi-intl-chat-immutable-input",
+        "GROK-HISTORY-NATIVE-kimi-intl-chat-missing-scene",
+        "GROK-HISTORY-NATIVE-kimi-intl-chat-native-envelope",
+        "GROK-HISTORY-NATIVE-kimi-intl-chat-substituted-scene",
+        "GROK-HISTORY-NATIVE-kimi-intl-chat-wire-marker",
+        "GROK-HISTORY-NATIVE-kimi-intl-messages-immutable-input",
+        "GROK-HISTORY-NATIVE-kimi-intl-messages-missing-scene",
+        "GROK-HISTORY-NATIVE-kimi-intl-messages-native-envelope",
+        "GROK-HISTORY-NATIVE-kimi-intl-messages-substituted-scene",
+        "GROK-HISTORY-NATIVE-kimi-intl-messages-wire-marker",
+        "GROK-HISTORY-NATIVE-kimi-intl-responses-immutable-input",
+        "GROK-HISTORY-NATIVE-kimi-intl-responses-missing-scene",
+        "GROK-HISTORY-NATIVE-kimi-intl-responses-native-envelope",
+        "GROK-HISTORY-NATIVE-kimi-intl-responses-substituted-scene",
+        "GROK-HISTORY-NATIVE-kimi-intl-responses-wire-marker",
+        "GROK-HISTORY-NATIVE-minimax-cn-chat-immutable-input",
+        "GROK-HISTORY-NATIVE-minimax-cn-chat-missing-scene",
+        "GROK-HISTORY-NATIVE-minimax-cn-chat-native-envelope",
+        "GROK-HISTORY-NATIVE-minimax-cn-chat-substituted-scene",
+        "GROK-HISTORY-NATIVE-minimax-cn-chat-wire-marker",
+        "GROK-HISTORY-NATIVE-minimax-cn-messages-immutable-input",
+        "GROK-HISTORY-NATIVE-minimax-cn-messages-missing-scene",
+        "GROK-HISTORY-NATIVE-minimax-cn-messages-native-envelope",
+        "GROK-HISTORY-NATIVE-minimax-cn-messages-substituted-scene",
+        "GROK-HISTORY-NATIVE-minimax-cn-messages-wire-marker",
+        "GROK-HISTORY-NATIVE-minimax-cn-responses-immutable-input",
+        "GROK-HISTORY-NATIVE-minimax-cn-responses-missing-scene",
+        "GROK-HISTORY-NATIVE-minimax-cn-responses-native-envelope",
+        "GROK-HISTORY-NATIVE-minimax-cn-responses-substituted-scene",
+        "GROK-HISTORY-NATIVE-minimax-cn-responses-wire-marker",
+        "GROK-HISTORY-NATIVE-zai-chat-immutable-input",
+        "GROK-HISTORY-NATIVE-zai-chat-missing-scene",
+        "GROK-HISTORY-NATIVE-zai-chat-native-envelope",
+        "GROK-HISTORY-NATIVE-zai-chat-substituted-scene",
+        "GROK-HISTORY-NATIVE-zai-chat-wire-marker",
+        "GROK-HISTORY-NATIVE-zai-messages-immutable-input",
+        "GROK-HISTORY-NATIVE-zai-messages-missing-scene",
+        "GROK-HISTORY-NATIVE-zai-messages-native-envelope",
+        "GROK-HISTORY-NATIVE-zai-messages-substituted-scene",
+        "GROK-HISTORY-NATIVE-zai-messages-wire-marker"
+      ],
+      "allPass": true,
+      "limitation": "before final root15 merge; root final complete ordinary freeze must cover these again at integrated pin"
+    }
+  },
+  "renamedHistoricalSubtest": {
+    "root": "TestMiniMaxRecovery7HarnessDeadlineProcess",
+    "from": "trusted-formal",
+    "to": "historical-formal-refused",
+    "meaning": "current producer refuses closed renewal selectors; original historical authority remains read-only"
+  },
+  "affectedOrdinaryPackages": [
+    "./ai",
+    "./ai/e2e",
+    "./ai/internal/testkit/grokhistory",
+    "./ai/internal/testkit/livegrant",
+    "./ai/internal/testkit/supportmatrix",
+    "./ai/internal/testkit/minimaxlive",
+    "./ai/internal/testkit/release",
+    "./ai/live/cmd/processgrant",
+    "./ai/live/cmd/regionalverify",
+    "./ai/live/cmd/minimaxverify",
+    "./ai/live/cmd/glmformal"
+  ],
+  "ordinaryOutcome": {
+    "finalTargeted": "PASS; all ten new roots plus ChineseEvaluation/Usage/Snapshot, 265 test/subtest names, primary native bundle and audit valid",
+    "boundedHistorical": "PASS only FinalRenewal/valid-three + Recovery4/valid-three and ProducerBuild; not full minimaxlive",
+    "fullAttempt080940": "FAIL preserved: E2E catalog/evaluation drift owned/fixed by ticket15; minimaxlive TIMEOUT at15m; ai/supportmatrix/release passed. Full package not claimed green. Root owns complete integrated freeze with larger ordinary process timeout.",
+    "exploratory083431": "FAIL preserved: 10m timeout and source changed during stage; no primary bundle, not acceptance"
+  },
+  "scopeFactsFromControlledCandidateTemplates": {
+    "anthropic-messages": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+      "scope": {
+        "route": "anthropic-messages",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "anthropic",
+        "api": "anthropic-messages",
+        "endpoint": "https://api.anthropic.com",
+        "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+        "catalogVersion": "2026-10-26.1",
+        "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+        "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+        "binarySha256": "",
+        "models": [
+          "claude-haiku-4-5",
+          "claude-opus-4-8",
+          "claude-fable-5",
+          "claude-fable-5-1",
+          "claude-opus-5",
+          "claude-opus-5-5"
+        ],
+        "scenes": [
+          "text-stream",
+          "text-complete",
+          "tool-round-trip",
+          "cancel-after-first-frame",
+          "reasoning-history",
+          "image",
+          "tool-changes-claude-opus-4-8",
+          "tool-changes-claude-fable-5",
+          "effort-changes-claude-fable-5-1",
+          "effort-changes-claude-opus-5",
+          "effort-changes-claude-opus-5-5",
+          "xai-origin-history"
+        ],
+        "maxCalls": 32,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 180,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb"
+    },
+    "deepseek-chat": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+      "scope": {
+        "route": "deepseek-chat",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "deepseek",
+        "api": "openai-completions",
+        "endpoint": "https://api.deepseek.com",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-26.1",
+        "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+        "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+        "binarySha256": "",
+        "models": [
+          "deepseek-flash",
+          "deepseek-v4-pro"
+        ],
+        "scenes": [
+          "text-stream",
+          "text-complete",
+          "tool-round-trip",
+          "cancel-after-first-frame",
+          "reasoning-history",
+          "image",
+          "usage-position",
+          "forced-tool-with-thinking",
+          "prompt-cache-long-retention",
+          "reasoning-level-high",
+          "reasoning-level-max",
+          "xai-origin-history"
+        ],
+        "maxCalls": 32,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 180,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb"
+    },
+    "deepseek-responses": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+      "scope": {
+        "route": "deepseek-responses",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "deepseek",
+        "api": "openai-responses",
+        "endpoint": "https://api.deepseek.com",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-26.1",
+        "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+        "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+        "binarySha256": "",
+        "models": [
+          "deepseek-flash"
+        ],
+        "scenes": [
+          "text-stream",
+          "text-complete",
+          "tool-round-trip",
+          "cancel-after-first-frame",
+          "reasoning-history",
+          "image",
+          "reasoning-level-high",
+          "reasoning-level-max",
+          "xai-origin-history"
+        ],
+        "maxCalls": 32,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 180,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb"
+    },
+    "google-gemini": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+      "scope": {
+        "route": "google-gemini",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "google",
+        "api": "google-generative-ai",
+        "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+        "sdk": "direct HTTP (ADR-0012)",
+        "catalogVersion": "2026-10-26.1",
+        "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+        "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+        "binarySha256": "",
+        "models": [
+          "gemini-3.8-flash"
+        ],
+        "scenes": [
+          "text-stream",
+          "text-complete",
+          "tool-round-trip",
+          "cancel-after-first-frame",
+          "reasoning-history",
+          "image",
+          "xai-origin-history"
+        ],
+        "maxCalls": 32,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 180,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb"
+    },
+    "minimax-chat": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9",
+      "scope": {
+        "route": "minimax-chat",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "minimax",
+        "api": "openai-completions",
+        "endpoint": "https://api.minimax.io/v1",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "minimax-global-m3-standard-2026-10-18-direct-usd",
+        "catalogHash": "sha256:05a84a82ac0a8c275483bf2540c0e1fbb0306fcc72fd2501de42fb10cfdaa4c2",
+        "sourceSha256": "b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9",
+        "binarySha256": "",
+        "models": [
+          "MiniMax-M3"
+        ],
+        "scenes": [
+          "full-stream",
+          "full-complete",
+          "simple-stream",
+          "simple-complete",
+          "thinking-on",
+          "thinking-control",
+          "tool-call",
+          "tool-result-native",
+          "truncate",
+          "cache-first",
+          "cache-repeat",
+          "cancel",
+          "preflight-error",
+          "xai-origin-history"
+        ],
+        "maxCalls": 20,
+        "maxAttempts": 24,
+        "maxRequestReruns": 3,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 40000,
+        "maxReservedInputTokens": 120000,
+        "callSeconds": 120,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9"
+    },
+    "minimax-messages": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9",
+      "scope": {
+        "route": "minimax-messages",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "minimax",
+        "api": "anthropic-messages",
+        "endpoint": "https://api.minimax.io/anthropic",
+        "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+        "catalogVersion": "minimax-global-m3-standard-2026-10-18-direct-usd",
+        "catalogHash": "sha256:05a84a82ac0a8c275483bf2540c0e1fbb0306fcc72fd2501de42fb10cfdaa4c2",
+        "sourceSha256": "b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9",
+        "binarySha256": "",
+        "models": [
+          "MiniMax-M3"
+        ],
+        "scenes": [
+          "full-stream",
+          "full-complete",
+          "simple-stream",
+          "simple-complete",
+          "thinking-on",
+          "thinking-control",
+          "tool-call",
+          "tool-result-native",
+          "truncate",
+          "cache-first",
+          "cache-repeat",
+          "cancel",
+          "preflight-error",
+          "xai-origin-history"
+        ],
+        "maxCalls": 20,
+        "maxAttempts": 24,
+        "maxRequestReruns": 3,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 40000,
+        "maxReservedInputTokens": 120000,
+        "callSeconds": 120,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9"
+    },
+    "minimax-responses": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9",
+      "scope": {
+        "route": "minimax-responses",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "minimax",
+        "api": "openai-responses",
+        "endpoint": "https://api.minimax.io/v1",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "minimax-global-m3-standard-2026-10-18-direct-usd",
+        "catalogHash": "sha256:05a84a82ac0a8c275483bf2540c0e1fbb0306fcc72fd2501de42fb10cfdaa4c2",
+        "sourceSha256": "b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9",
+        "binarySha256": "",
+        "models": [
+          "MiniMax-M3"
+        ],
+        "scenes": [
+          "full-stream",
+          "full-complete",
+          "simple-stream",
+          "simple-complete",
+          "thinking-on",
+          "thinking-control",
+          "tool-call",
+          "tool-result-native",
+          "truncate",
+          "cache-first",
+          "cache-repeat",
+          "cancel",
+          "preflight-error",
+          "xai-origin-history"
+        ],
+        "maxCalls": 20,
+        "maxAttempts": 24,
+        "maxRequestReruns": 3,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 40000,
+        "maxReservedInputTokens": 120000,
+        "callSeconds": 120,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "b410b050fa909ed039684e5ff4359faa0496bf247fc373d5928bd99fd03108f9"
+    },
+    "openai-chat": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+      "scope": {
+        "route": "openai-chat",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "openai",
+        "api": "openai-completions",
+        "endpoint": "https://api.openai.com/v1",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-26.1",
+        "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+        "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+        "binarySha256": "",
+        "models": [
+          "gpt-5-mini",
+          "gpt-5.4",
+          "gpt-6-sol",
+          "gpt-5.4-pro"
+        ],
+        "scenes": [
+          "text-stream",
+          "text-complete",
+          "tool-round-trip",
+          "cancel-after-first-frame",
+          "reasoning-history",
+          "image",
+          "usage-position",
+          "tool-changes-gpt-5.4",
+          "tool-changes-gpt-6-sol",
+          "pro-model-unavailable",
+          "xai-origin-history"
+        ],
+        "maxCalls": 32,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 180,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb"
+    },
+    "openai-responses": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+      "scope": {
+        "route": "openai-responses",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "openai",
+        "api": "openai-responses",
+        "endpoint": "https://api.openai.com/v1",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "2026-10-26.1",
+        "catalogHash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+        "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb",
+        "binarySha256": "",
+        "models": [
+          "gpt-5-mini",
+          "gpt-5.4",
+          "gpt-6-sol"
+        ],
+        "scenes": [
+          "text-stream",
+          "text-complete",
+          "tool-round-trip",
+          "cancel-after-first-frame",
+          "reasoning-history",
+          "image",
+          "tool-changes-gpt-5.4",
+          "tool-changes-gpt-6-sol",
+          "xai-origin-history"
+        ],
+        "maxCalls": 32,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 1,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 180,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "cefc0218cc5bb7561ae0b7996272a9f5a1860a1ddf4fdefa374fbeeebf0cb5bb"
+    },
+    "zhipu-chat": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=9f4a0bf2093810ebb1c75215c63c71bb3a4abbfbfcb230de801f8985d9c8e6ea",
+      "scope": {
+        "route": "zhipu-chat",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "zhipu",
+        "api": "openai-completions",
+        "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+        "sdk": "github.com/openai/openai-go/v3 v3.66.0",
+        "catalogVersion": "glm-six-candidate-2026-10-17.1-sourced-usd",
+        "catalogHash": "sha256:69590c186719a7c4bb9cc77455c51bab00b7d75fcc9babc59e1ce8d68592ddaa",
+        "sourceSha256": "9f4a0bf2093810ebb1c75215c63c71bb3a4abbfbfcb230de801f8985d9c8e6ea",
+        "binarySha256": "",
+        "models": [
+          "glm-5.3",
+          "glm-5.2"
+        ],
+        "scenes": [
+          "glm-5.3/full-stream",
+          "glm-5.3/full-complete",
+          "glm-5.3/simple-stream",
+          "glm-5.3/simple-complete",
+          "glm-5.3/tool-call",
+          "glm-5.3/tool-result",
+          "glm-5.3/native-history",
+          "glm-5.3/cancel",
+          "glm-5.3/recovery",
+          "glm-5.3/control-temperature",
+          "glm-5.3/control-usage",
+          "glm-5.3/xai-origin-history",
+          "glm-5.2/full-stream",
+          "glm-5.2/full-complete",
+          "glm-5.2/simple-stream",
+          "glm-5.2/simple-complete",
+          "glm-5.2/tool-call",
+          "glm-5.2/tool-result",
+          "glm-5.2/native-history",
+          "glm-5.2/cancel",
+          "glm-5.2/recovery",
+          "glm-5.2/control-temperature",
+          "glm-5.2/control-usage",
+          "glm-5.2/xai-origin-history"
+        ],
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 0,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 120,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "9f4a0bf2093810ebb1c75215c63c71bb3a4abbfbfcb230de801f8985d9c8e6ea"
+    },
+    "zhipu-messages": {
+      "buildFlag": "-ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=9f4a0bf2093810ebb1c75215c63c71bb3a4abbfbfcb230de801f8985d9c8e6ea",
+      "scope": {
+        "route": "zhipu-messages",
+        "mode": "controlled",
+        "stage": "candidate",
+        "provider": "zhipu",
+        "api": "anthropic-messages",
+        "endpoint": "https://open.bigmodel.cn/api/anthropic",
+        "sdk": "github.com/anthropics/anthropic-sdk-go v1.75.0 (HTTP; SSE decoded by barness-ai, ADR-0011)",
+        "catalogVersion": "glm-six-candidate-2026-10-17.1-sourced-usd",
+        "catalogHash": "sha256:69590c186719a7c4bb9cc77455c51bab00b7d75fcc9babc59e1ce8d68592ddaa",
+        "sourceSha256": "9f4a0bf2093810ebb1c75215c63c71bb3a4abbfbfcb230de801f8985d9c8e6ea",
+        "binarySha256": "",
+        "models": [
+          "glm-5.3",
+          "glm-5.2"
+        ],
+        "scenes": [
+          "glm-5.3/full-stream",
+          "glm-5.3/full-complete",
+          "glm-5.3/simple-stream",
+          "glm-5.3/simple-complete",
+          "glm-5.3/tool-call",
+          "glm-5.3/tool-result",
+          "glm-5.3/native-history",
+          "glm-5.3/cancel",
+          "glm-5.3/recovery",
+          "glm-5.3/control-unsigned",
+          "glm-5.3/control-auto",
+          "glm-5.3/xai-origin-history",
+          "glm-5.2/full-stream",
+          "glm-5.2/full-complete",
+          "glm-5.2/simple-stream",
+          "glm-5.2/simple-complete",
+          "glm-5.2/tool-call",
+          "glm-5.2/tool-result",
+          "glm-5.2/native-history",
+          "glm-5.2/cancel",
+          "glm-5.2/recovery",
+          "glm-5.2/control-unsigned",
+          "glm-5.2/control-default",
+          "glm-5.2/xai-origin-history"
+        ],
+        "maxCalls": 24,
+        "maxAttempts": 32,
+        "maxRequestReruns": 0,
+        "maxRetries": 0,
+        "maxOutputTokens": 4096,
+        "maxRequestedOutputTokens": 0,
+        "maxReservedInputTokens": 0,
+        "callSeconds": 120,
+        "processSeconds": 1800
+      },
+      "sourceSha256": "9f4a0bf2093810ebb1c75215c63c71bb3a4abbfbfcb230de801f8985d9c8e6ea"
+    }
+  },
+  "scopeFactsEvidence": {
+    "anthropic-messages": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-anthropic-messages/process-164228.656136000.json",
+      "sha256": "5f2307747498c3786d9f42ea7245b19d28e9628f53b13edb1f8c1b3797c63ea4"
+    },
+    "deepseek-chat": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-deepseek-chat/process-164228.172544000.json",
+      "sha256": "75b5cfda06f860aac4624f6750f561ee263de8f422e56aa4d9ce75f3564f6a10"
+    },
+    "deepseek-responses": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-deepseek-responses/process-164227.691120000.json",
+      "sha256": "f92a01331613339c6b96fd5a974fe5f4ef053ff17989ea21e5fee22f9221a61b"
+    },
+    "google-gemini": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-google-gemini/process-164229.147078000.json",
+      "sha256": "2b0519ac101aa28841b15c350d058069e3a83a32b9274a1a80f9529f4b9fe7fa"
+    },
+    "minimax-chat": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-minimax-chat/process-164230.485709000.json",
+      "sha256": "96749efa7433a78e4364ccf829034a156d5dc33bee9320258d121b09a87d54ac"
+    },
+    "minimax-messages": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-minimax-messages/process-164231.380919000.json",
+      "sha256": "ddc0886b9aadc29487ef51c84115e7cc6a9e59b9c4291ae6bff615706c03331c"
+    },
+    "minimax-responses": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-minimax-responses/process-164230.929883000.json",
+      "sha256": "2c3cf6f83e34f9a04f5f31bfc64c65c86251d8386ecc69200f89f8078d14daa9"
+    },
+    "openai-chat": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-openai-chat/process-164227.188568000.json",
+      "sha256": "7c052a3f169025c1d7bf246fbb3b39394762d4dccded60df41511ced2bce9203"
+    },
+    "openai-responses": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-openai-responses/process-164226.691960000.json",
+      "sha256": "b1640594c2036d8f0a7c145950410f607650d89efb382261457d956e920159ab"
+    },
+    "zhipu-chat": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-zhipu-chat/process-164229.623269000.json",
+      "sha256": "e2398701d5c9c7687ec69dcbc6e855333b782462551941a3cc01164c5bdf104e"
+    },
+    "zhipu-messages": {
+      "path": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-FRESH-GRANT-zhipu-messages/process-164230.048684000.json",
+      "sha256": "d5d4fb758099a770f892f28fb45781101bb7f1451dcc0a182b858eedecc89651"
+    }
+  },
+  "formalScopeRegenerationRequired": true,
+  "nativeContracts": {
+    "generic": {
+      "countsInRouteOrder": {
+        "openai-responses": 9,
+        "deepseek-responses": 9,
+        "openai-chat": 11,
+        "deepseek-chat": 12,
+        "anthropic-messages": 12,
+        "google-gemini": 7
+      },
+      "maxCalls": 32,
+      "maxHTTPAttempts": 32,
+      "sceneEnvironmentRetries": 1,
+      "clientAutomaticRetries": 0,
+      "maxOutputPerCall": 4096,
+      "aggregateInputOrUSDHardCap": null,
+      "callSeconds": 180,
+      "sceneSeconds": 240,
+      "processSeconds": 1800
+    },
+    "glm": {
+      "models": [
+        "glm-5.3",
+        "glm-5.2"
+      ],
+      "scenesPerRoute": 24,
+      "maxCalls": 24,
+      "maxReservedAttempts": 32,
+      "automaticRetries": 0,
+      "maxOutputPerCall": 4096,
+      "callSeconds": 120,
+      "processSeconds": 1800,
+      "finalizationSeconds": 20
+    },
+    "regionalPublished": {
+      "zaiScenesPerRoute": 20,
+      "minimaxCNScenesPerRoute": 10,
+      "maxCalls": 24,
+      "maxAttempts": 24,
+      "requestedOutputTokens": 98304,
+      "reservedInputTokens": 120000,
+      "automaticRetries": 0,
+      "callSeconds": 120,
+      "processSeconds": 1800
+    },
+    "kimiCandidate": {
+      "scenesPerRoute": 10,
+      "maxCalls": 10,
+      "maxAttempts": 10,
+      "requestedOutputTokens": 40960,
+      "reservedInputTokens": 131072,
+      "proofArtifact": "fixture-reservation-proof",
+      "formalUnpromotedRefusal": "preserved"
+    },
+    "minimaxInternational": {
+      "model": "MiniMax-M3",
+      "purpose": "standard",
+      "scenesPerRoute": 14,
+      "maxCalls": 20,
+      "maxAttempts": 24,
+      "requestedOutputTokens": 40000,
+      "reservedInputTokens": 120000,
+      "maxCapabilityReruns": 1,
+      "maxTransientRequestReruns": 3,
+      "callSeconds": 120,
+      "processSeconds": 1800,
+      "finalizationSeconds": 20
+    },
+    "historicalM3": {
+      "planSize": 13,
+      "threeRouteCalls": 39,
+      "threeRouteAttempts": 36,
+      "oracle": "historical_plan_fixture_test.go independent frozen13; originalPlan13() used only closed historical reads; current Plan/VerifyCapture stay14"
+    }
+  },
+  "requiredAuxiliaryEvidence": {
+    "allNewScenes": [
+      "original request",
+      "wire exchanges",
+      "actual result/metadata/downgrades",
+      "immutable-input.json",
+      "history-provenance.json",
+      "assertions.json"
+    ],
+    "nativeCompleteBundle": [
+      "manifest.json",
+      "audit.json",
+      "full report/expected/scenarios",
+      "family source map/hash",
+      "sealed exact artifact inventory"
+    ],
+    "freshProcess": [
+      "original process-grant.json bytes",
+      "process-authorization-receipt.json",
+      "durable common Git approval ID and canonical scope claims",
+      "process_build_source in native manifest",
+      "frozen executable SHA256 and exact build argv/toolchain/exit"
+    ],
+    "regionalKimi": [
+      "native regional grant/receipt",
+      "fixture-reservation-proof",
+      "binary/source/account/budget/pacing bindings"
+    ],
+    "internationalM3": [
+      "new claim-owned finite ledger and all receipts",
+      "no historical renewal/ledger selectors"
+    ]
+  },
+  "build": {
+    "template": "go test -c -tags live -ldflags=-X=github.com/tokenbeat-lab/barness/ai/live.legacyBuildSource=SOURCE_SHA256 -o FROZEN_PRODUCER ./ai/live",
+    "GOENV": "off",
+    "GOFLAGS": "",
+    "compileCheckOnly": "ProducerBuild checks complete live-tag assembly without credential; this handoff does not claim final paid binary freeze"
+  },
+  "primaryAndAuxiliaryManifests": [
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-429/child-evidence/manifest.json",
+      "manifestSHA256": "65f7416bf80fe4a3c59db81acff6b42af24661f7d1c3c504953c7deb5f3bffec",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-429/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-actual-budget/child-evidence/manifest.json",
+      "manifestSHA256": "51ddefdd183b99365e2e935a892555b6230c5e698deb40f9e61cd3ad0c19f9a0",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-actual-budget/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-ambient-key/child-evidence/manifest.json",
+      "manifestSHA256": "d2ca506543a0f18f533e84c6a1a44c9780627f6d01e44b3f376752564ef1d8d3",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-ambient-key/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-attempts-budget/child-evidence/manifest.json",
+      "manifestSHA256": "5cbbdd214ebbfa298f4f4042719c5defd6f236160e8e648e9bfacc1d5a2095b4",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-attempts-budget/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-calls-budget/child-evidence/manifest.json",
+      "manifestSHA256": "9944c83ce56d580ca506ffa1771769a0783c7b6787a58473e1fedb03e91e349e",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-calls-budget/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-catalog-changed/child-evidence/manifest.json",
+      "manifestSHA256": "779d43de8f0eeb9ecb442be17ebfe67fa9f8f6216d0d2dd5062657c3cbb6dd7a",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-catalog-changed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-deadline/child-evidence/manifest.json",
+      "manifestSHA256": "296ab2b03dfaa04e260bc4204c31886344e0c26c48a4a8ea1a8e43d9ee920d48",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-deadline/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-endpoint-override/child-evidence/manifest.json",
+      "manifestSHA256": "b803b8ed2d0d38acc6344086a55a06d341630b857edc8e38d960e87c6bdb93f6",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-endpoint-override/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-foreign-key/child-evidence/manifest.json",
+      "manifestSHA256": "3b2be1918b1f32067257d6e7c4c6bc60c129f4f6f38a0d2e48f95f1cafd0a6f2",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-foreign-key/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-inventory-failure/child-evidence/manifest.json",
+      "manifestSHA256": "ab87ce8e3b6bc3c17f611b5e9872df33cfbc929649381b29a6111390c2934515",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-inventory-failure/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-missing-text/child-evidence/manifest.json",
+      "manifestSHA256": "b3858aab2514d5abcb9d66ebbfcddaa732f5ad0cc67e8757e9cce28d27d86bb2",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-missing-text/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-mixed-route/child-evidence/manifest.json",
+      "manifestSHA256": "2be44886017ebd1fcbcdbf1d5b6d72cd0759cd3e4800e166b5cb89aef4d11a45",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-mixed-route/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-narrowed/child-evidence/manifest.json",
+      "manifestSHA256": "ff63543f971ca3a67512e465a5464385f7a922697e4a29d3887250bfd503487a",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-narrowed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-not-run/child-evidence/manifest.json",
+      "manifestSHA256": "3e59df98fe2dd47a75df0895ee274e0f32de5b0223a2094f0d8291c9c20ecd4b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-not-run/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-plan-changed/child-evidence/manifest.json",
+      "manifestSHA256": "1addafbaf79dca0db56d4c140b98a1f9e79ba519f4200936971defe74a00c54c",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-plan-changed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-source-changed/child-evidence/manifest.json",
+      "manifestSHA256": "ae6d8d64e48455c873000f1d7de0eaaf2e14f941bad4547929136f245c578311",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-source-changed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-source-missing/child-evidence/manifest.json",
+      "manifestSHA256": "d28fb28096bd0038c73981d1b763ce91a9611982f3693b2de3bab4735cb5dc8f",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-source-missing/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-success-chat/child-evidence/manifest.json",
+      "manifestSHA256": "77558fb34e3eebc86c8eccca65671cafb5d5e0d7ebadf4838144cd162761ac43",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-success-chat/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-success-messages/child-evidence/manifest.json",
+      "manifestSHA256": "fcd81ad3145e3a26109ef99fa1582d8320196060c63be378697589feb2db6b4d",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-success-messages/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-success-responses/child-evidence/manifest.json",
+      "manifestSHA256": "6ae8e4e741e0c6c3f39bff8046b371f059319cd3ee5a23a45c064e9cb3a25cd9",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-success-responses/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 23,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-switch-off/child-evidence/manifest.json",
+      "manifestSHA256": "4303efa6f4d0ba2c8143a3ecd2efd7f3219acc4bd3ab09b2e14901fc54207f97",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-switch-off/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-wrong-route/child-evidence/manifest.json",
+      "manifestSHA256": "944bb784ef10a3372f1d1fec6ad4bdbe12f902a8451ec1950599934d79d0f66b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM11-process-wrong-route/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-429/child/manifest.json",
+      "manifestSHA256": "f23b3068d5382b24937555708d4fad8d3127595280079f1cf0292ff11d6d65cb",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-429/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-candidate-entry/child/manifest.json",
+      "manifestSHA256": "1ba1eb03089a99d4090d786067b5a6b48d1c2a70601705feb5f4f11ee5fa7b5d",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-candidate-entry/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-chat/child/manifest.json",
+      "manifestSHA256": "477bd905e116f5c8791971a186c0b7af81dc9988a01898837f8f0a179b663b84",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-chat/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-inventory-failure/child/manifest.json",
+      "manifestSHA256": "2a269c0e00d4ecc51e3a2e7cbf237642b23c7d42999ce343a91fe8c9c7099ce6",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-inventory-failure/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-messages/child/manifest.json",
+      "manifestSHA256": "3095da50f55e8682be47ccc024aa17f49a0dcceac6b9dac1346d1c00c0dbb9cb",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-messages/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-missing-key/child/manifest.json",
+      "manifestSHA256": "18e0dfaae3ccc89aa39edb5f03daca8ec92cbca63c796c78771965f4e134e49c",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-missing-key/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-narrowed/child/manifest.json",
+      "manifestSHA256": "7f06e4da5547be8a7f9b77dc28dbac5480e9ff3f3797cfef2bb95a2f35188cc0",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-narrowed/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-proxy-override/child/manifest.json",
+      "manifestSHA256": "a8ffb3efb3afe43038372a36ba6682be2cd20e4f587d7c8fa75e2e52a8fe3ce4",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-proxy-override/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-responses/child/manifest.json",
+      "manifestSHA256": "990da749156b9dc61523f01565eed58b4323387715e5c7bb618b92588821e7c7",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/GLM12-formal-process-responses/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 23,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/manifest.json",
+      "manifestSHA256": "2626e572e583712235fd00d44509106b6dad99eaabf36ea1b2a1dd823a7849fe",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T084216.591199000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live ./ai/live",
+      "gitCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+      "nativeCases": 32,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/manifest.json",
+      "manifestSHA256": "e861f6d7531e429a63dae0f0561f279d730a2bd80d713846fc66e326ee8ab3ac",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/20261026T084154.871552000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "./ai/e2e",
+      "gitCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+      "nativeCases": 249,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/minimax-fresh-native/20261026T084154.871552000Z/chat/20261026T084233.354563000Z/manifest.json",
+      "manifestSHA256": "602ec9d93b2fee9af9c9d4fc124660a18786a9b4e2c1a27a9840d60e77f0b669",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/minimax-fresh-native/20261026T084154.871552000Z/chat/20261026T084233.354563000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 30m0s ./ai/live",
+      "gitCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+      "nativeCases": 14,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/minimax-fresh-native/20261026T084154.871552000Z/messages/20261026T084234.522674000Z/manifest.json",
+      "manifestSHA256": "176a005f2864a3c5f1c67a7de769c6ce3b5a67f26f4afcf40f8c3871ada2d1e3",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/minimax-fresh-native/20261026T084154.871552000Z/messages/20261026T084234.522674000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 30m0s ./ai/live",
+      "gitCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+      "nativeCases": 14,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/minimax-fresh-native/20261026T084154.871552000Z/responses/20261026T084233.928493000Z/manifest.json",
+      "manifestSHA256": "a3036b133f83ffd2c6bf5900938366e4b26d677d7f63ea0653844a70fb84fdbf",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084150.094299Z-g5i5d3s_/bundles/minimax-fresh-native/20261026T084154.871552000Z/responses/20261026T084233.928493000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 30m0s ./ai/live",
+      "gitCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+      "nativeCases": 14,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-429/child-evidence/manifest.json",
+      "manifestSHA256": "446fac71de017e02ff5309f3f1ddf881b424e43b189e290ca746eddd0e723084",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-429/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-actual-budget/child-evidence/manifest.json",
+      "manifestSHA256": "19203eec10239b8077ff46e2869bfcd89f253f97be9d3821599c189fff7e66bf",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-actual-budget/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-ambient-key/child-evidence/manifest.json",
+      "manifestSHA256": "d593ddb2ffc5cd4e8d8dfe7db0d08c913b00513da530b24c56cc24f719124de1",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-ambient-key/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-attempts-budget/child-evidence/manifest.json",
+      "manifestSHA256": "aeb785cfaf9eb996f4a33a546f733364afbaabb86bc40b20b6ff6707174b7084",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-attempts-budget/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-calls-budget/child-evidence/manifest.json",
+      "manifestSHA256": "248c9d7ee89c34f4ed0dd305658e9da8a9270b2e6564ff9c4474e7c15ba2913b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-calls-budget/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-catalog-changed/child-evidence/manifest.json",
+      "manifestSHA256": "278d4f46bdd0aacb6b311ff304faa99abb9911abe5930916156bcfa5f8f6389c",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-catalog-changed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-deadline/child-evidence/manifest.json",
+      "manifestSHA256": "f7d4717fc8c412eaf67d2d3861ac9aa49c68dfac46d9cf5b639a49ee8eaec7b3",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-deadline/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-endpoint-override/child-evidence/manifest.json",
+      "manifestSHA256": "f784581ac82a39b79d8d824cfd086d564b8cd87fcb0be6dd94226e276d257bb1",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-endpoint-override/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-foreign-key/child-evidence/manifest.json",
+      "manifestSHA256": "38924fc6c49621237720c45312120bb0fed85b7b1db4c3e7333706090140aeea",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-foreign-key/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-inventory-failure/child-evidence/manifest.json",
+      "manifestSHA256": "58c4a6477c9b0a619174263ef2a167951f27bacaa10997f7c472750e77727216",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-inventory-failure/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-missing-text/child-evidence/manifest.json",
+      "manifestSHA256": "efeb3034396af75cbbc0f383c799f302693dfae81a96c7cd5429f70d0da08920",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-missing-text/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-mixed-route/child-evidence/manifest.json",
+      "manifestSHA256": "bcdb81e3bad8c68c4675cc93d9eabc17370c3f03f7915ae900e8115dfb8c1b7c",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-mixed-route/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-narrowed/child-evidence/manifest.json",
+      "manifestSHA256": "1a7870efe3f704a36526bce25c96e919acab49b6c05812d6968dadc2bed453fa",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-narrowed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-not-run/child-evidence/manifest.json",
+      "manifestSHA256": "4d3f2f63590ba6bf920f0dac1a57ba63060de79cf4ffdf38150751aba201de48",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-not-run/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-plan-changed/child-evidence/manifest.json",
+      "manifestSHA256": "ff511cc515dc8f5d39a3612bf71e975cd4b18d775ee3c3aab72d4bd15a56944b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-plan-changed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-source-changed/child-evidence/manifest.json",
+      "manifestSHA256": "f78c8e3325b637e801348f8bba9be4273061712f8506ecce3d621ab0cb41e250",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-source-changed/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-source-missing/child-evidence/manifest.json",
+      "manifestSHA256": "93f1823bd0d00d24e39fb018f11245df3211a558ec417e7d16cf3d4f7616ffd4",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-source-missing/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-success-chat/child-evidence/manifest.json",
+      "manifestSHA256": "06ca5014a3b93f64aee2b1d2fbbd33e57fea4093402ab73758d5857e08c1aa75",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-success-chat/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-success-messages/child-evidence/manifest.json",
+      "manifestSHA256": "f0e0230122e615f96df7be8770218ec277cff63f1f6531c519503f29e069691b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-success-messages/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-success-responses/child-evidence/manifest.json",
+      "manifestSHA256": "8a702daf3e9fdd57e8de85c44668ee5bc3e21d62cba21b67bac6173df4c46264",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-success-responses/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 23,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-switch-off/child-evidence/manifest.json",
+      "manifestSHA256": "ec003ef98321f34a9af3e6d35048bfc321d0e56d61f297531790a599607cfc39",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-switch-off/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-wrong-route/child-evidence/manifest.json",
+      "manifestSHA256": "8ff1a79f9158894e5d1b94cd7128eae809a49791d21dd6189db30ac575cc425a",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM11-process-wrong-route/child-evidence/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-429/child/manifest.json",
+      "manifestSHA256": "6fe0ca2d3de408743fa1d7867ee7ee331aeeea4dd07d35dcb479cf8461b031fe",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-429/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-candidate-entry/child/manifest.json",
+      "manifestSHA256": "9daff3db554adcbd033380c629f807ba64fbd587ae5680f4338b23f1036d7f3b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-candidate-entry/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-chat/child/manifest.json",
+      "manifestSHA256": "663c77ae28597e46decefa89ab945aad7d5c3168996e76881fbb88d59f50ecec",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-chat/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-inventory-failure/child/manifest.json",
+      "manifestSHA256": "04cc37696713400f5e0c1f0aa0af78bdad2b6e246deddba11dfe8029d98646c3",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-inventory-failure/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-messages/child/manifest.json",
+      "manifestSHA256": "58b5dea1a11ad8a42ca91c42123d579c19e548673226ea9a555f2ea4a449f5f8",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-messages/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 25,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-missing-key/child/manifest.json",
+      "manifestSHA256": "60086de00b239db4d58ef388b42ecdedc631b1e85f31c2232f5a60068a953720",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-missing-key/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-narrowed/child/manifest.json",
+      "manifestSHA256": "6e8d0c92734ea81043546761577071cf273e491acda5ca37391b4193d9dbbdf7",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-narrowed/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-proxy-override/child/manifest.json",
+      "manifestSHA256": "af765c2163b7d9ec4f952604832930f97e37403cb21d83a94af3ea51c08ddb1f",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-proxy-override/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-responses/child/manifest.json",
+      "manifestSHA256": "cf51be600e3c2619725e2c8cf79c559a1a9a2c0b8a8020b5e5fc35986e1ea0c8",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/GLM12-formal-process-responses/child/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "unknown",
+      "nativeCases": 23,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/manifest.json",
+      "manifestSHA256": "1cbe971c9fe101395085f9fa839be3f36e0a04ee153d6aa03f348ec43cc4ec18",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/GROK-HISTORY-GLM-CONTROLLED-FULL/controlled-native/20261026T083320.229516000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 32,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/manifest.json",
+      "manifestSHA256": "26f3a1647af46f603470ab7fa4bbfa90db4fcdd5154824743a3e26b0b82f4945",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/20261026T083312.510911000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "./ai/e2e",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 468,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-chat/20261026T083351.025610000Z/manifest.json",
+      "manifestSHA256": "4aefac73a14ef465f1ba67d8b4edff6093cace639971fd4039c7466bc78d7338",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-chat/20261026T083351.025610000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-chat/20261026T083351.978380000Z/manifest.json",
+      "manifestSHA256": "c9f8f9dbdf79791c6bb44f8df86d3232d42edff0891f5e6babf01a8f4f068f65",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-chat/20261026T083351.978380000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-chat/20261026T083355.641309000Z/manifest.json",
+      "manifestSHA256": "887ba73a93b1bda9db4b832038f7d9275545288c21dd2b7fddd5e66c162f455b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-chat/20261026T083355.641309000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-messages/20261026T083400.097328000Z/manifest.json",
+      "manifestSHA256": "62ae4536c84be63c76eeba452b6f4f9353bd6d0ff7d2cde9a8c24335050d4b4c",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-messages/20261026T083400.097328000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-messages/20261026T083400.562960000Z/manifest.json",
+      "manifestSHA256": "365bcc48b11bb1f50171f1811259a6d24819b1431040436eab552e1b0b056517",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-messages/20261026T083400.562960000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-messages/20261026T083404.260481000Z/manifest.json",
+      "manifestSHA256": "30874d231c18916798afed9b2ebbb576afd70b5f0b152107d23bc93a4d686964",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-messages/20261026T083404.260481000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-responses/20261026T083355.819258000Z/manifest.json",
+      "manifestSHA256": "289687ff7eb3a7e4597ee9ea39dfc77dea2edcba694052b6d5d99c027b14c8bf",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-responses/20261026T083355.819258000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-responses/20261026T083356.265631000Z/manifest.json",
+      "manifestSHA256": "46c8e4c8c3973ce94f799ee66d3da0030a517d9d84f4a0692fc778348c3e853e",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-responses/20261026T083356.265631000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-responses/20261026T083359.918132000Z/manifest.json",
+      "manifestSHA256": "7d6c8b119da9d3aa8e99a4e9c2b9b271a47a75d5908856da0b30ed5956df611e",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-cn-responses/20261026T083359.918132000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-chat/20261026T083404.440844000Z/manifest.json",
+      "manifestSHA256": "98a5b2284c0eb4e9cf158bed616c0e63cd774f5297abfdaea9171d40cc1208bd",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-chat/20261026T083404.440844000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-chat/20261026T083404.878357000Z/manifest.json",
+      "manifestSHA256": "885b08fdece1dfc2289c9a14325b09b68c973aea87038769a8ae5490122ec841",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-chat/20261026T083404.878357000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-chat/20261026T083408.477563000Z/manifest.json",
+      "manifestSHA256": "4929e83606572be263ee639e8aff2a5d2651cd586d518ac029c2da0054b18483",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-chat/20261026T083408.477563000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-messages/20261026T083412.626836000Z/manifest.json",
+      "manifestSHA256": "f48cd898d45158b8dd867f55cce6a475f40e7cd560d99f3a3922318a9ece1465",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-messages/20261026T083412.626836000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-messages/20261026T083413.024210000Z/manifest.json",
+      "manifestSHA256": "935137c6320938e278900c18a45240c33123cc9024ed7043bcae2835dfdb521b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-messages/20261026T083413.024210000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-messages/20261026T083416.334278000Z/manifest.json",
+      "manifestSHA256": "10fa7e8acf91ea03957fb1e58d5b2088cb2c4810e3fe66a64a1c41fc2adf4ca5",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-messages/20261026T083416.334278000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-responses/20261026T083408.651826000Z/manifest.json",
+      "manifestSHA256": "b8272ae09a0cbd952173c920cf966a8833e8abec3cd0cdcccabc224b4a38e24f",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-responses/20261026T083408.651826000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-responses/20261026T083409.111689000Z/manifest.json",
+      "manifestSHA256": "b25000a4a937427cd7675be36ddb8901402ce3038a359457bf20e8007995965e",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-responses/20261026T083409.111689000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-responses/20261026T083412.468967000Z/manifest.json",
+      "manifestSHA256": "5b5c244138badf3699ac6effa0dec46a2336041ff0d3b3355e42426eededb539",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-native/20261026T083312.510911000Z/kimi-intl-responses/20261026T083412.468967000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-paced-native/20261026T083312.510911000Z/TestKimiQualificationPacing/kimi-cn-messages/40ms/20261026T083342.946146000Z/manifest.json",
+      "manifestSHA256": "5d1524c5f3e46be10fb1da513fc221ed94e918aa1465933546a7462ab4138c49",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-paced-native/20261026T083312.510911000Z/TestKimiQualificationPacing/kimi-cn-messages/40ms/20261026T083342.946146000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-paced-native/20261026T083312.510911000Z/TestKimiQualificationPacing/kimi-intl-chat/0s/20261026T083340.598696000Z/manifest.json",
+      "manifestSHA256": "7d3f068c9308cfd6f18663c52d95e618ea594a25b277fb0031f1bf7008c95634",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-paced-native/20261026T083312.510911000Z/TestKimiQualificationPacing/kimi-intl-chat/0s/20261026T083340.598696000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-paced-native/20261026T083312.510911000Z/TestKimiQualificationPacing/kimi-intl-chat/40ms/20261026T083341.552978000Z/manifest.json",
+      "manifestSHA256": "d77ddb70b3bd40f39e96983dded9b4ab5de73c6468ce2cf93e731963694584cc",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-paced-native/20261026T083312.510911000Z/TestKimiQualificationPacing/kimi-intl-chat/40ms/20261026T083341.552978000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/binary/20261026T083347.505067000Z/manifest.json",
+      "manifestSHA256": "7ad4aeb10b54438316f60fe9d5ea1b4883c80678788d7ea18205418f1ccc6a9f",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/binary/20261026T083347.505067000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/controlled-with-live/20261026T083348.430878000Z/manifest.json",
+      "manifestSHA256": "bf12adc7ce89e73b17c2998a5e9348b35f461c9893239b56310d52bb0ec4741e",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/controlled-with-live/20261026T083348.430878000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/expiry/20261026T083347.975415000Z/manifest.json",
+      "manifestSHA256": "67675dc67dfde43167eb61fa0077702a86bef6cabe32d92b94a05cd412536d85",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/expiry/20261026T083347.975415000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/missing-usd/20261026T083346.981045000Z/manifest.json",
+      "manifestSHA256": "d650fb4f1b29bf391ff9a5530fb02c87a5c1a8c5ff768c7486c55ca6eddfd975",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/missing-usd/20261026T083346.981045000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/mixed-route/20261026T083348.132405000Z/manifest.json",
+      "manifestSHA256": "ea6158eef099065c6f8d85288b0cf12b797b9ffc3d8ad17b841f27d56b57f147",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/mixed-route/20261026T083348.132405000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/negative-usd/20261026T083347.136695000Z/manifest.json",
+      "manifestSHA256": "ef2cd7fff0a7d1178488244a91f8bd30eb4090dd5d3a3d9b1c76e154e47996c1",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/negative-usd/20261026T083347.136695000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/old-nine-call/20261026T083348.563688000Z/manifest.json",
+      "manifestSHA256": "7aece98dc210beccfc0f84ce85405c6d919a8f19b165bc5e18a72105fcbdc604",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/old-nine-call/20261026T083348.563688000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/provider/20261026T083347.814997000Z/manifest.json",
+      "manifestSHA256": "642a467ae29c2182b8fb005dec266d2883b49e77ca6d9a608cd16c6e1ccb27b7",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/provider/20261026T083347.814997000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/source/20261026T083347.660842000Z/manifest.json",
+      "manifestSHA256": "8494d16c32e4cb4c28b0026a994d3105fa4fe70c9aa695d6a92d34ae423caff8",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/source/20261026T083347.660842000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/tiny-usd/20261026T083347.287442000Z/manifest.json",
+      "manifestSHA256": "fe240897ff3bcb1ce376f9c7158e35bb508ed0cc8d7deac32ca0f63c111f8a47",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/tiny-usd/20261026T083347.287442000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/wrong-entry/20261026T083348.276243000Z/manifest.json",
+      "manifestSHA256": "7a3f8cfe7150a6937bf080ab10750b4def7951619ad63b423e2f34c36341effa",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/kimi-refused-native/20261026T083312.510911000Z/wrong-entry/20261026T083348.276243000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/minimax-fresh-native/20261026T083312.510911000Z/chat/20261026T083336.430341000Z/manifest.json",
+      "manifestSHA256": "b324f8186bb776714d49dd6a8047810bdaacb71b51c3467c6dfd04df770225b7",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/minimax-fresh-native/20261026T083312.510911000Z/chat/20261026T083336.430341000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 30m0s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 14,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/minimax-fresh-native/20261026T083312.510911000Z/messages/20261026T083337.610090000Z/manifest.json",
+      "manifestSHA256": "0c1f2a6d3fbb104bc08a12d3ffddd18eaf56165ded19e1967da1898f02b57e8b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/minimax-fresh-native/20261026T083312.510911000Z/messages/20261026T083337.610090000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 30m0s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 14,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/minimax-fresh-native/20261026T083312.510911000Z/responses/20261026T083337.011482000Z/manifest.json",
+      "manifestSHA256": "df6e18ca4eb757d4e252186a475d06c3ba594329b3e4e833720699757ced7b55",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/minimax-fresh-native/20261026T083312.510911000Z/responses/20261026T083337.011482000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 30m0s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 14,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-chat/20261026T083508.383885000Z/manifest.json",
+      "manifestSHA256": "b474c9c49c2af481bbbb572ebe386412d512731cea92c36595a68c5416e3e54b",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-chat/20261026T083508.383885000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-chat/20261026T083511.980275000Z/manifest.json",
+      "manifestSHA256": "b7eaedbac1a298f53dee90e4c2f03ddcd7f598294743eef0c21ed5697655e6d0",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-chat/20261026T083511.980275000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-messages/20261026T083516.374616000Z/manifest.json",
+      "manifestSHA256": "7de49510220eb879fee6c95208949f97fc9696bb48eb586948bf47e632392dca",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-messages/20261026T083516.374616000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-messages/20261026T083519.727190000Z/manifest.json",
+      "manifestSHA256": "77a6dc1b2f5d99dd9f62e5d7ee0b9e599abb1c993c621721126c957c8f7382e2",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-messages/20261026T083519.727190000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-responses/20261026T083512.388639000Z/manifest.json",
+      "manifestSHA256": "66861d5865d500fd07abf4ea41a95935540f8a6f92087adb31f8cb4717ed9ca9",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-responses/20261026T083512.388639000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-responses/20261026T083516.217930000Z/manifest.json",
+      "manifestSHA256": "363559542f595a66acde2f69b7db31d557ed26bd4367c0f6278eb742b95d2f81",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/minimax-cn-responses/20261026T083516.217930000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-chat/20261026T083449.179302000Z/manifest.json",
+      "manifestSHA256": "aad4863e281696c07811f39b726f1ea3e4c4e9104375f7ffcbf5976ffa9cdfd2",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-chat/20261026T083449.179302000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 20,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-chat/20261026T083457.373378000Z/manifest.json",
+      "manifestSHA256": "d828a70bff263716492738579c50dc11f0849ed636ec8b960e7049175c6d62d6",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-chat/20261026T083457.373378000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-messages/20261026T083503.374111000Z/manifest.json",
+      "manifestSHA256": "908d08d444e6c6ca3559a90acd8240eeabe0a08f9e9f94669fc43aa144c9d4b7",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-messages/20261026T083503.374111000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 20,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-messages/20261026T083508.217910000Z/manifest.json",
+      "manifestSHA256": "6950c38ccb4f8db49bf75980e0b33726bcf6482cbc9a94e96d3e6514e9bd10d1",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-messages/20261026T083508.217910000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-responses/20261026T083457.537399000Z/manifest.json",
+      "manifestSHA256": "0fafd39a772b9c4ac9a51f3e2622fba97a77f3976a428885a86d0f0ab2504537",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-responses/20261026T083457.537399000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 18,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-responses/20261026T083503.209265000Z/manifest.json",
+      "manifestSHA256": "412d4feb310c96c1cc199f14d816f25434263e7c900deac0bc48cb82aab0a037",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-producer-native/20261026T083312.510911000Z/zai-responses/20261026T083503.209265000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 0,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-source-absent-native/20261026T083312.510911000Z/minimax-cn-responses/20261026T083512.134823000Z/manifest.json",
+      "manifestSHA256": "411fb815e671b60242f4ac261084faac93698b7bf56a0aa6cea0a22a2e164ee7",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-source-absent-native/20261026T083312.510911000Z/minimax-cn-responses/20261026T083512.134823000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 10,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-source-absent-native/20261026T083312.510911000Z/zai-chat/20261026T083455.915326000Z/manifest.json",
+      "manifestSHA256": "eef1ed04e6f1356427fd5d1c3c17a9e5146876dbf7e0b8bd987b26de4e109288",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-source-absent-native/20261026T083312.510911000Z/zai-chat/20261026T083455.915326000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 20,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-source-absent-native/20261026T083312.510911000Z/zai-responses/20261026T083502.323374000Z/manifest.json",
+      "manifestSHA256": "c0d6657356eb0210db3cbc547906010e0390d765028c1a4680a09a501dcef535",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T083305.519965Z-651c3los/bundles/regional-source-absent-native/20261026T083312.510911000Z/zai-responses/20261026T083502.323374000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live -timeout 1800s ./ai/live",
+      "gitCommit": "18ecfc651fd37acfdb70fc95c61941f76cfcaba7",
+      "nativeCases": 18,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    },
+    {
+      "manifest": ".evidence/barness-ai-grok/e2e/20261026T084711.661876Z-hnsepeqb/bundles/20261026T084715.611149000Z/manifest.json",
+      "manifestSHA256": "cb08afb5606962e597fa34319fc00f5b6726adbc45decc01a2d0bbb2d6e66c69",
+      "audit": ".evidence/barness-ai-grok/e2e/20261026T084711.661876Z-hnsepeqb/bundles/20261026T084715.611149000Z/audit.json",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "./ai/e2e",
+      "gitCommit": "9ea3b9d3d72c37c538971c7fafa40ade5c883fa7",
+      "nativeCases": 1,
+      "scope": "controlled/synthetic capture; nested expected failures do not assert formal qualification"
+    }
+  ],
+  "documentationHandoffFiles": [
+    "docs/barness-ai/README.md",
+    "docs/barness-ai/legacy-history-qualification.md",
+    ".scratch/barness-ai-grok/issues/14-legacy-xai-history-proof.md",
+    ".scratch/barness-ai-grok/evidence/legacy-history-software-v1.md",
+    ".scratch/barness-ai-grok/evidence/legacy-history-software-v1.json"
+  ]
+}

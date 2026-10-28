@@ -95,7 +95,9 @@ type Attempt struct {
 	// message's Usage.
 	UsageReporting UsageReporting `json:"usageReporting"`
 	Usage          Usage          `json:"usage"`
-	CostEstimate   CostEstimate   `json:"costEstimate,omitzero"`
+	// CostEstimate is independent of UsageReporting. Kimi and xAI populate
+	// it; providers without this estimate contract keep it omitted.
+	CostEstimate CostEstimate `json:"costEstimate,omitzero"`
 }
 
 // Texts for a call interrupted while its initial request is in flight or
@@ -122,7 +124,7 @@ type initialRequest struct {
 	policy    RetryPolicy
 	clock     *clock.Clock // nil is the system clock
 	requestID string
-	// provider identifies Kimi attempts before any usage arrives.
+	// provider identifies estimates that start unreported before usage arrives.
 	provider ProviderID
 	// admit obtains the permit an attempt runs under.
 	admit    func(ctx context.Context, attemptID string) (release func(), failure *Error)
@@ -253,7 +255,7 @@ func (r *initialRequest) usageEstimate(reporting UsageReporting, u Usage, estima
 }
 
 func unreportedCostEstimate(provider ProviderID) CostEstimate {
-	if isKimi(provider) {
+	if isKimi(provider) || provider == ProviderXAI {
 		return CostEstimate{Status: CostUnreported}
 	}
 	return CostEstimate{}
