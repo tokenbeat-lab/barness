@@ -1,3 +1,5 @@
+> 当前资格适用性采用 [ADR-0055](../adr/0055-route-scoped-evidence-applicability.md)。固定轮次控制器已退役；下文原执行事实及旧版本接口仅供历史追溯，当前入口见测试 SOP。
+
 # 旧目标的 xAI 来源历史验证
 
 这份合同只准备验证软件，不授予厂商调用权限。当前正式范围为 Grok 加16条已发布旧路线，共17条；六条 Kimi 保留候选及受控兼容验证，不晋升。新增场景名为 `xai-origin-history`：同一 assistant turn 中的两个长公共前缀 opaque pair，以及后续 turn 对第一个完整 pair 的复用，分别关联三个固定可见结果标记。输入由公共 Host 消息和 `TrustNativeState` 构造，全部标为合成数据，不复制实际 xAI 密文或资源 ID，也不需要 Grok 请求。
@@ -37,7 +39,7 @@ MiniMax 公共资格器按证据所用的授权合同分派：含 `processGrantS
 
 ## 冻结 build 与只读模板
 
-`processgrant -source ROUTE -stage formal` 在构建前输出当前 `sourceSha256`、机器 scope 和完整 `buildFlag`。它不需要 binary、credential 或网络，也不领取授权。六条 Kimi 继续用独立 `regionalverify` 候选模板；正式模板对未晋升型号的拒绝保持有效。
+`processgrant -source ROUTE -stage formal` 在构建前输出当前 `sourceSha256`、机器 scope 和完整 `buildFlag`。它不需要 binary、credential 或网络，也不领取授权。六条 Kimi 使用 `processgrant -template <route> -stage candidate` 的自身候选模板；正式模板对未晋升型号的拒绝保持有效。
 
 三个源码哈希公式分别是：
 

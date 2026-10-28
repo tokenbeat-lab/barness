@@ -18,12 +18,14 @@ func verifyRegionalTotals(root *os.Root, r Report) error {
 		}
 		return regionalDecode(raw, v)
 	}
-	cat, err := RegionalCandidateCatalog(r.Combo)
-	if r.Regional.Stage == "formal" {
-		cat, err = RegionalFormalCatalog(r.Combo)
+	var cat ai.Catalog
+	rawCatalog, err := regionalRead(root, "regional-catalog.json")
+	if err != nil || regionalDecode(rawCatalog, &cat) != nil {
+		return refuse("original catalog snapshot unavailable")
 	}
-	if err != nil {
-		return err
+	hash, hashErr := cat.Hash()
+	if hashErr != nil || hash != r.CatalogHash || cat.Version != r.CatalogVersion {
+		return refuse("original catalog snapshot differs")
 	}
 	var captured ai.Catalog
 	var facts any

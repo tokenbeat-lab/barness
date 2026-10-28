@@ -14,6 +14,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 )
 
@@ -135,7 +136,7 @@ func verifyGLMBundle(dir string, r Report, detail glmDetail) error {
 		return glmBad("execution source snapshot missing")
 	}
 	current, e := GLMExecutionSource()
-	if e != nil || !reflect.DeepEqual(recorded, current) {
+	if e != nil || evidence.VerifyRouteSource(recorded, current, r.Provider, r.API) != nil {
 		return glmBad("execution source drift")
 	}
 	for scenarioIndex, sc := range r.Scenarios {

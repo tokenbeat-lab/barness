@@ -24,6 +24,8 @@ import (
 
 var regionalTool = ai.Tool{Name: "inspect_regional", Description: "Return the synthetic regional probe value for label alpha.", Parameters: json.RawMessage(`{"type":"object","properties":{"label":{"type":"string","enum":["alpha"]}},"required":["label"],"additionalProperties":false}`)}
 
+func TestKimiHistorySupplement(t *testing.T) { driveRegional(t) }
+
 func TestRegionalCandidate(t *testing.T) { driveRegional(t) }
 func TestRegionalFormal(t *testing.T)    { driveRegional(t) }
 
@@ -88,7 +90,7 @@ func driveRegional(t *testing.T) {
 	if err != nil {
 		t.Fatal("regional public Client assembly failed")
 	}
-	deadline := p.report.StartedAt.Add(1780 * time.Second)
+	deadline := p.report.StartedAt.Add(time.Duration(p.report.Budget.ProcessSeconds-20) * time.Second)
 	if supportmatrix.RegionalIsKimi(p.report.Combo) && p.grant.ExpiresAt.Before(deadline) {
 		deadline = p.grant.ExpiresAt
 	}

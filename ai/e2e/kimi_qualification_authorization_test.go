@@ -14,6 +14,7 @@ import (
 )
 
 func TestKimiQualificationAuthorization(t *testing.T) {
+	privateGrantStore(t)
 	binary, digest := kimiQualificationBinary(t)
 	for _, mode := range []string{"missing-usd", "negative-usd", "tiny-usd", "binary", "source", "provider", "expiry", "mixed-route", "wrong-entry", "controlled-with-live", "old-nine-call"} {
 		t.Run(mode, func(t *testing.T) {

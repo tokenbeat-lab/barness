@@ -189,7 +189,7 @@ func TestMiniMaxEvidenceContract(t *testing.T) {
 			_, err := minimaxlive.Verify(dir, name == "formal-controlled")
 			cs.Check("tampered or ineligible report refused", err != nil, "accepted %s", name)
 			if strings.HasSuffix(name, "mode-spoof") {
-				cs.Check("actual-only external origin required", err != nil && strings.Contains(err.Error(), "origin"), "%v", err)
+				cs.Check("actual-only external origin required", err != nil && strings.Contains(err.Error(), "fresh process approval missing"), "%v", err)
 			}
 		})
 	}

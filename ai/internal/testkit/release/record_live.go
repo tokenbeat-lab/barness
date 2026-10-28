@@ -1,22 +1,34 @@
 package release
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
+	"os"
 	"path/filepath"
 	"slices"
 	"strings"
 
-	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
-// qualifiedLive reads the same native contracts as the published support
+// QualifyNativeLive reads the same native contracts as the published support
 // consumer, without updating the support matrix or starting any process.
-func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
+func QualifyNativeLive(root, dir string, supplement ...string) (supportmatrix.Report, error) {
 	report, err := supportmatrix.LoadReport(filepath.Join(dir, supportmatrix.ReportFile))
+	projectedMiniMax := err != nil
+	original := report
+	native := true
 	if err != nil {
-		return report, fmt.Errorf("native live report missing")
+		if _, e := os.Stat(filepath.Join(dir, minimaxlive.ReportFile)); e != nil {
+			return report, fmt.Errorf("native live report missing")
+		}
+		report, err = supportmatrix.NewMiniMaxReport(dir)
+		if err != nil {
+			return report, err
+		}
 	}
 	route := report.Combo
 	switch {
@@ -25,32 +37,42 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	case isRegionalLiveRoute(route):
 		report, err = supportmatrix.NewRegionalReport(dir)
 	case strings.HasPrefix(route, "minimax-"):
-		report, err = supportmatrix.NewMiniMaxReport(dir)
+		if !projectedMiniMax {
+			report, err = supportmatrix.NewMiniMaxReport(dir)
+		}
 	case route == supportmatrix.JevFormalCombo:
 		report, err = supportmatrix.NewJevReport(dir)
 	case len(supportmatrix.GLMExpected(route)) > 0:
 		report, err = supportmatrix.NewGLMReport(dir)
+	default:
+		native = false
 	}
 	if err != nil {
 		return report, fmt.Errorf("native live qualification unavailable")
 	}
+	if native && !projectedMiniMax {
+		a, _ := json.Marshal(original)
+		b, _ := json.Marshal(report)
+		if !bytes.Equal(a, b) {
+			return report, fmt.Errorf("native evidence audit failed")
+		}
+	}
 	generic := len(supportmatrix.GenericExpected(route)) > 0
+	if len(supplement) > 1 || !generic && len(supplement) == 1 && supplement[0] != "" {
+		return report, fmt.Errorf("source supplement requires one generic route")
+	}
 	if generic {
 		if err := supportmatrix.VerifyGenericReport(report); err != nil {
 			return report, err
 		}
 	}
-	if err := verifyLiveManifest(dir, report); err != nil {
-		return report, err
-	}
-	audited := AuditBundle(dir, audit.Environment())
+	audited := auditBundle(dir, audit.Environment(), !native, supplement...)
 	if audited.Err != "" || len(audited.Findings) > 0 {
-		return report, fmt.Errorf("native live audit failed")
+		return report, fmt.Errorf("native evidence audit failed")
 	}
 	// A fresh row retains every operation-specific native check and avoids
 	// coupling acceptance to mutable historical support timestamps.
-	_, err = supportmatrix.Merge(supportmatrix.Matrix{Schema: supportmatrix.SchemaVersion,
-		Rows: []supportmatrix.Row{{Combo: report.Combo, Operation: report.Operation, Provider: report.Provider, API: report.API}}}, report)
+	err = supportmatrix.VerifyReportShape(report)
 	if err != nil {
 		return report, fmt.Errorf("native live qualification rejected: %w", err)
 	}
@@ -63,10 +85,8 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 			return report, fmt.Errorf("incomplete native capability set")
 		}
 	}
-	catalog := ai.BuiltinCatalog()
-	hash, err := catalog.Hash()
-	if err != nil || report.CatalogVersion != catalog.Version || report.CatalogHash != hash {
-		return report, fmt.Errorf("live catalog drift")
+	if _, err := supportmatrix.RouteCatalog(dir, report); err != nil {
+		return report, err
 	}
 	modules, err := GoModules(root)
 	if err != nil || staleSDK(report.SDK, modules) != "" {
@@ -85,12 +105,38 @@ func qualifiedLive(root, dir string) (supportmatrix.Report, error) {
 	return report, nil
 }
 
-func verifySelectedLive(root, dir, route string, stage StageRecord, source ExecutionSource) error {
-	report, err := qualifiedLive(root, dir)
+func verifySelectedLive(root, dir, route string, stage StageRecord, source, measured ExecutionSource) error {
+	supplement := ""
+	if len(stage.Consumers) == 1 {
+		_, args, err := readLiveConsumer(root, stage.Consumers[0])
+		if err != nil {
+			return err
+		}
+		composition, compositionErr := recordPath(root, args.bundle)
+		if compositionErr == nil && supportmatrix.IsMiniMaxThinkingComposition(composition) {
+			if args.supplement != "" {
+				return fmt.Errorf("MiniMax composition source override forbidden")
+			}
+			return verifySelectedMiniMaxThinking(root, dir, composition, route, stage, source, measured)
+		}
+		if compositionErr == nil && supportmatrix.IsKimiComposition(composition) {
+			if args.supplement != "" {
+				return fmt.Errorf("Kimi composition source override forbidden")
+			}
+			return verifySelectedKimiComposition(root, dir, composition, route, stage, source, measured)
+		}
+		if args.supplement != "" {
+			supplement, err = recordPath(root, args.supplement)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	report, err := QualifyNativeLive(root, dir, supplement)
 	if err != nil {
 		return err
 	}
-	if report.Combo != route || report.GitCommit != source.Commit || len(stage.Consumers) != 1 {
+	if report.Combo != route || report.GitCommit != measured.Commit || len(stage.Consumers) != 1 {
 		return fmt.Errorf("live qualification stale or consumer receipt missing")
 	}
 	seen := map[string]bool{}
@@ -100,7 +146,7 @@ func verifySelectedLive(root, dir, route string, stage StageRecord, source Execu
 		}
 		seen[id] = true
 	}
-	return verifyLiveConsumer(root, dir, stage.Consumers[0], source, report)
+	return verifyLiveConsumer(root, dir, stage.Consumers[0], source, liveReportHash(report))
 }
 
 func isRegionalLiveRoute(route string) bool { _, ok := supportmatrix.RegionalRouteOf(route); return ok }

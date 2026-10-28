@@ -231,7 +231,7 @@ func TestGLMFormalReports(t *testing.T) {
 	}
 }
 
-// Shared implementation/cache changes invalidate old own live execution bytes.
+// Relevant product changes invalidate old own live execution applicability.
 // Exact classification distinguishes source staleness from missing archives,
 // a malformed report, or any unrelated consumer failure.
 func glmExecutionSourceDrift(err error) bool {
@@ -244,12 +244,14 @@ func glmImporterSourceDrift(err error) bool {
 	return errors.Is(err, supportmatrix.ErrInvalidReport) && err.Error() == "supportmatrix: invalid report: GLM consumer/importer source drift"
 }
 
-// A catalog addition can refuse an immutable old report before the source gate.
-// Only that exact identity refusal, with a proven changed full catalog, is accepted.
+// An old archive without its original catalog cannot prove model applicability.
+// Keep that missing-origin refusal separate from unrelated catalog additions.
 func glmCurrentScopeRefusal(err error, capturedHash string) bool {
 	if glmExecutionSourceDrift(err) {
 		return true
 	}
 	hash, _ := ai.BuiltinCatalog().Hash()
-	return capturedHash != hash && errors.Is(err, supportmatrix.ErrInvalidReport) && err.Error() == "supportmatrix: invalid report: GLM formal identity, source, mode, catalog or execution provenance invalid"
+	// This immutable old archive lacks its original complete catalog snapshot.
+	// Unrelated current catalog changes alone are no longer a refusal reason.
+	return capturedHash != hash && err != nil && err.Error() == "original catalog snapshot unavailable or changed"
 }

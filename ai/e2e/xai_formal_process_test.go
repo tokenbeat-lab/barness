@@ -38,6 +38,7 @@ func TestXAIProposedBuiltinCatalog(t *testing.T) {
 }
 
 func TestXAIFormalHarnessProcess(t *testing.T) {
+	privateGrantStore(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
 	defer cancel()
 	cs := run.Case(t, "E17-xai-formal-process-build")

@@ -13,7 +13,7 @@ import (
 func TestGLMFinalBudgetSourceProcess(t *testing.T) {
 	cs := run.Case(t, "REGIONAL-final-round-glm-source-closure")
 	binary := filepath.Join(t.TempDir(), "glmformal")
-	build := exec.Command("go", "build", "-o", binary, "./cmd/glmformal")
+	build := exec.Command("go", "build", "-o", binary, "./cmd/processgrant")
 	output, err := build.CombinedOutput()
 	cs.Record("build", map[string]any{"argv": build.Args, "success": err == nil, "output": string(output)})
 	if !cs.Check("keyless public source exporter builds", err == nil, "%v %s", err, output) {
@@ -26,7 +26,7 @@ func TestGLMFinalBudgetSourceProcess(t *testing.T) {
 	os.WriteFile(filepath.Join(root, "go.sum"), nil, 0600)
 	os.WriteFile(filepath.Join(directory, "guard.go"), []byte("package finalbudget\n// controlled original\n"), 0600)
 	read := func(label string) map[string]string {
-		cmd := exec.Command(binary, "-source")
+		cmd := exec.Command(binary, "-source", "glm")
 		cmd.Dir = root
 		for _, key := range []string{"PATH", "HOME", "TMPDIR"} {
 			if value := os.Getenv(key); value != "" {

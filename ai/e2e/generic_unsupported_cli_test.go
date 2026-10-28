@@ -69,6 +69,8 @@ func TestGenericDeclaredUnsupportedCLI(t *testing.T) {
 				resealXAINativeManifest(t, dir)
 			}
 			genericUnsupportedNativeRecord(t, dir, record)
+			audited := release.AuditBundle(dir, nil)
+			ev.Record("synthetic-audit", map[string]any{"error": audited.Err, "findings": audited.Findings, "vendorCalls": 0})
 			out := filepath.Join(filepath.Dir(record), "public-consumer")
 			cmd := exec.CommandContext(ctxFor(t), binary, "-record", record, "-out", out)
 			cmd.Dir, cmd.Env = root, xaiProcessEnv(t)

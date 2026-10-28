@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/livegrant"
 	"io"
 	"os"
 	"path/filepath"
@@ -24,8 +25,6 @@ type Budget struct {
 }
 type Receipt struct {
 	ProcessGrantSHA256 string    `json:"processGrantSha256,omitempty"`
-	RenewalID          string    `json:"renewalId,omitempty"`
-	RenewalGrantSHA256 string    `json:"renewalGrantSha256,omitempty"`
 	Session            string    `json:"session"`
 	Sequence           int       `json:"sequence"`
 	Stage              string    `json:"stage"`
@@ -39,6 +38,7 @@ type Receipt struct {
 	Hash               string    `json:"hash"`
 }
 type Ledger struct {
+	Scope              *livegrant.Scope
 	ProcessGrantSHA256 string
 
 	Path, Stage, Session string
@@ -62,13 +62,6 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if e != nil || selected != l.Identity || l.Stage == "formal" && selected.Model != M3 {
 		return Receipt{}, fmt.Errorf("invalid stage identity")
 	}
-	renewal, grantPin := "", ""
-	if l.ProcessGrantSHA256 == "" {
-		renewal, grantPin, e = l.renewalAuthority(caseID)
-	}
-	if e != nil {
-		return Receipt{}, e
-	}
 	if caseID == "" {
 		return Receipt{}, fmt.Errorf("empty case")
 	}
@@ -81,11 +74,6 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if e = os.Mkdir(lock, 0700); e != nil {
 		return Receipt{}, fmt.Errorf("MiniMax stage ledger locked")
 	}
-	if renewal != "" {
-		if e = syncLedgerDirectory(filepath.Dir(l.Path)); e != nil {
-			return Receipt{}, e
-		}
-	}
 	defer os.Remove(lock)
 	var receipts []Receipt
 	if _, e = os.Lstat(l.Path); e == nil {
@@ -96,56 +84,43 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	if e != nil {
 		return Receipt{}, e
 	}
-	stage, own := Budget{}, Budget{}
-	seen := map[string]bool{}
+	own := Budget{}
 	perCase := map[string]int{}
 	reserved := 0
 	attempted := 0
 	for _, r := range receipts {
-		if r.ProcessGrantSHA256 != l.ProcessGrantSHA256 || r.Stage != l.Stage || r.RenewalID != renewal || r.RenewalGrantSHA256 != grantPin {
-			return Receipt{}, fmt.Errorf("mixed stage ledger")
+		if r.ProcessGrantSHA256 != l.ProcessGrantSHA256 || r.Stage != l.Stage || r.Identity != l.Identity || r.Session != l.Session {
+			return Receipt{}, fmt.Errorf("mixed process ledger")
 		}
-		seen[r.Identity.BudgetSlot()] = true
-		addBudget(&stage, r)
-		if r.Identity.BudgetSlot() == l.Identity.BudgetSlot() {
-			addBudget(&own, r)
-			if r.Identity == l.Identity && r.Case == caseID {
-				if r.Kind == "reserve" {
-					perCase[caseID]++
-					reserved++
-				} else {
-					attempted++
-				}
+		addBudget(&own, r)
+		if r.Case == caseID {
+			if r.Kind == "reserve" {
+				perCase[caseID]++
+				reserved++
+			} else {
+				attempted++
 			}
 		}
 	}
-	maxCalls, maxAttempts, maxIDs := 120, 144, 6
-	if l.Stage == "formal" {
-		maxCalls, maxAttempts, maxIDs = 60, 72, 3
-	}
-	seen[l.Identity.BudgetSlot()] = true
-	if len(seen) > maxIDs {
-		return Receipt{}, fmt.Errorf("stage identity budget exhausted")
-	}
-	r := Receipt{ProcessGrantSHA256: l.ProcessGrantSHA256, RenewalID: renewal, RenewalGrantSHA256: grantPin, Session: l.Session, Sequence: len(receipts) + 1, Stage: l.Stage, Identity: l.Identity, Case: caseID, Kind: kind, Output: output, Input: input, At: time.Now().UTC()}
+	r := Receipt{ProcessGrantSHA256: l.ProcessGrantSHA256, Session: l.Session, Sequence: len(receipts) + 1, Stage: l.Stage, Identity: l.Identity, Case: caseID, Kind: kind, Output: output, Input: input, At: time.Now().UTC()}
 	if len(receipts) > 0 {
 		r.Previous = receipts[len(receipts)-1].Hash
 	}
-	addBudget(&stage, r)
 	addBudget(&own, r)
-	if stage.Calls > maxCalls || stage.Attempts > maxAttempts || stage.ReservedAttempts > maxAttempts || own.Calls > 20 || own.Attempts > 24 || own.Attempts > own.ReservedAttempts || own.ReservedAttempts > 24 || own.RequestedOutput > 40000 || own.ReservedInput > 120000 {
-		return Receipt{}, fmt.Errorf("MiniMax cumulative stage/identity budget exhausted")
+	if l.Scope != nil {
+		s := l.Scope
+		if own.Calls > s.MaxCalls || own.ReservedAttempts > s.MaxCalls || own.Attempts > s.MaxAttempts || own.RequestedOutput > s.MaxRequestedOutputTokens || own.ReservedInput > s.MaxReservedInputTokens || kind == "reserve" && output > s.MaxOutputTokens {
+			return Receipt{}, fmt.Errorf("MiniMax approved process budget exhausted")
+		}
+	}
+	if own.Calls > 20 || own.Attempts > 24 || own.Attempts > own.ReservedAttempts || own.ReservedAttempts > 24 || own.RequestedOutput > 40000 || own.ReservedInput > 120000 {
+		return Receipt{}, fmt.Errorf("MiniMax process budget exhausted")
 	}
 	if kind == "reserve" && (perCase[caseID] > 0 && (!RerunnableCase(caseID) || perCase[caseID] > 1)) {
 		return Receipt{}, fmt.Errorf("unregistered repeated scenario")
 	}
 	if kind == "attempt" && attempted >= reserved {
 		return Receipt{}, fmt.Errorf("unreserved actual attempt")
-	}
-	if renewal != "" {
-		if e = l.claimRenewal(renewal, grantPin, receipts); e != nil {
-			return Receipt{}, e
-		}
 	}
 	r.Hash = receiptHash(r)
 	f, e := os.OpenFile(l.Path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600)
@@ -161,9 +136,6 @@ func (l Ledger) append(caseID, kind string, output, input int) (Receipt, error) 
 	closeErr := f.Close()
 	if e == nil {
 		e = closeErr
-	}
-	if e == nil && renewal != "" {
-		e = syncLedgerDirectory(filepath.Dir(l.Path))
 	}
 	return r, e
 }
@@ -192,7 +164,7 @@ func ReadLedger(path string) ([]Receipt, error) {
 		if e = StrictJSON([]byte(line), &r); e != nil || r.Sequence != len(out)+1 || r.Previous != previous || r.Hash != receiptHash(r) || (r.Kind != "reserve" && r.Kind != "attempt") {
 			return nil, fmt.Errorf("invalid MiniMax ledger receipt chain")
 		}
-		if !accountingIdentity(r) {
+		if selected, err := Select(r.Identity.Route, r.Identity.Model, r.Identity.Purpose); err != nil || selected != r.Identity {
 			return nil, fmt.Errorf("invalid ledger identity")
 		}
 		previous = r.Hash

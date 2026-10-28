@@ -9,7 +9,6 @@ import (
 	"slices"
 	"time"
 
-	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
@@ -151,6 +150,9 @@ func NewXAIReport(dir string) (Report, error) {
 		return zero, refuse("xAI captured totals disagree with native budget")
 	}
 	want := xaiProjection(detail, totals)
+	if _, err := RouteCatalog(dir, want); err != nil {
+		return zero, err
+	}
 	want.evidenceDir = dir
 	if !reflect.DeepEqual(common, want) {
 		return zero, refuse("xAI generic projection differs from own original proof")
@@ -173,12 +175,6 @@ func xaiFacts(r xaiEvidence) error {
 	sdk, err := minimaxlive.SDKVersion(minimaxlive.Identity{Route: "chat"})
 	if err != nil || sdk != r.SDK {
 		return refuse("xAI SDK differs from selected dependency")
-	}
-	cat := ai.BuiltinCatalog()
-	hash, err := cat.Hash()
-	model, ok := cat.Lookup(ai.ProviderXAI, ai.APIOpenAIResponses, xaiModel)
-	if err != nil || !ok || model.ID != xaiModel || r.CatalogVersion != cat.Version || r.CatalogHash != hash {
-		return refuse("xAI full formal catalog differs")
 	}
 	b := r.Budget
 	if b.MaxCalls != 24 || b.MaxAttempts != 24 || b.MaxRequestedOutputTokens != 24576 || b.MaxReservedInputTokens != 196608 || b.CallsUsed != 24 || b.HTTPAttempts != 24 || b.VendorHTTPAttempts != 24 || b.RequestedOutputTokens != 24576 || b.ReservedInputTokens != 196608 || b.ReportedTokens < 0 || !xaiFinite(b.ObservedMaximumUSD) || b.ProcessSeconds != 1800 || b.CallSeconds != 65 || b.FinalizationReserveSeconds != 30 {

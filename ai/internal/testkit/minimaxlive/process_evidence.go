@@ -9,8 +9,8 @@ import (
 )
 
 func verifyProcessAuthorization(dir string, r Report) error {
-	if r.FormalRenewalID != "" || r.FormalRenewalGrantSHA256 != "" || r.ProcessGrantSHA256 == "" {
-		return fmt.Errorf("fresh M3 process cannot use historical renewal authority")
+	if r.ProcessGrantSHA256 == "" {
+		return fmt.Errorf("fresh process approval missing")
 	}
 	g, raw, claim, e := livegrant.ReadEvidence(dir)
 	if e != nil {
@@ -20,9 +20,17 @@ func verifyProcessAuthorization(dir string, r Report) error {
 		return fmt.Errorf("fresh M3 approval attribution differs")
 	}
 	want, e := ProcessScope(r.Identity, r.Mode, r.Stage, g.Scope.BinarySHA256)
+	if r.Kind == ThinkingKind {
+		want, e = ThinkingOnScope(r.Identity, r.Mode, g.Scope.BinarySHA256, g.Scope.BaselineManifestSHA256)
+	}
 	if e != nil {
 		return e
 	}
+	original, _ := json.Marshal(r.ExecutionSource)
+	if Hash(original) != g.Scope.SourceSHA256 {
+		return fmt.Errorf("original process source differs")
+	}
+	want.SourceSHA256, want.CatalogHash, want.CatalogVersion = g.Scope.SourceSHA256, r.CatalogHash, r.CatalogVersion
 	if e = livegrant.VerifyEvidence(g, raw, claim, want, r.AccountAlias, r.RegionAlias, r.StartedAt, r.FinishedAt); e != nil {
 		return e
 	}

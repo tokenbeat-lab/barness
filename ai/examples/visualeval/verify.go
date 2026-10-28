@@ -16,6 +16,7 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 func verify(dir string, requireLive bool) error {
@@ -94,9 +95,11 @@ func verify(dir string, requireLive bool) error {
 			return err
 		}
 		var catalog ai.Catalog
-		if get("formal-catalog.json", &catalog) != nil || !same(catalog, p.catalog) {
+		if get("formal-catalog.json", &catalog) != nil || evidence.VerifyRouteCatalog(catalog, p.catalog, ai.OperationClassifier, p.model.Provider, p.model.API, []string{p.model.ID}) != nil {
 			return errors.New("formal catalog snapshot drift")
 		}
+		p.catalog = catalog
+		p.model, _ = catalog.LookupClassifier(p.model.Provider, p.model.API, p.model.ID)
 	}
 	for name, hash := range p.pins {
 		raw, e := read("inputs/" + name)
@@ -173,16 +176,31 @@ func verify(dir string, requireLive bool) error {
 	if get("source-hashes.json", &hashes) != nil || digest(encoded(hashes)) != r.CodeHash {
 		return errors.New("invalid source receipt")
 	}
+	if hashes["ai/examples/visualeval/verify.go"] == "" || hashes["go.mod"] == "" || hashes["go.sum"] == "" {
+		return errors.New("incomplete original source receipt")
+	}
 	current, err := sourceFiles()
-	if err != nil || len(current) != len(hashes) {
-		return errors.New("source set drift")
+	if err != nil {
+		return err
 	}
 	for name, hash := range hashes {
-		raw, e := read("source/" + name)
-		currentRaw, exists := current[name]
-		if e != nil || !exists || digest(raw) != hash || digest(currentRaw) != hash {
-			return errors.New("source snapshot drift; verify with recorded revision")
+		if name != "go.mod" && name != "go.sum" && (!strings.HasPrefix(name, "ai/") || !strings.HasSuffix(name, ".go") || strings.HasSuffix(name, "_test.go") || !fs.ValidPath(name)) {
+			return errors.New("invalid original source path")
 		}
+		raw, e := read("source/" + name)
+		if e != nil || digest(raw) != hash {
+			return errors.New("original source snapshot drift")
+		}
+	}
+	currentHashes := map[string]string{}
+	for name, raw := range current {
+		currentHashes[name] = digest(raw)
+	}
+	// Preserve the complete original snapshot. Current applicability concerns
+	// this route's product and the actual evaluation generator/scorer. verify.go
+	// is a read-only consumer; editing it cannot stand in for new measurements.
+	if err := evidence.VerifyVisualSource(hashes, currentHashes, string(p.model.Provider), string(p.model.API)); err != nil {
+		return err
 	}
 	if len(r.Samples) != 12 {
 		return errors.New("incomplete sample inventory")

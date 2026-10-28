@@ -26,6 +26,9 @@ func initializeFreshMiniMax() error {
 	if e != nil {
 		return e
 	}
+	if e = selectMiniMaxProcess(a); e != nil {
+		return e
+	}
 	if e = a.consume(); e != nil {
 		return e
 	}
@@ -34,7 +37,7 @@ func initializeFreshMiniMax() error {
 		return e
 	}
 	r.ProcessGrantSHA256 = livegrant.Hash(a.raw)
-	minimaxLedger = minimaxlive.Ledger{Path: path, Stage: r.Stage, Session: r.Session, Identity: r.Identity, ProcessGrantSHA256: r.ProcessGrantSHA256}
+	minimaxLedger = minimaxlive.Ledger{Path: path, Stage: r.Stage, Session: r.Session, Identity: r.Identity, ProcessGrantSHA256: r.ProcessGrantSHA256, Scope: &a.grant.Scope}
 	if a.grant.ExpiresAt.Before(r.Deadline) {
 		r.Deadline = a.grant.ExpiresAt
 	}

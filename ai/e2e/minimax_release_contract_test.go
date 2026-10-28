@@ -32,8 +32,12 @@ func miniMaxReleaseLoadConsumer(t *testing.T, actual bool) {
 	if actual {
 		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 		defer cancel()
-		command := exec.CommandContext(ctx, "go", "test", "-count=1", "-timeout=90s", "./ai/e2e", "-run", "^TestMiniMaxSharedDesignLoad$")
-		command.Dir = "../.."
+		binary, err := os.Executable()
+		if err != nil {
+			t.Fatal(err)
+		}
+		command := exec.CommandContext(ctx, binary, "-test.count=1", "-test.timeout=90s", "-test.run=^TestMiniMaxSharedDesignLoad$")
+		command.Dir = "."
 		for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {
 			if value, ok := os.LookupEnv(key); ok {
 				command.Env = append(command.Env, key+"="+value)

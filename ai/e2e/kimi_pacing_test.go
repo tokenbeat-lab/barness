@@ -14,6 +14,12 @@ import (
 )
 
 func TestKimiQualificationPacing(t *testing.T) {
+	privateGrantStore(t)
+	probe := exec.CommandContext(ctxFor(t), "git")
+	probe.Dir, probe.Env = "../..", regionalChildEnvironment()
+	if !privateGrantProcess(t, run.Case(t, "PD-isolation-kimi-pacing"), probe) {
+		return
+	}
 	binary, digest := kimiQualificationBinary(t)
 	consumer := kimiQualificationConsumer(t)
 	for _, sc := range []struct {
@@ -63,7 +69,7 @@ func TestKimiQualificationPacing(t *testing.T) {
 				previous = obs[3].Time
 				ev.Check("per-call network duration excludes pacing", row.DurationMS <= 120000 && row.Calls == 1 && row.Attempts == 1 && row.Retries == 0, "%+v", row)
 			}
-			verify := exec.CommandContext(ctxFor(t), consumer, "-controlled", dir)
+			verify := exec.CommandContext(ctxFor(t), consumer, "-inspect-bundle", dir, "-mode", "controlled", "-stage", "candidate")
 			verify.Dir, verify.Env = "../..", regionalChildEnvironment()
 			vr, ve := verify.CombinedOutput()
 			ev.Record("consumer", map[string]any{"argv": verify.Args, "error": errString(ve), "output": regionalSafeOutput(vr)})

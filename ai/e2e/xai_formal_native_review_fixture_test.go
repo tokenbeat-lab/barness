@@ -13,6 +13,7 @@ type xaiNativeReviewCase struct {
 }
 
 func runXAINativeReview(t *testing.T, group string, cases []xaiNativeReviewCase) {
+	privateGrantStore(t)
 	t.Helper()
 	fixture := newXAIFormalNativeFixture(t)
 	for _, sc := range cases {

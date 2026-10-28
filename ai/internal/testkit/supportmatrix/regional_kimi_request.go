@@ -2,12 +2,9 @@ package supportmatrix
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"reflect"
 	"strings"
-
-	"github.com/tokenbeat-lab/barness/ai"
 )
 
 func kimiRegionalBody(raw string) (map[string]any, error) {
@@ -73,37 +70,6 @@ func verifyKimiRegionalControls(r Report, s ScenarioResult, raw string) error {
 		return refuse("Kimi captured choice differs from declared text scenario")
 	}
 	return nil
-}
-
-// Feed the actual captured native payload through the public Client's final
-// guards. Compare its controls/tools with the request generated from saved
-// options first; replay may use a synthetic prompt but may not invent proof
-// of the controls the actual process sent.
-func kimiRegionalReplayHook(captured string) ai.Hooks {
-	return ai.Hooks{OnPayload: func(_ context.Context, _ ai.CallScope, p *ai.Payload) (ai.PayloadDecision, error) {
-		body, err := kimiRegionalBody(captured)
-		if err != nil {
-			return ai.KeepPayload(), err
-		}
-		fields := []string{"model", "stream", "max_completion_tokens", "max_output_tokens", "max_tokens", "reasoning_effort", "reasoning", "output_config", "tool_choice", "tools", "prompt_cache_key", "prompt_cache_options", "cache_control", "temperature", "top_p", "n", "presence_penalty", "frequency_penalty"}
-		for _, field := range fields {
-			a, hasA := p.Body[field]
-			b, hasB := body[field]
-			// Omitted and auto are the same integrated Responses tool choice.
-			if field == "tool_choice" && p.API == ai.APIOpenAIResponses {
-				if a == "auto" {
-					hasA = false
-				}
-				if b == "auto" {
-					hasB = false
-				}
-			}
-			if hasA != hasB || hasA && !reflect.DeepEqual(a, b) {
-				return ai.KeepPayload(), refuse("Kimi captured request contradicts saved options or tools")
-			}
-		}
-		return ai.ReplacePayload(body), nil
-	}}
 }
 
 func kimiRegionalSameWire(a []byte, b string) bool {

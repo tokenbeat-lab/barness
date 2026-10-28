@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/grokhistory"
 )
 
@@ -106,7 +107,13 @@ func glmCaptureReport(dir, mode string) (Report, error) {
 	case "messages":
 		endpoint, api = "https://open.bigmodel.cn/api/anthropic", "anthropic-messages"
 	}
-	cat := ai.BuiltinCatalog()
+	cat, err := evidence.MeasuredCatalog(dir, d.CatalogVersion, d.CatalogHash, ai.BuiltinCatalog())
+	if err != nil {
+		return Report{}, err
+	}
+	if err := evidence.VerifyRouteCatalog(cat, ai.BuiltinCatalog(), ai.OperationChat, ai.ProviderZhipu, ai.API(api), []string{"glm-5.3", "glm-5.2"}); err != nil {
+		return Report{}, err
+	}
 	hash, _ := cat.Hash()
 	if d.Schema != 1 || d.Kind != "glm-formal" || d.Mode != mode || !d.AuditPassed || d.SourceManifestHash != GLMSourcePin || len(expected) == 0 || d.API != api || d.Endpoint != endpoint || d.CatalogVersion != cat.Version || d.CatalogHash != hash || d.GitCommit == "" || d.SDK == "" || d.AccountAlias == "" || d.StartedAt.IsZero() || d.FinishedAt.Before(d.StartedAt) || d.FinishedAt.Sub(d.StartedAt) > 1800*time.Second {
 		return Report{}, refuse("GLM formal identity, source, mode, catalog or execution provenance invalid")

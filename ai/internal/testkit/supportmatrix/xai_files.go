@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/audit"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
@@ -115,7 +116,7 @@ func verifyXAIOrigin(root *os.Root, dir string, r xaiEvidence, inventory map[str
 	}
 	var source map[string]string
 	current, err := xaiSourceFiles()
-	if xaiReadJSON(root, "xai-execution-source.json", &source) != nil || err != nil || !reflect.DeepEqual(source, current) || RegionalSourceHash(source) != r.SourceSHA256 {
+	if xaiReadJSON(root, "xai-execution-source.json", &source) != nil || err != nil || evidence.VerifyRouteSource(source, current, r.Provider, r.API) != nil || RegionalSourceHash(source) != r.SourceSHA256 {
 		return refuse("xAI native execution source drift")
 	}
 	var recordedAudit struct {
@@ -146,6 +147,9 @@ func verifyXAIOrigin(root *os.Root, dir string, r xaiEvidence, inventory map[str
 		return refuse("xAI observed estimate exceeds authorized threshold")
 	}
 	roots := []string{"manifest.json", "audit.json", XAIReportFile, ReportFile, "xai-execution-source.json", "xai-authorization-grant.json", "xai-authorization-claim.json", "xai-formal-report.unfinalized.json"}
+	if inventory["model-catalog.json"] != "" {
+		roots = append(roots, "model-catalog.json")
+	}
 	owned := map[string]bool{"E17-xai-process-gate": true}
 	for _, s := range r.Scenarios {
 		owned[s.CaseID] = true

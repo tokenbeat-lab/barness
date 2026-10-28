@@ -80,12 +80,12 @@ func grokHistoryRegionalRefusals(t *testing.T, original, combo string) {
 			}
 			if mutation == "v6-swapped-arguments" {
 				binary := filepath.Join(t.TempDir(), "regionalverify")
-				build := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./ai/live/cmd/regionalverify")
+				build := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./ai/release/cmd/releasegate")
 				build.Dir, build.Env = "../..", xaiProcessEnv(t)
 				if out, err := build.CombinedOutput(); err != nil {
 					t.Fatalf("build native CLI: %v %s", err, out)
 				}
-				cmd := exec.CommandContext(ctxFor(t), binary, "-controlled", dir)
+				cmd := exec.CommandContext(ctxFor(t), binary, "-inspect-bundle", dir, "-mode", "controlled", "-stage", "candidate")
 				cmd.Dir, cmd.Env = "../..", xaiProcessEnv(t)
 				out, err := cmd.CombinedOutput()
 				exit := -1

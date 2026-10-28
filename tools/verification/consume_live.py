@@ -15,6 +15,7 @@ def main():
     parser.add_argument('--binary', required=True)
     parser.add_argument('--bundle', required=True)
     parser.add_argument('--out', required=True)
+    parser.add_argument('--execution-source', help='retained original source map; never written into the native bundle')
     parser.add_argument('--timeout', type=float, default=120)
     args = parser.parse_args()
     if not 0 < args.timeout <= 300:
@@ -26,10 +27,17 @@ def main():
         if binary.name != 'releasegate' or not bundle.is_dir() or out == bundle or bundle in out.parents:
             raise ValueError('native input and new outside output required')
         executable_hash = sha(binary)
+        supplement = within(root, args.execution_source) if args.execution_source else None
+        if supplement and (not supplement.is_file() or supplement.stat().st_size > 1 << 20):
+            raise ValueError('bounded original source map required')
+        supplement_hash = sha(supplement) if supplement else None
+        supplement_name = supplement.relative_to(root).as_posix() if supplement else None
         source = source_snapshot(root)
         env, _ = environment('e2e')
         out.mkdir(mode=0o700)
         argv = [str(binary), '-live-bundle', args.bundle, '-out', str(out / 'native')]
+        if supplement:
+            argv.extend(['-execution-source', supplement_name])
         started = datetime.now(timezone.utc).isoformat()
         tic = time.monotonic()
         receipt = {'schema': 2, 'consumer': 'releasegate/native-live-v1', 'pass': False,
@@ -48,6 +56,9 @@ def main():
             qualification = json_file(native)
             if source_snapshot(root) != source or sha(binary) != executable_hash or qualification['source'] != source or qualification['bundle'] != args.bundle:
                 raise ValueError('native source or input changed')
+            if supplement and (sha(supplement) != supplement_hash or
+                    qualification['inputs'].get('@execution-source/' + supplement_name) != supplement_hash):
+                raise ValueError('original source input changed')
             receipt.update(inputs=qualification['inputs'], reportSHA256=qualification.get('reportSHA256', ''))
             receipt['pass'] = receipt['status'] == 'PASS' and qualification['pass'] is True
         except (OSError, ValueError, KeyError, TypeError):

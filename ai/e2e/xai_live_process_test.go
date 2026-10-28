@@ -24,7 +24,7 @@ import (
 func xaiProcessEnv(t *testing.T) []string {
 	t.Helper()
 	env := []string{"GOENV=off", "GOFLAGS=", "HOME=" + t.TempDir()}
-	for _, name := range []string{"PATH", "TMPDIR", "GOCACHE", "GOPATH", "GOROOT"} {
+	for _, name := range []string{"PATH", "TMPDIR", "GOCACHE", "GOPATH", "GOROOT", "GIT_DIR", "GIT_WORK_TREE"} {
 		if value, ok := os.LookupEnv(name); ok {
 			env = append(env, name+"="+value)
 		}
@@ -33,6 +33,7 @@ func xaiProcessEnv(t *testing.T) []string {
 }
 
 func TestXAILiveHarnessProcess(t *testing.T) {
+	privateGrantStore(t)
 	buildCase := run.Case(t, "E17-xai-process-build")
 	exitCode := func(err error) int {
 		if err == nil {

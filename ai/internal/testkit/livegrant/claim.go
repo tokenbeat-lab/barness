@@ -8,7 +8,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"syscall"
 	"time"
 )
 
@@ -49,64 +48,9 @@ func Claim(g Grant, raw []byte, session string, at time.Time) (Receipt, error) {
 	if e != nil {
 		return r, e
 	}
-	if e = os.MkdirAll(p, 0700); e != nil {
-		return r, e
-	}
-	root, e := os.OpenRoot(p)
-	if e != nil {
-		return r, e
-	}
-	defer root.Close()
-	lock, e := root.OpenFile("lock", os.O_WRONLY|os.O_CREATE|syscall.O_NOFOLLOW, 0600)
-	if e != nil {
-		return r, e
-	}
-	defer lock.Close()
-	if e = syscall.Flock(int(lock.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); e != nil {
-		return r, e
-	}
-	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
-	// Reserve both identities under the same lock before the first receipt
-	// write. Any later failure leaves both exclusive guards consumed.
-	var files []*os.File
-	for _, k := range []string{id, scope} {
-		f, e := root.OpenFile(k, os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW, 0600)
-		if e != nil {
-			return r, fmt.Errorf("fresh process approval already consumed or unavailable")
-		}
-		defer f.Close()
-		files = append(files, f)
-	}
 	data, _ := json.Marshal(r)
-	for _, f := range files {
-		n, e := f.Write(data)
-		if e == nil && n != len(data) {
-			e = fmt.Errorf("incomplete process claim")
-		}
-		if e == nil {
-			e = f.Sync()
-		}
-		ce := f.Close()
-		if e != nil {
-			return r, e
-		}
-		if ce != nil {
-			return r, ce
-		}
-	}
-	for _, dir := range []string{p, filepath.Dir(p)} {
-		f, e := os.Open(dir)
-		if e != nil {
-			return r, e
-		}
-		e = f.Sync()
-		ce := f.Close()
-		if e != nil {
-			return r, e
-		}
-		if ce != nil {
-			return r, ce
-		}
+	if err := Consume(p, []string{id, scope}, data); err != nil {
+		return r, fmt.Errorf("fresh process %w", err)
 	}
 	return r, nil
 }

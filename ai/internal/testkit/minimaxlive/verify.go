@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -28,6 +29,17 @@ func Load(dir string) (Report, error) {
 // VerifyCapture recomputes exact files, source set, finite plan and business capture
 // facts. formal=true additionally requires actual live + exact built-in M3.
 func VerifyCapture(dir string, formal bool) (Report, error) {
+	return verifySelectedCapture(dir, formal, "full")
+}
+
+// These two fixed contracts do not grant full qualification independently.
+func VerifyThinkingBaseline(dir string, formal bool) (Report, error) {
+	return verifySelectedCapture(dir, formal, "baseline")
+}
+func VerifyThinkingSupplement(dir string, formal bool) (Report, error) {
+	return verifySelectedCapture(dir, formal, "single")
+}
+func verifySelectedCapture(dir string, formal bool, selection string) (Report, error) {
 	r, e := Load(dir)
 	if e != nil {
 		return r, e
@@ -36,9 +48,6 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 		if e = verifyProcessAuthorization(dir, r); e != nil {
 			return r, e
 		}
-	}
-	if e = verifyRenewalReport(r); e != nil {
-		return r, e
 	}
 	raw, e := ReadFile(filepath.Join(dir, SealFile), 2<<20)
 	if e != nil {
@@ -55,7 +64,17 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if e = verifyArtifacts(dir, r, files); e != nil {
 		return r, e
 	}
-	if !r.Complete || !r.AuditPassed || r.Outcome != "PASS" || r.Schema != 1 {
+	validOutcome := r.Complete && r.Outcome == "PASS"
+	if selection == "baseline" {
+		validOutcome = !r.Complete && r.Outcome == "FAIL" && r.Kind != ThinkingKind
+	}
+	if selection == "single" {
+		validOutcome = !r.Complete && r.Outcome == "PASS" && r.Kind == ThinkingKind && r.Stage == "candidate"
+	}
+	if selection != "full" && (r.ProcessGrantSHA256 == "" || r.Identity.Route != "messages" || r.Identity.Model != M3 || r.Identity.Purpose != "standard" || r.Mode != "live" && r.Mode != "controlled") {
+		return r, fmt.Errorf("fixed MiniMax composition identity or authority missing")
+	}
+	if !validOutcome || !r.AuditPassed || r.Schema != 1 {
 		return r, fmt.Errorf("MiniMax report is incomplete")
 	}
 	id, e := Select(r.Identity.Route, r.Identity.Model, r.Identity.Purpose)
@@ -66,7 +85,7 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 		return r, fmt.Errorf("MiniMax M3.1 price unknown context missing")
 	}
 	source, e := ExecutionSource()
-	if e != nil || !reflect.DeepEqual(source, r.ExecutionSource) {
+	if e != nil || evidence.VerifyRouteSource(r.ExecutionSource, source, "minimax", string(r.Identity.API)) != nil {
 		return r, fmt.Errorf("MiniMax execution source set changed")
 	}
 	sdk, err := SDKVersion(id)
@@ -74,48 +93,67 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 		return r, fmt.Errorf("MiniMax SDK identity differs")
 	}
 	plan := Plan(id)
+	if selection == "single" {
+		plan = ThinkingPlan(id)
+	}
 	raw, _ = json.Marshal(plan)
 	if !reflect.DeepEqual(plan, r.Expected) || Hash(raw) != r.PlanHash || r.SourceHash != SourcePin {
 		return r, fmt.Errorf("MiniMax fixed plan/source mismatch")
 	}
-	// Only fixed7 has a reviewed one-hour process budget for its cumulative
-	// history verification work. verifyRenewalReport above already requires
-	// its independent canonical authority; older rounds keep their own limit.
 	maxLifetime := 1800 * time.Second
-	if r.FormalRenewalID == Recovery7RenewalID {
-		maxLifetime = 3600 * time.Second
+	if selection == "single" {
+		maxLifetime = 180 * time.Second
 	}
 	if r.StartedAt.IsZero() || r.FinishedAt.Before(r.StartedAt) || r.FinishedAt.Sub(r.StartedAt) > maxLifetime || r.SDK == "" || r.AccountAlias == "" || r.RegionAlias == "" || r.Entitlement != "confirmed" {
 		return r, fmt.Errorf("MiniMax provenance incomplete")
 	}
-	cat := CandidateCatalog(id)
-	// Candidate and full built-in snapshots may share a version label after
-	// activation. Replay selects only one of these fixed snapshots by complete
-	// identity; a label alone cannot promote the candidate catalog.
-	candidateHash, _ := cat.Hash()
-	if r.Stage == "formal" || r.Mode == "replay" && (r.CatalogHash != candidateHash || r.CatalogVersion != cat.Version) {
-		cat = ai.BuiltinCatalog()
+	cat, err := evidence.MeasuredCatalog(dir, r.CatalogVersion, r.CatalogHash, CandidateCatalog(id))
+	if r.Stage == "formal" {
+		cat, err = evidence.MeasuredCatalog(dir, r.CatalogVersion, r.CatalogHash, ai.BuiltinCatalog())
 	}
-	hash, err := cat.Hash()
-	if err != nil || hash != r.CatalogHash || cat.Version != r.CatalogVersion {
-		return r, fmt.Errorf("MiniMax selected catalog/price snapshot is stale")
+	if err != nil {
+		return r, err
+	}
+	if selection != "full" {
+		if e := evidence.VerifyRouteCatalog(cat, CandidateCatalog(id), ai.OperationChat, ai.ProviderMiniMax, id.API, []string{id.Model}); e != nil {
+			return r, e
+		}
+	}
+	if r.Stage == "formal" || formal {
+		if err := evidence.VerifyRouteCatalog(cat, ai.BuiltinCatalog(), ai.OperationChat, ai.ProviderMiniMax, id.API, []string{id.Model}); err != nil {
+			return r, err
+		}
 	}
 	if _, ok := cat.Lookup(ai.ProviderMiniMax, id.API, id.Model); !ok {
 		return r, fmt.Errorf("MiniMax formal identity is absent")
 	}
-	if formal && (r.Kind != "minimax-formal" || r.Mode != "live" || r.Stage != "formal" || id.Model != M3) {
+	if formal && (r.Mode != "live" || id.Model != M3 || !(r.Stage == "formal" && r.Kind == "minimax-formal" || r.Stage == "candidate" && r.Kind == "minimax-candidate-only" || selection == "single" && r.Kind == ThinkingKind && r.Stage == "candidate")) {
 		return r, fmt.Errorf("candidate, controlled and replay cannot certify formal support")
 	}
 	var manifest struct {
 		Versions map[string]string `json:"versions"`
 		Cases    []struct {
-			ID     string `json:"id"`
-			Status string `json:"status"`
+			ID        string            `json:"id"`
+			Status    string            `json:"status"`
+			Artifacts map[string]string `json:"artifacts"`
 		} `json:"cases"`
 	}
 	raw, e = ReadFile(filepath.Join(dir, "manifest.json"), 2<<20)
 	if e != nil || json.Unmarshal(raw, &manifest) != nil || len(manifest.Cases) != len(r.Calls) {
 		return r, fmt.Errorf("MiniMax manifest inventory differs")
+	}
+	if selection != "full" {
+		for _, mc := range manifest.Cases {
+			actual := map[string]string{}
+			for n, h := range files {
+				if strings.HasPrefix(n, mc.ID+"/") {
+					actual[strings.TrimPrefix(n, mc.ID+"/")] = h
+				}
+			}
+			if len(actual) == 0 || !reflect.DeepEqual(actual, mc.Artifacts) {
+				return r, fmt.Errorf("MiniMax per-case artifact inventory differs")
+			}
+		}
 	}
 	if manifest.Versions["minimax_mode"] != r.Mode || manifest.Versions["minimax_kind"] != r.Kind || manifest.Versions["minimax_source_hash"] != r.SourceHash || manifest.Versions["minimax_plan_hash"] != r.PlanHash {
 		return r, fmt.Errorf("MiniMax manifest provenance differs")
@@ -123,7 +161,7 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	if r.Mode != "live" && r.Mode != "controlled" && r.Mode != "replay" {
 		return r, fmt.Errorf("unknown MiniMax execution mode")
 	}
-	if r.Kind != "minimax-candidate-only" && r.Kind != "minimax-formal" && r.Kind != "minimax-capture-replay-only" {
+	if r.Kind != "minimax-candidate-only" && r.Kind != "minimax-formal" && r.Kind != "minimax-capture-replay-only" && !(selection == "single" && r.Kind == ThinkingKind) {
 		return r, fmt.Errorf("unknown MiniMax evidence kind")
 	}
 	if formal && (r.GitCommit == "" || r.GitCommit == "unknown") {
@@ -132,6 +170,7 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	budget := Budget{}
 	seen := map[string]int{}
 	requestReruns := 0
+	failedThinking := 0
 	for index, call := range r.Calls {
 		var p *Case
 		for i := range plan {
@@ -141,6 +180,10 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 		}
 		validRerun := RerunnableCase(call.ID) && seen[call.ID] == 1 && call.Rerun == 1 && index > 0 && Recovered(r.Calls, index-1)
 		validInitialFailure := Recovered(r.Calls, index)
+		missingThinking := selection == "baseline" && call.ID == "thinking-on" && call.Outcome == "FAIL" && call.Rerun == 0 && call.Failure == ""
+		if missingThinking {
+			failedThinking++
+		}
 		if call.Failure == "transient-request" {
 			requestReruns++
 			if requestReruns > MaxRequestReruns {
@@ -150,19 +193,33 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 		if call.Outcome == "PASS" && call.Failure != "" {
 			return r, fmt.Errorf("MiniMax successful call has failure marker")
 		}
-		if p == nil || seen[call.ID] > 0 && !validRerun || call.Rerun != 0 && !validRerun || call.CaseID != CaseID(call.ID, call.Rerun) || call.Outcome != "PASS" && !validInitialFailure {
+		if p == nil || seen[call.ID] > 0 && !validRerun || call.Rerun != 0 && !validRerun || call.CaseID != CaseID(call.ID, call.Rerun) || call.Outcome != "PASS" && !validInitialFailure && !missingThinking {
 			return r, fmt.Errorf("invented or failed MiniMax case")
 		}
 		seen[call.ID]++
 		found := false
 		for _, mc := range manifest.Cases {
-			found = found || mc.ID == call.CaseID && mc.Status == "PASS"
+			expectedStatus := "PASS"
+			if missingThinking {
+				expectedStatus = "FAIL"
+			}
+			found = found || mc.ID == call.CaseID && mc.Status == expectedStatus
 		}
 		if !found {
 			return r, fmt.Errorf("MiniMax case absent from manifest")
 		}
-		if e = verifyCall(dir, r, call, *p); e != nil {
+		if e = verifyCallFacts(dir, r, call, *p, missingThinking); e != nil {
 			return r, e
+		}
+		if selection != "full" {
+			if e = verifyThinkingResources(dir, call); e != nil {
+				return r, e
+			}
+		}
+		if selection != "full" && call.Outcome == "PASS" {
+			if e = verifyThinkingReplay(dir, r, call); e != nil {
+				return r, e
+			}
 		}
 		addBudget(&budget, call.Reservation)
 		for _, a := range call.Attempts {
@@ -171,6 +228,14 @@ func VerifyCapture(dir string, formal bool) (Report, error) {
 	}
 	if len(seen) != len(plan) || !reflect.DeepEqual(budget, r.Budget) || budget.Calls > 20 || budget.Attempts > 24 || budget.RequestedOutput > 40000 || budget.ReservedInput > 120000 {
 		return r, fmt.Errorf("MiniMax budget or complete inventory differs")
+	}
+	if selection == "baseline" && failedThinking != 1 {
+		return r, fmt.Errorf("MiniMax baseline requires exactly one unrecovered thinking-on failure")
+	}
+	if selection == "single" {
+		if e = verifyThinkingBudget(dir, r); e != nil {
+			return r, e
+		}
 	}
 	if e = verifyReplayOrigin(dir, r); e != nil {
 		return r, e

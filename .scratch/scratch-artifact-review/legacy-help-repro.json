@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    ".scratch/barness-ai-thinking-sampling/update-ledger.py",
+    "--help"
+  ],
+  "purpose": "Known read-before-argparse failure; target ledger confirmed absent before invocation",
+  "exitCode": 1,
+  "elapsedSeconds": 0.032903917133808136,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/cyber/RestoX/barness/.scratch/barness-ai-thinking-sampling/update-ledger.py\", line 5, in <module>\n    p=root/'pidiff/ledger.json';d=json.loads(p.read_text())\n                                             ~~~~~~~~~~~^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'ai/e2e/testdata/pidiff/ledger.json'\n"
+}

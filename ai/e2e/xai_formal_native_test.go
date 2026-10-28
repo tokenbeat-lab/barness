@@ -16,6 +16,7 @@ import (
 // partial/substituted scenes, altered capture/usage/Observer and provenance
 // must refuse; the complete synthetic contract must be independently readable.
 func TestXAIFormalNativeConsumer(t *testing.T) {
+	privateGrantStore(t)
 	fixture := newXAIFormalNativeFixture(t)
 	cases := []struct {
 		name string

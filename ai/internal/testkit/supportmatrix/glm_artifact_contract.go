@@ -66,6 +66,11 @@ func checkGLMArtifactContract(r Report, cases []glmCapturedCase, files map[strin
 			}
 		}
 	}
+	for _, optional := range []string{"model-catalog.json", "execution-source.json"} {
+		if files[optional] != "" {
+			root[optional] = true
+		}
+	}
 	for name := range root {
 		if files[name] == "" {
 			return glmBad("required root report/source artifact missing")

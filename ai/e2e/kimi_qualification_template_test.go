@@ -12,8 +12,8 @@ var kimiQualificationRoutes = []string{"kimi-cn-chat", "kimi-cn-responses", "kim
 
 func kimiQualificationConsumer(t *testing.T) string {
 	t.Helper()
-	binary := filepath.Join(t.TempDir(), "regionalverify")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./ai/live/cmd/regionalverify")
+	binary := filepath.Join(t.TempDir(), "releasegate")
+	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./ai/release/cmd/releasegate")
 	cmd.Dir, cmd.Env = "../..", regionalChildEnvironment()
 	if raw, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("build keyless consumer: %v %s", err, regionalSafeOutput(raw))
@@ -21,12 +21,23 @@ func kimiQualificationConsumer(t *testing.T) string {
 	return binary
 }
 
+func kimiTemplateBinary(t *testing.T) string {
+	t.Helper()
+	binary := filepath.Join(t.TempDir(), "processgrant")
+	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./ai/live/cmd/processgrant")
+	cmd.Dir, cmd.Env = "../..", regionalChildEnvironment()
+	if raw, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("build keyless template: %v %s", err, regionalSafeOutput(raw))
+	}
+	return binary
+}
+
 func TestKimiQualificationTemplate(t *testing.T) {
-	binary := kimiQualificationConsumer(t)
+	binary := kimiTemplateBinary(t)
 	for _, route := range kimiQualificationRoutes {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-"+route+"-K16-template")
-			cmd := exec.CommandContext(ctxFor(t), binary, "-grant-template", route)
+			cmd := exec.CommandContext(ctxFor(t), binary, "-template", route, "-stage", "candidate")
 			cmd.Dir, cmd.Env = "../..", regionalChildEnvironment()
 			raw, err := cmd.CombinedOutput()
 			ev.Record("process", map[string]any{"argv": cmd.Args, "error": errString(err), "output": regionalSafeOutput(raw), "vendorCalls": 0})
@@ -42,7 +53,7 @@ func TestKimiQualificationTemplate(t *testing.T) {
 			ev.Check("template never grants human spend or executable identity", g["maxUSD"] == nil || g["maxUSD"] == float64(0), "%s", raw)
 		})
 	}
-	cmd := exec.CommandContext(ctxFor(t), binary, "-source")
+	cmd := exec.CommandContext(ctxFor(t), binary, "-source", "regional")
 	cmd.Dir, cmd.Env = "../..", regionalChildEnvironment()
 	raw, err := cmd.CombinedOutput()
 	if err != nil {

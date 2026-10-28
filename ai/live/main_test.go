@@ -78,8 +78,12 @@ func TestMain(m *testing.M) {
 		packageArgs = "-tags live -timeout " + flag.Lookup("test.timeout").Value.String() + " ./ai/live"
 	}
 	if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
-		packageArgs = "-tags live -timeout 1800s ./ai/live"
+		timeout, err := time.ParseDuration(flag.Lookup("test.timeout").Value.String())
+		if err == nil {
+			packageArgs = fmt.Sprintf("-tags live -timeout %ds ./ai/live", int(timeout/time.Second))
+		}
 	}
+
 	if glmDiagnosticSelected() {
 		packageArgs = "-tags live -timeout 180s ./ai/live"
 	}
@@ -118,6 +122,14 @@ func TestMain(m *testing.M) {
 	if cfg.key != "" {
 		run.RedactSecret(cfg.key, "[LIVE-KEY:"+cfg.combo.name+"]")
 	}
+	measuredCatalog := catalog
+	if minimaxReport != nil {
+		measuredCatalog = minimaxCatalog
+	}
+	if err := run.Record("model-catalog", measuredCatalog); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 	catalogHash, err := catalog.Hash()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -139,7 +151,7 @@ func TestMain(m *testing.M) {
 	if xaiState != nil && flag.Lookup("test.run").Value.String() != xaiState.entry() {
 		xaiState.report.Outcome, xaiState.report.Failure = "FAIL", "exact isolated xAI entry required"
 		code = 1
-	} else if regionalState != nil && flag.Lookup("test.run").Value.String() != regionalEntry() {
+	} else if regionalState != nil && (flag.Lookup("test.run").Value.String() != regionalEntry() || regionalState.grant.Purpose == supportmatrix.KimiHistoryPurpose && (flag.Lookup("test.timeout").Value.String() != "4m0s" || flag.Lookup("test.count").Value.String() != "1")) {
 		regionalState.problem = "exact isolated regional entry required"
 		code = 1
 	} else if minimaxReport != nil && flag.Lookup("test.run").Value.String() != minimaxEntry() {

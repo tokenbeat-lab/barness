@@ -5,13 +5,17 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
+
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 // This keyless CLI checks the very admission/claim boundary used before HTTP.
 // Every grant here says controlled; none can authorize a vendor process.
 func TestGrokHistoryFreshProcessGrant(t *testing.T) {
+	privateGrantStore(t)
 	binary := filepath.Join(t.TempDir(), "processgrant")
 	build := exec.Command("go", "build", "-o", binary, "./ai/live/cmd/processgrant")
 	build.Dir, build.Env = "../..", xaiProcessEnv(t)
@@ -22,6 +26,11 @@ func TestGrokHistoryFreshProcessGrant(t *testing.T) {
 	for _, route := range []string{"openai-responses", "openai-chat", "deepseek-responses", "deepseek-chat", "anthropic-messages", "google-gemini", "zhipu-chat", "zhipu-messages", "minimax-chat", "minimax-responses", "minimax-messages"} {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "GROK-HISTORY-FRESH-GRANT-"+route)
+			probe := exec.CommandContext(ctxFor(t), binary)
+			probe.Dir, probe.Env = "../..", xaiProcessEnv(t)
+			if !privateGrantProcess(t, ev, probe) {
+				return
+			}
 			call := func(args ...string) ([]byte, error) {
 				c := exec.Command(binary, args...)
 				c.Dir, c.Env = "../..", xaiProcessEnv(t)
@@ -88,4 +97,22 @@ func TestGrokHistoryFreshProcessGrant(t *testing.T) {
 			ev.Check("same approval cannot be reused", check(grant, true) != nil, "reused grant accepted")
 		})
 	}
+}
+
+// Check the public subprocess before burning even a synthetic approval. Shared
+// real records are not fixture storage, including for deliberate partial writes.
+func privateGrantProcess(t *testing.T, ev *evidence.Case, cmd *exec.Cmd) bool {
+	t.Helper()
+	common := miniMaxGitProbe(t, cmd, "rev-parse", "--path-format=absolute", "--git-common-dir")
+	real := *cmd
+	real.Env = nil
+	for _, pair := range cmd.Env {
+		if !strings.HasPrefix(pair, "GIT_") {
+			real.Env = append(real.Env, pair)
+		}
+	}
+	realCommon := miniMaxGitProbe(t, &real, "rev-parse", "--path-format=absolute", "--git-common-dir")
+	declared := miniMaxEnvValue(cmd.Env, "GIT_DIR")
+	ev.Record("private-claim-namespace", map[string]any{"declared": declared, "common": common, "realCommon": realCommon, "vendorCalls": 0})
+	return ev.Check("synthetic claims use a declared private common Git store", declared != "" && common == declared && common != realCommon, "declared=%s common=%s real=%s", declared, common, realCommon)
 }

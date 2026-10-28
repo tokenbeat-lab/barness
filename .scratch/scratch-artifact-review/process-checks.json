@@ -1,0 +1,142 @@
+{
+  "purpose": "CLI help reachability and JS syntax only; no verification, vendor, race, pressure, cleanup or generator execution",
+  "checks": [
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        ".scratch/barness-ai-test-process-review/tools/run.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.054,
+      "stdout": "usage: run.py [-h] --feature FEATURE --stage {e2e,race,pressure,live}\n              [--route ROUTE] [--timeout TIMEOUT] [--input INPUT]\n              ...\n\nCapture one explicitly selected verification process; never schedule another.\n\npositional arguments:\n  command\n\noptions:\n  -h, --help            show this help message and exit\n  --feature FEATURE\n  --stage {e2e,race,pressure,live}\n  --route ROUTE\n  --timeout TIMEOUT\n  --input INPUT         selected repository-relative input path\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        ".scratch/barness-ai-test-process-review/tools/consume_live.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.035,
+      "stdout": "usage: consume_live.py [-h] --binary BINARY --bundle BUNDLE --out OUT\n                       [--timeout TIMEOUT]\n\nCapture one read-only native live consumer; never run a verification stage.\n\noptions:\n  -h, --help         show this help message and exit\n  --binary BINARY\n  --bundle BUNDLE\n  --out OUT\n  --timeout TIMEOUT\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        ".scratch/barness-ai-test-process-review/tools/cleanup.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.053,
+      "stdout": "usage: cleanup.py [-h] [--repo REPO] [--batch BATCH]\n                  [--plan-sha256 PLAN_SHA256]\n                  {scan,plan,move,verify,restore,inspect,purge}\n\nMaintain an explicitly reviewed evidence batch; no tests or vendor execution.\n\npositional arguments:\n  {scan,plan,move,verify,restore,inspect,purge}\n\noptions:\n  -h, --help            show this help message and exit\n  --repo REPO\n  --batch BATCH\n  --plan-sha256 PLAN_SHA256\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-B",
+        ".scratch/jev-1.14-multimodal-box/verify-11-evidence.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.044,
+      "stdout": "usage: verify-11-evidence.py [-h] [--require-live]\n                             [--formal-catalog FORMAL_CATALOG]\n                             bundle\n\nIndependently read candidate or explicitly selected formal protocol structure.\nNo network, credentials, or working-source equality required for historical\nruns. Use --require-live to reject controlled HTTP packages. NOT_RUN/FAIL exit\nnonzero. Formal support additionally requires the public Classify replay and\nindependent effect verification performed by the jevformal command; this is\none stage only.\n\npositional arguments:\n  bundle\n\noptions:\n  -h, --help            show this help message and exit\n  --require-live\n  --formal-catalog FORMAL_CATALOG\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-pi-1.0/release-verification/check.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.022,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-pi-1.0/release-verification/failures.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-pi-1.0/release-verification/faults.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-pi-1.0/release-verification/run.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.019,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-thinking-sampling/release-verification/check.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-thinking-sampling/release-verification/failures.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-thinking-sampling/release-verification/faults.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.019,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/bin/node",
+        "--check",
+        ".scratch/barness-ai-thinking-sampling/release-verification/run.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "node": "/usr/local/bin/node"
+}

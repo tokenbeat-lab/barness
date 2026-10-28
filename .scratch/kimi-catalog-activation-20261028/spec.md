@@ -1,0 +1,15 @@
+# 激活已完整验证的Kimi目录
+
+依据直接人类指令“激活kimi目录”，使用现有六组真实live/candidate的固定9＋1组合；每组十项、两份测量，共十二份原测量。使用已核验冻结regionalpromote -kimi -receipt消费六组，独占保存原生晋升证明并原子替换ai/catalog_kimi.json为active=true、正式版本及六个已审型号身份。不得手工跳过原生证明或篡改原包。
+
+先更新仍假定inactive的公共E2E断言并保留RED，再执行真实数据激活；回滚测试显式构造不含Kimi的旧目录，不依赖当前BuiltinCatalog缺失Kimi。激活后重建只读releasegate（目录编译时嵌入），正式离线消费六组，取得外层schema2退出/输入回执；跑完整受影响普通包ai/e2e、ai、supportmatrix、release。原SDK/协议/计费/采集代码不改，原来源与测量时刻保留，当前仅允许目录和这些测试发生已记录差异。
+
+本次激活及离线验证不产生厂商新事实：不读凭据、不签grant、不发API请求，不运行race/压力、不恢复暂停轮次。原capture冻结二进制、授权、账本、未知费用、旧失败及STOP均保留。新激活前目录有精确备份，仅在必要回滚时恢复该数据，不恢复消费权限。
+
+当前状态status.md；原生晋升证明使用.evidence/barness-ai-kimi/promotion下独占新路径，其他回执位于.evidence/kimi-catalog-activation-20261028。正式目录激活与所有Provider完整发布分别记录。
+
+激活后的完整普通流程首先发现TestBuiltinCatalogReleaseSnapshot失败，原失败attempt保留。同步公共BuiltinCatalog的ai/release/catalog-snapshot.json及Catalog.Hash导出；与旧快照相比仅新增六个Kimi身份，其他模型/图像/分类器/版本/费率完全相同。随后重建当前只读消费者v2，正式消费与完整普通回执绑定最终来源。
+
+当前目录快照更新后，TestChineseEvaluationCurrentRoutePins暴露三个当前默认评测配置仍钉旧全目录哈希。仅同步catalogHash与配置revision，任务/型号/指令/费率/预算不改；recorded-jev历史文件和原报告不修改。不读取凭据或启用真实评测。最终普通范围追加chineseeval包，当前只读消费者v3与最终九处来源差异一致。
+
+完整普通保留了一次全量FAIL，唯一失败为TestKimiResponsesCrossTargetIDs的18个子场景：候选Kimi和新内置Kimi被重复追加，NewClient正确拒绝重复身份。该既有公共E2E改为直接使用已激活BuiltinCatalog，保持跨市场/三源协议/三目标协议的全部历史配对断言，不改变运行时代码。最终变化十个既有来源文件；消费者v4与最终普通来源相同。

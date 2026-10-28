@@ -18,7 +18,7 @@ import (
 
 func regionalChildEnvironment(extra ...string) []string {
 	var env []string
-	for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH"} {
+	for _, key := range []string{"PATH", "HOME", "TMPDIR", "GOCACHE", "GOPATH", "GIT_DIR", "GIT_WORK_TREE"} {
 		if v, ok := os.LookupEnv(key); ok {
 			env = append(env, key+"="+v)
 		}
@@ -26,10 +26,23 @@ func regionalChildEnvironment(extra ...string) []string {
 	return append(env, extra...)
 }
 
+// Reuse the existing private common-Git namespace for controlled grants. Real
+// repository permissions and ledgers never become fixtures for ordinary E2E.
+func privateGrantStore(t *testing.T) {
+	t.Helper()
+	if os.Getenv("GIT_DIR") != "" {
+		return
+	}
+	ns := miniMaxPrivateSourceNamespace(t)
+	t.Setenv("GIT_DIR", ns.dir)
+	t.Setenv("GIT_WORK_TREE", ns.root)
+}
+
 // The real isolated process drives all nine new model identities through the
 // public Client/SDK into a controlled server. Captures stay in their original
 // native directory; controlled PASS never authorizes formal service support.
 func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
+	privateGrantStore(t)
 	binary := filepath.Join(t.TempDir(), "regional-live.test")
 	source, err := supportmatrix.RegionalExecutionSource()
 	if err != nil {
@@ -161,7 +174,7 @@ func TestRegionalProviderReleaseCapturePipeline(t *testing.T) {
 					ev.Check("native source predeclared independently of tool output", source.Regional.NativeSourceCases[model] == supportmatrix.RegionalCaseID(combo, model+"/full-stream"), "model=%s", model)
 				}
 			}
-			replay := exec.CommandContext(ctxFor(t), "go", "run", "./ai/live/cmd/regionalverify", "-controlled", dir)
+			replay := exec.CommandContext(ctxFor(t), "go", "run", "./ai/release/cmd/releasegate", "-inspect-bundle", dir, "-mode", "controlled", "-stage", "candidate")
 			replay.Dir, replay.Env = "../..", regionalChildEnvironment()
 			replayRaw, replayErr := replay.CombinedOutput()
 			ev.Check("independent consumer verifies controlled native captures", replayErr == nil, "%s", regionalSafeOutput(replayRaw))

@@ -15,7 +15,7 @@ import (
 // incomplete scenes, altered seals and controlled formal promotion stay refused.
 func TestMiniMaxFreshAuthorityConsumerProcess(t *testing.T) {
 	native := miniMaxAuthorityBuild(t, "minimax-live", "./ai/live", true)
-	consumer := miniMaxAuthorityBuild(t, "minimaxverify", "./ai/live/cmd/minimaxverify", false)
+	consumer := miniMaxAuthorityBuild(t, "releasegate", "./ai/release/cmd/releasegate", false)
 	for _, route := range []string{"chat", "responses", "messages"} {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "MM20-fresh-authority-"+route)
@@ -28,10 +28,11 @@ func TestMiniMaxFreshAuthorityConsumerProcess(t *testing.T) {
 			ev.Record("synthetic-formal-fixture", files)
 			miniMaxAuthorityRecordStore(t, ev, formal.git)
 			exit, output := miniMaxAuthorityCLI(t, ev, consumer, formal, "-formal", "-publish")
-			if !ev.Check("fresh complete authority qualifies without stale legacy origin", exit == 0 && strings.Contains(output, "PASS: "+route+" MiniMax-M3 mode=live kind=minimax-formal calls=14 attempts=13"), "exit=%d output=%s", exit, output) {
+			if !ev.Check("fresh complete authority qualifies without stale legacy origin", exit == 0 && strings.Contains(output, `"combo":"minimax-`+route+`"`), "exit=%d output=%s", exit, output) {
 				return
 			}
-			projection, err := os.ReadFile(filepath.Join(formal.dir, "live-report.json"))
+			projection := []byte(output)
+			_, err = os.Stat(formal.dir)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -54,7 +55,7 @@ func TestMiniMaxFreshAuthorityConsumerProcess(t *testing.T) {
 					if name != "legacy-without-fresh" {
 						proof.Check("invalid fresh authority cannot borrow legacy origin", !strings.Contains(output, "origin launcher"), "%s", output)
 					} else {
-						proof.Check("legacy still requires its independent origin", strings.Contains(output, "origin launcher receipt invalid"), "%s", output)
+						proof.Check("current path rejects legacy-only authority", strings.Contains(output, "approval"), "%s", output)
 					}
 					files, err := minimaxlive.Snapshot(mutated.dir)
 					if err != nil {

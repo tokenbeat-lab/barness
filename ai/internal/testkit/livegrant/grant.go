@@ -43,6 +43,8 @@ type Scope struct {
 	MaxReservedInputTokens   int      `json:"maxReservedInputTokens"`
 	CallSeconds              int      `json:"callSeconds"`
 	ProcessSeconds           int      `json:"processSeconds"`
+	BaselineManifestSHA256   string   `json:"baselineManifestSha256,omitempty"`
+	MaxUSD                   float64  `json:"maxUSD,omitempty"`
 }
 
 type Grant struct {
@@ -97,7 +99,7 @@ func (g Grant) Check(want Scope, at time.Time) error {
 	}
 	alias := regexp.MustCompile(`^[A-Za-z0-9_-]{1,96}$`)
 	hex64 := regexp.MustCompile(`^[a-f0-9]{64}$`)
-	if g.Schema != 1 || !alias.MatchString(g.ID) || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || !reflect.DeepEqual(g.Scope, want) || !hex64.MatchString(want.SourceSHA256) || !hex64.MatchString(want.BinarySHA256) || !hex64.MatchString(strings.TrimPrefix(want.CatalogHash, "sha256:")) || want.Mode != "live" && want.Mode != "controlled" || want.Stage != "candidate" && want.Stage != "formal" || want.Mode == "controlled" && want.Stage == "formal" || len(want.Scenes) == 0 || len(want.Models) == 0 || want.MaxCalls < 1 || want.MaxAttempts < 1 || want.ProcessSeconds != 1800 {
+	if g.Schema != 1 || !alias.MatchString(g.ID) || !alias.MatchString(g.AccountAlias) || !alias.MatchString(g.RegionAlias) || !g.ExpiresAt.After(at) || g.ExpiresAt.Sub(at) > 24*time.Hour || !reflect.DeepEqual(g.Scope, want) || !hex64.MatchString(want.SourceSHA256) || !hex64.MatchString(want.BinarySHA256) || !hex64.MatchString(strings.TrimPrefix(want.CatalogHash, "sha256:")) || want.Mode != "live" && want.Mode != "controlled" || want.Stage != "candidate" && want.Stage != "formal" || want.Mode == "controlled" && want.Stage == "formal" || len(want.Scenes) == 0 || len(want.Models) == 0 || want.MaxCalls < 1 || want.MaxAttempts < 1 || (want.ProcessSeconds < 1 || want.ProcessSeconds > 1800) {
 		return fmt.Errorf("fresh live process grant scope, aliases, source, binary, expiry or budget differs")
 	}
 	return nil

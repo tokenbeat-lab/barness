@@ -1,8 +1,10 @@
 package e2e
 
 import (
+	"context"
 	"encoding/json"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"testing"
 	"time"
@@ -28,11 +30,19 @@ func TestGrokHistoryGLMControlledFullCapture(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	process := glmCapture(t, glmProcessContext(t, 4*time.Minute), root,
-		append(xaiProcessEnv(t), "BARNESS_AI_EVIDENCE_DIR="+base),
-		"go", "test", "-tags", "live", "./ai/live", "-run", "^TestGLM(CandidateProcess|FormalProcess|FormalCaptureValidation)$", "-count=1", "-timeout=180s")
-	ev.Record("process", process)
-	ev.Check("all full GLM producer and independent controlled-native checks pass", process.success(), "%s %s", process.Status, regionalSafeOutput(process.output()))
+	binary := filepath.Join(t.TempDir(), "glm-controlled.test")
+	build := exec.Command("go", "test", "-c", "-tags", "live", "-o", binary, "./ai/live")
+	build.Dir, build.Env = root, xaiProcessEnv(t)
+	if out, err := build.CombinedOutput(); err != nil {
+		t.Fatalf("native build: %v %s", err, out)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 4*time.Minute)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, binary, "-test.run=^TestGLM(CandidateProcess|FormalProcess|FormalCaptureValidation)$", "-test.count=1", "-test.timeout=180s")
+	cmd.Dir, cmd.Env = filepath.Join(root, "ai/live"), append(xaiProcessEnv(t), "BARNESS_AI_EVIDENCE_DIR="+base)
+	raw, processErr := cmd.CombinedOutput()
+	ev.Record("process", map[string]any{"argv": cmd.Args, "output": regionalSafeOutput(raw), "success": processErr == nil})
+	ev.Check("full controlled native checks complete", processErr == nil, "%v %s", processErr, regionalSafeOutput(raw))
 	after, err := os.ReadDir(base)
 	if err != nil {
 		t.Fatal(err)

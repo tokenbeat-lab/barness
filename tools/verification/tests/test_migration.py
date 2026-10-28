@@ -61,7 +61,7 @@ class RelocatedToolProcess(unittest.TestCase):
             binary = repo / 'releasegate'
             built = call(['go', 'build', '-o', binary, './ai/release/cmd/releasegate'], cwd=PROJECT)
             self.assertEqual(built.returncode, 0, built.stderr)
-            record = {'schema': 1, 'feature': 'migration', 'currentState': {'path': 'state.md', 'sha256': digest(repo / 'state.md')},
+            record = {'schema': 2, 'feature': 'migration', 'currentState': {'path': 'state.md', 'sha256': digest(repo / 'state.md')},
                 'source': receipt['source'], 'selectedInputs': {},
                 'impact': {'liveRoutes': [], 'pressureRequired': False, 'reason': 'synthetic source handoff'},
                 'e2e': {'status': 'NOT_RUN', 'reason': 'source handoff only'}, 'race': {'status': 'NOT_RUN', 'reason': 'not selected'},

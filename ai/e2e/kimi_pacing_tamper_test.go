@@ -86,7 +86,7 @@ func kimiPacingTamper(t *testing.T, original, combo, consumer string) {
 			if err := supportmatrix.SealRegionalBundle(dir); err != nil {
 				t.Fatal(err)
 			}
-			cmd := exec.CommandContext(ctxFor(t), consumer, "-controlled", dir)
+			cmd := exec.CommandContext(ctxFor(t), consumer, "-inspect-bundle", dir, "-mode", "controlled", "-stage", "candidate")
 			cmd.Dir, cmd.Env = "../..", regionalChildEnvironment()
 			raw, err := cmd.CombinedOutput()
 			ev.Record("consumer", map[string]any{"argv": cmd.Args, "error": errString(err), "output": regionalSafeOutput(raw)})

@@ -17,8 +17,8 @@ import (
 )
 
 // The agreed seam is the actual harness deadline factory driving the public
-// Client, real synthetic Ledger and controlled HTTP boundary. The independently
-// specified tails are 120s for verified fixed7 and 20s for all older modes.
+// Client, synthetic Ledger and controlled HTTP boundary, retaining the bounded
+// process tail and the earlier test deadline.
 func TestMiniMaxHarnessContextDeadline(t *testing.T) {
 	oldReport, oldLedger := minimaxReport, minimaxLedger
 	t.Cleanup(func() { minimaxReport, minimaxLedger = oldReport, oldLedger })
@@ -27,25 +27,18 @@ func TestMiniMaxHarnessContextDeadline(t *testing.T) {
 		t.Fatal(e)
 	}
 	for _, tc := range []struct {
-		name, mode, stage, kind, renewal, pin string
-		tail                                  time.Duration
-		testTail                              time.Duration
+		name, mode, stage, kind string
+		tail                    time.Duration
+		testTail                time.Duration
 	}{
-		{"trusted7", "live", "formal", "minimax-formal", minimaxlive.Recovery7RenewalID, strings.Repeat("a", 64), 120 * time.Second, 0},
-		{"test-deadline-min", "live", "formal", "minimax-formal", minimaxlive.Recovery7RenewalID, strings.Repeat("a", 64), 120 * time.Second, 120 * time.Second},
-		{"unapproved7", "live", "formal", "minimax-formal", minimaxlive.Recovery7RenewalID, "", 20 * time.Second, 0},
-		{"old6", "live", "formal", "minimax-formal", minimaxlive.Recovery6RenewalID, strings.Repeat("a", 64), 20 * time.Second, 0},
-		{"old-test-deadline-min", "controlled", "candidate", "minimax-candidate-only", "", "", 20 * time.Second, time.Second},
-		{"controlled", "controlled", "formal", "minimax-formal", minimaxlive.Recovery7RenewalID, strings.Repeat("a", 64), 20 * time.Second, 0},
-		{"replay", "replay", "formal", "minimax-formal", minimaxlive.Recovery7RenewalID, strings.Repeat("a", 64), 20 * time.Second, 0},
-		{"candidate", "live", "candidate", "minimax-candidate-only", minimaxlive.Recovery7RenewalID, strings.Repeat("a", 64), 20 * time.Second, 0},
-		{"research", "live", "formal", "minimax-research-only", minimaxlive.Recovery7RenewalID, strings.Repeat("a", 64), 20 * time.Second, 0},
+		{"process", "live", "formal", "minimax-formal", 20 * time.Second, 0},
+		{"test-deadline", "controlled", "candidate", "minimax-candidate-only", 20 * time.Second, time.Second},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			cs := run.Case(t, "MM07-context-deadline-"+tc.name)
 			now := time.Now()
 			end := now.Add(tc.tail + 40*time.Millisecond)
-			r := &minimaxlive.Report{Mode: tc.mode, Stage: tc.stage, Kind: tc.kind, Identity: id, FormalRenewalID: tc.renewal, FormalRenewalGrantSHA256: tc.pin, StartedAt: end.Add(-3600 * time.Second), Deadline: end, Budget: minimaxlive.Budget{ReservedAttempts: 1}}
+			r := &minimaxlive.Report{Mode: tc.mode, Stage: tc.stage, Kind: tc.kind, Identity: id, StartedAt: end.Add(-3600 * time.Second), Deadline: end, Budget: minimaxlive.Budget{ReservedAttempts: 1}}
 			testDeadline := time.Time{}
 			want := now.Add(40 * time.Millisecond)
 			if tc.testTail > 0 {

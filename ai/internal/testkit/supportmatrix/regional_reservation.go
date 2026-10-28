@@ -3,14 +3,13 @@ package supportmatrix
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"syscall"
 	"time"
 
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/livegrant"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
@@ -79,60 +78,8 @@ func ReserveRegionalGrant(g RegionalGrant, raw []byte, session string, at time.T
 	if err != nil {
 		return receipt, err
 	}
-	if err = os.MkdirAll(store, 0700); err != nil {
-		return receipt, err
-	}
-	root, err := os.OpenRoot(store)
-	if err != nil {
-		return receipt, err
-	}
-	defer root.Close()
-	lock, err := root.OpenFile("lock", os.O_WRONLY|os.O_CREATE|syscall.O_NOFOLLOW, 0600)
-	if err != nil {
-		return receipt, err
-	}
-	defer lock.Close()
-	if err = syscall.Flock(int(lock.Fd()), syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
-		return receipt, err
-	}
-	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
 	data, _ := json.Marshal(receipt)
-	for _, key := range []string{scope, id} {
-		f, e := root.OpenFile(key, os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW, 0600)
-		if e != nil {
-			return receipt, fmt.Errorf("regional authorization consumed or reservation unavailable")
-		}
-		n, e := f.Write(data)
-		if e == nil && n != len(data) {
-			e = fmt.Errorf("regional reservation incomplete")
-		}
-		if e == nil {
-			e = f.Sync()
-		}
-		closeErr := f.Close()
-		if e != nil {
-			return receipt, e
-		}
-		if closeErr != nil {
-			return receipt, closeErr
-		}
-	}
-	dir, err := os.Open(store)
-	if err != nil {
-		return receipt, err
-	}
-	defer dir.Close()
-	if err = dir.Sync(); err != nil {
-		return receipt, err
-	}
-	// A new ledger directory must itself survive a crash, not merely the
-	// entries inside it. Sync its trusted Git parent before authorizing send.
-	parent, err := os.Open(filepath.Dir(store))
-	if err != nil {
-		return receipt, err
-	}
-	defer parent.Close()
-	if err = parent.Sync(); err != nil {
+	if err := livegrant.Consume(store, []string{scope, id}, data); err != nil {
 		return receipt, err
 	}
 	return receipt, nil

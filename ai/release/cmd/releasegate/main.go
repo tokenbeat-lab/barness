@@ -17,7 +17,23 @@ func cli(args []string) int {
 	record := flags.String("record", "", "immutable feature receipt index")
 	bundle := flags.String("live-bundle", "", "read-only native live qualification consumer")
 	out := flags.String("out", "", "new report directory")
-	if flags.Parse(args) != nil || flags.NArg() != 0 || (*record == "") == (*bundle == "") || *out == "" {
+	executionSource := flags.String("execution-source", "", "retained original source map for this read-only live bundle")
+	inspection := flags.String("inspect-bundle", "", "read-only native candidate/formal contract")
+	mode := flags.String("mode", "live", "live or controlled capture")
+	stage := flags.String("stage", "formal", "candidate or formal qualification")
+	if flags.Parse(args) != nil || flags.NArg() != 0 {
+		return 2
+	}
+	if *executionSource != "" && *bundle == "" {
+		return 2
+	}
+	if *inspection != "" {
+		if *record != "" || *bundle != "" || *out != "" {
+			return 2
+		}
+		return inspect(*inspection, *mode, *stage)
+	}
+	if (*record == "") == (*bundle == "") || *out == "" {
 		fmt.Fprintln(os.Stderr, "releasegate: select -record or -live-bundle, with -out")
 		return 2
 	}
@@ -26,7 +42,7 @@ func cli(args []string) int {
 		return 1
 	}
 	if *bundle != "" {
-		passed, err := release.ConsumeNativeLive(root, *bundle, *out)
+		passed, err := release.ConsumeNativeLive(root, *bundle, *out, *executionSource)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "releasegate: native live consumer failed")
 			return 1

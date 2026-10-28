@@ -88,6 +88,44 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			input = 100000
 		}
 		emit := func(v map[string]any) {
+			if minimaxReport.Kind == "minimax-thinking-on-supplement" && v["type"] == "message_start" {
+				u := v["message"].(map[string]any)["usage"].(map[string]any)
+				u["cache_creation_input_tokens"] = 0
+				u["cache_read_input_tokens"] = 0
+			}
+
+			if v["type"] == "message_start" {
+				u := v["message"].(map[string]any)["usage"].(map[string]any)
+				switch name {
+				case "omit-cache-creation":
+					delete(u, "cache_creation_input_tokens")
+				case "missing-cache-read":
+					delete(u, "cache_read_input_tokens")
+				case "null-input-usage":
+					u["input_tokens"] = nil
+				case "cache-creation-ttl":
+					u["cache_creation"] = map[string]any{"ephemeral_1h_input_tokens": 0}
+				case "invalid-cache-creation":
+					u["cache_creation_input_tokens"] = "0"
+				}
+			}
+
+			if name == "null-cache-usage" && v["type"] == "message_start" {
+				v["message"].(map[string]any)["usage"].(map[string]any)["cache_creation_input_tokens"] = nil
+			}
+			if name == "missing-final-usage" && v["type"] == "message_delta" {
+				v["usage"] = map[string]any{}
+			}
+			if name == "unknown-cache-write" && v["type"] == "message_start" {
+				v["message"].(map[string]any)["usage"].(map[string]any)["cache_creation_input_tokens"] = 1
+			}
+			if name == "missing-usage" {
+				delete(v, "usage")
+				if m, ok := v["message"].(map[string]any); ok {
+					delete(m, "usage")
+				}
+			}
+
 			if name == "success-one-hour-zero" && v["type"] == "message_start" {
 				v["message"].(map[string]any)["usage"].(map[string]any)["cache_creation"] = map[string]any{"ephemeral_1h_input_tokens": 0}
 			}
@@ -185,6 +223,14 @@ func installMiniMaxControlled(rec *recorder, name string) {
 			}
 		}
 		var reader io.ReadCloser = io.NopCloser(strings.NewReader(body))
+		if name == "thinking-on-read-error" && strings.Contains(string(raw), "Synthetic reasoning task.") {
+			end := strings.Index(body, "event: content_block_stop")
+			if end < 0 {
+				panic("controlled thinking prefix missing")
+			}
+			reader = &miniMaxControlledReadError{Reader: strings.NewReader(body[:end])}
+		}
+
 		if strings.Contains(string(raw), "Write the integers") {
 			pr, pw := io.Pipe()
 			reader = pr
@@ -213,3 +259,15 @@ func installMiniMaxControlled(rec *recorder, name string) {
 		return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": {"text/event-stream"}, "X-Request-Id": {"synthetic-provider-id"}}, Body: reader, Request: req}, nil
 	})
 }
+
+// A bounded local reader reproduces a non-EOF stream interruption; no dialer.
+type miniMaxControlledReadError struct{ *strings.Reader }
+
+func (r *miniMaxControlledReadError) Read(p []byte) (int, error) {
+	n, e := r.Reader.Read(p)
+	if e == io.EOF {
+		e = fmt.Errorf("synthetic thinking-on interrupted read")
+	}
+	return n, e
+}
+func (*miniMaxControlledReadError) Close() error { return nil }

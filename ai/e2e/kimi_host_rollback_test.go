@@ -47,6 +47,15 @@ func TestKimiHostDisableAndRollback(t *testing.T) {
 			// Disable first, then load an old snapshot with no Kimi identities. A stale
 			// enabled binding cannot acquire a model from another market or protocol.
 			prior := ai.BuiltinCatalog()
+			// After activation the current builtin is no longer a rollback snapshot.
+			// Recreate the old absence explicitly, without mutating current models.
+			withoutKimi := make([]ai.Model, 0, len(prior.Models))
+			for _, model := range prior.Models {
+				if model.Provider != ai.ProviderMoonshot && model.Provider != ai.ProviderMoonshotCN {
+					withoutKimi = append(withoutKimi, model)
+				}
+			}
+			prior.Models = withoutKimi
 			old, buildErr := ai.NewClient(ai.Config{Policy: validPolicy(), Catalog: &prior, Bindings: w.host, Credentials: w.host, Transport: provider.LoopbackTransport(), AllowLoopbackHTTP: true})
 			if buildErr != nil {
 				t.Fatal(buildErr)

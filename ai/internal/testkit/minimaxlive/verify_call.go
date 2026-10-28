@@ -24,6 +24,9 @@ type Exchange struct {
 }
 
 func verifyCall(dir string, r Report, c Call, p Case) error {
+	return verifyCallFacts(dir, r, c, p, false)
+}
+func verifyCallFacts(dir string, r Report, c Call, p Case, failedThinking bool) error {
 	base := filepath.Join(dir, c.CaseID)
 	read := func(name string, v any) error {
 		raw, e := ReadFile(filepath.Join(base, name+".json"), 2<<20)
@@ -45,11 +48,11 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 			Pass bool `json:"pass"`
 		} `json:"assertions"`
 	}
-	if read("assertions", &assertions) != nil || assertions.Status != "PASS" || len(assertions.Assertions) == 0 {
+	if read("assertions", &assertions) != nil || (assertions.Status != "PASS" && !(failedThinking && assertions.Status == "FAIL")) || len(assertions.Assertions) == 0 {
 		return fmt.Errorf("MiniMax assertions missing")
 	}
 	for _, a := range assertions.Assertions {
-		if !a.Pass {
+		if !a.Pass && !failedThinking {
 			return fmt.Errorf("MiniMax assertion failure")
 		}
 	}
@@ -170,6 +173,22 @@ func verifyCall(dir string, r Report, c Call, p Case) error {
 		return nil
 	}
 	stop := result.Result.Message.StopReason
+	if failedThinking {
+		thought, text := false, false
+		for _, b := range result.Result.Message.Content {
+			switch v := b.(type) {
+			case ai.Thinking:
+				thought = thought || v.Thinking != ""
+			case ai.Text:
+				text = text || v.Text != ""
+			}
+		}
+		if !thought || text || result.ErrorCode == "" || result.ErrorPhase != ai.PhaseStream || ex[0].Status != 200 || stop == ai.StopReasonStop {
+			return fmt.Errorf("MiniMax excluded thinking-on lacks original failed stream prefix")
+		}
+		return nil
+	}
+
 	if c.ID == "cancel" {
 		if result.ErrorCode != ai.CodeCanceled || stop != ai.StopReasonAborted || len(events) == 0 {
 			return fmt.Errorf("MiniMax cancel proof absent")

@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 type Resources struct {
@@ -129,7 +130,13 @@ func CheckInputs(protocol, effects string, requireLive bool) (Proof, error) {
 		return out, errors.New("invalid protocol report")
 	}
 	p := out.Protocol
-	cat := ai.BuiltinCatalog()
+	cat, err := evidence.MeasuredCatalog(protocol, p.CatalogVersion, p.CatalogHash, ai.BuiltinCatalog())
+	if err != nil {
+		return out, err
+	}
+	if err := evidence.VerifyRouteCatalog(cat, ai.BuiltinCatalog(), ai.OperationClassifier, ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, []string{"jev-1.14.0"}); err != nil {
+		return out, err
+	}
 	hash, err := cat.Hash()
 	if err != nil {
 		return out, err
@@ -172,13 +179,15 @@ func CheckInputs(protocol, effects string, requireLive bool) (Proof, error) {
 		}
 		want[path] = Hash(raw)
 	}
-	if len(want) != len(p.SourceHashes) {
-		return out, errors.New("formal source set drift")
+	measured, current := map[string]string{}, map[string]string{}
+	for name, h := range p.SourceHashes {
+		measured[filepath.ToSlash(filepath.Clean(filepath.Join("ai/live", name)))] = h
 	}
 	for name, h := range want {
-		if p.SourceHashes[name] != h {
-			return out, errors.New("formal source snapshot drift")
-		}
+		current[filepath.ToSlash(filepath.Clean(filepath.Join("ai/live", name)))] = h
+	}
+	if err := evidence.VerifyRouteSource(measured, current, "typesafe", "typesafe-system-one"); err != nil {
+		return out, err
 	}
 	raw, err = Read(filepath.Join(protocol, "MM11-configuration/formal-sources.json"))
 	if err != nil || Hash(raw) != want["../live/testdata/jev-formal/sources.json"] {

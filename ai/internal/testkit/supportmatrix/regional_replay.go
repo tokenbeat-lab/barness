@@ -55,12 +55,14 @@ func (h regionalReplay) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regionalExchange, saved ai.AssistantMessage, attempt ai.Attempt) (ai.Usage, error) {
-	cat, err := RegionalCandidateCatalog(r.Combo)
-	if r.Regional.Stage == "formal" {
-		cat, err = RegionalFormalCatalog(r.Combo)
+	var cat ai.Catalog
+	rawCatalog, err := regionalRead(root, "regional-catalog.json")
+	if err != nil || regionalDecode(rawCatalog, &cat) != nil {
+		return ai.Usage{}, refuse("original catalog snapshot unavailable")
 	}
-	if err != nil {
-		return ai.Usage{}, err
+	hash, hashErr := cat.Hash()
+	if hashErr != nil || hash != r.CatalogHash || cat.Version != r.CatalogVersion {
+		return ai.Usage{}, refuse("original catalog snapshot differs")
 	}
 	raw, err := regionalRead(root, s.CaseID+"/tools.json")
 	if err != nil {
@@ -95,8 +97,22 @@ func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regiona
 		}
 		opts = o
 	}
+	tenant := "regional-replay"
+	input := ai.Request{Messages: []ai.Message{ai.UserText("Replay captured response.")}, Tools: tools}
+	if RegionalIsKimi(r.Combo) {
+		var recorded regionalResult
+		captured, e := regionalRead(root, s.CaseID+"/result.json")
+		if e != nil || regionalDecode(captured, &recorded) != nil {
+			return ai.Usage{}, refuse("Kimi captured scope unavailable")
+		}
+		tenant = recorded.Metadata.TenantID
+		input, e = kimiRegionalReplayRequest(root, r, s, recorded.Metadata)
+		if e != nil {
+			return ai.Usage{}, e
+		}
+	}
 	replay := func(body string) (ai.Result, error) {
-		host := regionalReplay{binding: ai.Binding{TenantID: "regional-replay", BindingID: r.Combo, Operation: ai.OperationChat, Version: "regional-replay", Enabled: true, ProviderID: ai.ProviderID(r.Provider), API: ai.API(r.API), Endpoint: r.Endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: "regional:" + r.AccountAlias, CredentialRef: "regional-replay", AllowedModels: []string{s.Model}}, body: body, exchange: x}
+		host := regionalReplay{binding: ai.Binding{TenantID: tenant, BindingID: r.Combo, Operation: ai.OperationChat, Version: "regional-replay", Enabled: true, ProviderID: ai.ProviderID(r.Provider), API: ai.API(r.API), Endpoint: r.Endpoint, AuthKind: ai.AuthAPIKey, AccountScopeID: "regional:" + r.AccountAlias, CredentialRef: "regional-replay", AllowedModels: []string{s.Model}}, body: body, exchange: x}
 		policy := &ai.ResourcePolicy{
 			MaxRequestBytes: 256 << 10, MaxImageBytes: 1 << 10, MaxFrameBytes: 512 << 10,
 			MaxToolJSONBytes: 256 << 10, MaxErrorBodyBytes: 16 << 10, MaxOutputBytes: 1 << 20,
@@ -111,11 +127,7 @@ func verifyRegionalResponse(root *os.Root, r Report, s ScenarioResult, x regiona
 		}
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		hooks := ai.Hooks{}
-		if RegionalIsKimi(r.Combo) {
-			hooks = kimiRegionalReplayHook(x.RequestBody)
-		}
-		return client.WithHooks(hooks).Complete(ctx, ai.CallScope{TenantID: host.binding.TenantID, RequestID: "regional-replay"}, ai.Target{BindingID: r.Combo, ModelID: s.Model}, ai.Request{Messages: []ai.Message{ai.UserText("Replay captured response.")}, Tools: tools}, opts)
+		return client.Complete(ctx, ai.CallScope{TenantID: host.binding.TenantID, RequestID: "regional-replay"}, ai.Target{BindingID: r.Combo, ModelID: s.Model}, input, opts)
 	}
 	_, kind, _ := strings.Cut(s.ID, "/")
 	if kind != "cancel" {

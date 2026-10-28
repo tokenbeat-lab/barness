@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/livegrant"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -55,6 +56,14 @@ func loadProcessAuthorization(route, mode, stage, account, region, path string) 
 		return nil, e
 	}
 	want, e := supportmatrix.ProcessScope(route, mode, stage, binary)
+	if strings.HasPrefix(route, "minimax-") && len(g.Scope.Scenes) == 1 {
+		id, err := minimaxlive.Select(strings.TrimPrefix(route, "minimax-"), minimaxReport.Identity.Model, minimaxReport.Identity.Purpose)
+		if err != nil || stage != "candidate" {
+			return nil, fmt.Errorf("invalid thinking-on stage/identity")
+		}
+		want, e = minimaxlive.ThinkingOnScope(id, mode, binary, g.Scope.BaselineManifestSHA256)
+	}
+
 	if e != nil {
 		return nil, e
 	}
@@ -76,6 +85,19 @@ func (a *processAuthorization) consume() error {
 	}
 	if !a.claim.StartedAt.IsZero() {
 		return fmt.Errorf("fresh process approval already claimed in this process")
+	}
+	source, err := supportmatrix.RegionalExecutionSource()
+	if strings.HasPrefix(a.grant.Scope.Route, "minimax-") {
+		source, err = minimaxlive.ExecutionSource()
+	}
+	if strings.HasPrefix(a.grant.Scope.Route, "zhipu-") {
+		source, err = supportmatrix.GLMExecutionSource()
+	}
+	if err != nil {
+		return err
+	}
+	if err := run.Record("execution-source", source); err != nil {
+		return err
 	}
 	r, e := livegrant.Claim(a.grant, a.raw, filepath.Base(run.Dir()), time.Now())
 	if e != nil {

@@ -1,1 +1,194 @@
-{"schema":1,"active":false,"version":"","models":[]}
+{
+  "schema": 1,
+  "active": true,
+  "version": "kimi-k3-formal-2026-10-22.1",
+  "provenanceSha256": "3a615910c7e849dbc9d11e4ea7cf39b4759b9dc6e7fdd64402ba716f1fa7420d",
+  "models": [
+    {
+      "provider": "moonshot",
+      "api": "openai-completions",
+      "id": "kimi-k3",
+      "name": "Kimi K3 moonshot openai-completions",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1048576,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "defaultThinkingLevel": "max",
+      "compat": {
+        "requiresThinking": true
+      },
+      "cost": {
+        "input": 3,
+        "output": 15,
+        "cacheRead": 0.3,
+        "cacheWrite": 3
+      }
+    },
+    {
+      "provider": "moonshot",
+      "api": "openai-responses",
+      "id": "kimi-k3",
+      "name": "Kimi K3 moonshot openai-responses",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1048576,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "defaultThinkingLevel": "max",
+      "compat": {
+        "requiresThinking": true
+      },
+      "cost": {
+        "input": 3,
+        "output": 15,
+        "cacheRead": 0.3,
+        "cacheWrite": 3
+      }
+    },
+    {
+      "provider": "moonshot",
+      "api": "anthropic-messages",
+      "id": "kimi-k3",
+      "name": "Kimi K3 moonshot anthropic-messages",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1048576,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "defaultThinkingLevel": "max",
+      "compat": {
+        "requiresThinking": true
+      },
+      "cost": {
+        "input": 3,
+        "output": 15,
+        "cacheRead": 0.3,
+        "cacheWrite": 3
+      }
+    },
+    {
+      "provider": "moonshot-cn",
+      "api": "openai-completions",
+      "id": "kimi-k3",
+      "name": "Kimi K3 moonshot-cn openai-completions",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1048576,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "defaultThinkingLevel": "max",
+      "compat": {
+        "requiresThinking": true
+      },
+      "cost": {
+        "input": 2.9753049688,
+        "output": 14.8765248438,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 2.9753049688
+      }
+    },
+    {
+      "provider": "moonshot-cn",
+      "api": "openai-responses",
+      "id": "kimi-k3",
+      "name": "Kimi K3 moonshot-cn openai-responses",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1048576,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "defaultThinkingLevel": "max",
+      "compat": {
+        "requiresThinking": true
+      },
+      "cost": {
+        "input": 2.9753049688,
+        "output": 14.8765248438,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 2.9753049688
+      }
+    },
+    {
+      "provider": "moonshot-cn",
+      "api": "anthropic-messages",
+      "id": "kimi-k3",
+      "name": "Kimi K3 moonshot-cn anthropic-messages",
+      "reasoning": true,
+      "input": [
+        "text"
+      ],
+      "contextWindow": 1048576,
+      "maxTokens": 131072,
+      "thinkingLevelMap": {
+        "off": null,
+        "minimal": null,
+        "low": "low",
+        "medium": null,
+        "high": "high",
+        "xhigh": null,
+        "max": "max"
+      },
+      "defaultThinkingLevel": "max",
+      "compat": {
+        "requiresThinking": true
+      },
+      "cost": {
+        "input": 2.9753049688,
+        "output": 14.8765248438,
+        "cacheRead": 0.2975304969,
+        "cacheWrite": 2.9753049688
+      }
+    }
+  ]
+}

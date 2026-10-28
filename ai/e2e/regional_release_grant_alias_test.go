@@ -17,6 +17,12 @@ import (
 // Separate processes share the trusted authorization domain even when grant
 // bytes are copied or a caller changes only the label of the same approval.
 func TestRegionalProviderReleaseGrantAliases(t *testing.T) {
+	privateGrantStore(t)
+	probe := exec.CommandContext(ctxFor(t), "git")
+	probe.Dir, probe.Env = "../..", regionalChildEnvironment()
+	if !privateGrantProcess(t, run.Case(t, "PD-isolation-regional-alias"), probe) {
+		return
+	}
 	binary := filepath.Join(t.TempDir(), "regional-live.test")
 	build := exec.CommandContext(ctxFor(t), "go", "test", "-c", "-tags", "live", "-o", binary, "./ai/live")
 	build.Dir, build.Env = "../..", regionalChildEnvironment()

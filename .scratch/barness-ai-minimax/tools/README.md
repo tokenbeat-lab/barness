@@ -1,3 +1,5 @@
+> 固定轮次控制器已按 [ADR-0055](../../../docs/adr/0055-route-scoped-evidence-applicability.md) 从活动实现退役。原暂停、授权、账本和失败事实保留；本页旧接口仅按固定 Git 版本追溯，不再作为执行入口。
+
 # MiniMax task-10 bounded collection launcher
 
 The executable boundary is `python3 .scratch/barness-ai-minimax/tools/paid.py`.

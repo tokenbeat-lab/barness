@@ -1,0 +1,1026 @@
+{
+  "kind": "proposal-only-file-disposition",
+  "baselineCommit": "69ff4af880e68ef3ca245e5128bdae5e59a2ef7b",
+  "executionAuthorized": false,
+  "deleteFromActiveAfterPolicyAndDependencies": {
+    "go": [
+      {
+        "path": "ai/internal/testkit/minimaxlive/closed_cohort.go",
+        "sha256": "a37dbea04dd5d9e06beca096339fa77dc37651f86c7ab1b9615142a33d37d90b",
+        "lines": 180
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/cohort_files.go",
+        "sha256": "5c87223ad727acde2857ee7cabe63f53cedef1e56dee70a5d0242a9658beee5b",
+        "lines": 247
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/final_renewal.go",
+        "sha256": "5b63eb8036222f75de1954c2b2248428b6766c07553378ff9529b588b26a23ea",
+        "lines": 140
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/final_renewal_concurrency_test.go",
+        "sha256": "c7563309bd363a8fa59a7796b759eb2d10daa597f59f7307001d7c9c4387d80f",
+        "lines": 127
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/final_renewal_history.go",
+        "sha256": "1c2cdc1624f9588e3d2816dc4abe277a82107b1aef479261bb248a2e1be44df6",
+        "lines": 174
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/final_renewal_process_test.go",
+        "sha256": "c0abb2d653efdd40862aaa02993e9c46635f0199a2fb8a0df25d39b63d587e95",
+        "lines": 283
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/final_renewal_refusal_test.go",
+        "sha256": "11799f0ac0c05f8d90277dbfb6c6035cff4b32a2b8301dfb013dad97eaf06ee4",
+        "lines": 355
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/historical_accounting.go",
+        "sha256": "e05467529a0bd9147d17caada47841f409311f778f17489d7022c30cd009a5f3",
+        "lines": 22
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/historical_plan.go",
+        "sha256": "5d2bab21a9ac2514f238819effcef5980745b02e842022fafdf8233185286ba6",
+        "lines": 24
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/historical_plan_fixture_test.go",
+        "sha256": "3e92245b43cf1d64dda4b74fe40d230ada6148769282e8d5a41e894a756054bb",
+        "lines": 26
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery.go",
+        "sha256": "b06b76c8917e9380f93180e68b403bc4c7cf67a7fb73575eee9b1d543f07c650",
+        "lines": 98
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4.go",
+        "sha256": "0efa62af43430c0e512e93f9ebdfa91116547e3ed5b6c8348667787667063a47",
+        "lines": 120
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_approval.go",
+        "sha256": "10873a46c854693c7864eade4e3848767b9e6bc6b7b83a14188e4c2dfdd91f47",
+        "lines": 95
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_fixture_test.go",
+        "sha256": "541eb712e2f5a40149b28e245f55ab26acbb2bb27194fefdee0ddb0caee8ee3e",
+        "lines": 183
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_grant_fixture_test.go",
+        "sha256": "52e8c73d43d3f3947439e37a50a6d750fadd6b6b504ca46d27fd46be33e6a9f0",
+        "lines": 211
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_history.go",
+        "sha256": "d223382e8509b2998e3fb0afb7adbc2fecec6e46e335cb84e0204ad2b4e665eb",
+        "lines": 213
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_process_history.go",
+        "sha256": "42bc5006a8c9573028c6cfa40ca45d927b8978cddd6b133f60889902c4b5b20a",
+        "lines": 199
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_process_test.go",
+        "sha256": "cabf8cd0ff68ec456ddc507a0a777a7d78aabd9dd191b015b4c41ee34c424235",
+        "lines": 283
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery4_source.go",
+        "sha256": "2bc13b06b76be4d398d4fa97f1c1a952596a309fae579678bd873938c6e5588e",
+        "lines": 100
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5.go",
+        "sha256": "f25189687fd56ed48030e8d6902b6c3d10ebf4e6eea1f55ecc74d36a824190c0",
+        "lines": 133
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_adversarial_fixture_test.go",
+        "sha256": "c6723febd5024be0f65b9a643c03e137a310064b5426cee173c990c982758dd0",
+        "lines": 186
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_approval.go",
+        "sha256": "b211349b6274844dba3dc422d16f31f8ce0065a65bc9004ef0031b60da45e0f8",
+        "lines": 74
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_first_fixture_test.go",
+        "sha256": "cf600253add4fc7cdd2a50dc0932593f66d1da4347fd427f3ff15dd427362f72",
+        "lines": 61
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_first_route.go",
+        "sha256": "3eca78fb25bb530d13eb44e7ad479825a21816a50e12fe54ec5dd608eb93b18e",
+        "lines": 182
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_fixture_test.go",
+        "sha256": "d0593508234d9083e271dfaee3ecd267e9f35eaa01c4c147b303119bf28c72c6",
+        "lines": 224
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_grant_fixture_test.go",
+        "sha256": "67ecfe8a8d1f38d4273f65ea81dd25bb339fa457b4c12bb11300955048e366ff",
+        "lines": 230
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_history.go",
+        "sha256": "f3b0ee1c45accc7dde292ad2a5d8391c5b8fcc5d6939789b9b9eaf9243d51318",
+        "lines": 237
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_process_history.go",
+        "sha256": "d00fef45f3071fb1c5ec33d5665f8b24840fe4b75ce2f2fae105ee0280657784",
+        "lines": 157
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery5_process_test.go",
+        "sha256": "f1ffc2786f77b59c382e80cd1d5b45f5b8c07770de0ffd84711908d9d57d1015",
+        "lines": 324
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6.go",
+        "sha256": "38f3cb2f58845be24dfe78196973f5196325ee0355faf973eea946759c73e5dd",
+        "lines": 96
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_approval.go",
+        "sha256": "b4098747ea7b20534c4d7d5b2b1668d2df7611499ff93d65293f57e93f17d91d",
+        "lines": 73
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_cli_test.go",
+        "sha256": "614d64886eeb6be95d17ed3998067def15e442ebde091c76f8047cddb4f181f2",
+        "lines": 56
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_first_fixture_test.go",
+        "sha256": "36e96f180a69f4fa40a603a2f19c74ebfaf2fd9bedaa39db07730a6c9fd5ed85",
+        "lines": 46
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_fixture_test.go",
+        "sha256": "09b45b6da57fee58dfa0cd1a49ff8e8f60ceb1b990bd71d3f5f9ff617008b7e4",
+        "lines": 193
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_grant_fixture_test.go",
+        "sha256": "0d84763ac4f0c996ffc774a6d1230320535d703f1d4d2cc08173e7de85ef42fa",
+        "lines": 58
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_history.go",
+        "sha256": "caa6e1845af2665fef8c978a89005319fd25d49cc3297ca05de5dea4795fc477",
+        "lines": 180
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_native_history.go",
+        "sha256": "186d91477057e37665db2003719bb5d1d0fadc3b08c04c8faf6514e2c05b7e0b",
+        "lines": 234
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_process_test.go",
+        "sha256": "9a0649569ecc09b8e4d11cdd4cc634707821023b25af416655271fd836aab2a0",
+        "lines": 267
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery6_selection.go",
+        "sha256": "286b32545616fb31a8d49d82d1548575062a5ccef55f6e43f5a79c99eef83a7a",
+        "lines": 90
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7.go",
+        "sha256": "0c75aea1dad8bab92508a03b8638f5bd5bca2cc9738c7c6ce31bcb1f4a996190",
+        "lines": 92
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_approval.go",
+        "sha256": "39a62b24b3bdf5f611d151385a7894f23dcb8ea169d3366db92b37e72c577549",
+        "lines": 73
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_cli_test.go",
+        "sha256": "c776b3548593404a3ca38120f1b27c741c6f0bb081a995853371917e8ad7b7b1",
+        "lines": 56
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_duration_process_test.go",
+        "sha256": "ed31fbfa4654a288854e1516878d9ce2e53850c532f80df6ccf693ca5a0cbd78",
+        "lines": 69
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_first_fixture_test.go",
+        "sha256": "d06e319ff93065c7602200ff21cfce82baeae1cfc0e85b36193c188c31f328cd",
+        "lines": 46
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_fixture_test.go",
+        "sha256": "0865b288092ce6fedfdfca65b9b8bf794a7de6fdf4ff4954ae25a39e7762356e",
+        "lines": 178
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_grant_fixture_test.go",
+        "sha256": "e0a2a098e7381c43521d8d61b9d74809a29ba4f6754554735bca21de4214bca2",
+        "lines": 63
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_history.go",
+        "sha256": "3e9330ac321a2ac1d453a266ac493c6d8a0261395a886af8c739c590284f5b4e",
+        "lines": 177
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_native_history.go",
+        "sha256": "fdaf5e51199a4b7a8ef95c936372fca5b63157f7c96b626d35f4011b1b530ab9",
+        "lines": 195
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_process_test.go",
+        "sha256": "744017195fbb3173bf90fa27bac48bd871f4bf4a8ac355a6da11ddb27745d403",
+        "lines": 330
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery7_selection.go",
+        "sha256": "c54cacaba22e6255591c2299982d308d04d892afb98b818170d70a3b4be1e089",
+        "lines": 63
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery_approval.go",
+        "sha256": "20f592979813074b651bdfe4f6de5e318d718ed1e7145421455d0b0dd8d4d0bd",
+        "lines": 90
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery_fifo_test.go",
+        "sha256": "e0d076f8dbec2593917f72dc01ec4e34794fbbfbf0242e88b390d49a2f2767ac",
+        "lines": 5
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery_fixture_test.go",
+        "sha256": "53f6302e644a16d64a40d04ee504a7426ca3f25d505a16c596bba1ad0f680ab2",
+        "lines": 216
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery_history.go",
+        "sha256": "48b89c1f3866d65b9aad3a6413c62281b17752db6730dddc072a684f81bd53bb",
+        "lines": 251
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/recovery_process_test.go",
+        "sha256": "b5ae2dcc1b06abcb7036d0329c1d2b356557de14b107026e311ae9e3eb761410",
+        "lines": 244
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal.go",
+        "sha256": "e792c094f7f88f0b478447e8dd2a5f6140951031562390e80f87bbf55d50227f",
+        "lines": 331
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_begin.go",
+        "sha256": "cc8bbb4a263b1804539690c3fabc23c03884fea75171388daac6ab3b61aa910e",
+        "lines": 122
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_ledger.go",
+        "sha256": "aeceb35843565c96c2126a60173b4531215fe01af7121a66ba2ea12218c7aa9d",
+        "lines": 133
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_owner_test.go",
+        "sha256": "cb0cc23eaf3c4528b730b33fcec284998248d76eff7c7e23f21cd656d8841099",
+        "lines": 27
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_process_test.go",
+        "sha256": "995756a00332388fb3e65dbfc3f521c13b08766f749b67640ec4ce2b0abcbb44",
+        "lines": 190
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_report.go",
+        "sha256": "74cb633d7ac2269f692ab3b4f525f9e0d29fc898ef7d09e7a09210b1530fa00a",
+        "lines": 41
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_report_test.go",
+        "sha256": "3bdda4bfac874fccf17382e511859f2bd5e290dc22caeb1cf5873b2f3063ad79",
+        "lines": 29
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/renewal_test.go",
+        "sha256": "e07c52e8a7a83970094ed377e21b29c3946a6bc35cd4c2710682c49a53691004",
+        "lines": 8
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/second_renewal_fixture_test.go",
+        "sha256": "3719bd549f54f70d4a543ac53e37b040ac77fee1376d2af5ea595edece657fc5",
+        "lines": 67
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/stage_path.go",
+        "sha256": "78e68e2d75a1dd3cf919ec5a706ea72667b6a427186a6f05f6c22e2cf86d184e",
+        "lines": 49
+      },
+      {
+        "path": "ai/internal/testkit/minimaxlive/stage_path_test.go",
+        "sha256": "97c35c34fb4a07356a371bb06afe8fe71be88215ca1b1462cc6824a1e86ebc2e",
+        "lines": 87
+      }
+    ],
+    "python": [
+      {
+        "path": ".scratch/barness-ai-minimax/tools/eleven_contract.py",
+        "sha256": "6198e1057ed79031fd78d6e02309e0089c3444715a5d27821b4c2fa8b81b0e94",
+        "lines": 42
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/eleven_finalize.py",
+        "sha256": "c5bf639f10975be958d58b05bf0647f11b64289fed21000385d1ed83c4d7a2f5",
+        "lines": 63
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/eleven_grant.py",
+        "sha256": "5de6bba81f6a32228b00dd6c02aeb5f2c3f38c5f96776219e98054284471c8bd",
+        "lines": 47
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/eleven_inputs.py",
+        "sha256": "ee274b7127369c2a97db9c796edcb533da5f24f233268beb5c931bc259b70e0c",
+        "lines": 79
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/eleven_validation.py",
+        "sha256": "173823d998b55703cb6ba9e7cd1287836a7775993d61f351cd365f0b9a36d7a5",
+        "lines": 155
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/glm_corrective.py",
+        "sha256": "6ed515031902960af16334779da9ef287052ab16d85283d47c63ff7856186a65",
+        "lines": 201
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/paid.py",
+        "sha256": "5560df5569b897cc46b315288b67188557a9af47b5c04772b005dff88392cf99",
+        "lines": 299
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/paid_capture.py",
+        "sha256": "83d052452a350a9960140f2db33bf52374ce78dbfe064d22cc1937b4ae917c7a",
+        "lines": 64
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/paid_checks.py",
+        "sha256": "fb43c9aded424d475892e1cb9c890299aca33b9e4bcb0822465f292059385034",
+        "lines": 36
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/paid_core.py",
+        "sha256": "d04b6ada7669530169debbfead314e9140f2f6f9295871ecddb42764cad14177",
+        "lines": 183
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/paid_history.py",
+        "sha256": "a56b2bc83530829335762a46f48917a15ad268619e9e0d167c2d863cd743eae0",
+        "lines": 38
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/paid_plan.py",
+        "sha256": "8213089eee34ff2ff4ad973b835886c167b90fc8fd8ac0b9af7f96eb79979a5a",
+        "lines": 147
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/release_repair_validation.py",
+        "sha256": "a5ed655967041360e79a0527c7c13aca685265d7f0994b7660b18ec8711b503f",
+        "lines": 120
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/renewal.py",
+        "sha256": "3a5eea2a0e75f0dfce561517a41c739a37b125d9ea757ca1f7b57911ef47afbc",
+        "lines": 146
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/renewal_common.py",
+        "sha256": "2d624c62ad9fb0e889cba161c29ab7529269fb9fadfaa4c0365a86a81cba65bf",
+        "lines": 140
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/renewal_glm.py",
+        "sha256": "33e7df4cb27fa7d86101eb0d894360db07c39f6d97dc9e41b3b1a5739cf98d04",
+        "lines": 170
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/repair_anchors.py",
+        "sha256": "33c279ccc32bdbbbb63c6dfd1fd0af82cf918d40111c9ef0ef224606130f6c42",
+        "lines": 43
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/repair_contract.py",
+        "sha256": "97ce3c09620d8beaef2f0d7ed530feb413ae6c51011bff775be8ec99eeb7cce3",
+        "lines": 41
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/repair_inputs.py",
+        "sha256": "d6e38602f14b1edbcf881b0a0262a904a87859b022a55344a5cb44b92577e047",
+        "lines": 141
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/repair_publication.py",
+        "sha256": "116270bb06c9084e65bd3a42845630bf0e70c22bbd2447baf688cc4cb0eca849",
+        "lines": 61
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/routed_contract.py",
+        "sha256": "b6a8ba6f9daf116d664af30ffcfd96033b0d38f5d62e84f2c318e6584eb52bd8",
+        "lines": 59
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/routed_evidence.py",
+        "sha256": "ab1eb2247183768680c0d6315357fc9ea7394405b0028775fe8611d63f41f0a0",
+        "lines": 163
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/routed_validation.py",
+        "sha256": "d4218ae16c85a1e679a775d78f59870b374d530e65d7f3d7060d61cc95efe4ca",
+        "lines": 178
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_eleven_validation.py",
+        "sha256": "fdb15670df9611aaf1a9649b8f08b6e0f5cbee481f6809943aedcfdd4ab99b33",
+        "lines": 156
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_glm_corrective.py",
+        "sha256": "b6a3377dbd79e4c021916f84a4dc1c1f8c5480b24b1732678b6c08f0ea1ca1a8",
+        "lines": 142
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_paid.py",
+        "sha256": "0bcce1eb02e3ae013b017b026ce644cf86e64e87f1d55e46f4ca2a051a770023",
+        "lines": 425
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_release_repair.py",
+        "sha256": "20ed2ab31668c85c4390e67e917c754a212bd2906e3259ec7824ded16232cb5e",
+        "lines": 135
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_renewal.py",
+        "sha256": "a28d8ba1d389f7fc96c42d83b89dc01f2f269a7540aa6b9d3b90dc391819dc30",
+        "lines": 390
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_repair_fixtures.py",
+        "sha256": "b61a79b10f307ad9f7edd5715c0fe7718d52c1f7ffafb527fa1d6b697d91d522",
+        "lines": 89
+      },
+      {
+        "path": ".scratch/barness-ai-minimax/tools/test_routed_validation.py",
+        "sha256": "1d8c0bab92234d6343051635d61b3a49f600e26780608ed76cb66aa383f094be",
+        "lines": 269
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_contract.py",
+        "sha256": "f37c001290607f2758f82dadb1c758c33418dc3a78f98b665ccdd95865bd27d6",
+        "lines": 64
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_execute.py",
+        "sha256": "8e821bb60d1a15a89cdf0a9d5253862426221291445155b7d7836411ebd4e39f",
+        "lines": 235
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_finalize.py",
+        "sha256": "2b983177644bd66fedbde6eeeaa1b2e07bd64209c9d0352cc80d97e9f5b7db6f",
+        "lines": 101
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_grants.py",
+        "sha256": "aacdc013bedbe3adb148c4ae0a39fd3f1a2a0efec3be842506926bc1b05de9d6",
+        "lines": 62
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_minimax.py",
+        "sha256": "806c0d21eb24a633bf0f489a358f8526be896ec1b8d816183908a20b1549bed1",
+        "lines": 59
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_native.py",
+        "sha256": "6f17ead63ab5cdeee926838ce23f8e2f3bf57c561461c57b3b200f91f6b5de4e",
+        "lines": 159
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_predecessor.py",
+        "sha256": "e6ffeb7170ff9e12d9c06c2d30a006d8265e0af38277d1a576292604be6e6cf3",
+        "lines": 186
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_process.py",
+        "sha256": "acc317d65ad7db0af6e8d283889e5dabf7cdb9aa1d985dd0cea5c8df4ade273c",
+        "lines": 82
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_publication.py",
+        "sha256": "96ba91728f799148ba00af3d9115aef620066fada97102ac8f6b84f46bf77c2a",
+        "lines": 65
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_retry.py",
+        "sha256": "f2cefc8e7d37fe2a1017d7d505a623b07f0ff4123fd69eb7236efec003fe06a0",
+        "lines": 153
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_retry_execute.py",
+        "sha256": "c5d300aa26c2ffb37efe45ac0bed91f6aba996de71c960c622ff2009b5505f4b",
+        "lines": 61
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_round.py",
+        "sha256": "df45d9cae43a22edd19447e259d9d3d7e530dd48c3c22d41696a205d57c6813b",
+        "lines": 74
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/final_state.py",
+        "sha256": "e225cdde380a409093c415ada3694bda775d1cca810851d2a9420d54f965b5c1",
+        "lines": 212
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery4_contract.py",
+        "sha256": "cb4f842d45c50d213441d7b387ce42e78824d5cffa68fe90299956e295a12e73",
+        "lines": 53
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery4_history.py",
+        "sha256": "99bef474636da17a9f7d730c71b39bab6d02f9c732cf20563936285f6e2db848",
+        "lines": 134
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery4_native.py",
+        "sha256": "7972e8ac86cf591671cc5464d1d816f40aead890cd88f8d9457ea77c523603dd",
+        "lines": 72
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery4_round.py",
+        "sha256": "e219d628be6bb8d833bc0a7c24ff48a0cf165edf100562780741ca80a4310a0f",
+        "lines": 39
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery5_contract.py",
+        "sha256": "93fb17399985217effecc696e0d344d718705daa6f7160b219cfde691e708fa8",
+        "lines": 55
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery5_history.py",
+        "sha256": "6147feade08c63e04618e7c11a6d8275c962092b989e04de57ce86bc3d205ff6",
+        "lines": 96
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery5_native.py",
+        "sha256": "39b5889699b89f2ee383049b3fdd7f6ddaa36509ad1468c2a9f7937437d74980",
+        "lines": 78
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery5_retained.py",
+        "sha256": "573b65fd901a402db17c7725109a1ea1142e0cea6df369d941e7d556aca6bbdf",
+        "lines": 86
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery5_round.py",
+        "sha256": "27d0fe477b14cc5c07a7b9465e302ed247dd01b9d92b3907f5b82e22642b305c",
+        "lines": 39
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery6_contract.py",
+        "sha256": "d54702570134783bda55d12bdbde24dce6bb4d8f9ee15ff1a03870e2edd38c01",
+        "lines": 57
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery6_files.py",
+        "sha256": "aed1325f26ef0664b34786c79bb27ab7bf6968e280cf62536aeed164abae5488",
+        "lines": 44
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery6_history.py",
+        "sha256": "849618678824f53f94057e35e6b4bd53fff80eae7060a648cf7518496b008654",
+        "lines": 116
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery6_native.py",
+        "sha256": "189bf07944e1214c9b68ed399e4ce68ae8d44cd55ce196a75deb6e5d769f27b3",
+        "lines": 78
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery6_retained.py",
+        "sha256": "e8dcd419502f02583349e3aefee14a7668054c52f46943703c9f000012b2dadf",
+        "lines": 97
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery6_round.py",
+        "sha256": "8c05fab53ba62ca0b7d71e7c5a8acc8aa6ff733f23a4166432b33271791deb68",
+        "lines": 39
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery7_contract.py",
+        "sha256": "b1f8fb0263df3bd8e144c41de8146fdc3389c8a934b89a580a9113b6992bea38",
+        "lines": 63
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery7_files.py",
+        "sha256": "0c9faba8a49f40caf10a13538ae3bbc5ebb873717dcf42c55480372d2b90730b",
+        "lines": 44
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery7_history.py",
+        "sha256": "24b598c3898a1c75607308e0c68b4a64ba9c03b2f81434cffeb33d43c17c0f27",
+        "lines": 127
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery7_native.py",
+        "sha256": "9402ebe2b674c0cd5ed1d754af4710b5643cefd54e2897324123114b1a0ec19c",
+        "lines": 82
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery7_retained.py",
+        "sha256": "f1d9d368043bcf4b3049be5836b679ba0ed1f25e78d7ad668b33ca75f5d58fda",
+        "lines": 97
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery7_round.py",
+        "sha256": "251350d37d0f5e8ea5cb29b629439d620d3f13085b3f17614045049162cc25fd",
+        "lines": 33
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_contract.py",
+        "sha256": "11b2d35a497cd76a7c8b209c27036cfdfbb6279f54794d86651bb2e1b6db60fa",
+        "lines": 53
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow.py",
+        "sha256": "3c4b943dacbace69b7e3a52d9e1cffdb43cfefc3252045c985349539e81d6d81",
+        "lines": 35
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_execute.py",
+        "sha256": "1121bfc260842da1c692286b65f0f61721296deede1c4b84f5af1ac653b4acd4",
+        "lines": 165
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_files.py",
+        "sha256": "13260a3df872ab081c9c1ca3128f2943e6dbd28ea6d74d4a222362b44b4f9835",
+        "lines": 55
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_finalize.py",
+        "sha256": "9626801c0a9974ddb483d650786f3da5ebc48f06ee1ad570fa8b97b54aa3a0aa",
+        "lines": 104
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_native.py",
+        "sha256": "66876b7d6b11e56c32692a0c2c0953c1b363c748e5acb89d1111fb0713ec0489",
+        "lines": 120
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_publication.py",
+        "sha256": "7f821986b6d1e111edd2b53fc97391a6c4a100286005748c446b8b391c08ad74",
+        "lines": 86
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_source.py",
+        "sha256": "f36e44801b9a49d6b55bd2fb3d88edfc4beb501bdfcdd86ec5f387c4ef84ff41",
+        "lines": 75
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_flow_state.py",
+        "sha256": "722db71e2251f27453706dfa638465aad43a2cfe9b51aae4801fefef670f8b64",
+        "lines": 141
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_history.py",
+        "sha256": "3dbfb3d8c76991557570d37ef5924a157f51e7317dc6f3dcac08bf2d8872243e",
+        "lines": 84
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_native.py",
+        "sha256": "30659fc543edd85abb253338bb7976beadd3a95225494b57042cd8205bb27610",
+        "lines": 48
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/recovery_round.py",
+        "sha256": "600259a543bfcd56d981690d7c4c8e96ac0bdfdc5c92831fa008ccca4955ffa7",
+        "lines": 40
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_closed_fixture.py",
+        "sha256": "fb11c864023efe3c7e4f3fb8e49ca21ced9465cc753a8cbcbddbcb931c20f942",
+        "lines": 49
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_final_publication.py",
+        "sha256": "44f00d23aaa03f2d5962e932ca9e0e5e385da41be5f6a7d0fc54afee3eb19f39",
+        "lines": 117
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_final_retry.py",
+        "sha256": "b6d6a0bfefb8ea3c883e47c1e31f884771c5dab7f6f12d91273ee9342f499495",
+        "lines": 77
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_final_round.py",
+        "sha256": "20ac3b2fd31d3f12effd30c650a3b30f43ff8f283cdfdd3a9a96c90f3298cd53",
+        "lines": 400
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery4_fixture.py",
+        "sha256": "7d958ae68741accf0dbaab6b7c8149949df9b0951a5a269b9aff6443ade52e40",
+        "lines": 91
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery4_round.py",
+        "sha256": "88e1359e022e15235d7cbce53cf8b16b03bd0ee0d3d6efe100f3a13161fec1a6",
+        "lines": 256
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery5_fixture.py",
+        "sha256": "fe7944c1d492c2ce8a42c4e7063d994848851160db1f010fcab9285d73558e70",
+        "lines": 100
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery5_intent_io.py",
+        "sha256": "ed5cd119fa78e0a6bea62b6c3431ee3c65597842151d1747a4353718dee40dd6",
+        "lines": 69
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery5_io.py",
+        "sha256": "64c9522d223c2adbc3a0c40c51c6c0529c1f62376f496c6caa592a747cb7fe54",
+        "lines": 56
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery5_round.py",
+        "sha256": "5d4cc1605830cbdb2f18d770b93570d074a10c77d7b7742c0e2cde35c6797df2",
+        "lines": 170
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery6_fixture.py",
+        "sha256": "51a57313190963756daecdf29a479e1be467d491cf4662f31a88c9cbd9034c2e",
+        "lines": 88
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery6_round.py",
+        "sha256": "07efdb196352a39d0176184da8d837a5575b4840fba23a9b4c9d55de2ef5ced7",
+        "lines": 196
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery7_fixture.py",
+        "sha256": "3aa43088c0a43492b7544782b716ba97d761631ff15b74dea2bd32b7ca50e475",
+        "lines": 81
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery7_round.py",
+        "sha256": "f8fe16db81f12fb6577d0f75ed7157b40a1e1549a500e427e95a0ba254d5db08",
+        "lines": 227
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery_fixture.py",
+        "sha256": "fa4933bde41d14bcf74659ad82b08b5e6a8ca37ee9ca11f8f3ed7c7029bdc08f",
+        "lines": 100
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery_review_fix.py",
+        "sha256": "7d17d0f9dd70c80d47b164d455feb40b5f16ac36d25e47259283a83d28e5aeee",
+        "lines": 104
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_recovery_round.py",
+        "sha256": "5bc3630b9d9505b2a594fcb96ff79df8b28ecc1f8b00c955fe654b8abcc85c7e",
+        "lines": 189
+      },
+      {
+        "path": ".scratch/barness-provider-sites/tools/test_retry_fixture.py",
+        "sha256": "f1164b65c659e5e51953cbb3388c15598d79af520c34c2984e290bf994e0874d",
+        "lines": 79
+      }
+    ]
+  },
+  "rewriteRetainCurrentSemantics": [
+    {
+      "path": "ai/internal/testkit/minimaxlive/origin.go",
+      "sha256": "22a85a1ae17fc2ea73144c2b8f60f1e91923fa404945845907d06763466329ad",
+      "lines": 153
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/verify.go",
+      "sha256": "5f68429d5a2c1aae6b3d60198532557ed3ed45d934834d83e8ad485f8afdde46",
+      "lines": 297
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/source.go",
+      "sha256": "8a06f0990ec64f842983cb1ec42e2e06f94ca43bb086f9edb889ecbfedc6f2ff",
+      "lines": 159
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/ledger.go",
+      "sha256": "6b1e31a7236fd9158ac6f98ef146ce1b951ff37fb33d613fbe2d7625b7f5a5b7",
+      "lines": 241
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/ledger_evidence.go",
+      "sha256": "d304bbe07e249e3251c326bf7e09dfbc805fdff4d2e65356d1fe6014c9ff1c97",
+      "lines": 178
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/process_evidence.go",
+      "sha256": "6c22dac42d16e95aebb6fbdd95f339b4defd40532cd3ee715f00df0e121495f1",
+      "lines": 43
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/process_scope.go",
+      "sha256": "71250d30289461c0947d2fa7551dd6b232ebc07bbd24cfa62a141a5e30c25bc2",
+      "lines": 35
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/report.go",
+      "sha256": "3fbcc4f894612d13fbcca3e6d1e93ef13f8cede4ed12d628da42b0323f3e767c",
+      "lines": 62
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/plan.go",
+      "sha256": "2b6b8626921fb168baec2e29773cac86d54e43649d2318badfdd8f106c75f75a",
+      "lines": 104
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/regional_source.go",
+      "sha256": "0bd88be8f1b9131b866ac50069c514af5096327029bff3a2a26f402d1fe1d96a",
+      "lines": 76
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/glm_source.go",
+      "sha256": "0870c13699daeabd287e85a33c5574dcc74614c494ddb13d336df923bbae0a03",
+      "lines": 74
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/process_scope.go",
+      "sha256": "714e264a5c237164558ec72a9a0ab6f0aafd00bc4ed5865b149c2288db1a892a",
+      "lines": 97
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/process_evidence.go",
+      "sha256": "bff4844db398bade6aa51fe2dc10e94083aa7a49de8e39156548669bc9f9cae0",
+      "lines": 21
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/regional_grant.go",
+      "sha256": "547d900dbdcdb1e542978fde29f7aeb111850817195b8eec0ade56e62dac0f74",
+      "lines": 126
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/regional.go",
+      "sha256": "bad769f96623116e9a77c4fd89175c688ce8ef15c4cee7d9f8b3bf3968d2d6d8",
+      "lines": 166
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/xai.go",
+      "sha256": "c436431d14918a02ea4a101dbcf9a0647c9a385109d0626d65e9a76e282c6627",
+      "lines": 252
+    },
+    {
+      "path": "ai/internal/testkit/supportmatrix/minimax.go",
+      "sha256": "ae95ff14173abc624b0c4273dba3ef246d9739f8a8e62d369705a4f60f819467",
+      "lines": 88
+    },
+    {
+      "path": "ai/internal/testkit/release/record.go",
+      "sha256": "456315b5f0052ae889abff8c40bbfc91e0ecb898b2bc03808b3797a2d92c6cc1",
+      "lines": 80
+    },
+    {
+      "path": "ai/internal/testkit/release/record_verify.go",
+      "sha256": "40fcbc81fb25d0d97393cabfa4f1f68ab0504ed17b5578e91019f857bf765dde",
+      "lines": 292
+    },
+    {
+      "path": "ai/internal/testkit/release/record_live.go",
+      "sha256": "97389d9afffe9b26b3a46c917c8abf1b355205d7d423533cffeb69f9bda960b6",
+      "lines": 106
+    },
+    {
+      "path": "ai/internal/testkit/release/live_consumer.go",
+      "sha256": "8d36ef663704b982ca36b80454f14223be891a3dcc4d34a47bbc5aa8932f547d",
+      "lines": 204
+    }
+  ],
+  "keepResponsibilities": [
+    {
+      "path": "tools/verification/run.py",
+      "sha256": "4ef759de59672cf6cffa1280ff488f31eb5ee0055a92cf178a0565ba97fedff6",
+      "lines": 146
+    },
+    {
+      "path": "tools/verification/run_process.py",
+      "sha256": "f9caf3b589fdb1ddf4861ad0ca123b80894d8ccb23e3957351b34a0bea2d17f7",
+      "lines": 169
+    },
+    {
+      "path": "tools/verification/receipt_files.py",
+      "sha256": "407de5bdc094da2d1b137efcee5dd35f432023ca5679cced8feacd81d49b9bce",
+      "lines": 134
+    },
+    {
+      "path": "tools/verification/consume_live.py",
+      "sha256": "4bc231fe6ffa78acc86f751bb1839e69e94d519d5d71bde8856cdb6d5580a674",
+      "lines": 69
+    },
+    {
+      "path": "tools/verification/live_environment.py",
+      "sha256": "d04e75a859f8559a99f1eabcec4b63fcd7814676960b4ad930dba8f3a2caa397",
+      "lines": 38
+    },
+    {
+      "path": "tools/verification/cleanup.py",
+      "sha256": "79a878af47fdb18577791eb2eb2efde92650413722badbd53446b084fd990651",
+      "lines": 195
+    },
+    {
+      "path": "tools/verification/cleanup_scan.py",
+      "sha256": "022f286151f783129938e33524647a2b3f48251fe87e1caaedabc44f3b31b286",
+      "lines": 265
+    },
+    {
+      "path": "tools/verification/cleanup_state.py",
+      "sha256": "dfc5d81a49a6eb5e2c4be5f9a472c37b6d9abdb05eab578e36f19b0564160ca0",
+      "lines": 126
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/history.go",
+      "sha256": "be4907bffd8ff2f08e002d3832acda3998c11c6f33514082bd34b14f4a748e2b",
+      "lines": 73
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/usage.go",
+      "sha256": "71dba7fd91f9e82084a0f3d11199e5641ae4a02e2a6017fa9fae42f8ed744d68",
+      "lines": 107
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/verify_call.go",
+      "sha256": "2d1358620d9137ce174b6be7eb12abe6eadc9df37933c0d2d6af1381d3ad4f91",
+      "lines": 222
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/facts.go",
+      "sha256": "0993eaca3e01c7c2b645209bb6dd446a873702e5fdda64c5a53dfda2a4a3fb7d",
+      "lines": 58
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/decode.go",
+      "sha256": "983280e21abaaea5f4bf8cf8c532a16d06acdab6bf5ed013d7d558797b4a012c",
+      "lines": 84
+    },
+    {
+      "path": "ai/internal/testkit/minimaxlive/inventory.go",
+      "sha256": "07e6c0cc2189563f5fc1415dc16af48e3bbaf496699773aab5184540c305ce8c",
+      "lines": 87
+    },
+    {
+      "path": "ai/internal/testkit/livegrant/claim.go",
+      "sha256": "d5f99e71da7b1337900926c9c5327c1dabad68cd8a0d4500d2ae62f486648203",
+      "lines": 136
+    },
+    {
+      "path": "ai/internal/testkit/livegrant/evidence.go",
+      "sha256": "975b6213086241cf6a120526c77bea3e66307c77c4978014e9067d9a0d135673",
+      "lines": 82
+    },
+    {
+      "path": "ai/internal/testkit/livegrant/grant.go",
+      "sha256": "4f617c32c75e14d54eee337c0f465f51cbb183ae617594d537aa996eadf12fd9",
+      "lines": 104
+    },
+    {
+      "path": "ai/internal/testkit/livegrant/json.go",
+      "sha256": "0dd1b2e352e23e1f3bfdc9146267af5140d2262786b2466152e08d43f1b55186",
+      "lines": 85
+    }
+  ],
+  "permanentlyRetainedFacts": [
+    "original authorizations",
+    "claims and nonces",
+    "consumption ledgers",
+    "failed and unknown attempts",
+    "complete original captures",
+    "paused and closed batch facts"
+  ],
+  "retirementPrerequisites": [
+    "adopt replacement contracts",
+    "retain fixed historical source and read-only consumer references",
+    "remove current imports and subprocess calls",
+    "preserve necessary budget and capture logic in existing modules",
+    "pass affected public process and Client acceptance"
+  ],
+  "noCleanupOrLiveExecution": true
+}

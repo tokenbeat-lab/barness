@@ -3,6 +3,7 @@ package e2e
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
@@ -41,7 +42,12 @@ func TestMiniMaxFreshLedgerIsolationProcess(t *testing.T) {
 			common := miniMaxGitProbe(t, cmd, "rev-parse", "--path-format=absolute", "--git-common-dir")
 			declared := miniMaxEnvValue(cmd.Env, "GIT_DIR")
 			sourceCmd := *cmd
-			sourceCmd.Env = xaiProcessEnv(t)
+			sourceCmd.Env = nil
+			for _, variable := range xaiProcessEnv(t) {
+				if !strings.HasPrefix(variable, "GIT_") {
+					sourceCmd.Env = append(sourceCmd.Env, variable)
+				}
+			}
 			realCommon := miniMaxGitProbe(t, &sourceCmd, "rev-parse", "--path-format=absolute", "--git-common-dir")
 			ev.Record("read-only-discovery", map[string]any{"argv": cmd.Args, "declaredPrivateGit": declared, "discoveredCommonGit": common, "parentGit": parent.dir, "actualCheckoutCommonGit": realCommon, "nativeLaunched": false, "claims": 0, "vendorCalls": 0})
 			if !ev.Check("native command owns a separate declared private namespace", declared != "" && common == declared && common != parent.dir && common != realCommon, "declared=%s common=%s parent=%s real=%s", declared, common, parent.dir, realCommon) {

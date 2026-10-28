@@ -53,7 +53,12 @@ func miniMaxPrivateSourceNamespace(t *testing.T) miniMaxSourceNamespace {
 	if err != nil {
 		t.Fatal(err)
 	}
-	env := xaiProcessEnv(t)
+	var env []string
+	for _, pair := range xaiProcessEnv(t) {
+		if !strings.HasPrefix(pair, "GIT_") {
+			env = append(env, pair)
+		}
+	}
 	git := func(args ...string) string {
 		t.Helper()
 		cmd := exec.CommandContext(ctxFor(t), "git", args...)

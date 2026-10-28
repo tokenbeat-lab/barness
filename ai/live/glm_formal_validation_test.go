@@ -3,6 +3,7 @@
 package live
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
@@ -34,7 +36,7 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 		t.Fatal("missing controlled capture")
 	}
 	original := filepath.Dir(files[0])
-	for _, name := range []string{"baseline", "honest-no-request-id", "fabricated-request-id", "source-plan", "source-candidate", "source-price", "foreign-operation", "stale-result-version", "execution-add", "execution-delete", "execution-change", "xai-missing-scene", "xai-substituted-scene", "xai-wire-marker", "xai-immutable-input", "xai-native-envelope"} {
+	for _, name := range []string{"baseline", "unrelated-catalog", "own-catalog-change", "honest-no-request-id", "fabricated-request-id", "source-plan", "source-candidate", "source-price", "foreign-operation", "stale-result-version", "execution-add", "execution-delete", "execution-change", "xai-missing-scene", "xai-substituted-scene", "xai-wire-marker", "xai-immutable-input", "xai-native-envelope"} {
 		t.Run(name, func(t *testing.T) {
 			dir := t.TempDir()
 			if e := os.CopyFS(dir, os.DirFS(original)); e != nil {
@@ -52,6 +54,51 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 				f(v)
 				b, _ := json.MarshalIndent(v, "", "  ")
 				os.WriteFile(filepath.Join(dir, path), append(b, '\n'), 0600)
+			}
+			if name == "unrelated-catalog" || name == "own-catalog-change" {
+				old := ai.BuiltinCatalog()
+				oldHash, _ := old.Hash()
+				catalog := ai.BuiltinCatalog()
+				catalog.Version = "TEST_ONLY_original-catalog"
+				if name == "unrelated-catalog" {
+					other := catalog.Models[0]
+					other.ID += "-historical-fixture"
+					catalog.Models = append(catalog.Models, other)
+				} else {
+					for i := range catalog.Models {
+						if catalog.Models[i].Provider == ai.ProviderZhipu && catalog.Models[i].ID == "glm-5.3" {
+							catalog.Models[i].MaxTokens--
+						}
+					}
+				}
+				hash, err := catalog.Hash()
+				if err != nil {
+					t.Fatal(err)
+				}
+				// Rebind only an explicitly synthetic measurement and its raw
+				// metadata; fixed vendor facts and real historical bundles stay intact.
+				if err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+					if err != nil || d.IsDir() {
+						return err
+					}
+					rel, _ := filepath.Rel(dir, path)
+					if strings.HasPrefix(rel, "GLM11-sources/") || !strings.HasSuffix(path, ".json") {
+						return nil
+					}
+					raw, err := os.ReadFile(path)
+					if err != nil {
+						t.Fatal(err)
+					}
+					raw = bytes.ReplaceAll(raw, []byte(oldHash), []byte(hash))
+					raw = bytes.ReplaceAll(raw, []byte(old.Version), []byte(catalog.Version))
+					return os.WriteFile(path, raw, 0600)
+				}); err != nil {
+					t.Fatal(err)
+				}
+				raw, _ := json.Marshal(catalog)
+				if err := os.WriteFile(filepath.Join(dir, "model-catalog.json"), raw, 0600); err != nil {
+					t.Fatal(err)
+				}
 			}
 			// Keep the controlled origin. Positive structural validation cannot acquire formal eligibility.
 			if name == "xai-missing-scene" || name == "xai-substituted-scene" {
@@ -223,7 +270,7 @@ func TestGLMFormalCaptureValidation(t *testing.T) {
 			raw, _ := json.Marshal(map[string]any{"schema": 1, "files": hashes})
 			os.WriteFile(filepath.Join(dir, "glm-integrity.json"), raw, 0600)
 			err := supportmatrix.VerifyGLMControlledCapture(dir)
-			want := name == "baseline" || name == "honest-no-request-id"
+			want := name == "baseline" || name == "honest-no-request-id" || name == "unrelated-catalog"
 			cs.Check("controlled captured import "+name, (err == nil) == want, "%v", err)
 			_, formalErr := supportmatrix.NewGLMReport(dir)
 			cs.Check("controlled never acquires formal authority "+name, formalErr != nil, "formal accepted")

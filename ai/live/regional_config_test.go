@@ -26,6 +26,9 @@ type regionalProcess struct {
 
 var regionalState *regionalProcess
 
+// Enabled only by the separate controlled fixture build tag; never live.
+var regionalBaselineFixture bool
+
 func initializeRegional() {
 	p := &regionalProcess{}
 	regionalState = p
@@ -122,9 +125,30 @@ func initializeRegional() {
 		return
 	}
 	p.grantRaw, err = readDecisionsFile(p.grantPath, 64<<10)
-	if err != nil || json.Unmarshal(p.grantRaw, &p.grant) != nil || p.grant.Check(combo, time.Now().UTC()) != nil || p.grant.Stage != stage || p.grant.Mode != mode {
+	if err == nil {
+		err = json.Unmarshal(p.grantRaw, &p.grant)
+	}
+	if err == nil {
+		if regionalBaselineFixture && mode == "controlled" && p.grant.MaxCalls == 9 {
+			err = p.grant.CheckKimiBaselineFixture(combo, time.Now().UTC())
+		} else {
+			err = p.grant.Check(combo, time.Now().UTC())
+		}
+	}
+	if err != nil || p.grant.Stage != stage || p.grant.Mode != mode {
 		p.problem = "new own regional authorization invalid"
 		return
+	}
+	if p.grant.Purpose == supportmatrix.KimiHistoryPurpose {
+		p.report.Expected = []string{"kimi-k3/xai-origin-history"}
+		p.report.Scenarios = []supportmatrix.ScenarioResult{{ID: p.report.Expected[0], Model: "kimi-k3", CaseID: supportmatrix.RegionalCaseID(combo, p.report.Expected[0]), Outcome: supportmatrix.NotRun}}
+		p.report.Budget = supportmatrix.KimiHistoryBudget()
+		p.report.Regional.Purpose, p.report.Regional.Contract = p.grant.Purpose, p.grant.Contract
+		p.report.Regional.NativeSourceCases = map[string]string{}
+	} else if regionalBaselineFixture && mode == "controlled" && p.grant.MaxCalls == 9 {
+		p.report.Expected = p.report.Expected[:9]
+		p.report.Scenarios = p.report.Scenarios[:9]
+		p.report.Budget.MaxCalls, p.report.Budget.MaxAttempts, p.report.Budget.MaxRequestedOutputTokens = 9, 9, 36864
 	}
 	if os.Getenv("BARNESS_REGIONAL_SERVICE") != route.Provider {
 		p.problem = "regional credential source Provider differs"
@@ -157,6 +181,14 @@ func initializeRegional() {
 }
 
 func regionalEntry() string {
+	if regionalState != nil {
+		if regionalState.grant.Purpose == supportmatrix.KimiHistoryPurpose {
+			return "^TestKimiHistorySupplement$"
+		}
+		if regionalBaselineFixture && regionalState.controlled != "" && regionalState.grant.MaxCalls == 9 {
+			return "^TestKimiBaselineControlled$"
+		}
+	}
 	if regionalState != nil && regionalState.report.Regional != nil && regionalState.report.Regional.Stage == "formal" {
 		return "^TestRegionalFormal$"
 	}

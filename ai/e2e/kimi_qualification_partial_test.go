@@ -14,6 +14,7 @@ import (
 )
 
 func TestKimiQualificationMissingCharges(t *testing.T) {
+	privateGrantStore(t)
 	binary, digest := kimiQualificationBinary(t)
 	for _, mode := range []string{"missing-charge", "missing-native", "expires-during-call", "output-exceeds-reserve"} {
 		t.Run(mode, func(t *testing.T) {

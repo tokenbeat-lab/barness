@@ -12,8 +12,14 @@ import (
 // The shell limit causes a real first receipt write failure in the public CLI.
 // It changes no production hook and all synthetic guards remain consumed.
 func TestGrokHistoryPartialClaimConsumesApproval(t *testing.T) {
+	privateGrantStore(t)
 	ev := run.Case(t, "GROK-HISTORY-V6-PARTIAL-CLAIM")
 	binary := grokV6GrantBinary(t)
+	probe := exec.CommandContext(ctxFor(t), binary)
+	probe.Dir, probe.Env = "../..", xaiProcessEnv(t)
+	if !privateGrantProcess(t, ev, probe) {
+		return
+	}
 	call := func(limited bool, args ...string) ([]byte, error) {
 		cmd := exec.CommandContext(ctxFor(t), binary, args...)
 		if limited {

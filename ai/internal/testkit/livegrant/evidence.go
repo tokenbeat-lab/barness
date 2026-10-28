@@ -62,7 +62,7 @@ func VerifyEvidence(g Grant, raw []byte, r Receipt, want Scope, account, region 
 	if e := g.Check(want, started); e != nil {
 		return e
 	}
-	if g.AccountAlias != account || g.RegionAlias != region || r.StartedAt.Before(started) || r.StartedAt.After(finished) || finished.Sub(started) > 1800*time.Second || !finished.Before(g.ExpiresAt) {
+	if g.AccountAlias != account || g.RegionAlias != region || r.StartedAt.Before(started) || r.StartedAt.After(finished) || finished.Sub(started) > time.Duration(want.ProcessSeconds)*time.Second || !finished.Before(g.ExpiresAt) {
 		return fmt.Errorf("fresh process claim account, region or time differs")
 	}
 	return Verify(g, raw, r)

@@ -53,7 +53,7 @@ func miniMaxAuthorityCapture(t *testing.T, ev *evidence.Case, binary, route stri
 	grant := livegrant.Grant{Schema: 1, ID: "synthetic-mm20-native-" + route + "-" + evidence.Digest([]byte(run.Dir()))[:16], AccountAlias: "synthetic-account", RegionAlias: "synthetic-region", ExpiresAt: time.Now().UTC().Add(time.Hour), Scope: scope}
 	approval := filepath.Join(t.TempDir(), "grant.json")
 	miniMaxAuthorityWrite(t, approval, grant)
-	base := filepath.Join(filepath.Dir(run.Dir()), "minimax-authority-native", filepath.Base(run.Dir()), route)
+	base := filepath.Join(filepath.Dir(run.Dir()), "minimax-authority-native", filepath.Base(run.Dir()), evidence.Digest([]byte(t.Name()))[:12], route)
 	cmd := miniMaxFreshLedgerCommand(t, binary, route, approval, base)
 	output, err := cmd.CombinedOutput()
 	ev.Record("native-process", map[string]any{"argv": cmd.Args, "success": err == nil, "output": regionalSafeOutput(output), "vendorCalls": 0, "kind": "controlled-synthetic-fixture"})
@@ -75,8 +75,12 @@ func miniMaxAuthorityCapture(t *testing.T, ev *evidence.Case, binary, route stri
 // This is a synthetic verifier-contract fixture, never actual live evidence.
 // Public Client captures come from the controlled producer. Only test metadata
 // is attributed to a synthetic formal grant in an owned private Git namespace.
-func miniMaxAuthorityFormalFixture(t *testing.T, source miniMaxAuthorityFixture, binary string) miniMaxAuthorityFixture {
+func miniMaxAuthorityFormalFixture(t *testing.T, source miniMaxAuthorityFixture, binary string, stages ...string) miniMaxAuthorityFixture {
 	t.Helper()
+	stage := "formal"
+	if len(stages) > 0 {
+		stage = stages[0]
+	}
 	f := source
 	f.dir = filepath.Join(t.TempDir(), source.report.Session)
 	if err := os.CopyFS(f.dir, os.DirFS(source.dir)); err != nil {
@@ -107,6 +111,9 @@ func miniMaxAuthorityFormalFixture(t *testing.T, source miniMaxAuthorityFixture,
 	}
 	miniMaxAuthorityWrite(t, legacy, map[string]any{"state": "COMPLETED", "route": "mm-global-formal-m3-" + f.report.Identity.Route, "sourceCommit": strings.Repeat("0", 40), "exitCode": 0, "credentialsRead": true, "launcherAudit": map[string]bool{"passed": true}, "origin": map[string]any{"schema": 1}})
 	cat := ai.BuiltinCatalog()
+	if stage == "candidate" {
+		cat = minimaxlive.CandidateCatalog(f.report.Identity)
+	}
 	hash, _ := cat.Hash()
 	oldHash, oldVersion := f.report.CatalogHash, f.report.CatalogVersion
 	inventory, err := minimaxlive.Inventory(f.dir)
@@ -126,13 +133,16 @@ func miniMaxAuthorityFormalFixture(t *testing.T, source miniMaxAuthorityFixture,
 		}
 	}
 	miniMaxAuthorityWrite(t, filepath.Join(f.dir, "minimax-catalog.json"), cat)
-	f.report.Mode, f.report.Stage, f.report.Kind = "live", "formal", "minimax-formal"
+	f.report.Mode, f.report.Stage, f.report.Kind = "live", stage, "minimax-formal"
+	if stage == "candidate" {
+		f.report.Kind = "minimax-candidate-only"
+	}
 	f.report.CatalogHash, f.report.CatalogVersion = hash, cat.Version
 	binaryHash, err := livegrant.FileHash(binary)
 	if err != nil {
 		t.Fatal(err)
 	}
-	scope, err := minimaxlive.ProcessScope(f.report.Identity, "live", "formal", binaryHash)
+	scope, err := minimaxlive.ProcessScope(f.report.Identity, "live", stage, binaryHash)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -147,7 +157,7 @@ func miniMaxAuthorityFormalFixture(t *testing.T, source miniMaxAuthorityFixture,
 	if err != nil {
 		t.Fatal(err)
 	}
-	ledger := minimaxlive.Ledger{Path: path, Stage: "formal", Session: f.report.Session, Identity: f.report.Identity, ProcessGrantSHA256: f.report.ProcessGrantSHA256}
+	ledger := minimaxlive.Ledger{Path: path, Stage: stage, Session: f.report.Session, Identity: f.report.Identity, ProcessGrantSHA256: f.report.ProcessGrantSHA256}
 	for i := range f.report.Calls {
 		call := &f.report.Calls[i]
 		call.Reservation, err = ledger.Reserve(call.ID, call.Reservation.Output, call.Reservation.Input)
@@ -177,7 +187,7 @@ func miniMaxAuthorityFormalFixture(t *testing.T, source miniMaxAuthorityFixture,
 	}
 	mustUnmarshal(t, data, &manifest)
 	versions := manifest["versions"].(map[string]any)
-	versions["minimax_mode"], versions["minimax_kind"] = "live", "minimax-formal"
+	versions["minimax_mode"], versions["minimax_kind"] = "live", f.report.Kind
 	miniMaxAuthorityWrite(t, filepath.Join(f.dir, "manifest.json"), manifest)
 	miniMaxAuthoritySeal(t, f.dir)
 	return f
@@ -201,7 +211,7 @@ func miniMaxAuthoritySeal(t *testing.T, dir string) {
 
 func miniMaxAuthorityCLI(t *testing.T, ev *evidence.Case, binary string, fixture miniMaxAuthorityFixture, args ...string) (int, string) {
 	t.Helper()
-	cmd := exec.CommandContext(ctxFor(t), binary, append(args, fixture.dir)...)
+	cmd := exec.CommandContext(ctxFor(t), binary, "-inspect-bundle", fixture.dir, "-mode", "live", "-stage", "formal")
 	cmd.Dir, cmd.Env = fixture.source, append(xaiProcessEnv(t), "GIT_DIR="+fixture.git, "GIT_WORK_TREE="+fixture.source)
 	output, err := cmd.CombinedOutput()
 	if cmd.ProcessState == nil {

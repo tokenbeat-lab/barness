@@ -23,6 +23,12 @@ type xaiFormalNativeFixture struct {
 
 func newXAIFormalNativeFixture(t *testing.T) xaiFormalNativeFixture {
 	t.Helper()
+	privateGrantStore(t)
+	probe := exec.CommandContext(ctxFor(t), "git")
+	probe.Dir, probe.Env = "../..", xaiProcessEnv(t)
+	if !privateGrantProcess(t, run.Case(t, "PD-isolation-"+t.Name()), probe) {
+		t.FailNow()
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
 	t.Cleanup(cancel)
 	root, err := filepath.Abs("../..")

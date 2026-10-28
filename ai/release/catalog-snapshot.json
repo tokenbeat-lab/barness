@@ -1,5 +1,5 @@
 {
-  "hash": "sha256:98c6a6f0657ad7338fd6520411c6503c211ba2fd336282f4459d099db73091e4",
+  "hash": "sha256:50b41024da15d6c1bbe144c92b5d21b6c0db02b092d182fcbb3d1e6043c134a7",
   "catalog": {
     "version": "2026-10-26.1",
     "models": [
@@ -3322,6 +3322,192 @@
               "cacheWrite": 0
             }
           ]
+        }
+      },
+      {
+        "provider": "moonshot",
+        "api": "openai-completions",
+        "id": "kimi-k3",
+        "name": "Kimi K3 moonshot openai-completions",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1048576,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "defaultThinkingLevel": "max",
+        "compat": {
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 3,
+          "output": 15,
+          "cacheRead": 0.3,
+          "cacheWrite": 3
+        }
+      },
+      {
+        "provider": "moonshot",
+        "api": "openai-responses",
+        "id": "kimi-k3",
+        "name": "Kimi K3 moonshot openai-responses",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1048576,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "defaultThinkingLevel": "max",
+        "compat": {
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 3,
+          "output": 15,
+          "cacheRead": 0.3,
+          "cacheWrite": 3
+        }
+      },
+      {
+        "provider": "moonshot",
+        "api": "anthropic-messages",
+        "id": "kimi-k3",
+        "name": "Kimi K3 moonshot anthropic-messages",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1048576,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "defaultThinkingLevel": "max",
+        "compat": {
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 3,
+          "output": 15,
+          "cacheRead": 0.3,
+          "cacheWrite": 3
+        }
+      },
+      {
+        "provider": "moonshot-cn",
+        "api": "openai-completions",
+        "id": "kimi-k3",
+        "name": "Kimi K3 moonshot-cn openai-completions",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1048576,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "defaultThinkingLevel": "max",
+        "compat": {
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 2.9753049688,
+          "output": 14.8765248438,
+          "cacheRead": 0.2975304969,
+          "cacheWrite": 2.9753049688
+        }
+      },
+      {
+        "provider": "moonshot-cn",
+        "api": "openai-responses",
+        "id": "kimi-k3",
+        "name": "Kimi K3 moonshot-cn openai-responses",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1048576,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "defaultThinkingLevel": "max",
+        "compat": {
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 2.9753049688,
+          "output": 14.8765248438,
+          "cacheRead": 0.2975304969,
+          "cacheWrite": 2.9753049688
+        }
+      },
+      {
+        "provider": "moonshot-cn",
+        "api": "anthropic-messages",
+        "id": "kimi-k3",
+        "name": "Kimi K3 moonshot-cn anthropic-messages",
+        "reasoning": true,
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1048576,
+        "maxTokens": 131072,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": "max"
+        },
+        "defaultThinkingLevel": "max",
+        "compat": {
+          "requiresThinking": true
+        },
+        "cost": {
+          "input": 2.9753049688,
+          "output": 14.8765248438,
+          "cacheRead": 0.2975304969,
+          "cacheWrite": 2.9753049688
         }
       },
       {

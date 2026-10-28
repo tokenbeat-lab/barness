@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai/examples/chineseeval"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
 func sourceRoot() (string, error) {
@@ -50,7 +51,7 @@ func evaluationSource(name string) bool {
 	}
 	return strings.HasPrefix(name, "ai/")
 }
-func currentEvaluationSource(root, dir, want string) error {
+func currentEvaluationSource(root, dir, want, provider, api string) error {
 	bad := errors.New("execution source drift")
 	raw, err := readArtifact(filepath.Join(dir, "code-snapshot.json"), 1<<20)
 	if err != nil || chineseeval.Hash(raw) != want {
@@ -60,7 +61,7 @@ func currentEvaluationSource(root, dir, want string) error {
 	if json.Unmarshal(raw, &recorded) != nil {
 		return bad
 	}
-	current := map[string]bool{}
+	current := map[string]string{}
 	err = filepath.WalkDir(filepath.Join(root, "ai"), func(path string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() {
 			return err
@@ -73,27 +74,31 @@ func currentEvaluationSource(root, dir, want string) error {
 		if !evaluationSource(name) {
 			return nil
 		}
-		current[name] = true
 		raw, err := readArtifact(path, 2<<20)
-		if err != nil || recorded[name] != chineseeval.Hash(raw) {
+		if err != nil {
 			return bad
 		}
+		current[name] = chineseeval.Hash(raw)
 		return nil
 	})
 	if err != nil {
 		return bad
 	}
 	for _, name := range []string{"go.mod", "go.sum"} {
-		current[name] = true
 		raw, err := readArtifact(filepath.Join(root, name), 2<<20)
-		if err != nil || recorded[name] != chineseeval.Hash(raw) {
-			return bad
+		if err != nil {
+			return err
+		}
+		current[name] = chineseeval.Hash(raw)
+	}
+	for _, source := range []map[string]string{recorded, current} {
+		for name := range source {
+			if strings.HasPrefix(name, "ai/examples/chineseeval/") || strings.HasPrefix(name, "ai/examples/requestid/") {
+				if recorded[name] != current[name] {
+					return bad
+				}
+			}
 		}
 	}
-	for name := range recorded {
-		if evaluationSource(name) && !current[name] {
-			return bad
-		}
-	}
-	return nil
+	return evidence.VerifyRouteSource(recorded, current, provider, api)
 }

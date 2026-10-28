@@ -13,6 +13,7 @@ import (
 )
 
 func TestKimiQualificationPipeline(t *testing.T) {
+	privateGrantStore(t)
 	binary, digest := kimiQualificationBinary(t)
 	consumer := kimiQualificationConsumer(t)
 	var nativeDirs []string
@@ -53,7 +54,7 @@ func TestKimiQualificationPipeline(t *testing.T) {
 			}
 			dir := filepath.Dir(paths[0])
 			nativeDirs = append(nativeDirs, dir)
-			verify := exec.CommandContext(ctxFor(t), consumer, "-controlled", dir)
+			verify := exec.CommandContext(ctxFor(t), consumer, "-inspect-bundle", dir, "-mode", "controlled", "-stage", "candidate")
 			verify.Dir, verify.Env = "../..", regionalChildEnvironment()
 			vraw, verr := verify.CombinedOutput()
 			ev.Record("consumer-process", map[string]any{"argv": verify.Args, "error": errString(verr), "output": regionalSafeOutput(vraw)})

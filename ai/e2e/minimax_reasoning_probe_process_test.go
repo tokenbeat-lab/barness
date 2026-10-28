@@ -21,8 +21,8 @@ func TestMiniMaxReasoningProbeProcess(t *testing.T) {
 	for _, entry := range before {
 		seen[entry.Name()] = true
 	}
-	cmd := exec.CommandContext(ctxFor(t), "go", "test", "-tags", "live", "./ai/live", "-run", "^TestMiniMaxThinkingProbeProcess$", "-count=1", "-timeout=180s")
-	cmd.Dir, cmd.Env = "../..", append(xaiProcessEnv(t), "BARNESS_AI_EVIDENCE_DIR="+base)
+	cmd := exec.CommandContext(ctxFor(t), miniMaxNativeBinary(t), "-test.run=^TestMiniMaxThinkingProbeProcess$", "-test.count=1", "-test.timeout=180s")
+	cmd.Dir, cmd.Env = "../live", append(xaiProcessEnv(t), "BARNESS_AI_EVIDENCE_DIR="+base)
 	output, processErr := cmd.CombinedOutput()
 	ev.Record("process", map[string]any{"argv": cmd.Args, "output": regionalSafeOutput(output), "success": processErr == nil, "vendorCalls": 0, "grantSupplied": false})
 	ev.Check("all exact native controlled probes pass", processErr == nil, "%s", output)

@@ -47,10 +47,6 @@ func Select(route, model, purpose string) (Identity, error) {
 	return id, nil
 }
 
-// BudgetSlot is finite across the international target replacement. Historical
-// CN consumption shares this cap; exact Identity still governs proof and cases.
-func (id Identity) BudgetSlot() string { return id.Route + "/" + id.Model + "/" + id.Purpose }
-
 type Case struct {
 	ID       string `json:"id"`
 	Output   int    `json:"output"`

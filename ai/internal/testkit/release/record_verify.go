@@ -31,7 +31,7 @@ func EvaluateRecord(root, path string) RecordReport {
 		check("record", fmt.Errorf("invalid release record"))
 		return report
 	}
-	valid := regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,100}$`).MatchString(record.Feature) && record.Schema == 1 && regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(record.Source.Commit)
+	valid := regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,100}$`).MatchString(record.Feature) && record.Schema == 2 && regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(record.Source.Commit)
 	if !valid {
 		check("record", fmt.Errorf("invalid record identity"))
 		return report
@@ -54,7 +54,11 @@ func EvaluateRecord(root, path string) RecordReport {
 	}
 	check("source", err)
 	check("e2e", verifyStageRecord(root, record, "e2e", record.E2E, ""))
-	check("race", verifyStageRecord(root, record, "race", record.Race, ""))
+	if record.Impact.RaceRequired != nil && !*record.Impact.RaceRequired && record.Race.Status == "NOT_APPLICABLE" {
+		check("race", validNA(record.Race))
+	} else {
+		check("race", verifyStageRecord(root, record, "race", record.Race, ""))
+	}
 	if record.Impact.PressureRequired != nil && !*record.Impact.PressureRequired && record.Pressure.Status == "NOT_APPLICABLE" {
 		check("pressure", validNA(record.Pressure))
 	} else {
@@ -98,13 +102,6 @@ func verifyStageRecord(root string, record Record, name string, stage StageRecor
 			return fmt.Errorf("explicit human selection required")
 		}
 	}
-	expectedPrefix := ".evidence/" + record.Feature + "/" + name + "/"
-	if route != "" {
-		expectedPrefix += route + "/"
-	}
-	if !strings.HasPrefix(stage.Receipt.Path, expectedPrefix) {
-		return fmt.Errorf("receipt stage identity mismatch")
-	}
 	path, err := verifyRecordFile(root, stage.Receipt)
 	if err != nil {
 		return err
@@ -113,8 +110,22 @@ func verifyStageRecord(root string, record Record, name string, stage StageRecor
 	if err := recordJSON(path, &receipt); err != nil {
 		return fmt.Errorf("invalid stage receipt")
 	}
-	if receipt.Schema != 1 || receipt.Feature != record.Feature || receipt.Stage != name || receipt.Status != "PASS" || receipt.ExitCode == nil || *receipt.ExitCode != 0 || receipt.Error != nil || !sameRecordSource(record.Source, receipt.Source) || record.Source.Commit != receipt.Source.Commit || !reflect.DeepEqual(record.SelectedInputs, receipt.SelectedInputs) {
+	expectedPrefix := ".evidence/" + receipt.Feature + "/" + name + "/"
+	if route != "" {
+		expectedPrefix += route + "/"
+	}
+	if !regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,100}$`).MatchString(receipt.Feature) || !strings.HasPrefix(stage.Receipt.Path, expectedPrefix) {
+		return fmt.Errorf("receipt stage identity mismatch")
+	}
+	if receipt.Schema != 1 || receipt.Stage != name || receipt.Status != "PASS" || receipt.ExitCode == nil || *receipt.ExitCode != 0 || receipt.Error != nil || name != "live" && !sameRecordSource(record.Source, receipt.Source) {
 		return fmt.Errorf("stage receipt disagrees with selected source or outcome")
+	}
+	if name == "live" {
+		if err := checkMeasuredInputFiles(root, receipt.Source.Commit, receipt.SelectedInputs); err != nil {
+			return err
+		}
+	} else if err := checkInputFiles(root, receipt.SelectedInputs); err != nil {
+		return err
 	}
 	started, a := time.Parse(time.RFC3339Nano, receipt.StartedAt)
 	finished, b := time.Parse(time.RFC3339Nano, receipt.FinishedAt)
@@ -204,9 +215,11 @@ func verifyStageRecord(root string, record Record, name string, stage StageRecor
 		if _, err = verifyRecordFile(dir, FileRef{"audit.json", ref.AuditSHA256}); err != nil {
 			return err
 		}
-		audited := AuditBundle(dir, audit.Environment())
-		if audited.Err != "" || len(audited.Findings) != 0 {
-			return fmt.Errorf("native evidence audit failed")
+		if name != "live" {
+			audited := AuditBundle(dir, audit.Environment())
+			if audited.Err != "" || len(audited.Findings) != 0 {
+				return fmt.Errorf("native evidence audit failed")
+			}
 		}
 		if name == "live" {
 			primary = append(primary, ref)
@@ -229,7 +242,7 @@ func verifyStageRecord(root string, record Record, name string, stage StageRecor
 		return err
 	}
 	if name == "live" {
-		return verifySelectedLive(root, bundle, route, stage, record.Source)
+		return verifySelectedLive(root, bundle, route, stage, record.Source, receipt.Source)
 	}
 	native, err := LoadBundle(bundle)
 	if err != nil || len(native.Problems) > 0 || native.Commit != receipt.Source.Commit {

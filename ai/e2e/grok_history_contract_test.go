@@ -19,7 +19,7 @@ func TestGrokHistoryKimiGrantTemplates(t *testing.T) {
 	binary := filepath.Join(t.TempDir(), "regionalverify")
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	build := exec.CommandContext(ctx, "go", "build", "-o", binary, "./ai/live/cmd/regionalverify")
+	build := exec.CommandContext(ctx, "go", "build", "-o", binary, "./ai/live/cmd/processgrant")
 	build.Dir, build.Env = "../..", xaiProcessEnv(t)
 	output, err := build.CombinedOutput()
 	if err != nil {
@@ -28,7 +28,7 @@ func TestGrokHistoryKimiGrantTemplates(t *testing.T) {
 	for _, route := range []string{"kimi-cn-chat", "kimi-intl-chat", "kimi-cn-messages", "kimi-intl-messages", "kimi-cn-responses", "kimi-intl-responses"} {
 		t.Run(route, func(t *testing.T) {
 			ev := run.Case(t, "GROK-HISTORY-KIMI-GRANT-"+route)
-			cmd := exec.CommandContext(ctx, binary, "-grant-template", route, "-stage", "candidate")
+			cmd := exec.CommandContext(ctx, binary, "-template", route, "-stage", "candidate")
 			cmd.Dir, cmd.Env = "../..", xaiProcessEnv(t)
 			raw, err := cmd.CombinedOutput()
 			ev.Record("process", map[string]any{"argv": cmd.Args, "output": string(raw), "success": err == nil})

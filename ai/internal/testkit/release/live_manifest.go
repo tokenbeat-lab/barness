@@ -10,7 +10,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
-func verifyLiveManifest(dir string, r supportmatrix.Report) error {
+func verifyLiveManifest(dir string, r supportmatrix.Report, supplement ...string) error {
 	if r.Combo == "xai-responses" {
 		return supportmatrix.VerifyXAIReport(r)
 	}
@@ -27,7 +27,7 @@ func verifyLiveManifest(dir string, r supportmatrix.Report) error {
 		return supportmatrix.VerifyJevReport(r, true)
 	}
 	if len(supportmatrix.GenericExpected(r.Combo)) > 0 {
-		if err := supportmatrix.VerifyProcessAuthorization(dir, r.Combo, r.AccountAlias, "", r.StartedAt, r.FinishedAt); err != nil {
+		if err := supportmatrix.VerifyProcessAuthorization(dir, r.Combo, r.AccountAlias, "", r.StartedAt, r.FinishedAt, supplement...); err != nil {
 			return err
 		}
 	}

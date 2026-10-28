@@ -3,6 +3,7 @@ package supportmatrix
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"io"
 	"io/fs"
 	"os"
@@ -108,7 +109,7 @@ func SealRegionalBundle(dir string) error {
 	return os.WriteFile(filepath.Join(dir, regionalSealFile), raw, 0600)
 }
 
-func verifyRegionalBundle(dir string, r Report) error {
+func verifyRegionalBundle(dir string, r Report, selection regionalSelection) error {
 	var seal regionalSeal
 	if err := readJSON(filepath.Join(dir, regionalSealFile), &seal); err != nil || seal.Schema != 1 {
 		return refuse("regional sealed inventory unavailable")
@@ -118,6 +119,9 @@ func verifyRegionalBundle(dir string, r Report) error {
 		return refuse("regional captured inventory changed, missing or extra")
 	}
 	rootNames := []string{"manifest.json", "audit.json", RegionalReportFile, "regional-execution-source.json", "regional-catalog.json", "regional-candidate-facts.json", "regional-grant.json", "regional-authorization-receipt.json"}
+	if actual["model-catalog.json"] != "" {
+		rootNames = append(rootNames, "model-catalog.json")
+	}
 	caseNames := []string{"assertions.json", "request.json", "tools.json", "options.json", "result.json", "events.json", "exchanges.json", "observations.json", "resources.json", "immutable-input.json", "history-provenance.json"}
 	owned := map[string]bool{}
 	for _, s := range r.Scenarios {
@@ -160,12 +164,12 @@ func verifyRegionalBundle(dir string, r Report) error {
 		Versions map[string]string
 		Cases    []regionalManifestCase
 	}
-	if read("manifest.json", &manifest) != nil || manifest.Package != "-tags live -timeout 1800s ./ai/live" || manifest.Commit != r.GitCommit || manifest.Started.Before(r.StartedAt) || manifest.Started.After(r.FinishedAt) || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["regional_mode"] != r.Regional.Mode || manifest.Versions["regional_stage"] != r.Regional.Stage || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion {
+	if read("manifest.json", &manifest) != nil || manifest.Package != fmt.Sprintf("-tags live -timeout %ds ./ai/live", selectedRegionalBudget(r.Combo, selection).ProcessSeconds) || manifest.Commit != r.GitCommit || manifest.Started.Before(r.StartedAt) || manifest.Started.After(r.FinishedAt) || manifest.Finished.Before(r.FinishedAt) || manifest.Versions["regional_mode"] != r.Regional.Mode || manifest.Versions["regional_stage"] != r.Regional.Stage || manifest.Versions["live_combo"] != r.Combo || manifest.Versions["live_sdk"] != r.SDK || manifest.Versions["model_catalog_hash"] != r.CatalogHash || manifest.Versions["model_catalog_version"] != r.CatalogVersion {
 		return refuse("regional native manifest provenance differs")
 	}
 	var recorded map[string]string
 	current, err := RegionalExecutionSource()
-	if read("regional-execution-source.json", &recorded) != nil || err != nil || !reflect.DeepEqual(recorded, current) || r.Regional.SourceSHA256 != RegionalSourceHash(recorded) {
+	if read("regional-execution-source.json", &recorded) != nil || err != nil || evidence.VerifyRouteSource(recorded, current, r.Provider, r.API) != nil || r.Regional.SourceSHA256 != RegionalSourceHash(recorded) {
 		return refuse("regional execution source drift")
 	}
 	var origin RegionalReservation
@@ -177,7 +181,7 @@ func verifyRegionalBundle(dir string, r Report) error {
 		return refuse("regional own authorization bytes differ")
 	}
 	var grant RegionalGrant
-	if json.Unmarshal(grantRaw, &grant) != nil || grant.Check(r.Combo, r.StartedAt) != nil || grant.Stage != r.Regional.Stage || grant.Mode != r.Regional.Mode || grant.ID != r.Regional.GrantID || grant.AccountAlias != r.AccountAlias || grant.RegionAlias != r.Regional.RegionAlias {
+	if json.Unmarshal(grantRaw, &grant) != nil || grant.checkSelectedMeasurement(r, r.StartedAt, selection) != nil || grant.Stage != r.Regional.Stage || grant.Mode != r.Regional.Mode || grant.ID != r.Regional.GrantID || grant.AccountAlias != r.AccountAlias || grant.RegionAlias != r.Regional.RegionAlias {
 		return refuse("regional own authorization target differs")
 	}
 	if RegionalIsKimi(r.Combo) && (grant.MaxUSD != r.Regional.MaxUSD || grant.BinarySHA256 != r.Regional.BinarySHA256 || origin.MaxUSD != grant.MaxUSD || origin.BinarySHA256 != grant.BinarySHA256) {
