@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"reflect"
+	"sync"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -109,23 +110,67 @@ func TestToolRoundTrip(t *testing.T) {
 		}
 	})
 
-	// A live view is a running message: never executable.
+	// A shared PartialView may advance beyond its queued delta. Hold the
+	// upstream after the first argument fragment to inspect a pending turn.
 	t.Run("live-view-not-executable", func(t *testing.T) {
 		ev := run.Case(t, "P01-E03-tool-call-live-view")
 		ev.Fixture("tool-round-trip.json", raw)
 		w := newWorld(t, tenantA)
-		enqueue(ev, w, f.reply(t, f.Round1.Events, provider.FramingLF, ""))
+		pauseAt := -1
+		for i, event := range f.Round1.Events {
+			var header struct {
+				Type string `json:"type"`
+			}
+			mustUnmarshal(t, event, &header)
+			if header.Type == "response.function_call_arguments.delta" {
+				pauseAt = i
+				break
+			}
+		}
+		if !ev.Check("fixture contains an argument delta", pauseAt >= 0, "") {
+			return
+		}
+		paused, resume := make(chan struct{}), make(chan struct{})
+		var once sync.Once
+		release := func() { once.Do(func() { close(resume) }) }
+		// Release first on every failure path, before Close waits for the
+		// producer. FramingLF writes exactly one fixture event per chunk.
+		reply := f.reply(t, f.Round1.Events, provider.FramingLF, "")
+		reply.AfterChunk = func(i int) {
+			if i == pauseAt {
+				close(paused)
+				<-resume
+			}
+		}
+		enqueue(ev, w, reply)
 		s := w.client.Stream(ctxFor(t), textScope("req-tools-live"), f.target(), f.request(), nil)
-		defer s.Close()
+		defer func() { release(); _ = s.Close() }()
 		checked := false
-		for s.Next() {
+		var view *ai.PartialView
+		index := 0
+		for within(ev, "next controlled tool event", s.Next) {
 			if d, ok := s.Event().(ai.ToolCallDeltaEvent); ok && !checked {
 				checked = true
-				_, err := ai.ValidateToolCall(d.Partial.Snapshot(), d.ContentIndex, f.Tools)
+				waitFor(ev, "upstream paused before terminal frames", paused)
+				view, index = d.Partial, d.ContentIndex
+				pending := view.Snapshot()
+				ev.Record("pending-snapshot", pending)
+				ev.Check("controlled snapshot is pending", pending.StopReason == ai.StopReasonPending, "stop=%s", pending.StopReason)
+				_, err := ai.ValidateToolCall(pending, index, f.Tools)
 				ev.Check("live snapshot refused", errors.Is(err, &ai.ToolCallError{Kind: ai.ToolCallNotExecutable}), "err=%v", err)
+				release()
 			}
 		}
 		ev.Check("a delta was seen", checked, "")
+		if !checked {
+			return
+		}
+		final := resultWithin(ev, "released turn settles", s)
+		settled := view.Snapshot()
+		ev.Record("settled-snapshot", settled)
+		ev.Check("same view reaches the final tool-use message", final.err == nil && settled.StopReason == ai.StopReasonToolUse && reflect.DeepEqual(settled, final.res.Message), "err=%v stop=%s", final.err, settled.StopReason)
+		_, err := ai.ValidateToolCall(settled, index, f.Tools)
+		ev.Check("settled tool call becomes executable", err == nil, "err=%v", err)
 	})
 }
 
