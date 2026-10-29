@@ -132,13 +132,13 @@ func (m ImageModel) problem() string {
 			return "Google image thinking requires a text output price"
 		}
 	}
+	if m.Pricing.PerImage != nil {
+		return m.Pricing.perImageProblem(m)
+	}
 	return m.Pricing.problem(m.Input, m.Output)
 }
 
 func (p ImagePricing) problem(input, output []Modality) string {
-	if p.PerImage != nil {
-		return ""
-	}
 	for _, rate := range []Nullable[float64]{p.InputText, p.InputImage, p.OutputText, p.OutputImage, p.CacheReadText, p.CacheReadImage} {
 		if value, ok := rate.Get(); ok && (value < 0 || math.IsNaN(value) || math.IsInf(value, 0)) {
 			return "an image price is negative or not finite"

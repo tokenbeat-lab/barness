@@ -274,7 +274,9 @@ var observationFields = map[string]bool{
 	"retryDelay": true, "usageReporting": true,
 	// Reviewed value-only CostEstimate: fixed enum and USD number components.
 	"costEstimate": true, "status": true, "minimum": true, "maximum": true,
-	"input": true, "output": true, "cacheRead": true, "cacheWrite": true, "cacheWrite1h": true, "reasoning": true,
+	// Reviewed provider-reported USD scalar, independent of content and usage.
+	"reportedCostUsd": true,
+	"input":           true, "output": true, "cacheRead": true, "cacheWrite": true, "cacheWrite1h": true, "reasoning": true,
 	"totalTokens": true, "cost": true, "total": true,
 	// Optional image token counts are metadata, never image content.
 	"modalities": true, "inputText": true, "inputImage": true, "outputText": true, "outputImage": true,

@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"math"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -39,4 +40,65 @@ func TestXAIImagesCatalog(t *testing.T) {
 	_, found := ai.BuiltinCatalog().LookupImage(ai.ProviderXAI, ai.API("xai-images"), "grok-imagine-image-2.0")
 	ev.Check("candidate availability does not assert formal support", !found, "candidate entered BuiltinCatalog")
 	ev.Check("discovery never resolves credentials", w.host.ReadsFor("catalog-discovery").Credentials == 0, "unexpected credential access")
+}
+
+func TestXAIImagesCatalogValidation(t *testing.T) {
+	cases := map[string]func(*ai.ImageModel){
+		"missing-per-image": func(m *ai.ImageModel) {
+			m.Pricing.PerImage = nil
+			m.Pricing.InputText = ai.Value(1.0)
+			m.Pricing.InputImage = ai.Value(1.0)
+			m.Pricing.OutputImage = ai.Value(1.0)
+		},
+		"token-text":         func(m *ai.ImageModel) { m.Pricing.InputText = ai.Value(0.0) },
+		"token-image":        func(m *ai.ImageModel) { m.Pricing.InputImage = ai.Value(0.0) },
+		"token-output-text":  func(m *ai.ImageModel) { m.Pricing.OutputText = ai.Null[float64]() },
+		"token-output-image": func(m *ai.ImageModel) { m.Pricing.OutputImage = ai.Value(0.0) },
+		"token-cache-text":   func(m *ai.ImageModel) { m.Pricing.CacheReadText = ai.Value(0.0) },
+		"token-cache-image":  func(m *ai.ImageModel) { m.Pricing.CacheReadImage = ai.Null[float64]() },
+		"input-missing":      func(m *ai.ImageModel) { m.Pricing.PerImage.InputImage = ai.Nullable[float64]{} },
+		"input-null":         func(m *ai.ImageModel) { m.Pricing.PerImage.InputImage = ai.Null[float64]() },
+		"input-negative":     func(m *ai.ImageModel) { m.Pricing.PerImage.InputImage = ai.Value(-0.01) },
+		"input-infinity":     func(m *ai.ImageModel) { m.Pricing.PerImage.InputImage = ai.Value(math.Inf(1)) },
+		"output-missing":     func(m *ai.ImageModel) { m.Pricing.PerImage.Output = nil },
+		"output-hole":        func(m *ai.ImageModel) { m.Pricing.PerImage.Output = m.Pricing.PerImage.Output[1:] },
+		"output-duplicate": func(m *ai.ImageModel) {
+			m.Pricing.PerImage.Output = append(m.Pricing.PerImage.Output, m.Pricing.PerImage.Output[0])
+		},
+		"output-auto":          func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Quality = "auto" },
+		"output-quality":       func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Quality = "high" },
+		"output-size":          func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].ImageSize = "4k" },
+		"output-null":          func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Price = ai.Null[float64]() },
+		"output-unset":         func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Price = ai.Nullable[float64]{} },
+		"output-negative":      func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Price = ai.Value(-0.04) },
+		"output-nan":           func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Price = ai.Value(math.NaN()) },
+		"output-infinity":      func(m *ai.ImageModel) { m.Pricing.PerImage.Output[0].Price = ai.Value(math.Inf(1)) },
+		"source-missing":       func(m *ai.ImageModel) { m.Pricing.Source = " " },
+		"reference-cap":        func(m *ai.ImageModel) { m.Capabilities.MaxReferenceImages = 6 },
+		"output-cap":           func(m *ai.ImageModel) { m.Capabilities.MaxOutputImages = 11 },
+		"unknown-resolution":   func(m *ai.ImageModel) { m.Capabilities.ImageSizes = append(m.Capabilities.ImageSizes, "4k") },
+		"duplicate-resolution": func(m *ai.ImageModel) { m.Capabilities.ImageSizes = append(m.Capabilities.ImageSizes, "1k") },
+		"unknown-quality":      func(m *ai.ImageModel) { m.Capabilities.Qualities = append(m.Capabilities.Qualities, "high") },
+		"duplicate-quality":    func(m *ai.ImageModel) { m.Capabilities.Qualities = append(m.Capabilities.Qualities, "low") },
+		"unknown-ratio":        func(m *ai.ImageModel) { m.Capabilities.AspectRatios = append(m.Capabilities.AspectRatios, "17:7") },
+		"duplicate-ratio":      func(m *ai.ImageModel) { m.Capabilities.AspectRatios = append(m.Capabilities.AspectRatios, "1:1") },
+		"numeric-size":         func(m *ai.ImageModel) { m.Capabilities.Sizes = []string{"1024x1024"} },
+		"mask":                 func(m *ai.ImageModel) { m.Capabilities.Mask = true },
+		"transparent":          func(m *ai.ImageModel) { m.Capabilities.TransparentBackground = true },
+		"fidelity":             func(m *ai.ImageModel) { m.Capabilities.InputFidelity = []string{"high"} },
+		"no-text":              func(m *ai.ImageModel) { m.Input = []ai.Modality{ai.ModalityImage} },
+		"text-output":          func(m *ai.ImageModel) { m.Output = []ai.Modality{ai.ModalityText, ai.ModalityImage} },
+	}
+	for name, change := range cases {
+		t.Run(name, func(t *testing.T) {
+			ev := run.Case(t, "XAI-IMG-catalog-reject-"+name)
+			var cat ai.Catalog
+			mustUnmarshal(t, xaiImagesCatalogJSON(), &cat)
+			change(&cat.ImageModels[0])
+			_, hashErr := cat.Hash()
+			w := newWorld(t, tenantA)
+			_, err := ai.NewClient(ai.Config{Policy: validPolicy(), Bindings: w.host, Credentials: w.host, Catalog: &cat})
+			ev.Check("both catalog and client reject invalid image metadata", hashErr != nil && err != nil, "Hash=%v NewClient=%v", hashErr, err)
+		})
+	}
 }
