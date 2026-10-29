@@ -43,7 +43,12 @@ func TestXAIImagesBuiltinCatalog(t *testing.T) {
 	model, ok := cat.LookupImage(ai.ProviderXAI, ai.APIXAIImages, imagineModel)
 	ev.Record("image-model", model)
 	ev.Check("default catalog equals real-accepted fixed model and prices", ok && reflect.DeepEqual(model, facts.Model), "model=%+v", model)
-	ev.Check("single catalog revision", cat.Version == "2026-10-29.1" && cat.Version == facts.ActivationVersion, "version=%s", cat.Version)
+	// Historical activation facts remain fixed; the root catalog may advance
+	// later for another Provider. The preceding version is pinned by the Git
+	// snapshot at 07de754232c647cc18ae5bce5e8551da42ff14aa.
+	ev.Record("historical-activation", map[string]string{"version": facts.ActivationVersion, "previousCatalogVersion": "2026-10-26.1", "previousCatalogCommit": "07de754232c647cc18ae5bce5e8551da42ff14aa"})
+	ev.Check("historical activation revision remains original", facts.ActivationVersion == "2026-10-29.1", "activation=%s", facts.ActivationVersion)
+	ev.Check("current catalog revision follows its release snapshot", cat.Version == currentCatalogVersion(t) && cat.Version != "2026-10-26.1", "version=%s", cat.Version)
 	ev.Check("discovery never reads credentials", reads == 0, "reads=%d", reads)
 	candidate := xai.ImagesCandidateCatalog()
 	candidateHash, _ := candidate.Hash()
@@ -173,7 +178,7 @@ func TestXAIImagesBuiltinLiveReplay(t *testing.T) {
 			model, modelKnown := result.ResponseModel.Get()
 			wantModel, wantModelKnown := tc.ResponseModel.Get()
 			ev.Check("response identity presence remains original", id == wantID && idKnown == wantIDKnown && model == wantModel && modelKnown == wantModelKnown, "id=%q model=%q", id, model)
-			ev.Check("result pins activation catalog", result.Metadata.CatalogVersion == "2026-10-29.1" && result.Metadata.CatalogHash == catalogHash(t, ai.BuiltinCatalog()), "metadata=%+v", result.Metadata)
+			ev.Check("result pins current catalog", result.Metadata.CatalogVersion == currentCatalogVersion(t) && result.Metadata.CatalogHash == catalogHash(t, ai.BuiltinCatalog()), "metadata=%+v", result.Metadata)
 		})
 	}
 }
