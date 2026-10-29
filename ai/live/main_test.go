@@ -47,7 +47,9 @@ func TestMain(m *testing.M) {
 	flag.Parse()
 	// Select the isolated mode before legacy configuration can enable a route.
 	// An isolated qualification process never executes a legacy live combination.
-	if xaiSelected() {
+	if xaiImagesSelected() {
+		cfg = processConfig{notRun: "isolated xAI Images candidate"}
+	} else if xaiSelected() {
 		cfg = processConfig{notRun: "isolated xAI qualification"}
 	} else if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
 		cfg = processConfig{notRun: "isolated new regional authorization"}
@@ -69,7 +71,7 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_GLM_ROUTE") != "" {
 		packageArgs = "-tags live -timeout 1800s ./ai/live"
 	}
-	if xaiSelected() {
+	if xaiImagesSelected() || xaiSelected() {
 		packageArgs = "-tags live -timeout " + flag.Lookup("test.timeout").Value.String() + " ./ai/live"
 	}
 	if os.Getenv("BARNESS_MINIMAX_ROUTE") != "" {
@@ -91,7 +93,9 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if xaiSelected() {
+	if xaiImagesSelected() {
+		initializeXAIImages()
+	} else if xaiSelected() {
 		initializeXAI()
 	} else if os.Getenv("BARNESS_REGIONAL_ROUTE") != "" {
 		initializeRegional()
@@ -123,6 +127,9 @@ func TestMain(m *testing.M) {
 		run.RedactSecret(cfg.key, "[LIVE-KEY:"+cfg.combo.name+"]")
 	}
 	measuredCatalog := catalog
+	if xaiImagesState != nil {
+		measuredCatalog = xaiImagesState.cat
+	}
 	if minimaxReport != nil {
 		measuredCatalog = minimaxCatalog
 	}
@@ -135,7 +142,7 @@ func TestMain(m *testing.M) {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if xaiState == nil && glmReportState == nil && minimaxReport == nil && regionalState == nil {
+	if xaiImagesState == nil && xaiState == nil && glmReportState == nil && minimaxReport == nil && regionalState == nil {
 		run.SetVersion("model_catalog_version", catalog.Version)
 		run.SetVersion("model_catalog_hash", catalogHash)
 	}
@@ -148,7 +155,10 @@ func TestMain(m *testing.M) {
 	if os.Getenv("BARNESS_MM_FORMAL") == "1" {
 		mmEntry = "^TestMultimodalFormal$"
 	}
-	if xaiState != nil && flag.Lookup("test.run").Value.String() != xaiState.entry() {
+	if xaiImagesState != nil && flag.Lookup("test.run").Value.String() != xaiImagesEntry() {
+		xaiImagesState.problem = "exact isolated Imagine entry required"
+		code = 1
+	} else if xaiState != nil && flag.Lookup("test.run").Value.String() != xaiState.entry() {
 		xaiState.report.Outcome, xaiState.report.Failure = "FAIL", "exact isolated xAI entry required"
 		code = 1
 	} else if regionalState != nil && (flag.Lookup("test.run").Value.String() != regionalEntry() || regionalState.grant.Purpose == supportmatrix.KimiHistoryPurpose && (flag.Lookup("test.timeout").Value.String() != "4m0s" || flag.Lookup("test.count").Value.String() != "1")) {
@@ -205,6 +215,9 @@ func TestMain(m *testing.M) {
 			code = 1
 		}
 	}
+	if xaiImagesState != nil {
+		code = recordXAIImages(code, false)
+	}
 	if err := run.Finish(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		code = 1
@@ -221,6 +234,9 @@ func TestMain(m *testing.M) {
 			fmt.Fprintf(os.Stderr, "live: redaction audit: %s [%s] %s\n", f.File, f.Rule, f.Detail)
 		}
 		code = 1
+	}
+	if xaiImagesState != nil {
+		code = finishXAIImages(code, auditOK)
 	}
 	if xaiState != nil {
 		code = finishXAI(code, auditOK)
