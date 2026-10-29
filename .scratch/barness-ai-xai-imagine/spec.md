@@ -227,6 +227,7 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 
 ### 唯一当前状态
 
+- 2026-10-29新指令：用户明确要求继续完成正式资格、race和压力，并指定代理127.0.0.1:7890。正在补本路线只读正式消费者与缺失的有限自身压力场景；尚未执行这三项新验证。先普通与复核冻结，再正式→race→压力；具体argv、必交case、有限负载、预计耗时及授权原件见[本轮范围](final-stages-plan-20261029-05.md)。现有六场景足以核验当前受限Builtin，无新增厂商事实需求，不新发付费grant或重跑。
 - 2026-10-29：按用户“激活xAI目录”指令完成内置图片目录源码激活，工单01–06完成。完整规格仍部分完成：正式原生资格、人工race/压力与完整发布未完成。集成分支`codex/xai-imagine-integration`，不合并main、不push、不发布。
 - 当前Builtin：image × xai × xai-images × grok-imagine-image-2.0，目录版本`2026-10-29.1`，hash `sha256:f44d07c6969346f056cc46d31fccbafb68827267910801c05bb314ac0c55348d`。生成最多2张、编辑输出1张、最多5参考图；resolution=1k/1.5k/2k，quality=low/medium/auto，显式比例仅1:1/16:9；单图编辑仍拒绝显式比例。候选仍独立保留10输出/16比例，不把候选上限导入Builtin；未覆盖完整笛卡尔积或视觉语义效果。
 - 已交付：Client/HookedClient.GenerateImages文生图、单图/有序多图编辑，类型化选项、严格请求守卫、原子图片、MIME识别、取消/超时/准入/租户快照、按张估算及独立Reported Cost。本次只增加目录metadata/版本/快照、留存捕获回放和当前示例配置选择，产品协议、网络、凭据、重试、生命周期与计价单位不变。
@@ -243,7 +244,7 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 - live适用性：本次目录激活收紧至自身六场景已测边界，当前默认Client离线逐字节回放，不新增厂商事实需求，因此不重买live。原候选的stage/mode/formalQualified不改；正式原生资格仍NOT_RUN，候选成功与源码激活不等于正式支持。本次不授予其他Provider当前资格；原件和资格按路线/型号保留。
 - race：NOT_RUN。整个功能仍影响共享准入/取消/快照/Observer与新路线并发；所需live完成后由人选择具体argv与范围。候选命令`python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage race -- go test -race -json ./ai/e2e -run '^(TestXAIImagine|TestXAIImages)' -count=1 -timeout=20m`未获选择或执行。目录激活增量本身无共享状态变化，不替代整个功能的人工阶段。
 - 压力：NOT_RUN。整个功能仍涉及5参考输入、10输出候选响应、多图字节上限、并发准入/取消及读取；race通过后另行选择有限负载、argv和预计耗时。本次未选择或执行，不标NOT_APPLICABLE。
-- 当前不可变[激活索引](evidence/catalog-activation-20261029-04.json)和[发布索引](evidence/record-20261029-04.json)绑定实际原件。只读发布报告`.evidence/barness-ai-xai-imagine/release/20261029-04/release-report.json`，原生命令/退出见同级`20261029-04-command/command.json`。来源和当前普通验证通过；正式原生资格/race/压力缺少，release.pass=false。record-01/02/03与report-01/02/03保持，不重写历史结论。
+- 当前不可变[激活索引](evidence/catalog-activation-20261029-04.json)和[发布索引](evidence/record-20261029-05.json)绑定实际原件。只读发布报告`.evidence/barness-ai-xai-imagine/release/20261029-05/release-report.json`，原生命令/退出见同级`20261029-05-command/command.json`。来源和当前普通验证通过；正式原生资格/race/压力缺少，release.pass=false。record-01/02/03/04与report-01/02/03/04保持，不重写历史结论。
 - 构建与回滚：当前只读releasegate构建原件`.evidence/barness-ai-xai-imagine/build/20261029-catalog-active-verified/build.json`，exit0。没有新live/race/压力/发布执行。Host可禁用image Binding并更新版本；源码回滚同时恢复目录内容/版本/快照与当前示例配置选择，已固定调用按原快照结束或取消。无数据库迁移、协议回退或内部兼容层。两个实施工作树已通过应用归档，主checkout按应用限制保留为同步副本；全部已知原件在根`.evidence`完整保存。
 
 ### 依据与待证事实
