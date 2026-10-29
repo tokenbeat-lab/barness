@@ -39,7 +39,7 @@ func evaluationSources(t *testing.T, route string) (string, string) {
 	if err := os.WriteFile(catalogPath, raw, 0600); err != nil {
 		t.Fatal(err)
 	}
-	raw, err = os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v1.json")
+	raw, err = os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v2.json")
 	if err != nil {
 		t.Fatal(err)
 	}
