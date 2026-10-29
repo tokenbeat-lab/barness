@@ -112,7 +112,7 @@ func imaginePressureQueue(t *testing.T, ev *evidence.Case) {
 		r, e := p.client.GenerateImages(ctx, imaginePressureScope(c.id, c.tenant), imagineTarget(), c.req, c.opts)
 		return terminal{r, e}
 	})
-	ev.Check("overflow refuses before any HTTP attempt", errors.Is(overflow.err, &ai.Error{Code: ai.CodeResourceLimit}) && len(overflow.res.Metadata.Attempts) == 0 && len(overflow.res.Content) == 0, "err=%v", overflow.err)
+	ev.Check("overflow refuses before any HTTP attempt", errors.Is(overflow.err, &ai.Error{Code: ai.CodeAdmissionDenied}) && len(overflow.res.Metadata.Attempts) == 0 && len(overflow.res.Content) == 0, "err=%v", overflow.err)
 	waiterCancel[tenantA.tenant]()
 	waiting := waitValue(ev, "A waiter cancels", waiters[tenantA.tenant])
 	ev.Check("waiting cancellation sends nothing", errors.Is(waiting.err, &ai.Error{Code: ai.CodeCanceled}) && len(waiting.res.Metadata.Attempts) == 0 && len(waiting.res.Content) == 0, "err=%v", waiting.err)
