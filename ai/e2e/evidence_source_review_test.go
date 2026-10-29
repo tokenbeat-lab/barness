@@ -19,15 +19,23 @@ import (
 // Failure inventory: exact reviewed transitions may pass; changed old bytes,
 // later edits, additions, removals, dependency changes and another route must
 // still fail. These are hash-only original source inventories, not live grants.
-func TestEvidenceReviewedSourceTransition(t *testing.T) {
-	var historical struct {
-		SourceCommit string            `json:"sourceCommit"`
-		Files        map[string]string `json:"files"`
-	}
+type reviewedHistoricalInventory struct {
+	SourceCommit string            `json:"sourceCommit"`
+	Files        map[string]string `json:"files"`
+}
+
+func reviewedHistoricalSource(t *testing.T) reviewedHistoricalInventory {
+	t.Helper()
+	var historical reviewedHistoricalInventory
 	frozen, err := os.ReadFile("testdata/source-review/current-1e244ee.json")
 	if err != nil || json.Unmarshal(frozen, &historical) != nil || historical.SourceCommit != "1e244ee26f024ce3534eed0600c43f6317d77adb" || len(historical.Files) == 0 {
 		t.Fatal("frozen historical current source unavailable", err)
 	}
+	return historical
+}
+
+func TestEvidenceReviewedSourceTransition(t *testing.T) {
+	historical := reviewedHistoricalSource(t)
 	for _, route := range []string{"typesafe-classifier-jev-1.14.0", "zhipu-responses", "zai-responses"} {
 		modes := []string{"reviewed", "current-unreviewed", "changed-origin", "later-edit", "added-runtime", "added-subpackage", "removed-runtime", "dependency", "wrong-provider", "wrong-api", "later-clock"}
 		if route == "zhipu-responses" {
