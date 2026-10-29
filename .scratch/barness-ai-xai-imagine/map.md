@@ -13,6 +13,8 @@
 
 - 01 resolved：按张领域、合法目录、深复制、Reported Cost 与候选目录见 [工单01](issues/01-image-pricing.md#answer)，集成提交 `277520b4`。
 
+- 03 resolved：固定候选场景、有界原生捕获、一次性授权与受控过程验证见 [工单03](issues/03-live-readiness.md#answer)，集成提交 `46add731`。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。

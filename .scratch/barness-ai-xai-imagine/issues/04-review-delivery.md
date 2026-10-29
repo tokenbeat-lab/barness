@@ -1,7 +1,7 @@
 # 集成审查、普通验证与交付
 
 Type: task
-Status: open
+Status: claimed
 Blocked by: 01, 02, 03
 
 ## Scope
