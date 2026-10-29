@@ -45,8 +45,8 @@ func TestXAIImagesCatalog(t *testing.T) {
 	}
 	got := client.Catalog()
 	ev.Check("per-image public JSON retains the complete dated price snapshot", jsonEqual(mustMarshal(t, got), xaiImagesCatalogJSON()), "got=%s", mustMarshal(t, got))
-	_, found := ai.BuiltinCatalog().LookupImage(ai.ProviderXAI, ai.API("xai-images"), "grok-imagine-image-2.0")
-	ev.Check("candidate availability does not assert formal support", !found, "candidate entered BuiltinCatalog")
+	builtin, found := ai.BuiltinCatalog().LookupImage(ai.ProviderXAI, ai.APIXAIImages, "grok-imagine-image-2.0")
+	ev.Check("candidate remains wider than independently activated builtin", found && cat.Version != ai.BuiltinCatalog().Version && cat.ImageModels[0].Capabilities.MaxOutputImages > builtin.Capabilities.MaxOutputImages && len(cat.ImageModels[0].Capabilities.AspectRatios) > len(builtin.Capabilities.AspectRatios), "builtin=%+v", builtin)
 	ev.Check("discovery never resolves credentials", reads == 0, "unexpected credential access")
 }
 

@@ -1,7 +1,7 @@
 {
-  "hash": "sha256:50b41024da15d6c1bbe144c92b5d21b6c0db02b092d182fcbb3d1e6043c134a7",
+  "hash": "sha256:f44d07c6969346f056cc46d31fccbafb68827267910801c05bb314ac0c55348d",
   "catalog": {
-    "version": "2026-10-26.1",
+    "version": "2026-10-29.1",
     "models": [
       {
         "provider": "openai",
@@ -3617,6 +3617,75 @@
           "outputText": 7.5,
           "outputImage": 30,
           "source": "https://ai.google.dev/gemini-api/docs/pricing?hl=en; retrieved 2026-10-08"
+        }
+      },
+      {
+        "provider": "xai",
+        "api": "xai-images",
+        "id": "grok-imagine-image-2.0",
+        "name": "Grok Imagine Image 2.0",
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "image"
+        ],
+        "capabilities": {
+          "maxReferenceImages": 5,
+          "maxOutputImages": 2,
+          "qualities": [
+            "low",
+            "medium",
+            "auto"
+          ],
+          "imageSizes": [
+            "1k",
+            "1.5k",
+            "2k"
+          ],
+          "aspectRatios": [
+            "1:1",
+            "16:9"
+          ]
+        },
+        "pricing": {
+          "perImage": {
+            "inputImage": 0.01,
+            "output": [
+              {
+                "quality": "low",
+                "imageSize": "1k",
+                "price": 0.04
+              },
+              {
+                "quality": "low",
+                "imageSize": "1.5k",
+                "price": 0.05
+              },
+              {
+                "quality": "low",
+                "imageSize": "2k",
+                "price": 0.06
+              },
+              {
+                "quality": "medium",
+                "imageSize": "1k",
+                "price": 0.06
+              },
+              {
+                "quality": "medium",
+                "imageSize": "1.5k",
+                "price": 0.07
+              },
+              {
+                "quality": "medium",
+                "imageSize": "2k",
+                "price": 0.08
+              }
+            ]
+          },
+          "source": "https://docs.x.ai/developers/pricing; retrieved 2026-10-29"
         }
       }
     ],
