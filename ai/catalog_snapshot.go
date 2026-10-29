@@ -49,6 +49,11 @@ func (m ImageModel) clone() ImageModel {
 		constraints := *m.Capabilities.CustomSizes
 		m.Capabilities.CustomSizes = &constraints
 	}
+	if m.Pricing.PerImage != nil {
+		prices := *m.Pricing.PerImage
+		prices.Output = slices.Clone(prices.Output)
+		m.Pricing.PerImage = &prices
+	}
 	return m
 }
 

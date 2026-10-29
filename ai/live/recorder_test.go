@@ -51,7 +51,8 @@ type exchange struct {
 type recorder struct {
 	next http.RoundTripper
 	// Trusted harness configuration; the default remains the ordinary smoke cap.
-	requestLimit int
+	requestLimit  int
+	responseLimit int
 
 	mu           sync.Mutex
 	exchanges    []*exchange
@@ -123,6 +124,9 @@ func (r *recorder) RoundTrip(req *http.Request) (*http.Response, error) {
 	slices.Sort(e.ResponseHeaderNames)
 	googleImages := req.URL.Host == "generativelanguage.googleapis.com" && req.URL.Path == "/v1beta/interactions"
 	limit := maxCapturedResponse
+	if r.responseLimit > 0 {
+		limit = r.responseLimit
+	}
 	if googleImages {
 		// The Client's image smoke output budget is 16 MiB. Capture all steps
 		// within that bound, then elide inline data so trailing usage survives.
