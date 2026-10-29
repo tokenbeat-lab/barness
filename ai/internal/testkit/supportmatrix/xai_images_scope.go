@@ -22,12 +22,13 @@ func XAIImagesExecutionSource() (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	const path = "ai/internal/testkit/xai/images-candidate.json"
-	raw, err := os.ReadFile(filepath.Join(root, path))
-	if err != nil {
-		return nil, err
+	for _, path := range []string{"ai/internal/testkit/xai/images-candidate.json", "ai/e2e/testdata/decisions/images/gopher.webp"} {
+		raw, err := os.ReadFile(filepath.Join(root, path))
+		if err != nil {
+			return nil, err
+		}
+		files[path] = livegrant.Hash(raw)
 	}
-	files[path] = livegrant.Hash(raw)
 	return files, nil
 }
 
