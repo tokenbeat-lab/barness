@@ -13,6 +13,8 @@
 
 - 01 resolved：按张领域、合法目录、深复制、Reported Cost 与候选目录见 [工单01](issues/01-image-pricing.md#answer)，集成提交 `277520b4`。
 
+- 工单02：同步图片协议、用量/收费与自身资源守卫完成；普通回归证据见 [工单02](issues/02-xai-images.md)。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。
