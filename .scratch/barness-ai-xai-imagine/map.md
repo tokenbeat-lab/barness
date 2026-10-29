@@ -25,6 +25,8 @@
 
 - 06 resolved：受限xAI图片条目进入Builtin，默认Client回放真实六场景；当前中文评估显式升级v2并保留v1。范围、普通证据及回滚见[工单06](issues/06-activate-catalog.md#answer)，正式资格/race/压力仍未完成。
 
+- 07 resolved：原真实候选经新严格只读consumer取得正式资格，固定race与有限自身图片/Mixed压力完成；全部实际回执和只读发布结论见[唯一当前状态](spec.md#唯一当前状态)与[资格索引](evidence/qualification-20261029-06.json)。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。
