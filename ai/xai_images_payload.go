@@ -70,7 +70,7 @@ func (p *ResourcePolicy) checkXAIResourcePayload(value reflect.Value, many bool,
 			return imageAuthorityFailure()
 		}
 		if key == "url" {
-			return p.checkImageURLPayload(value, true)
+			return p.checkXAIURLPayload(value, true)
 		}
 		return nil
 	}
@@ -83,7 +83,7 @@ func (p *ResourcePolicy) checkXAIResourcePayload(value reflect.Value, many bool,
 					return failure
 				}
 			} else {
-				if failure := p.checkImageURLPayload(fields.Value(), false); failure != nil {
+				if failure := p.checkXAIURLPayload(fields.Value(), false); failure != nil {
 					return failure
 				}
 			}
@@ -115,7 +115,7 @@ func (p *ResourcePolicy) checkRawXAIResource(raw []byte) *Error {
 			if kind != jsonparser.String {
 				return imageInputFailure(PhaseRequest, "Imagine url must be a string")
 			}
-			failure = p.checkRawInlineURL(value, true)
+			failure = p.checkRawInlineURLBound(value, true, p.MaxRequestBytes, "MaxRequestBytes")
 			return failure
 		}
 		return nil
@@ -128,6 +128,42 @@ func (p *ResourcePolicy) checkRawXAIResource(raw []byte) *Error {
 	}
 	if err != nil {
 		return imageInputFailure(PhaseRequest, "Imagine resource requires an object")
+	}
+	return nil
+}
+
+func (p *ResourcePolicy) checkXAIURLPayload(value reflect.Value, requireInline bool) *Error {
+	field, failure := imagePayloadValue(value)
+	if failure != nil {
+		return failure
+	}
+	if !field.IsValid() {
+		return nil
+	}
+	if field.CanInterface() {
+		if raw, ok := field.Interface().(json.RawMessage); ok {
+			url, kind, _, err := jsonparser.Get(raw)
+			if err != nil || kind != jsonparser.String {
+				return imageInputFailure(PhaseRequest, "Imagine url must be a string")
+			}
+			return p.checkRawInlineURLBound(url, requireInline, p.MaxRequestBytes, "MaxRequestBytes")
+		}
+	}
+	if !usesCustomJSON(field) && field.Kind() == reflect.String {
+		url := field.String()
+		if int64(len(url)) > p.MaxRequestBytes {
+			return limitFailure(PhaseRequest, "MaxRequestBytes", p.MaxRequestBytes)
+		}
+		img, ok := parseOpenAIImageURL(url)
+		if !ok {
+			if requireInline {
+				return imageAuthorityFailure()
+			}
+			return nil
+		}
+		if base64Size(img.Data) > p.MaxImageBytes {
+			return limitFailure(PhaseRequest, "MaxImageBytes", p.MaxImageBytes)
+		}
 	}
 	return nil
 }

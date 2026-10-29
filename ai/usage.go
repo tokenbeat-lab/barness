@@ -9,7 +9,8 @@ import "math"
 // reported is in CallMetadata.Attempts (see UsageReporting).
 type Usage struct {
 	// Input excludes CacheRead and CacheWrite on chat protocols. Decisions
-	// and Google Interactions images retain inclusive vendor input.
+	// and Google/xAI image operations retain inclusive vendor input; their
+	// CacheRead is an input subset for diagnostics, never an added input charge.
 	Input      int64 `json:"input"`
 	Output     int64 `json:"output"`
 	CacheRead  int64 `json:"cacheRead"`

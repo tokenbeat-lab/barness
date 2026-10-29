@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
@@ -44,7 +45,9 @@ func TestXAIImagineHostInputLimit(t *testing.T) {
 	data := append([]byte("\x89PNG\r\n\x1a\n"), bytes.Repeat([]byte{0}, 16<<20)...)
 	ref := ai.Image{Data: base64.StdEncoding.EncodeToString(data), MimeType: "image/png"}
 	data = nil
-	res, err := w.client.GenerateImages(ctxFor(t), textScope("imagine-host-limit"), imagineTarget(), ai.ImagesRequest{Prompt: "Edit.", ReferenceImages: []ai.Image{ref}}, nil)
+	res, err := w.client.WithHooks(ai.Hooks{OnPayload: func(context.Context, ai.CallScope, *ai.Payload) (ai.PayloadDecision, error) {
+		return ai.KeepPayload(), nil
+	}}).GenerateImages(ctxFor(t), textScope("imagine-host-limit"), imagineTarget(), ai.ImagesRequest{Prompt: "Edit.", ReferenceImages: []ai.Image{ref}}, nil)
 	ev.Record("result", res)
 	ev.Record("error", errString(err))
 	ev.Record("request-size-hash", map[string]any{"bytes": transport.length, "sha256": transport.hash})

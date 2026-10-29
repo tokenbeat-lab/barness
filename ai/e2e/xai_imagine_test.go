@@ -1,8 +1,6 @@
 package e2e
 
 import (
-	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -87,6 +85,4 @@ func TestXAIImagineGeneration(t *testing.T) {
 	ev.Check("fixed native request", requests[0].Path == "/v1/images/generations" && jsonEqual(requests[0].Body, []byte(`{"model":"grok-imagine-image-2.0","prompt":"Draw a circle.","response_format":"b64_json"}`)), "body=%s", requests[0].Body)
 	ev.Check("MIME inferred", res.Content[0].(ai.ImageOutputImage).MimeType == "image/png", "content=%+v", res.Content)
 	ev.Check("missing token remains unreported", res.Usage.Input == 0 && res.Metadata.Attempts[0].UsageReporting == ai.UsageUnreported, "usage=%+v", res.Usage)
-	_ = context.Background()
-	_ = json.Valid
 }
