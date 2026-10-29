@@ -2,6 +2,7 @@ package e2e
 
 import (
 	"encoding/json"
+	"maps"
 	"os"
 	"path/filepath"
 	"strings"
@@ -11,12 +12,24 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
 )
 
+// Historical positive cases bind the last pre-Imagine product inventory from
+// Git commit 1e244ee26f024ce3534eed0600c43f6317d77adb, not this checkout and
+// not the consumer's allowlist. This prevents real new product changes from
+// rewriting the meaning of a previously reviewed source transition.
 // Failure inventory: exact reviewed transitions may pass; changed old bytes,
 // later edits, additions, removals, dependency changes and another route must
 // still fail. These are hash-only original source inventories, not live grants.
 func TestEvidenceReviewedSourceTransition(t *testing.T) {
+	var historical struct {
+		SourceCommit string            `json:"sourceCommit"`
+		Files        map[string]string `json:"files"`
+	}
+	frozen, err := os.ReadFile("testdata/source-review/current-1e244ee.json")
+	if err != nil || json.Unmarshal(frozen, &historical) != nil || historical.SourceCommit != "1e244ee26f024ce3534eed0600c43f6317d77adb" || len(historical.Files) == 0 {
+		t.Fatal("frozen historical current source unavailable", err)
+	}
 	for _, route := range []string{"typesafe-classifier-jev-1.14.0", "zhipu-responses", "zai-responses"} {
-		modes := []string{"reviewed", "changed-origin", "later-edit", "added-runtime", "added-subpackage", "removed-runtime", "dependency", "wrong-provider", "wrong-api", "later-clock"}
+		modes := []string{"reviewed", "current-unreviewed", "changed-origin", "later-edit", "added-runtime", "added-subpackage", "removed-runtime", "dependency", "wrong-provider", "wrong-api", "later-clock"}
 		if route == "zhipu-responses" {
 			modes = append(modes, "changed-inventory")
 		}
@@ -31,14 +44,17 @@ func TestEvidenceReviewedSourceTransition(t *testing.T) {
 				if err != nil || json.Unmarshal(raw, &fixture) != nil {
 					t.Fatal("original source fixture unavailable", err)
 				}
-				current, err := supportmatrix.RegionalExecutionSource()
-				if err != nil {
-					t.Fatal(err)
-				}
-				// Capturing helpers are independently checked by the native consumer.
-				for name := range current {
-					if strings.HasPrefix(name, "ai/internal/testkit/") || strings.HasPrefix(name, "ai/live/") {
-						delete(current, name)
+				current := maps.Clone(historical.Files)
+				if mode == "current-unreviewed" {
+					current, err = supportmatrix.RegionalExecutionSource()
+					if err != nil {
+						t.Fatal(err)
+					}
+					// Capturing helpers are independently checked by the native consumer.
+					for name := range current {
+						if strings.HasPrefix(name, "ai/internal/testkit/") || strings.HasPrefix(name, "ai/live/") {
+							delete(current, name)
+						}
 					}
 				}
 				switch mode {
@@ -65,7 +81,7 @@ func TestEvidenceReviewedSourceTransition(t *testing.T) {
 				}
 				err = evidence.VerifyRouteSource(fixture.Measured, current, fixture.Provider, fixture.API)
 				ev.Check("only exact reviewed product delta is reusable", (err == nil) == (mode == "reviewed"), "%v", err)
-				ev.Record("source-review", map[string]any{"route": route, "mode": mode, "error": errString(err), "vendorCalls": 0})
+				ev.Record("source-review", map[string]any{"route": route, "mode": mode, "error": errString(err), "vendorCalls": 0, "historicalCurrentCommit": historical.SourceCommit})
 			})
 		}
 	}
