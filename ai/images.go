@@ -99,6 +99,12 @@ func (c *Client) generateImages(ctx context.Context, scope CallScope, target Tar
 				if o != nil {
 					opts = o.clone().(OpenAIImagesOptions)
 				}
+			case XAIImagesOptions:
+				opts = o
+			case *XAIImagesOptions:
+				if o != nil {
+					opts = *o
+				}
 			case GoogleImagesOptions:
 				opts = o.clone().(GoogleImagesOptions)
 			case *GoogleImagesOptions:
@@ -131,6 +137,9 @@ func (c *Client) executeImages(ctx context.Context, r *callRuntime, target Targe
 		return failure
 	}
 	model := c.catalog.ImageModels[i].clone()
+	if model.API == API("xai-images") {
+		return c.executeXAIImages(ctx, r, model, req, opts, hooks, out)
+	}
 	if model.API == APIGoogleInteractions {
 		return c.executeGoogleImages(ctx, r, model, req, opts, hooks, out)
 	}
