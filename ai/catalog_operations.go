@@ -42,16 +42,17 @@ type ImageSizeConstraints struct {
 	Source         string `json:"source"`
 }
 
-// ImagePricing contains US dollars per million tokens, split by modality.
-// Every declared input/output modality requires a value; explicit zero is a
-// free rate, while null or unset is missing. Cache-read rates are optional.
+// ImagePricing selects either USD per million tokens, split by modality, or
+// the mutually exclusive PerImage branch. Explicit zero is a free rate; null
+// or unset is missing. Source fixes the price provenance for either branch.
 type ImagePricing struct {
-	InputText      Nullable[float64] `json:"inputText,omitzero"`
-	InputImage     Nullable[float64] `json:"inputImage,omitzero"`
-	OutputText     Nullable[float64] `json:"outputText,omitzero"`
-	OutputImage    Nullable[float64] `json:"outputImage,omitzero"`
-	CacheReadText  Nullable[float64] `json:"cacheReadText,omitzero"`
-	CacheReadImage Nullable[float64] `json:"cacheReadImage,omitzero"`
+	PerImage       *ImagePerImagePricing `json:"perImage,omitempty"`
+	InputText      Nullable[float64]     `json:"inputText,omitzero"`
+	InputImage     Nullable[float64]     `json:"inputImage,omitzero"`
+	OutputText     Nullable[float64]     `json:"outputText,omitzero"`
+	OutputImage    Nullable[float64]     `json:"outputImage,omitzero"`
+	CacheReadText  Nullable[float64]     `json:"cacheReadText,omitzero"`
+	CacheReadImage Nullable[float64]     `json:"cacheReadImage,omitzero"`
 	// Source names the official pricing URL and the date the rates were read.
 	Source string `json:"source"`
 }
