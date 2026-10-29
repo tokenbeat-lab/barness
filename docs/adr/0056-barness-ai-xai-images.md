@@ -16,3 +16,9 @@ date: 2026-10-29
 替代方案包括：复用 OpenAI Images 全部 DTO/默认（请求和计价事实不成立）；把图片包装成聊天工具输出（改变用户指定的操作与授权边界）；另建 Imagine Client 或异步作业系统（当前同步图片用例不需要第二套生命周期）；把图片张数换算成 token（破坏已公开的用量单位）。
 
 官方依据：[编辑指南](https://docs.x.ai/developers/model-capabilities/images/editing)、[Images REST](https://docs.x.ai/developers/rest-api-reference/inference/images)、[定价](https://docs.x.ai/developers/pricing)、[费用跟踪](https://docs.x.ai/developers/cost-tracking)。查阅日期：2026-10-29。
+
+## 2026-10-29：按自身实测收紧内置目录
+
+用户在真实候选六场景完成后要求“激活xAI目录”。内置目录独立声明 grok-imagine-image-2.0，生成最多2张、编辑输出1张、最多5参考图，分辨率1k/1.5k/2k，质量low/medium/auto，显式比例只开放1:1/16:9。这个范围取自身真实捕获与协议约束的交集，不继承候选10输出与16比例；单图编辑仍拒绝显式比例。原始候选目录、测量stage/mode、授权与正式资格事实保持。
+
+内置价格保留同一带日期按张快照，生产目录不依赖testkit。候选目录保留独立字节，供原测量追溯。默认Client离线回放六份原始捕获以核对最终wire、图片与收费。目录版本变化通过三个新v2配置显式传入中文评估示例；旧v1及严格目录核对保持，不自动升级历史配置。源码激活、正式原生资格和完整发布分别判断。详情及唯一当前状态见[激活范围](../../.scratch/barness-ai-xai-imagine/catalog-activation.md)和[规格](../../.scratch/barness-ai-xai-imagine/spec.md#唯一当前状态)。

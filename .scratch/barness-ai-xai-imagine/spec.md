@@ -4,7 +4,7 @@ Status: ready-for-human
 Type: feature
 Updated: 2026-10-29
 
-本文是本功能的交付契约，综合用户已确认的 Q1–Q7。领域用语遵循根词汇表；架构决定遵循 ADR-0020、ADR-0022、ADR-0054 和已接受的 ADR-0056。详细依据见 [设计方案](design.md) 与 [官方研究](research.md)。候选代码、普通交付与本次真实候选验证完成；正式支持和后续人工阶段仍未完成。
+本文是本功能的交付契约，综合用户已确认的 Q1–Q7。领域用语遵循根词汇表；架构决定遵循 ADR-0020、ADR-0022、ADR-0054 和已接受的 ADR-0056。详细依据见 [设计方案](design.md) 与 [官方研究](research.md)。候选代码、真实候选验证和受限内置目录激活完成；正式原生资格和后续人工阶段仍未完成。
 
 ## Problem Statement
 
@@ -19,6 +19,8 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 在既有 Client.GenerateImages 和 HookedClient.GenerateImages 中增加 image × xai × xai-images 路线，首期只接全球标准 API 的 grok-imagine-image-2.0。沿用 ImagesRequest 的提示词和有序内联参考图，同步返回 ImagesResult；复用既有 unary 调用生命周期。
 
 文生图最多输出 10 张；编辑最多接收 5 张参考图且输出 1 张。候选分辨率为 1k、1.5k、2k；质量为 low、medium、auto。所有上限受型号目录和 Host 资源策略进一步收紧。省略选项沿厂商默认，固定示例和验收显式指定质量、分辨率。单图编辑暂拒绝显式比例，多图编辑可选择已授权比例。
+
+2026-10-29 用户另行要求激活内置目录。内置范围收紧为生成最多 2 张、编辑输出 1 张、最多 5 张参考图，显式比例仅 1:1/16:9；分辨率与质量保持上述三档。该范围以自身六份真实捕获为依据，候选目录继续独立保留。源码激活不改原候选阶段或正式资格，详见[激活范围](catalog-activation.md)。
 
 新增封闭的 XAIImagesOptions 与独立协议转换，将请求固定为同步 JSON、响应固定为 b64_json。整组图片验证通过后才返回内容；失败保留已经取得的合法用量、收费与诊断事实。
 
@@ -225,26 +227,24 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 
 ### 唯一当前状态
 
-- 2026-10-29：候选接入代码、工单01–05与本次真实候选6/6场景完成。完整规格仍部分完成：正式支持、人工race/压力与完整发布未完成。集成分支 `codex/xai-imagine-integration`，不合并main、不push、不发布。
-- 已交付：Client/HookedClient.GenerateImages 的文生图、单图/有序多图编辑；类型化选项与严格最终请求守卫；原子图片、MIME识别、取消/超时/准入/租户快照；按张价格与独立Reported Cost。候选目录不进入Builtin。
-- 影响：新增 image × xai × xai-images × grok-imagine-image-2.0。共用输入检查拆分为Host廉价边界/快照、协议边界及严格内联校验；OpenAI/Google原生wire与有限容量保持，普通回归覆盖。共享价格/Attempt新增字段省略时保留旧编码。既有厂商原件和资格不重写，本次不授予其他路线当前资格；当前未审来源仍拒绝历史资格沿用。
-- 公开测试入口：Client/HookedClient.GenerateImages、NewClient、Catalog，以及隔离子进程CLI。先失败后实现的33次原始阶段与后续来源修正/全包原件均保留在根 `.evidence/barness-ai-xai-imagine/`。旧当前状态快照：`.evidence/barness-ai-xai-imagine/status/20261029-closure/prior-spec.md`。
-- 原完整产品普通测量：PASS/exit0（保留原来源，不冒充代理修复后的全包同源运行）。实际命令：`python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage e2e --input ai/e2e/testdata/source-review/current-1e244ee.json -- go test -json ./ai/... -count=1 -timeout=20m`。墙钟 755.988s，16510个PASS测试事件；主包15552个PASS case，214个NOT_RUN case不冒充普通必交通过；全部5个原生bundle和audit有效。完整必需普通PASS集合固定在不可变索引，不采用零匹配或父测试替代。
-- 原完整产品普通回执：`.evidence/barness-ai-xai-imagine/e2e/20261029T003310.813167Z-869dtg8y/receipt.json`，SHA256 `e7d6f9a11f01a64cab0e2bf8e1385b211abf8983589251ceabc215ccb2cfc7f5`。主包：`.evidence/barness-ai-xai-imagine/e2e/20261029T003310.813167Z-869dtg8y/bundles/20261029T003313.257994000Z/manifest.json`，SHA256 `4b038aff1f040a894ecea2fbcdec0755caccd0df65080d2b123cb17899835cda`；audit SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。其他原生包的路径/hash及完整测试库存见同一回执。
-- 当前harness普通验证：PASS/exit0，实际命令`python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage e2e -- go test -json ./ai/e2e -run '^TestXAIImagesLiveProcess$' -count=1`；29个PASS测试事件，墙钟15.210s，唯一主包与audit有效。回执`.evidence/barness-ai-xai-imagine/e2e/20261029T011128.326343Z-huqny4b5/receipt.json`，SHA256 `9a6c2fd5dfe1071779e2be9cf1771f4c7018ad8ee297e0e7f03a5c30410aa477`。新增检查证明本地代理200/502均只接收一次无凭据CONNECT、零厂商HTTP，普通fixture仍6/6，非法代理在claim前拒绝。
-- 来源关系：原完整测量`34d91ba828ba733339e5ee1fc39ebb4292333116`；代理修复过程实测`fb1dbb85199d2b47a4ce333c8d583cff95bcbab7`；集成代码`5371abdbeb05601e783765af191ace22e308396a`。新旧完整2082文件库存仅3个harness/测试文件不同，产品协议与依赖字节保持；实际差异见`.evidence/barness-ai-xai-imagine/status/proxy-source-delta.json`。本次仅按harness/过程影响验证对应子进程，不声称重跑全部产品普通测试。当前完整来源绑定新过程回执，收尾仅Markdown与不可变索引。最终当前提交由新只读报告releaseCommit给出。
-- 首轮全包：`.evidence/barness-ai-xai-imagine/e2e/20261029T002527.294111Z-yuy3ej6m`，FAIL/exit1，797.674s。两组旧历史来源测试把当前checkout误当旧审查版本，9个正例失败，回执保留 `invalid case outcome`。修正仅固定历史库存并新增当前拒绝场景，没有修改consumer/资格/白名单；218项Git字节独立复核与定向红绿见[审查记录](review.md)。失败原件保持。
-- 原双轴审查：Standards初审2项、Spec初审3项，去重后4项由同一实现者修复（`5e2ee121`）。原两轴独立复核无遗留项；历史测试修正追加复核0项。最终全包普通回执覆盖修复后来源。
-- 首次直连live（历史原件）：FAIL/exit1。用户回复`1`批准一次6场景/6调用/6HTTP、零重试与USD0.60停止阈值；授权`xai-img-20261029T010411Z-e22576e9`已由producer一次性claim。实际仅generation-low发起1次调用/1次HTTP transport attempt，15s连接超时；HTTP响应、token与收费均未报告，不能据此声称免费。其余5场景NOT_RUN，无重试。原生运行`.evidence/barness-ai-xai-imagine/live/xai-images/20261029T010436.426638Z-lpr53x8v`，命令退出1、墙钟16.857s、receipt保留invalid case outcome；原始grant/用户回复/计划/启动器与诊断见`.evidence/barness-ai-xai-imagine/authorization/xai-img-20261029T010411Z-e22576e9/`。audit findings为空，失败与claim不覆盖、不复用。当前仅准备显式loopback代理的harness修正（工单05），未取得新的重跑授权。原冻结二进制/来源414a2c36与失败事实保持。
-- 当前live：真实候选PASS/exit0，mode=live、stage=candidate、complete=true、audit通过、formalQualified=false。用户原回复“选择1，请使用本地代理 127.0.0.1:7890”批准新执行；grant `xai-img-proxy-20261029T012000Z-8eda9671`一次性claim，权威两记录独立核对。实际6调用/6HTTP、8输入/7输出，全部HTTP200且无截断，墙钟87.489s；实际proxy为`http://127.0.0.1:7890`。原生回执`.evidence/barness-ai-xai-imagine/live/xai-images/20261029T012001.157782Z-n96g7rg4/receipt.json`，SHA256 `790df98d96f614557f0201280d0879f49ee08acb0a35531ec491ad5d0892e8b4`；主包`.evidence/barness-ai-xai-imagine/live/xai-images/20261029T012001.157782Z-n96g7rg4/bundles/20261029T012003.433372000Z/manifest.json`，SHA256 `59792c423527514d022e9b64cc509edd877a7bfd2ad6aa45847d70346c961be0`；audit SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。
-- 本次费用与用量：原始整数ticks合计5100000000，独立核对厂商报告USD0.51；目录预留上界USD0.53，停止阈值USD0.60。各场景USD依次0.04/0.14/0.06/0.07/0.07/0.13。六次token均未报告，保持UsageUnreported，费用不填入token或Usage.Cost。auto仅保留本地有限估算区间，不从实际金额反推质量。7份图片与原响应/结果逐字节、顺序与hash一致；原始grant、批准、计划、proxy选择、原始ticks、结果、Observer、图片及claim保持。
-- 真实候选不可变索引：`.scratch/barness-ai-xai-imagine/evidence/candidate-live-20261029-03.json`，SHA256 `4d6a950b6f3494eac324674f2a94526b9fd14904329150a8220d21bca0b2e996`。本次实际受测SHA `724e988132ac5bf6ac393db156e07081eb0e2427`，当前产品/harness与现有普通来源2082文件集合/hash相等；未改代码，只收尾Markdown与索引。候选成功不声明10输出、全部16比例、完整笛卡尔积、视觉语义效果或正式支持；没有新付费重跑、formal晋升、race、压力或发布授权。
-- 代理修复：工单05完成，代码`e10db0f0`、集成`5371abdb`，Standard/Spec增量复核均0行动问题；完整记录见[代理审查](review-proxy.md)。新冻结二进制`.evidence/barness-ai-xai-imagine/build/20261029-proxy-frozen/xai-images.test`，SHA256 `9af1bb54b58727958cec248dfab064e9eef993085669ef1b5f7584a359f87c1a`，路线source `7a77c0cfb9f7abe0a838ebedd5d9d72074758abfff41e1bcdf9e89a35f014113`。5条构建/元数据命令均exit0。候选目录与6场景/预算保持。用户按[新一次性提案](retry-plan-20261029-02.md)给出一次性授权后，本次真实候选完成；新grant/claim的原件见当前live行。该次授权不允许再次重跑。原FAIL仍归原source/二进制/授权，不重写。
-- race：NOT_RUN。影响为共享准入/取消/快照/Observer与新路线的并发路径；须在所需live完成后由人选择具体argv和范围。候选为 `python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage race -- go test -race -json ./ai/e2e -run '^(TestXAIImagine|TestXAIImages)' -count=1 -timeout=20m`，不是本次已选命令。编译/受控子进程的内部race覆盖另按实际范围选择，不冒充已覆盖。
-- 压力：NOT_RUN。候选包括5参考输入、10输出响应、多图字节上限、并发准入/取消及读取；须在race通过后另行选定有限设计负载、argv和预计耗时。本次未选择或执行，不标NOT_APPLICABLE。
-- 当前只读发布索引：`.scratch/barness-ai-xai-imagine/evidence/record-20261029-03.json`；报告：`.evidence/barness-ai-xai-imagine/release/20261029-03/release-report.json`，命令/真实退出：同级`20261029-03-command/command.json`。来源与对应普通harness过程通过，真实候选PASS独立绑定；发布所需正式原生资格仍NOT_RUN，race/压力仍NOT_RUN，release.pass=false。record-01/02和report-01/02保持，历史失败不覆盖。当前改写前快照`.evidence/barness-ai-xai-imagine/status/20261029-proxy-live-complete/prior-spec.md`。
-- 构建/机器范围：`.evidence/barness-ai-xai-imagine/build/20261029-proxy-frozen/build.json`，5条命令均exit0；空模板本身仍无权限；本次已批准的新grant与执行索引独立保留。先前代理诊断仅CONNECT/TLS，后续6个真实API请求仅由本次获准producer发起；scope/二进制见新提案与本次索引。
-- 工作区：两个实施工作区通过应用归档，全部已知原件先完整复制并校对到根`.evidence`。应用把第三工作区设为主checkout，归档工具明确拒绝移除主checkout，因此保留为集成副本；不绕过该限制删除。回滚为Host禁用image Binding并更新版本，已固定调用按原快照结束或取消；无数据库迁移、协议回退或内部兼容层。
+- 2026-10-29：按用户“激活xAI目录”指令完成内置图片目录源码激活，工单01–06完成。完整规格仍部分完成：正式原生资格、人工race/压力与完整发布未完成。集成分支`codex/xai-imagine-integration`，不合并main、不push、不发布。
+- 当前Builtin：image × xai × xai-images × grok-imagine-image-2.0，目录版本`2026-10-29.1`，hash `sha256:f44d07c6969346f056cc46d31fccbafb68827267910801c05bb314ac0c55348d`。生成最多2张、编辑输出1张、最多5参考图；resolution=1k/1.5k/2k，quality=low/medium/auto，显式比例仅1:1/16:9；单图编辑仍拒绝显式比例。候选仍独立保留10输出/16比例，不把候选上限导入Builtin；未覆盖完整笛卡尔积或视觉语义效果。
+- 已交付：Client/HookedClient.GenerateImages文生图、单图/有序多图编辑，类型化选项、严格请求守卫、原子图片、MIME识别、取消/超时/准入/租户快照、按张估算及独立Reported Cost。本次只增加目录metadata/版本/快照、留存捕获回放和当前示例配置选择，产品协议、网络、凭据、重试、生命周期与计价单位不变。
+- 目录价格：输入USD0.01/张；输出low×1k/1.5k/2k=0.04/0.05/0.06，medium=0.06/0.07/0.08，来源日期2026-10-29。auto继续区间估算，不从厂商收费反推固定质量。新旧快照核对其余117个型号全部字段相等；旧候选JSON/版本/hash与原测量所绑定字节保持。证明见`.evidence/barness-ai-xai-imagine/status/catalog-activation-diff.json`及[激活范围](catalog-activation.md)。
+- 本次目录公共入口先红后绿：NewClient/Catalog默认发现、能力/价格/深复制、原生六场景逐份最终wire、7图hash/MIME、收费/ticks、token未报告及未开放能力预拒绝。原生捕获原件未改，必要协议夹具独立固定来源。初审1项P2（当前版本误绑历史激活版本）由同一实现者修复；两轴复核与配置增量复核均0遗留项，见[目录审查](review-catalog.md)。
+- 中文评估相邻修复：目录激活后首次完整普通运行`20261029T015941.735420Z-oy93ipx2` FAIL/exit1，旧当前配置报`evaluation: task, model, dataset or price snapshot drift`，31个失败测试事件及1个包失败原件保持。新建三份v2配置，仅改变配置版本、目录版本/hash；v1字节、Plan.Load严格校验、历史消费、数据集、型号/价格和预算均保持。CLI默认与当前E2E选择v2。独立冻结98事件绿回执`20261029T020714.918159Z-ypaf148b`及本次最终受影响普通回执证明修复，失败明细见`.evidence/barness-ai-xai-imagine/status/20261029-catalog-active-closure/initial-full-failure.json`。
+- 第二轮完整普通运行`20261029T021223.616298Z-3e5asmtb`保持FAIL/exit1、744.935s，仅TestToolRoundTrip/live-view-not-executable与父测试失败。共享PartialView按读取时刻返回消息，旧测试没有固定运行中时刻。确定性红复现与受控AfterChunk修复只改单个测试，保留原拒绝断言，新增Pending与释放后终态可执行对照；产品语义、provider/helper及fixture保持。失败原件见`.evidence/barness-ai-xai-imagine/status/20261029-catalog-active-closure/second-full-failure.json`，时序两轴复核及SOP范围依据见[目录审查](review-catalog.md)。未把这两次全包FAIL改成PASS；最终范围仅覆盖实际受影响测试及./ai全部实际测试，两个chineseeval包本身无测试，仅编译。
+- 当前冻结普通验证（受影响范围）：PASS/exit0；实际argv：`python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage e2e -- go test -json ./ai/e2e ./ai ./ai/examples/chineseeval ./ai/examples/chineseeval/cmd/chineseeval -run '^(TestXAI|TestBuiltinCatalogReleaseSnapshot$|Test.*Catalog|TestOpenAIImages|TestGoogleImages|TestChineseEvaluation|TestToolRoundTrip$|TestToolCallTruncation$|TestStreamLifecycle$|TestThinkingBudgets$|TestCostEstimate$)' -count=1 -timeout=20m`。墙钟127.374s，2058个PASS测试事件，全部1个原生bundle和audit有效。唯一主包1963个PASS case、0个NOT_RUN case；NOT_RUN不冒充普通必交通过，有限完整必需PASS集合固定在新索引。
+- 当前普通原件：`.evidence/barness-ai-xai-imagine/e2e/20261029T023159.242880Z-w8ibgpxm/receipt.json`，SHA256 `1912803cdef936263a0d3dc14068822850a20f110388f5bfe4ca98f18146e40f`；主manifest `.evidence/barness-ai-xai-imagine/e2e/20261029T023159.242880Z-w8ibgpxm/bundles/20261029T023202.485682000Z/manifest.json`，SHA256 `5125e438060e6c1a73f4414bfe68139594b67cfc86ddfe66bcf104ac3beec99e`；audit SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。其他包的路径/hash、完整测试库存、实际selectedInputs见同一回执。
+- 当前来源：最终普通实际受测提交`7d4edddddfcc3edb8485b6ed889ba3e2c3287e9b`；代码合入`0219357ce7f5e42b526cae784bb66b3a4c939986`。收尾仅Markdown及scratch不可变索引；当前2088文件完整来源与实测集合/hash相等，selectedInputs逐项相等，最终当前提交由新只读报告releaseCommit给出。与原真实测量`724e988132ac5bf6ac393db156e07081eb0e2427`相比15个目录/当前配置/测试夹具文件不同（含仅测试时序修正）；逐项分类见`.evidence/barness-ai-xai-imagine/status/20261029-catalog-active-closure/source-delta-final.json`。
+- 历史普通原件保持：原完整`./ai/...` PASS/exit0为`20261029T003310.813167Z-869dtg8y`（16510事件）；代理harness过程PASS为`20261029T011128.326343Z-huqny4b5`（29事件）。最早历史来源测试误用当前checkout的FAIL、定向红绿及后续激活/配置修复的失败全部保留。历史来源修正只固定218项旧Git字节，不改consumer/资格/白名单，详见[原审查](review.md)。旧当前状态完整快照`.evidence/barness-ai-xai-imagine/status/20261029-catalog-active-closure/prior-spec.md`及record-01/02/03保存完整先前状态。
+- 原真实候选：PASS/exit0、mode=live、stage=candidate、complete=true、audit通过、formalQualified=false；实际6调用/6HTTP、8输入/7输出，全部HTTP200，无重试，87.489s，proxy=`http://127.0.0.1:7890`。收费原始ticks合计5100000000，厂商报告USD0.51；目录预留上界USD0.53，停止阈值USD0.60。六次token均未报告，保持UsageUnreported，不填零。7图字节/hash/顺序、金额与权威两条grant记录独立核对。
+- 原候选回执`.evidence/barness-ai-xai-imagine/live/xai-images/20261029T012001.157782Z-n96g7rg4/receipt.json`，SHA256 `790df98d96f614557f0201280d0879f49ee08acb0a35531ec491ad5d0892e8b4`；完整授权、原始请求/响应/图片、整数ticks、Observer、二进制/来源与claim见[候选不可变索引](evidence/candidate-live-20261029-03.json)。首次直连1次ConnectTimeout15s、FAIL/exit1、其余5场景NOT_RUN及已消费授权保持。新代理执行授权不复用；本次激活没有新厂商调用或付费授权。
+- live适用性：本次目录激活收紧至自身六场景已测边界，当前默认Client离线逐字节回放，不新增厂商事实需求，因此不重买live。原候选的stage/mode/formalQualified不改；正式原生资格仍NOT_RUN，候选成功与源码激活不等于正式支持。本次不授予其他Provider当前资格；原件和资格按路线/型号保留。
+- race：NOT_RUN。整个功能仍影响共享准入/取消/快照/Observer与新路线并发；所需live完成后由人选择具体argv与范围。候选命令`python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage race -- go test -race -json ./ai/e2e -run '^(TestXAIImagine|TestXAIImages)' -count=1 -timeout=20m`未获选择或执行。目录激活增量本身无共享状态变化，不替代整个功能的人工阶段。
+- 压力：NOT_RUN。整个功能仍涉及5参考输入、10输出候选响应、多图字节上限、并发准入/取消及读取；race通过后另行选择有限负载、argv和预计耗时。本次未选择或执行，不标NOT_APPLICABLE。
+- 当前不可变[激活索引](evidence/catalog-activation-20261029-04.json)和[发布索引](evidence/record-20261029-04.json)绑定实际原件。只读发布报告`.evidence/barness-ai-xai-imagine/release/20261029-04/release-report.json`，原生命令/退出见同级`20261029-04-command/command.json`。来源和当前普通验证通过；正式原生资格/race/压力缺少，release.pass=false。record-01/02/03与report-01/02/03保持，不重写历史结论。
+- 构建与回滚：当前只读releasegate构建原件`.evidence/barness-ai-xai-imagine/build/20261029-catalog-active-verified/build.json`，exit0。没有新live/race/压力/发布执行。Host可禁用image Binding并更新版本；源码回滚同时恢复目录内容/版本/快照与当前示例配置选择，已固定调用按原快照结束或取消。无数据库迁移、协议回退或内部兼容层。两个实施工作树已通过应用归档，主checkout按应用限制保留为同步副本；全部已知原件在根`.evidence`完整保存。
 
 ### 依据与待证事实
 
@@ -273,3 +273,5 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 2026-10-29：重新生成后的文档核对通过，实际退出 0：模板七个章节及 Comments 顺序正确，76 条用户故事连续且符合指定句式，实现决定无源码文件路径或代码片段，本地引用与格式有效；git diff --check 实际退出 0。此结果仅证明规格文档检查通过。
 
 2026-10-29：用户原回复“选择1，请使用本地代理 127.0.0.1:7890”。按新范围一次性执行6个真实候选场景，全部PASS，进程退出0，厂商报告USD0.51。正式晋升、race、压力及发布未执行；完整事实只维护于唯一当前状态。
+
+2026-10-29：用户要求“激活xAI目录”。受限图片条目进入Builtin；默认Client重放原真实六场景。当前受影响普通验证PASS/exit0，原两次全包FAIL保持；新v2中文评估配置保留旧v1与严格历史边界。完整事实仅维护于唯一当前状态。

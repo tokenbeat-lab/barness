@@ -23,6 +23,8 @@
 
 - 新真实候选完成：用户明确选择代理127.0.0.1:7890并签发新一次性scope，6/6场景PASS、7图、原始ticks合计USD0.51。正式晋升/race/压力未批准，详见[候选索引](evidence/candidate-live-20261029-03.json)。
 
+- 06 resolved：受限xAI图片条目进入Builtin，默认Client回放真实六场景；当前中文评估显式升级v2并保留v1。范围、普通证据及回滚见[工单06](issues/06-activate-catalog.md#answer)，正式资格/race/压力仍未完成。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。
