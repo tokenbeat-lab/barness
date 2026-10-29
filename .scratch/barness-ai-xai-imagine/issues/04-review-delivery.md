@@ -1,7 +1,7 @@
 # 集成审查、普通验证与交付
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 01, 02, 03
 
 ## Scope
@@ -13,3 +13,7 @@ Blocked by: 01, 02, 03
 ## Comments
 
 2026-10-29：implement-spec 根据现有规格建立工单依赖图。
+
+## Answer
+
+2026-10-29：双轴审查及同一实现者修复完成，最终完整ai/...普通验证PASS/exit0；首次全包FAIL和全部红绿原件保留。不可变来源/普通索引、只读发布结果、未执行人工阶段和工作区保留原因统一见[spec当前状态](../spec.md#唯一当前状态)。真实候选/正式资格、race、压力和发布不属于本次已完成范围。

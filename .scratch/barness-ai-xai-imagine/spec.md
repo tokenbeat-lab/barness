@@ -1,10 +1,10 @@
 # barness-ai xAI Imagine 图像生成与编辑
 
-Status: ready-for-agent
+Status: ready-for-human
 Type: feature
 Updated: 2026-10-29
 
-本文是本功能的交付契约，综合用户已确认的 Q1–Q7。领域用语遵循根词汇表；架构决定遵循 ADR-0020、ADR-0022、ADR-0054 和已接受的 ADR-0056。详细依据见 [设计方案](design.md) 与 [官方研究](research.md)。ready-for-agent 表示规格可供实施，不代表实现、真实支持或发布已完成。
+本文是本功能的交付契约，综合用户已确认的 Q1–Q7。领域用语遵循根词汇表；架构决定遵循 ADR-0020、ADR-0022、ADR-0054 和已接受的 ADR-0056。详细依据见 [设计方案](design.md) 与 [官方研究](research.md)。候选代码与普通交付完成；当前等待独立人工阶段，不代表真实支持或发布已完成。
 
 ## Problem Statement
 
@@ -225,13 +225,21 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 
 ### 唯一当前状态
 
-- 2026-10-29 implement-spec 实施进行中；集成分支 `codex/xai-imagine-integration`，基线 `1e244ee26f024ce3534eed0600c43f6317d77adb`。任务图见 [map](map.md)。
-- 影响范围：图片入口/Binding、候选目录及按张价格、协议守卫/解码、用量/费用和 Observer 标量；复用 unary 生命周期。
-- 公共测试入口：Client/HookedClient.GenerateImages、NewClient、Catalog；普通范围为新增 xAI 图像 E2E 及完整 ai/e2e、ai，工具变化追加对应过程检查。
-- live：image × xai × xai-images × grok-imagine-image-2.0；需要自身新证据，NOT_RUN。未授权厂商请求。
-- race 候选：共享准入、取消、快照与 Observer；压力候选：多图输入/输出、请求/响应字节、并发准入及取消。均 NOT_RUN，等待实施后精确范围与人工选择。
-- 实际输入：spec/design/research、ADR-0056、GLOSSARY 与最终受测代码/测试/工具。普通阶段按 SOP 保存实际来源与选定输入。
-- 当前无运行证据。候选能力不等于正式支持。release.pass=false。
+- 2026-10-29：候选接入代码、工单01–04的实施/审查/普通交付完成。完整规格仍部分完成：真实候选、正式支持、人工race/压力与完整发布未完成。集成分支 `codex/xai-imagine-integration`，不合并main、不push、不发布。
+- 已交付：Client/HookedClient.GenerateImages 的文生图、单图/有序多图编辑；类型化选项与严格最终请求守卫；原子图片、MIME识别、取消/超时/准入/租户快照；按张价格与独立Reported Cost。候选目录不进入Builtin。
+- 影响：新增 image × xai × xai-images × grok-imagine-image-2.0。共用输入检查拆分为Host廉价边界/快照、协议边界及严格内联校验；OpenAI/Google原生wire与有限容量保持，普通回归覆盖。共享价格/Attempt新增字段省略时保留旧编码。既有厂商原件和资格不重写，本次不授予其他路线当前资格；当前未审来源仍拒绝历史资格沿用。
+- 公开测试入口：Client/HookedClient.GenerateImages、NewClient、Catalog，以及隔离子进程CLI。先失败后实现的33次原始阶段与后续来源修正/全包原件均保留在根 `.evidence/barness-ai-xai-imagine/`。旧当前状态快照：`.evidence/barness-ai-xai-imagine/status/20261029-closure/prior-spec.md`。
+- 普通E2E：PASS/exit0。实际命令：`python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage e2e --input ai/e2e/testdata/source-review/current-1e244ee.json -- go test -json ./ai/... -count=1 -timeout=20m`。墙钟 755.988s，16510个PASS测试事件；主包15552个PASS case，214个NOT_RUN case不冒充普通必交通过；全部5个原生bundle和audit有效。完整必需普通PASS集合固定在不可变索引，不采用零匹配或父测试替代。
+- 最终普通回执：`.evidence/barness-ai-xai-imagine/e2e/20261029T003310.813167Z-869dtg8y/receipt.json`，SHA256 `e7d6f9a11f01a64cab0e2bf8e1385b211abf8983589251ceabc215ccb2cfc7f5`。主包：`.evidence/barness-ai-xai-imagine/e2e/20261029T003310.813167Z-869dtg8y/bundles/20261029T003313.257994000Z/manifest.json`，SHA256 `4b038aff1f040a894ecea2fbcdec0755caccd0df65080d2b123cb17899835cda`；audit SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。其他原生包的路径/hash及完整测试库存见同一回执。
+- 实际受测SHA：`34d91ba828ba733339e5ee1fc39ebb4292333116`。集成实现/夹具提交：`3d85510bdafc4ea0084a941a16e97f45db784008`；文档收尾前提交：`8aaa0c78`。受测与当前执行源码2082文件集合及hash完全相等；选定输入为固定历史库存。最终当前提交由下面只读报告的releaseCommit给出；收尾仅Markdown与不可变索引，不改变执行来源。
+- 首轮全包：`.evidence/barness-ai-xai-imagine/e2e/20261029T002527.294111Z-yuy3ej6m`，FAIL/exit1，797.674s。两组旧历史来源测试把当前checkout误当旧审查版本，9个正例失败，回执保留 `invalid case outcome`。修正仅固定历史库存并新增当前拒绝场景，没有修改consumer/资格/白名单；218项Git字节独立复核与定向红绿见[审查记录](review.md)。失败原件保持。
+- 双轴审查：Standards初审2项、Spec初审3项，去重后4项由同一实现者修复（`5e2ee121`）。原两轴独立复核无遗留项；历史测试修正追加复核0项。最终全包普通回执覆盖修复后来源。
+- live：NOT_RUN。需要本路线自身真实生成、单图编辑、多图顺序、选定选项和费用形状；没有本次明确付费授权。6调用/6HTTP、8输入/7输出、目录上界USD0.53、USD0.60停止阈值的具体提案及冻结二进制见[live计划](live-plan.md)。只有无权限机器模板；ID/别名为空、到期时间为零，没有真实grant或claim。受控PASS不产生真实资格，正式目录/正式资格尚未晋升。
+- race：NOT_RUN。影响为共享准入/取消/快照/Observer与新路线的并发路径；须在所需live完成后由人选择具体argv和范围。候选为 `python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage race -- go test -race -json ./ai/e2e -run '^(TestXAIImagine|TestXAIImages)' -count=1 -timeout=20m`，不是本次已选命令。编译/受控子进程的内部race覆盖另按实际范围选择，不冒充已覆盖。
+- 压力：NOT_RUN。候选包括5参考输入、10输出响应、多图字节上限、并发准入/取消及读取；须在race通过后另行选定有限设计负载、argv和预计耗时。本次未选择或执行，不标NOT_APPLICABLE。
+- 只读发布索引：`.scratch/barness-ai-xai-imagine/evidence/record-20261029-01.json`；报告：`.evidence/barness-ai-xai-imagine/release/20261029-01/release-report.json`。来源与普通E2E通过；live/race/压力缺少人工阶段事实，release.pass=false。判定不启动任何后续阶段。
+- 构建/机器范围：`.evidence/barness-ai-xai-imagine/build/20261029-frozen/build.json`，5条命令均exit0；候选二进制、来源hash及目录hash见live计划。没有执行厂商请求。
+- 工作区：两个实施工作区通过应用归档，全部已知原件先完整复制并校对到根`.evidence`。应用把第三工作区设为主checkout，归档工具明确拒绝移除主checkout，因此保留为集成副本；不绕过该限制删除。回滚为Host禁用image Binding并更新版本，已固定调用按原快照结束或取消；无数据库迁移、协议回退或内部兼容层。
 
 ### 依据与待证事实
 

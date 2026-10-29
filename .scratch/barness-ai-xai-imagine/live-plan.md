@@ -26,3 +26,22 @@ controlled回放仅证明harness过程，不能取得真实资格。六场景即
 ## 后续人工阶段候选
 
 race仅在本路线所需live完成后提交精确argv，覆盖图片准入、快照、取消和Observer并发。压力在race通过后提交精确设计负载，覆盖5参考图/多输出、请求响应字节边界、并发准入和取消。当前两项均NOT_RUN；本提案不发放阶段选择。
+
+## 冻结执行对象（构建完成，未执行厂商调用）
+
+- 构建回执：`.evidence/barness-ai-xai-imagine/build/20261029-frozen/build.json`；5条构建/只读元数据命令均退出0。
+- 候选二进制：`.evidence/barness-ai-xai-imagine/build/20261029-frozen/xai-images.test`。
+- 二进制SHA256：`3f22346f0e2fa394422ebab3f5905f14852aed4725aef7d2466b82b734e65744`。
+- 本路线执行来源SHA256：`9fa233af3b8b982c2e9ae4a635383ab1fea5ec7341e2a456abb8c7f739e93087`。
+- 候选目录版本：`xai-images-candidate-2026-10-29`；hash：`sha256:72f8a0e1a88b9e19402e499203500060e7116386934bf816cd8fff38c2a43670`。
+- 未授权机器模板：`.evidence/barness-ai-xai-imagine/build/20261029-frozen/unapproved-template.json`。ID、账户/地区别名为空，有效期为零；不是可执行授权，不创建claim。
+
+取得新明确付费授权及该路线唯一凭据后，才执行以下命令：
+
+```sh
+python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage live --route xai-images -- \
+  /Users/cyber/RestoX/barness/.evidence/barness-ai-xai-imagine/build/20261029-frozen/xai-images.test \
+  '-test.run=^TestXAIImagesCandidate$' -test.count=1 -test.timeout=1200s
+```
+
+执行环境必须明确选择`BARNESS_AI_LIVE_COMBO=xai-images`、`BARNESS_AI_LIVE=1`、新`BARNESS_AI_LIVE_PERMISSIONS_FILE`与账户/地区别名；仅持有`BARNESS_AI_LIVE_KEY_XAI_IMAGES`，凭据不进入命令或产物。没有选定账户、有效期及新一次性授权时保持NOT_RUN。此候选二进制不支持formal stage；实际候选证据取得后，正式范围与资格接线仍须按真实证据另行审查。

@@ -17,6 +17,8 @@
 
 - 03 resolved：固定候选场景、有界原生捕获、一次性授权与受控过程验证见 [工单03](issues/03-live-readiness.md#answer)，集成提交 `46add731`。
 
+- 04 resolved：双轴审查、修复、完整普通交付与只读发布事实见 [当前状态](spec.md#唯一当前状态) 和 [索引](evidence/record-20261029-01.json)。live/race/压力仍NOT_RUN，release.pass=false。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。
