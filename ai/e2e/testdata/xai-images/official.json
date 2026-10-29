@@ -1,0 +1,87 @@
+{
+  "retrieved": "2026-10-29",
+  "activationVersion": "2026-10-29.1",
+  "model": {
+    "provider": "xai",
+    "api": "xai-images",
+    "id": "grok-imagine-image-2.0",
+    "name": "Grok Imagine Image 2.0",
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "image"
+    ],
+    "capabilities": {
+      "maxReferenceImages": 5,
+      "maxOutputImages": 2,
+      "imageSizes": [
+        "1k",
+        "1.5k",
+        "2k"
+      ],
+      "qualities": [
+        "low",
+        "medium",
+        "auto"
+      ],
+      "aspectRatios": [
+        "1:1",
+        "16:9"
+      ]
+    },
+    "pricing": {
+      "perImage": {
+        "inputImage": 0.01,
+        "output": [
+          {
+            "quality": "low",
+            "imageSize": "1k",
+            "price": 0.04
+          },
+          {
+            "quality": "low",
+            "imageSize": "1.5k",
+            "price": 0.05
+          },
+          {
+            "quality": "low",
+            "imageSize": "2k",
+            "price": 0.06
+          },
+          {
+            "quality": "medium",
+            "imageSize": "1k",
+            "price": 0.06
+          },
+          {
+            "quality": "medium",
+            "imageSize": "1.5k",
+            "price": 0.07
+          },
+          {
+            "quality": "medium",
+            "imageSize": "2k",
+            "price": 0.08
+          }
+        ]
+      },
+      "source": "https://docs.x.ai/developers/pricing; retrieved 2026-10-29"
+    }
+  },
+  "evidence": {
+    "measuredCommit": "724e988132ac5bf6ac393db156e07081eb0e2427",
+    "measuredNativeSource": "7a77c0cfb9f7abe0a838ebedd5d9d72074758abfff41e1bcdf9e89a35f014113",
+    "measuredCatalogVersion": "xai-images-candidate-2026-10-29",
+    "measuredCatalogHash": "sha256:72f8a0e1a88b9e19402e499203500060e7116386934bf816cd8fff38c2a43670",
+    "nativeManifestSHA256": "59792c423527514d022e9b64cc509edd877a7bfd2ad6aa45847d70346c961be0",
+    "nativeAuditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "originalBundle": ".evidence/barness-ai-xai-imagine/live/xai-images/20261029T012001.157782Z-n96g7rg4/bundles/20261029T012003.433372000Z",
+    "originalReceiptSHA256": "790df98d96f614557f0201280d0879f49ee08acb0a35531ec491ad5d0892e8b4",
+    "mode": "live",
+    "stage": "candidate",
+    "reportedTotalUSD": 0.51,
+    "rawTicksTotal": 5100000000
+  }
+}

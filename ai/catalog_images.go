@@ -27,3 +27,27 @@ func builtinGoogleImageModels() []ImageModel {
 		Pricing:      ImagePricing{InputText: Value(1.5), InputImage: Value(1.5), OutputText: Value(7.5), OutputImage: Value(30.0), Source: "https://ai.google.dev/gemini-api/docs/pricing?hl=en; retrieved 2026-10-08"},
 	}}
 }
+
+// These bounds are the route's own six real candidate captures on 2026-10-29:
+// generation, ordered edits, five references, two outputs and the listed tiers.
+// Source and hashes are pinned in e2e/testdata/xai-images/{official,live-contract}.json.
+// This release literal intentionally duplicates the candidate's prices: the
+// candidate keeps its original version/hash and broader limits independently.
+// Listing this identity does not rewrite its candidate report as formal proof.
+func builtinXAIImageModels() []ImageModel {
+	return []ImageModel{{
+		Provider: ProviderXAI, API: APIXAIImages, ID: "grok-imagine-image-2.0", Name: "Grok Imagine Image 2.0",
+		Input: []Modality{ModalityText, ModalityImage}, Output: []Modality{ModalityImage},
+		Capabilities: ImageCapabilities{MaxReferenceImages: 5, MaxOutputImages: 2, ImageSizes: []string{"1k", "1.5k", "2k"}, Qualities: []string{"low", "medium", "auto"}, AspectRatios: []string{"1:1", "16:9"}},
+		Pricing: ImagePricing{Source: "https://docs.x.ai/developers/pricing; retrieved 2026-10-29", PerImage: &ImagePerImagePricing{
+			InputImage: Value(0.01), Output: []ImageOutputPrice{
+				{Quality: "low", ImageSize: "1k", Price: Value(0.04)},
+				{Quality: "low", ImageSize: "1.5k", Price: Value(0.05)},
+				{Quality: "low", ImageSize: "2k", Price: Value(0.06)},
+				{Quality: "medium", ImageSize: "1k", Price: Value(0.06)},
+				{Quality: "medium", ImageSize: "1.5k", Price: Value(0.07)},
+				{Quality: "medium", ImageSize: "2k", Price: Value(0.08)},
+			},
+		}},
+	}}
+}

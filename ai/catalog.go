@@ -18,6 +18,9 @@ type Catalog struct {
 // OpenAI image facts and own live acceptance: ADR-0022, fixed date snapshot,
 // sourced token rates and conservatively verified capabilities on 2026-10-08.
 //
+// xAI image facts: ADR-0056, independently retained six-scenario candidate
+// acceptance on 2026-10-29; only measured image counts and tiers are listed.
+//
 // TypeSafe classifier facts: https://docs.typesafe.ai/models and /api,
 // read 2026-10-08; own live evidence and fixed version inclusion: ADR-0021.
 //
@@ -54,24 +57,11 @@ func BuiltinCatalog() Catalog {
 	regional := builtinRegionalCatalog()
 	kimi := builtinKimiCatalog()
 	xai := builtinXAICatalog()
-	version := "2026-10-17.2"
-	if len(minimax.Models) > 0 {
-		version = minimax.Version
-	}
-	if len(regional.Models) > 0 {
-		version = regional.Version
-	}
-	if len(kimi.Models) > 0 {
-		version = kimi.Version
-	}
-	if len(xai.Models) > 0 {
-		version = xai.Version
-	}
 	return Catalog{
-		Version: version,
+		Version: "2026-10-29.1",
 		Models: slices.Concat(builtinOpenAIModels(), builtinOpenAIChatModels(), builtinAnthropicModels(),
 			builtinGoogleModels(), builtinDeepSeekResponsesModels(), builtinDeepSeekChatModels(), builtinGLMModels(), minimax.Models, regional.Models, kimi.Models, xai.Models),
-		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels()),
+		ImageModels:      slices.Concat(builtinOpenAIImageModels(), builtinGoogleImageModels(), builtinXAIImageModels()),
 		ClassifierModels: slices.Concat(builtinTypeSafeModels(), builtinDecisionsModels()),
 	}
 }
