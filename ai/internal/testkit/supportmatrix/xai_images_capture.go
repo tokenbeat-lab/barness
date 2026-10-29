@@ -52,6 +52,22 @@ type xaiImagesReference struct {
 	URL  string `json:"url"`
 }
 
+// Embedded requestBody is a JSON string in the HTTP artifact. Validate each
+// resource before DTO conversion; the outer artifact reader cannot see it.
+func (r *xaiImagesReference) UnmarshalJSON(raw []byte) error {
+	var fields map[string]json.RawMessage
+	if regionalDecode(raw, &fields) != nil || len(fields) != 2 || len(fields["type"]) == 0 || len(fields["url"]) == 0 || string(fields["type"]) == "null" || string(fields["url"]) == "null" {
+		return refuse("Imagine reference requires exact non-null type/url fields")
+	}
+	type resource xaiImagesReference
+	var value resource
+	if regionalDecode(raw, &value) != nil {
+		return refuse("Imagine reference field types invalid")
+	}
+	*r = xaiImagesReference(value)
+	return nil
+}
+
 func verifyXAIImagesCase(root *os.Root, n xaiImagesNative, scene xaiimages.Scene, cases []xaiImagesManifestCase, seen map[string]bool, measured xaiImagesMeasuredFacts) (ScenarioResult, int64, error) {
 	row := ScenarioResult{ID: scene.ID, CaseID: "XAIIMG-live-" + scene.ID, Model: xaiimages.Model, Outcome: Pass, Calls: 1, Attempts: 1, Images: scene.Outputs}
 	var c xaiImagesManifestCase

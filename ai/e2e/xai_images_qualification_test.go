@@ -9,9 +9,18 @@ import (
 
 func TestXAIImagesNativeQualificationProcess(t *testing.T) {
 	f := newImageQualificationFixture(t)
-	for _, name := range []string{"complete", "missing-scene", "controlled", "fake-pass", "source", "catalog", "ticks", "image", "extra-request", "missing-claim", "producer-binding", "missing-observer", "audit-null", "result-null", "consistent-image", "consistent-ticks", "manifest-case", "assertion-case", "proxy-remote", "authority-id", "authority-scope", "producer-source", "missing-approval", "claim-case", "claim-duplicate"} {
+	names := []string{"complete", "missing-scene", "controlled", "fake-pass", "source", "catalog", "ticks", "image", "extra-request", "missing-claim", "producer-binding", "missing-observer", "audit-null", "result-null", "consistent-image", "consistent-ticks", "manifest-case", "assertion-case", "proxy-remote", "authority-id", "authority-scope", "producer-source", "missing-approval", "claim-case", "claim-duplicate"}
+	for _, shape := range []string{"single", "multi"} {
+		for _, mutation := range []string{"file-id", "null-file-id", "type-alias", "url-alias", "duplicate-url", "null-url"} {
+			names = append(names, "resource-"+shape+"-"+mutation)
+		}
+	}
+	for _, name := range names {
 		t.Run(name, func(t *testing.T) {
 			p := f.packet(t)
+			if strings.HasPrefix(name, "resource-") {
+				imageQualificationResource(t, p, name)
+			}
 			switch name {
 			case "claim-case":
 				imageQualificationMutate(t, filepath.Join(p.bundle, "process-authorization-receipt.json"), func(m map[string]any) { m["Session"] = m["session"]; delete(m, "session") })

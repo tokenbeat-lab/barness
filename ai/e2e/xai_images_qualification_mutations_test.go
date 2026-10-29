@@ -102,3 +102,53 @@ func imageQualificationRemoveAuthority(t *testing.T, f imageQualificationFixture
 		}
 	}
 }
+
+// Mutate the JSON resource inside requestBody, then refresh the fixture's
+// enclosing hashes. Outer HTTP JSON schema checks cannot inspect this string.
+func imageQualificationResource(t *testing.T, f imageQualificationFixture, name string) {
+	t.Helper()
+	shape, mutation, _ := strings.Cut(strings.TrimPrefix(name, "resource-"), "-")
+	scene := "single-edit"
+	if shape == "multi" {
+		scene = "ordered-edit"
+	}
+	path := filepath.Join(f.bundle, "XAIIMG-live-"+scene, "http.json")
+	var rows []map[string]any
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	mustUnmarshal(t, raw, &rows)
+	var request map[string]any
+	mustUnmarshal(t, []byte(rows[0]["requestBody"].(string)), &request)
+	var resource map[string]any
+	if shape == "single" {
+		resource = request["image"].(map[string]any)
+	} else {
+		resource = request["images"].([]any)[1].(map[string]any)
+	}
+	switch mutation {
+	case "file-id":
+		resource["file_id"] = "synthetic-file-id"
+	case "null-file-id":
+		resource["file_id"] = nil
+	case "type-alias":
+		resource["TYPE"] = resource["type"]
+		delete(resource, "type")
+	case "url-alias":
+		resource["URL"] = resource["url"]
+		delete(resource, "url")
+	case "null-url":
+		resource["url"] = nil
+	}
+	body, err := json.Marshal(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if mutation == "duplicate-url" {
+		body = []byte(strings.Replace(string(body), `"url":`, `"url":"synthetic-duplicate","url":`, 1))
+	}
+	rows[0]["requestBody"] = string(body)
+	writeXAINativeJSON(t, path, rows)
+	imageQualificationRefresh(t, f)
+}
