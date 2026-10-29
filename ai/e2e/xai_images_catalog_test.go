@@ -1,10 +1,12 @@
 package e2e
 
 import (
+	"encoding/json"
 	"math"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/xai"
 )
 
 // The spec's dated price snapshot is an independent public-JSON contract.
@@ -101,4 +103,70 @@ func TestXAIImagesCatalogValidation(t *testing.T) {
 			ev.Check("both catalog and client reject invalid image metadata", hashErr != nil && err != nil, "Hash=%v NewClient=%v", hashErr, err)
 		})
 	}
+}
+
+func TestXAIImagesCatalogSnapshots(t *testing.T) {
+	for _, kind := range []string{"construction", "catalog", "lookup", "list"} {
+		t.Run(kind, func(t *testing.T) {
+			ev := run.Case(t, "XAI-IMG-catalog-snapshot-"+kind)
+			var source ai.Catalog
+			mustUnmarshal(t, xaiImagesCatalogJSON(), &source)
+			w := newWorldWith(t, func(c *ai.Config) { c.Catalog = &source }, tenantA)
+			before := catalogHash(t, w.client.Catalog())
+			owner := w.client.Catalog()
+			var model ai.ImageModel
+			switch kind {
+			case "construction":
+				model = source.ImageModels[0]
+			case "catalog":
+				model = owner.ImageModels[0]
+			case "lookup":
+				model, _ = owner.LookupImage(ai.ProviderXAI, ai.APIXAIImages, "grok-imagine-image-2.0")
+			case "list":
+				model = owner.ImageModelsOf(ai.ProviderXAI, ai.APIXAIImages)[0]
+			}
+			model.Pricing.PerImage.InputImage = ai.Value(9.0)
+			model.Pricing.PerImage.Output[0].Price = ai.Value(99.0)
+			ev.Check("price pointer and rows are independently owned", jsonEqual(mustMarshal(t, w.client.Catalog()), xaiImagesCatalogJSON()), "catalog changed through %s", kind)
+			if kind == "lookup" || kind == "list" {
+				ev.Check("typed queries preserve their source catalog", jsonEqual(mustMarshal(t, owner), xaiImagesCatalogJSON()), "query mutated its source catalog")
+			}
+			after := catalogHash(t, w.client.Catalog())
+			ev.Record("snapshot-hashes", []string{before, after})
+			ev.Check("caller mutation leaves the client price hash stable", before == after, "hash changed")
+		})
+	}
+}
+
+func TestXAIImagesPriceHashAndZero(t *testing.T) {
+	ev := run.Case(t, "XAI-IMG-catalog-zero-and-hash")
+	var cat ai.Catalog
+	mustUnmarshal(t, xaiImagesCatalogJSON(), &cat)
+	before := catalogHash(t, cat)
+	cat.ImageModels[0].Pricing.PerImage.InputImage = ai.Value(0.0)
+	cat.ImageModels[0].Pricing.PerImage.Output[0].Price = ai.Value(0.0)
+	after := catalogHash(t, cat)
+	ev.Check("explicit zero is valid and changes the price content hash", before != after, "hash unchanged")
+	ev.Record("zero-price-catalog", cat)
+	w := newWorld(t, tenantA)
+	_, err := ai.NewClient(ai.Config{Policy: validPolicy(), Bindings: w.host, Credentials: w.host, Catalog: &cat})
+	ev.Check("NewClient preserves explicit free rates", err == nil, "NewClient=%v", err)
+	legacy := ai.BuiltinCatalog().ImageModels[0]
+	raw := mustMarshal(t, legacy.Pricing)
+	var fields map[string]json.RawMessage
+	mustUnmarshal(t, raw, &fields)
+	_, present := fields["perImage"]
+	ev.Check("token catalogs retain their old encoding", !present, "unexpected perImage branch")
+}
+
+func TestXAIImagesCandidateCatalog(t *testing.T) {
+	ev := run.Case(t, "XAI-IMG-catalog-candidate-source")
+	cat := xai.ImagesCandidateCatalog()
+	ev.Check("candidate snapshot matches the dated spec", jsonEqual(mustMarshal(t, cat), xaiImagesCatalogJSON()), "candidate=%s", mustMarshal(t, cat))
+	cat.ImageModels[0].Pricing.PerImage.Output[0].Price = ai.Value(99.0)
+	ev.Check("candidate calls return independent price tables", jsonEqual(mustMarshal(t, xai.ImagesCandidateCatalog()), xaiImagesCatalogJSON()), "candidate source changed")
+	w := newWorld(t, tenantA)
+	source := xai.ImagesCandidateCatalog()
+	_, err := ai.NewClient(ai.Config{Policy: validPolicy(), Bindings: w.host, Credentials: w.host, Catalog: &source})
+	ev.Check("candidate needs no credential for catalog construction", err == nil, "NewClient=%v", err)
 }
