@@ -40,6 +40,9 @@ func decodeXAIImagesResponse(ctx context.Context, reader io.Reader, model ImageM
 	content := make([]ImageOutput, 0, len(wire.images))
 	remaining := policy.MaxTotalOutputImageBytes
 	for _, img := range wire.images {
+		if ended := contextError(ctx, PhaseResponse); ended != nil {
+			return ended
+		}
 		mime := img.mime
 		if mime == "" {
 			var header [12]byte
@@ -59,10 +62,16 @@ func decodeXAIImagesResponse(ctx context.Context, reader io.Reader, model ImageM
 			return limitFailure(PhaseResponse, "Image.MaxTotalOutputImageBytes", policy.MaxTotalOutputImageBytes)
 		}
 		if img.invalid || mime == "" || !validImageBase64(ctx, img.data, mime) {
+			if ended := contextError(ctx, PhaseResponse); ended != nil {
+				return ended
+			}
 			return xaiImagesProtocolFailure()
 		}
 		remaining -= size
 		content = append(content, ImageOutputImage{Data: img.data, MimeType: mime})
+	}
+	if ended := contextError(ctx, PhaseResponse); ended != nil {
+		return ended
 	}
 	initial.usageEstimate(reporting, usage, xaiImagesEstimate(model, request, len(content)))
 	out.Content = content
