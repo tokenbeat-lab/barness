@@ -27,6 +27,8 @@
 
 - 07 resolved：原真实候选经新严格只读consumer取得正式资格，固定race与有限自身图片/Mixed压力完成；全部实际回执和只读发布结论见[唯一当前状态](spec.md#唯一当前状态)与[资格索引](evidence/qualification-20261029-06.json)。
 
+- 本地main合并：用户明确授权，merge `92cd34811128402433ca0efd8b071c43b96c1b6b` 保留原main与集成tip；无冲突且tree相同。当前来源和新只读报告见[唯一当前状态](spec.md#唯一当前状态)与[record07](evidence/record-20261029-07.json)。未push或部署。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。

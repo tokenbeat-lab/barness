@@ -227,7 +227,8 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 
 ### 唯一当前状态
 
-- 2026-10-29：接入、受限Builtin激活、正式原生资格、人工race及人工压力验证完成。工单01–07完成。集成分支`codex/xai-imagine-integration`；没有合并main、push或发布部署。本轮只读发布索引与报告见末行。
+- 本次合并：用户明确要求集成分支合并main。原main为`1e244ee26f024ce3534eed0600c43f6317d77adb`，集成tip为`107e5ad005a7cc28aeb9a3a536be2bed7c8f8866`；main是其祖先，使用`git merge --no-ff codex/xai-imagine-integration`，实际exit0、无冲突。合并tree与集成tip完全相同，2105项执行来源保持；本次仅更新Git历史、当前状态与独立索引，沿用完整普通/formal/race/压力事实，不触发新测试或厂商调用。合并原件见`.evidence/barness-ai-xai-imagine/merge/20261029-main-01/`，旧当前状态见`.evidence/barness-ai-xai-imagine/status/20261029-main-merged/prior-spec.md`；record/report06保持，新只读结果由report07给出。
+- 2026-10-29：接入、受限Builtin激活、正式原生资格、人工race及人工压力验证完成。工单01–07完成。集成分支`codex/xai-imagine-integration`通过合并提交`92cd34811128402433ca0efd8b071c43b96c1b6b`进入本地main；未push或发布部署。本轮只读发布索引与报告见末行。
 - 当前Builtin：image × xai × xai-images × grok-imagine-image-2.0；版本`2026-10-29.1`，hash `sha256:f44d07c6969346f056cc46d31fccbafb68827267910801c05bb314ac0c55348d`。生成最多2张、编辑输出1张、最多5参考图；resolution=1k/1.5k/2k，quality=low/medium/auto，显式比例1:1/16:9；单图编辑仍拒绝显式比例。独立候选10输出/16比例不提升为正式范围，压力候选10输出只证明宿主资源边界。
 - 产品与价格：Client/HookedClient.GenerateImages、严格最终请求、原子图片、MIME、取消/超时/准入/租户快照、PerImage估算与Reported Cost保持。输入USD0.01/张；low×1k/1.5k/2k=0.04/0.05/0.06，medium=0.06/0.07/0.08；来源日期2026-10-29。auto维持区间估算，不从金额反推质量。其他117个型号字段不改，原目录和旧中文评估v1保留；当前示例用明确v2固定值，严格历史校验不放宽。
 - 本轮授权：用户原话“继续完成正式资格、race 和压力验证，网络请求继续使用本地代理 127.0.0.1:7890。”原回复、固定argv、有限负载和耗时预估在`.evidence/barness-ai-xai-imagine/authorization/final-stages-20261029T024612Z/`，详见[固定范围](final-stages-plan-20261029-05.md)。本轮没有新厂商请求、付费grant或重试；正式资格消费原代理真实测量，本地race/压力只用受控服务。
@@ -235,13 +236,13 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 - 本轮正式资格：PASS/exit0。新图片自身原生消费者核验固定身份/原source与当前适用性/受限目录、完整manifest与audit、6份最终wire/结果/费用/7原图、Observer、producer真实退出/argv/binary/selectedInputs及权威双key。新结论由当前consumer产生，不改旧candidate为formal。回执`.evidence/barness-ai-xai-imagine/live-consumer/20261029-06-03/live-consumer.json`，SHA256 `f6dd5b5bf548ff728664491de18071b7d550ff2e7308adec29039e6bf49986a1`；2.921s，59项输入，reportSHA256 `7fa5bbeae259db1a34b7ab8226be698aafcb3ebdbc9f7077b994dcab4f11bcec`。额外2项是按原commit724e988核验的README Git blob，不读取现文档替代。原生/外层采集均保存，重复投影hash稳定。
 - 正式消费者实际修复：首轮真实消费`live-consumer/20261029-06` FAIL/exit1保持。独立诊断分别定位相对inspect目录归一化与2份原README不在外层Source/selectedInputs的差异。原Regional库存545项包含两文档，采集器按合同排除Markdown；724e988的两份原Git blob与原hash精确相同。仅该路由对缺失MD执行固定旧commit/canonical路径/10s/1MiB读取并入闭包；缺Go/JSON、错hash、缺Git原字节继续拒绝。没有放宽通用source/catalog/ledger规则。所有红绿及诊断保留在根`.evidence`，见[本轮审查](review-final.md)。
 - 当前普通：PASS/exit0，实测提交`ea2e5820508f76553f5fa1bfbc1f00f76878c087`，墙钟6.834s；34个PASS测试事件、主包28个PASS case。实际argv：`go test -json ./ai/e2e -run '^(TestXAIImaginePressure|TestXAIImagineGeneration|TestXAIImagesCatalog|TestAdmission)$' -count=1 -timeout=5m`。回执`.evidence/barness-ai-xai-imagine/e2e/20261029T040732.976339Z-izmt500t/receipt.json`，SHA256 `5b4014ce16508888d8d9dc620b1fed1b0270cb8788935c41a572f869ec5391eb`；manifest/audit hash及有限完整PASS集合见[资格索引](evidence/qualification-20261029-06.json)。当前增量覆盖准入公共基线与xAI小图/目录，8项压力门控保持NOT_RUN，不把父测试PASS当压力通过。此前冻结035230.406738Z-hqziivbd覆盖37原生场景、路径/历史Git、假投影与旧XAI/Generic/Matrix，122个测试事件/215个PASS case；它与当前源仅压力测试错误码期望一行不同，消费者/产品字节保持。按两轴范围复核不重复无关全E2E。
-- 普通适用性：本轮只新增只读消费者与压力测试，不改原协议/网络/凭据/重试/资源生命周期。原产品2058事件及更早完整`./ai/...`普通测量保持；本轮按工具/测试影响验证对应进程，不将历史两次完整FAIL改PASS。当前集成代码`177ed746db33d895afe5d7de5abfe6184593c8fc`与普通实测2105项完整来源集合/hash相等；race、压力、当前formal消费者同在该代码提交执行。收尾仅Markdown/scratch索引，最终HEAD由release-report.releaseCommit给出。
+- 普通适用性：本轮只新增只读消费者与压力测试，不改原协议/网络/凭据/重试/资源生命周期。原产品2058事件及更早完整`./ai/...`普通测量保持；本轮按工具/测试影响验证对应进程，不将历史两次完整FAIL改PASS。各验证阶段代码`177ed746db33d895afe5d7de5abfe6184593c8fc`与普通实测2105项完整来源集合/hash相等；race、压力、当前formal消费者同在该代码提交执行。收尾仅Markdown/scratch索引，最终HEAD由release-report.releaseCommit给出。
 - race：PASS/exit0，用户固定选择实际执行，墙钟81.939s，930个PASS测试事件、849个PASS case；完整所选组和独立32项最低必交集合均完成，stdout/stderr无DATA RACE。原件`.evidence/barness-ai-xai-imagine/race/20261029T041041.089797Z-ilbrf32j/receipt.json`，SHA256 `2a178dc0a01174b5e5e217fbabebdc386f12a2857d3187916669e64a577aa5ec`；确切argv/源码/selectedInputs/manifest/audit见该回执和资格索引。新图片、共享准入/取消/快照/Observer、价格深复制与OpenAI/Google/Mixed相邻范围覆盖；普通子二进制不冒充race插桩证明。压力门控在此保持关闭。
 - 压力首轮`040433.052044Z-k9ltuj9p`保持FAIL/exit1、6.759s，仅admission-cancel把队列满误期望为CodeResourceLimit；实际既有合同返回CodeAdmissionDenied。原9个成功case不合成为全轮PASS。提交4c89b6e4只修该测试期望，全部零attempt/零Usage/身份/Observer/释放断言保持。两轴增量0问题，重新冻结普通、只读formal、原范围race及压力，原FAIL不覆盖。
 - 压力：PASS/exit0，墙钟6.923s，12个PASS测试事件；10项固定必交case全部PASS。原件`.evidence/barness-ai-xai-imagine/pressure/20261029T041323.597910Z-h86qlxb_/receipt.json`，SHA256 `ede1e518ff29c8c6e3aca95d2b57b341e8aa89d98e742b1c2d765eebbb6c8aff`。plain/hooked各固定2租户4并发、5×256KiB参考编辑/10×512KiB候选输出，EOF四许可/正文屏障、512MiB live-growth上限、顺序/hash、费用轴与独立归属；另6逻辑调用上限的等待/拒绝/取消/恢复、5项一字节超限、既有Mixed local/cloud。实际peak/TotalAlloc/headroom/字节hash/Observer及最终零资源在原case产物；不声称容量超过该有限负载。未选无关Provider压力或无限循环。
 - 本轮两轴：压力Standards初审1P2、Spec初审2P2及残留零尝试用量断言由同一实现者修复；正式两轴同一资源内层字段缺口去重1P2修复；真实原件路径/历史字节增量两轴0项。全部最终复核0遗留项，见[本轮审查](review-final.md)。范围、有限原件及旧失败均保持。
 - 历史与回滚：旧当前状态快照`.evidence/barness-ai-xai-imagine/status/20261029-final-stages-complete/prior-spec.md`；record/report01–05、原ConnectTimeout15s直连FAIL与已消费grant、全包配置/时序失败、所有定向失败均保持。Host可禁用image Binding并更新版本；源码回滚恢复目录内容/版本/快照与当前示例配置选择，已固定调用按原快照结束或取消。无数据库迁移、内部兼容shim或隐式协议回退。
-- 本轮独立[资格索引](evidence/qualification-20261029-06.json)与[只读发布索引](evidence/record-20261029-06.json)绑定实际回执、来源、输入、完整必交集合。五项核验材料齐全；最终只读结论见`.evidence/barness-ai-xai-imagine/release/20261029-06/release-report.json`，真实命令/退出在同级`20261029-06-command/command.json`。该判定不执行测试、厂商、race或压力。
+- 本轮独立[资格索引](evidence/qualification-20261029-06.json)与[只读发布索引](evidence/record-20261029-07.json)绑定实际回执、来源、输入、完整必交集合。五项核验材料齐全；最终只读结论见`.evidence/barness-ai-xai-imagine/release/20261029-07/release-report.json`，真实命令/退出在同级`20261029-07-command/command.json`。该判定不执行测试、厂商、race或压力。
 
 ### 依据与待证事实
 
@@ -274,3 +275,5 @@ Host 需要一个边界明确、可验证的原生图像操作，而不是新的
 2026-10-29：用户要求“激活xAI目录”。受限图片条目进入Builtin；默认Client重放原真实六场景。当前受影响普通验证PASS/exit0，原两次全包FAIL保持；新v2中文评估配置保留旧v1与严格历史边界。完整事实仅维护于唯一当前状态。
 
 2026-10-29：用户明确继续正式资格、race与压力。新只读consumer核验原候选真实捕获并取得正式资格；随后固定race与有限压力通过。原stage/mode/费用/失败/授权保持，没有新增厂商请求。完整事实仅维护于唯一当前状态。
+
+2026-10-29：用户要求将xAI图片集成分支合并main。本地main通过92cd3481保留合并边界；原main为集成分支祖先，无冲突、合并tree相等，既有2105项执行来源与资格不变。未push或部署。完整事实仅维护于唯一当前状态。
