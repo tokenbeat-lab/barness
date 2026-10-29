@@ -10,21 +10,29 @@ import (
 
 func decodeXAIImagesResponse(ctx context.Context, reader io.Reader, model ImageModel, request xaiImagesRequest, policy ImagePolicy, initial *initialRequest, out *ImagesResult) *Error {
 	r := &imageResponseReader{Reader: reader}
-	wire, err := readOpenAIImagesEnvelope(json.NewDecoder(r), min(policy.MaxOutputImages, model.Capabilities.MaxOutputImages))
+	wire, err := readXAIImagesEnvelope(json.NewDecoder(r), min(policy.MaxOutputImages, model.Capabilities.MaxOutputImages))
 	if ended := contextError(ctx, PhaseResponse); ended != nil {
 		return ended
 	}
 	if r.failure != nil {
 		return unaryReadFailure(r.failure)
 	}
+	reporting, usage, amount, usageFailure := xaiImagesUsage(wire.usage)
+	out.Usage = usage
+	initial.usage(reporting, usage)
+	_ = amount
+	out.ResponseID, out.ResponseModel = wire.id, wire.model
 	if err != nil {
-		return imageProtocolFailure()
+		return xaiImagesProtocolFailure()
+	}
+	if usageFailure != nil {
+		return usageFailure
 	}
 	if wire.refused {
 		return newError(CodeUpstreamError, PhaseResponse, "xAI Images refused the request")
 	}
-	if wire.invalid || wire.imageCount != request.options().quantity() {
-		return imageProtocolFailure()
+	if wire.invalid || wire.count != request.options().quantity() {
+		return xaiImagesProtocolFailure()
 	}
 	content := make([]ImageOutput, 0, len(wire.images))
 	remaining := policy.MaxTotalOutputImageBytes
@@ -41,7 +49,7 @@ func decodeXAIImagesResponse(ctx context.Context, reader io.Reader, model ImageM
 			}
 		}
 		if img.invalid || mime == "" || !validImageBase64(ctx, img.data, mime) {
-			return imageProtocolFailure()
+			return xaiImagesProtocolFailure()
 		}
 		size := base64Size(img.data)
 		if size > policy.MaxOutputImageBytes {
