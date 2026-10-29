@@ -195,6 +195,11 @@ func (p *imaginePressureWorld) checkObserver(ev *evidence.Case, c imaginePressur
 	meta.Attempts = nil
 	ev.Check("result has independently planned identity", reflect.DeepEqual(meta, want), "call=%s metadata=%+v", c.id, meta)
 	ev.Check("complete bounded Observer lifecycle", reflect.DeepEqual(kinds(observations), lifecycle(c.id, len(res.Metadata.Attempts))), "call=%s lifecycle=%v", c.id, kinds(observations))
+	// Reporting belongs only to actual attempts. Zero Usage on an unsent
+	// call is an empty carrier, never a claim of reported vendor counters.
+	if len(res.Metadata.Attempts) == 0 {
+		ev.Check("zero-attempt result has no reported consumption", res.Usage == (ai.Usage{}), "call=%s usage=%+v", c.id, res.Usage)
+	}
 	for i, o := range observations {
 		ev.Check("Observer time is present and ordered", !o.Time.IsZero() && (i == 0 || !o.Time.Before(observations[i-1].Time)), "call=%s record=%d", c.id, i)
 		switch o.Kind {
@@ -218,6 +223,9 @@ func (p *imaginePressureWorld) checkObserver(ev *evidence.Case, c imaginePressur
 			}
 		case ai.ObservationCallFinished:
 			ev.Check("Observer retains terminal metadata usage and stop", reflect.DeepEqual(o.Call, res.Metadata) && o.Usage == res.Usage && o.StopReason == res.StopReason && o.Attempt == nil && o.Duration > 0, "call=%s", c.id)
+			if len(res.Metadata.Attempts) == 0 {
+				ev.Check("zero-attempt Observer has no reported consumption", o.Usage == (ai.Usage{}) && len(o.Call.Attempts) == 0 && o.Attempt == nil, "call=%s usage=%+v", c.id, o.Usage)
+			}
 			var failure *ai.Error
 			var classification *ai.ObservedError
 			if errors.As(c.err, &failure) {
