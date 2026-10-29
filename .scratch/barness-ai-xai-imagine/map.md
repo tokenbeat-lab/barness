@@ -11,6 +11,8 @@
 - 公共 Client/HookedClient、NewClient、Catalog 为规格已确认的测试边界。
 - 普通 E2E 授权成立。付费、race、压力与发布没有自动授权。
 
+- 01 resolved：按张领域、合法目录、深复制、Reported Cost 与候选目录见 [工单01](issues/01-image-pricing.md#answer)，集成提交 `277520b4`。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。
