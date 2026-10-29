@@ -16,6 +16,9 @@ import (
 // ProcessScope fills machine facts only. Human identity, aliases and expiry
 // remain blank in templates, and a template confers no authority.
 func ProcessScope(route, mode, stage, binary string) (livegrant.Scope, error) {
+	if route == "xai-images" {
+		return xaiImagesProcessScope(mode, stage, binary)
+	}
 	s := livegrant.Scope{Route: route, Mode: mode, Stage: stage, BinarySHA256: binary, MaxOutputTokens: 4096, CallSeconds: 180, ProcessSeconds: 1800}
 	cat := ai.BuiltinCatalog()
 	var source map[string]string
