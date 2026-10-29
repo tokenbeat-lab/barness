@@ -36,6 +36,9 @@ func (c *Client) executeGoogleImages(ctx context.Context, r *callRuntime, model 
 	if failure := c.policy.checkGoogleImagesEncoding(wire); failure != nil {
 		return failure
 	}
+	if failure := c.policy.checkImageInput(ctx, req, nil, PhaseScope); failure != nil {
+		return failure
+	}
 	cred, failure := r.pin(ctx, model.ID, hooks)
 	if failure != nil {
 		return failure

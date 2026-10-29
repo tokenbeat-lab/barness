@@ -38,7 +38,7 @@ func (p *ImagePolicy) validate(output int64) error {
 	return nil
 }
 
-func (p *ResourcePolicy) checkImageInput(ctx context.Context, req ImagesRequest, mask *Image, phase Phase) *Error {
+func (p *ResourcePolicy) checkImageInputBounds(req ImagesRequest, mask *Image, phase Phase) *Error {
 	if p.Image == nil {
 		return newError(CodeInvalidRequest, PhaseScope, "the client policy does not enable image generation")
 	}
@@ -49,9 +49,6 @@ func (p *ResourcePolicy) checkImageInput(ctx context.Context, req ImagesRequest,
 	if count > p.Image.MaxInputImages {
 		return limitFailure(phase, "Image.MaxInputImages", int64(p.Image.MaxInputImages))
 	}
-	if len(req.ReferenceImages) > openAIReferenceLimit {
-		return limitFailure(phase, "OpenAI.MaxReferenceImages", openAIReferenceLimit)
-	}
 	remaining := p.MaxRequestBytes
 	if int64(len(req.Prompt)) > remaining {
 		return limitFailure(phase, "MaxRequestBytes", p.MaxRequestBytes)
@@ -60,8 +57,8 @@ func (p *ResourcePolicy) checkImageInput(ctx context.Context, req ImagesRequest,
 	// Every known length is checked before any image is copied or decoded.
 	for i := 0; i < count; i++ {
 		image := imageInputAt(req.ReferenceImages, mask, i)
-		if failure := p.checkInlineImageSize(image.Data, image.MimeType, phase); failure != nil {
-			return failure
+		if base64Size(image.Data) > p.MaxImageBytes {
+			return limitFailure(phase, "MaxImageBytes", p.MaxImageBytes)
 		}
 		length := int64(len(image.Data)) + int64(len(image.MimeType)) + int64(len("data:;base64,"))
 		if length > remaining {
@@ -74,6 +71,17 @@ func (p *ResourcePolicy) checkImageInput(ctx context.Context, req ImagesRequest,
 	}
 	if mask != nil && len(req.ReferenceImages) == 0 {
 		return imageInputFailure(phase, "image masks require reference images")
+	}
+	return nil
+}
+
+func (p *ResourcePolicy) checkImageInput(ctx context.Context, req ImagesRequest, mask *Image, phase Phase) *Error {
+	if failure := p.checkImageInputBounds(req, mask, phase); failure != nil {
+		return failure
+	}
+	count := len(req.ReferenceImages)
+	if mask != nil {
+		count++
 	}
 	for i := 0; i < count; i++ {
 		image := imageInputAt(req.ReferenceImages, mask, i)

@@ -99,6 +99,22 @@ func xaiImagesUsage(raw json.RawMessage) (Usage, UsageReporting, Nullable[float6
 			failure = xaiImagesProtocolFailure()
 		}
 	}
+	for _, field := range []struct {
+		key string
+		dst func(*ModalityUsage) *Nullable[int64]
+	}{
+		{"input_tokens_details.text_tokens", func(m *ModalityUsage) *Nullable[int64] { return &m.InputText }},
+		{"input_tokens_details.image_tokens", func(m *ModalityUsage) *Nullable[int64] { return &m.InputImage }},
+		{"output_tokens_details.text_tokens", func(m *ModalityUsage) *Nullable[int64] { return &m.OutputText }},
+		{"output_tokens_details.image_tokens", func(m *ModalityUsage) *Nullable[int64] { return &m.OutputImage }},
+	} {
+		if c := counters[field.key]; c.present {
+			if u.Modalities == nil {
+				u.Modalities = &ModalityUsage{}
+			}
+			*field.dst(u.Modalities) = Value(c.n)
+		}
+	}
 	reporting := UsagePartial
 	if i.present && o.present && total.present && cache.present && reasoning.present {
 		reporting = UsageComplete

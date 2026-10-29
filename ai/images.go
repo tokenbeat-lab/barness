@@ -86,7 +86,7 @@ func (c *Client) generateImages(ctx context.Context, scope CallScope, target Tar
 		failure = contextError(ctx, PhaseScope)
 	}
 	if failure == nil {
-		failure = c.policy.checkImageInput(ctx, req, options.Mask, PhaseScope)
+		failure = c.policy.checkImageInputBounds(req, options.Mask, PhaseScope)
 	}
 	if failure == nil {
 		req.ReferenceImages = slices.Clone(req.ReferenceImages)
@@ -137,7 +137,7 @@ func (c *Client) executeImages(ctx context.Context, r *callRuntime, target Targe
 		return failure
 	}
 	model := c.catalog.ImageModels[i].clone()
-	if model.API == API("xai-images") {
+	if model.API == APIXAIImages {
 		return c.executeXAIImages(ctx, r, model, req, opts, hooks, out)
 	}
 	if model.API == APIGoogleInteractions {
@@ -156,6 +156,23 @@ func (c *Client) executeImages(ctx context.Context, r *callRuntime, target Targe
 		default:
 			return newError(CodeInvalidRequest, PhaseCapability, "options do not match the binding API")
 		}
+	}
+	if len(req.ReferenceImages) > openAIReferenceLimit {
+		return limitFailure(PhaseScope, "OpenAI.MaxReferenceImages", openAIReferenceLimit)
+	}
+	for i := 0; i < len(req.ReferenceImages); i++ {
+		img := imageInputAt(req.ReferenceImages, options.Mask, i)
+		if failure := c.policy.checkInlineImageSize(img.Data, img.MimeType, PhaseScope); failure != nil {
+			return failure
+		}
+	}
+	if options.Mask != nil {
+		if failure := c.policy.checkInlineImageSize(options.Mask.Data, options.Mask.MimeType, PhaseScope); failure != nil {
+			return failure
+		}
+	}
+	if failure := c.policy.checkImageInput(ctx, req, options.Mask, PhaseScope); failure != nil {
+		return failure
 	}
 	if failure := c.policy.checkImageCapabilities(req, options, model.Capabilities, PhaseCapability); failure != nil {
 		return failure
