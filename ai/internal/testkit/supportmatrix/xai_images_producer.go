@@ -46,6 +46,10 @@ type xaiImagesToolchain struct {
 }
 
 func verifyXAIImagesProducer(dir string, n xaiImagesNative, inventory map[string]string) (map[string]string, error) {
+	dir, e := filepath.Abs(dir)
+	if e != nil {
+		return nil, e
+	}
 	inputs := map[string]string{}
 	root, e := minimaxlive.Root()
 	if e != nil {
@@ -139,6 +143,16 @@ func verifyXAIImagesProducer(dir string, n xaiImagesNative, inventory map[string
 	for name, h := range original {
 		compiled, inSource := p.Source.Files[name]
 		selected, inInputs := p.SelectedInputs[name]
+		// The collector excludes Markdown from source.files. Only its exact
+		// original committed document may close that omission, never runtime,
+		// JSON, current working bytes or an uncommitted authorization input.
+		if !inSource && !inInputs && strings.HasSuffix(name, ".md") {
+			if e := xaiImagesOriginalDocument(root, p.Source.Commit, name, h); e != nil {
+				return nil, e
+			}
+			inputs["@xai-original-source/"+p.Source.Commit+"/"+name] = h
+			continue
+		}
 		if !inSource && !inInputs || inSource && compiled != h || inInputs && selected != h {
 			return nil, refuse("Imagine producer omitted or changed an original execution input")
 		}
