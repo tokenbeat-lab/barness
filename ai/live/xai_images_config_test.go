@@ -45,10 +45,11 @@ type xaiImagesReport struct {
 	CallsUsed          int                    `json:"callsUsed"`
 	HTTPAttempts       int                    `json:"httpAttempts"`
 	VendorHTTPAttempts int                    `json:"vendorHTTPAttempts"`
-	InputImages        int                    `json:"inputImages"`
-	OutputImages       int                    `json:"outputImages"`
-	ReservedUSD        float64                `json:"reservedUSD"`
-	ReportedUSD        float64                `json:"reportedUSD"`
+	// InputImages and OutputImages are reservations, including failed calls.
+	InputImages  int     `json:"inputImages"`
+	OutputImages int     `json:"outputImages"`
+	ReservedUSD  float64 `json:"reservedUSD"`
+	ReportedUSD  float64 `json:"reportedUSD"`
 }
 
 type xaiImagesSceneResult struct {

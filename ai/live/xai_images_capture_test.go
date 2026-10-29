@@ -15,10 +15,12 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/xaiimages"
 )
 
@@ -42,11 +44,11 @@ func xaiImagesRequest(t *testing.T, scene xaiimages.Scene) ai.ImagesRequest {
 		req.ReferenceImages = append(req.ReferenceImages, ref)
 	}
 	if scene.ID == "ordered-edit" {
-		raw, err := os.ReadFile("../e2e/testdata/decisions/images/gopher.webp")
+		root, err := minimaxlive.Root()
 		if err != nil {
-			// Frozen binaries run at the repository root; source remains a selected input.
-			raw, err = os.ReadFile("ai/e2e/testdata/decisions/images/gopher.webp")
+			t.Fatal(err)
 		}
+		raw, err := os.ReadFile(filepath.Join(root, "ai/e2e/testdata/decisions/images/gopher.webp"))
 		if err != nil {
 			t.Fatal(err)
 		}
