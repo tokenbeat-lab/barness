@@ -6,9 +6,11 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math"
 	"net/http"
+	"reflect"
 	"runtime"
 	"strings"
 	"sync"
@@ -160,20 +162,80 @@ func imaginePressureSummary(ev *evidence.Case, name string, res ai.ImagesResult,
 	}
 	ev.Record(name, map[string]any{"metadata": res.Metadata, "usage": res.Usage, "stopReason": res.StopReason, "error": errString(err), "imageHashes": hashes})
 }
-func (p *imaginePressureWorld) checkObserver(ev *evidence.Case, res ai.ImagesResult) {
-	observations := p.records.awaitCall(ev, res.Metadata.RequestID)
-	for _, o := range observations {
-		ev.Check("Observer tenant and operation", o.Call.TenantID == res.Metadata.TenantID && o.Call.Operation == ai.OperationImage, "wrong attribution")
-		if o.Kind == ai.ObservationAttemptFinished && o.Attempt != nil {
-			expected := res.Metadata.Attempts[0]
-			ev.Check("Observer preserves independent charge and estimate", o.Attempt.ReportedCostUSD == expected.ReportedCostUSD && o.Attempt.CostEstimate == expected.CostEstimate && o.Attempt.UsageReporting == ai.UsageUnreported, "attempt=%+v", o.Attempt)
+
+// Expected identity comes from the planned public call, never a received alias
+// or result. CallStarted precedes snapshot resolution, including on success.
+func imaginePressureMetadata(ev *evidence.Case, id, tenant string, resolved bool) ai.CallMetadata {
+	scope, b := imaginePressureScope(id, tenant), imagineBinding()
+	want := ai.CallMetadata{CallAttribution: ai.CallAttribution{TenantID: tenant, RequestID: id, ActorID: scope.ActorID, JobID: scope.JobID, BindingID: b.BindingID, Operation: ai.OperationImage}}
+	if resolved {
+		cat := xai.ImagesCandidateCatalog()
+		hash, err := cat.Hash()
+		ev.Check("candidate price identity is valid", err == nil, "err=%v", err)
+		want.Resolved, want.ProviderID, want.API, want.ModelID = true, ai.ProviderXAI, ai.APIXAIImages, imagineModel
+		want.AccountScopeID, want.BindingVersion, want.CredentialVersion = b.AccountScopeID, b.Version, "v1"
+		if tenant == tenantB.tenant {
+			want.AccountScopeID, want.CredentialVersion = "pressure-account-b", "b-v1"
+		}
+		want.CatalogVersion, want.CatalogHash = cat.Version, hash
+	}
+	return want
+}
+func imaginePressureAlias(tenant string) string {
+	if tenant == tenantB.tenant {
+		return tenantB.alias
+	}
+	return xaiKey.alias
+}
+func (p *imaginePressureWorld) checkObserver(ev *evidence.Case, c imaginePressureCall, resolved bool) {
+	res := c.result
+	observations := p.records.awaitCall(ev, c.id)
+	want := imaginePressureMetadata(ev, c.id, c.tenant, resolved)
+	meta := res.Metadata
+	meta.Attempts = nil
+	ev.Check("result has independently planned identity", reflect.DeepEqual(meta, want), "call=%s metadata=%+v", c.id, meta)
+	ev.Check("complete bounded Observer lifecycle", reflect.DeepEqual(kinds(observations), lifecycle(c.id, len(res.Metadata.Attempts))), "call=%s lifecycle=%v", c.id, kinds(observations))
+	for i, o := range observations {
+		ev.Check("Observer time is present and ordered", !o.Time.IsZero() && (i == 0 || !o.Time.Before(observations[i-1].Time)), "call=%s record=%d", c.id, i)
+		switch o.Kind {
+		case ai.ObservationCallStarted:
+			ev.Check("entry has scope only before resolution", reflect.DeepEqual(o.Call, imaginePressureMetadata(ev, c.id, c.tenant, false)) && o.Attempt == nil, "call=%s metadata=%+v", c.id, o.Call)
+		case ai.ObservationAttemptStarted, ai.ObservationAttemptFinished:
+			ev.Check("attempt has independently planned complete attribution", reflect.DeepEqual(o.Call, want) && o.Attempt != nil, "call=%s metadata=%+v", c.id, o.Call)
+			if o.Attempt == nil {
+				continue
+			}
+			ordinal := (i - 1) / 2
+			if !ev.Check("attempt ordinal is bounded", ordinal < len(res.Metadata.Attempts), "call=%s ordinal=%d", c.id, ordinal) {
+				continue
+			}
+			a := res.Metadata.Attempts[ordinal]
+			ev.Check("attempt ID follows planned request", o.Attempt.AttemptID == fmt.Sprintf("%s#%d", c.id, ordinal+1), "call=%s", c.id)
+			if o.Kind == ai.ObservationAttemptFinished {
+				ev.Check("Observer retains all terminal attempt facts", reflect.DeepEqual(*o.Attempt, a) && o.Duration > 0, "call=%s attempt=%+v", c.id, o.Attempt)
+			} else {
+				ev.Check("attempt starts without invented consumption", o.Attempt.UsageReporting == ai.UsageUnreported && o.Attempt.Usage == (ai.Usage{}) && o.Attempt.ReportedCostUSD == (ai.Nullable[float64]{}), "call=%s", c.id)
+			}
+		case ai.ObservationCallFinished:
+			ev.Check("Observer retains terminal metadata usage and stop", reflect.DeepEqual(o.Call, res.Metadata) && o.Usage == res.Usage && o.StopReason == res.StopReason && o.Attempt == nil && o.Duration > 0, "call=%s", c.id)
+			var failure *ai.Error
+			var classification *ai.ObservedError
+			if errors.As(c.err, &failure) {
+				classification = &ai.ObservedError{Code: failure.Code, Phase: failure.Phase, HTTPStatus: failure.HTTPStatus, ProviderRequestID: failure.ProviderRequestID, RetryAfter: failure.RetryAfter}
+			}
+			ev.Check("Observer retains classification without error text", reflect.DeepEqual(o.Error, classification), "call=%s error=%+v", c.id, o.Error)
 		}
 	}
-	ev.Check("complete bounded Observer lifecycle", len(observations) == 4, "observations=%d", len(observations))
 	before := string(mustMarshal(ev.T(), observations))
-	res.Metadata.Attempts[0].ReportedCostUSD = ai.Value(999.0)
-	ev.Check("result mutation cannot change Observer charge", string(mustMarshal(ev.T(), p.records.forRequest(res.Metadata.RequestID))) == before, "Observer aliases result")
-	ev.Check("Observer contains metadata only", !strings.Contains(before, "b64_json") && !strings.Contains(before, "data:image/") && !strings.Contains(before, "pressure prompt"), "Observer contains content")
+	for _, forbidden := range []string{"b64_json", "data:image/", "pressure prompt", "errorMessage", "iVBORw0KGgo", xaiKey.secret, tenantB.secret} {
+		ev.Check("Observer contains metadata only", !strings.Contains(before, forbidden), "call=%s content marker present", c.id)
+	}
+	if len(res.Metadata.Attempts) > 0 {
+		original := res.Metadata.Attempts[0].ReportedCostUSD
+		res.Metadata.Attempts[0].ReportedCostUSD = ai.Value(999.0)
+		ev.Check("result mutation cannot change Observer charge", string(mustMarshal(ev.T(), p.records.forRequest(c.id))) == before, "call=%s Observer aliases result", c.id)
+		res.Metadata.Attempts[0].ReportedCostUSD = original
+	}
 }
 
 type imaginePressureCall struct {
@@ -286,8 +348,8 @@ func imaginePressureLoad(t *testing.T, ev *evidence.Case, mode string) {
 			lo, lok := a.CostEstimate.Minimum.Get()
 			hi, hok := a.CostEstimate.Maximum.Get()
 			ev.Check("charge and resolved estimate stay separate from missing tokens", known && math.Abs(amount-c.amount) < 1e-12 && lok && hok && a.CostEstimate.Status == ai.CostResolved && math.Abs(lo.Total-c.amount) < 1e-12 && math.Abs(hi.Total-c.amount) < 1e-12 && a.UsageReporting == ai.UsageUnreported && c.result.Usage == (ai.Usage{}), "call=%s attempt=%+v", c.id, a)
-			p.checkObserver(ev, c.result)
 		}
+		p.checkObserver(ev, c, true)
 		wantHooks := 0
 		if mode == "hooked" {
 			wantHooks = 1

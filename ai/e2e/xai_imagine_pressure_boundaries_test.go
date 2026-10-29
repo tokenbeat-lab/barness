@@ -2,12 +2,41 @@ package e2e
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/hex"
 	"errors"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
+
+type imaginePressureByteDigest struct {
+	Bytes  int64  `json:"bytes"`
+	SHA256 string `json:"sha256"`
+}
+
+func imaginePressureDigest(raw []byte) imaginePressureByteDigest {
+	sum := sha256.Sum256(raw)
+	return imaginePressureByteDigest{Bytes: int64(len(raw)), SHA256: hex.EncodeToString(sum[:])}
+}
+
+func imaginePressureImageDigests(t *testing.T, images []ai.Image) ([]map[string]any, int64) {
+	t.Helper()
+	items := make([]map[string]any, 0, len(images))
+	var total int64
+	for i, img := range images {
+		raw, err := base64.StdEncoding.Strict().DecodeString(img.Data)
+		if err != nil {
+			t.Fatal(err)
+		}
+		digest := imaginePressureDigest(raw)
+		items = append(items, map[string]any{"ordinal": i, "mimeType": img.MimeType, "encodedBytes": len(img.Data), "decoded": digest})
+		total += digest.Bytes
+	}
+	return items, total
+}
 
 // Each finite boundary is exactly one byte above the selected allowance.
 // Valid leading charge metadata survives output rejection. Input rejection
@@ -41,18 +70,29 @@ func imaginePressureBoundary(t *testing.T, ev *evidence.Case, kind string) {
 		ticks = 400000000
 	}
 	reply := imaginePressureReply(output, ticks)
+	// Construct the prospective JSON independently at the public wire contract.
+	// Input rejections have no actual HTTP payload; do not label this as sent.
+	native := map[string]any{"model": imagineModel, "prompt": req.Prompt, "response_format": "b64_json", "n": count, "resolution": "1k", "quality": "low"}
+	refs := make([]map[string]string, len(req.ReferenceImages))
+	for i, img := range req.ReferenceImages {
+		refs[i] = map[string]string{"type": "image_url", "url": "data:" + img.MimeType + ";base64," + img.Data}
+	}
+	if len(refs) == 1 {
+		native["image"] = refs[0]
+	} else if len(refs) > 0 {
+		native["images"] = refs
+	}
+	constructed := mustMarshal(t, native)
+	inputFacts, inputBytes := imaginePressureImageDigests(t, req.ReferenceImages)
+	outputFacts, outputBytes := imaginePressureImageDigests(t, output)
+	requestDigest, responseDigest := imaginePressureDigest(constructed), imaginePressureDigest([]byte(reply.Script))
 	var limit int64
 	p := newImaginePressureWorld(t, func(c *ai.Config) {
 		switch kind {
 		case "input-image":
 			limit = c.Policy.MaxImageBytes
 		case "input-total":
-			refs := make([]map[string]string, len(req.ReferenceImages))
-			for i, img := range req.ReferenceImages {
-				refs[i] = map[string]string{"type": "image_url", "url": "data:" + img.MimeType + ";base64," + img.Data}
-			}
-			native := map[string]any{"model": imagineModel, "prompt": req.Prompt, "response_format": "b64_json", "n": 1, "resolution": "1k", "quality": "low", "images": refs}
-			limit = int64(len(mustMarshal(t, native))) - 1
+			limit = requestDigest.Bytes - 1
 			c.Policy.MaxRequestBytes = limit
 		case "output-image":
 			limit = (512 << 10) - 1
@@ -61,7 +101,7 @@ func imaginePressureBoundary(t *testing.T, ev *evidence.Case, kind string) {
 			limit = (5 << 20) - 1
 			c.Policy.Image.MaxTotalOutputImageBytes = limit
 		case "output-body":
-			limit = int64(len(reply.Script)) - 1
+			limit = responseDigest.Bytes - 1
 			c.Policy.MaxOutputBytes = limit
 			c.Policy.Image.MaxTotalOutputImageBytes = 6 << 20
 		}
@@ -73,10 +113,11 @@ func imaginePressureBoundary(t *testing.T, ev *evidence.Case, kind string) {
 	encoded := 0
 	ctx, cancel := context.WithTimeout(context.Background(), pressureDeadline)
 	defer cancel()
+	id := "pressure-boundary-" + kind
 	result, err := p.client.WithHooks(ai.Hooks{OnPayload: func(context.Context, ai.CallScope, *ai.Payload) (ai.PayloadDecision, error) {
 		encoded++
 		return ai.KeepPayload(), nil
-	}}).GenerateImages(ctx, imaginePressureScope("pressure-boundary-"+kind, tenantA.tenant), imagineTarget(), req, opts)
+	}}).GenerateImages(ctx, imaginePressureScope(id, tenantA.tenant), imagineTarget(), req, opts)
 	imaginePressureSummary(ev, "bounded-result", result, err)
 	var failure *ai.Error
 	ev.Check("one-byte overflow fails atomically", errors.As(err, &failure) && failure.Code == ai.CodeResourceLimit && len(result.Content) == 0, "err=%v", err)
@@ -85,15 +126,15 @@ func imaginePressureBoundary(t *testing.T, ev *evidence.Case, kind string) {
 	actual := int64(0)
 	switch kind {
 	case "input-image":
-		actual = (512 << 10) + 1
+		actual = inputBytes
 	case "input-total":
-		actual = limit + 1
+		actual = requestDigest.Bytes
 	case "output-image":
-		actual = 512 << 10
+		actual = outputBytes
 	case "output-total":
-		actual = 5 << 20
+		actual = outputBytes
 	case "output-body":
-		actual = int64(len(reply.Script))
+		actual = responseDigest.Bytes
 	}
 	ev.Check("boundary differs by exactly one byte", actual == limit+1, "actual=%d limit=%d", actual, limit)
 	if inputFailure {
@@ -103,10 +144,15 @@ func imaginePressureBoundary(t *testing.T, ev *evidence.Case, kind string) {
 		if len(result.Metadata.Attempts) == 1 {
 			a := result.Metadata.Attempts[0]
 			amount, known := a.ReportedCostUSD.Get()
-			ev.Check("known charge survives output limits", known && amount == float64(ticks)/1e10 && a.CostEstimate.Status != ai.CostResolved, "attempt=%+v", a)
+			ev.Check("known charge and missing tokens survive partial output", known && amount == float64(ticks)/1e10 && a.HTTPStatus == 200 && a.UsageReporting == ai.UsageUnreported && a.Usage == (ai.Usage{}) && result.Usage == (ai.Usage{}) && a.CostEstimate.Status == ai.CostPartial, "attempt=%+v", a)
 		}
 	}
-	p.records.awaitCall(ev, result.Metadata.RequestID)
-	ev.Record("byte-boundary", map[string]any{"kind": kind, "actualBytes": actual, "limitBytes": limit, "credentialReads": reads, "payloadCallbacks": encoded, "httpAttempts": len(requests), "realService": "NOT_RUN"})
+	captured := make([]map[string]any, 0, len(requests))
+	for _, r := range requests {
+		ev.Check("bounded HTTP has planned body and credential", jsonEqual(r.Body, constructed) && r.KeyAlias == imaginePressureAlias(tenantA.tenant) && r.Path == imaginePressurePrefix(tenantA.tenant, len(req.ReferenceImages) > 0) && r.Method == "POST" && r.Query == "", "kind=%s alias=%s path=%s", kind, r.KeyAlias, r.Path)
+		captured = append(captured, map[string]any{"body": imaginePressureDigest(r.Body), "keyAlias": r.KeyAlias, "path": r.Path})
+	}
+	p.checkObserver(ev, imaginePressureCall{id: id, tenant: tenantA.tenant, req: req, result: result, err: err}, !inputFailure)
+	ev.Record("byte-boundary", map[string]any{"kind": kind, "actualBytes": actual, "limitBytes": limit, "inputImages": inputFacts, "outputImages": outputFacts, "constructedRequest": requestDigest, "scriptedResponse": responseDigest, "capturedRequests": captured, "credentialReads": reads, "payloadCallbacks": encoded, "httpAttempts": len(requests), "realService": "NOT_RUN"})
 	p.released(ev)
 }
