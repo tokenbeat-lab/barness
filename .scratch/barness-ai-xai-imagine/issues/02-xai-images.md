@@ -1,7 +1,7 @@
 # xAI 同步生成与编辑协议
 
 Type: task
-Status: open
+Status: claimed
 Blocked by: none
 
 ## Scope
