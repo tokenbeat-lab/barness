@@ -19,6 +19,8 @@
 
 - 04 resolved：双轴审查、修复、完整普通交付与只读发布事实见 [当前状态](spec.md#唯一当前状态) 和 [索引](evidence/record-20261029-01.json)。live/race/压力仍NOT_RUN，release.pass=false。
 
+- 05 resolved：首次真实候选失败后仅修显式本地代理harness，受控29事件PASS、两轴0问题。原授权已消费，新真实范围待批准，见[新提案](retry-plan-20261029-02.md)。
+
 ## Fog
 
 - 真实厂商形状与正式资格待该路线自身证据。
