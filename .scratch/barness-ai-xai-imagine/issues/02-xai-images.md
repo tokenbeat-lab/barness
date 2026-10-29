@@ -31,3 +31,20 @@ Blocked by: none
 - 最后新增有界租户准入/Observer 独立性后完整 Imagine 组：`20261029T001425.657865Z-luc_6ycl`，PASS/exit0，命令 `python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage e2e -- go test -json ./ai/e2e -run '^TestXAIImagine' -count=1`。
 
 全部历史失败（包括构造夹具/编译错误）保留原件。最终全受影响普通包由工单04冻结并验证。未执行付费、race、压力或正式支持晋升。
+
+### Review 修复（2026-10-29）
+
+同一实现 worker 在 `5e2ee121` 修复双轴审查的四项去重发现：
+
+- usage 顶层和 detail 的重复字段只删除该歧义字段；其他唯一合法 token/收费事实继续保留，结果仍为 protocol 且清空 Content。
+- 图片校验循环、校验失败、发布前和最终解码结束均保留 context 的取消/超时分类。
+- 带类型的资源容器按实际 JSON 字段选择累计已知总请求字节；预算失败发生在 Host Marshaler/冻结编码前。
+- 目录构造和发现测试通过注入 resolver 的总读取计数证明零凭据读取。
+
+公共 E2E 先红后绿，全部历史原件保留：
+
+- 红：`.evidence/barness-ai-xai-imagine/e2e/20261029T002223.770584Z-u8sqyh19`，FAIL/exit1。三组产品问题均复现；加强目录断言本身通过。
+- 定向绿：`20261029T002315.202810Z-tbb37zab`，PASS/exit0。
+- 完整 Imagine/Catalog 与相邻 OpenAI/Google 图片回归：`20261029T002333.203692Z-hsvj9jxr`，PASS/exit0，受测源码提交 `5e2ee121`。完整命令为 `python3 tools/verification/run.py --feature barness-ai-xai-imagine --stage e2e -- go test -json ./ai/e2e -run '^(TestXAIImagine|TestXAIImagesCatalog|TestOpenAIImages|TestGoogleImages)' -count=1`。
+
+原件仍位于本工单独立工作区，父集成交付保存完整 attempt 后归档工作区。没有执行付费、race 或压力。
