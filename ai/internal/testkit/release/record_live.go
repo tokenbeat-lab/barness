@@ -17,6 +17,12 @@ import (
 // QualifyNativeLive reads the same native contracts as the published support
 // consumer, without updating the support matrix or starting any process.
 func QualifyNativeLive(root, dir string, supplement ...string) (supportmatrix.Report, error) {
+	if supportmatrix.IsXAIImagesCapture(dir) {
+		if len(supplement) > 1 || len(supplement) == 1 && supplement[0] != "" {
+			return supportmatrix.Report{}, fmt.Errorf("Imagine source override forbidden")
+		}
+		return supportmatrix.NewXAIImagesReport(dir)
+	}
 	report, err := supportmatrix.LoadReport(filepath.Join(dir, supportmatrix.ReportFile))
 	projectedMiniMax := err != nil
 	original := report
