@@ -22,6 +22,8 @@ func expectedCapabilities(combo string) []string {
 		return expected
 	}
 	switch combo {
+	case "xai-images":
+		return []string{"generation-low", "generation-medium", "generation-auto", "single-edit", "ordered-edit", "five-reference-edit"}
 	case "xai-responses":
 		return supportmatrix.XAIExpected()
 	case "openai-decisions":

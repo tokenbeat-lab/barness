@@ -11,6 +11,10 @@ import (
 )
 
 func verifyLiveManifest(dir string, r supportmatrix.Report, supplement ...string) error {
+	if r.Combo == "xai-images" {
+		_, e := supportmatrix.NewXAIImagesReport(dir)
+		return e
+	}
 	if r.Combo == "xai-responses" {
 		return supportmatrix.VerifyXAIReport(r)
 	}

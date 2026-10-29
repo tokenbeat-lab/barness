@@ -211,6 +211,9 @@ func VerifyXAIReport(r Report) error {
 	return nil
 }
 func checkXAI(r Report) error {
+	if r.Combo == "xai-images" {
+		return VerifyXAIImagesReport(r)
+	}
 	if r.Combo == xaiCombo {
 		return VerifyXAIReport(r)
 	}
