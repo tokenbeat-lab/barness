@@ -13,6 +13,13 @@ const executionSourceInput = "@execution-source/"
 // A supplement is an explicit historical input, not a change to the bundle.
 // Its canonical map must still match the original producer grant's source pin.
 func liveInputs(root, dir, supplement string) (map[string]string, string, error) {
+	if supportmatrix.IsXAIImagesCapture(dir) {
+		if supplement != "" {
+			return nil, "", fmt.Errorf("Imagine source override forbidden")
+		}
+		inputs, e := supportmatrix.XAIImagesInputs(dir)
+		return inputs, "", e
+	}
 	if supportmatrix.IsMiniMaxThinkingComposition(dir) {
 		if supplement != "" {
 			return nil, "", fmt.Errorf("MiniMax composition source override forbidden")

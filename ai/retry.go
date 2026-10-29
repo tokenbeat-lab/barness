@@ -98,6 +98,10 @@ type Attempt struct {
 	// CostEstimate is independent of UsageReporting. Kimi and xAI populate
 	// it; providers without this estimate contract keep it omitted.
 	CostEstimate CostEstimate `json:"costEstimate,omitzero"`
+	// ReportedCostUSD is the provider-reported charge for this attempt,
+	// independent of catalog estimates and token usage. Unset means absent;
+	// Value(0) records an explicitly reported zero charge.
+	ReportedCostUSD Nullable[float64] `json:"reportedCostUsd,omitzero"`
 }
 
 // Texts for a call interrupted while its initial request is in flight or

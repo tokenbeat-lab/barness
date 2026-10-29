@@ -9,6 +9,9 @@ import (
 // RouteCatalog keeps the original snapshot identity while checking only models
 // actually measured by this route. It grants no execution permission.
 func RouteCatalog(dir string, r Report) (ai.Catalog, error) {
+	if r.Combo == "xai-images" {
+		return XAIImagesRouteCatalog(dir, r.CatalogVersion, r.CatalogHash)
+	}
 	current := ai.BuiltinCatalog()
 	measured, err := evidence.MeasuredCatalog(dir, r.CatalogVersion, r.CatalogHash, current)
 	if err != nil {

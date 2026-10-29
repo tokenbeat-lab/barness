@@ -20,7 +20,7 @@ func chinesePlan(t *testing.T) *chineseeval.Plan {
 	if err != nil {
 		t.Fatal(err)
 	}
-	config, err := os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v1.json")
+	config, err := os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v2.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func TestChineseEvaluationFailures(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P07-zh-evaluation-"+name)
 			data, _ := os.ReadFile("../examples/chineseeval/testdata/zh-support-v1.json")
-			config, _ := os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v1.json")
+			config, _ := os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v2.json")
 			var c map[string]any
 			json.Unmarshal(config, &c)
 			c["maxCalls"], c["maxQuestions"], c["maxAttempts"] = 1, 1, 1
@@ -159,7 +159,7 @@ func TestChineseEvaluationInputGuards(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			ev := run.Case(t, "P07-zh-evaluation-input-"+name)
 			raw, _ := os.ReadFile("../examples/chineseeval/testdata/zh-support-v1.json")
-			cfg, _ := os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v1.json")
+			cfg, _ := os.ReadFile("../examples/chineseeval/testdata/jev-1.13.0-v2.json")
 			var d chineseeval.Dataset
 			json.Unmarshal(raw, &d)
 			var c chineseeval.Config

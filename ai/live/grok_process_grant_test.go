@@ -87,6 +87,9 @@ func (a *processAuthorization) consume() error {
 		return fmt.Errorf("fresh process approval already claimed in this process")
 	}
 	source, err := supportmatrix.RegionalExecutionSource()
+	if a.grant.Scope.Route == "xai-images" {
+		source, err = supportmatrix.XAIImagesExecutionSource()
+	}
 	if strings.HasPrefix(a.grant.Scope.Route, "minimax-") {
 		source, err = minimaxlive.ExecutionSource()
 	}

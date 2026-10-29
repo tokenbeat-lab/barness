@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/supportmatrix"
+	"maps"
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,8 +14,11 @@ import (
 // Failure inventory is in kimi-history-supplement/spec.md. Exact reviewed
 // transitions are bounded to Kimi; later product edits cannot inherit them.
 func TestKimiHistoryReviewedSources(t *testing.T) {
+	// Reuse the independent Git inventory of the pre-Imagine reviewed current
+	// source. New checkout bytes must not redefine an old positive transition.
+	historical := reviewedHistoricalSource(t)
 	for _, route := range kimiQualificationRoutes {
-		for _, mode := range []string{"reviewed", "later-history", "changed-origin", "new-runtime", "dependency", "other-provider"} {
+		for _, mode := range []string{"reviewed", "current-unreviewed", "later-history", "changed-origin", "new-runtime", "dependency", "other-provider"} {
 			t.Run(route+"/"+mode, func(t *testing.T) {
 				ev := run.Case(t, "KHS-source-"+route+"-"+mode)
 				var f struct {
@@ -25,13 +29,16 @@ func TestKimiHistoryReviewedSources(t *testing.T) {
 				if e != nil || json.Unmarshal(raw, &f) != nil {
 					t.Fatal(e)
 				}
-				cur, e := supportmatrix.RegionalExecutionSource()
-				if e != nil {
-					t.Fatal(e)
-				}
-				for n := range cur {
-					if strings.HasPrefix(n, "ai/internal/testkit/") || strings.HasPrefix(n, "ai/live/") {
-						delete(cur, n)
+				cur := maps.Clone(historical.Files)
+				if mode == "current-unreviewed" {
+					cur, e = supportmatrix.RegionalExecutionSource()
+					if e != nil {
+						t.Fatal(e)
+					}
+					for n := range cur {
+						if strings.HasPrefix(n, "ai/internal/testkit/") || strings.HasPrefix(n, "ai/live/") {
+							delete(cur, n)
+						}
 					}
 				}
 				switch mode {
@@ -48,7 +55,7 @@ func TestKimiHistoryReviewedSources(t *testing.T) {
 				}
 				e = evidence.VerifyRouteSource(f.Source, cur, f.Provider, f.API)
 				ev.Check("only reviewed original route bytes apply", (e == nil) == (mode == "reviewed"), "%v", e)
-				ev.Record("source-check", map[string]any{"route": route, "mode": mode, "error": errString(e), "vendorCalls": 0})
+				ev.Record("source-check", map[string]any{"route": route, "mode": mode, "error": errString(e), "vendorCalls": 0, "historicalCurrentCommit": historical.SourceCommit})
 			})
 		}
 	}

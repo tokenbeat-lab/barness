@@ -93,8 +93,8 @@ func modalitiesProblem(modalities []Modality) string {
 }
 
 func (m ImageModel) problem() string {
-	if m.Provider == ProviderXAI {
-		return "xAI image operation is outside the implemented subset"
+	if problem := xaiImageModelProblem(m); problem != "" {
+		return problem
 	}
 	if problem := modalitiesProblem(m.Input); problem != "" {
 		return problem
@@ -131,6 +131,9 @@ func (m ImageModel) problem() string {
 		if _, ok := m.Pricing.OutputText.Get(); !ok {
 			return "Google image thinking requires a text output price"
 		}
+	}
+	if m.Pricing.PerImage != nil {
+		return m.Pricing.perImageProblem(m)
 	}
 	return m.Pricing.problem(m.Input, m.Output)
 }

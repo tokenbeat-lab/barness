@@ -1,0 +1,70 @@
+{
+  "candidate": {
+    "path": ".scratch/barness-ai-xai-imagine/evidence/candidate-live-20261029-03.json",
+    "sha256": "4d6a950b6f3494eac324674f2a94526b9fd14904329150a8220d21bca0b2e996"
+  },
+  "capabilities": {
+    "aspectRatios": [
+      "1:1",
+      "16:9"
+    ],
+    "imageSizes": [
+      "1k",
+      "1.5k",
+      "2k"
+    ],
+    "maxEditOutputs": 1,
+    "maxGenerationOutputs": 2,
+    "maxReferenceImages": 5,
+    "qualities": [
+      "low",
+      "medium",
+      "auto"
+    ]
+  },
+  "catalogDiff": {
+    "path": ".evidence/barness-ai-xai-imagine/status/catalog-activation-diff.json",
+    "sha256": "872dae3f7710bc97b12a05dae1ecf414e214c636ca1b622555c65401077e1b46"
+  },
+  "catalogHash": "sha256:f44d07c6969346f056cc46d31fccbafb68827267910801c05bb314ac0c55348d",
+  "catalogVersion": "2026-10-29.1",
+  "formalQualified": false,
+  "identity": {
+    "api": "xai-images",
+    "model": "grok-imagine-image-2.0",
+    "operation": "image",
+    "provider": "xai"
+  },
+  "kind": "builtin-catalog-activation",
+  "noNewVendorExecution": true,
+  "ordinary": {
+    "bundleCount": 1,
+    "elapsedSeconds": 127.37430170876905,
+    "exitCode": 0,
+    "mainAuditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+    "mainCaseCounts": {
+      "PASS": 1963
+    },
+    "mainManifest": ".evidence/barness-ai-xai-imagine/e2e/20261029T023159.242880Z-w8ibgpxm/bundles/20261029T023202.485682000Z/manifest.json",
+    "mainManifestSHA256": "5125e438060e6c1a73f4414bfe68139594b67cfc86ddfe66bcf104ac3beec99e",
+    "receipt": ".evidence/barness-ai-xai-imagine/e2e/20261029T023159.242880Z-w8ibgpxm/receipt.json",
+    "sha256": "1912803cdef936263a0d3dc14068822850a20f110388f5bfe4ca98f18146e40f",
+    "status": "PASS",
+    "testEvents": 2058
+  },
+  "pressureStatus": "NOT_RUN",
+  "raceStatus": "NOT_RUN",
+  "releasePass": false,
+  "schema": 1,
+  "scopeProof": {
+    "path": ".evidence/barness-ai-xai-imagine/status/20261029-catalog-active-closure/source-delta-final.json",
+    "sha256": "467573cdd1bdc93763e9bb1483bbb8cc92bc190701384bcbc5a1a8a31ea627ec"
+  },
+  "source": {
+    "currentCommit": "0219357ce7f5e42b526cae784bb66b3a4c939986",
+    "filesCount": 2088,
+    "filesEqual": true,
+    "measuredCommit": "7d4edddddfcc3edb8485b6ed889ba3e2c3287e9b",
+    "selectedInputsEqual": true
+  }
+}

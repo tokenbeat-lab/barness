@@ -186,6 +186,12 @@ func (p *ResourcePolicy) checkRawInlineImage(raw []byte) *Error {
 }
 
 func (p *ResourcePolicy) checkRawInlineURL(raw []byte, requireInline bool) *Error {
+	return p.checkRawInlineURLBound(raw, requireInline, openAIInlineURLLimit, "OpenAI.MaxInlineImageURLCharacters")
+}
+
+// OpenAI and xAI share strict data-URI traversal, but each route supplies
+// its own finite URL boundary. xAI has no documented OpenAI URL ceiling.
+func (p *ResourcePolicy) checkRawInlineURLBound(raw []byte, requireInline bool, maxURL int64, limitName string) *Error {
 	// Inline URLs contain ASCII MIME/base64. Count decoded characters using
 	// the existing JSON unescaper in a fixed buffer; retain only the prefix
 	// and padding. Even escaped multi-MiB URLs require no proportional copy.
@@ -217,8 +223,8 @@ func (p *ResourcePolicy) checkRawInlineURL(raw []byte, requireInline bool) *Erro
 			prefix[n] = b
 		}
 		n++
-		if n > openAIInlineURLLimit {
-			return limitFailure(PhaseRequest, "OpenAI.MaxInlineImageURLCharacters", openAIInlineURLLimit)
+		if n > maxURL {
+			return limitFailure(PhaseRequest, limitName, maxURL)
 		}
 		if b == '=' {
 			padding++
