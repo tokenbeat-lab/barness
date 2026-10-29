@@ -27,15 +27,28 @@ func (c *Client) executeXAIImages(ctx context.Context, r *callRuntime, model Ima
 		return failure
 	}
 	wire := xaiImagesRequest{Model: model.ID, Prompt: req.Prompt, ResponseFormat: "b64_json", N: options.N, AspectRatio: options.AspectRatio, Resolution: options.Resolution, Quality: options.Quality}
+	extra := int64(0)
 	for _, img := range req.ReferenceImages {
-		wire.Images = append(wire.Images, xaiImageResource{Type: "image_url", URL: "data:" + img.MimeType + ";base64," + img.Data})
+		extra += int64(len(img.MimeType)+len(img.Data)+len("data:;base64,")) - 1
+		wire.Images = append(wire.Images, xaiImageResource{Type: "image_url", URL: "A"})
 	}
 	if len(wire.Images) == 1 {
 		wire.Image = &wire.Images[0]
 		wire.Images = nil
 	}
-	if failure := c.policy.checkXAIImagesEncoding(wire); failure != nil {
+	if failure := c.policy.checkXAIImagesEncoding(wire, extra); failure != nil {
 		return failure
+	}
+	if failure := c.policy.checkImageInput(ctx, req, nil, PhaseScope); failure != nil {
+		return failure
+	}
+	if wire.Image != nil {
+		img := req.ReferenceImages[0]
+		wire.Image.URL = "data:" + img.MimeType + ";base64," + img.Data
+	} else {
+		for i, img := range req.ReferenceImages {
+			wire.Images[i].URL = "data:" + img.MimeType + ";base64," + img.Data
+		}
 	}
 	cred, failure := r.pin(ctx, model.ID, hooks)
 	if failure != nil {

@@ -11,7 +11,7 @@ func xaiBindingProblem(b Binding) string {
 	if b.ProviderID != ProviderXAI {
 		return ""
 	}
-	if !((b.Operation == OperationChat && b.API == APIOpenAIResponses) || (b.Operation == OperationImage && b.API == API("xai-images"))) {
+	if !((b.Operation == OperationChat && b.API == APIOpenAIResponses) || (b.Operation == OperationImage && b.API == APIXAIImages)) {
 		return "xAI operation or protocol is outside the implemented subset"
 	}
 	u, err := url.Parse(b.Endpoint)

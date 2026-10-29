@@ -12,7 +12,7 @@ type XAIImagesOptions struct {
 }
 
 func (XAIImagesOptions) imageOptions()    {}
-func (XAIImagesOptions) api() API         { return API("xai-images") }
+func (XAIImagesOptions) api() API         { return APIXAIImages }
 func (o XAIImagesOptions) clone() Options { return o }
 func (o XAIImagesOptions) quantity() int {
 	if n, ok := o.N.Get(); ok {

@@ -3,6 +3,8 @@ package ai
 import (
 	"context"
 	"encoding/json"
+	"errors"
+	"reflect"
 	"slices"
 )
 
@@ -43,19 +45,7 @@ func (p *ResourcePolicy) checkXAIImageCount(n int, caps ImageCapabilities, phase
 	}
 	return nil
 }
-func (p *ResourcePolicy) checkXAIImagesEncoding(w xaiImagesRequest) *Error {
-	extra := int64(0)
-	w.Images = slices.Clone(w.Images)
-	if w.Image != nil {
-		v := *w.Image
-		extra += int64(len(v.URL)) - 1
-		v.URL = "A"
-		w.Image = &v
-	}
-	for i := range w.Images {
-		extra += int64(len(w.Images[i].URL)) - 1
-		w.Images[i].URL = "A"
-	}
+func (p *ResourcePolicy) checkXAIImagesEncoding(w xaiImagesRequest, extra int64) *Error {
 	small, err := json.Marshal(w)
 	if err != nil {
 		return imageInputFailure(PhaseCapability, "Imagine request could not be encoded")
@@ -83,6 +73,13 @@ func (p *ResourcePolicy) checkXAIImagesPayload(body map[string]any, model ImageM
 	if (!editing && (one || many)) || (editing && !one && !many) {
 		return imageAuthorityFailure()
 	}
+	for _, key := range []string{"image", "images"} {
+		if value, exists := body[key]; exists {
+			if failure := p.checkXAIResourcePayload(reflect.ValueOf(value), key == "images", model.Capabilities); failure != nil {
+				return failure
+			}
+		}
+	}
 	if _, ok := jsonPayloadSize(body, p.MaxRequestBytes); !ok {
 		return limitFailure(PhaseRequest, "MaxRequestBytes", p.MaxRequestBytes)
 	}
@@ -99,7 +96,11 @@ func decodeXAIImagesRequest(ctx context.Context, body []byte, model ImageModel, 
 			return w, imageInputFailure(PhaseRequest, "unsupported Imagine request field")
 		}
 	}
-	if json.Unmarshal(body, &w) != nil {
+	if err := json.Unmarshal(body, &w); err != nil {
+		var failure *Error
+		if errors.As(err, &failure) {
+			return w, failure
+		}
 		return w, imageInputFailure(PhaseRequest, "invalid Imagine request schema")
 	}
 	if w.Model != model.ID || w.ResponseFormat != "b64_json" {
