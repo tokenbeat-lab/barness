@@ -80,7 +80,7 @@ func (p *ResourcePolicy) checkXAIImagesPayload(body map[string]any, model ImageM
 			}
 		}
 	}
-	if _, ok := jsonPayloadSize(body, p.MaxRequestBytes); !ok {
+	if !xaiImagesPayloadFits(body, p.MaxRequestBytes) {
 		return limitFailure(PhaseRequest, "MaxRequestBytes", p.MaxRequestBytes)
 	}
 	return nil

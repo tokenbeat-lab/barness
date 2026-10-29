@@ -15,10 +15,13 @@ func xaiImagesUsage(raw json.RawMessage) (Usage, UsageReporting, Nullable[float6
 		return Usage{}, UsageUnreported, amount, nil
 	}
 	fields, duplicate, err := unaryJSONEnvelope(raw)
-	if err != nil || duplicate {
+	if err != nil {
 		return Usage{}, UsageUnreported, amount, xaiImagesProtocolFailure()
 	}
 	var failure *Error
+	if duplicate {
+		failure = xaiImagesProtocolFailure()
+	}
 	if value := bytes.TrimSpace(fields["cost_in_usd_ticks"]); len(value) > 0 && !bytes.Equal(value, []byte("null")) {
 		ticks, err := strconv.ParseInt(string(value), 10, 64)
 		if err != nil || ticks < 0 {
@@ -50,9 +53,12 @@ func xaiImagesUsage(raw json.RawMessage) (Usage, UsageReporting, Nullable[float6
 			continue
 		}
 		parts, dup, err := unaryJSONEnvelope(raw)
-		if err != nil || dup {
+		if err != nil {
 			failure = xaiImagesProtocolFailure()
 			continue
+		}
+		if dup {
+			failure = xaiImagesProtocolFailure()
 		}
 		for _, key := range detail.keys {
 			count(detail.key+"."+key, parts[key])

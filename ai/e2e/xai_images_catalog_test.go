@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"context"
 	"encoding/json"
 	"math"
 	"testing"
@@ -31,7 +32,12 @@ func TestXAIImagesCatalog(t *testing.T) {
 	var cat ai.Catalog
 	mustUnmarshal(t, xaiImagesCatalogJSON(), &cat)
 	w := newWorld(t, tenantA)
-	client, err := ai.NewClient(ai.Config{Policy: validPolicy(), Bindings: w.host, Credentials: w.host, Catalog: &cat})
+	reads := 0
+	credentials := credentialResolverFunc(func(context.Context, ai.CallScope, ai.Binding) (ai.Credential, error) {
+		reads++
+		return ai.Credential{}, ai.ErrAccessDenied
+	})
+	client, err := ai.NewClient(ai.Config{Policy: validPolicy(), Bindings: w.host, Credentials: credentials, Catalog: &cat})
 	ev.Record("catalog", cat)
 	ev.Check("candidate is accepted without credentials", err == nil, "NewClient=%v", err)
 	if err != nil {
@@ -41,7 +47,7 @@ func TestXAIImagesCatalog(t *testing.T) {
 	ev.Check("per-image public JSON retains the complete dated price snapshot", jsonEqual(mustMarshal(t, got), xaiImagesCatalogJSON()), "got=%s", mustMarshal(t, got))
 	_, found := ai.BuiltinCatalog().LookupImage(ai.ProviderXAI, ai.API("xai-images"), "grok-imagine-image-2.0")
 	ev.Check("candidate availability does not assert formal support", !found, "candidate entered BuiltinCatalog")
-	ev.Check("discovery never resolves credentials", w.host.ReadsFor("catalog-discovery").Credentials == 0, "unexpected credential access")
+	ev.Check("discovery never resolves credentials", reads == 0, "unexpected credential access")
 }
 
 func TestXAIImagesCatalogValidation(t *testing.T) {

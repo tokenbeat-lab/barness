@@ -95,5 +95,9 @@ func (c *Client) generateXAIImages(ctx context.Context, r *callRuntime, cred Cre
 	if response.StatusCode != http.StatusOK {
 		return imageProtocolFailure()
 	}
-	return decodeXAIImagesResponse(ctx, response.Body, model, final, *c.policy.Image, r.initial, out)
+	failure = decodeXAIImagesResponse(ctx, response.Body, model, final, *c.policy.Image, r.initial, out)
+	if ended := contextError(ctx, PhaseResponse); ended != nil {
+		return ended
+	}
+	return failure
 }
