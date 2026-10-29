@@ -4,6 +4,7 @@ package live
 
 import (
 	"flag"
+	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -19,6 +20,7 @@ import (
 var xaiImagesState *xaiImagesProcess
 
 type xaiImagesProcess struct {
+	proxy                            *url.URL
 	cat                              ai.Catalog
 	report                           xaiImagesReport
 	authorization                    *processAuthorization
@@ -26,6 +28,7 @@ type xaiImagesProcess struct {
 }
 
 type xaiImagesReport struct {
+	Proxy              string                 `json:"proxy,omitempty"`
 	Schema             int                    `json:"schema"`
 	Kind               string                 `json:"kind"`
 	Mode               string                 `json:"mode"`
@@ -91,17 +94,29 @@ func initializeXAIImages() {
 		if value == "" {
 			continue
 		}
-		if name != keyVar(xaiimages.Route) && (strings.HasSuffix(name, "_KEY") || strings.HasSuffix(name, "_TOKEN") || strings.HasSuffix(name, "_SECRET") || strings.HasPrefix(name, envKeyBase)) || strings.HasSuffix(name, "_BASE_URL") || name == "BARNESS_AI_LIVE_ENDPOINT" || name == "OPENAI_API_BASE" || name == "BARNESS_AI_LIVE_PROXY" || name == "BARNESS_REGIONAL_ROUTE" || name == "BARNESS_GLM_ROUTE" || name == "BARNESS_MINIMAX_ROUTE" || name == "BARNESS_MM_ROUTE" {
+		if name != keyVar(xaiimages.Route) && (strings.HasSuffix(name, "_KEY") || strings.HasSuffix(name, "_TOKEN") || strings.HasSuffix(name, "_SECRET") || strings.HasPrefix(name, envKeyBase)) || strings.HasSuffix(name, "_BASE_URL") || name == "BARNESS_AI_LIVE_ENDPOINT" || name == "OPENAI_API_BASE" || name == "BARNESS_REGIONAL_ROUTE" || name == "BARNESS_GLM_ROUTE" || name == "BARNESS_MINIMAX_ROUTE" || name == "BARNESS_MM_ROUTE" {
 			p.problem = "mixed credentials, routes or target overrides forbidden"
 			return
 		}
 	}
-	if p.controlled != "" && p.controlled != "fixture" && p.controlled != "cancel" && p.controlled != "final-write" {
+	if p.controlled != "" && p.controlled != "fixture" && p.controlled != "cancel" && p.controlled != "final-write" && p.controlled != "proxy" {
 		p.problem = "unknown controlled mode"
 		return
 	}
 	if p.controlled != "" && (os.Getenv(envLive) != "" || os.Getenv(keyVar(xaiimages.Route)) != "") {
 		p.problem = "controlled mode forbids live permission and credentials"
+		return
+	}
+	if raw := os.Getenv("BARNESS_AI_LIVE_PROXY"); raw != "" {
+		p.proxy, err = smokeProxy(raw)
+		if err != nil || strings.Contains(raw, "#") || p.proxy.RawPath != "" {
+			p.problem = "explicit candidate proxy invalid"
+			return
+		}
+		p.report.Proxy = p.proxy.String()
+	}
+	if p.controlled == "proxy" && p.proxy == nil {
+		p.problem = "controlled proxy mode requires an explicit loopback HTTP proxy"
 		return
 	}
 	if p.controlled == "" && os.Getenv(envLive) != "1" {

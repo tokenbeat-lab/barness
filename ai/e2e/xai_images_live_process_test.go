@@ -4,10 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -17,6 +20,7 @@ import (
 )
 
 type imagineProcessReport struct {
+	Proxy              string          `json:"proxy"`
 	Outcome            string          `json:"outcome"`
 	Complete           bool            `json:"complete"`
 	FormalQualified    bool            `json:"formalQualified"`
@@ -109,7 +113,7 @@ func TestXAIImagesLiveProcess(t *testing.T) {
 	controlled := func(mode, path string) []string {
 		return []string{"BARNESS_XAI_IMAGES_CONTROLLED=" + mode, "BARNESS_AI_LIVE_ACCOUNT_ALIAS=synthetic", "BARNESS_AI_LIVE_REGION_ALIAS=global", "BARNESS_AI_LIVE_PERMISSIONS_FILE=" + path}
 	}
-	for _, name := range []string{"no-key", "no-grant", "source", "binary", "catalog", "identity", "model", "endpoint", "budget", "usd", "expiry", "alias", "entry", "mixed-key", "live-in-controlled"} {
+	for _, name := range []string{"no-key", "no-grant", "source", "binary", "catalog", "identity", "model", "endpoint", "budget", "usd", "expiry", "alias", "entry", "mixed-key", "live-in-controlled", "proxy-userinfo", "proxy-query", "proxy-remote", "proxy-https", "proxy-path", "proxy-fragment", "proxy-mode-missing"} {
 		t.Run(name, func(t *testing.T) {
 			g := grant()
 			selected := entry
@@ -148,6 +152,20 @@ func TestXAIImagesLiveProcess(t *testing.T) {
 				extra = []string{"OTHER_API_KEY=synthetic-foreign-credential"}
 			case "live-in-controlled":
 				extra = []string{"BARNESS_AI_LIVE=1"}
+			case "proxy-userinfo":
+				extra = []string{"BARNESS_AI_LIVE_PROXY=http://user:pass@127.0.0.1:7890"}
+			case "proxy-query":
+				extra = []string{"BARNESS_AI_LIVE_PROXY=http://127.0.0.1:7890?target=api.x.ai"}
+			case "proxy-remote":
+				extra = []string{"BARNESS_AI_LIVE_PROXY=http://example.invalid:7890"}
+			case "proxy-https":
+				extra = []string{"BARNESS_AI_LIVE_PROXY=https://127.0.0.1:7890"}
+			case "proxy-path":
+				extra = []string{"BARNESS_AI_LIVE_PROXY=http://127.0.0.1:7890/other"}
+			case "proxy-fragment":
+				extra = []string{"BARNESS_AI_LIVE_PROXY=http://127.0.0.1:7890#"}
+			case "proxy-mode-missing":
+				extra = []string{"BARNESS_XAI_IMAGES_CONTROLLED=proxy"}
 			}
 			env := controlled("fixture", write(t, g))
 			if name == "no-key" || name == "no-grant" {
@@ -158,6 +176,44 @@ func TestXAIImagesLiveProcess(t *testing.T) {
 			report, _, exit := child(t, name, selected, env)
 			cs := run.Case(t, "XAIIMG-process-assert-"+name)
 			cs.Check("reject before claim or HTTP", report.Outcome == want && report.HTTPAttempts == 0 && report.CallsUsed == 0 && (exit == 0) == (want == "NOT_RUN"), "outcome=%s HTTP=%d exit=%d", report.Outcome, report.HTTPAttempts, exit)
+		})
+	}
+
+	t.Run("proxy-configured-fixture", func(t *testing.T) {
+		env := append(controlled("fixture", write(t, grant())), "BARNESS_AI_LIVE_PROXY=http://127.0.0.1:1")
+		report, _, exit := child(t, "proxy-configured-fixture", entry, env)
+		cs := run.Case(t, "XAIIMG-process-assert-proxy-configured-fixture")
+		cs.Check("explicit proxy configuration accepted without bypassing finite fixture scope", exit == 0 && report.Outcome == "PASS" && report.Complete && report.CallsUsed == 6 && report.HTTPAttempts == 6 && report.Proxy == "http://127.0.0.1:1", "report=%+v exit=%d", report, exit)
+	})
+	for _, proxyStatus := range []int{http.StatusBadGateway, http.StatusOK} {
+		name := fmt.Sprintf("proxy-connect-%d", proxyStatus)
+		t.Run(name, func(t *testing.T) {
+			type request struct{ Method, Host, Authorization, ProxyAuthorization string }
+			var mu sync.Mutex
+			var requests []request
+			proxy := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				mu.Lock()
+				requests = append(requests, request{r.Method, r.Host, r.Header.Get("Authorization"), r.Header.Get("Proxy-Authorization")})
+				mu.Unlock()
+				w.WriteHeader(proxyStatus)
+			}))
+			defer proxy.Close()
+			env := append(controlled("proxy", write(t, grant())), "BARNESS_AI_LIVE_PROXY="+proxy.URL)
+			report, _, exit := child(t, name, entry, env)
+			cs := run.Case(t, "XAIIMG-process-assert-"+name)
+			mu.Lock()
+			captured := append([]request(nil), requests...)
+			mu.Unlock()
+			cs.Record("proxy-requests", captured)
+			cs.Check("real transport CONNECT remains in local proxy", len(captured) == 1 && captured[0].Method == "CONNECT" && captured[0].Host == "api.x.ai:443" && captured[0].Authorization == "" && captured[0].ProxyAuthorization == "", "requests=%+v", captured)
+			cs.Check("failed local proxy consumes one bounded synthetic attempt", exit == 1 && report.Outcome == "FAIL" && !report.Complete && report.CallsUsed == 1 && report.HTTPAttempts == 1 && report.VendorHTTPAttempts == 0 && report.Proxy == proxy.URL, "report=%+v exit=%d", report, exit)
+			for i, row := range report.Scenarios {
+				want := "NOT_RUN"
+				if i == 0 {
+					want = "FAIL"
+				}
+				cs.Check("proxy scenario "+row.ID, row.Outcome == want, "outcome=%s", row.Outcome)
+			}
 		})
 	}
 	t.Run("finite-plan", func(t *testing.T) {

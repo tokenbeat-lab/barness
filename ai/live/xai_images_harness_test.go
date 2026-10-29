@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"net/http"
+	"net/url"
 	"testing"
 	"time"
 
@@ -48,8 +49,18 @@ func TestXAIImagesCandidate(t *testing.T) {
 	rec.requestLimit, rec.responseLimit = 1<<20, 32<<20
 	transport := rec.next.(*http.Transport)
 	defer transport.CloseIdleConnections()
+	if p.proxy != nil {
+		transport.Proxy = http.ProxyURL(p.proxy)
+	}
+	if p.controlled == "proxy" {
+		// A controlled network check may reach only the local CONNECT listener.
+		// Refuse every response before any TLS tunnel or vendor HTTP can follow.
+		transport.OnProxyConnectResponse = func(context.Context, *url.URL, *http.Request, *http.Response) error {
+			return fmt.Errorf("controlled proxy mode forbids an upstream tunnel")
+		}
+	}
 	var expected xaiimages.Scene
-	if p.controlled != "" {
+	if p.controlled != "" && p.controlled != "proxy" {
 		rec.next = xaiRoundTripper(func(r *http.Request) (*http.Response, error) {
 			if p.controlled == "cancel" {
 				cancel()
