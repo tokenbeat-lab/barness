@@ -1,7 +1,7 @@
 # 按张价格、目录与报告收费领域字段
 
 Type: task
-Status: open
+Status: claimed
 Blocked by: none
 
 ## Scope

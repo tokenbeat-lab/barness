@@ -75,6 +75,8 @@ const (
 	APIOpenAIResponses API = "openai-responses"
 	// APIOpenAIImages is the native synchronous OpenAI Images protocol.
 	APIOpenAIImages API = "openai-images"
+	// APIXAIImages is the native synchronous xAI Imagine image protocol.
+	APIXAIImages API = "xai-images"
 	// APIGoogleInteractions is the synchronous v1beta Google image protocol.
 	APIGoogleInteractions API = "google-interactions"
 	// APITypeSafeSystemOne is the unary System One classification protocol.

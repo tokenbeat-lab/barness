@@ -93,8 +93,8 @@ func modalitiesProblem(modalities []Modality) string {
 }
 
 func (m ImageModel) problem() string {
-	if m.Provider == ProviderXAI {
-		return "xAI image operation is outside the implemented subset"
+	if problem := xaiImageModelProblem(m); problem != "" {
+		return problem
 	}
 	if problem := modalitiesProblem(m.Input); problem != "" {
 		return problem
@@ -136,6 +136,9 @@ func (m ImageModel) problem() string {
 }
 
 func (p ImagePricing) problem(input, output []Modality) string {
+	if p.PerImage != nil {
+		return ""
+	}
 	for _, rate := range []Nullable[float64]{p.InputText, p.InputImage, p.OutputText, p.OutputImage, p.CacheReadText, p.CacheReadImage} {
 		if value, ok := rate.Get(); ok && (value < 0 || math.IsNaN(value) || math.IsInf(value, 0)) {
 			return "an image price is negative or not finite"
