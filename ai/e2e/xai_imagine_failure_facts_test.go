@@ -15,6 +15,8 @@ func TestXAIImagineFailureFacts(t *testing.T) {
 			w := newImagineWorld(t, func(c *ai.Config) {
 				if name == "body-limit-after-usage" {
 					c.Policy.MaxOutputBytes = 256
+					c.Policy.MaxToolJSONBytes = 128
+					c.Policy.MaxFrameBytes = 128
 					c.Policy.Image.MaxOutputImageBytes = 64
 					c.Policy.Image.MaxTotalOutputImageBytes = 128
 				}
