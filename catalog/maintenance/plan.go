@@ -52,6 +52,16 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 		if err != nil {
 			return Proposal{}, err
 		}
+	case "cost-update":
+		var err error
+		diagnostics, err = updateCosts(&state, request)
+		if err != nil {
+			return Proposal{}, err
+		}
+	case "rollback":
+		if err := rollbackProvider(store, &state, request); err != nil {
+			return Proposal{}, err
+		}
 	default:
 		return Proposal{}, failure("invalid_argument", "unknown maintenance action %q", request.Action)
 	}
@@ -67,8 +77,9 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 	if err != nil {
 		return Proposal{}, failure("invalid_definition", "%v", err)
 	}
-	candidate := Candidate{BaseDigest: current.ID, State: state, Snapshot: snapshot, Change: Change{request.Action, request.Identity, request.Reason}, Diagnostics: diagnostics}
+	candidate := Candidate{BaseDigest: current.ID, State: state, Snapshot: snapshot, Change: Change{Action: request.Action, Identity: request.Identity, Reason: request.Reason, Reference: request.Revision}, Diagnostics: diagnostics}
 	candidate.Changes = changes
+	candidate.LocalInputs = append([]LocalInput(nil), request.LocalInputs...)
 	if request.Source != nil {
 		candidate.Inputs = []FrozenSource{*request.Source}
 	}

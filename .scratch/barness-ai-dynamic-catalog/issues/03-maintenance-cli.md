@@ -61,3 +61,15 @@ Six-group command `go test -json ./ai/e2e -run '^TestCatalogMaintenanceCLI(ReadO
 - Empty-overlay regression red `20261101T095646.010173Z-3llwiz5t` FAIL/1 → green `20261101T095702.081540Z-pgw4iet1` PASS/0; code fix commit `72737058` avoids candidates for property-order-only rewrites.
 - Peer-merged ticket04 checkpoint `3bbb2c05` for subsequent public approved-state workflows; combined integration is not claimed fully verified by prior receipts.
 - Remaining03: actual check/apply→cost-update/manual ownership protection/missing price and capability preservation; withdraw→restore→rollback new versions/history; current revision Snapshot tamper rejection; optional per-Provider reviewed source export. Root coordinates next turn after merger.
+
+### Approved-state workflows and raw-input boundaries
+
+All paths below are independent `.evidence/barness-ai-dynamic-catalog/e2e/<attempt>/receipt.json`; all ordinary green commands actual exit0, red actual exit1. Source inventories bind current worktree plus explicit catalog/cmd inputs; aggregate final ordinary verification remains root-owned.
+
+- Cost update red `20261101T100335.484204Z-rbu_tona` → green `20261101T100507.474439Z-he352m97`: two actual checked/applied identities, manual and missing rates preserved, capability unchanged, Provider independent versions.
+- Lifecycle red `20261101T100702.764917Z-eu12t271` → green `20261101T100745.759263Z-ki1kvwbl`: checked withdraw/restore/rollback, new versions and unchanged historical bytes.
+- Current revision Snapshot red `20261101T100854.309415Z-buj3d2oo` → green `20261101T100952.556383Z-zleuidxk`: export/versions/history reject state/snapshot divergence.
+- Raw nonnullable null/trailing/duplicate JSON red `20261101T101057.384977Z-g5zxkool` → green `20261101T101153.608420Z-x1s5e2gw`: reused loader JSON-shape validation in catalog/internal/jsonshape, raw manual overlays and definitions checked before canonicalization; no new protocol table.
+- Local definition/decision input originals red `20261101T101320.525562Z-6b5aexj_` → green `20261101T101410.573325Z-64iemplh`: exact role/name/digest/bytes, no synthetic fetch metadata.
+- Added model → rollback → restore expanded green `20261101T101453.542764Z-90jpm4q5`: retained withdrawn recovery definition and source, restored after original source deletion, versions monotonically advance.
+- Misspelled decision path red `20261101T101740.653551Z-jlslx8e_`; following green retained below. Existing field/object paths use most-specific decision, then enclosing-object/default ownership; `/` is whole-definition historical fallback. Explicit leaf decisions are recommended for price overrides.

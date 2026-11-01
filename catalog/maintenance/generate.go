@@ -129,6 +129,10 @@ func ProviderHash(provider ProviderRecord) (string, error) {
 			if !strings.HasPrefix(field, "/") || strings.TrimSpace(decision.Reason) == "" {
 				return "", fmt.Errorf("field decisions require a JSON pointer and reason")
 			}
+			var definition map[string]any
+			if json.Unmarshal(entry.Definition, &definition) != nil || !hasField(definition, field) {
+				return "", fmt.Errorf("field decision %q does not name a defined field", field)
+			}
 			switch decision.Ownership {
 			case OwnershipSource, OwnershipManual, OwnershipHistorical:
 			default:
@@ -162,6 +166,9 @@ func ProviderHash(provider ProviderRecord) (string, error) {
 }
 
 func appendDefinition(c *ai.Catalog, e Entry) error {
+	if err := validateDefinitionJSON(e.Definition, e.Operation); err != nil {
+		return err
+	}
 	switch e.Operation {
 	case ai.OperationChat:
 		var m ai.Model

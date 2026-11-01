@@ -22,7 +22,7 @@ func reviseEntry(state *State, request ChangeRequest) ([]Diagnostic, error) {
 			if entry.Fields == nil {
 				entry.Fields = map[string]FieldDecision{}
 			}
-			if err := overlayDefinition(definition, request.Definition, entry.Fields, request.Reason); err != nil {
+			if err := overlayDefinition(definition, request.Definition, entry.Fields, request.Reason, entry.Operation); err != nil {
 				return nil, err
 			}
 			for pointer, decision := range request.Decisions {

@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
+	"github.com/tokenbeat-lab/barness/catalog/internal/jsonshape"
 )
 
 // LoadFile reads exactly the selected file. A failed read or load never falls
@@ -41,7 +42,7 @@ func Load(raw []byte) (ai.Catalog, Report, error) {
 	if err := strictDecode(body, &source); err != nil {
 		return ai.Catalog{}, Report{}, &FileError{FileInvalidStructure, err.Error()}
 	}
-	fields, _ := objectFields(body)
+	fields, _ := jsonshape.ObjectFields(body)
 	for _, collection := range []string{"models", "imageModels", "classifierModels"} {
 		value, present := fields[collection]
 		if !present && collection != "models" {
@@ -101,7 +102,7 @@ func Load(raw []byte) (ai.Catalog, Report, error) {
 			}
 			if err != nil {
 				status.Status, status.Reason = Failed, InvalidDefinition
-				var unknown *unknownFieldError
+				var unknown *jsonshape.UnknownFieldError
 				if errors.As(err, &unknown) {
 					status.Reason = UnknownField
 				}
@@ -170,7 +171,7 @@ func envelope(raw []byte) ([]byte, string, error) {
 }
 
 func strictDecode(raw []byte, value any) error {
-	if err := jsonShape(raw, reflect.TypeOf(value).Elem()); err != nil {
+	if err := jsonshape.Validate(raw, reflect.TypeOf(value).Elem()); err != nil {
 		return err
 	}
 	decoder := json.NewDecoder(bytes.NewReader(raw))

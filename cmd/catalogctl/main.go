@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -72,6 +73,7 @@ func execute(args []string) (any, error) {
 	model := flags.String("model", "", "serving model ID")
 	reason := flags.String("reason", "", "reason for the reviewed change")
 	id := flags.String("id", "", "immutable candidate identity")
+	revisionID := flags.String("revision", "", "committed historical revision to restore through a new candidate")
 	sourcePath := flags.String("source", "", "retained models.dev input file (otherwise fetch source URL)")
 	sourceURL := flags.String("source-url", maintenance.ModelsDevURL, "catalog source URL")
 	sourceTime := flags.String("source-time", "", "original RFC3339 fetch time for a retained input file")
@@ -112,9 +114,9 @@ func execute(args []string) (any, error) {
 	case "candidate":
 		candidate, err := maintenance.ReadCandidate(*store, *id)
 		return map[string]any{"status": "awaiting_check", "candidate": candidate, "changes": candidate.Changes}, err
-	case "add", "revise", "withdraw", "restore":
-		request := maintenance.ChangeRequest{Action: command, Identity: maintenance.Identity{Operation: ai.Operation(*op), Provider: ai.ProviderID(*provider), API: ai.API(*api), ID: *model}, Reason: *reason, SourceProvider: *sourceProvider, SourceModel: *sourceModel}
-		if command == "add" || (command == "revise" && (*sourcePath != "" || *sourceProvider != "")) {
+	case "add", "revise", "cost-update", "withdraw", "restore", "rollback":
+		request := maintenance.ChangeRequest{Action: command, Identity: maintenance.Identity{Operation: ai.Operation(*op), Provider: ai.ProviderID(*provider), API: ai.API(*api), ID: *model}, Reason: *reason, SourceProvider: *sourceProvider, SourceModel: *sourceModel, Revision: *revisionID}
+		if command == "add" || command == "cost-update" || (command == "revise" && (*sourcePath != "" || *sourceProvider != "")) {
 			source, err := maintenance.AcquireSource(context.Background(), *sourcePath, *sourceURL, *sourceTime)
 			if err != nil {
 				return nil, err
@@ -127,15 +129,18 @@ func execute(args []string) (any, error) {
 				return nil, &maintenance.Error{Category: "invalid_argument", Message: "manual definition could not be read"}
 			}
 			request.Definition = raw
+			request.LocalInputs = append(request.LocalInputs, maintenance.PinLocalInput("definition", filepath.Base(*definitionPath), raw))
 		}
 		if *decisionsPath != "" {
 			raw, err := os.ReadFile(*decisionsPath)
 			if err != nil {
 				return nil, &maintenance.Error{Category: "invalid_argument", Message: "field decisions could not be read"}
 			}
-			if err := json.Unmarshal(raw, &request.Decisions); err != nil {
-				return nil, &maintenance.Error{Category: "invalid_argument", Message: "field decisions must be a JSON object"}
+			request.Decisions, err = maintenance.DecodeDecisions(raw)
+			if err != nil {
+				return nil, err
 			}
+			request.LocalInputs = append(request.LocalInputs, maintenance.PinLocalInput("decisions", filepath.Base(*decisionsPath), raw))
 		}
 		proposal, err := maintenance.Plan(*store, request)
 		if err != nil {

@@ -1,6 +1,7 @@
 package maintenance
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"io"
@@ -69,19 +70,31 @@ var sourceProviders = map[string]string{
 }
 
 func sourceOffering(request ChangeRequest) (map[string]json.RawMessage, string, error) {
+	source, err := sourceDocument(request)
+	if err != nil {
+		return nil, "", err
+	}
+	return offeringFrom(source, request)
+}
+
+func sourceDocument(request ChangeRequest) (sourceCatalog, error) {
 	if request.Source == nil {
-		return nil, "", failure("source_unavailable", "a pinned source is required")
+		return sourceCatalog{}, failure("source_unavailable", "a pinned source is required")
 	}
 	if digest(request.Source.Bytes) != request.Source.Digest || strings.TrimSpace(request.Source.URL) == "" {
-		return nil, "", failure("source_changed", "source bytes or provenance do not match")
+		return sourceCatalog{}, failure("source_changed", "source bytes or provenance do not match")
 	}
 	if _, err := time.Parse(time.RFC3339Nano, request.Source.FetchedAt); err != nil {
-		return nil, "", failure("invalid_argument", "source fetch time must be RFC3339")
+		return sourceCatalog{}, failure("invalid_argument", "source fetch time must be RFC3339")
 	}
 	var source sourceCatalog
 	if err := json.Unmarshal(request.Source.Bytes, &source); err != nil || source.Providers == nil {
-		return nil, "", failure("invalid_source", "expected the models.dev providers/models projection")
+		return sourceCatalog{}, failure("invalid_source", "expected the models.dev providers/models projection")
 	}
+	return source, nil
+}
+
+func offeringFrom(source sourceCatalog, request ChangeRequest) (map[string]json.RawMessage, string, error) {
 	provider, ok := source.Providers[request.SourceProvider]
 	if !ok || (provider.ID != "" && provider.ID != request.SourceProvider) {
 		return nil, "", failure("source_unavailable", "serving Provider is missing or mismatched")
@@ -97,6 +110,24 @@ func sourceOffering(request ChangeRequest) (map[string]json.RawMessage, string, 
 	var offering map[string]json.RawMessage
 	if err := json.Unmarshal(raw, &offering); err != nil || offering == nil {
 		return nil, "", failure("invalid_source", "serving offering must be an object")
+	}
+	for _, field := range []string{"type", "reasoning"} {
+		if raw, provided := offering[field]; provided {
+			if bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+				return nil, "", failure("invalid_source", "source %s cannot be null", field)
+			}
+			var err error
+			if field == "type" {
+				var value string
+				err = json.Unmarshal(raw, &value)
+			} else {
+				var value bool
+				err = json.Unmarshal(raw, &value)
+			}
+			if err != nil {
+				return nil, "", failure("invalid_source", "source %s has an invalid type", field)
+			}
+		}
 	}
 	canonical := ""
 	if value, ok := offering["canonical_model_id"]; ok {
