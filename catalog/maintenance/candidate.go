@@ -19,25 +19,42 @@ type Identity struct {
 }
 
 type FrozenSource struct {
+	Kind      string `json:"kind,omitempty"`
 	URL       string `json:"url"`
 	FetchedAt string `json:"fetchedAt,omitempty"`
 	Digest    string `json:"digest"`
 	Bytes     []byte `json:"bytes"`
 }
 
+// LocalInput preserves exactly what the maintainer supplied. Unlike a fetched
+// source it has a role and filename, with no invented URL or retrieval time.
+type LocalInput struct {
+	Role   string `json:"role"`
+	Name   string `json:"name"`
+	Digest string `json:"digest"`
+	Bytes  []byte `json:"bytes"`
+}
+
+func PinLocalInput(role, name string, raw []byte) LocalInput {
+	return LocalInput{Role: role, Name: name, Digest: digest(raw), Bytes: append([]byte(nil), raw...)}
+}
+
 type Change struct {
-	Action   string   `json:"action"`
-	Identity Identity `json:"identity"`
-	Reason   string   `json:"reason"`
+	Action    string   `json:"action"`
+	Identity  Identity `json:"identity"`
+	Reason    string   `json:"reason"`
+	Reference string   `json:"reference,omitempty"`
 }
 
 // Diagnostic separates missing data, conversion loss and explicit human
 // decisions. Blocking diagnostics cannot be acknowledged away by --confirm.
 type Diagnostic struct {
-	Kind     string `json:"kind"`
-	Field    string `json:"field,omitempty"`
-	Message  string `json:"message"`
-	Blocking bool   `json:"blocking,omitempty"`
+	Kind     string          `json:"kind"`
+	Field    string          `json:"field,omitempty"`
+	Message  string          `json:"message"`
+	Blocking bool            `json:"blocking,omitempty"`
+	Current  json.RawMessage `json:"current,omitempty"`
+	Upstream json.RawMessage `json:"upstream,omitempty"`
 }
 
 type FieldChange struct {
@@ -58,6 +75,7 @@ type Candidate struct {
 	Inputs      []FrozenSource `json:"inputs,omitempty"`
 	Diagnostics []Diagnostic   `json:"diagnostics,omitempty"`
 	Changes     []FieldChange  `json:"changes"`
+	LocalInputs []LocalInput   `json:"localInputs,omitempty"`
 }
 
 type Revision struct {
@@ -76,10 +94,12 @@ type ChangeRequest struct {
 	Reason         string
 	Source         *FrozenSource
 	SourceProvider string
+	SourceKind     string
 	SourceModel    string
 	Definition     json.RawMessage
 	Decisions      map[string]FieldDecision
 	Revision       string
+	LocalInputs    []LocalInput
 }
 
 type Proposal struct {
@@ -133,7 +153,7 @@ func validateCandidate(candidate Candidate) error {
 			return failure("unresolved_definition", "candidate has unresolved %s", diagnostic.Kind)
 		}
 	}
-	raw, err := Generate(candidate.State)
+	raw, err := generateCandidate(candidate.State)
 	if err != nil {
 		return failure("invalid_definition", "candidate state: %v", err)
 	}
@@ -143,6 +163,11 @@ func validateCandidate(candidate Candidate) error {
 	for _, input := range candidate.Inputs {
 		if digest(input.Bytes) != input.Digest || strings.TrimSpace(input.URL) == "" {
 			return failure("source_changed", "frozen source is missing provenance or has changed")
+		}
+	}
+	for _, input := range candidate.LocalInputs {
+		if (input.Role != "definition" && input.Role != "decisions") || input.Name == "" || digest(input.Bytes) != input.Digest {
+			return failure("input_changed", "frozen local input has invalid role, name or bytes")
 		}
 	}
 	return nil

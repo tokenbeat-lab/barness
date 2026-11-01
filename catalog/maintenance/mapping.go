@@ -110,7 +110,7 @@ func mapNewEntry(request ChangeRequest) (Entry, []Diagnostic, error) {
 		_ = raw
 		diagnostics = append(diagnostics, Diagnostic{Kind: "lossy", Field: "/reasoning_options", Message: "source reasoning options are retained in input; target effort wiring is not inferred"})
 	}
-	if err := overlayDefinition(definition, request.Definition, fields, request.Reason); err != nil {
+	if err := overlayDefinition(definition, request.Definition, fields, request.Reason, operation); err != nil {
 		return Entry{}, nil, err
 	}
 	for pointer, decision := range request.Decisions {

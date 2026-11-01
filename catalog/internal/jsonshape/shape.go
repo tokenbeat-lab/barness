@@ -1,4 +1,5 @@
-package catalog
+// Package jsonshape validates raw definitions before typed decoding can erase constraints.
+package jsonshape
 
 import (
 	"bytes"
@@ -8,20 +9,23 @@ import (
 	"strings"
 )
 
-// jsonShape validates exact field spelling and non-null scalar/struct fields.
+// Validate validates exact field spelling and non-null scalar/struct fields.
 // encoding/json alone accepts case-insensitive keys and null scalar values,
 // which would discard unknown constraints or silently turn missing data to zero.
 // Custom JSON values (Nullable and RawMessage) retain their own contracts.
-type unknownFieldError struct{ field string }
+type UnknownFieldError struct{ field string }
 
-func (e *unknownFieldError) Error() string { return fmt.Sprintf("json: unknown field %q", e.field) }
+func (e *UnknownFieldError) Error() string { return fmt.Sprintf("json: unknown field %q", e.field) }
 
-func jsonShape(raw []byte, typ reflect.Type) error {
+func Validate(raw []byte, typ reflect.Type) error {
+	if !json.Valid(raw) {
+		return fmt.Errorf("expected exactly one valid JSON value")
+	}
 	if typ.Kind() == reflect.Pointer {
 		if bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
 			return nil
 		}
-		return jsonShape(raw, typ.Elem())
+		return Validate(raw, typ.Elem())
 	}
 	unmarshaler := reflect.TypeFor[json.Unmarshaler]()
 	if reflect.PointerTo(typ).Implements(unmarshaler) {
@@ -33,7 +37,7 @@ func jsonShape(raw []byte, typ reflect.Type) error {
 		if isNull {
 			return fmt.Errorf("object cannot be null")
 		}
-		fields, err := objectFields(raw)
+		fields, err := ObjectFields(raw)
 		if err != nil {
 			return err
 		}
@@ -41,9 +45,9 @@ func jsonShape(raw []byte, typ reflect.Type) error {
 		for key, value := range fields {
 			field, ok := known[key]
 			if !ok {
-				return &unknownFieldError{field: key}
+				return &UnknownFieldError{field: key}
 			}
-			if err := jsonShape(value, field); err != nil {
+			if err := Validate(value, field); err != nil {
 				return fmt.Errorf("%s: %w", key, err)
 			}
 		}
@@ -56,7 +60,7 @@ func jsonShape(raw []byte, typ reflect.Type) error {
 			return err
 		}
 		for i, value := range values {
-			if err := jsonShape(value, typ.Elem()); err != nil {
+			if err := Validate(value, typ.Elem()); err != nil {
 				return fmt.Errorf("element %d: %w", i, err)
 			}
 		}
@@ -64,12 +68,12 @@ func jsonShape(raw []byte, typ reflect.Type) error {
 		if isNull {
 			return nil
 		}
-		values, err := objectFields(raw)
+		values, err := ObjectFields(raw)
 		if err != nil {
 			return err
 		}
 		for key, value := range values {
-			if err := jsonShape(value, typ.Elem()); err != nil {
+			if err := Validate(value, typ.Elem()); err != nil {
 				return fmt.Errorf("%s: %w", key, err)
 			}
 		}
@@ -106,7 +110,7 @@ func jsonFields(typ reflect.Type) map[string]reflect.Type {
 	return fields
 }
 
-func objectFields(raw []byte) (map[string]json.RawMessage, error) {
+func ObjectFields(raw []byte) (map[string]json.RawMessage, error) {
 	decoder := json.NewDecoder(bytes.NewReader(raw))
 	token, err := decoder.Token()
 	if err != nil || token != json.Delim('{') {
