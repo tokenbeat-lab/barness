@@ -21,9 +21,10 @@ type ReviewInput struct {
 }
 
 type ReviewReference struct {
-	Scope  string `json:"scope"`
-	Path   string `json:"path"`
-	Digest string `json:"digest"`
+	OriginReview string `json:"originReview,omitempty"`
+	Scope        string `json:"scope"`
+	Path         string `json:"path"`
+	Digest       string `json:"digest"`
 }
 
 type ReviewExport struct {
@@ -126,6 +127,26 @@ func reviewProvenance(store, repositoryRoot string, result *ReviewExport, files 
 		return path
 	}
 	for _, revision := range history {
+		if revision.Adoption != nil {
+			adopted, _, err := validateAdoptedReview(revision.Adoption)
+			if err != nil {
+				return err
+			}
+			for _, input := range adopted.Inputs {
+				input.Path = addBlob(revision.Adoption.Files[input.Path])
+				result.Inputs = append(result.Inputs, input)
+				if input.Kind == "historical" {
+					seenHistorical[input.Name+"\x00"+input.CatalogHash] = true
+				}
+			}
+			for _, reference := range adopted.References {
+				if reference.OriginReview == "" {
+					reference.OriginReview = digest(revision.Adoption.Index)
+				}
+				result.References = append(result.References, reference)
+			}
+		}
+
 		revisionName, err := objectName(revision.ID)
 		if err != nil {
 			return err

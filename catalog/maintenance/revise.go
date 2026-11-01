@@ -34,6 +34,12 @@ func reviseEntry(state *State, request ChangeRequest) ([]Diagnostic, error) {
 				}
 				entry.Fields[pointer] = decision
 			}
+			diagnostics := requiredCostFields(definition, entry.Operation)
+			for _, diagnostic := range diagnostics {
+				if diagnostic.Blocking {
+					return diagnostics, failure("invalid_definition", "%s: %s", diagnostic.Field, diagnostic.Message)
+				}
+			}
 			raw, err := json.Marshal(definition)
 			if err != nil {
 				return nil, err
@@ -61,6 +67,9 @@ func reviseEntry(state *State, request ChangeRequest) ([]Diagnostic, error) {
 				}
 				offering, canonical, err := sourceOffering(request)
 				if err != nil {
+					return nil, err
+				}
+				if err := validateOfferingOperation(offering, entry.Operation); err != nil {
 					return nil, err
 				}
 				var sourceID string

@@ -20,27 +20,16 @@ func mapNewEntry(request ChangeRequest) (Entry, []Diagnostic, error) {
 		return Entry{}, nil, failure("mapping_conflict", "target Provider differs from the reviewed source Provider mapping")
 	}
 	request.Identity.Provider = ai.ProviderID(provider)
-	var id, name, kind string
+	var id, name string
 	if err := json.Unmarshal(offering["id"], &id); err != nil || strings.TrimSpace(id) == "" {
 		return Entry{}, nil, failure("invalid_source", "offering requires its wire model ID")
 	}
 	if err := json.Unmarshal(offering["name"], &name); err != nil || strings.TrimSpace(name) == "" {
 		return Entry{}, nil, failure("invalid_source", "offering requires a name")
 	}
-	if raw, exists := offering["type"]; exists {
-		if err := json.Unmarshal(raw, &kind); err != nil {
-			return Entry{}, nil, failure("invalid_source", "type must be a string")
-		}
-	}
-	operation := ai.OperationChat
-	switch kind {
-	case "", "chat":
-	case "image":
-		operation = ai.OperationImage
-	case "decision":
-		operation = ai.OperationClassifier
-	default:
-		return Entry{}, nil, failure("unsupported_definition", "source type %q is not implemented", kind)
+	operation, kind, err := offeringOperation(offering)
+	if err != nil {
+		return Entry{}, nil, err
 	}
 	if request.Identity.Operation == "" || request.Identity.API == "" {
 		return Entry{}, nil, failure("confirmation_required", "an explicit target operation and API must be confirmed")

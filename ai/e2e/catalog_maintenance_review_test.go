@@ -116,6 +116,7 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 		}
 	}
 	os.WriteFile(filepath.Join(fresh, "ai", "catalog_builtin.json"), snapshot, 0600)
+	copyAdoptedCatalogReview(t, review, filepath.Join(fresh, "catalog", "data", "baseline"))
 	freshCLI := filepath.Join(dir, "fresh-catalogctl")
 	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", freshCLI, "./cmd/catalogctl")
 	cmd.Dir = fresh
@@ -124,6 +125,9 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 	if !ev.Check("fresh checkout with reviewed Provider source builds", err == nil, "%v %s", err, build) {
 		return
 	}
+	freshBinary, _ := os.ReadFile(freshCLI)
+	freshSum := sha256.Sum256(freshBinary)
+	ev.Record("fresh-binary", map[string]any{"sha256": hex.EncodeToString(freshSum[:]), "bytes": len(freshBinary)})
 	out, exit = invokeCatalogCLI(t, ev, freshCLI, "export", "--store", filepath.Join(dir, "absent-fresh-store"))
 	ev.Check("absent-store bootstrap matches newly adopted default", exit == 0 && bytes.Equal(out, snapshot), "exit=%d size=%d", exit, len(out))
 	probeDir := filepath.Join(fresh, "cmd", "observebuiltin")
@@ -141,6 +145,7 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 	}
 	out, exit = invokeCatalogCLI(t, ev, observer)
 	ev.Check("fresh public BuiltinCatalog matches approved source and runtime artifact", exit == 0 && bytes.Equal(out, snapshot), "exit=%d size=%d", exit, len(out))
+	verifyAdoptedCatalogCycle(t, ev, freshCLI, fresh, dir, capture, manual, manifest.References)
 	before, _ := os.ReadFile(filepath.Join(review, "review.json"))
 	out, exit = invokeCatalogCLI(t, ev, binary, "export", "--store", store, "--review-dir", review, "--repo", catalogSnapshotRoot(t), "--confirm")
 	after, _ := os.ReadFile(filepath.Join(review, "review.json"))
@@ -163,7 +168,7 @@ func copyCatalogBootstrapSource(t *testing.T) string {
 				}
 				return nil
 			}
-			if strings.HasSuffix(path, "_test.go") || !(strings.HasSuffix(path, ".go") || strings.HasSuffix(path, ".json")) {
+			if strings.HasSuffix(path, "_test.go") || (scope != "catalog" && !(strings.HasSuffix(path, ".go") || strings.HasSuffix(path, ".json"))) {
 				return nil
 			}
 			relative, _ := filepath.Rel(root, path)

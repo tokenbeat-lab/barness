@@ -31,10 +31,17 @@ func WriteGenerated(state State, path string) error {
 // atomicReplace is for replaceable exports/current pointers. Immutable
 // candidates and historical revisions instead use exclusive writeImmutable.
 func atomicReplace(path string, raw []byte) error {
+	_, err := replaceFile(path, raw)
+	return err
+}
+
+// installed remains true when rename succeeded but directory durability failed.
+// Callers committing more than one path must restore installed bytes on error.
+func replaceFile(path string, raw []byte) (installed bool, err error) {
 	dir := filepath.Dir(path)
 	tmp, err := os.CreateTemp(dir, ".catalog-pending-*")
 	if err != nil {
-		return failure("storage_failed", "create pending output: %v", err)
+		return false, failure("storage_failed", "create pending output: %v", err)
 	}
 	defer os.Remove(tmp.Name())
 	if _, err = tmp.Write(raw); err == nil {
@@ -45,10 +52,10 @@ func atomicReplace(path string, raw []byte) error {
 		err = closeErr
 	}
 	if err != nil {
-		return failure("storage_failed", "save pending output: %v", err)
+		return false, failure("storage_failed", "save pending output: %v", err)
 	}
 	if err := os.Rename(tmp.Name(), path); err != nil {
-		return failure("storage_failed", "install output: %v", err)
+		return false, failure("storage_failed", "install output: %v", err)
 	}
-	return syncDirectory(dir)
+	return true, syncDirectory(dir)
 }

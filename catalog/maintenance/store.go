@@ -29,15 +29,11 @@ func ReadCurrent(store string) (Revision, error) {
 }
 
 func builtinRevision() (Revision, error) {
-	state, err := BuiltinState()
+	state, snapshot, adoption, err := builtinSource()
 	if err != nil {
 		return Revision{}, err
 	}
-	snapshot, err := Generate(state)
-	if err != nil {
-		return Revision{}, err
-	}
-	revision := Revision{State: state, Snapshot: snapshot, Change: Change{Action: "seed", Reason: "reviewed historical catalog migration"}}
+	revision := Revision{Adoption: adoption, State: state, Snapshot: snapshot, Change: Change{Action: "seed", Reason: "reviewed checked-in catalog source"}}
 	revision.ID, err = revisionDigest(revision)
 	return revision, err
 }
@@ -70,6 +66,15 @@ func readRevision(store, id string) (Revision, error) {
 	digest, err := revisionDigest(revision)
 	if err != nil || digest != id || revision.ID != id {
 		return Revision{}, failure("revision_changed", "revision identity does not match its immutable application")
+	}
+	if revision.Adoption != nil {
+		_, approved, err := validateAdoptedReview(revision.Adoption)
+		if err != nil {
+			return Revision{}, err
+		}
+		if !equalState(approved.State, revision.State) || !bytes.Equal(approved.Snapshot, revision.Snapshot) {
+			return Revision{}, failure("revision_changed", "adopted seed differs from retained review")
+		}
 	}
 	expected, err := Generate(revision.State)
 	if err != nil || !bytes.Equal(expected, revision.Snapshot) {

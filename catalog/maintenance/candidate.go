@@ -79,13 +79,14 @@ type Candidate struct {
 }
 
 type Revision struct {
-	ID             string `json:"id"`
-	Parent         string `json:"parent,omitempty"`
-	CandidateID    string `json:"candidateId,omitempty"`
-	State          State  `json:"state"`
-	Snapshot       []byte `json:"snapshot"`
-	Change         Change `json:"change"`
-	CheckReference string `json:"checkReference,omitempty"`
+	Adoption       *AdoptedReview `json:"adoption,omitempty"`
+	ID             string         `json:"id"`
+	Parent         string         `json:"parent,omitempty"`
+	CandidateID    string         `json:"candidateId,omitempty"`
+	State          State          `json:"state"`
+	Snapshot       []byte         `json:"snapshot"`
+	Change         Change         `json:"change"`
+	CheckReference string         `json:"checkReference,omitempty"`
 }
 
 type ChangeRequest struct {

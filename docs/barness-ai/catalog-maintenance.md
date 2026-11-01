@@ -81,7 +81,7 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 
 候选在检查前固定完整目标 State、来源字节、基准、拟生效 Provider 版本和最终运行快照。检查通过真实受控 E2E 为最终目录的每条身份核对查询、请求/响应、Usage、计价及适用能力；缺合约、缺必需子场景、零匹配、非零退出或只提供自报 PASS 均不能应用。定义失败、`code_gap` 和执行失败分别报告。
 
-`apply` 重新核对候选、基准、实际受测源码/输入的完整文件集合和哈希，以及原生场景、审计和实际退出。基准、代码、规则、输入或证据变化后应形成适用候选并重验。成功仅安装原受测字节，不重新取源、映射或改变受测版本；输出/保存失败保持旧生效状态。原历史和已有候选不可覆盖。
+`apply` 重新核对候选、基准、实际受测源码/输入的完整文件集合和哈希，以及原生场景、审计和实际退出。基准、代码、规则、输入或证据变化后应形成适用候选并重验。成功仅安装原受测字节，不重新取源、映射或改变受测版本；安装或目录同步失败时执行有界回滚，恢复旧指针和原输出字节/原不存在状态。若回滚自身不能完成或确认持久化，返回 `storage_failed` 并明确要求修复，不能视作成功或无变化。原历史、已有候选和失败提交留下的不可变对象保留。
 
 ## 来源、确认和价格
 
@@ -157,6 +157,10 @@ stdout 重定向由 shell 写目标文件；CLI 自身的查询不会创建目�
 
 审阅包包含 `providers/*.json`、完整 `state.json`、原受测字节 `snapshot.json`、`revision.json`，以及去重后的 `inputs/<digest>.bin`。最后写入的 `review.json` 标识完整导出，绑定文件库存、来源/人工定义/决定原件和外部 revision/candidate/check 引用及各自摘要。缺少完成标记的失败目录不能当成完整审阅包；重试使用新目录，不覆盖旧失败或既有导出。历史 catalog 身份与其原始文件字节摘要分别保留。
 
-采用时在同一代码审阅中，把包内整组 Provider 文件更新到 `catalog/data/providers/`，把 `snapshot.json` 的原字节更新到 `ai/catalog_builtin.json`，并保留审阅包和全部来源/检查原件引用。仅替换生成 JSON 会使 `go generate ./ai` 的核对失败。导出不移动当前维护指针；未来部署/线上发布仍是独立工作。
+采用时在同一代码审阅中完成三项更新：整组 `providers/*.json` 更新到 `catalog/data/providers/`，`snapshot.json` 原字节更新到 `ai/catalog_builtin.json`，完整审阅包目录更新到 `catalog/data/baseline/`。基线目录须保留 `review.json` 和库存中的每个文件，包括 `inputs/*.bin`；替换旧基线目录，不能叠加遗留库存。初迁移仅含历史来源时允许没有基线 index；已有非历史来源却缺失基线，或库存、摘要、来源 URL/时间/类型、Provider/State/运行快照不一致时，新维护库拒绝启动。
+
+维护工具编译时嵌入此基线，运行 `ai` 仍只嵌入生成快照。缺省种子 revision 留存完整基线字节，后续维护和再次审阅导出不依赖旧维护库仍在原位置，也不会重新抓取来源。继承的 revision/candidate/check 引用保留原路径和摘要，并用 `originReview` 绑定原始 `review.json` 字节摘要；它们是历史引用，不声明旧外部原件当前可取或当前资格仍通过。需要复核原检查时仍须保留并独立核验其原件。
+
+相同 Provider 组成保持同一 Catalog.Version/Hash；采用基线形成的维护 revision 可因追溯链不同而拥有不同 ID。仅替换生成 JSON 会使 `go generate ./ai` 的核对失败。导出不移动当前维护指针；未来部署/线上发布仍是独立工作。
 
 验证范围、未执行阶段和不可变证据索引以本功能的[唯一当前状态](../../.scratch/barness-ai-dynamic-catalog/status.md)为准；测试/验收遵循[测试 SOP](../agents/verification.md)。

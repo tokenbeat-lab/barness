@@ -5,7 +5,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"reflect"
+	"slices"
 	"strings"
 )
 
@@ -42,7 +44,8 @@ func Validate(raw []byte, typ reflect.Type) error {
 			return err
 		}
 		known := jsonFields(typ)
-		for key, value := range fields {
+		for _, key := range slices.Sorted(maps.Keys(fields)) {
+			value := fields[key]
 			field, ok := known[key]
 			if !ok {
 				return &UnknownFieldError{field: key}
@@ -72,7 +75,8 @@ func Validate(raw []byte, typ reflect.Type) error {
 		if err != nil {
 			return err
 		}
-		for key, value := range values {
+		for _, key := range slices.Sorted(maps.Keys(values)) {
+			value := values[key]
 			if err := Validate(value, typ.Elem()); err != nil {
 				return fmt.Errorf("%s: %w", key, err)
 			}
