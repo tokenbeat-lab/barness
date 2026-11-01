@@ -1,7 +1,7 @@
 # 受控公共协议合约与候选检查应用
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 01, 02
 
 ## Context
@@ -48,3 +48,13 @@ T05、T06、T11、T12、T13；CLI → 真实受控检查 → apply → 加载 �
 所有目录均位于 `.evidence/barness-ai-dynamic-catalog/e2e/<attempt>/receipt.json`，保留实际来源/输入、真实退出及原生清单；最新集成来源与完整受影响普通验证由协调者收尾。
 
 - 显式状态查询：`20261101T101645.863881Z-xpml1qua` FAIL/exit1（原 candidate 查询无 check/ref 合同），`20261101T101749.657878Z-r2p3b3kc` PASS/exit0。`candidate --check <check.json> --repo <root>` 对 applicable 重做严格验证；真实失败引用显示 code_gap 等独立状态，自报 PASS 不取得可应用状态。不引入可变候选状态或 floating latest。
+
+## Answer
+
+已实现固定候选公共合约 runner、严格原生证据消费、受测源码/输入原件冻结、check/apply 与显式状态查询。所有生产入口无 ai/internal/testkit 依赖；测试仅用受控 Provider，无真实模型 API、race 或压力。完整接口和使用说明见当前集成文档与协调者状态入口。
+
+组合普通回执：[候选验证索引](../candidate-verification-20261101.json)。实际 argv 为 `go test -json ./ai/e2e ./ai ./catalog/... ./cmd/... -run 'TestCatalogCandidate|TestLocalCatalog|TestMaintenanceCatalogMigration|TestCatalogMaintenance' -count=1 -timeout=20m`；受测提交 `370842791e45e34da8f009ac829f5a4f745f0b1e`；PASS/exit0、1208 完成 Go 测试、1086 原生 case、118 身份/1020 候选子场景，107.84秒。原件 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T102025.819940Z-i1e7_odi/`，manifest/audit 与回执 SHA 见索引。收尾仅本工单/索引文档，实际源码及37项输入集合/字节与受测回执相等。
+
+当前路径错误由预检拒绝并保持既有输出；current 原子 rename 是提交点。外部输出先准备，若 current 安装失败只做一次有界恢复；底层文件系统恢复失败时返回 storage_failed 并要求修复，不承诺跨文件系统事务或目录 fsync 失败后的无限恢复。未引入推测性故障 hook。
+
+完整集成回归、双轴审查与人工阶段判定由工单05继续；本工单的普通通过不等于厂商实测或完整发布通过。所有失败、派生夹具、来源原件及内部/外层回执保留；没有重写旧失败。
