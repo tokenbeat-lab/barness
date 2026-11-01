@@ -10,7 +10,7 @@ import (
 
 // These finite byte transitions were reviewed for their retained Provider/API.
 // Reasons and replay limits are in .scratch/provider-source-scope/source-review.md
-// and .scratch/barness-ai-dynamic-catalog/source-review.md.
+// and .scratch/barness-ai-dynamic-catalog/source-review{,-v2,-v3}.md.
 // This is neither a filename exemption nor execution authority: any later edit,
 // unknown addition/removal, SDK change or another route still fails closed. The
 // native consumer still checks original inventories, grants, captures and cases.
