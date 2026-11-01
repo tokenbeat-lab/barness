@@ -1,7 +1,7 @@
 # 逐模型隔离的本地目录加载
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: none
 
 ## Context
@@ -20,3 +20,5 @@ T08、T09、T10、T12；公共加载 → 公共 Client 的受控调用、报告�
 ## Comments
 
 2026-11-01：从已确认 spec 建立实施依赖图。
+
+已确认受测 seam：catalog.Load/LoadFile → Config.Catalog → 公共 Client。失败方式：完整 JSON/顶层/hash 损坏必须整份拒绝；单条未知字段、错误类型/值、未知协议/能力、身份缺失及非对象必须隔离；重复完整身份的所有成员必须失败；全失败返回完整报告和空集合；原始摘要覆盖未知字段且仅移除外部空白；装配后来源/报告/查询变化不能改变调用或权限。

@@ -77,15 +77,7 @@ func (r *callRuntime) resolve(ctx context.Context, target Target) (int, *Error) 
 	if b.Operation != r.meta.Operation {
 		return 0, newError(CodeTenantDenied, PhaseCapability, "binding does not allow this operation")
 	}
-	supported := false
-	switch r.meta.Operation {
-	case OperationChat:
-		_, supported = r.client.adapters[b.API]
-	case OperationClassifier:
-		supported = (b.ProviderID == ProviderTypeSafe && b.API == APITypeSafeSystemOne) || (b.ProviderID == ProviderOpenAI && b.API == APIOpenAIDecisions)
-	case OperationImage:
-		supported = (b.ProviderID == ProviderOpenAI && b.API == APIOpenAIImages) || (b.ProviderID == ProviderGoogle && b.API == APIGoogleInteractions) || (b.ProviderID == ProviderXAI && b.API == APIXAIImages)
-	}
+	supported := supportsOperationAPI(r.meta.Operation, b.ProviderID, b.API)
 	if !supported {
 		return 0, newError(CodeInvalidRequest, PhaseCapability, "binding API is not supported: "+string(b.API))
 	}

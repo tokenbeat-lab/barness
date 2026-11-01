@@ -19,7 +19,7 @@ Release: false
 
 ## Task graph
 
-01 本地加载、02 唯一维护源可并行；02 → 03 CLI；01 + 03 → 04 检查应用；全部 → 05 审查验证。见 [issues](issues/)。
+01 本地加载、02 唯一维护源并行；02 → 03 CLI；01 + 02 → 04 合约 runner/检查框架，04 的完整应用闭环须整合 03；全部 → 05 审查验证。见 [issues](issues/)。
 
 ## Stages
 
@@ -33,4 +33,10 @@ Release: false
 
 ## Evidence
 
-尚未执行。各工单保留失败方式、红绿命令/真实退出及原件指针。最终记录受测 SHA、来源/输入、清单、audit、当前适用性与回滚方式；历史回执不覆盖。
+工单 02 已合并：f8e234c928c5d901361707322739ed3425e29563（功能提交 cd83be49e99a19dd423dbda95b8434d4f603a963）。唯一维护源、同源生成及旧激活路径退役完成。全部 118 条定义/顺序/null/缺省语义由独立旧快照对照；厂商实测历史未改写。
+
+定向普通证据：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T094204.929586Z-1bw5afpm/receipt.json`，PASS/exit0；实际完成 TestMaintenanceCatalogMigration、TestBuiltinCatalogReleaseSnapshot、TestRegionalPromotionBoundary、TestKimiQualificationPromotionBoundary 四项。受测源码是工单工作树，完整来源与输入见原件；不是最终集成回执。此前失败/编译失败及初始通过共六个 attempt 已保留。工单 01/03/04 尚在实施，完整普通验证仍 NOT_RUN。
+
+架构细化：候选/存储接口已明确后，04 可先并行建立独立 runner 和证据消费；完成前必须合并 03 并验证真实 CLI 闭环。此调整不改变规格行为或验收范围。
+
+最终记录受测 SHA、来源/输入、完整场景、audit、当前适用性与回滚方式；历史回执不覆盖。
