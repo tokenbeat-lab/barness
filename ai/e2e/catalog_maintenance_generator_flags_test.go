@@ -15,7 +15,7 @@ func TestCatalogMaintenanceGeneratorFlagErrors(t *testing.T) {
 	ev := run.Case(t, "CATALOG-T04-generator-structured-parse-errors")
 	dir := t.TempDir()
 	binary := filepath.Join(dir, "cataloggen")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./cmd/cataloggen")
+	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(binary, "./cmd/cataloggen")...)
 	cmd.Dir = "../.."
 	build, err := cmd.CombinedOutput()
 	ev.Record("build", map[string]any{"argv": cmd.Args, "exitCode": commandExit(err), "output": string(build)})

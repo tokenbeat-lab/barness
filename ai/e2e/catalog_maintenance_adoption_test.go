@@ -123,7 +123,7 @@ func verifyAdoptedCatalogCycle(t *testing.T, ev *evidence.Case, binary, fresh, d
 			os.WriteFile(filepath.Join(baseline, "unexpected.json"), []byte(`{}`), 0600)
 		}
 		corrupted := filepath.Join(dir, "corrupted-"+corruption)
-		cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", corrupted, "./cmd/catalogctl")
+		cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(corrupted, "./cmd/catalogctl")...)
 		cmd.Dir = fresh
 		build, err := cmd.CombinedOutput()
 		ev.Record("corrupted-build-"+corruption, map[string]any{"argv": cmd.Args, "exitCode": commandExit(err), "output": string(build)})

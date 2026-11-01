@@ -200,7 +200,7 @@ func buildSingleModelCatalogCLI(t *testing.T, ev *evidence.Case) string {
 		t.Fatal(err)
 	}
 	binary := filepath.Join(t.TempDir(), "catalogctl-single-model")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./cmd/catalogctl")
+	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(binary, "./cmd/catalogctl")...)
 	cmd.Dir = fresh
 	out, err := cmd.CombinedOutput()
 	ev.Record("fresh-build", map[string]any{"argv": cmd.Args, "exitCode": commandExit(err), "output": string(out)})

@@ -15,10 +15,10 @@ func TestCatalogCandidateCheckReadOnly(t *testing.T) {
 		t.Fatal(err)
 	}
 	binary := filepath.Join(t.TempDir(), "catalogctl")
-	build := exec.Command("go", "build", "-o", binary, "./cmd/catalogctl")
+	build := exec.Command("go", catalogBuildArgs(binary, "./cmd/catalogctl")...)
 	build.Dir = root
 	output, err := build.CombinedOutput()
-	ev.Record("build", map[string]any{"output": string(output), "error": errString(err)})
+	ev.Record("build", map[string]any{"argv": build.Args, "output": string(output), "error": errString(err)})
 	ev.Check("compiled CLI available", err == nil, "build: %s %v", output, err)
 	if err != nil {
 		return

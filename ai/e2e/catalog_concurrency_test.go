@@ -56,9 +56,25 @@ func catalogConcurrentLoads(t *testing.T, ev *evidence.Case, size, workers int) 
 		ev.Check(fmt.Sprintf("reader %d loads and queries", i), r.err == nil && r.catCount == size && r.report.Loaded == size && r.report.Failed == 1 && r.found, "%+v", r.err)
 	}
 	if len(results) > 1 && len(results[0].report.Models) > size && len(results[0].report.Models[size].Raw) > 0 {
-		saved := bytes.Clone(results[1].report.Models[size].Raw)
-		results[0].report.Models[size].Raw[0] ^= 1
-		ev.Check("failed reports are independent", bytes.Equal(saved, results[1].report.Models[size].Raw), "report shared")
+		originals := make([][]byte, len(results))
+		for i := range results {
+			if len(results[i].report.Models) > size {
+				originals[i] = bytes.Clone(results[i].report.Models[size].Raw)
+			}
+		}
+		for i := range results {
+			if len(results[i].report.Models) <= size || len(results[i].report.Models[size].Raw) == 0 {
+				ev.Check("failure report exists", false, "reader=%d", i)
+				continue
+			}
+			results[i].report.Models[size].Raw[0] ^= 1
+			for j := range results {
+				if i != j {
+					ev.Check(fmt.Sprintf("reports %d and %d independent", i, j), len(results[j].report.Models) > size && bytes.Equal(originals[j], results[j].report.Models[size].Raw), "shared report")
+				}
+			}
+			results[i].report.Models[size].Raw[0] ^= 1
+		}
 	} else {
 		ev.Check("failed reports exist", false, "missing failure record")
 	}
@@ -120,6 +136,15 @@ func catalogConcurrentApply(t *testing.T, ev *evidence.Case, workers int) {
 	}
 	_ = json.Unmarshal(out, &history)
 	ev.Check("history has one appended revision", exit == 0 && len(history.History) == 2, "exit=%d %s", exit, out)
+	current, currentExit := invokeCatalogCLI(t, ev, binary, "versions", "--store", store)
+	var version struct {
+		Revision string `json:"revision"`
+	}
+	_ = json.Unmarshal(current, &version)
+	if len(history.History) == 2 {
+		newest, previous := history.History[0], history.History[1]
+		ev.Check("current and history identify the sole checked revision", currentExit == 0 && version.Revision == newest.ID && newest.ID != "" && newest.CandidateID == candidate.ID && newest.Parent == previous.ID && bytes.Equal(newest.Snapshot, candidate.Snapshot) && bytes.Equal(newest.Snapshot, raw), "current=%s history=%s", current, out)
+	}
 }
 func TestCatalogConcurrentApply(t *testing.T) {
 	ev := run.Case(t, "CATALOG-CONCURRENT-apply")

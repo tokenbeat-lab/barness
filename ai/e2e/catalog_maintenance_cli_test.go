@@ -3,6 +3,7 @@ package e2e
 import (
 	"bytes"
 	"crypto/sha256"
+	"debug/buildinfo"
 	"encoding/hex"
 	"encoding/json"
 	"flag"
@@ -48,12 +49,7 @@ func TestCatalogMaintenanceCLIReadOnly(t *testing.T) {
 func buildCatalogCLI(t *testing.T, ev *evidence.Case) string {
 	t.Helper()
 	binary := filepath.Join(t.TempDir(), "catalogctl")
-	args := []string{"build"}
-	if *catalogSubprocessRace {
-		args = append(args, "-race")
-	}
-	args = append(args, "-o", binary, "./cmd/catalogctl")
-	cmd := exec.CommandContext(ctxFor(t), "go", args...)
+	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(binary, "./cmd/catalogctl")...)
 	cmd.Dir = "../.."
 	out, err := cmd.CombinedOutput()
 	exit := commandExit(err)
@@ -66,8 +62,21 @@ func buildCatalogCLI(t *testing.T, ev *evidence.Case) string {
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(raw)
+	info, infoErr := buildinfo.ReadFile(binary)
+	ev.Check("binary build information available", infoErr == nil, "%v", infoErr)
+	if infoErr == nil {
+		ev.Record("binary-buildinfo", info)
+	}
 	ev.Record("binary", map[string]any{"sha256": hex.EncodeToString(sum[:]), "bytes": len(raw)})
 	return binary
+}
+
+func catalogBuildArgs(binary, pkg string) []string {
+	args := []string{"build"}
+	if *catalogSubprocessRace {
+		args = append(args, "-race")
+	}
+	return append(args, "-o", binary, pkg)
 }
 
 var catalogProcessSequence atomic.Uint64

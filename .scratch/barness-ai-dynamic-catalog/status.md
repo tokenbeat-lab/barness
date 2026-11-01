@@ -2,7 +2,7 @@
 
 Updated: 2026-11-01
 Implementation: COMPLETE
-Ordinary verification: PASS
+Ordinary verification: PENDING (test harness changed; prior PASS retained)
 Release: false
 
 ## Scope and source
@@ -14,6 +14,12 @@ Release: false
 - 初始118条定义（112聊天、3图片、3分类）的顺序、字段、null/缺省及价格保留。当前默认整体身份由维护内容生成；中文评测增加v3配置，当前用量断言改用当前快照。旧快照、旧配置、实测原件、pin与支持矩阵保持历史事实。
 - 完整输入：49个本功能实现/数据/来源审阅文件，加101个旧公共测试实际执行脚本和导入夹具；按文件固定150项。默认来源覆盖ai、验证工具及go.mod/go.sum，共2153文件。完整清单在阶段回执与 [发布记录](release-record-v1.json)。
 
+## Current concurrency verification selection
+
+用户已选择按受影响范围先 race 后压力。新增公共测试覆盖4并发加载与查询、独立报告、共享输入不变，以及4个CLI争用同一已check候选时唯一成功、busy/stale拒绝、current/历史/输出一致；已有受控取消/超时场景继续覆盖。race以显式测试flag构建子CLI，内部固定check contract子进程保持普通模式；外层直接运行候选合约。压力选择512和2048条目录各8个并发读取、4个写者2轮，记录实际墙钟及 Go test 进程的 TotalAlloc（不含 CLI 子进程资源，不是峰值）；正确性和有界完成为断言，不设新 SLA；不运行全局Loopback或不相关Provider压力。此处为选定范围，非执行通过。新测试来源须重新完整普通验证。旧状态原字节见 [快照](status-before-concurrency-v1.md)。
+
+已提前终止来源将被修订的普通尝试：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T130425.124309Z-t0psx9k6/receipt.json`，CANCELLED/exit -15；原件保留。
+
 ## Task graph and review
 
 01加载器、02维护源、03维护CLI、04候选合约/check/apply、05集成审查均 `resolved`，见 [issues](issues/)。双轴审查原问题及后续回归均已修复，最终0open，见 [v4](implementation-review-v4.md)、[v3](implementation-review-v3.md)、[v2](implementation-review-v2.md)。原问题报告 [v1](implementation-review-v1.md)保留。
@@ -24,14 +30,14 @@ Release: false
 
 | 阶段 | 实际状态 | 范围/依据 |
 | --- | --- | --- |
-| ordinary | PASS / exit0 | 完整受影响包；17705个Go测试事件PASS、240个SKIP，无FAIL；墙钟1210.921192秒 |
+| ordinary | PENDING | 新测试源码待完整普通重验；旧来源完整受影响包PASS / exit0，17705个Go测试事件PASS、240个SKIP，墙钟1210.921192秒 |
 | native evidence | PASS | 唯一主包16862 PASS、222 NOT_RUN；3个受控辅助包115 PASS；全部audit无发现 |
 | build | PASS / exit0 | `go build ./ai/... ./catalog/... ./cmd/...`，2.271177秒 |
 | vet | PASS / exit0 | `go vet ./ai/... ./catalog/... ./cmd/...`，1.761515秒 |
 | gate binary build | PASS / exit0 | 冻结来源编译releasegate，2.140633秒；二进制/实际argv见元数据回执 |
 | live | NOT_APPLICABLE | 无新增厂商事实需求；既有定义精确迁移，路由/分类判断为已审等价提取，新增接纳验证不改变有效旧请求；来源有限审阅见source-review及v2/v3。受控live-tag子包不取得真实资格 |
-| race | NOT_RUN | 新增存储锁、状态读写和check取消/收尾须另行人工选择；实施批准不等于执行批准 |
-| pressure | NOT_RUN | 加载/执行资源及并发负载尚未人工选择；race前置未完成，无真实压力生成 |
+| race | NOT_RUN | 已选择本功能受影响并发路径，待当前来源完整普通通过 |
+| pressure | NOT_RUN | 已选择目录加载与并发apply负载；race前置未完成 |
 | read-only release | false | 适用race/压力未运行；实际数字退出、五项检查及报告见最终机器判定原件 |
 
 完整普通实际命令：
@@ -40,7 +46,7 @@ Release: false
 go test -json -failfast ./ai/e2e ./ai ./catalog/... ./cmd/... -count=1 -timeout=30m
 ```
 
-由`tools/verification/run.py --stage e2e --timeout 2100`采集；全部150个`--input`及实际collector argv见 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/ordinary-invocation.json`。GOENV=off、空GOFLAGS、隔离HOME及清除凭据/live/race/压力/冻结oracle配置。240个Go跳过项和222个原生NOT_RUN仍保持未运行，不将其计为PASS；完整名称与原因见原始stdout和原生清单。
+由`tools/verification/run.py --stage e2e --timeout 2100`采集；全部150个`--input`及实际collector argv见 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/ordinary-invocation.json`。GOENV=off、空GOFLAGS、隔离HOME及清除凭据/live/race/压力/冻结oracle配置。240个Go跳过项和222个原生NOT_RUN仍保持未运行，不将其计为PASS；独立审计报告及JSON保存在 `.evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/`，SHA256分别为 `1d4537f40cc155fb56a74c2307b178bee8a17f52daa219f51be425d3872e5ab0` 和 `f898113d35497570191057403ebeb50641940f19efbb8f96766fed67befbf368`。
 
 ## Evidence
 

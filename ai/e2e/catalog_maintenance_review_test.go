@@ -118,7 +118,7 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 	os.WriteFile(filepath.Join(fresh, "ai", "catalog_builtin.json"), snapshot, 0600)
 	copyAdoptedCatalogReview(t, review, filepath.Join(fresh, "catalog", "data", "baseline"))
 	freshCLI := filepath.Join(dir, "fresh-catalogctl")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", freshCLI, "./cmd/catalogctl")
+	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(freshCLI, "./cmd/catalogctl")...)
 	cmd.Dir = fresh
 	build, err := cmd.CombinedOutput()
 	ev.Record("fresh-build", map[string]any{"argv": cmd.Args, "exitCode": commandExit(err), "output": string(build)})
@@ -136,7 +136,7 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 	os.WriteFile(filepath.Join(probeDir, "main.go"), probe, 0600)
 	ev.Fixture("fresh-builtin-consumer.go", probe)
 	observer := filepath.Join(dir, "observebuiltin")
-	cmd = exec.CommandContext(ctxFor(t), "go", "build", "-o", observer, "./cmd/observebuiltin")
+	cmd = exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(observer, "./cmd/observebuiltin")...)
 	cmd.Dir = fresh
 	build, err = cmd.CombinedOutput()
 	ev.Record("fresh-builtin-build", map[string]any{"argv": cmd.Args, "exitCode": commandExit(err), "output": string(build)})

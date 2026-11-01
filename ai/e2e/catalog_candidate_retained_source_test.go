@@ -49,7 +49,7 @@ func TestCatalogCandidateCheckRetainedSource(t *testing.T) {
 	retained, readErr := os.ReadFile(filepath.Join(retainedRoot, marker))
 	ev.Check("source archive retains exact embedded marker bytes", readErr == nil && bytes.Equal(retained, actual), "err=%v", readErr)
 	replay := filepath.Join(t.TempDir(), "catalogctl-from-retained-source")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", replay, "./cmd/catalogctl")
+	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(replay, "./cmd/catalogctl")...)
 	cmd.Dir = retainedRoot
 	build, buildErr := cmd.CombinedOutput()
 	ev.Record("retained-source-build", map[string]any{"argv": cmd.Args, "directory": retainedRoot, "exitCode": commandExit(buildErr), "output": string(build)})

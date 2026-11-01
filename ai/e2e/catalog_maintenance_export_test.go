@@ -31,7 +31,7 @@ func TestCatalogMaintenanceCLIExport(t *testing.T) {
 		t.Fatal(err)
 	}
 	generator := filepath.Join(dir, "cataloggen")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", generator, "./cmd/cataloggen")
+	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(generator, "./cmd/cataloggen")...)
 	cmd.Dir = "../.."
 	build, err := cmd.CombinedOutput()
 	ev.Record("generator-build", map[string]any{"argv": cmd.Args, "exitCode": commandExit(err), "output": string(build)})
