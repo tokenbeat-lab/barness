@@ -29,7 +29,10 @@ def required_cases(snapshot):
                     raise ValueError('duplicate candidate identity')
                 result[case['case']] = case
     if not result:
-        raise ValueError('no candidate identities or contracts')
+        # Empty is a valid final catalog, but still requires one real child
+        # contract with load/query and unknown-target/no-request assertions.
+        result['CC-empty-catalog'] = {'scene': 'empty-catalog', 'case': 'CC-empty-catalog',
+                                     'test': 'TestCatalogCandidateContracts/empty-catalog'}
     return result
 
 
