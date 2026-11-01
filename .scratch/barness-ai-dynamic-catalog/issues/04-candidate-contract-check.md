@@ -58,3 +58,13 @@ T05、T06、T11、T12、T13；CLI → 真实受控检查 → apply → 加载 �
 当前路径错误由预检拒绝并保持既有输出；current 原子 rename 是提交点。外部输出先准备，若 current 安装失败只做一次有界恢复；底层文件系统恢复失败时返回 storage_failed 并要求修复，不承诺跨文件系统事务或目录 fsync 失败后的无限恢复。未引入推测性故障 hook。
 
 完整集成回归、双轴审查与人工阶段判定由工单05继续；本工单的普通通过不等于厂商实测或完整发布通过。所有失败、派生夹具、来源原件及内部/外层回执保留；没有重写旧失败。
+
+### Last active model withdrawal follow-up
+
+根审查发现最终三集合全空时，原 runner 和消费者均拒绝没有身份的计划，但最后一个有效型号的明确撤回应可生成空运行目录。以独立编译的一条 active 型号的 synthetic reviewed source 为启动默认，通过公开 CLI withdraw → check → apply 验证；未直接构造生效 store，未逐一循环撤回118条，未修改根默认目录或03辅助函数。
+
+- `20261101T103545.758748Z-m4q3ik9z` FAIL/exit1：有效空候选被固定 runner 的非空身份计划条件拒绝。
+- `20261101T103647.961395Z-xt67p6u_` FAIL/exit1：新增真实 empty child 已通过，原消费者仍拒绝零身份。
+- `20261101T103731.654684Z-hof541ks` PASS/exit0：固定全局 `CC-empty-catalog` 合约与真实 check/apply 闭环通过。合约验证完整 Load 空报告、三集合及型号/列表查询为空、三个操作的已授权但目录不存在目标在 capability 阶段拒绝且零 Provider 请求。父通过、缩短计划或缺失 empty 原生 case 的派生夹具均拒绝。
+
+消费者只对实际三集合全空要求精确的全局 empty child，非空候选仍要求全部最终四维身份及必需场景。最终冻结普通验证见 [空目录补充验证索引](../candidate-empty-verification-20261101.json)：受测提交 `229419e6017ce6953ebe8de8494ff27d54d06152`，argv `go test -json ./ai/e2e ./ai ./catalog/... ./cmd/... -run 'TestCatalogCandidateContracts|TestCatalogCandidateLastWithdrawalToEmpty|TestCatalogCandidateEvidenceRefusals' -count=1 -timeout=5m`；PASS/exit0、1141项 Go 测试、1023个外层原生 case，保留默认118身份/1020子场景；内部空候选单独精确包含 plan 与 empty 两个原生 case。外层回执 `20261101T103807.098818Z-omyldv6a`，耗时30.45秒，audit findings为空。收尾仅增加本工单及新索引，实际源码及42项输入集合/字节与受测回执相等。未执行 live、race 或压力；完整集成冻结由协调者更新。
