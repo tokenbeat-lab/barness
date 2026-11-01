@@ -40,5 +40,8 @@ func runCheckApply(ctx context.Context, command string, args []string) (any, err
 	if *dry {
 		status = "preview"
 	}
+	if err != nil {
+		status = "apply_failed"
+	}
 	return map[string]any{"status": status, "revision": revision}, err
 }

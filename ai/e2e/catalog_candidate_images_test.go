@@ -43,6 +43,7 @@ func catalogImageContract(t *testing.T, ev *evidence.Case, cat ai.Catalog, i cat
 		var id string
 		_ = json.Unmarshal(fields["model"], &id)
 		ev.Check("exact image wire identity", id == i.ID, "%s", body)
+		catalogImageOptionsWire(t, ev, body, opts)
 		if i.API == ai.APIXAIImages {
 			catalogImagePerImage(ev, m, opts, len(req.ReferenceImages), n, result)
 		} else {
@@ -76,6 +77,9 @@ func catalogImageContract(t *testing.T, ev *evidence.Case, cat ai.Catalog, i cat
 					call(req, ai.OpenAIImagesOptions{Size: ai.Value(size), Quality: ai.Value(quality)}, 1)
 				}
 			}
+			if m.Capabilities.CustomSizes != nil {
+				catalogImageCustomSizes(t, ev, w, i, m, req, call)
+			}
 			if m.Capabilities.TransparentBackground {
 				call(req, ai.OpenAIImagesOptions{Background: ai.Value("transparent")}, 1)
 			}
@@ -100,6 +104,20 @@ func catalogImageContract(t *testing.T, ev *evidence.Case, cat ai.Catalog, i cat
 		default:
 			t.Fatalf("code_gap: no image contract %s", i.API)
 		}
+	}
+	if scene == "options" {
+		var invalid ai.ImageOptions
+		switch i.API {
+		case ai.APIOpenAIImages:
+			invalid = ai.OpenAIImagesOptions{Size: ai.Value("unsupported-catalog-size")}
+		case ai.APIGoogleInteractions:
+			invalid = ai.GoogleImagesOptions{ImageSize: ai.Value("unsupported-catalog-size")}
+		case ai.APIXAIImages:
+			invalid = ai.XAIImagesOptions{Resolution: ai.Value("unsupported-catalog-size")}
+		}
+		before := len(w.provider.Requests())
+		_, err := w.client.GenerateImages(ctxFor(t), textScope("catalog-unlisted-option"), catalogContractTarget(i), req, invalid)
+		ev.Check("unlisted option is refused without sending", err != nil && len(w.provider.Requests()) == before, "%v", err)
 	}
 	if scene == "edit-boundaries" {
 		if m.Capabilities.MaxReferenceImages > 0 {

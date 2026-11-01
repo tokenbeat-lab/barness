@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"slices"
+	"strings"
 )
 
 type ApplyRequest struct {
@@ -44,14 +46,14 @@ func VerifyCheck(ctx context.Context, request ApplyRequest) (Candidate, CheckRes
 		return candidate, CheckResult{}, failure("check_invalid", "check reference unavailable")
 	}
 	var check CheckResult
-	if decode(raw, &check) != nil || check.Reference != relative || check.CandidateID != candidate.ID || check.BaseDigest != candidate.BaseDigest || check.SnapshotDigest != digest(candidate.Snapshot) || check.Prepared == "" || check.Receipt == "" {
+	if decode(raw, &check) != nil || check.Status != "applicable" || check.Conclusion != "code_compatible" || check.Reference != strings.TrimSuffix(check.Prepared, "prepared.json")+"check.json" || check.Reference != relative || check.CandidateID != candidate.ID || check.BaseDigest != candidate.BaseDigest || check.SnapshotDigest != digest(candidate.Snapshot) || check.Prepared == "" || check.Receipt == "" {
 		return candidate, check, failure("check_invalid", "check does not bind this exact candidate and baseline")
 	}
 	inspection, err := inspectCheck(ctx, root, "", check.Prepared, check.Receipt)
 	if err != nil {
 		return candidate, check, err
 	}
-	if inspection.ReceiptSHA256 != check.ReceiptSHA256 || inspection.MeasuredCommit != check.MeasuredCommit || inspection.SnapshotSHA256 != "" && "sha256:"+inspection.SnapshotSHA256 != check.SnapshotDigest {
+	if inspection.CandidateID != candidate.ID || inspection.BaseDigest != candidate.BaseDigest || !slices.Equal(inspection.RequiredCases, check.RequiredCases) || inspection.ReceiptSHA256 != check.ReceiptSHA256 || inspection.MeasuredCommit != check.MeasuredCommit || inspection.SnapshotSHA256 != "" && "sha256:"+inspection.SnapshotSHA256 != check.SnapshotDigest {
 		return candidate, check, failure("check_invalid", "check reference binding changed")
 	}
 	return candidate, check, nil
@@ -62,6 +64,9 @@ func VerifyCheck(ctx context.Context, request ApplyRequest) (Candidate, CheckRes
 func Apply(ctx context.Context, request ApplyRequest) (Revision, error) {
 	if !request.Confirmed && !request.DryRun {
 		return Revision{}, failure("confirmation_required", "apply requires explicit --confirm")
+	}
+	if err := checkApplyOutput(request); err != nil {
+		return Revision{}, err
 	}
 	candidate, _, err := VerifyCheck(ctx, request)
 	if err != nil {
