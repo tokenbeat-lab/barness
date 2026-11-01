@@ -1,7 +1,7 @@
 # 全规格集成、双轴审查及普通验证
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 01, 02, 03, 04
 
 ## Context
@@ -79,3 +79,7 @@ T01–T13；普通证据、全部必需实际场景及 audit，状态/索引一�
 GREEN `.evidence/barness-ai-dynamic-catalog/e2e/20261101T122442.177998Z-undt6sjm/receipt.json`，SHA `9bfd13a8ff812e5fe9c0e1a28c79c5d7266d6f38153961a486c0f30a376db8c0`，PASS/exit0、5.6122 秒；94 个实际 Go PASS、89 原生 PASS、audit0。实际集合含完整 UsageAndCost、独立初迁移/历史对照、CatalogSnapshot/OperationCatalogHash、当前中文配置、Google 图片目录、xAI 目录/限额/留存回放；完整测试库存见 [不可变索引](../usage-catalog-consumer-verification-v1.json)。RED/GREEN 原件共 587 文件、18,268,809 字节已终态复制并逐文件核验，[复制库存](../usage-catalog-consumer-copy-v1.json) SHA 为 `d2b6633bcf34caaa949accc7998a2bd296b99432c4ee74ec17d3e54d1288391b`。提交/集成文档合并后的实际源码与受测输入相等。
 
 本工单仍 claimed；完整普通/build/vet 由主 agent 在最终合并和双轴复核后冻结重跑，status.md 不由本实现者编辑。本轮仅测试断言变更，未执行付费、race 或压力，也不声明完整发布通过。
+
+## Answer
+
+全部规格已在 `codex/barness-catalog-integration` 集成。双轴原问题及后续中文/用量当前身份遗漏均修复并复核0open。最终完整受测提交 `d695b3c5ddf113ac4e3c81c6659461b288bb977e`，17705 Go PASS/240 SKIP，主原生16862 PASS/222 NOT_RUN，辅助115 PASS、全部audit0，完整命令exit0；118身份/1020合约及1299前序必需case实际通过，build/vet同来源通过。完整固定来源、150输入、原件/摘要与回滚见 [唯一当前状态](../status.md) 和 [最终索引](../final-verification-v1.json)。本期实现和普通验收完成；未运行的人工race/压力使release.pass=false，完整发布不属于本期规格。1工作树已归档，5个受应用占用保护拒绝，全部变更/所需证据已保留，未绕过保护。

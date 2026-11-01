@@ -1,9 +1,9 @@
 # barness 模型目录维护与本地加载
 
-Status: ready-for-agent
+Status: resolved
 Updated: 2026-11-01
 
-本文根据已确认的设计、讨论、来源研究与 ADR-0058 生成。Status 表示需求已具备实施条件，不表示产品已实施、测试已通过或线上已发布。本次任务只生成规范。
+本文最初根据已确认的设计、讨论、来源研究与 ADR-0058 生成；当时仅生成规范。现已完成本期实现与普通验收，当前结果见 [唯一当前状态](status.md)。Status 不表示线上发布或完整人工阶段通过。
 
 ## Problem Statement
 
