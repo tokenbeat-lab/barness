@@ -8,3 +8,9 @@ import "embed"
 //
 //go:embed providers/*.json
 var Providers embed.FS
+
+// Baseline retains an adopted review bundle for future maintenance exports.
+// The README is a sentinel for the initial historical migration only.
+//
+//go:embed all:baseline
+var Baseline embed.FS

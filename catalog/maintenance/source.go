@@ -11,6 +11,11 @@ import (
 
 // BuiltinState returns a fresh copy of the checked-in maintenance source.
 func BuiltinState() (State, error) {
+	state, _, _, err := builtinSource()
+	return state, err
+}
+
+func readBuiltinState() (State, error) {
 	state := State{RulesRevision: "barness-catalog-2026-11-01"}
 	names, err := data.Providers.ReadDir("providers")
 	if err != nil {
