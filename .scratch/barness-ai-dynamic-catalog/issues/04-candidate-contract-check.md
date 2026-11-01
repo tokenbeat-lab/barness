@@ -1,7 +1,7 @@
 # 受控公共协议合约与候选检查应用
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 01, 02
 
 ## Context
@@ -22,3 +22,16 @@ T05、T06、T11、T12、T13；CLI → 真实受控检查 → apply → 加载 �
 2026-11-01：从已确认 spec 建立实施依赖图。
 
 2026-11-01：候选/存储接口已明确，可与 03 并行实施 runner/证据消费；本工单完成前仍须合并 03 并验证完整 check/apply CLI 闭环。设计笔记：`/tmp/barness-catalog-check-notes.md`。
+
+## Failure modes and verification plan
+
+公共边界为编译后的 catalogctl → check/apply 子进程 → 本地 Load → Client。首次红场景验证 check help/dry-run 无写入；随后逐片验证：未确认；定义失败/代码缺口/执行失败；真实退出非零、零匹配、仅父测试通过、自填 PASS；遗漏身份/必需场景；候选/基准/版本/实际源码及输入集合漂移；manifest/audit/标准输出/原件缺失或被改写；源不可再取但原受测快照仍可应用；输出路径与保存失败；受控取消和超时保留失败原件且不推进目录。所有 118 条最终身份都通过最终 Config.Catalog 实际调用，声明能力、Usage 和严格阶梯边界独立核对。
+
+普通执行使用 run.py 的独立 attempt；新增 catalog/cmd 文件逐个 --input。测试实现先红后绿。无真实厂商、race 或压力；根 status.md 由协调者维护。
+
+### Intermediate public flow
+
+- 2026-11-01：候选固定 runner 与严格证据消费者、check/apply 初始闭环完成；工单仍 claimed，后续补充非零缓存与拒绝场景，不宣称最终覆盖。
+- 首次 CLI 红：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T094833.374763Z-bmu163fy/receipt.json`，FAIL/exit1（无维护 CLI）。初始逐身份 runner：`20261101T095202.144349Z-2fgyn023`，PASS/exit0、909 原生 case。
+- 编译后 check/apply 闭环：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T095708.310357Z-wkx7id6v/receipt.json`，PASS/exit0。内部受控检查有独立 attempt、完整来源字节及最终候选，外层只消费其实际退出和原件。
+- 流程偏差：最初红场景覆盖缺少 check CLI，随后同一实现片段写了 apply 存储，再添加专用 apply E2E；专用 apply RED 未先于该段代码。此事实保留，不称其符合逐片先红顺序。后续真实失败（消费者结构/遗漏 GLM 场景）及修复均独立留存；没有补写实现镜像单元测试。
