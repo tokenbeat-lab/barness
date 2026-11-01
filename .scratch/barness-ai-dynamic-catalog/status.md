@@ -53,3 +53,11 @@ Release: false
 - 流程偏差：04 的初始组合 CLI check RED 在实现前，但 apply 存储实现先于其专门 E2E；没有补写单元测试，也不补造专门 apply RED。实际公共成功/拒绝/文件失败原件保留，并由最终审查核对。详见工单 04。
 
 全部阶段原件以各工单记录的完整路径、实际 source/inputs、场景与数字退出为准。最终冻结普通回执、构建/vet、双轴审查和只读发布判定尚未完成，release.pass 仍 false。
+
+## 最终全量回归检查点
+
+- 两轮静态复核已清空原双轴问题，记录见 [implementation-review-v2.md](implementation-review-v2.md)。这不代替全量执行。
+- 集成受测 SHA `4265627e58579b22eaf052a359a8a29037a94463` 的完整普通命令发现 35 个中文评测失败事件；按 SOP 发送 SIGTERM，外层最终 CANCELLED/exit-15，主原生包未完成。490.502666 秒，原件及失败清单见 [integration-interrupted-v1.json](integration-interrupted-v1.json)。该 attempt 不算普通验证通过。
+- 首个失败为 TestChineseEvaluationCurrentRoutePins/jev；其他场景报 task/model/dataset/price snapshot drift。单一修复代理正在定位旧消费者与目录迁移的关联；修复后重新冻结并验证。
+- build/vet 元数据检查已 PASS/exit0，原件位于 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T114832.746962Z-gccunam6/`。它们不代替主 E2E。
+- 当前普通阶段：IN_PROGRESS（存在保留的失败/中断，尚无最终全量 PASS）。live/race/压力状态未升级，release.pass=false。
