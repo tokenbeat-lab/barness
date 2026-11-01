@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"slices"
+	"strconv"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -92,18 +93,6 @@ func resolveRequiredFields(definition map[string]any, operation ai.Operation, di
 			cost, _ := definition["cost"].(map[string]any)
 			if tiers, ok := cost["tiers"].([]any); ok && len(tiers) > 0 {
 				diagnostic.Blocking = false
-				for _, tier := range tiers {
-					values, ok := tier.(map[string]any)
-					if !ok {
-						diagnostic.Blocking = true
-						continue
-					}
-					for _, field := range []string{"inputTokensAbove", "input", "output", "cacheRead", "cacheWrite"} {
-						if value, provided := values[field]; !provided || value == nil {
-							diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/cost/tiers/" + field, Message: "each target tier requires its explicit threshold and all four rates", Blocking: true})
-						}
-					}
-				}
 			}
 		}
 		if diagnostic.Kind == "invalid_definition" && strings.HasPrefix(diagnostic.Field, "/cost/") && fields[diagnostic.Field].Ownership == OwnershipManual {
@@ -112,6 +101,7 @@ func resolveRequiredFields(definition map[string]any, operation ai.Operation, di
 	}
 	if operation == ai.OperationChat || operation == ai.OperationClassifier {
 		cost, _ := definition["cost"].(map[string]any)
+		diagnostics = append(diagnostics, missingTierFields(cost)...)
 		for _, field := range []string{"input", "output", "cacheRead", "cacheWrite"} {
 			value, provided := cost[field]
 			if !provided || value == nil {
@@ -136,6 +126,27 @@ func resolveRequiredFields(definition map[string]any, operation ai.Operation, di
 	if operation == ai.OperationClassifier {
 		if _, provided := definition["capabilities"]; !provided {
 			diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/capabilities", Message: "classifier capabilities require explicit confirmation", Blocking: true})
+		}
+	}
+	return diagnostics
+}
+
+// Every target tier, including manual/official additions, needs explicit
+// threshold and complete rates. Typed zero defaults cannot prove presence.
+func missingTierFields(cost map[string]any) []Diagnostic {
+	tiers, _ := cost["tiers"].([]any)
+	diagnostics := []Diagnostic{}
+	for index, tier := range tiers {
+		prefix := "/cost/tiers/" + strconv.Itoa(index)
+		values, ok := tier.(map[string]any)
+		if !ok {
+			diagnostics = append(diagnostics, Diagnostic{Kind: "invalid_definition", Field: prefix, Message: "target tier must be an object", Blocking: true})
+			continue
+		}
+		for _, field := range []string{"inputTokensAbove", "input", "output", "cacheRead", "cacheWrite"} {
+			if value, provided := values[field]; !provided || value == nil {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: prefix + "/" + field, Message: "each target tier requires its explicit threshold and all four rates", Blocking: true})
+			}
 		}
 	}
 	return diagnostics

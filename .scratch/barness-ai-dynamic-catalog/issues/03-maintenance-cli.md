@@ -1,7 +1,7 @@
 # 确定性维护 CLI、来源映射和生命周期
 
 Type: task
-Status: claimed
+Status: resolved
 Blocked by: 02
 
 ## Context
@@ -81,3 +81,19 @@ All paths below are independent `.evidence/barness-ai-dynamic-catalog/e2e/<attem
 - New coherent review bundle red `20261101T102503.668573Z-ece2s7bh`, independent retained compile failure `20261101T102604.803140Z-t7zdau_d`, then green `20261101T102657.182473Z-6mlp9dsl`. Public export preview/confirmation/new-directory rule, exact approved snapshot, actual source/manual/historical captures, external reference availability, source adoption and fresh compiled absent-store bootstrap.
 - Full review bundle and exact external reference bytes are retained in final native case artifacts, so replay does not depend on deleted test temporary directories. Local input role/name/digest records never invent URL/fetch metadata.
 - Source decisions reject unresolvable paths; leaf decisions take priority over enclosing-object/default decisions. `/` is the retained historical whole-definition fallback. Price ownership should use explicit leaf paths when overriding prior specific decisions.
+
+### Final combined ordinary and universal tier presence
+
+- Combined ordinary at frozen `bdd46af879247c6ce5e653bdd81498d071ae53ef` retained FAIL/1 in `20261101T103206.295452Z-mdfno1ir`: only test artifact retention failed because Fixture does not create nested directories. Product source and all other selected cases passed; this failed stage remains failed.
+- Artifact mapping fix commit `19619b51`; same combined ordinary PASS/0 in `.evidence/barness-ai-dynamic-catalog/e2e/20261101T103717.515935Z-3t3w9yez/receipt.json`, including fresh public BuiltinCatalog consumer and complete review/reference bytes retained under flat artifacts plus explicit restoration maps.
+- Additional required target-tier presence regression red `20261101T104301.813484Z-2pjmy32o` FAIL/1 → green `20261101T104334.908684Z-9q21mias` PASS/0. Shared target-tier presence validation now applies to manually introduced tiers and full official definitions, independent of projected-source diagnostics; threshold plus all four rates required, explicit zero accepted. No runtime pricing/guard behavior changed.
+
+## Answer
+
+Implemented the complete maintenance CLI/source scope. Deterministic models.dev serving mapping and explicit official/manual supplements freeze actual source, definition and decision bytes; reviewed candidate versions/diffs are immutable. Source-owned base prices refresh without rewriting manual values/capability or filling missing rates; every target tier requires explicit threshold/all four rates. Withdraw/restore/rollback are checked new changes; rollback retains newer definitions withdrawn for recovery. Read-only query/help/preview and explicit confirmation are enforced; current/revision/candidate integrity is checked. Approved exports provide coherent Provider source + exact runtime snapshot + deduplicated actual provenance, with fresh compiled default/absent-store equivalence. Typed unsupported definitions remain inspectable candidates and cannot apply without actual compatibility evidence. Existing runtime guards remain unchanged.
+
+Final verification: [immutable index](../maintenance-verification-20261101.json). Final combined ordinary at `80df087f` PASS/actual exit0; exact full tested SHA, command, selected inputs, required cases, manifest/audit hashes and source equality are in the index. This does not claim live qualification or release pass. All earlier red/failed attempts remain original.
+
+Top-level source/guide status remains root-owned. Root integration/code review and any independently authorized later stage are separate from this completed ticket.
+
+Post-verification integration: [source difference link](../maintenance-integration-link-20261101.json). Independent ticket04 empty-catalog source changed after the frozen03 receipt; aggregate current source validation remains root-owned.

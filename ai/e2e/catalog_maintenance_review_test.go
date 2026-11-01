@@ -59,15 +59,19 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 		References []struct{ Scope, Path, Digest string } `json:"references"`
 	}
 	_ = json.Unmarshal(index, &manifest)
+	retainedReview := []map[string]string{}
 	for name, expected := range manifest.Files {
 		raw, err := os.ReadFile(filepath.Join(review, filepath.FromSlash(name)))
 		if err != nil {
 			t.Fatal(err)
 		}
-		ev.Fixture("review/"+name, raw)
+		artifact := "review-file-" + strings.ReplaceAll(name, "/", "--")
+		ev.Fixture(artifact, raw)
+		retainedReview = append(retainedReview, map[string]string{"path": name, "artifact": artifact, "digest": expected})
 		sum := sha256.Sum256(raw)
 		ev.Check("review inventory binds actual retained file bytes", "sha256:"+hex.EncodeToString(sum[:]) == expected, "file=%s", name)
 	}
+	ev.Record("review-retention", retainedReview)
 	foundSource, foundLocal, foundHistorical := false, false, false
 	for _, input := range manifest.Inputs {
 		raw, err := os.ReadFile(filepath.Join(review, input.Path))

@@ -31,3 +31,15 @@ T01–T13；普通证据、全部必需实际场景及 audit，状态/索引一�
 - GREEN：100924 定向通过；101100 扩展 Evidence/XAIImages 组 PASS/exit0，149 实际 Go 测试、235 原生 PASS、audit0；101407 安全失败报告修订后的聚焦组 PASS/exit0。完整路径/argv/manifest 与 audit 哈希见索引，不以父测试或零匹配代替。
 - 文档：新增本地加载/候选检查应用/字段归属/价格/版本与生成指南，修正现有 README/contract 的旧字面量维护入口和默认快照指向。六个相关文档的本地链接核对无缺失。
 - 未完成：03 最终 Provider 导出命令的指南补齐、03/04 最终代码合并后的完整普通/编译/vet、主 agent 双轴审查和最终状态/发布只读索引。保持 claimed，不声明 release.pass=true。
+
+## Checkpoint 2 — 最终 CLI 指南准备
+
+2026-11-01：已按 03 已提交实现补齐 `cost-update`、按 Provider 的 `rollback`、`--source-kind official`、冻结本地定义/决定及 `export --review-dir` 完整审阅包；按 04 补齐 `candidate --check --repo` 的严格只读状态查询。指南中的 28 个参数名与实际 CLI/生成器声明核对一致，六个相关文档本地链接无缺失，最大 476 行。尚未执行最终普通阶段；等待 03 合并与主 agent 明确冻结信号，再检查最终帮助/完整普通/编译/vet。当前状态仍只由主 agent 维护。
+
+## Checkpoint 3 — 本地定义的实际能力与诊断
+
+2026-11-01：主 agent 在最终冻结前确认两项具体缺口。分类器结构自洽但超出固定协议子集时现报告 unsupported_definition；非法限额仍为 invalid_definition。Google 声明未实现的 mask/透明背景/custom size/fidelity/size/quality，以及 OpenAI 未消费的 aspect/imageSize 或实际选项 guard 不允许的数量/quality/fidelity 声明，不再伪装加载成功。参考数复用既有协议 guard 常量。
+
+新增公共 Load/Hash/NewClient 红绿场景，完整旧 Hash/NewClient 接受/错误文本保持；原 guard 条件未变、无能力扩展或新厂商规则。追加精确来源审阅只在原 xAI Images 范围生效，旧条目/旧文档保持；见 [v2](../source-review-v2.md)、[v3](../source-review-v3.md)。完整命令、失败/通过、实际退出及 manifest/audit 指针见 [integration-verification-v2.json](../integration-verification-v2.json)。
+
+分类范围 104438 PASS/exit0，最终图片/分类/加载/证据及全 118 合约扩展范围 105117 PASS/exit0；保留 104121、104252、104838 三次独立失败。仍待 03 最终合并后的完整普通/build/vet 和主 agent 双轴审查；不声明完整发布通过。

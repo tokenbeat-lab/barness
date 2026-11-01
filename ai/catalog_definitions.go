@@ -56,6 +56,13 @@ func (c Catalog) ValidateDefinitions() error {
 		if problem := xaiImageModelProblem(m); problem != "" {
 			return &UnsupportedDefinitionError{Problem: problem}
 		}
+		// Preserve invalid-value/price diagnoses before checking whether a
+		// coherent declaration fits this protocol's implemented options.
+		if m.problem() == "" {
+			if problem := imageDefinitionProblem(m); problem != "" {
+				return &UnsupportedDefinitionError{Problem: problem}
+			}
+		}
 	}
 	for _, m := range c.ClassifierModels {
 		if err := identity(OperationClassifier, m.Provider, m.API, m.ID, m.Name); err != nil {
@@ -68,6 +75,9 @@ func (c Catalog) ValidateDefinitions() error {
 			if !classifierKindSupported(kind) {
 				return &UnsupportedDefinitionError{Problem: "classifier question kind is not implemented"}
 			}
+		}
+		if issue := classifierDefinitionIssue(m); issue.unsupported {
+			return &UnsupportedDefinitionError{Problem: issue.message}
 		}
 	}
 	return c.validate()
