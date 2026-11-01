@@ -53,6 +53,8 @@ func sortedCheckKeys(values map[string]string) []string {
 }
 
 type checkInspection struct {
+	CandidateID    string   `json:"candidateId"`
+	BaseDigest     string   `json:"baseDigest"`
 	Status         string   `json:"status"`
 	Conclusion     string   `json:"conclusion"`
 	MeasuredCommit string   `json:"measuredCommit"`

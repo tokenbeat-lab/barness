@@ -35,3 +35,14 @@ T05、T06、T11、T12、T13；CLI → 真实受控检查 → apply → 加载 �
 - 首次 CLI 红：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T094833.374763Z-bmu163fy/receipt.json`，FAIL/exit1（无维护 CLI）。初始逐身份 runner：`20261101T095202.144349Z-2fgyn023`，PASS/exit0、909 原生 case。
 - 编译后 check/apply 闭环：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T095708.310357Z-wkx7id6v/receipt.json`，PASS/exit0。内部受控检查有独立 attempt、完整来源字节及最终候选，外层只消费其实际退出和原件。
 - 流程偏差：最初红场景覆盖缺少 check CLI，随后同一实现片段写了 apply 存储，再添加专用 apply E2E；专用 apply RED 未先于该段代码。此事实保留，不称其符合逐片先红顺序。后续真实失败（消费者结构/遗漏 GLM 场景）及修复均独立留存；没有补写实现镜像单元测试。
+
+### Expanded contract and refusal receipts
+
+- 非零缓存：`20261101T095844.033570Z-d0k9xz4w` FAIL/exit1 揭示原有未定价/不支持写缓存保护（未修改产品）；`20261101T100118.972704Z-94pzuslm` PASS/exit0 验证可适用读/写价格与原有拒绝，Kimi Chat 未报告 TTL 保留独立上下界。
+- 完整必需场景新增后消费者拒绝旧计划集合：`20261101T100155.769384Z-ssfmw9yd` FAIL/exit1；消费者相应固定新增场景，不能以旧通过覆盖新要求。
+- apply 拒绝：`20261101T100343.799751Z-kubqs_1s` FAIL/exit1（发现输出可覆盖维护对象/证据及摘要可重绑缺陷）；修复后 `20261101T100504.776405Z-17n026_k` PASS/exit0，含源码新增/内容变化、输出保存失败与候选重绑。
+- 原生证据消费者：`20261101T100631.351325Z-ctm10np2` PASS/exit0。派生夹具明确标为 synthetic/derived；原件不修改。父通过、缺身份计划、缺合约、错误原生退出和缺原件均拒绝。
+- 取消/超时：`20261101T100833.396214Z-7eue2qoz` FAIL/exit1 揭示超时额外30秒；当前路径失败 `20261101T101045.072851Z-a52gq72d` FAIL/exit1 揭示错误结果误标 applied。修复后 `20261101T101147.103430Z-glgcvkry` PASS/exit0，含实际新数据接纳/未知API code_gap/来源删除后原字节应用及受控 SIGTERM/超时。当前路径错误在预检阶段拒绝，已有外部输出保持；不为推测性后置故障引入 hook。
+- 自定义尺寸：`20261101T101238.923915Z-4ywmwbks` FAIL/exit1 揭示能力已声明但未实际发送；`20261101T101501.342723Z-eqs4a1ui` PASS/exit0 验证固定512x512、数量2的独立 wire 预期及自定义边界/图片选项传递。
+
+所有目录均位于 `.evidence/barness-ai-dynamic-catalog/e2e/<attempt>/receipt.json`，保留实际来源/输入、真实退出及原生清单；最新集成来源与完整受影响普通验证由协调者收尾。

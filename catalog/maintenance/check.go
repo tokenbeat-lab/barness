@@ -153,12 +153,12 @@ func Check(ctx context.Context, request CheckRequest) (result CheckResult, err e
 	if json.Unmarshal(raw, &manifest) != nil {
 		return result, failure("execution_failed", "invalid execution plan")
 	}
-	argv := []string{"python3", "tools/verification/run.py", "--feature", request.EvidenceFeature, "--stage", "e2e", "--timeout", fmt.Sprint(seconds + 30)}
+	argv := []string{"python3", "tools/verification/run.py", "--feature", request.EvidenceFeature, "--stage", "e2e", "--timeout", fmt.Sprint(seconds)}
 	for _, name := range sortedCheckKeys(prepared.Inputs) {
 		argv = append(argv, "--input", name)
 	}
 	argv = append(append(argv, "--"), manifest.Argv...)
-	processCtx, cancel := context.WithTimeout(ctx, request.Timeout+45*time.Second)
+	processCtx, cancel := context.WithTimeout(ctx, request.Timeout+15*time.Second)
 	defer cancel()
 	output, processErr := checkProcess(processCtx, root, dir, "execute", argv)
 	var execution struct {

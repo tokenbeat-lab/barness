@@ -28,6 +28,10 @@ func catalogChatContract(t *testing.T, ev *evidence.Case, cat ai.Catalog, i cata
 		})
 		return
 	}
+	if scene == "cache-usage" {
+		catalogChatCache(t, ev, w, cat, i, m, req)
+		return
+	}
 	if scene == "reasoning" {
 		catalogChatReasoning(t, ev, w, cat, i, m, req)
 		return
