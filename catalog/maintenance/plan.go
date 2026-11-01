@@ -59,19 +59,16 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 	if err != nil {
 		return Proposal{}, failure("invalid_definition", "%v", err)
 	}
-	nextDigest, err := stateDigest(state)
-	if err != nil {
-		return Proposal{}, err
-	}
-	if !changed && nextDigest == current.ID {
-		return Proposal{Status: "unchanged"}, nil
+	changes := stateChanges(current.State, state)
+	if !changed && len(changes) == 0 {
+		return Proposal{Status: "unchanged", Diagnostics: diagnostics}, nil
 	}
 	snapshot, err := Generate(state)
 	if err != nil {
 		return Proposal{}, failure("invalid_definition", "%v", err)
 	}
 	candidate := Candidate{BaseDigest: current.ID, State: state, Snapshot: snapshot, Change: Change{request.Action, request.Identity, request.Reason}, Diagnostics: diagnostics}
-	candidate.Changes = stateChanges(current.State, state)
+	candidate.Changes = changes
 	if request.Source != nil {
 		candidate.Inputs = []FrozenSource{*request.Source}
 	}

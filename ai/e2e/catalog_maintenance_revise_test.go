@@ -65,4 +65,11 @@ func TestCatalogMaintenanceCLIRevise(t *testing.T) {
 	os.WriteFile(definition, []byte(`{"futureConstraint":true}`), 0600)
 	out, exit = invokeCatalogCLI(t, ev, binary, args...)
 	ev.Check("unknown manual constraints are not dropped", exit != 0, "exit=%d output=%s", exit, out)
+	os.WriteFile(definition, []byte(`{}`), 0600)
+	out, exit = invokeCatalogCLI(t, ev, binary, args...)
+	var unchanged struct {
+		Status string `json:"status"`
+	}
+	_ = json.Unmarshal(out, &unchanged)
+	ev.Check("semantically empty overlay creates no change", exit == 0 && unchanged.Status == "unchanged", "exit=%d output=%s", exit, out)
 }
