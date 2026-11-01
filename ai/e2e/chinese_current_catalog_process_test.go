@@ -11,7 +11,7 @@ import (
 	"github.com/tokenbeat-lab/barness/ai/examples/chineseeval"
 )
 
-// Current route defaults follow today's stored release snapshot. Historical
+// Current route defaults follow the generated default snapshot. Historical
 // reports keep their recorded catalogs and cannot acquire current applicability.
 func TestChineseEvaluationCurrentRoutePins(t *testing.T) {
 	for _, tc := range []struct{ route, model string }{{"jev", "jev-1.13.0"}, {"luna", "gpt-6-luna"}} {
@@ -30,7 +30,7 @@ func TestChineseEvaluationCurrentRoutePins(t *testing.T) {
 			}
 			var report chineseeval.Report
 			mustUnmarshal(t, raw, &report)
-			raw, err = os.ReadFile("../release/catalog-snapshot.json")
+			raw, err = os.ReadFile("../catalog_builtin.json")
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -51,10 +51,10 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, tc := range []struct{ base, oldHash string }{
-		{"jev-1.13.0", "sha256:001556ea3be2a33e5b9f06a5530733fc9088a8942d073b51b8e07d33f1665ed3"},
-		{"jev-route", "sha256:b4501a5274b2092c09169395d5a870b6049f809f34c42510bdcabdf960b9c297"},
-		{"luna-route", "sha256:7679d0bcdda0698900623353eafe3203541e1bc15725a1c362ed66407f7b4af7"},
+	for _, tc := range []struct{ base, oldHash, previousHash string }{
+		{"jev-1.13.0", "sha256:001556ea3be2a33e5b9f06a5530733fc9088a8942d073b51b8e07d33f1665ed3", "sha256:d97d7f6baa5d71814285610a80afed7fc6ba01e1826b5ca67a822d4d012f258c"},
+		{"jev-route", "sha256:b4501a5274b2092c09169395d5a870b6049f809f34c42510bdcabdf960b9c297", "sha256:383321f05b3dc8825c228ba568cea7594a2f142fd616c3faa22a247c9fb66ff1"},
+		{"luna-route", "sha256:7679d0bcdda0698900623353eafe3203541e1bc15725a1c362ed66407f7b4af7", "sha256:1cf4e178b2f31226ce0156c9194621df34b3057778878df980e8136d95ff2583"},
 	} {
 		t.Run(tc.base, func(t *testing.T) {
 			ev := run.Case(t, "P07-zh-evaluation-config-revision-"+tc.base)
@@ -62,17 +62,38 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v2.json")
+			previous, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v2.json")
 			if err != nil {
 				t.Fatal(err)
 			}
+			ev.Check("prior default v2 bytes remain immutable", chineseeval.Hash(previous) == tc.previousHash, "v2 input changed")
+			_, err = chineseeval.Load(data, previous, ai.BuiltinCatalog())
+			ev.Check("prior default v2 is not silently rebound to current", err != nil, "v2 accepted current composition")
+			snapshot, err := os.ReadFile("../release/catalog-snapshot.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			var recorded struct {
+				Catalog json.RawMessage `json:"catalog"`
+			}
+			if err := json.Unmarshal(snapshot, &recorded); err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.LoadRecorded(data, previous, recorded.Catalog)
+			ev.Check("prior default remains valid with its original snapshot", err == nil, "err=%v", err)
+			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v3.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.LoadRecorded(data, current, recorded.Catalog)
+			ev.Check("new composition config rejects the historical snapshot", err != nil, "new config accepted old composition")
 			ev.Check("historical v1 bytes match Git b8080341", chineseeval.Hash(old) == tc.oldHash, "historical input changed")
 			_, err = chineseeval.Load(data, old, ai.BuiltinCatalog())
 			ev.Check("old root pin is never silently upgraded", err != nil, "old config accepted current catalog")
 			plan, err := chineseeval.Load(data, current, ai.BuiltinCatalog())
 			ev.Check("new current config loads with strict pins", err == nil, "err=%v", err)
 			var before, after chineseeval.Config
-			if json.Unmarshal(old, &before) != nil || json.Unmarshal(current, &after) != nil {
+			if json.Unmarshal(previous, &before) != nil || json.Unmarshal(current, &after) != nil {
 				t.Fatal("invalid stored config")
 			}
 			ev.Check("config revision changes explicitly", before.Version != after.Version, "old=%s new=%s", before.Version, after.Version)
