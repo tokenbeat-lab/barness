@@ -72,6 +72,8 @@ func execute(args []string) (any, error) {
 	api := flags.String("api", "", "explicit API protocol")
 	model := flags.String("model", "", "serving model ID")
 	reason := flags.String("reason", "", "reason for the reviewed change")
+	repositoryRoot := flags.String("repo", ".", "repository for retained source/evidence references")
+	checkReference := flags.String("check", "", "explicit retained check reference for candidate query")
 	id := flags.String("id", "", "immutable candidate identity")
 	revisionID := flags.String("revision", "", "committed historical revision to restore through a new candidate")
 	sourcePath := flags.String("source", "", "retained models.dev input file (otherwise fetch source URL)")
@@ -113,7 +115,14 @@ func execute(args []string) (any, error) {
 		return map[string]any{"status": "history", "history": history}, err
 	case "candidate":
 		candidate, err := maintenance.ReadCandidate(*store, *id)
-		return map[string]any{"status": "awaiting_check", "candidate": candidate, "changes": candidate.Changes}, err
+		if err != nil {
+			return nil, err
+		}
+		if *checkReference != "" {
+			checked, err := maintenance.QueryCandidateCheck(context.Background(), maintenance.ApplyRequest{Store: *store, CandidateID: *id, CheckReference: *checkReference, RepositoryRoot: *repositoryRoot})
+			return map[string]any{"status": checked.Status, "candidate": candidate, "changes": candidate.Changes, "check": checked}, err
+		}
+		return map[string]any{"status": "awaiting_check", "candidate": candidate, "changes": candidate.Changes}, nil
 	case "add", "revise", "cost-update", "withdraw", "restore", "rollback":
 		request := maintenance.ChangeRequest{Action: command, Identity: maintenance.Identity{Operation: ai.Operation(*op), Provider: ai.ProviderID(*provider), API: ai.API(*api), ID: *model}, Reason: *reason, SourceProvider: *sourceProvider, SourceModel: *sourceModel, Revision: *revisionID}
 		if command == "add" || command == "cost-update" || (command == "revise" && (*sourcePath != "" || *sourceProvider != "")) {

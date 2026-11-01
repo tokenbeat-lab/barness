@@ -12,7 +12,7 @@ def required_cases(snapshot):
             key = '\0'.join(identity[name] for name in ('operation', 'provider', 'api', 'id'))
             name = hashlib.sha256(key.encode()).hexdigest()[:24]
             if operation == 'chat':
-                scenes = ['load-query', 'basic', 'history-tools', 'input-modalities', 'parameters', 'authorization']
+                scenes = ['load-query', 'basic', 'cache-usage', 'history-tools', 'input-modalities', 'parameters', 'authorization']
                 if model.get('reasoning'):
                     scenes.append('reasoning')
             elif operation == 'image':
@@ -71,7 +71,7 @@ def verify_receipt(root, prepared, selected, receipt_name, snapshot):
         raise ValueError('missing native contract plan')
     plan = json_file(within(bundle, plan_case['dir'] + '/plan.json'))
     snapshot_name = prepared['directory'] + '/snapshot.json'
-    if plan.get('snapshot') != 'sha256:' + sha(within(root, snapshot_name)) or plan.get('version') != snapshot['catalog']['version']:
+    if plan.get('snapshot') != 'sha256:' + sha(within(root, snapshot_name)) or plan.get('version') != snapshot['catalog']['version'] or plan.get('hash') != snapshot['hash']:
         raise ValueError('contract plan describes another snapshot')
     want = required_cases(snapshot)
     planned = {case['case']: case for case in plan.get('cases', [])}

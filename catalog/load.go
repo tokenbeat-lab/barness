@@ -70,7 +70,7 @@ func Load(raw []byte) (ai.Catalog, Report, error) {
 	for _, group := range groups {
 		for _, entry := range group.entries {
 			id := partialIdentity(group.op, entry)
-			if id.Provider != "" && id.API != "" && id.ID != "" {
+			if strings.TrimSpace(string(id.Provider)) != "" && strings.TrimSpace(string(id.API)) != "" && strings.TrimSpace(id.ID) != "" {
 				identities[id]++
 			}
 		}

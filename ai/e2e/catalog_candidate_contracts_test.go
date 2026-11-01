@@ -80,7 +80,7 @@ func TestCatalogCandidateContracts(t *testing.T) {
 		}
 	}
 	for _, m := range cat.Models {
-		scenes := []string{"load-query", "basic", "history-tools", "input-modalities", "parameters", "authorization"}
+		scenes := []string{"load-query", "basic", "cache-usage", "history-tools", "input-modalities", "parameters", "authorization"}
 		if m.Reasoning {
 			scenes = append(scenes, "reasoning")
 		}

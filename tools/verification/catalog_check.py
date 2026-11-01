@@ -87,7 +87,9 @@ def inspect(root, prepared_name, receipt_name):
     snapshot = json_file(out / 'snapshot.json')
     if base64.b64decode(candidate['snapshot'], validate=True) != (out / 'snapshot.json').read_bytes():
         raise ValueError('candidate result bytes changed')
-    return verify_receipt(root, prepared, selected_inputs(root, prepared), receipt_name, snapshot)
+    result = verify_receipt(root, prepared, selected_inputs(root, prepared), receipt_name, snapshot)
+    result.update(candidateId=candidate['id'], baseDigest=candidate['baseDigest'])
+    return result
 
 
 def main():
