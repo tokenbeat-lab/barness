@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"os"
 	"os/exec"
@@ -14,6 +15,8 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
+
+var catalogSubprocessRace = flag.Bool("catalog-subprocess-race", false, "build catalog CLI with the race detector")
 
 // The compiled public CLI is the seam. Its read-only commands must leave even
 // a nonexistent store absent; no implementation file layout is asserted.
@@ -45,7 +48,12 @@ func TestCatalogMaintenanceCLIReadOnly(t *testing.T) {
 func buildCatalogCLI(t *testing.T, ev *evidence.Case) string {
 	t.Helper()
 	binary := filepath.Join(t.TempDir(), "catalogctl")
-	cmd := exec.CommandContext(ctxFor(t), "go", "build", "-o", binary, "./cmd/catalogctl")
+	args := []string{"build"}
+	if *catalogSubprocessRace {
+		args = append(args, "-race")
+	}
+	args = append(args, "-o", binary, "./cmd/catalogctl")
+	cmd := exec.CommandContext(ctxFor(t), "go", args...)
 	cmd.Dir = "../.."
 	out, err := cmd.CombinedOutput()
 	exit := commandExit(err)
