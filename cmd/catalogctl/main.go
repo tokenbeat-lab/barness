@@ -32,6 +32,13 @@ func main() {
 		os.Exit(1)
 	}
 	if result != nil {
+		if raw, ok := result.(rawOutput); ok {
+			if _, err := os.Stdout.Write(raw); err != nil {
+				fmt.Fprintln(os.Stderr, "write output:", err)
+				os.Exit(1)
+			}
+			return
+		}
 		if err := json.NewEncoder(os.Stdout).Encode(result); err != nil {
 			fmt.Fprintln(os.Stderr, "write result:", err)
 			os.Exit(1)
@@ -39,9 +46,11 @@ func main() {
 	}
 }
 
+type rawOutput []byte
+
 func execute(args []string) (any, error) {
 	if len(args) == 0 || args[0] == "help" || args[0] == "--help" || args[0] == "-h" {
-		return map[string]any{"status": "help", "commands": []string{"versions", "history", "candidate", "add", "withdraw", "restore"}}, nil
+		return map[string]any{"status": "help", "commands": []string{"versions", "history", "candidate", "export", "add", "revise", "withdraw", "restore"}}, nil
 	}
 	command := args[0]
 	flags := flag.NewFlagSet(command, flag.ContinueOnError)
@@ -63,6 +72,7 @@ func execute(args []string) (any, error) {
 	sourceModel := flags.String("source-model", "", "source offering key (defaults to --model)")
 	definitionPath := flags.String("definition", "", "explicit manual JSON definition/overlay")
 	decisionsPath := flags.String("decisions", "", "JSON pointer field decisions with ownership/reasons")
+	exportState := flags.Bool("state", false, "export selected approved maintenance state instead of runtime bytes")
 	if err := flags.Parse(args[1:]); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return map[string]any{"status": "help", "command": command}, nil
@@ -83,15 +93,21 @@ func execute(args []string) (any, error) {
 			versions[p.ID] = p.Version
 		}
 		return map[string]any{"status": "current", "revision": current.ID, "versions": versions}, nil
+	case "export":
+		raw, err := maintenance.Export(*store, *exportState)
+		if err != nil {
+			return nil, err
+		}
+		return rawOutput(raw), nil
 	case "history":
 		history, err := maintenance.History(*store)
 		return map[string]any{"status": "history", "history": history}, err
 	case "candidate":
 		candidate, err := maintenance.ReadCandidate(*store, *id)
 		return map[string]any{"status": "awaiting_check", "candidate": candidate, "changes": candidate.Changes}, err
-	case "add", "withdraw", "restore":
+	case "add", "revise", "withdraw", "restore":
 		request := maintenance.ChangeRequest{Action: command, Identity: maintenance.Identity{Operation: ai.Operation(*op), Provider: ai.ProviderID(*provider), API: ai.API(*api), ID: *model}, Reason: *reason, SourceProvider: *sourceProvider, SourceModel: *sourceModel}
-		if command == "add" {
+		if command == "add" || (command == "revise" && (*sourcePath != "" || *sourceProvider != "")) {
 			source, err := maintenance.AcquireSource(context.Background(), *sourcePath, *sourceURL, *sourceTime)
 			if err != nil {
 				return nil, err

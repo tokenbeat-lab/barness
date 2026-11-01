@@ -39,3 +39,12 @@ Implemented read-only help/query/preview, explicit confirmation, immutable candi
 - Mapping red/green: `20261101T094616.077064Z-wl0__980` FAIL/1 → `20261101T094718.733120Z-a8fqg1hm` PASS/0.
 - Field diff red/green: `20261101T094828.330841Z-4bokcpiw` FAIL/1 → `20261101T094851.275222Z-ujj5zm3u` PASS/0.
 - Latest command: `go test -json ./ai/e2e -run '^TestCatalogMaintenanceCLI(ReadOnly|Freeze|SourceMapping)$' -count=1 -timeout=5m`, through run.py with each catalog/cmd Go/JSON input explicitly bound. Actual required IDs CATALOG-T04-cli-read-only, CATALOG-T06-cli-freeze-immutable, CATALOG-T02-cli-serving-mapping completed; native manifest/audit retained under that attempt. Actual tested HEAD f8e234c928c5d901361707322739ed3425e29563 plus captured uncommitted source/input inventories; this is not a final frozen delivery receipt.
+
+### Explicit revision and approved export slice
+
+- Export/generator red `20261101T095007.116625Z-3r1dm3b7` FAIL/1 → green `20261101T095043.269036Z-90aa2rlk` PASS/0.
+- Manual revise red `20261101T095103.178533Z-chrhdnha` FAIL/1 → five-group green `20261101T095123.587497Z-y8wwtrcq` PASS/0.
+- Candidate object substitution red `20261101T095209.404824Z-42pw1k45` FAIL/1; following six-group receipt retained below.
+- `catalogctl export` outputs selected approved Snapshot bytes or State (`--state`) without writes. `cataloggen` accepts `--state`, `--store`, or explicit `--builtin`; writes require explicit source/confirmation and atomic replacement. `go generate ./ai` now verifies reviewed checked-in source with `--check`, so it cannot reset an applied artifact.
+
+Six-group command `go test -json ./ai/e2e -run '^TestCatalogMaintenanceCLI(ReadOnly|Freeze|SourceMapping|Export|Revise|CandidateTamper)$' -count=1 -timeout=5m` via collector: `.evidence/barness-ai-dynamic-catalog/e2e/20261101T095220.314644Z-e32kloj8/receipt.json` PASS/actual exit0; explicit catalog/cmd input inventory and native audit retained.

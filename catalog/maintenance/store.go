@@ -73,6 +73,9 @@ func ReadCandidate(store, id string) (Candidate, error) {
 	if err := decode(raw, &candidate); err != nil {
 		return Candidate{}, failure("candidate_changed", "invalid candidate: %v", err)
 	}
+	if candidate.ID != id {
+		return Candidate{}, failure("candidate_changed", "candidate object differs from the requested identity")
+	}
 	if err := validateCandidate(candidate); err != nil {
 		return Candidate{}, err
 	}

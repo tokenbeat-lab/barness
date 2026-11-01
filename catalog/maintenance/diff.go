@@ -29,6 +29,12 @@ func stateChanges(before, after State) []FieldChange {
 				changes = append(changes, FieldChange{Identity: identity, Field: "/lifecycle", Before: a, After: b})
 			}
 			changes = append(changes, definitionChanges(identity, "", previous.Definition, entry.Definition)...)
+			oldSource, _ := json.Marshal(previous.Source)
+			nextSource, _ := json.Marshal(entry.Source)
+			changes = append(changes, definitionChanges(identity, "/maintenance/source", oldSource, nextSource)...)
+			oldFields, _ := json.Marshal(previous.Fields)
+			nextFields, _ := json.Marshal(entry.Fields)
+			changes = append(changes, definitionChanges(identity, "/maintenance/fields", oldFields, nextFields)...)
 		}
 	}
 	return changes

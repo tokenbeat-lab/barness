@@ -152,3 +152,50 @@ func TestCatalogMaintenanceCLIFreeze(t *testing.T) {
 	after, err := os.ReadFile(badStore)
 	ev.Check("save failure leaves original path intact", exit != 0 && err == nil && string(after) == "untouched", "exit=%d err=%v output=%s", exit, err, out)
 }
+
+func TestCatalogMaintenanceCLICandidateTamper(t *testing.T) {
+	ev := run.Case(t, "CATALOG-T06-cli-candidate-path-binding")
+	binary := buildCatalogCLI(t, ev)
+	if binary == "" {
+		return
+	}
+	store := filepath.Join(t.TempDir(), "store")
+	ids := []string{}
+	for _, model := range []string{"gpt-4", "gpt-4.1"} {
+		out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", model, "--reason", "tamper fixture", "--confirm")
+		var result struct {
+			Candidate struct {
+				ID string `json:"id"`
+			} `json:"candidate"`
+		}
+		_ = json.Unmarshal(out, &result)
+		if !ev.Check("valid public candidate is prepared", exit == 0 && result.Candidate.ID != "", "exit=%d output=%s", exit, out) {
+			return
+		}
+		ids = append(ids, result.Candidate.ID)
+	}
+	objects := map[string][]byte{}
+	paths := map[string]string{}
+	filepath.WalkDir(store, func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() {
+			return err
+		}
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		var object struct {
+			ID string `json:"id"`
+		}
+		if json.Unmarshal(raw, &object) == nil {
+			objects[object.ID] = raw
+			paths[object.ID] = path
+		}
+		return nil
+	})
+	if err := os.WriteFile(paths[ids[0]], objects[ids[1]], 0600); err != nil {
+		t.Fatal(err)
+	}
+	out, exit := invokeCatalogCLI(t, ev, binary, "candidate", "--store", store, "--id", ids[0])
+	ev.Check("requested identity cannot resolve another valid object", exit != 0, "exit=%d output=%s", exit, out)
+}

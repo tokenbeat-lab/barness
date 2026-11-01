@@ -46,6 +46,12 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 			return Proposal{}, err
 		}
 		request.Identity = entryIdentity(entry)
+	case "revise":
+		var err error
+		diagnostics, err = reviseEntry(&state, request)
+		if err != nil {
+			return Proposal{}, err
+		}
 	default:
 		return Proposal{}, failure("invalid_argument", "unknown maintenance action %q", request.Action)
 	}
@@ -53,7 +59,11 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 	if err != nil {
 		return Proposal{}, failure("invalid_definition", "%v", err)
 	}
-	if !changed {
+	nextDigest, err := stateDigest(state)
+	if err != nil {
+		return Proposal{}, err
+	}
+	if !changed && nextDigest == current.ID {
 		return Proposal{Status: "unchanged"}, nil
 	}
 	snapshot, err := Generate(state)
