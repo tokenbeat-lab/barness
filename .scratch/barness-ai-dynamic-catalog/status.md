@@ -3,13 +3,13 @@
 Updated: 2026-11-01
 Implementation: COMPLETE
 Ordinary verification: PASS
-Release: 见只读报告
+Release: PASS（只读门禁）
 
 ## Scope and source
 
 - 集成分支：`codex/barness-catalog-integration`。规格及工单01–05均已实施并解决；未合并其他用户分支或发布。
 - 基准：`9a43ec0827b0ab794501682a7e66037a592a2f8d`。实际完整受测提交：`d695b3c5ddf113ac4e3c81c6659461b288bb977e`。
-- 旧受测提交 d695 与当时文档收尾提交的2153个来源及150输入相等性见 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/source-closure-v1.json`。新增测试后完整普通受测 c4d；后续测试helper变更后，针对性普通、race、压力均受测 f397，2154来源及150输入相等。
+- 旧受测提交 d695 与当时文档收尾提交的2153个来源及150输入相等性见 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/source-closure-v1.json`。新增测试后的历史完整普通受测 c4d；中间版本针对性普通、race、压力受测 f397。最终完整普通、race、压力受测 ada85，当前收尾提交与其2154来源及150输入相等。
 - 交付：独立本地加载/隔离报告；按Provider维护的唯一数据源与同源生成；完整维护CLI；冻结候选、逐身份受控合约、check/apply、导出/回退与可重放来源；维护指南见 [catalog-maintenance](../../docs/barness-ai/catalog-maintenance.md)。
 - 初始118条定义（112聊天、3图片、3分类）的顺序、字段、null/缺省及价格保留。当前默认整体身份由维护内容生成；中文评测增加v3配置，当前用量断言改用当前快照。旧快照、旧配置、实测原件、pin与支持矩阵保持历史事实。
 - 完整输入：49个本功能实现/数据/来源审阅文件，加101个旧公共测试实际执行脚本和导入夹具；按文件固定150项。默认来源覆盖ai、验证工具及go.mod/go.sum；旧完整普通时2153文件，当前受测来源2154文件。完整清单在阶段回执与 [发布记录](release-record-v1.json)。
@@ -57,14 +57,14 @@ c4d0a905 的完整普通回执 `.evidence/barness-ai-dynamic-catalog/e2e/2026110
 | 阶段 | 实际状态 | 范围/依据 |
 | --- | --- | --- |
 | ordinary | PASS / exit0 | ada85f43完整受影响包，17708 Go PASS、244 SKIP，1222.76秒；主包16864 PASS、226 NOT_RUN，4包audit无发现 |
-| native evidence | PASS | 唯一主包16862 PASS、222 NOT_RUN；3个受控辅助包115 PASS；全部audit无发现 |
+| native evidence | PASS | 唯一主包16864 PASS、226 NOT_RUN；3个受控辅助包，全部audit无发现 |
 | build | PASS / exit0 | `go build ./ai/... ./catalog/... ./cmd/...`，2.271177秒 |
 | vet | PASS / exit0 | `go vet ./ai/... ./catalog/... ./cmd/...`，1.761515秒 |
 | gate binary build | PASS / exit0 | 冻结来源编译releasegate，2.140633秒；二进制/实际argv见元数据回执 |
 | live | NOT_APPLICABLE | 无新增厂商事实需求；既有定义精确迁移，路由/分类判断为已审等价提取，新增接纳验证不改变有效旧请求；来源有限审阅见source-review及v2/v3。受控live-tag子包不取得真实资格 |
 | race | PASS / exit0 | ada85f43同范围752.97秒；118身份1020合约，1140原生case，输出632文件无DATA RACE |
 | pressure | PASS / exit0 | ada85f43四case通过，26.02秒；512/2048条各8读取，4写者两轮 |
-| read-only release | 见报告 | 同源完整普通、race与压力的新记录及实际结果见 `.evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/releasegate-report-v4/release-report.json`；旧v3因来源差异拒绝的报告保留 |
+| read-only release | 见报告 | 同源完整普通、race与压力的新记录及实际结果见 `.evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/releasegate-report-v5/release-report.json`；旧v3因来源差异拒绝的报告保留 |
 
 完整普通实际命令：
 
@@ -81,8 +81,8 @@ go test -json -failfast ./ai/e2e ./ai ./catalog/... ./cmd/... -count=1 -timeout=
 - 主manifest：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T122739.442924Z-ztjtxwmz/bundles/20261101T122744.713185000Z/manifest.json`，SHA256 `27cfbac9a0e0a4e5f0fcfd6b5d1fca6ff9dd84fac23b76cb7f7da1f6b4a25ea6`；audit SHA256 `8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa`。
 - 已核对118个身份、1020个逐场景Go测试及原生case实际PASS，完整计划与加载报告匹配；各前序工单1299个必需case均在最终主包PASS。空目录另由公共完整check/apply及固定空合约证据核验。
 - build/vet/判定工具编译的元数据回执均位于 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/`，来源和150个输入与完整普通一致；它们不冒充主E2E。
-- [只读发布输入](release-record-v1.json)绑定当前状态内容摘要、阶段原件和有限完整requiredCases。最终机器判定：`.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/release-evaluation-v1.json`；报告：`.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/releasegate-report-v1/release-report.json`。判定不会启动后续测试或厂商请求。
-- race候选的具体完整argv、150输入、预计耗时与保留/未覆盖范围：`.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/manual-race-proposal-v1.json`；它尚未被人类选择，CLI子进程插桩及压力负载仍未选定，不作完整race资格承诺。
+- 历史[只读发布输入](release-record-v1.json)和当时机器判定：`.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/release-evaluation-v1.json`；报告：`.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/releasegate-report-v1/release-report.json`。判定不会启动后续测试或厂商请求。
+- race候选的具体完整argv、150输入、预计耗时与保留/未覆盖范围：`.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/manual-race-proposal-v1.json`；它是当时尚未选择的历史提案，后续实际选择和结果见上方。
 
 ## Retained failures and process facts
 
@@ -94,4 +94,4 @@ go test -json -failfast ./ai/e2e ./ai ./catalog/... ./cmd/... -count=1 -timeout=
 
 修复工作树已由应用归档，list_artifacts确认；其余5个工作树归档请求均被应用拒绝：`Another active task still uses this worktree.`。所需终态证据/传递输入已复制并核验，全部代码已合并；未绕过占用保护或手工删除。原始操作与归档观察见 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T122739.037712Z-28e2e9d7/worktree-cleanup-v2.json`。
 
-本轮仅交付集成分支。维护数据回退按指南创建恢复旧内容的新候选，重新check后apply，保留追加历史；不手工覆盖current。软件回滚可切回原功能分支/固定基准审阅恢复；本轮未执行真实数据清理或发布。普通完成、未运行人工阶段与完整发布通过分别表达：`release.pass=false`。
+本轮仅交付集成分支。维护数据回退按指南创建恢复旧内容的新候选，重新check后apply，保留追加历史；不手工覆盖current。软件回滚可切回原功能分支/固定基准审阅恢复；本轮未执行真实数据清理或发布。本轮只读门禁结果见新版报告；未执行实际发布。
