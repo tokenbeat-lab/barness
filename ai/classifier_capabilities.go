@@ -7,66 +7,78 @@ import (
 	"strconv"
 )
 
+// classifierModelIssue keeps the existing validation result and identifies a
+// supported value that exceeds the implemented protocol subset. The same rule
+// supplies legacy configuration errors and the local loader's typed diagnosis.
+type classifierModelIssue struct {
+	message     string
+	unsupported bool
+}
+
 func classifierModelProblem(m ClassifierModel) string {
+	return classifierDefinitionIssue(m).message
+}
+
+func classifierDefinitionIssue(m ClassifierModel) classifierModelIssue {
 	if problem := modalitiesProblem(m.Input); problem != "" {
-		return problem
+		return classifierModelIssue{message: problem}
 	}
 	if len(m.Input) > 0 && !slices.Contains(m.Input, ModalityText) {
-		return "classifier input must include text"
+		return classifierModelIssue{message: "classifier input must include text"}
 	}
 	c := m.Capabilities
 	image := slices.Contains(m.Input, ModalityImage)
 	if c.MaxInputImages < 0 || (image && (c.MaxInputImages == 0 || len(c.ImageMIMETypes) == 0)) || (!image && (c.MaxInputImages != 0 || len(c.ImageMIMETypes) > 0)) {
-		return "classifier image declarations are inconsistent"
+		return classifierModelIssue{message: "classifier image declarations are inconsistent"}
 	}
 	jev := m.Provider == ProviderTypeSafe && m.API == APITypeSafeSystemOne && m.ID == "jev-1.14.0"
 	decisions := m.Provider == ProviderOpenAI && m.API == APIOpenAIDecisions && c.MaxInputImages <= decisionsImageLimit
 	if image && !jev && !decisions {
-		return "classifier image declaration exceeds the implemented protocol"
+		return classifierModelIssue{message: "classifier image declaration exceeds the implemented protocol", unsupported: true}
 	}
 	if slices.Contains(c.Kinds, ClassifierQuestionBox) && (!jev || !image || (!slices.Contains(c.ImageLocations, ClassifierImageLocationContext) && !slices.Contains(c.ImageLocations, ClassifierImageLocationState) && !slices.Contains(c.ImageLocations, ClassifierImageLocationInstructions))) {
-		return "Box requires the fixed Jev image protocol and a visible image location"
+		return classifierModelIssue{message: "Box requires the fixed Jev image protocol and a visible image location", unsupported: !jev}
 	}
 	seenLocations := map[ClassifierImageLocation]bool{}
 	for _, location := range c.ImageLocations {
 		if !image || seenLocations[location] {
-			return "classifier image locations are inconsistent or duplicated"
+			return classifierModelIssue{message: "classifier image locations are inconsistent or duplicated"}
 		}
 		switch location {
 		case ClassifierImageLocationContext:
 		case ClassifierImageLocationState, ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
 			if !jev {
-				return "classifier image location exceeds the implemented protocol"
+				return classifierModelIssue{message: "classifier image location exceeds the implemented protocol", unsupported: true}
 			}
 		default:
-			return "unknown classifier image location"
+			return classifierModelIssue{message: "unknown classifier image location"}
 		}
 		seenLocations[location] = true
 	}
 	if image && jev && len(c.ImageLocations) == 0 {
-		return "Jev image locations must be explicitly declared"
+		return classifierModelIssue{message: "Jev image locations must be explicitly declared"}
 	}
 	seenMIME := map[string]bool{}
 	for _, mime := range c.ImageMIMETypes {
 		if !classifierImageMIME(mime) || seenMIME[mime] || (jev && mime == "image/webp") {
-			return "classifier image MIME is unknown or duplicated"
+			return classifierModelIssue{message: "classifier image MIME is unknown or duplicated"}
 		}
 		seenMIME[mime] = true
 	}
 	if c.MinChoices < 0 || c.MinChoices > c.MaxChoices || (c.MinChoices != 0 && !slices.Contains(c.Kinds, ClassifierQuestionChoice)) {
-		return "classifier minimum choices do not match its question kinds or maximum"
+		return classifierModelIssue{message: "classifier minimum choices do not match its question kinds or maximum"}
 	}
 	seen := map[ClassifierDescriptionFormat]bool{}
 	for _, f := range c.DescriptionFormats {
 		if (f != ClassifierDescriptionString && f != ClassifierDescriptionObject && f != ClassifierDescriptionArray) || seen[f] {
-			return "classifier description format is unknown or duplicated"
+			return classifierModelIssue{message: "classifier description format is unknown or duplicated"}
 		}
 		seen[f] = true
 	}
 	if m.Provider == ProviderOpenAI && m.API == APIOpenAIDecisions && (c.MinChoices < 2 || !slices.Equal(c.DescriptionFormats, []ClassifierDescriptionFormat{ClassifierDescriptionString})) {
-		return "Decisions requires at least two choices and string descriptions"
+		return classifierModelIssue{message: "Decisions requires at least two choices and string descriptions"}
 	}
-	return ""
+	return classifierModelIssue{}
 }
 
 func classifierQuestionFormats(q ClassifierQuestion, formats []ClassifierDescriptionFormat, rootImage func(string) bool) bool {
