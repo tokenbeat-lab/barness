@@ -44,6 +44,12 @@ func TestCatalogCandidateDataOnlyAndCodeGap(t *testing.T) {
 			ev.Check("missing route is code gap with retained candidate", exit != 0 && failed.Category == "code_gap" && failed.Result.Reference != "", "%s", out)
 			_, err := os.Stat(filepath.Join(store, "current.json"))
 			ev.Check("code gap never changes effective directory", os.IsNotExist(err), "%v", err)
+			query, queryExit := invokeCatalogCLI(t, ev, binary, "candidate", "--store", store, "--id", frozen.Candidate.ID, "--repo", root, "--check", failed.Result.Reference)
+			var state struct {
+				Status string `json:"status"`
+			}
+			_ = json.Unmarshal(query, &state)
+			ev.Check("query distinguishes retained code gap", queryExit == 0 && state.Status == "code_gap", "%s", query)
 			continue
 		}
 		var check maintenance.CheckResult

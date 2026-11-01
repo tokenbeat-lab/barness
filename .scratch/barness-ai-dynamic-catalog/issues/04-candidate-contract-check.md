@@ -46,3 +46,5 @@ T05、T06、T11、T12、T13；CLI → 真实受控检查 → apply → 加载 �
 - 自定义尺寸：`20261101T101238.923915Z-4ywmwbks` FAIL/exit1 揭示能力已声明但未实际发送；`20261101T101501.342723Z-eqs4a1ui` PASS/exit0 验证固定512x512、数量2的独立 wire 预期及自定义边界/图片选项传递。
 
 所有目录均位于 `.evidence/barness-ai-dynamic-catalog/e2e/<attempt>/receipt.json`，保留实际来源/输入、真实退出及原生清单；最新集成来源与完整受影响普通验证由协调者收尾。
+
+- 显式状态查询：`20261101T101645.863881Z-xpml1qua` FAIL/exit1（原 candidate 查询无 check/ref 合同），`20261101T101749.657878Z-r2p3b3kc` PASS/exit0。`candidate --check <check.json> --repo <root>` 对 applicable 重做严格验证；真实失败引用显示 code_gap 等独立状态，自报 PASS 不取得可应用状态。不引入可变候选状态或 floating latest。
