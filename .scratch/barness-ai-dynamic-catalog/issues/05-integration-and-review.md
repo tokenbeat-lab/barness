@@ -67,3 +67,15 @@ T01–T13；普通证据、全部必需实际场景及 audit，状态/索引一�
 代码提交 `3c4aa26c`，随后合并集成文档到 `fc80dded20a1efca329bc5959981187ebf2423e3`。全部 ChineseEvaluation / ClassifierHostMigration 公共场景及 `./ai/examples/chineseeval/...` 辅助编译 GREEN `.evidence/barness-ai-dynamic-catalog/e2e/20261101T115649.314914Z-f96u209c/receipt.json`，PASS/exit0、16.0334 秒、125 个 Go 测试、114 原生 PASS、audit0。配置 JSON 自动纳入 ai 来源，额外输入仍为 49 项；提交/合并后的完整源码与输入集合逐项等于实际受测字节。原 RED 和终态 GREEN 共 625 文件、12,588,246 字节已复制到根工作区并逐文件核验，没有覆盖原件。
 
 原件、argv、测量 HEAD 与提交后来源相等性、旧文件哈希、必需场景及复制库存见 [中文目录消费者不可变索引](../chinese-catalog-consumer-verification-v1.json) 和 [复制回执](../chinese-catalog-consumer-copy-v1.json)。原审查修复索引保持不变。本工单仍 claimed，当前状态由主 agent 维护；本轮未执行付费、race 或压力，也不产生完整发布通过。
+
+## Final regression follow-up — 用量测试的当前目录身份
+
+2026-11-01：完整 failfast 回归形成原生终态 `FAIL/exit1`，原 attempt `20261101T120832.859224Z-9yrkrfox` 保持。用量场景执行到 `builtin-catalog-pinned` 后发现测试仍把当前 `BuiltinCatalog()` 与不可变的旧 release snapshot 比较；真实用量/价格场景与新目录身份正确。独立 RED `122358.133223Z-kune5iyd` 在相同公开子场景复现。failfast 的原生命令完整终止不等于未到达场景已完成或完整普通验证通过。
+
+最小修复仅改 `ai/e2e/usage_test.go`，代码 `aba70f3a9a8564442615f4151bd1abcbcc1c6a27`：当前发现读取 `ai/catalog_builtin.json` 完整 typed Catalog，重新计算并核对声明 hash，再比较公共 BuiltinCatalog 的版本/hash；保留价格变更与非法价格 guard。不写入新的目录身份常量；后续仅数据维护无需改 Go 定义。原 118 定义、价格、顺序和缺省语义仍由独立历史源迁移 E2E 比较，历史 release snapshot 未被替换或更新。
+
+已审查 active ai Go/JSON/Markdown 和 docs 的旧版本、完整旧 hash、历史快照路径及日期型版本断言；逐路径结论见 [引用审计](../catalog-identity-reference-audit-v1.md)。未发现其他未处理的当前旧身份消费者。剩余命中属于三份中文 v2 配置、原 catalog/迁移校验、xAI 原激活事实、按实测提交读取的历史重放、合成历史负例及历史 ADR；现有当前图片/中文 helper 已读取生成数据。没有批量替换、历史字节改写或资格豁免。
+
+GREEN `.evidence/barness-ai-dynamic-catalog/e2e/20261101T122442.177998Z-undt6sjm/receipt.json`，SHA `9bfd13a8ff812e5fe9c0e1a28c79c5d7266d6f38153961a486c0f30a376db8c0`，PASS/exit0、5.6122 秒；94 个实际 Go PASS、89 原生 PASS、audit0。实际集合含完整 UsageAndCost、独立初迁移/历史对照、CatalogSnapshot/OperationCatalogHash、当前中文配置、Google 图片目录、xAI 目录/限额/留存回放；完整测试库存见 [不可变索引](../usage-catalog-consumer-verification-v1.json)。RED/GREEN 原件共 587 文件、18,268,809 字节已终态复制并逐文件核验，[复制库存](../usage-catalog-consumer-copy-v1.json) SHA 为 `d2b6633bcf34caaa949accc7998a2bd296b99432c4ee74ec17d3e54d1288391b`。提交/集成文档合并后的实际源码与受测输入相等。
+
+本工单仍 claimed；完整普通/build/vet 由主 agent 在最终合并和双轴复核后冻结重跑，status.md 不由本实现者编辑。本轮仅测试断言变更，未执行付费、race 或压力，也不声明完整发布通过。
