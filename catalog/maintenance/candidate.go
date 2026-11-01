@@ -123,14 +123,6 @@ func failure(category, format string, args ...any) error {
 	return &Error{Category: category, Message: fmt.Sprintf(format, args...)}
 }
 
-func stateDigest(state State) (string, error) {
-	raw, err := json.Marshal(state)
-	if err != nil {
-		return "", err
-	}
-	return digest(raw), nil
-}
-
 func candidateDigest(candidate Candidate) (string, error) {
 	candidate.ID = ""
 	raw, err := json.Marshal(candidate)

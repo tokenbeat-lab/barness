@@ -12,6 +12,14 @@ from receipt_files import json_file, save, sha, source_snapshot, within
 from catalog_check_receipt import verify_receipt
 
 
+def fixed_argv(directory, timeout):
+    if type(timeout) is not int or not 1 <= timeout <= 1200:
+        raise ValueError('timeout must be an integer in 1..1200 seconds')
+    return ['go', 'test', '-json', './ai/e2e', '-run', '^TestCatalogCandidateContracts$',
+            '-count=1', '-timeout=' + str(timeout) + 's', '-args', '-catalog-candidate',
+            directory + '/snapshot.json']
+
+
 def extra_sources(root):
     files = {}
     for scope in ('catalog', 'cmd'):
@@ -31,6 +39,7 @@ def extra_sources(root):
 
 
 def prepare(root, directory, feature, timeout):
+    argv = fixed_argv(directory, timeout)
     out = within(root, directory)
     candidate = json_file(out / 'candidate.json')
     if base64.b64decode(candidate['snapshot'], validate=True) != (out / 'snapshot.json').read_bytes():
@@ -47,9 +56,6 @@ def prepare(root, directory, feature, timeout):
             raise ValueError('source changed while freezing')
     if source_snapshot(root) != source or extra_sources(root) != extra:
         raise ValueError('implementation changed while freezing')
-    snapshot = str((out / 'snapshot.json').relative_to(root))
-    argv = ['go', 'test', '-json', './ai/e2e', '-run', '^TestCatalogCandidateContracts$',
-            '-count=1', '-timeout=' + str(timeout) + 's', '-args', '-catalog-candidate', snapshot]
     frozen = {name: sha(out / name) for name in ('candidate.json', 'snapshot.json', 'baseline.json')}
     manifest = {'schema': 1, 'directory': directory, 'feature': feature, 'timeout': timeout,
                 'source': source, 'extra': extra, 'originals': files, 'frozen': frozen, 'argv': argv}
@@ -68,6 +74,10 @@ def selected_inputs(root, prepared):
 
 def inspect(root, prepared_name, receipt_name):
     prepared = json_file(within(root, prepared_name))
+    if type(prepared.get('schema')) is not int or prepared['schema'] != 1:
+        raise ValueError('unsupported prepared schema')
+    if prepared.get('argv') != fixed_argv(prepared['directory'], prepared['timeout']):
+        raise ValueError('prepared command is not the fixed candidate contract entry')
     out = within(root, prepared['directory'])
     if prepared_name != prepared['directory'] + '/prepared.json':
         raise ValueError('prepared location changed')
@@ -106,8 +116,6 @@ def main():
     root = Path.cwd().resolve()
     try:
         if args.command == 'prepare':
-            if not 1 <= args.timeout <= 1200:
-                raise ValueError('timeout must be 1..1200 seconds')
             result = prepare(root, args.directory, args.feature, args.timeout)
         else:
             result = inspect(root, args.prepared, args.receipt)

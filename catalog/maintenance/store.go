@@ -37,8 +37,21 @@ func builtinRevision() (Revision, error) {
 	if err != nil {
 		return Revision{}, err
 	}
-	id, err := stateDigest(state)
-	return Revision{ID: id, State: state, Snapshot: snapshot, Change: Change{Action: "seed", Reason: "reviewed historical catalog migration"}}, err
+	revision := Revision{State: state, Snapshot: snapshot, Change: Change{Action: "seed", Reason: "reviewed historical catalog migration"}}
+	revision.ID, err = revisionDigest(revision)
+	return revision, err
+}
+
+// A revision identifies an immutable application, including its proof and
+// parent, rather than just catalog state. A fresh checked retry after a failed
+// output save can then retain the old orphan without an identity collision.
+func revisionDigest(revision Revision) (string, error) {
+	revision.ID = ""
+	raw, err := json.Marshal(revision)
+	if err != nil {
+		return "", err
+	}
+	return digest(raw), nil
 }
 
 func readRevision(store, id string) (Revision, error) {
@@ -54,9 +67,9 @@ func readRevision(store, id string) (Revision, error) {
 	if err := decode(raw, &revision); err != nil {
 		return Revision{}, failure("storage_failed", "invalid revision: %v", err)
 	}
-	digest, err := stateDigest(revision.State)
+	digest, err := revisionDigest(revision)
 	if err != nil || digest != id || revision.ID != id {
-		return Revision{}, failure("revision_changed", "revision identity does not match its state")
+		return Revision{}, failure("revision_changed", "revision identity does not match its immutable application")
 	}
 	expected, err := Generate(revision.State)
 	if err != nil || !bytes.Equal(expected, revision.Snapshot) {
