@@ -95,3 +95,5 @@ Implemented the complete maintenance CLI/source scope. Deterministic models.dev 
 Final verification: [immutable index](../maintenance-verification-20261101.json). Final combined ordinary at `80df087f` PASS/actual exit0; exact full tested SHA, command, selected inputs, required cases, manifest/audit hashes and source equality are in the index. This does not claim live qualification or release pass. All earlier red/failed attempts remain original.
 
 Top-level source/guide status remains root-owned. Root integration/code review and any independently authorized later stage are separate from this completed ticket.
+
+Post-verification integration: [source difference link](../maintenance-integration-link-20261101.json). Independent ticket04 empty-catalog source changed after the frozen03 receipt; aggregate current source validation remains root-owned.
