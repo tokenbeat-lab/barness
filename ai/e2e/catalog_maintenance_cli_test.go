@@ -5,9 +5,11 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sync/atomic"
 	"testing"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
@@ -60,6 +62,8 @@ func buildCatalogCLI(t *testing.T, ev *evidence.Case) string {
 	return binary
 }
 
+var catalogProcessSequence atomic.Uint64
+
 func invokeCatalogCLI(t *testing.T, ev *evidence.Case, binary string, args ...string) ([]byte, int) {
 	t.Helper()
 	cmd := exec.CommandContext(ctxFor(t), binary, args...)
@@ -71,7 +75,7 @@ func invokeCatalogCLI(t *testing.T, ev *evidence.Case, binary string, args ...st
 	// Artifact names use a digest of the actual argv; repeated calls preserve
 	// both observations through separate cases/scenarios in the caller.
 	sum := sha256.Sum256([]byte(cmd.String()))
-	name := "process-" + hex.EncodeToString(sum[:8])
+	name := fmt.Sprintf("process-%03d-%s", catalogProcessSequence.Add(1), hex.EncodeToString(sum[:8]))
 	ev.Record(name, map[string]any{"argv": cmd.Args, "exitCode": exit, "stdout": string(out), "stderr": stderr.String()})
 	return out, exit
 }

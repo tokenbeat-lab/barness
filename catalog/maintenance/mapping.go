@@ -123,7 +123,7 @@ func mapNewEntry(request ChangeRequest) (Entry, []Diagnostic, error) {
 			return Entry{}, nil, failure("mapping_conflict", "manual definition changes serving identity %s", key)
 		}
 	}
-	diagnostics = resolveRequiredFields(definition, operation, diagnostics)
+	diagnostics = resolveRequiredFields(definition, operation, diagnostics, fields)
 	raw, err := json.Marshal(definition)
 	if err != nil {
 		return Entry{}, nil, err

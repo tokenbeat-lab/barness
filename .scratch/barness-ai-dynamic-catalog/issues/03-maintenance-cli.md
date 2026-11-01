@@ -48,3 +48,9 @@ Implemented read-only help/query/preview, explicit confirmation, immutable candi
 - `catalogctl export` outputs selected approved Snapshot bytes or State (`--state`) without writes. `cataloggen` accepts `--state`, `--store`, or explicit `--builtin`; writes require explicit source/confirmation and atomic replacement. `go generate ./ai` now verifies reviewed checked-in source with `--check`, so it cannot reset an applied artifact.
 
 Six-group command `go test -json ./ai/e2e -run '^TestCatalogMaintenanceCLI(ReadOnly|Freeze|SourceMapping|Export|Revise|CandidateTamper)$' -count=1 -timeout=5m` via collector: `.evidence/barness-ai-dynamic-catalog/e2e/20261101T095220.314644Z-e32kloj8/receipt.json` PASS/actual exit0; explicit catalog/cmd input inventory and native audit retained.
+
+### Source edge coverage
+
+- Projected tier gap: red `.evidence/barness-ai-dynamic-catalog/e2e/20261101T095330.594947Z-znsu4ts_/receipt.json` FAIL/1; source/tier green `20261101T095350.379015Z-54es5fgw` PASS/0.
+- Broader boundary receipt `20261101T095425.364277Z-vagd4bc9` PASS/0 verifies explicit moonshotai/moonshotai-cn/zhipuai association, regional mismatch refusal, missing type chat-only confirmation, explicit independent API associations, decision→classifier capability confirmation and source-unavailable category.
+- New evidence uses unique per-invocation artifact names even for identical argv, preserving all observations after changed input files. Original older attempts remain unchanged.

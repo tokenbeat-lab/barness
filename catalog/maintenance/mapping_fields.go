@@ -3,6 +3,7 @@ package maintenance
 import (
 	"bytes"
 	"encoding/json"
+	"slices"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -13,7 +14,8 @@ func mapBaseCost(offering map[string]json.RawMessage) (map[string]any, []Diagnos
 	diagnostics := []Diagnostic{}
 	var source map[string]json.RawMessage
 	_ = json.Unmarshal(offering["cost"], &source)
-	for sourceKey, targetKey := range map[string]string{"input": "input", "output": "output", "cache_read": "cacheRead", "cache_write": "cacheWrite"} {
+	for _, pair := range [][2]string{{"input", "input"}, {"output", "output"}, {"cache_read", "cacheRead"}, {"cache_write", "cacheWrite"}} {
+		sourceKey, targetKey := pair[0], pair[1]
 		raw, exists := source[sourceKey]
 		if !exists || bytes.Equal(raw, []byte("null")) {
 			continue
@@ -25,11 +27,22 @@ func mapBaseCost(offering map[string]json.RawMessage) (map[string]any, []Diagnos
 		}
 		cost[targetKey] = rate
 	}
+	keys := make([]string, 0, len(source))
 	for key := range source {
+		keys = append(keys, key)
+	}
+	slices.Sort(keys)
+	tierSeen := false
+	for _, key := range keys {
 		switch key {
 		case "input", "output", "cache_read", "cache_write":
+		case "tiers", "context_over_200k":
+			if !tierSeen {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "lossy", Field: "/cost/tiers", Message: "projected context size loses gt/gte; define complete target tiers and explicitly confirm strict greater-than boundaries", Blocking: true})
+				tierSeen = true
+			}
 		default:
-			diagnostics = append(diagnostics, Diagnostic{Kind: "confirmation", Field: "/cost/" + key, Message: "conditional, tiered or modality prices require an explicit compatible manual definition"})
+			diagnostics = append(diagnostics, Diagnostic{Kind: "unsupported_definition", Field: "/cost/" + key, Message: "conditional or modality rate cannot be silently collapsed into base token prices", Blocking: true})
 		}
 	}
 	return cost, diagnostics
@@ -69,7 +82,31 @@ func mergeDefinition(target, overlay map[string]any, prefix string, fields map[s
 	}
 }
 
-func resolveRequiredFields(definition map[string]any, operation ai.Operation, diagnostics []Diagnostic) []Diagnostic {
+func resolveRequiredFields(definition map[string]any, operation ai.Operation, diagnostics []Diagnostic, fields map[string]FieldDecision) []Diagnostic {
+	for i := range diagnostics {
+		diagnostic := &diagnostics[i]
+		if diagnostic.Kind == "lossy" && diagnostic.Field == "/cost/tiers" && fields["/cost/tiers"].Ownership == OwnershipManual {
+			cost, _ := definition["cost"].(map[string]any)
+			if tiers, ok := cost["tiers"].([]any); ok && len(tiers) > 0 {
+				diagnostic.Blocking = false
+				for _, tier := range tiers {
+					values, ok := tier.(map[string]any)
+					if !ok {
+						diagnostic.Blocking = true
+						continue
+					}
+					for _, field := range []string{"inputTokensAbove", "input", "output", "cacheRead", "cacheWrite"} {
+						if value, provided := values[field]; !provided || value == nil {
+							diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/cost/tiers/" + field, Message: "each target tier requires its explicit threshold and all four rates", Blocking: true})
+						}
+					}
+				}
+			}
+		}
+		if diagnostic.Kind == "invalid_definition" && strings.HasPrefix(diagnostic.Field, "/cost/") && fields[diagnostic.Field].Ownership == OwnershipManual {
+			diagnostic.Blocking = false
+		}
+	}
 	if operation == ai.OperationChat || operation == ai.OperationClassifier {
 		cost, _ := definition["cost"].(map[string]any)
 		for _, field := range []string{"input", "output", "cacheRead", "cacheWrite"} {
