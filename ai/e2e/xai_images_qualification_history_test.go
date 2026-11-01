@@ -67,7 +67,13 @@ func TestXAIImagesProducerOriginalDocuments(t *testing.T) {
 			want := name == "matching-original-git"
 			ev.Check("only original immutable document bytes may close collector omissions", (code == 0) == want && (proof["pass"] == true) == want, "exit=%d pass=%v", code, proof["pass"])
 			if want {
-				inputs := proof["inputs"].(map[string]any)
+				// An unexpected qualification refusal must remain a failed case with
+				// finalized evidence, rather than panic before TestMain can seal it.
+				inputs, ok := proof["inputs"].(map[string]any)
+				ev.Check("successful qualification supplies its transitive input map", ok, "input map missing")
+				if !ok {
+					return
+				}
 				prefix := "@xai-original-source/724e988132ac5bf6ac393db156e07081eb0e2427/"
 				ev.Check("both original Git documents are transitive inputs", len(inputs) == 59 && inputs[prefix+"ai/internal/testkit/kimi/README.md"] == "fb7f44b8a785684ffa68f13fc700060791c14644682b644d6fd7cd8b3b6858b3" && inputs[prefix+"ai/internal/testkit/regional/README.md"] == "4e04f6824e0ed6f9a51d5039684192fdc945c9f217c70cbfc15a2de1d5a1dbab", "document inputs missing or changed")
 			}
