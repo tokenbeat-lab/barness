@@ -69,6 +69,6 @@ func TestLocalCatalogPartialIdentities(t *testing.T) {
 		entry := strings.Replace(localChatJSON, `"id":"gpt-4.1-mini"`, `"id":"`+blank+`"`, 1)
 		_, report, err := catalog.Load(localCatalogFile(`{"version":"partial","models":[` + entry + `,` + entry + `]}`))
 		ev.Record("report-blank-"+strings.ReplaceAll(blank, " ", "space"), report)
-		ev.Check("incomplete identity is located by position, never grouped", err == nil && report.Failed == 2 && report.Loaded == 0 && report.Models[0].Index == 0 && report.Models[1].Index == 1 && report.Models[0].Reason == catalog.InvalidDefinition && report.Models[1].Reason == catalog.InvalidDefinition, "err=%v report=%+v", err, report)
+		ev.Check("incomplete identity is located by position, never grouped", err == nil && report.Failed == 2 && report.Loaded == 0 && len(report.Models) == 2 && report.Models[0].Index == 0 && report.Models[1].Index == 1 && report.Models[0].Reason == catalog.InvalidDefinition && report.Models[1].Reason == catalog.InvalidDefinition, "err=%v report=%+v", err, report)
 	}
 }
