@@ -2,7 +2,7 @@
 
 Updated: 2026-11-01
 Implementation: COMPLETE
-Ordinary verification: PENDING (test harness changed; prior PASS retained)
+Ordinary verification: PARTIAL (test harness changed; scoped verification PASS)
 Release: false
 
 ## Scope and source
@@ -20,6 +20,12 @@ Release: false
 
 已提前终止来源将被修订的普通尝试：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T130425.124309Z-t0psx9k6/receipt.json`，CANCELLED/exit -15；原件保留。
 
+## Race failure and harness repair
+
+c4d0a905 的完整普通回执 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T130626.181468Z-yicjfc4x/receipt.json` 为 PASS / exit 0；主原生包16864 PASS、226 NOT_RUN，所有四包audit无发现。随后race中 `TestCatalogCandidateCheckApply` 失败（check进程返回旧helper约定的 -1，stdout/stderr为空），collector按失败即停而CANCELLED / exit -15：`.evidence/barness-ai-dynamic-catalog/race/20261101T132656.875761Z-n5x6ljbv/receipt.json`。旧证据缺单次耗时、context错误和进程错误，不能证明超时；父输出无 DATA RACE 不构成阶段通过。
+
+仅修测试helper：显式race子进程模式中CLI调用超时60秒，普通仍10秒；保留启动状态、native退出码或null、signal、context和exec错误、时间、argv、stdout/stderr。产品check超时及受控取消断言不改变。针对性普通回执 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T133048.622774Z-th0j6g53/receipt.json` PASS / exit0。机械编辑语法错误的独立失败 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T132950.081295Z-ynwro7rj/receipt.json` 保留。该测试helper变更使旧完整普通来源不相等，未以旧原件冒充新来源完整验证。race重跑及压力均未启动；release仍false。
+
 ## Task graph and review
 
 01加载器、02维护源、03维护CLI、04候选合约/check/apply、05集成审查均 `resolved`，见 [issues](issues/)。双轴审查原问题及后续回归均已修复，最终0open，见 [v4](implementation-review-v4.md)、[v3](implementation-review-v3.md)、[v2](implementation-review-v2.md)。原问题报告 [v1](implementation-review-v1.md)保留。
@@ -30,14 +36,14 @@ Release: false
 
 | 阶段 | 实际状态 | 范围/依据 |
 | --- | --- | --- |
-| ordinary | PENDING | 新测试源码待完整普通重验；旧来源完整受影响包PASS / exit0，17705个Go测试事件PASS、240个SKIP，墙钟1210.921192秒 |
+| ordinary | PARTIAL | c4d0a905完整普通PASS / exit0（17708 PASS、244 SKIP，1217.264秒）；此后仅目录CLI测试helper修改，针对性普通PASS / exit0，不能声称来源完全相等 |
 | native evidence | PASS | 唯一主包16862 PASS、222 NOT_RUN；3个受控辅助包115 PASS；全部audit无发现 |
 | build | PASS / exit0 | `go build ./ai/... ./catalog/... ./cmd/...`，2.271177秒 |
 | vet | PASS / exit0 | `go vet ./ai/... ./catalog/... ./cmd/...`，1.761515秒 |
 | gate binary build | PASS / exit0 | 冻结来源编译releasegate，2.140633秒；二进制/实际argv见元数据回执 |
 | live | NOT_APPLICABLE | 无新增厂商事实需求；既有定义精确迁移，路由/分类判断为已审等价提取，新增接纳验证不改变有效旧请求；来源有限审阅见source-review及v2/v3。受控live-tag子包不取得真实资格 |
-| race | NOT_RUN | 已选择本功能受影响并发路径，待当前来源完整普通通过 |
-| pressure | NOT_RUN | 已选择目录加载与并发apply负载；race前置未完成 |
+| race | FAIL / CANCELLED | c4d0a905的 TestCatalogCandidateCheckApply 实际FAIL后立即停止collector；原件CANCELLED / exit -15，重跑需要新选择 |
+| pressure | NOT_RUN | 已选择目录加载与并发apply负载；race失败，未启动 |
 | read-only release | false | 适用race/压力未运行；实际数字退出、五项检查及报告见最终机器判定原件 |
 
 完整普通实际命令：

@@ -2,17 +2,21 @@ package e2e
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"debug/buildinfo"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"sync/atomic"
+	"syscall"
 	"testing"
+	"time"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
@@ -83,17 +87,44 @@ var catalogProcessSequence atomic.Uint64
 
 func invokeCatalogCLI(t *testing.T, ev *evidence.Case, binary string, args ...string) ([]byte, int) {
 	t.Helper()
-	cmd := exec.CommandContext(ctxFor(t), binary, args...)
+	timeout := 10 * time.Second
+	if *catalogSubprocessRace {
+		timeout = 60 * time.Second
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, binary, args...)
 	cmd.Dir = "../.."
 	var stderr bytes.Buffer
 	cmd.Stderr = &stderr
+	started := time.Now()
 	out, err := cmd.Output()
+	elapsed := time.Since(started)
 	exit := commandExit(err)
 	// Artifact names use a digest of the actual argv; repeated calls preserve
 	// both observations through separate cases/scenarios in the caller.
 	sum := sha256.Sum256([]byte(cmd.String()))
 	name := fmt.Sprintf("process-%03d-%s", catalogProcessSequence.Add(1), hex.EncodeToString(sum[:8]))
-	ev.Record(name, map[string]any{"argv": cmd.Args, "exitCode": exit, "stdout": string(out), "stderr": stderr.String()})
+	category := "none"
+	if err != nil {
+		var exitErr *exec.ExitError
+		if errors.As(err, &exitErr) {
+			category = "exit"
+		} else {
+			category = "start_or_wait"
+		}
+	}
+	var nativeExit any
+	signal := ""
+	if cmd.ProcessState != nil {
+		if code := cmd.ProcessState.ExitCode(); code >= 0 {
+			nativeExit = code
+		}
+		if status, ok := cmd.ProcessState.Sys().(syscall.WaitStatus); ok && status.Signaled() {
+			signal = status.Signal().String()
+		}
+	}
+	ev.Record(name, map[string]any{"argv": cmd.Args, "commandExit": exit, "nativeExitCode": nativeExit, "started": cmd.Process != nil, "processState": cmd.ProcessState != nil, "signal": signal, "elapsedSeconds": elapsed.Seconds(), "timeoutSeconds": timeout.Seconds(), "contextError": errString(ctx.Err()), "execError": errString(err), "execErrorCategory": category, "stdout": string(out), "stderr": stderr.String()})
 	return out, exit
 }
 
