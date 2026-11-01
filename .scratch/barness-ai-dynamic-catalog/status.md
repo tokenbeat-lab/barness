@@ -2,7 +2,7 @@
 
 Updated: 2026-11-01
 Implementation: COMPLETE
-Ordinary verification: PARTIAL (complete earlier source and current scoped harness verification PASS)
+Ordinary verification: PENDING (bounded CLI helper changed; complete rerun required)
 Release: false
 
 ## Scope and source
@@ -26,7 +26,11 @@ c4d0a905 的完整普通回执 `.evidence/barness-ai-dynamic-catalog/e2e/2026110
 
 仅修测试helper：显式race子进程模式中CLI调用超时60秒，普通仍10秒；保留启动状态、native退出码或null、signal、context和exec错误、时间、argv、stdout/stderr。产品check超时及受控取消断言不改变。针对性普通回执 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T133048.622774Z-th0j6g53/receipt.json` PASS / exit0。机械编辑语法错误的独立失败 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T132950.081295Z-ynwro7rj/receipt.json` 保留。该测试helper变更使旧完整普通来源不相等，未以旧原件冒充新来源完整验证。后续race重跑及压力结果见下；原失败事实保留。
 
-## Race and pressure results
+## Ordinary timeout correction
+
+补跑完整普通 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T135202.402804Z-gow1f7pd/receipt.json` FAIL / exit1：`TestCatalogMaintenanceCLIAddedRollbackRecovery` 的check进程实际耗时10.00257秒，context deadline exceeded，signal killed，native退出码为null。该次有直接证据证明普通helper的10秒截止；不同于先前race失败根因仍未证实。仅将目录CLI helper总预算改为有界60秒，race原为60秒；产品check timeout、受控取消断言和全局ctxFor不变。修复后150输入针对性普通 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T135707.701452Z-2fmrouyr/receipt.json` PASS / exit0。因为测试helper源码变化，既有f397 race和压力PASS仍为历史事实，不冒充新来源结果；重新按普通→race→压力执行同一已授权范围。旧状态快照 [status-before-timeout-v3](status-before-timeout-v3.md)。
+
+## Race and pressure results (prior source)
 
 用户选择重跑race，通过后继续目录压力。实际受测提交均为 `f3977c804bcc9fc9b8abf018e6328934c43639d9`，2154源码文件和150选定输入集合/哈希相等。原状态快照见 [status-before-race-v2](status-before-race-v2.md)。
 
@@ -44,14 +48,14 @@ c4d0a905 的完整普通回执 `.evidence/barness-ai-dynamic-catalog/e2e/2026110
 
 | 阶段 | 实际状态 | 范围/依据 |
 | --- | --- | --- |
-| ordinary | PARTIAL | c4d0a905完整普通PASS / exit0（17708 PASS、244 SKIP，1217.264秒）；此后仅目录CLI测试helper修改，针对性普通PASS / exit0，不能声称来源完全相等 |
+| ordinary | PENDING | 后续完整普通因目录CLI helper 10秒截止FAIL；该helper修复后针对性普通PASS，完整普通待重跑 |
 | native evidence | PASS | 唯一主包16862 PASS、222 NOT_RUN；3个受控辅助包115 PASS；全部audit无发现 |
 | build | PASS / exit0 | `go build ./ai/... ./catalog/... ./cmd/...`，2.271177秒 |
 | vet | PASS / exit0 | `go vet ./ai/... ./catalog/... ./cmd/...`，1.761515秒 |
 | gate binary build | PASS / exit0 | 冻结来源编译releasegate，2.140633秒；二进制/实际argv见元数据回执 |
 | live | NOT_APPLICABLE | 无新增厂商事实需求；既有定义精确迁移，路由/分类判断为已审等价提取，新增接纳验证不改变有效旧请求；来源有限审阅见source-review及v2/v3。受控live-tag子包不取得真实资格 |
-| race | PASS / exit0 | f3977c80重跑740.07秒；118身份1020合约、并发与取消场景通过，输出扫描632文件无DATA RACE；历史FAIL/CANCELLED原件保留 |
-| pressure | PASS / exit0 | f3977c80，4个目录负载case通过，26.19秒；512/2048条各8读取，4写者两轮 |
+| race | PENDING | f3977c80历史PASS；测试helper来源已变化，同范围待重新执行 |
+| pressure | PENDING | f3977c80历史PASS；等待新来源race通过后重跑同一负载 |
 | read-only release | false / exit1 | 完整普通c4源码与当前f397不同，e2e未通过；source、race、pressure、live检查通过。新版报告见 `.evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/releasegate-report-v3/release-report.json` |
 
 完整普通实际命令：

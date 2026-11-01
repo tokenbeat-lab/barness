@@ -87,10 +87,9 @@ var catalogProcessSequence atomic.Uint64
 
 func invokeCatalogCLI(t *testing.T, ev *evidence.Case, binary string, args ...string) ([]byte, int) {
 	t.Helper()
-	timeout := 10 * time.Second
-	if *catalogSubprocessRace {
-		timeout = 60 * time.Second
-	}
+	// Candidate checks can run nested Go builds; keep their test-process budget
+	// bounded without changing the product check timeout or cancellation tests.
+	timeout := 60 * time.Second
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, binary, args...)
