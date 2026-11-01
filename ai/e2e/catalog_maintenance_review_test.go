@@ -168,7 +168,7 @@ func copyCatalogBootstrapSource(t *testing.T) string {
 				}
 				return nil
 			}
-			if strings.HasSuffix(path, "_test.go") || !(strings.HasSuffix(path, ".go") || strings.HasSuffix(path, ".json")) {
+			if strings.HasSuffix(path, "_test.go") || (scope != "catalog" && !(strings.HasSuffix(path, ".go") || strings.HasSuffix(path, ".json"))) {
 				return nil
 			}
 			relative, _ := filepath.Rel(root, path)

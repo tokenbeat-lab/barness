@@ -25,13 +25,17 @@ def extra_sources(root):
     for scope in ('catalog', 'cmd'):
         base = within(root, scope)
         for parent, directories, names in os.walk(base, followlinks=False):
-            directories[:] = [n for n in directories if n not in ('__pycache__', '.evidence', 'node_modules')]
+            embedded_baseline = Path(parent).is_relative_to(root / 'catalog/data/baseline')
+            if not embedded_baseline:
+                directories[:] = [n for n in directories if n not in ('__pycache__', '.evidence', 'node_modules')]
             for name in directories:
                 if (Path(parent) / name).is_symlink():
                     raise ValueError('symbolic catalog implementation rejected')
             for name in names:
                 path = Path(parent) / name
-                if name in ('.DS_Store', 'Thumbs.db') or path.suffix.lower() in ('.md', '.pyc', '.test', '.exe'):
+                # all:baseline embeds every asset, including the initial README
+                # sentinel. The retained compiler input set must include them.
+                if not embedded_baseline and (name in ('.DS_Store', 'Thumbs.db') or path.suffix.lower() in ('.md', '.pyc', '.test', '.exe')):
                     continue
                 relative = str(path.relative_to(root))
                 files[relative] = sha(within(root, relative))

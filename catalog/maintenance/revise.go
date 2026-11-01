@@ -34,7 +34,7 @@ func reviseEntry(state *State, request ChangeRequest) ([]Diagnostic, error) {
 				}
 				entry.Fields[pointer] = decision
 			}
-			diagnostics := resolveRequiredFields(definition, entry.Operation, nil, entry.Fields)
+			diagnostics := requiredCostFields(definition, entry.Operation)
 			for _, diagnostic := range diagnostics {
 				if diagnostic.Blocking {
 					return diagnostics, failure("invalid_definition", "%s: %s", diagnostic.Field, diagnostic.Message)

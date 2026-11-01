@@ -61,6 +61,21 @@ func definitionChanges(identity Identity, prefix string, before, after json.RawM
 		}
 		return changes
 	}
+	// Arrays preserve element order, but object key order inside an element is
+	// not a definition change. Keep the existing whole-array diff for real edits.
+	var oldItems, nextItems []json.RawMessage
+	if json.Unmarshal(before, &oldItems) == nil && oldItems != nil && json.Unmarshal(after, &nextItems) == nil && nextItems != nil && len(oldItems) == len(nextItems) {
+		equal := true
+		for i := range oldItems {
+			if len(definitionChanges(identity, prefix, oldItems[i], nextItems[i])) != 0 {
+				equal = false
+				break
+			}
+		}
+		if equal {
+			return nil
+		}
+	}
 	var a, b bytes.Buffer
 	_ = json.Compact(&a, before)
 	_ = json.Compact(&b, after)

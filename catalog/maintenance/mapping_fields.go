@@ -99,16 +99,7 @@ func resolveRequiredFields(definition map[string]any, operation ai.Operation, di
 			diagnostic.Blocking = false
 		}
 	}
-	if operation == ai.OperationChat || operation == ai.OperationClassifier {
-		cost, _ := definition["cost"].(map[string]any)
-		diagnostics = append(diagnostics, missingTierFields(cost)...)
-		for _, field := range []string{"input", "output", "cacheRead", "cacheWrite"} {
-			value, provided := cost[field]
-			if !provided || value == nil {
-				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/cost/" + field, Message: "rate is unknown; provide an explicit confirmed value (including zero)", Blocking: true})
-			}
-		}
-	}
+	diagnostics = append(diagnostics, requiredCostFields(definition, operation)...)
 	if operation == ai.OperationChat {
 		if reasoning, _ := definition["reasoning"].(bool); reasoning {
 			if _, provided := definition["thinkingLevelMap"]; !provided {
@@ -126,6 +117,23 @@ func resolveRequiredFields(definition map[string]any, operation ai.Operation, di
 	if operation == ai.OperationClassifier {
 		if _, provided := definition["capabilities"]; !provided {
 			diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/capabilities", Message: "classifier capabilities require explicit confirmation", Blocking: true})
+		}
+	}
+	return diagnostics
+}
+
+// Rate presence is shared by additions and revisions. Add-only capability and
+// reasoning wiring policy must not be reimposed on accepted legacy defaults.
+func requiredCostFields(definition map[string]any, operation ai.Operation) []Diagnostic {
+	diagnostics := []Diagnostic{}
+	if operation == ai.OperationChat || operation == ai.OperationClassifier {
+		cost, _ := definition["cost"].(map[string]any)
+		diagnostics = append(diagnostics, missingTierFields(cost)...)
+		for _, field := range []string{"input", "output", "cacheRead", "cacheWrite"} {
+			value, provided := cost[field]
+			if !provided || value == nil {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/cost/" + field, Message: "rate is unknown; provide an explicit confirmed value (including zero)", Blocking: true})
+			}
 		}
 	}
 	return diagnostics
