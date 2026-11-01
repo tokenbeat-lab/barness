@@ -26,14 +26,8 @@ func regionalControlledPromotion(t *testing.T, dirs []string) {
 		child.Dir, child.Env = "../..", regionalChildEnvironment()
 		return child.CombinedOutput()
 	}
-	before, err := os.ReadFile("../catalog_regional.json")
+	before, err := os.ReadFile("../catalog_builtin.json")
 	if err != nil {
-		t.Fatal(err)
-	}
-	var current struct {
-		Active bool `json:"active"`
-	}
-	if err := json.Unmarshal(before, &current); err != nil {
 		t.Fatal(err)
 	}
 	_, liveErr := supportmatrix.RegionalPromotionProposal(dirs)
@@ -94,13 +88,7 @@ func regionalControlledPromotion(t *testing.T, dirs []string) {
 		}
 		raw, err := invoke(rejected, test.inputs, test.live)
 		if test.live {
-			// An already promoted catalog is rejected before candidate consumption.
-			// The public live consumer above independently proves mode isolation.
-			want := "regional own service, grant, stage or mode invalid"
-			if current.Active {
-				want = "regional inactive catalog target changed"
-			}
-			ev.Check("live CLI refuses at the frozen catalog boundary", strings.Contains(string(raw), want), "%s", regionalSafeOutput(raw))
+			ev.Check("live activation option is removed", strings.Contains(string(raw), "flag provided but not defined: -receipt"), "%s", regionalSafeOutput(raw))
 		}
 		ev.Check("reject "+test.name, err != nil, "%s", raw)
 		_, err = os.Lstat(rejected)
@@ -110,6 +98,6 @@ func regionalControlledPromotion(t *testing.T, dirs []string) {
 	ev.Check("proposal receipt is exclusive", err != nil, "%s", raw)
 	unchanged, err := os.ReadFile(out)
 	ev.Check("existing proposal bytes retained", err == nil && string(unchanged) == string(data), "%v", err)
-	after, err := os.ReadFile("../catalog_regional.json")
+	after, err := os.ReadFile("../catalog_builtin.json")
 	ev.Check("offline proposal preserves production bytes", err == nil && string(after) == string(before), "%v", err)
 }

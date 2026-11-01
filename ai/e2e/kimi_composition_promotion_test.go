@@ -50,7 +50,7 @@ func kimiCompositionPromotion(t *testing.T, dirs []string) {
 	t.Helper()
 	ev := run.Case(t, "KCP-six-paired-controlled-promotion")
 	binary := kimiPromotionCLI(t)
-	before, err := os.ReadFile("../catalog_kimi.json")
+	before, err := os.ReadFile("../catalog_builtin.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -239,6 +239,6 @@ func kimiCompositionPromotion(t *testing.T, dirs []string) {
 		ev.Check(fmt.Sprintf("no file added to original directory %d", i), os.IsNotExist(err), "wrote original evidence/authority directory")
 	}
 
-	after, err = os.ReadFile("../catalog_kimi.json")
+	after, err = os.ReadFile("../catalog_builtin.json")
 	ev.Check("all controlled processes preserve production catalog bytes", err == nil && bytes.Equal(before, after), "changed")
 }

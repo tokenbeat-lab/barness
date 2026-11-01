@@ -3,7 +3,6 @@ package supportmatrix
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"path/filepath"
 	"reflect"
 	"slices"
@@ -11,7 +10,6 @@ import (
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/kimi"
-	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
 
 const kimiActivationVersion = "kimi-k3-formal-2026-10-22.1"
@@ -122,52 +120,4 @@ func kimiPromotionProposal(dirs []string, mode string) (KimiPromotion, error) {
 	out.Catalog = append(raw, '\n')
 	out.CatalogSHA256 = glmHash(out.Catalog)
 	return out, nil
-}
-
-func ActivateKimiCatalog(dirs []string, receiptPath string) error {
-	if receiptPath == "" {
-		return refuse("Kimi exclusive promotion receipt required")
-	}
-	root, err := minimaxlive.Root()
-	if err != nil {
-		return err
-	}
-	path := filepath.Join(root, "ai/catalog_kimi.json")
-	lock := path + ".activation.lock"
-	if err := os.Mkdir(lock, 0700); err != nil {
-		return refuse("Kimi activation locked")
-	}
-	defer os.Remove(lock)
-	unchanged := func() error {
-		raw, err := minimaxlive.ReadFile(path, 2<<20)
-		if err != nil || glmHash(raw) != kimiInactiveSHA256 {
-			return refuse("Kimi inactive catalog target changed")
-		}
-		return nil
-	}
-	if err := unchanged(); err != nil {
-		return err
-	}
-	receiptPath, err = kimiPromotionPath(root, receiptPath, dirs)
-	if err != nil {
-		return err
-	}
-	proposal, err := KimiPromotionProposal(dirs)
-	if err != nil {
-		return err
-	}
-	if err := kimiPromotionProtectOriginals(receiptPath, proposal); err != nil {
-		return err
-	}
-	raw, err := Encode(proposal)
-	if err != nil {
-		return err
-	}
-	if err := regionalPromotionReceipt(receiptPath, raw); err != nil {
-		return err
-	}
-	if err := unchanged(); err != nil {
-		return err
-	}
-	return regionalPromotionReplace(path, proposal.Catalog)
 }
