@@ -23,10 +23,10 @@ type catalogContractIdentity struct {
 	ID        string        `json:"id"`
 }
 type catalogContractCase struct {
-	Identity catalogContractIdentity `json:"identity"`
-	Scene    string                  `json:"scene"`
-	Case     string                  `json:"case"`
-	Test     string                  `json:"test"`
+	Identity *catalogContractIdentity `json:"identity,omitempty"`
+	Scene    string                   `json:"scene"`
+	Case     string                   `json:"case"`
+	Test     string                   `json:"test"`
 }
 type catalogContractPlan struct {
 	Snapshot string                `json:"snapshot"`
@@ -76,7 +76,7 @@ func TestCatalogCandidateContracts(t *testing.T) {
 	add := func(identity catalogContractIdentity, scenes []string) {
 		for _, scene := range scenes {
 			name := catalogIdentityName(identity)
-			plan.Cases = append(plan.Cases, catalogContractCase{identity, scene, "CC-" + name + "-" + scene, t.Name() + "/" + name + "/" + scene})
+			plan.Cases = append(plan.Cases, catalogContractCase{&identity, scene, "CC-" + name + "-" + scene, t.Name() + "/" + name + "/" + scene})
 		}
 	}
 	for _, m := range cat.Models {
@@ -103,12 +103,20 @@ func TestCatalogCandidateContracts(t *testing.T) {
 		}
 		add(catalogContractIdentity{ai.OperationClassifier, m.Provider, m.API, m.ID}, scenes)
 	}
+	if len(plan.Cases) == 0 {
+		plan.Cases = append(plan.Cases, catalogContractCase{Scene: "empty-catalog", Case: "CC-empty-catalog", Test: t.Name() + "/empty-catalog"})
+		ev.Record("plan", plan)
+		t.Run("empty-catalog", func(t *testing.T) {
+			catalogEmptyContract(t, run.Case(t, "CC-empty-catalog"), raw)
+		})
+		return
+	}
 	ev.Record("plan", plan)
 	ev.Check("nonempty complete identity plan", len(plan.Cases) > 0, "cases=%d", len(plan.Cases))
 	groups := map[string][]catalogContractCase{}
 	order := []string{}
 	for _, item := range plan.Cases {
-		key := catalogIdentityName(item.Identity)
+		key := catalogIdentityName(*item.Identity)
 		if _, ok := groups[key]; !ok {
 			order = append(order, key)
 		}
@@ -122,11 +130,11 @@ func TestCatalogCandidateContracts(t *testing.T) {
 					scene.Record("identity", item.Identity)
 					switch item.Identity.Operation {
 					case ai.OperationChat:
-						catalogChatContract(t, scene, cat, item.Identity, item.Scene)
+						catalogChatContract(t, scene, cat, *item.Identity, item.Scene)
 					case ai.OperationImage:
-						catalogImageContract(t, scene, cat, item.Identity, item.Scene)
+						catalogImageContract(t, scene, cat, *item.Identity, item.Scene)
 					case ai.OperationClassifier:
-						catalogClassifierContract(t, scene, cat, item.Identity, item.Scene)
+						catalogClassifierContract(t, scene, cat, *item.Identity, item.Scene)
 					}
 				})
 			}

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 
 	"github.com/tokenbeat-lab/barness/ai"
@@ -52,7 +53,7 @@ type rawOutput []byte
 
 func execute(args []string) (any, error) {
 	if len(args) == 0 || args[0] == "help" || args[0] == "--help" || args[0] == "-h" {
-		return map[string]any{"status": "help", "commands": []string{"versions", "history", "candidate", "export", "add", "revise", "withdraw", "restore"}}, nil
+		return map[string]any{"status": "help", "commands": []string{"versions", "history", "candidate", "export", "add", "revise", "cost-update", "withdraw", "restore", "rollback", "check", "apply"}}, nil
 	}
 	command := args[0]
 	if command == "check" || command == "apply" {
@@ -74,7 +75,9 @@ func execute(args []string) (any, error) {
 	repositoryRoot := flags.String("repo", ".", "repository for retained source/evidence references")
 	checkReference := flags.String("check", "", "explicit retained check reference for candidate query")
 	id := flags.String("id", "", "immutable candidate identity")
+	revisionID := flags.String("revision", "", "committed historical revision to restore through a new candidate")
 	sourcePath := flags.String("source", "", "retained models.dev input file (otherwise fetch source URL)")
+	sourceKind := flags.String("source-kind", "models.dev", "models.dev mapping or full manually confirmed official source")
 	sourceURL := flags.String("source-url", maintenance.ModelsDevURL, "catalog source URL")
 	sourceTime := flags.String("source-time", "", "original RFC3339 fetch time for a retained input file")
 	sourceProvider := flags.String("source-provider", "", "models.dev serving Provider key")
@@ -82,6 +85,7 @@ func execute(args []string) (any, error) {
 	definitionPath := flags.String("definition", "", "explicit manual JSON definition/overlay")
 	decisionsPath := flags.String("decisions", "", "JSON pointer field decisions with ownership/reasons")
 	exportState := flags.Bool("state", false, "export selected approved maintenance state instead of runtime bytes")
+	reviewDirectory := flags.String("review-dir", "", "NEW directory for approved Provider source, snapshot and retained provenance")
 	if err := flags.Parse(args[1:]); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return map[string]any{"status": "help", "command": command}, nil
@@ -103,6 +107,12 @@ func execute(args []string) (any, error) {
 		}
 		return map[string]any{"status": "current", "revision": current.ID, "versions": versions}, nil
 	case "export":
+		if *reviewDirectory != "" {
+			if *exportState {
+				return nil, &maintenance.Error{Category: "invalid_argument", Message: "review export already includes state.json"}
+			}
+			return maintenance.ExportReview(*store, *repositoryRoot, *reviewDirectory, *dryRun, *confirm)
+		}
 		raw, err := maintenance.Export(*store, *exportState)
 		if err != nil {
 			return nil, err
@@ -121,14 +131,26 @@ func execute(args []string) (any, error) {
 			return map[string]any{"status": checked.Status, "candidate": candidate, "changes": candidate.Changes, "check": checked}, err
 		}
 		return map[string]any{"status": "awaiting_check", "candidate": candidate, "changes": candidate.Changes}, nil
-	case "add", "revise", "withdraw", "restore":
-		request := maintenance.ChangeRequest{Action: command, Identity: maintenance.Identity{Operation: ai.Operation(*op), Provider: ai.ProviderID(*provider), API: ai.API(*api), ID: *model}, Reason: *reason, SourceProvider: *sourceProvider, SourceModel: *sourceModel}
-		if command == "add" || (command == "revise" && (*sourcePath != "" || *sourceProvider != "")) {
+	case "add", "revise", "cost-update", "withdraw", "restore", "rollback":
+		request := maintenance.ChangeRequest{Action: command, Identity: maintenance.Identity{Operation: ai.Operation(*op), Provider: ai.ProviderID(*provider), API: ai.API(*api), ID: *model}, Reason: *reason, SourceProvider: *sourceProvider, SourceModel: *sourceModel, Revision: *revisionID, SourceKind: *sourceKind}
+		if command == "add" || command == "cost-update" || (command == "revise" && (*sourcePath != "" || *sourceProvider != "" || *sourceKind == "official")) {
+			if *sourceKind == "official" {
+				explicitURL := false
+				flags.Visit(func(f *flag.Flag) {
+					if f.Name == "source-url" {
+						explicitURL = true
+					}
+				})
+				if !explicitURL {
+					return nil, &maintenance.Error{Category: "invalid_argument", Message: "official source requires its explicit --source-url"}
+				}
+			}
 			source, err := maintenance.AcquireSource(context.Background(), *sourcePath, *sourceURL, *sourceTime)
 			if err != nil {
 				return nil, err
 			}
 			request.Source = &source
+			request.Source.Kind = *sourceKind
 		}
 		if *definitionPath != "" {
 			raw, err := os.ReadFile(*definitionPath)
@@ -136,15 +158,18 @@ func execute(args []string) (any, error) {
 				return nil, &maintenance.Error{Category: "invalid_argument", Message: "manual definition could not be read"}
 			}
 			request.Definition = raw
+			request.LocalInputs = append(request.LocalInputs, maintenance.PinLocalInput("definition", filepath.Base(*definitionPath), raw))
 		}
 		if *decisionsPath != "" {
 			raw, err := os.ReadFile(*decisionsPath)
 			if err != nil {
 				return nil, &maintenance.Error{Category: "invalid_argument", Message: "field decisions could not be read"}
 			}
-			if err := json.Unmarshal(raw, &request.Decisions); err != nil {
-				return nil, &maintenance.Error{Category: "invalid_argument", Message: "field decisions must be a JSON object"}
+			request.Decisions, err = maintenance.DecodeDecisions(raw)
+			if err != nil {
+				return nil, err
 			}
+			request.LocalInputs = append(request.LocalInputs, maintenance.PinLocalInput("decisions", filepath.Base(*decisionsPath), raw))
 		}
 		proposal, err := maintenance.Plan(*store, request)
 		if err != nil {
