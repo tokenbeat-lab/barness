@@ -43,3 +43,5 @@ T01–T13；普通证据、全部必需实际场景及 audit，状态/索引一�
 新增公共 Load/Hash/NewClient 红绿场景，完整旧 Hash/NewClient 接受/错误文本保持；原 guard 条件未变、无能力扩展或新厂商规则。追加精确来源审阅只在原 xAI Images 范围生效，旧条目/旧文档保持；见 [v2](../source-review-v2.md)、[v3](../source-review-v3.md)。完整命令、失败/通过、实际退出及 manifest/audit 指针见 [integration-verification-v2.json](../integration-verification-v2.json)。
 
 分类范围 104438 PASS/exit0，最终图片/分类/加载/证据及全 118 合约扩展范围 105117 PASS/exit0；保留 104121、104252、104838 三次独立失败。仍待 03 最终合并后的完整普通/build/vet 和主 agent 双轴审查；不声明完整发布通过。
+
+2026-11-01：双轴审查见 [implementation-review-v1.md](../implementation-review-v1.md)。Standards 2 项（最高 P2）、Spec 4 项（最高 P1），由单一实现代理修复。完整普通验证须在修复复核后冻结执行。
