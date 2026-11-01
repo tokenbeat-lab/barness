@@ -30,6 +30,8 @@ func TestEvidenceRouteSourceApplicability(t *testing.T) {
 		{"catalog-runtime", "ai/catalog_sampling.go", false},
 		{"unknown-catalog-runtime", "ai/catalog_new_runtime.go", false},
 		{"catalog-data", "ai/catalog_builtin.go", true},
+		{"generated-catalog-data", "ai/catalog_builtin.json", true},
+		{"local-definition-validation", "ai/catalog_definitions.go", false},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			ev := run.Case(t, "VS55-source-"+tc.name)

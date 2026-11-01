@@ -1,7 +1,7 @@
 # 全规格集成、双轴审查及普通验证
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 01, 02, 03, 04
 
 ## Context
@@ -20,3 +20,14 @@ T01–T13；普通证据、全部必需实际场景及 audit，状态/索引一�
 ## Comments
 
 2026-11-01：从已确认 spec 建立实施依赖图。
+
+2026-11-01：开始来源适用性与文档子范围。源代码基准 0e9ef483cb132c681e7a09b22e230190b19b9511；03/04 后续仍在实施，完整普通与双轴审查未执行。验证边界为现有公共 releasegate 资格 CLI、控制捕获及来源拒绝场景。当前状态由主 agent 统一维护。
+
+## Checkpoint 1 — 来源适用性与文档
+
+2026-11-01：有限来源审阅见 [source-review.md](../source-review.md)，不可变命令/退出/哈希索引见 [integration-verification-v1.json](../integration-verification-v1.json)。四项精确来源迁移仅适用 xAI Images；原审阅条目、原始测量、pin 与支持矩阵未改写。运行数据新 JSON 按实际型号投影核对，新增验证/helper 仍属于产品来源，未来编辑、改原来源或错路线继续拒绝。
+
+- RED：100651 原历史原件 CLI 失败；100753 新精确迁移/分类失败；100826 首次修复仍暴露 classifier-kind 提取的源码漂移。全部实际 exit1 原件保留。
+- GREEN：100924 定向通过；101100 扩展 Evidence/XAIImages 组 PASS/exit0，149 实际 Go 测试、235 原生 PASS、audit0；101407 安全失败报告修订后的聚焦组 PASS/exit0。完整路径/argv/manifest 与 audit 哈希见索引，不以父测试或零匹配代替。
+- 文档：新增本地加载/候选检查应用/字段归属/价格/版本与生成指南，修正现有 README/contract 的旧字面量维护入口和默认快照指向。六个相关文档的本地链接核对无缺失。
+- 未完成：03 最终 Provider 导出命令的指南补齐、03/04 最终代码合并后的完整普通/编译/vet、主 agent 双轴审查和最终状态/发布只读索引。保持 claimed，不声明 release.pass=true。
