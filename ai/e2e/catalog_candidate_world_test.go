@@ -75,5 +75,12 @@ func catalogContractDenied(ev *evidence.Case, w *world, i catalogContractIdentit
 		err := call(item.scope, item.target)
 		ev.Check("unauthorized request refused", err != nil, "scope=%+v err=%v", item.scope, err)
 	}
+	var cross error
+	if i.Operation == ai.OperationChat {
+		_, cross = w.client.GenerateImages(ctxFor(ev.T()), textScope("cross-operation"), catalogContractTarget(i), ai.ImagesRequest{Prompt: "Cross-operation input."}, nil)
+	} else {
+		_, cross = w.client.CompleteSimple(ctxFor(ev.T()), textScope("cross-operation"), catalogContractTarget(i), ai.Request{Messages: []ai.Message{ai.UserText("Cross-operation input.")}}, ai.SimpleOptions{})
+	}
+	ev.Check("binding grants no cross-operation authority", cross != nil, "%v", cross)
 	ev.Check("no unauthorized provider request", len(w.provider.Requests()) == before, "requests=%d", len(w.provider.Requests()))
 }
