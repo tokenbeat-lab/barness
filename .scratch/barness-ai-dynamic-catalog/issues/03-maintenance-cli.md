@@ -73,3 +73,11 @@ All paths below are independent `.evidence/barness-ai-dynamic-catalog/e2e/<attem
 - Local definition/decision input originals red `20261101T101320.525562Z-6b5aexj_` → green `20261101T101410.573325Z-64iemplh`: exact role/name/digest/bytes, no synthetic fetch metadata.
 - Added model → rollback → restore expanded green `20261101T101453.542764Z-90jpm4q5`: retained withdrawn recovery definition and source, restored after original source deletion, versions monotonically advance.
 - Misspelled decision path red `20261101T101740.653551Z-jlslx8e_`; following green retained below. Existing field/object paths use most-specific decision, then enclosing-object/default ownership; `/` is whole-definition historical fallback. Explicit leaf decisions are recommended for price overrides.
+
+### Final source-gap and coherent export slices
+
+- Official captured-source/manual full definition red `20261101T102136.875644Z-aoh5szy6` → green `20261101T102217.860527Z-4mvths7d`.
+- Known typed unsupported future Kimi definition red `20261101T102306.145681Z-mng7p0ru` → green `20261101T102357.668332Z-a4xo9al0`: frozen candidate, retained code_gap, queryable failure, apply refused, current untouched. Private candidate encoding defers ai acceptance only; public Compose/Generate/ProviderHash/current/export remain strict. Proposed version/typed snapshot bytes are independent of future acceptance changes.
+- New coherent review bundle red `20261101T102503.668573Z-ece2s7bh`, independent retained compile failure `20261101T102604.803140Z-t7zdau_d`, then green `20261101T102657.182473Z-6mlp9dsl`. Public export preview/confirmation/new-directory rule, exact approved snapshot, actual source/manual/historical captures, external reference availability, source adoption and fresh compiled absent-store bootstrap.
+- Full review bundle and exact external reference bytes are retained in final native case artifacts, so replay does not depend on deleted test temporary directories. Local input role/name/digest records never invent URL/fetch metadata.
+- Source decisions reject unresolvable paths; leaf decisions take priority over enclosing-object/default decisions. `/` is the retained historical whole-definition fallback. Price ownership should use explicit leaf paths when overriding prior specific decisions.

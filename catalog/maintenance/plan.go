@@ -32,7 +32,17 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 			return Proposal{}, err
 		}
 	case "add":
-		entry, mapped, err := mapNewEntry(request)
+		var entry Entry
+		var mapped []Diagnostic
+		var err error
+		switch selectedSourceKind(request) {
+		case "models.dev":
+			entry, mapped, err = mapNewEntry(request)
+		case "official":
+			entry, mapped, err = officialEntry(request)
+		default:
+			return Proposal{}, failure("invalid_argument", "source-kind must be models.dev or official")
+		}
 		if err != nil {
 			return Proposal{}, err
 		}
@@ -53,6 +63,9 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 			return Proposal{}, err
 		}
 	case "cost-update":
+		if selectedSourceKind(request) != "models.dev" {
+			return Proposal{}, failure("invalid_argument", "automatic cost update requires reviewed models.dev field mappings; use an explicit manual revise for official captures")
+		}
 		var err error
 		diagnostics, err = updateCosts(&state, request)
 		if err != nil {
@@ -73,7 +86,7 @@ func Plan(store string, request ChangeRequest) (Proposal, error) {
 	if !changed && len(changes) == 0 {
 		return Proposal{Status: "unchanged", Diagnostics: diagnostics}, nil
 	}
-	snapshot, err := Generate(state)
+	snapshot, err := generateCandidate(state)
 	if err != nil {
 		return Proposal{}, failure("invalid_definition", "%v", err)
 	}
@@ -154,11 +167,11 @@ func advanceVersions(base State, next *State) (bool, error) {
 			changed = true
 			continue
 		}
-		a, err := ProviderHash(old)
+		a, err := providerHash(old, false)
 		if err != nil {
 			return false, err
 		}
-		b, err := ProviderHash(*provider)
+		b, err := providerHash(*provider, false)
 		if err != nil {
 			return false, err
 		}

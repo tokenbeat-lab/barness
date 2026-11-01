@@ -19,6 +19,7 @@ type Identity struct {
 }
 
 type FrozenSource struct {
+	Kind      string `json:"kind,omitempty"`
 	URL       string `json:"url"`
 	FetchedAt string `json:"fetchedAt,omitempty"`
 	Digest    string `json:"digest"`
@@ -93,6 +94,7 @@ type ChangeRequest struct {
 	Reason         string
 	Source         *FrozenSource
 	SourceProvider string
+	SourceKind     string
 	SourceModel    string
 	Definition     json.RawMessage
 	Decisions      map[string]FieldDecision
@@ -151,7 +153,7 @@ func validateCandidate(candidate Candidate) error {
 			return failure("unresolved_definition", "candidate has unresolved %s", diagnostic.Kind)
 		}
 	}
-	raw, err := Generate(candidate.State)
+	raw, err := generateCandidate(candidate.State)
 	if err != nil {
 		return failure("invalid_definition", "candidate state: %v", err)
 	}

@@ -44,6 +44,21 @@ func reviseEntry(state *State, request ChangeRequest) ([]Diagnostic, error) {
 				return nil, failure("mapping_conflict", "revise cannot change the complete serving identity")
 			}
 			if request.Source != nil {
+				if selectedSourceKind(request) == "official" {
+					if err := validateOfficialSource(request); err != nil {
+						return nil, err
+					}
+					for pointer, decision := range entry.Fields {
+						if decision.Ownership == OwnershipManual && decision.Reason == request.Reason && decision.Evidence == "" {
+							decision.Evidence = "input:" + request.Source.Digest
+							entry.Fields[pointer] = decision
+						}
+					}
+					return []Diagnostic{{Kind: "confirmation", Message: "official capture supplements explicitly revised manual fields; primary serving association remains unchanged"}}, nil
+				}
+				if selectedSourceKind(request) != "models.dev" {
+					return nil, failure("invalid_argument", "unknown source-kind")
+				}
 				offering, canonical, err := sourceOffering(request)
 				if err != nil {
 					return nil, err
