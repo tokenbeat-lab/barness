@@ -61,3 +61,7 @@ Release: false
 - 首个失败为 TestChineseEvaluationCurrentRoutePins/jev；其他场景报 task/model/dataset/price snapshot drift。单一修复代理正在定位旧消费者与目录迁移的关联；修复后重新冻结并验证。
 - build/vet 元数据检查已 PASS/exit0，原件位于 `.evidence/barness-ai-dynamic-catalog/metadata/20261101T114832.746962Z-gccunam6/`。它们不代替主 E2E。
 - 当前普通阶段：IN_PROGRESS（存在保留的失败/中断，尚无最终全量 PASS）。live/race/压力状态未升级，release.pass=false。
+
+## 全工作区回滚观察冲突
+
+第二次完整普通命令在 TestGLMFullRollback 失败（exit1），不是产品实现回归。主 agent 在该测试的工作区前后快照之间创建了未跟踪的最终审查文档；原脚本正确拒绝。详见 [独立失败记录](integration-workspace-mutation-v1.json)。修正操作顺序：先提交全部文档，再在整个全量运行期间保持工作区不变。旧失败不覆盖；最终普通仍 IN_PROGRESS、release.pass=false。
