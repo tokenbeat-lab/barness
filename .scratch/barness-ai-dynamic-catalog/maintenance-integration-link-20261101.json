@@ -1,0 +1,13 @@
+{
+  "ticket": "03",
+  "testedCommit": "80df087f25c83a716605d3bf7b4c25287dfbb1b8",
+  "postVerificationIntegrationCommit": "f26bf8a5dff4138d42e054c36134d132f545f0e6",
+  "ticket03ImplementationUnchanged": true,
+  "changedSourceFiles": [
+    "ai/e2e/catalog_candidate_contracts_test.go",
+    "ai/e2e/catalog_candidate_empty_test.go",
+    "tools/verification/catalog_check_receipt.py"
+  ],
+  "reason": "Merged separately verified ticket04 empty-catalog contract/consumer fix after ticket03 frozen ordinary. Root final combined source verification is still required; prior ticket03 receipt is not claimed to cover these new bytes.",
+  "relatedIndex": ".scratch/barness-ai-dynamic-catalog/candidate-empty-verification-20261101.json"
+}
