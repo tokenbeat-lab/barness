@@ -57,3 +57,13 @@ T01–T13；普通证据、全部必需实际场景及 audit，状态/索引一�
 失败仍保留：初始修订、来源操作、生成器参数、真实 mode0300 的安装后同步故障、采用基线及元数据/原 index 字节追溯、诊断非确定性、首轮组合编译失败、旧推理修订及数组伪差异。初次证据复制曾仅检查 receipt 存在，误纳入一个 RUNNING 树；其全部 5111 个观测文件已原样移动并核验到 `review-fixes-copy-observations/20261101T113211.067083Z-4xxjavl8/payload`，明确不是完整阶段证据。完成后的原 attempt 仍为 FAIL，另按原路径保留；后续只选择终态阶段回执，最终完整依赖复制包含全部派生消费者原件，无删除或 purge。复制完整事实和哈希亦绑定于索引。
 
 本工单继续 claimed。主 agent 统一维护当前状态，并完成合并后的完整普通/build/vet 与发布只读判定。未执行 live/race/压力；维护受控检查不取得新厂商事实，不宣称 `release.pass=true`。
+
+## Final regression follow-up — 中文评估目录绑定
+
+2026-11-01：根完整回归在首次失败后停止，保留原 `CANCELLED/exit-15` attempt `20261101T114714.995418Z-coufjj5h`，不把中断回执写成完整 FAIL 或 PASS。独立定向 RED `115527.293586Z-dcytz408` 确认默认评估配置在请求/凭据之前被严格拒绝：数据集和任务没有漂移，118 条定义的字段值与三集合顺序保持，变化的是 Provider 合成后的全局 Catalog.Version/Hash，而三份 v2 配置仍固定原 `2026-10-29.1/f44d07c...`。代理 CONNECT 计数为零是此前置拒绝的结果。历史流程原包核验可通过，随后当前计划 helper 失败；不需要放宽历史消费者或资格规则。
+
+实现前补充公开 v1/v2 原字节、v2 配旧快照有效/配新默认拒绝、v3 配旧快照拒绝及当前默认绑定场景，RED `115624.869199Z-1kssw8gq` 保留。新增三份显式 v3 配置及内容版本，只改变配置版本与目录身份，任务、型号、数据集、价格和预算保持；CLI 默认和当前测试选择 v3。v1/v2、原 catalog release snapshot、严格 `Load`、`LoadRecorded` 和历史包核验器均保持原字节，无资格豁免。
+
+代码提交 `3c4aa26c`，随后合并集成文档到 `fc80dded20a1efca329bc5959981187ebf2423e3`。全部 ChineseEvaluation / ClassifierHostMigration 公共场景及 `./ai/examples/chineseeval/...` 辅助编译 GREEN `.evidence/barness-ai-dynamic-catalog/e2e/20261101T115649.314914Z-f96u209c/receipt.json`，PASS/exit0、16.0334 秒、125 个 Go 测试、114 原生 PASS、audit0。配置 JSON 自动纳入 ai 来源，额外输入仍为 49 项；提交/合并后的完整源码与输入集合逐项等于实际受测字节。原 RED 和终态 GREEN 共 625 文件、12,588,246 字节已复制到根工作区并逐文件核验，没有覆盖原件。
+
+原件、argv、测量 HEAD 与提交后来源相等性、旧文件哈希、必需场景及复制库存见 [中文目录消费者不可变索引](../chinese-catalog-consumer-verification-v1.json) 和 [复制回执](../chinese-catalog-consumer-copy-v1.json)。原审查修复索引保持不变。本工单仍 claimed，当前状态由主 agent 维护；本轮未执行付费、race 或压力，也不产生完整发布通过。

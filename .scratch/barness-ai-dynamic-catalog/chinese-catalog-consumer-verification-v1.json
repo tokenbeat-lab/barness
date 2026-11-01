@@ -1,0 +1,303 @@
+{
+  "schema": 1,
+  "purpose": "explicit current Chinese evaluation configuration migration; historical verification and qualification preserved",
+  "baseHead": "3c4848a95f203ba4fd70be9edee39e94ed1d8538",
+  "codeCommit": "3c4aa26cca24d5c72a475d1b819fdd84ba7bbda4",
+  "integrationMergedBeforeCloseout": "fc80dded20a1efca329bc5959981187ebf2423e3",
+  "cause": {
+    "currentConfigurationsStillPinnedOldComposition": true,
+    "oldCatalog": {
+      "version": "2026-10-29.1",
+      "hash": "sha256:f44d07c6969346f056cc46d31fccbafb68827267910801c05bb314ac0c55348d"
+    },
+    "newCatalog": {
+      "version": "catalog-f2a93c1e05020afbf0d9d77f9d2d0799d4afed6f7daf6704d62ef81b22354860",
+      "hash": "sha256:e935a3ad0804ea48ce50c5e53cc106416407bf69d33d2b9e8076260ba2112c9c"
+    },
+    "all118DefinitionsExactlyEqual": true,
+    "datasetDigestUnchanged": true,
+    "failureBeforeCredentialsAndProxy": true
+  },
+  "change": "add explicit v3 config documents with new content versions and composed catalog identity; select them by default; current public tests validate generated default and reject both-direction historical/current cross-binding",
+  "unchangedHistoricalFiles": {
+    "ai/examples/chineseeval/testdata/jev-1.13.0-v1.json": "001556ea3be2a33e5b9f06a5530733fc9088a8942d073b51b8e07d33f1665ed3",
+    "ai/examples/chineseeval/testdata/jev-route-v1.json": "b4501a5274b2092c09169395d5a870b6049f809f34c42510bdcabdf960b9c297",
+    "ai/examples/chineseeval/testdata/luna-route-v1.json": "7679d0bcdda0698900623353eafe3203541e1bc15725a1c362ed66407f7b4af7",
+    "ai/examples/chineseeval/testdata/jev-1.13.0-v2.json": "d97d7f6baa5d71814285610a80afed7fc6ba01e1826b5ca67a822d4d012f258c",
+    "ai/examples/chineseeval/testdata/jev-route-v2.json": "383321f05b3dc8825c228ba568cea7594a2f142fd616c3faa22a247c9fb66ff1",
+    "ai/examples/chineseeval/testdata/luna-route-v2.json": "1cf4e178b2f31226ce0156c9194621df34b3057778878df980e8136d95ff2583",
+    "ai/examples/chineseeval/plan.go": "28c351fdb1966ac4838e76cfc5e1c5495436db160122f2a30a8395ee8b425c7a",
+    "ai/examples/chineseeval/recorded.go": "df92f2ba5ae7dc071a7c71353ef98a5519e2a75e8f00ea102351a8433e719ca2",
+    "ai/examples/chineseeval/cmd/chineseeval/verify.go": "edecd8fe878bba6a06e1270216b00df0fe902a955110731fd3bc611527072e65",
+    "ai/release/catalog-snapshot.json": "9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb"
+  },
+  "newConfigurations": [
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-1.13.0-v3.json",
+      "sha256": "2f9ab966fc9377b2a1fc04a329ddad835212608a1c510039b6abc30078ec3a37"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-route-v3.json",
+      "sha256": "45a4818263d69d1beceee8a9d8331bdd7d91723f92cadbd53fdd4db28f46cb8b"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/luna-route-v3.json",
+      "sha256": "d3dca87c64306bfba8ac86b4483a3a0cda517a5976eb103a335687c175b60058"
+    }
+  ],
+  "originalBroadFailure": {
+    "receipt": {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T114714.995418Z-coufjj5h/receipt.json",
+      "sha256": "b15a19e92b021f7762bfc428f33ce44e0d9006c1fe89513720646517bb51212e"
+    },
+    "status": "CANCELLED",
+    "exitCode": -15,
+    "complete": false,
+    "note": "root stopped at observed failures; interrupted original remains unchanged"
+  },
+  "attempts": [
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115527.293586Z-dcytz408/receipt.json",
+      "sha256": "1c214f4addffc1b11f552c12ad64f4fb9be77b9fcf04c4ec5efbd2a22ed85159",
+      "status": "FAIL",
+      "exitCode": 1,
+      "elapsedSeconds": 3.1567147918976843,
+      "measuredHead": "3c4848a95f203ba4fd70be9edee39e94ed1d8538",
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestChineseEvaluation(FixedWorkflow|CurrentRoutePins)$",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "selectedInputCount": 49,
+      "nativeBundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115527.293586Z-dcytz408/bundles/20261101T115528.719483000Z/manifest.json",
+            "sha256": "774109b9dd69f5c58e48cb5b200edeb9f81dc54d6a42e780a6abeae40f52f76e"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115527.293586Z-dcytz408/bundles/20261101T115528.719483000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": {
+            "FAIL": 3
+          },
+          "auditFindings": 0
+        }
+      ]
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115624.869199Z-1kssw8gq/receipt.json",
+      "sha256": "43ba04b770a5989351c82ce352b1f8ebc55354746954338941d7a02f62f929bf",
+      "status": "FAIL",
+      "exitCode": 1,
+      "elapsedSeconds": 4.538242499809712,
+      "measuredHead": "3c4848a95f203ba4fd70be9edee39e94ed1d8538",
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestChineseEvaluation(ConfigurationRevisions|CurrentRoutePins)$",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "selectedInputCount": 46,
+      "nativeBundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115624.869199Z-1kssw8gq/bundles/20261101T115629.042454000Z/manifest.json",
+            "sha256": "3110f43c3d39da0c1cef1ed3be7d98e6c44a032b46064591319119ba31e2aaf8"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115624.869199Z-1kssw8gq/bundles/20261101T115629.042454000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": {
+            "FAIL": 5
+          },
+          "auditFindings": 0
+        }
+      ]
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115649.314914Z-f96u209c/receipt.json",
+      "sha256": "04f6ac53c227569869d21fc6d9ad0b7a6f6dc63fa1f7858658cd8ae932f44b5d",
+      "status": "PASS",
+      "exitCode": 0,
+      "elapsedSeconds": 16.033386332914233,
+      "measuredHead": "3c4848a95f203ba4fd70be9edee39e94ed1d8538",
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai/examples/chineseeval/...",
+        "-run",
+        "^Test(ChineseEvaluation|ClassifierHostMigration)",
+        "-count=1",
+        "-timeout=8m"
+      ],
+      "selectedInputCount": 49,
+      "nativeBundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115649.314914Z-f96u209c/bundles/20261101T115650.480284000Z/manifest.json",
+            "sha256": "6366a6e82219e53a41ef2e6ec896b9bdd55d9b3be59960638497268f1872031c"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115649.314914Z-f96u209c/bundles/20261101T115650.480284000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": {
+            "PASS": 114
+          },
+          "auditFindings": 0
+        }
+      ]
+    }
+  ],
+  "requiredCases": [
+    "OD55-historical-recorded-snapshot",
+    "OD55-input-process-api",
+    "OD55-input-process-budget",
+    "OD55-input-process-hash",
+    "OD55-input-process-model",
+    "OD55-input-process-old-default",
+    "OD55-input-process-operation",
+    "OD55-input-process-provider",
+    "OD55-input-process-route",
+    "OD55-process-jev-dual-request-id",
+    "OD55-process-jev-normal",
+    "OD55-process-luna-all-refusal",
+    "OD55-process-luna-all-refusal-usage-absent",
+    "OD55-process-luna-all-refusal-usage-partial",
+    "OD55-process-luna-budget",
+    "OD55-process-luna-cancel",
+    "OD55-process-luna-http-failure",
+    "OD55-process-luna-mixed",
+    "OD55-process-luna-pre-attempt-cancel",
+    "OD55-process-luna-response-alias",
+    "OD55-process-luna-usage-absent",
+    "OD55-process-luna-usage-partial",
+    "OD55-proxy-connect-failure",
+    "OD55-proxy-fixture-rejected",
+    "OD55-proxy-invalid-0",
+    "OD55-proxy-invalid-1",
+    "OD55-proxy-invalid-2",
+    "OD55-proxy-invalid-3",
+    "OD55-proxy-invalid-4",
+    "OD55-proxy-invalid-5",
+    "OD55-proxy-invalid-6",
+    "OD55-proxy-invalid-7",
+    "OD55-proxy-invalid-8",
+    "OD55-proxy-invalid-9",
+    "OD55-usage-import-boundary",
+    "OD55-verifier-process-budget",
+    "OD55-verifier-process-capture-answer",
+    "OD55-verifier-process-capture-question",
+    "OD55-verifier-process-coherent-live",
+    "OD55-verifier-process-hash",
+    "OD55-verifier-process-identity",
+    "OD55-verifier-process-missing-captures",
+    "OD55-verifier-process-missing-observer",
+    "OD55-verifier-process-null-metric",
+    "OD55-verifier-process-response-alias",
+    "OD55-verifier-process-route",
+    "OD56-host-cloud-jev-nil-options",
+    "OD56-host-cloud-jev-protocol-options",
+    "OD56-host-cloud-jev-structured",
+    "OD56-host-cloud-jev-wrong-options",
+    "OD56-host-cloud-luna-image",
+    "OD56-host-cloud-luna-nil-options",
+    "OD56-host-cloud-luna-no-image-binding",
+    "OD56-host-cloud-luna-no-image-model",
+    "OD56-host-cloud-luna-no-image-policy",
+    "OD56-host-cloud-luna-protocol-options",
+    "OD56-host-cloud-luna-refusal",
+    "OD56-host-cloud-luna-structured",
+    "OD56-host-cloud-luna-wrong-options",
+    "OD56-host-local-jev-nil-options",
+    "OD56-host-local-jev-protocol-options",
+    "OD56-host-local-jev-structured",
+    "OD56-host-local-jev-wrong-options",
+    "OD56-host-local-luna-image",
+    "OD56-host-local-luna-nil-options",
+    "OD56-host-local-luna-no-image-binding",
+    "OD56-host-local-luna-no-image-model",
+    "OD56-host-local-luna-no-image-policy",
+    "OD56-host-local-luna-protocol-options",
+    "OD56-host-local-luna-refusal",
+    "OD56-host-local-luna-structured",
+    "OD56-host-local-luna-wrong-options",
+    "P07-zh-evaluation-budget",
+    "P07-zh-evaluation-cancel",
+    "P07-zh-evaluation-command-disabled",
+    "P07-zh-evaluation-command-foreign_credential",
+    "P07-zh-evaluation-command-missing_key",
+    "P07-zh-evaluation-command-verify_incomplete",
+    "P07-zh-evaluation-command-verify_observer",
+    "P07-zh-evaluation-config-revision-jev-1.13.0",
+    "P07-zh-evaluation-config-revision-jev-route",
+    "P07-zh-evaluation-config-revision-luna-route",
+    "P07-zh-evaluation-current-jev",
+    "P07-zh-evaluation-current-luna",
+    "P07-zh-evaluation-fixed-workflow",
+    "P07-zh-evaluation-http_failure",
+    "P07-zh-evaluation-import-attempt_id",
+    "P07-zh-evaluation-import-http_status",
+    "P07-zh-evaluation-import-incomplete_observer",
+    "P07-zh-evaluation-import-incorrect_cost",
+    "P07-zh-evaluation-import-missing_manifest",
+    "P07-zh-evaluation-import-missing_observer",
+    "P07-zh-evaluation-import-negative_tokens",
+    "P07-zh-evaluation-input-catalog_hash",
+    "P07-zh-evaluation-input-catalog_version",
+    "P07-zh-evaluation-input-dataset_hash",
+    "P07-zh-evaluation-input-dataset_version",
+    "P07-zh-evaluation-input-duplicate_key",
+    "P07-zh-evaluation-input-duplicate_sample",
+    "P07-zh-evaluation-input-missing_label",
+    "P07-zh-evaluation-input-model_version",
+    "P07-zh-evaluation-input-no_basis",
+    "P07-zh-evaluation-input-question_key",
+    "P07-zh-evaluation-input-retry_budget",
+    "P07-zh-evaluation-input-unknown_label",
+    "P07-zh-evaluation-input-wrong_distribution",
+    "P07-zh-evaluation-missing_answer",
+    "P07-zh-evaluation-not-run-and-artifact",
+    "P07-zh-evaluation-pre-cancelled",
+    "P07-zh-evaluation-protocol",
+    "P07-zh-evaluation-response_drift",
+    "P07-zh-evaluation-usage_absent",
+    "P07-zh-evaluation-usage_partial",
+    "P07-zh-evaluation-wrong_key"
+  ],
+  "greenGoTests": 125,
+  "sourceClosure": {
+    "measuredHead": "3c4848a95f203ba4fd70be9edee39e94ed1d8538",
+    "sourceFileCount": 2153,
+    "selectedInputCount": 49,
+    "sourceFilesEqualAfterCodeCommitAndMerge": true,
+    "selectedInputsEqualAfterCodeCommitAndMerge": true,
+    "note": "green measured precommit new bytes at base HEAD; exact source/input sets equal frozen code and integration merge; no test result inferred from commit metadata"
+  },
+  "copy": {
+    "path": ".scratch/barness-ai-dynamic-catalog/chinese-catalog-consumer-copy-v1.json",
+    "sha256": "90f4c7b76462d64d75cf2c6d43f601ff69fd0d32673b3163c4d3d5b93f4a9eed"
+  },
+  "stages": {
+    "ordinaryFocused": "PASS",
+    "rootFullOrdinary": "PENDING",
+    "live": "NOT_APPLICABLE: no new vendor facts; synthetic proxy CONNECT cannot forward to provider",
+    "race": "NOT_RUN",
+    "pressure": "NOT_RUN",
+    "releasePass": false
+  }
+}
