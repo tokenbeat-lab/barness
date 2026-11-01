@@ -1,4 +1,5 @@
-// regionalpromote consumes six own candidates before a data-only activation.
+// regionalpromote emits only controlled, nonproduction qualification proposals.
+// Catalog activation is owned by the maintenance candidate/check/apply flow.
 package main
 
 import (
@@ -10,26 +11,19 @@ import (
 )
 
 func main() {
-	receipt := flag.String("receipt", "", "new exclusive live candidate-lineage receipt under repository .evidence")
 	proposal := flag.String("proposal", "", "new exclusive nonproduction controlled proposal")
 	kimi := flag.Bool("kimi", false, "consume exactly six fixed Kimi nine-plus-one compositions")
-	controlled := flag.Bool("controlled", false, "nonproduction controlled proposal only")
+	controlled := flag.Bool("controlled", false, "required: nonproduction controlled proposal only")
 	flag.Parse()
-	if flag.NArg() != 6 || *controlled && (*proposal == "" || *receipt != "") || !*controlled && (*receipt == "" || *proposal != "") {
-		fmt.Fprintln(os.Stderr, "promotion requires six live inputs and -receipt (Kimi: fixed nine-plus-one compositions); controlled captures cannot activate")
+	if !*controlled || flag.NArg() != 6 || *proposal == "" {
+		fmt.Fprintln(os.Stderr, "controlled proposal requires -controlled -proposal and six inputs (Kimi: fixed nine-plus-one compositions)")
 		os.Exit(2)
 	}
 	var err error
 	if *kimi {
-		if *controlled {
-			err = supportmatrix.WriteKimiControlledProposal(flag.Args(), *proposal)
-		} else {
-			err = supportmatrix.ActivateKimiCatalog(flag.Args(), *receipt)
-		}
-	} else if *controlled {
-		err = supportmatrix.WriteRegionalControlledProposal(flag.Args(), *proposal)
+		err = supportmatrix.WriteKimiControlledProposal(flag.Args(), *proposal)
 	} else {
-		err = supportmatrix.ActivateRegionalCatalog(flag.Args(), *receipt)
+		err = supportmatrix.WriteRegionalControlledProposal(flag.Args(), *proposal)
 	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
