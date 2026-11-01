@@ -101,11 +101,12 @@ func commitCandidate(store string, candidate Candidate, checkRef, output string)
 	if current.ID != candidate.BaseDigest || frozen.BaseDigest != current.ID {
 		return Revision{}, failure("baseline_changed", "current revision changed before commit")
 	}
-	id, err := stateDigest(candidate.State)
+	revision := Revision{Parent: current.ID, CandidateID: candidate.ID, State: candidate.State, Snapshot: append([]byte(nil), candidate.Snapshot...), Change: candidate.Change, CheckReference: checkRef}
+	id, err := revisionDigest(revision)
 	if err != nil {
 		return Revision{}, err
 	}
-	revision := Revision{ID: id, Parent: current.ID, CandidateID: candidate.ID, State: candidate.State, Snapshot: append([]byte(nil), candidate.Snapshot...), Change: candidate.Change, CheckReference: checkRef}
+	revision.ID = id
 	for _, item := range []Revision{current, revision} {
 		name, err := objectName(item.ID)
 		if err != nil {
