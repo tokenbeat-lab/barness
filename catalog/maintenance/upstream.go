@@ -9,6 +9,8 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"github.com/tokenbeat-lab/barness/ai"
 )
 
 const ModelsDevURL = "https://models.dev/catalog.json?type=all"
@@ -136,4 +138,36 @@ func offeringFrom(source sourceCatalog, request ChangeRequest) (map[string]json.
 		}
 	}
 	return offering, canonical, nil
+}
+
+// Offering operation is independent of API selection. Missing legacy type means
+// chat only; the same wire ID never authorizes borrowing another operation.
+func offeringOperation(offering map[string]json.RawMessage) (ai.Operation, string, error) {
+	var kind string
+	if raw, exists := offering["type"]; exists {
+		if bytes.Equal(bytes.TrimSpace(raw), []byte("null")) || json.Unmarshal(raw, &kind) != nil {
+			return "", "", failure("invalid_source", "source type must be a string")
+		}
+	}
+	switch kind {
+	case "", "chat":
+		return ai.OperationChat, kind, nil
+	case "image":
+		return ai.OperationImage, kind, nil
+	case "decision":
+		return ai.OperationClassifier, kind, nil
+	default:
+		return "", kind, failure("unsupported_definition", "source type %q is not implemented", kind)
+	}
+}
+
+func validateOfferingOperation(offering map[string]json.RawMessage, operation ai.Operation) error {
+	actual, _, err := offeringOperation(offering)
+	if err != nil {
+		return err
+	}
+	if actual != operation {
+		return failure("mapping_conflict", "source type and maintained operation differ")
+	}
+	return nil
 }

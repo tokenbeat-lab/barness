@@ -32,15 +32,18 @@ func updateCosts(state *State, request ChangeRequest) ([]Diagnostic, error) {
 			if entry.Source == nil || entry.Source.Kind != "models.dev" || entry.Source.Provider != request.SourceProvider {
 				continue
 			}
-			if entry.Operation == ai.OperationImage {
-				diagnostics = append(diagnostics, Diagnostic{Kind: "manual_confirmation", Field: identityKey(identity) + "/pricing", Message: "image token/modal/per-image prices require an explicitly reviewed compatible pricing definition; kept unchanged"})
-				continue
-			}
 			lookup := request
 			lookup.SourceModel = entry.Source.ModelID
 			offering, _, err := offeringFrom(source, lookup)
 			if err != nil {
 				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: identityKey(identity), Message: "offering missing: retained existing definition and lifecycle"})
+				continue
+			}
+			if err := validateOfferingOperation(offering, entry.Operation); err != nil {
+				return nil, err
+			}
+			if entry.Operation == ai.OperationImage {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "manual_confirmation", Field: identityKey(identity) + "/pricing", Message: "image token/modal/per-image prices require an explicitly reviewed compatible pricing definition; kept unchanged"})
 				continue
 			}
 			var sourceID string
