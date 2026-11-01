@@ -8,6 +8,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/catalog/maintenance"
@@ -53,6 +55,11 @@ func execute(args []string) (any, error) {
 		return map[string]any{"status": "help", "commands": []string{"versions", "history", "candidate", "export", "add", "revise", "withdraw", "restore"}}, nil
 	}
 	command := args[0]
+	if command == "check" || command == "apply" {
+		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer stop()
+		return runCheckApply(ctx, command, args[1:])
+	}
 	flags := flag.NewFlagSet(command, flag.ContinueOnError)
 	flags.SetOutput(os.Stderr)
 	store := flags.String("store", ".catalog", "local maintenance store")
