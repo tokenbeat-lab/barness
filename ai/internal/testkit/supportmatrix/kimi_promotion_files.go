@@ -1,43 +1,11 @@
 package supportmatrix
 
 import (
-	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimaxlive"
 )
-
-func kimiPromotionPath(root, path string, inputs []string) (string, error) {
-	path, err := filepath.Abs(path)
-	if err != nil {
-		return "", err
-	}
-	base := filepath.Join(root, ".evidence/barness-ai-kimi/promotion")
-	within := func(a, b string) bool {
-		rel, e := filepath.Rel(a, b)
-		return e == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) && !filepath.IsAbs(rel)
-	}
-	if path == base || !within(base, path) {
-		return "", refuse("Kimi receipt requires a new Kimi promotion .evidence location")
-	}
-	for _, input := range inputs {
-		input, e := filepath.Abs(input)
-		if e != nil || within(input, path) {
-			return "", refuse("Kimi receipt cannot mutate a candidate")
-		}
-	}
-	for at := filepath.Dir(path); ; at = filepath.Dir(at) {
-		st, e := os.Lstat(at)
-		if e != nil || !st.IsDir() || st.Mode()&os.ModeSymlink != 0 {
-			return "", refuse("Kimi receipt parent must be an existing real directory")
-		}
-		if at == filepath.Dir(at) {
-			break
-		}
-	}
-	return path, nil
-}
 
 func WriteKimiControlledProposal(dirs []string, path string) error {
 	root, err := minimaxlive.Root()

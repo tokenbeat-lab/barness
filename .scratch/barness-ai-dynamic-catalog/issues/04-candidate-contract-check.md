@@ -2,7 +2,7 @@
 
 Type: task
 Status: ready-for-agent
-Blocked by: 01, 03
+Blocked by: 01, 02
 
 ## Context
 
@@ -20,3 +20,5 @@ T05、T06、T11、T12、T13；CLI → 真实受控检查 → apply → 加载 �
 ## Comments
 
 2026-11-01：从已确认 spec 建立实施依赖图。
+
+2026-11-01：候选/存储接口已明确，可与 03 并行实施 runner/证据消费；本工单完成前仍须合并 03 并验证完整 check/apply CLI 闭环。设计笔记：`/tmp/barness-catalog-check-notes.md`。

@@ -2,7 +2,6 @@ package supportmatrix
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -143,54 +142,6 @@ func regionalPromotionProposal(dirs []string, mode string) (RegionalPromotion, e
 	out.Catalog = append(raw, '\n')
 	out.CatalogSHA256 = glmHash(out.Catalog)
 	return out, nil
-}
-
-// ActivateRegionalCatalog durably records a new immutable activation intent
-// before atomically replacing only the inactive data. An interrupted intent is
-// retained as history and cannot be overwritten or treated as completed proof.
-func ActivateRegionalCatalog(dirs []string, receiptPath string) error {
-	if receiptPath == "" {
-		return refuse("regional exclusive promotion receipt required")
-	}
-	root, err := minimaxlive.Root()
-	if err != nil {
-		return err
-	}
-	path := filepath.Join(root, "ai/catalog_regional.json")
-	lock := path + ".activation.lock"
-	if err := os.Mkdir(lock, 0700); err != nil {
-		return fmt.Errorf("regional activation locked")
-	}
-	defer os.Remove(lock)
-	unchanged := func() error {
-		raw, err := minimaxlive.ReadFile(path, 2<<20)
-		if err != nil || glmHash(raw) != regionalInactiveSHA256 {
-			return refuse("regional inactive catalog target changed")
-		}
-		return nil
-	}
-	if err := unchanged(); err != nil {
-		return err
-	}
-	receiptPath, err = regionalPromotionPath(root, receiptPath, dirs)
-	if err != nil {
-		return err
-	}
-	proposal, err := RegionalPromotionProposal(dirs)
-	if err != nil {
-		return err
-	}
-	raw, err := Encode(proposal)
-	if err != nil {
-		return err
-	}
-	if err := regionalPromotionReceipt(receiptPath, raw); err != nil {
-		return err
-	}
-	if err := unchanged(); err != nil {
-		return err
-	}
-	return regionalPromotionReplace(path, proposal.Catalog)
 }
 
 // WriteRegionalControlledProposal only exercises the offline consumer. Its

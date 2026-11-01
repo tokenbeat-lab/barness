@@ -101,30 +101,13 @@ bindings, manifest, audit and consumer outputs must be retained. SOP's outer
 `consume_live.py` receipt is still required before a real formal bundle can
 enter a release record. Current readiness lives only in the feature spec.
 
-## Proof-gated promotion
+## Historical activation and current maintenance
 
-`regionalpromote -kimi` is a separate six-Kimi contract and targets only
-`ai/catalog_kimi.json`. It cannot use old regional candidates. After all six
-own real candidate consumers pass against the same reviewed current source,
-binary and catalog, separately review the metadata/version/provenance and run:
+The original six-route activation and its catalog payload are historical facts.
+The retained wrapper is `ai/release/catalog-activations/catalog_kimi.json`;
+original measurements, source hashes and lineage receipts remain unchanged.
 
-```sh
-regionalpromote -kimi -receipt /absolute/repo/.evidence/barness-ai-kimi/promotion/NEW/lineage.json \
-  <six exact native candidate directories>
-```
-
-The new receipt parent must already exist. The command retains immutable
-candidate/source/hash lineage before an atomic data-only replacement. Any
-missing, partial, controlled, stale, substituted or changed proof rejects with
-no activation. Today the independent payload is inactive and contains no models.
-`-kimi -controlled -proposal <new output> <six controlled dirs>` exercises only
-an offline proposal; its inactive payload contains proposed records and is
-intentionally rejected as production activation data. Never copy it into the
-production catalog.
-
-Actual promotion changes the execution source and catalog hash. Freeze/build
-again and obtain a fresh own formal grant for every route. Candidate capture
-bytes and pins are never refreshed to simulate a formal run. Roll back by
-first disabling Kimi Bindings, then removing Kimi from the Host catalog and
-rolling back the reviewed payload/code version; preserve historical envelopes
-and every original artifact.
+Current catalog changes use the reviewed maintenance source and the explicit
+candidate → controlled check → apply workflow. `regionalpromote -kimi -controlled -proposal` remains an offline qualification-proof tool. It cannot
+activate a runtime catalog. Controlled proof generation and data migration do
+not grant vendor qualification or paid-call authorization.
