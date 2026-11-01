@@ -5,6 +5,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -20,16 +21,22 @@ func main() {
 }
 
 func generate() error {
-	out := flag.String("out", "", "artifact path; omitted writes bytes to stdout")
-	statePath := flag.String("state", "", "explicit exported maintenance State JSON")
-	store := flag.String("store", "", "explicit selected approved local maintenance store")
-	builtin := flag.Bool("builtin", false, "explicitly select reviewed checked-in Provider source")
-	check := flag.Bool("check", false, "read-only comparison with --out")
-	confirm := flag.Bool("confirm", false, "explicitly confirm generated artifact replacement")
-	dryRun := flag.Bool("dry-run", false, "preview without writing output")
-	_ = flag.Bool("json", false, "emit JSON preview/errors (the default)")
-	flag.Parse()
-	if flag.NArg() != 0 {
+	flags := flag.NewFlagSet("cataloggen", flag.ContinueOnError)
+	out := flags.String("out", "", "artifact path; omitted writes bytes to stdout")
+	statePath := flags.String("state", "", "explicit exported maintenance State JSON")
+	store := flags.String("store", "", "explicit selected approved local maintenance store")
+	builtin := flags.Bool("builtin", false, "explicitly select reviewed checked-in Provider source")
+	check := flags.Bool("check", false, "read-only comparison with --out")
+	confirm := flags.Bool("confirm", false, "explicitly confirm generated artifact replacement")
+	dryRun := flags.Bool("dry-run", false, "preview without writing output")
+	_ = flags.Bool("json", false, "emit JSON preview/errors (the default)")
+	if err := flags.Parse(os.Args[1:]); err != nil {
+		if errors.Is(err, flag.ErrHelp) {
+			return nil
+		}
+		return err
+	}
+	if flags.NArg() != 0 {
 		return fmt.Errorf("unexpected positional arguments")
 	}
 	selected := 0

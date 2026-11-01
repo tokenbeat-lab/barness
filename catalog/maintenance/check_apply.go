@@ -2,7 +2,6 @@ package maintenance
 
 import (
 	"context"
-	"encoding/json"
 	"os"
 	"path/filepath"
 	"slices"
@@ -120,35 +119,5 @@ func commitCandidate(store string, candidate Candidate, checkRef, output string)
 			return Revision{}, err
 		}
 	}
-	// Output installation is checked before advancing the pointer. Keep its old
-	// bytes for the bounded rollback if the final local pointer write fails.
-	var old []byte
-	existed := false
-	if output != "" {
-		old, err = os.ReadFile(output)
-		if err == nil {
-			existed = true
-		} else if !os.IsNotExist(err) {
-			return Revision{}, failure("storage_failed", "read output before apply: %v", err)
-		}
-		if err := atomicReplace(output, candidate.Snapshot); err != nil {
-			return Revision{}, err
-		}
-	}
-	pointer, _ := json.Marshal(map[string]string{"revision": id})
-	if err := atomicReplace(filepath.Join(store, "current.json"), append(pointer, '\n')); err != nil {
-		if output != "" {
-			var restore error
-			if existed {
-				restore = atomicReplace(output, old)
-			} else {
-				restore = os.Remove(output)
-			}
-			if restore != nil {
-				return Revision{}, failure("storage_failed", "current pointer failed and output rollback requires repair: %v", restore)
-			}
-		}
-		return Revision{}, err
-	}
-	return revision, nil
+	return installRevision(store, revision, output)
 }
