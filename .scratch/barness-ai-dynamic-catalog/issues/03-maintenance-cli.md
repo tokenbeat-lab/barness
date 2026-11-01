@@ -54,3 +54,10 @@ Six-group command `go test -json ./ai/e2e -run '^TestCatalogMaintenanceCLI(ReadO
 - Projected tier gap: red `.evidence/barness-ai-dynamic-catalog/e2e/20261101T095330.594947Z-znsu4ts_/receipt.json` FAIL/1; source/tier green `20261101T095350.379015Z-54es5fgw` PASS/0.
 - Broader boundary receipt `20261101T095425.364277Z-vagd4bc9` PASS/0 verifies explicit moonshotai/moonshotai-cn/zhipuai association, regional mismatch refusal, missing type chat-only confirmation, explicit independent API associations, decision→classifier capability confirmation and source-unavailable category.
 - New evidence uses unique per-invocation artifact names even for identical argv, preserving all observations after changed input files. Original older attempts remain unchanged.
+
+### Paused at integration checkpoint (ticket still claimed)
+
+- Source-edge code commit `a69c77a1`; all eight CLI tests matched by `^TestCatalogMaintenanceCLI` PASS/0 at `.evidence/barness-ai-dynamic-catalog/e2e/20261101T095546.467337Z-h6sn0c6p/receipt.json` (tested committed source a69c77a1).
+- Empty-overlay regression red `20261101T095646.010173Z-3llwiz5t` FAIL/1 → green `20261101T095702.081540Z-pgw4iet1` PASS/0; code fix commit `72737058` avoids candidates for property-order-only rewrites.
+- Peer-merged ticket04 checkpoint `3bbb2c05` for subsequent public approved-state workflows; combined integration is not claimed fully verified by prior receipts.
+- Remaining03: actual check/apply→cost-update/manual ownership protection/missing price and capability preservation; withdraw→restore→rollback new versions/history; current revision Snapshot tamper rejection; optional per-Provider reviewed source export. Root coordinates next turn after merger.
