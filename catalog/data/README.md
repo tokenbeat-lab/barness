@@ -22,7 +22,9 @@ the old version/hash. Withdrawn entries remain in State for future recovery but
 are omitted from runtime output. Provenance and field-decision edits alone do
 not change a Provider's runtime content digest.
 
-`go generate ./ai` regenerates the embedded artifact from reviewed source.
+`go generate ./ai` verifies the embedded artifact against reviewed Provider source without writing. Explicit generation selects `cataloggen --builtin|--state|--store`, previews with `--dry-run`, and writes only with `--confirm`.
+
+Local apply changes only the selected store/output. Use `catalogctl export --store <store> --repo <repo> --review-dir <NEW directory> --confirm` to retain one approved revision as Provider files, State, exact runtime snapshot and deduplicated source/manual captures. `review.json` is the completion marker and file inventory; its external store/check references remain original evidence. Adopt exported `providers/*.json` and `snapshot.json` as `ai/catalog_builtin.json` together, retaining the review/provenance bundle. A new checkout/absent store then derives the same default. Never replace the runtime artifact alone.
 Runtime `ai` imports neither the maintenance package nor these source files.
 Catalog changes use the candidate/check/apply maintenance workflow; code
 compatibility checks do not grant vendor support, tenant permission or release

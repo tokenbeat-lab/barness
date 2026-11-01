@@ -23,7 +23,9 @@ type compositionPart struct {
 
 // Compose produces a runtime catalog from the selected Provider versions.
 // Provenance, human decisions and withdrawn definitions remain in State.
-func Compose(state State) (ai.Catalog, error) {
+func Compose(state State) (ai.Catalog, error) { return compose(state, true) }
+
+func compose(state State, requireAccepted bool) (ai.Catalog, error) {
 	if strings.TrimSpace(state.RulesRevision) == "" {
 		return ai.Catalog{}, fmt.Errorf("rulesRevision is required")
 	}
@@ -36,7 +38,7 @@ func Compose(state State) (ai.Catalog, error) {
 		if i > 0 && providers[i-1].ID == p.ID {
 			return ai.Catalog{}, fmt.Errorf("duplicate Provider %s", p.ID)
 		}
-		hash, err := ProviderHash(p)
+		hash, err := providerHash(p, requireAccepted)
 		if err != nil {
 			return ai.Catalog{}, err
 		}
@@ -68,8 +70,10 @@ func Compose(state State) (ai.Catalog, error) {
 			return ai.Catalog{}, err
 		}
 	}
-	if _, err := catalog.Hash(); err != nil {
-		return ai.Catalog{}, err
+	if requireAccepted {
+		if _, err := catalog.Hash(); err != nil {
+			return ai.Catalog{}, err
+		}
 	}
 	return catalog, nil
 }
@@ -77,7 +81,9 @@ func Compose(state State) (ai.Catalog, error) {
 // ProviderHash identifies active runtime content and its stable collection
 // positions. It excludes the version and provenance: metadata refresh alone
 // cannot change a runtime price snapshot or impersonate a content version.
-func ProviderHash(provider ProviderRecord) (string, error) {
+func ProviderHash(provider ProviderRecord) (string, error) { return providerHash(provider, true) }
+
+func providerHash(provider ProviderRecord, requireAccepted bool) (string, error) {
 	if strings.TrimSpace(string(provider.ID)) == "" || provider.Version == 0 {
 		return "", fmt.Errorf("Provider ID and positive version are required")
 	}
@@ -122,12 +128,18 @@ func ProviderHash(provider ProviderRecord) (string, error) {
 		if err := appendDefinition(&single, entry); err != nil {
 			return "", err
 		}
-		if _, err := single.Hash(); err != nil {
-			return "", err
+		if requireAccepted {
+			if _, err := single.Hash(); err != nil {
+				return "", err
+			}
 		}
 		for field, decision := range entry.Fields {
 			if !strings.HasPrefix(field, "/") || strings.TrimSpace(decision.Reason) == "" {
 				return "", fmt.Errorf("field decisions require a JSON pointer and reason")
+			}
+			var definition map[string]any
+			if json.Unmarshal(entry.Definition, &definition) != nil || !hasField(definition, field) {
+				return "", fmt.Errorf("field decision %q does not name a defined field", field)
 			}
 			switch decision.Ownership {
 			case OwnershipSource, OwnershipManual, OwnershipHistorical:
@@ -162,6 +174,9 @@ func ProviderHash(provider ProviderRecord) (string, error) {
 }
 
 func appendDefinition(c *ai.Catalog, e Entry) error {
+	if err := validateDefinitionJSON(e.Definition, e.Operation); err != nil {
+		return err
+	}
 	switch e.Operation {
 	case ai.OperationChat:
 		var m ai.Model
@@ -189,15 +204,23 @@ func appendDefinition(c *ai.Catalog, e Entry) error {
 
 // Generate emits the exact runtime envelope used for both external files and
 // the embedded builtin. It contains no timestamps or maintenance metadata.
-func Generate(state State) ([]byte, error) {
-	catalog, err := Compose(state)
+func Generate(state State) ([]byte, error) { return generate(state, true) }
+
+// Candidate encoding preserves known typed definitions for inspection/adaptation.
+// It defers ai acceptance only; raw shape, identity, provenance and versions stay
+// fixed. For accepted content its bytes/hash are identical to strict Generate.
+func generateCandidate(state State) ([]byte, error) { return generate(state, false) }
+
+func generate(state State, requireAccepted bool) ([]byte, error) {
+	catalog, err := compose(state, requireAccepted)
 	if err != nil {
 		return nil, err
 	}
-	hash, err := catalog.Hash()
+	catalogBytes, err := json.Marshal(catalog)
 	if err != nil {
 		return nil, err
 	}
+	hash := digest(catalogBytes)
 	raw, err := json.Marshal(struct {
 		Hash    string     `json:"hash"`
 		Catalog ai.Catalog `json:"catalog"`

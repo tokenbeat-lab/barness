@@ -48,9 +48,12 @@ func mapBaseCost(offering map[string]json.RawMessage) (map[string]any, []Diagnos
 	return cost, diagnostics
 }
 
-func overlayDefinition(target map[string]any, raw json.RawMessage, fields map[string]FieldDecision, reason string) error {
+func overlayDefinition(target map[string]any, raw json.RawMessage, fields map[string]FieldDecision, reason string, operation ai.Operation) error {
 	if len(raw) == 0 {
 		return nil
+	}
+	if err := validateDefinitionJSON(raw, operation); err != nil {
+		return failure("invalid_definition", "manual definition: %v", err)
 	}
 	var overlay map[string]any
 	decoder := json.NewDecoder(bytes.NewReader(raw))

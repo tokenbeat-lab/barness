@@ -1,6 +1,7 @@
 package maintenance
 
 import (
+	"bytes"
 	"encoding/hex"
 	"encoding/json"
 	"os"
@@ -56,6 +57,10 @@ func readRevision(store, id string) (Revision, error) {
 	digest, err := stateDigest(revision.State)
 	if err != nil || digest != id || revision.ID != id {
 		return Revision{}, failure("revision_changed", "revision identity does not match its state")
+	}
+	expected, err := Generate(revision.State)
+	if err != nil || !bytes.Equal(expected, revision.Snapshot) {
+		return Revision{}, failure("revision_changed", "revision snapshot differs from its approved state")
 	}
 	return revision, nil
 }
