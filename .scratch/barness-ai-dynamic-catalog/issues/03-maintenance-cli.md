@@ -1,7 +1,7 @@
 # 确定性维护 CLI、来源映射和生命周期
 
 Type: task
-Status: ready-for-agent
+Status: claimed
 Blocked by: 02
 
 ## Context
@@ -20,3 +20,22 @@ T02、T03、T04、T06、T07；真实 CLI 进程与固定来源、文件前后对
 ## Comments
 
 2026-11-01：从已确认 spec 建立实施依赖图。
+
+## Failure modes and agreed verification seams
+
+Before implementation: compiled `catalogctl` process → immutable candidate/store/query boundary. Confirmed by spec Testing Decisions. Root owns aggregate current status. Baseline f8e234c928c5d901361707322739ed3425e29563; worktree initially clean.
+
+Failures: help/query/dry-run creates files; missing confirmation writes; unknown arguments return success; unknown source/provider/type/modality or fractional limits silently map; canonical supplies another serving price; missing price becomes zero; duplicate identity overwritten; manual override lost; price refresh changes capabilities; missing/deprecated removes records; failed candidate save leaves partial object; preview/query advances versions; rollback rewrites old version; tampered candidate accepted; output/save failure advances current. Check/apply execution/receipt/cancellation authority is ticket04, with no public boolean bypass.
+
+Ordinary checks: new CLI public E2E via tools/verification/run.py, explicit inputs for catalog and cmd code/data. No live/race/pressure. Each red and green attempt retained.
+
+### Tested base slice (2026-11-01)
+
+Implemented read-only help/query/preview, explicit confirmation, immutable candidate freezing, deterministic field diffs, pinned serving-source mapping and structured rejection. Does not yet complete cost/lifecycle/rollback integration; ticket remains claimed until public check/apply supports the complete workflows.
+
+- Red absent CLI: `.evidence/barness-ai-dynamic-catalog/e2e/20261101T094405.670751Z-ovbigd2v/receipt.json` FAIL, actual exit 1.
+- First read-only green: `20261101T094450.553690Z-ebcsvk8d` PASS/0.
+- Freeze red/green: `20261101T094525.172282Z-e0d7ow6e` FAIL/1 → `20261101T094542.729160Z-3fs3bbz_` PASS/0.
+- Mapping red/green: `20261101T094616.077064Z-wl0__980` FAIL/1 → `20261101T094718.733120Z-a8fqg1hm` PASS/0.
+- Field diff red/green: `20261101T094828.330841Z-4bokcpiw` FAIL/1 → `20261101T094851.275222Z-ujj5zm3u` PASS/0.
+- Latest command: `go test -json ./ai/e2e -run '^TestCatalogMaintenanceCLI(ReadOnly|Freeze|SourceMapping)$' -count=1 -timeout=5m`, through run.py with each catalog/cmd Go/JSON input explicitly bound. Actual required IDs CATALOG-T04-cli-read-only, CATALOG-T06-cli-freeze-immutable, CATALOG-T02-cli-serving-mapping completed; native manifest/audit retained under that attempt. Actual tested HEAD f8e234c928c5d901361707322739ed3425e29563 plus captured uncommitted source/input inventories; this is not a final frozen delivery receipt.

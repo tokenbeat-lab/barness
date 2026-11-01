@@ -1,0 +1,102 @@
+package maintenance
+
+import (
+	"bytes"
+	"encoding/json"
+	"strings"
+
+	"github.com/tokenbeat-lab/barness/ai"
+)
+
+func mapBaseCost(offering map[string]json.RawMessage) (map[string]any, []Diagnostic) {
+	cost := map[string]any{}
+	diagnostics := []Diagnostic{}
+	var source map[string]json.RawMessage
+	_ = json.Unmarshal(offering["cost"], &source)
+	for sourceKey, targetKey := range map[string]string{"input": "input", "output": "output", "cache_read": "cacheRead", "cache_write": "cacheWrite"} {
+		raw, exists := source[sourceKey]
+		if !exists || bytes.Equal(raw, []byte("null")) {
+			continue
+		}
+		var rate float64
+		if err := json.Unmarshal(raw, &rate); err != nil || rate < 0 {
+			diagnostics = append(diagnostics, Diagnostic{Kind: "invalid_definition", Field: "/cost/" + targetKey, Message: "source rate must be a nonnegative number", Blocking: true})
+			continue
+		}
+		cost[targetKey] = rate
+	}
+	for key := range source {
+		switch key {
+		case "input", "output", "cache_read", "cache_write":
+		default:
+			diagnostics = append(diagnostics, Diagnostic{Kind: "confirmation", Field: "/cost/" + key, Message: "conditional, tiered or modality prices require an explicit compatible manual definition"})
+		}
+	}
+	return cost, diagnostics
+}
+
+func overlayDefinition(target map[string]any, raw json.RawMessage, fields map[string]FieldDecision, reason string) error {
+	if len(raw) == 0 {
+		return nil
+	}
+	var overlay map[string]any
+	decoder := json.NewDecoder(bytes.NewReader(raw))
+	decoder.UseNumber()
+	if err := decoder.Decode(&overlay); err != nil || overlay == nil {
+		return failure("invalid_definition", "manual definition must be an object")
+	}
+	mergeDefinition(target, overlay, "", fields, reason)
+	return nil
+}
+
+func mergeDefinition(target, overlay map[string]any, prefix string, fields map[string]FieldDecision, reason string) {
+	for key, value := range overlay {
+		pointer := prefix + "/" + strings.ReplaceAll(strings.ReplaceAll(key, "~", "~0"), "/", "~1")
+		if object, ok := value.(map[string]any); ok {
+			current, ok := target[key].(map[string]any)
+			if !ok {
+				current = map[string]any{}
+			}
+			mergeDefinition(current, object, pointer, fields, reason)
+			target[key] = current
+			if len(object) == 0 {
+				fields[pointer] = FieldDecision{Ownership: OwnershipManual, Reason: reason}
+			}
+		} else {
+			target[key] = value
+			fields[pointer] = FieldDecision{Ownership: OwnershipManual, Reason: reason}
+		}
+	}
+}
+
+func resolveRequiredFields(definition map[string]any, operation ai.Operation, diagnostics []Diagnostic) []Diagnostic {
+	if operation == ai.OperationChat || operation == ai.OperationClassifier {
+		cost, _ := definition["cost"].(map[string]any)
+		for _, field := range []string{"input", "output", "cacheRead", "cacheWrite"} {
+			value, provided := cost[field]
+			if !provided || value == nil {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/cost/" + field, Message: "rate is unknown; provide an explicit confirmed value (including zero)", Blocking: true})
+			}
+		}
+	}
+	if operation == ai.OperationChat {
+		if reasoning, _ := definition["reasoning"].(bool); reasoning {
+			if _, provided := definition["thinkingLevelMap"]; !provided {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/thinkingLevelMap", Message: "reasoning requires reviewed target effort wiring", Blocking: true})
+			}
+		}
+	}
+	if operation == ai.OperationImage {
+		for _, field := range []string{"capabilities", "pricing"} {
+			if _, provided := definition[field]; !provided {
+				diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/" + field, Message: "image definition requires explicit confirmed " + field, Blocking: true})
+			}
+		}
+	}
+	if operation == ai.OperationClassifier {
+		if _, provided := definition["capabilities"]; !provided {
+			diagnostics = append(diagnostics, Diagnostic{Kind: "missing", Field: "/capabilities", Message: "classifier capabilities require explicit confirmation", Blocking: true})
+		}
+	}
+	return diagnostics
+}
