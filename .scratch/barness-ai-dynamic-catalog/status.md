@@ -35,8 +35,21 @@ Release: false
 
 工单 02 已合并：f8e234c928c5d901361707322739ed3425e29563（功能提交 cd83be49e99a19dd423dbda95b8434d4f603a963）。唯一维护源、同源生成及旧激活路径退役完成。全部 118 条定义/顺序/null/缺省语义由独立旧快照对照；厂商实测历史未改写。
 
-定向普通证据：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T094204.929586Z-1bw5afpm/receipt.json`，PASS/exit0；实际完成 TestMaintenanceCatalogMigration、TestBuiltinCatalogReleaseSnapshot、TestRegionalPromotionBoundary、TestKimiQualificationPromotionBoundary 四项。受测源码是工单工作树，完整来源与输入见原件；不是最终集成回执。此前失败/编译失败及初始通过共六个 attempt 已保留。工单 01/03/04 尚在实施，完整普通验证仍 NOT_RUN。
+定向普通证据：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T094204.929586Z-1bw5afpm/receipt.json`，PASS/exit0；实际完成 TestMaintenanceCatalogMigration、TestBuiltinCatalogReleaseSnapshot、TestRegionalPromotionBoundary、TestKimiQualificationPromotionBoundary 四项。受测源码是工单工作树，完整来源与输入见原件；不是最终集成回执。此前失败/编译失败及初始通过共六个 attempt 已保留。工单 01 已完成（见下文）；03/04/05 尚在实施，最终完整普通验证仍 NOT_RUN。
 
 架构细化：候选/存储接口已明确后，04 可先并行建立独立 runner 和证据消费；完成前必须合并 03 并验证真实 CLI 闭环。此调整不改变规格行为或验收范围。
 
 最终记录受测 SHA、来源/输入、完整场景、audit、当前适用性与回滚方式；历史回执不覆盖。
+
+
+## 集成进展与独立失败
+
+- 已集成 01 完整加载器（合并 0e9ef483cb132c681e7a09b22e230190b19b9511）与 03/04 的受控检查点；当前还不是最终冻结来源。
+- 01 最终定向回执：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T095707.682235Z-1bz74bwa/receipt.json`，PASS/exit0，155 项实际测试、40 个必需 CAT case、audit 通过。完整源码/输入与文档收尾提交集合相等性见 [loader-verification.md](loader-verification.md)。180,582 个原件已复制并逐一核对。
+- 01 全包失败原件：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T094358.499706Z-718a6l1a/receipt.json`，FAIL/exit1，643 秒。原生原因 `route product input changed: ai/call_runtime.go`；既有测试随后对缺失 inputs 的类型断言 panic，主 bundle 未完成。不得将前序测试通过当成该 attempt 通过。
+- 05 对此先保留组合源码 RED，再审阅四项确切 xAI Images 字节变更（等价路由提取、新定义入口、相同 classifier kind 判断提取、xAI 纯数据函数删除），保持旧原件和旧审阅条目。生成 JSON 只按构造数据分类，仍逐项比较原合同实际使用的模型。定向来源/原件组 `.evidence/barness-ai-dynamic-catalog/e2e/20261101T101100.524194Z-rtd6323w/receipt.json` PASS/exit0，149 个 Go 测试、235 native PASS、audit0；尚待该工作树提交合并。
+- 04 初始完整 118 条逐身份合约回执：`.evidence/barness-ai-dynamic-catalog/e2e/20261101T095202.144349Z-2fgyn023/receipt.json`，PASS/exit0，909 个场景。后续非零缓存计价、原件缺项、原件重绑及输出保护等按独立 attempt 扩展，不把初始通过冒充扩展范围已完成。
+- 03 已在真实 check/apply 后验证来源管理批量改价、人工覆盖/缺失费率保留、能力不变和 Provider 独立升版；生命周期、回退、批准来源导出与 fresh bootstrap、原始人工输入及非 nullable 类型校验仍在收尾。
+- 流程偏差：04 的初始组合 CLI check RED 在实现前，但 apply 存储实现先于其专门 E2E；没有补写单元测试，也不补造专门 apply RED。实际公共成功/拒绝/文件失败原件保留，并由最终审查核对。详见工单 04。
+
+全部阶段原件以各工单记录的完整路径、实际 source/inputs、场景与数字退出为准。最终冻结普通回执、构建/vet、双轴审查和只读发布判定尚未完成，release.pass 仍 false。
