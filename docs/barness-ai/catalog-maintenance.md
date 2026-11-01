@@ -70,6 +70,15 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 
 `--repo` 指向包含固定公共合约和验证工具的仓库。`--evidence-feature` 显式选择 `.evidence/<feature>` 的独立检查范围。候选和检查都保留原件；失败不推进生效目录。`check --dry-run`、`apply --dry-run` 只读预览，仍需选择同一候选/基准。
 
+查询候选时可显式选择某份检查原件：
+
+```sh
+/tmp/catalogctl candidate --store .catalog --id '<candidate-id>' --repo . \
+  --check '.evidence/catalog-review/check-inputs/<attempt>/check.json'
+```
+
+不提供 `--check` 只查询冻结候选，状态为 `awaiting_check`；不会猜测“最新检查”。提供引用后按同一套完整性/当前适用性规则返回 `applicable`、定义/代码缺口/执行失败等状态。自报 PASS、错候选、旧基准或已变化证据不能变成可应用。
+
 候选在检查前固定完整目标 State、来源字节、基准、拟生效 Provider 版本和最终运行快照。检查通过真实受控 E2E 为最终目录的每条身份核对查询、请求/响应、Usage、计价及适用能力；缺合约、缺必需子场景、零匹配、非零退出或只提供自报 PASS 均不能应用。定义失败、`code_gap` 和执行失败分别报告。
 
 `apply` 重新核对候选、基准、实际受测源码/输入的完整文件集合和哈希，以及原生场景、审计和实际退出。基准、代码、规则、输入或证据变化后应形成适用候选并重验。成功仅安装原受测字节，不重新取源、映射或改变受测版本；输出/保存失败保持旧生效状态。原历史和已有候选不可覆盖。
@@ -82,6 +91,18 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 
 新增时明确提供 `--operation`、`--provider`、`--api`、`--model`、`--source-provider`，必要时用 `--source-model` 指定 offering 键。`--definition` 是人工 JSON 定义/覆盖文件；`--decisions` 保存 JSON pointer 对应的字段归属、原因及依据。先查看 dry-run 的 `missing/loss/conflict/confirmation` 等诊断，再显式确认。blocking 项不能仅用 `--confirm` 消除。
 
+当官方文档/公告用于补足准确 offering 缺口时，显式选择 `--source-kind official`、真实 `--source-url`、`--source-time` 和原始捕获文件。`add` 还要求完整的人工运行定义及四维身份，不把官方捕获伪装成 v1 自动映射：
+
+```sh
+/tmp/catalogctl add --store .catalog --source-kind official \
+  --source official-capture.html --source-url '<official-source-url>' \
+  --source-time '<actual-RFC3339-time>' --definition full-model.json \
+  --operation chat --provider '<provider>' --api '<api>' --model '<wire-id>' \
+  --reason '官方缺项补充及逐字段确认依据' --dry-run
+```
+
+确认后才用同一输入加 `--confirm` 冻结。`revise --source-kind official` 用于明确的人工补充，并保留原主源关联；原捕获、定义与决定文件的实际字节都进入候选追溯。已知类型能表达但当前代码不支持的候选保留为 `code_gap`，不进入生效目录；适配后重新检查，不标注最低程序版本。
+
 - 身份始终是 `(Operation, Provider, API, ID)`。地区 Provider 分开；一个 offering 的第二条 API 也要单独明确确认，不能从 SDK 名展开。
 - 缺省源 type 只生成聊天候选；decision 经确认进入 classifier。未支持类型、未映射模态、非整数限额及缺来源均不静默接纳。
 - `revise` 只修改已有身份显式提供的字段或字段决定，不能改身份。人工值和人工覆盖不会被批量刷新撤销；改动它们需要新的理由和候选。
@@ -90,11 +111,21 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 - 阶梯必须确认严格大于边界和完整费率；barness 按整请求换价。v1 `size` 不能证明 gt/gte，`context_over_200k` 不能用来猜门槛或重复应用阶梯。
 - missing、deprecated、账户列表变化和未来停服时间只形成审查提示，绝不自动删除型号。
 
+批量改价以已审核的 serving 关联和字段归属为前提，例如：
+
+```sh
+/tmp/catalogctl cost-update --store .catalog --provider openai \
+  --source models-dev.json --source-provider openai \
+  --source-time '<actual-RFC3339-time>' --reason '固定来源价格复核' --dry-run
+```
+
+可用 `--operation`、`--api`、`--model` 缩小完整身份范围；预览后用同一输入显式确认。人工/历史字段、缺失费率、图片和无法对应的条件价保留待审，不靠全局确认抹去差异。
+
 ## 版本、历史与恢复
 
 `versions` 查询当前 revision 和每个 Provider 内容版本；`history` 查询追加历史；`candidate --id` 查询冻结内容。各 Provider 独立升版，稳定排序组合得到 Catalog.Version。查询、预览、失败和无变化不推进内容版本；纯来源/决定元数据修订可产生新的维护 revision，运行内容版本不必变化。
 
-`restore` 把已下架身份变为新候选，重新检查后才恢复。`rollback --revision <historical-revision-id>` 也形成新候选和新生效变更，不重写旧版本、旧 pin 或旧检查。已下架记录保留在维护 State，所选运行快照不会从内置旧条目补回；不可用型号请求明确失败。
+`restore` 把已下架身份变为新候选，重新检查后才恢复。`rollback --provider <provider-id> --revision <historical-revision-id> --reason <reason>` 也形成新候选和新生效变更，不重写旧版本、旧 pin 或旧检查。已下架记录保留在维护 State，所选运行快照不会从内置旧条目补回；不可用型号请求明确失败。
 
 ## 默认数据与生成
 
@@ -113,6 +144,19 @@ go generate ./ai
 
 stdout 重定向由 shell 写目标文件；CLI 自身的查询不会创建目录。替换已有正式快照应使用上述原子生成/确认入口，不用 shell 覆盖作为 apply 的替代。`cataloggen --store <store>` 可直接选择同一已批准 revision；`--builtin` 明确选择已审核入库来源。文件写入要求明确来源和 `--confirm`；省略 `--out` 只输出完整运行字节。
 
-`go generate ./ai` 现在只执行 `--check`，验证入库来源与生成数据相等，不覆盖文件。采用新的已批准 Provider 来源时要把对应来源和生成数据一起审阅；不要仅替换生成 JSON，否则核对会失败。生成器本身不授予候选兼容、厂商支持或发布资格。
+`go generate ./ai` 现在只执行 `--check`，验证入库来源与生成数据相等，不覆盖文件。生成器本身不授予候选兼容、厂商支持或发布资格。
+
+需要采用已批准 revision 作为下一版入库来源时，导出到一个尚不存在的新审阅目录：
+
+```sh
+/tmp/catalogctl export --store .catalog --repo . \
+  --review-dir catalog-review-bundle --dry-run
+/tmp/catalogctl export --store .catalog --repo . \
+  --review-dir catalog-review-bundle --confirm
+```
+
+审阅包包含 `providers/*.json`、完整 `state.json`、原受测字节 `snapshot.json`、`revision.json`，以及去重后的 `inputs/<digest>.bin`。最后写入的 `review.json` 标识完整导出，绑定文件库存、来源/人工定义/决定原件和外部 revision/candidate/check 引用及各自摘要。缺少完成标记的失败目录不能当成完整审阅包；重试使用新目录，不覆盖旧失败或既有导出。历史 catalog 身份与其原始文件字节摘要分别保留。
+
+采用时在同一代码审阅中，把包内整组 Provider 文件更新到 `catalog/data/providers/`，把 `snapshot.json` 的原字节更新到 `ai/catalog_builtin.json`，并保留审阅包和全部来源/检查原件引用。仅替换生成 JSON 会使 `go generate ./ai` 的核对失败。导出不移动当前维护指针；未来部署/线上发布仍是独立工作。
 
 验证范围、未执行阶段和不可变证据索引以本功能的[唯一当前状态](../../.scratch/barness-ai-dynamic-catalog/status.md)为准；测试/验收遵循[测试 SOP](../agents/verification.md)。
