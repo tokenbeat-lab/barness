@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "feature": "barness-ai-dynamic-catalog",
+  "purpose": "preserve full ordinary failure at final current-catalog usage assertion; pricing behavior passes; original historical snapshot remains immutable",
+  "receipt": {
+    "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T120832.859224Z-9yrkrfox/receipt.json",
+    "sha256": "6dd37785f2906f380683bd0b1a7eb2281b98f9e36d668cd56a43a8257b85faf4"
+  },
+  "status": "FAIL",
+  "exitCode": 1,
+  "error": "invalid case outcome",
+  "measuredCommit": "1d1f6de5ae4fd7b76aa2fb518370c5c48b468131",
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "-failfast",
+    "./ai/e2e",
+    "./ai",
+    "./catalog/...",
+    "./cmd/...",
+    "-count=1",
+    "-timeout=30m"
+  ],
+  "elapsedSeconds": 911.2325281249359,
+  "selectedInputCount": 150,
+  "goOutcomes": {
+    "pass": 16564,
+    "skip": 55,
+    "fail": 2
+  },
+  "failureEvents": [
+    {
+      "Time": "2026-11-01T20:22:13.032902+08:00",
+      "Action": "fail",
+      "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "Test": "TestUsageAndCost/builtin-catalog-pinned",
+      "Elapsed": 0.01
+    },
+    {
+      "Time": "2026-11-01T20:22:13.032929+08:00",
+      "Action": "fail",
+      "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "Test": "TestUsageAndCost",
+      "Elapsed": 0.42
+    },
+    {
+      "Time": "2026-11-01T20:23:36.115081+08:00",
+      "Action": "fail",
+      "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "Elapsed": 901.476
+    }
+  ],
+  "nativeBundles": [
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T120832.859224Z-9yrkrfox/bundles/20261101T121928.017774000Z/manifest.json",
+      "sha256": "57e71023e890a95a3a0bec13f85dd4ccb034c4b29397710e8cbc7263ad4bf963",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live ./ai/live",
+      "outcomes": {
+        "PASS": 77
+      }
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T120832.859224Z-9yrkrfox/bundles/20261101T120836.370489000Z/manifest.json",
+      "sha256": "820790e44300faa336132cfa435096ca05253b1c991dabcd2eed530e93b09e4e",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "./ai/e2e",
+      "outcomes": {
+        "PASS": 15635,
+        "NOT_RUN": 38,
+        "FAIL": 1
+      }
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T120832.859224Z-9yrkrfox/bundles/20261101T121549.572663000Z/manifest.json",
+      "sha256": "dddefdf6a121d86e832f75b2ad9baace7e5cb4d51e577a991a61a8a4991c4c0b",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live ./ai/live",
+      "outcomes": {
+        "PASS": 32
+      }
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T120832.859224Z-9yrkrfox/bundles/20261101T121948.131297000Z/manifest.json",
+      "sha256": "2124f576b12b539190bfdd4ad1bf04e1087fac1f324cad84ac26fda169aa07c2",
+      "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "package": "-tags live ./ai/live",
+      "outcomes": {
+        "PASS": 6
+      }
+    }
+  ],
+  "cause": "TestUsageAndCost/builtin-catalog-pinned reads immutable ai/release/catalog-snapshot.json while claiming to pin current BuiltinCatalog. Generated content identity changed; all118 definitions remain unchanged. This is a stale current-context assertion, not a price calculation failure.",
+  "correction": "Read current generated snapshot, validate its declared identity with recomputed typed hash, compare public BuiltinCatalog identity; preserve original snapshot and independent initial118 migration proof. Review all remaining old version/hash/current-context references before final freeze.",
+  "releasePass": false
+}
