@@ -65,3 +65,7 @@ Release: false
 ## 全工作区回滚观察冲突
 
 第二次完整普通命令在 TestGLMFullRollback 失败（exit1），不是产品实现回归。主 agent 在该测试的工作区前后快照之间创建了未跟踪的最终审查文档；原脚本正确拒绝。详见 [独立失败记录](integration-workspace-mutation-v1.json)。修正操作顺序：先提交全部文档，再在整个全量运行期间保持工作区不变。旧失败不覆盖；最终普通仍 IN_PROGRESS、release.pass=false。
+
+## 当前用量目录断言的迁移遗漏
+
+第三次完整普通运行已通过 GLM 全软件回滚及前述中文评测，随后在 TestUsageAndCost/builtin-catalog-pinned 失败。当前目录断言错误读取历史 release/catalog-snapshot.json；价格场景本身通过。独立 FAIL/exit1 原件、数字退出、完整统计和主原生包指针见 [失败记录](integration-pin-consumer-failure-v1.json)。单一修复代理改为校验当前生成快照的声明身份与重算摘要，并保留历史快照和原118迁移对照；其余当前入口的旧 pin 已逐项排查。最终普通尚未通过，release.pass=false。
