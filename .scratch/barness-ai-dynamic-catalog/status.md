@@ -69,3 +69,10 @@ Release: false
 ## 当前用量目录断言的迁移遗漏
 
 第三次完整普通运行已通过 GLM 全软件回滚及前述中文评测，随后在 TestUsageAndCost/builtin-catalog-pinned 失败。当前目录断言错误读取历史 release/catalog-snapshot.json；价格场景本身通过。独立 FAIL/exit1 原件、数字退出、完整统计和主原生包指针见 [失败记录](integration-pin-consumer-failure-v1.json)。单一修复代理改为校验当前生成快照的声明身份与重算摘要，并保留历史快照和原118迁移对照；其余当前入口的旧 pin 已逐项排查。最终普通尚未通过，release.pass=false。
+
+## 最后断言修复与第四次完整冻结
+
+- 已合并 `b640708aa4145b7bb43683472571a58b9737836b`（单一测试文件，产品及历史字节未改）。当前上下文旧身份引用清查与专项通过见 [用量消费者验证](usage-catalog-consumer-verification-v1.json)。
+- 专项94 Go/89原生 PASS、audit0；双轴增量复核0open，见 [v4](implementation-review-v4.md)。
+- 下一次完整普通固定150个输入：49个本功能实际代码/数据/审阅依据，加101个旧测试实际脚本与历史夹具。冻结期间不写任何 Git 可见文件，不更改 HEAD，不归档工作树。build/vet和判定二进制在同一冻结来源重新采集。
+- 完整普通仍 IN_PROGRESS；前次16564 PASS不代替未完成尾部。本轮未授权 live/race/压力，release.pass=false。
