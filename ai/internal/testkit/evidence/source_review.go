@@ -8,8 +8,9 @@ import (
 	"strings"
 )
 
-// These finite byte transitions were reviewed for the three retained routes.
-// Reasons and replay limits are in .scratch/provider-source-scope/source-review.md.
+// These finite byte transitions were reviewed for their retained Provider/API.
+// Reasons and replay limits are in .scratch/provider-source-scope/source-review.md
+// and .scratch/barness-ai-dynamic-catalog/source-review.md.
 // This is neither a filename exemption nor execution authority: any later edit,
 // unknown addition/removal, SDK change or another route still fails closed. The
 // native consumer still checks original inventories, grants, captures and cases.

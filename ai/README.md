@@ -424,7 +424,7 @@ Production code lives in the single package `ai`; files are grouped by responsib
 | Resolution & security | `preflight.go`, `policy.go`, `admission.go`, `limits.go`, `timeouts.go`, `retry.go`, `transport.go` |
 | History & native state | `transcript.go`, `history.go`, `replay.go`, `native.go`, `cache_key.go` |
 | Tools | `tool.go`, `tool_validate.go`, `tool_coerce.go`, `tool_json.go`, `argument_text.go` |
-| Catalog | `catalog*.go` (typed models, queries, validation, built-in data, snapshots and prices) |
+| Catalog | `catalog*.go` (typed models, queries, validation and prices), generated `catalog_builtin.json` |
 | Usage, cost | `usage.go`, `estimate.go`, protocol `*_usage.go`; `anthropic_effort.go` handles managed effort |
 | Hooks & observability | `hooks.go`, `hooks_run.go`, `observer.go` |
 | Chat adapter contract | `adapter.go` (`adapter` interface + fixed `registry()` keyed by `API`); unary routes dispatch explicitly by operation/protocol in `images.go` / `classifier.go` |
@@ -443,13 +443,15 @@ Other directories:
 | `examples/` | `localassembly`, `hostintegration` (chat/mixed operations), `toolloop`, `requestid`, `classifiermigration`, `chineseeval` (independent business evaluation); exercised by offline E2E |
 | `e2e/` | Offline acceptance tests against the public API, a local controlled provider and a host double; fixtures in `e2e/testdata/<protocol>/` |
 | `live/` | Real-API smoke (build tag `live`), feeds `support-matrix.json` |
-| `release/` | Read-only release receipt verifier and catalog snapshot |
+| `release/` | Read-only release receipt verifier and immutable historical catalog snapshots |
 | `internal/testkit/` | Test-only: controlled provider, host double, evidence, audit and read-only release verification |
 | `internal/probe`, `internal/clock` | Test hooks injected through `Config` (hosts cannot construct them) |
 
+The separate [`catalog`](../catalog) package loads a selected local JSON file into an effective `ai.Catalog` plus a model-load report. Runtime `ai` depends only on its generated default JSON; it never imports maintenance or fetches a catalog online.
+
 ### Common changes
 
-- **Add a model:** update its `catalog_*.go` data (including `catalog_decisions.go`) under ADR-0018; review the updated `release/catalog-snapshot.json` content and public `BuiltinCatalog().Hash()` together; `TestBuiltinCatalogReleaseSnapshot` checks both.
+- **Maintain models or prices:** use the [catalog maintenance CLI and local loader](../docs/barness-ai/catalog-maintenance.md). Freeze a reviewed candidate, run controlled code-compatibility checks, then apply its exact tested bytes. Approved Provider source and generated `catalog_builtin.json` change together; `release/catalog-snapshot.json` and historical pins stay immutable.
 - **Add a provider:** add ID/capabilities, fixtures, live combo and ADR; qualify the route using its own evidence.
 - **Add a protocol:** define operation/API/options/results, E2E and ADR. Chat uses `adapter` / `registry()`; unary uses shared runtime and explicit dispatch. Bound encoding, reading and validation.
 - **Change observable behavior:** write a public failing scenario first, then verify affected E2E; identify required live routes and authorization when vendor behavior changes.

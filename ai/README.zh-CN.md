@@ -66,7 +66,7 @@
 | image | OpenAI × Images，gpt-image-2.5-sunburst-2026-09-08 | `openai` / `openai-images` | PASS（生成、JSON 编辑与 mask） |
 | image | Google × Interactions v1beta，gemini-nano-banana-2.1 | `google` / `google-interactions` | PASS（生成与参考编辑，1K / 1:1） |
 
-历史十组合曾在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，快照见 [`release/catalog-snapshot.json`](release/catalog-snapshot.json)）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
+历史十组合曾在 **2026-10-13** 的正式目录 `2026-10-13.1` 与 schema 3 下各自重跑，路线状态见 [`live/support-matrix.json`](live/support-matrix.json)。只有矩阵中对应行完整通过，才可宣称该组合受支持；“兼容 OpenAI”不代表任何兼容服务已验收。可调用的型号是目录（`BuiltinCatalog()`，当前生成快照见 [`catalog_builtin.json`](catalog_builtin.json)，旧 [`release/catalog-snapshot.json`](release/catalog-snapshot.json) 保留原测量身份）与 `Binding.AllowedModels` 在 `(Operation, Provider, API, ModelID)` 下的交集。
 
 两条原生图像路线与 DeepSeek Responses 均登记为扩展路径，其自身证据不计为 pi 差分通过。发布结论与后续离线修复见[发布说明](../docs/barness-ai/README.md)。
 内置目录包含 96 个聊天身份、两个图像型号与三个分类型号；同名型号可以分属不同操作或协议。
@@ -401,7 +401,7 @@ input/output/total/cached/cache-write/reasoning 六项均明确报告（包括�
 | 解析与安全 | `preflight.go`、`policy.go`、`admission.go`、`limits.go`、`timeouts.go`、`retry.go`、`transport.go` |
 | 历史与原生状态 | `transcript.go`、`history.go`、`replay.go`、`native.go`、`cache_key.go` |
 | 工具 | `tool.go`、`tool_validate.go`、`tool_coerce.go`、`tool_json.go`、`argument_text.go` |
-| 目录 | `catalog*.go`（类型化型号、查询、校验、内置数据、快照与价格） |
+| 目录 | `catalog*.go`（类型化型号、查询、校验与价格），生成数据 `catalog_builtin.json` |
 | 用量与成本 | `usage.go`、`estimate.go`、各协议 `*_usage.go`；`anthropic_effort.go` 处理托管推理强度 |
 | 回调与可观测性 | `hooks.go`、`hooks_run.go`、`observer.go` |
 | 聊天 adapter 契约 | `adapter.go`（`adapter` 接口与按 `API` 索引的固定 `registry()`）；unary 在 `images.go` / `classifier.go` 按操作与协议显式分派 |
@@ -420,13 +420,15 @@ input/output/total/cached/cache-write/reasoning 六项均明确报告（包括�
 | `examples/` | `localassembly`、`hostintegration`（聊天/混合操作）、`toolloop`、`requestid`、`classifiermigration`、`chineseeval`（独立业务评估），均有离线 E2E |
 | `e2e/` | 针对公共 API、本地受控 Provider 与宿主替身的离线验收测试；fixture 位于 `e2e/testdata/<protocol>/` |
 | `live/` | 真实 API 冒烟（build tag `live`），更新 `support-matrix.json` |
-| `release/` | 只读发布回执判定命令与目录快照 |
+| `release/` | 只读发布回执判定命令与不可变历史目录快照 |
 | `internal/testkit/` | 仅测试使用：受控 Provider、宿主替身、证据、审计和只读发布判定 |
 | `internal/probe`、`internal/clock` | 经 `Config` 注入的测试钩子（宿主无法构造） |
 
+独立 [`catalog`](../catalog) 组件把选定本地 JSON 加载为有效 `ai.Catalog` 和逐模型报告。运行时 `ai` 只消费生成的默认 JSON，不反向依赖维护组件，也不联网获取目录。
+
 ### 常见改动
 
-- **新增型号：** 按纳入标准（ADR-0018）更新对应 `catalog_*.go` 数据（分类还包括 `catalog_decisions.go`），同步审阅 `release/catalog-snapshot.json` 的目录内容与公共 `BuiltinCatalog().Hash()`；`TestBuiltinCatalogReleaseSnapshot` 核对二者。
+- **维护型号或价格：** 使用[目录维护 CLI 与本地加载器](../docs/barness-ai/catalog-maintenance.md)。冻结已确认候选，经受控代码兼容检查后应用原受测字节；审核后的 Provider 来源与生成的 `catalog_builtin.json` 一起更新，旧 `release/catalog-snapshot.json` 与 pin 保持不可变。
 - **在已有协议上新增 Provider：** 新增 `ProviderID` 及其能力集（如 `chat_compat.go` / `responses_capabilities.go`）、`e2e/testdata/` 下的 fixture、live 组合、ADR；真实支持由自身路线证据判定。
 - **新增协议：** 明确操作、`API`、类型化选项与结果转换，添加 E2E 套件与 ADR。聊天实现 `adapter` / `registry()`；unary 复用共同运行时与显式分派。编码、读取和校验均执行限额，不提前添加注册抽象。
 - **改变可观察行为：** 先写公共失败场景，再验证受影响 E2E；涉及厂商行为另列所需 live 路线与授权。

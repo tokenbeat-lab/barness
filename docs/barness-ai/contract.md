@@ -15,11 +15,13 @@
 | `Policy *ResourcePolicy` | 是 | 显式有限资源策略（D1，ADR-0002）。缺失、任一容量/时限为零或负数、字段关系非法时构造失败（`*ConfigError`）。没有内置默认值，也没有“关闭限额”模式。 |
 | `Bindings BindingResolver` | 是 | 宿主按 `(TenantID, BindingID)` 解析授权绑定。 |
 | `Credentials CredentialResolver` | 是 | 宿主按绑定解析凭据快照；秘密值以 `ai.Secret` 传入，不进入任何输出。 |
-| `Catalog *Catalog` | 否 | 默认 `BuiltinCatalog()`（快照见 [catalog-snapshot.json](../../ai/release/catalog-snapshot.json)）；三类型号分别存放，完整身份不得重复，能力与模态须自洽，价格有限且非负，图像声明的每个模态须有费率。 |
+| `Catalog *Catalog` | 否 | 默认 `BuiltinCatalog()`（生成快照见 [catalog_builtin.json](../../ai/catalog_builtin.json)）；三类型号分别存放，完整身份不得重复，能力与模态须自洽，价格有限且非负，图像声明的每个模态须有费率。 |
 | `Transport http.RoundTripper` | 否 | 构造时固定，没有每调用覆盖。nil 选择不读代理环境变量的 transport；无 CookieJar，不跟随重定向。 |
 | `Admission Admission` | 否 | 宿主注入的准入（按厂商账户聚合、分布式配额），在内置的单租户/全进程并发限制之后对每次尝试调用，参数含 TenantID、ProviderID、AccountScopeID、AttemptID。 |
 | `Observer Observer` | 否 | 异步、有界（`MaxQueuedObservations`）的调用/尝试记录；需要正的 `MaxQueuedObservations`。 |
 | `AllowLoopbackHTTP` | — | 仅测试装配使用，允许绑定指向回环 http。生产必须为 false，所有 endpoint 为 https。 |
+
+本地 JSON 的完整文件校验、逐模型隔离、来源/有效摘要和维护流程见[目录维护与加载](catalog-maintenance.md)。加载报告由 Host 单独保存；它不进入调用类型或授予 Binding 权限。
 
 资源策略示例（每个数值附适用负载、依据与调整说明，并由压力场景验证）：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`hostintegration.CloudBatchPolicy`。压力数据见 [README](README.md#资源策略示例与数值依据)。
 
