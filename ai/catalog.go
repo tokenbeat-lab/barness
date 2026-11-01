@@ -18,7 +18,7 @@ type Catalog struct {
 	ClassifierModels []ClassifierModel `json:"classifierModels,omitempty"`
 }
 
-//go:generate go run ../cmd/cataloggen -out catalog_builtin.json
+//go:generate go run ../cmd/cataloggen --check --out catalog_builtin.json
 
 // builtinCatalogJSON is generated from catalog/data/providers. The ai package
 // consumes only runtime definitions and has no dependency on maintenance.
