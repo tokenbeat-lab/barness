@@ -83,6 +83,69 @@ func TestTerraAdoptedSeedExport(t *testing.T) {
 		t.Fatal(err)
 	}
 	ev.Fixture("reexport-review.json", out)
+
+	baselineDir := filepath.Join(catalogSnapshotRoot(t), "catalog", "data", "baseline")
+	originalIndex, err := os.ReadFile(filepath.Join(baselineDir, "review.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var original maintenance.ReviewExport
+	if err := json.Unmarshal(originalIndex, &original); err != nil {
+		t.Fatal(err)
+	}
+	ev.Fixture("adopted-review.json", originalIndex)
+	inputs := make(map[maintenance.ReviewInput]int)
+	for _, input := range manifest.Inputs {
+		inputs[input]++
+	}
+	for _, input := range original.Inputs {
+		inputs[input]--
+		oldBytes, oldErr := os.ReadFile(filepath.Join(baselineDir, filepath.FromSlash(input.Path)))
+		newBytes, newErr := os.ReadFile(filepath.Join(review, filepath.FromSlash(input.Path)))
+		ev.Check("original input metadata and bytes retained", oldErr == nil && newErr == nil && bytes.Equal(oldBytes, newBytes), "input=%+v old=%v new=%v", input, oldErr, newErr)
+	}
+	sameInputs := len(manifest.Inputs) == len(original.Inputs)
+	for _, count := range inputs {
+		sameInputs = sameInputs && count == 0
+	}
+	ev.Check("all original inputs retained exactly once", sameInputs, "old=%d new=%d", len(original.Inputs), len(manifest.Inputs))
+	originSum := sha256.Sum256(originalIndex)
+	origin := "sha256:" + hex.EncodeToString(originSum[:])
+	references := make(map[maintenance.ReviewReference]int)
+	for _, reference := range manifest.References {
+		references[reference]++
+	}
+	for _, reference := range original.References {
+		if reference.OriginReview == "" {
+			reference.OriginReview = origin
+		}
+		references[reference]--
+	}
+	sameReferences := len(manifest.References) == len(original.References)
+	for _, count := range references {
+		sameReferences = sameReferences && count == 0
+	}
+	ev.Check("all original references and origins retained", sameReferences, "old=%d new=%d", len(original.References), len(manifest.References))
+	files := map[string]bool{"review.json": true}
+	for name := range manifest.Files {
+		files[name] = true
+	}
+	err = filepath.WalkDir(review, func(path string, entry os.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			return walkErr
+		}
+		if !entry.IsDir() {
+			name, relErr := filepath.Rel(review, path)
+			if relErr != nil {
+				return relErr
+			}
+			name = filepath.ToSlash(name)
+			ev.Check("reexport contains no unlisted file", files[name], "path=%s", name)
+			delete(files, name)
+		}
+		return nil
+	})
+	ev.Check("reexport inventory is complete", err == nil && len(files) == 0, "err=%v missing=%v", err, files)
 	for path, digest := range manifest.Files {
 		raw, err := os.ReadFile(filepath.Join(review, filepath.FromSlash(path)))
 		if err != nil {
