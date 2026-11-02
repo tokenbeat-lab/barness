@@ -1,6 +1,6 @@
 # Kimi K3.1 Pro 维护当前状态
 
-状态：六身份已检查并应用；内置采用及定向 GREEN 完成，最终完整普通待启动。
+状态：六身份已检查并应用；内置定向 GREEN 完成，完整普通发现旧资格计数范围问题，待修订后重验。
 基准：`ceabec8b58c42377f4f643ccb87c1bc1d4beb456`。
 工作批次：`artifacts/catalog/work/20261102T023400Z-c9d70d4f/`。
 维护库：`artifacts/catalog/work/store`，原 `.catalog` 和 `local-catalog.json` 保留。
@@ -110,3 +110,14 @@ PASS / exit0，139 个原生场景全部 PASS、audit 0；回执 SHA-256
 下一轮完整普通使用独立 `run-ordinary-v2.py`、`ordinary-inputs-v2.json`
 （165 项）和 `required-cases-v2.json`（202 项），三者均在工作批次 verification/。
 执行源码及输入重新冻结后，保持 HEAD 和受测文件不变，顺序完成普通、生成、构建/vet。
+
+在 `2194ca515a3188645b3a0d49852ef99839a10dea` 的内置完整普通发现
+`TestKimiQualificationPromotionBoundary` 实际断言失败，随后按 SOP 停止：
+`.evidence/catalog-kimi-k31-pro/e2e/20261102T025343.292240Z-w42x02ym/receipt.json`，
+CANCELLED / 实际退出 -15。观察到的失败仍保留，不以取消隐藏；未启动后续构建/vet。
+
+该历史资格测试已逐条确认旧 K3 的六份运行定义与原 payload 相等，但随后把两个
+Provider 的全部型号数固定为 6；当前两站共有 K3 与 K3.1 Pro 的 12 个身份。
+仅将该历史计数限定 `ID == "kimi-k3"`，继续要求恰好六条，不改原 payload、资格、
+任何产品定义或新六身份合同。修订后先定向复验，再冻结并重新执行完整普通。
+后续必需原生集合需显式加入 `KIMI-K16-promotion-proof-boundary`，避免漏验该失败项。

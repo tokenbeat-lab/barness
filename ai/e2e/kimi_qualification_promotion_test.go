@@ -52,11 +52,11 @@ func TestKimiQualificationPromotionBoundary(t *testing.T) {
 	}
 	kimiModels := 0
 	for _, m := range ai.BuiltinCatalog().Models {
-		if m.Provider == ai.ProviderMoonshot || m.Provider == ai.ProviderMoonshotCN {
+		if (m.Provider == ai.ProviderMoonshot || m.Provider == ai.ProviderMoonshotCN) && m.ID == "kimi-k3" {
 			kimiModels++
 		}
 	}
-	ev.Check("activation adds exactly six Kimi identities", kimiModels == 6, "models=%d", kimiModels)
+	ev.Check("historical activation retains exactly six K3 identities", kimiModels == 6, "models=%d", kimiModels)
 	var decoded any
 	if json.Unmarshal(data, &decoded) != nil {
 		t.Fatal("payload JSON")
