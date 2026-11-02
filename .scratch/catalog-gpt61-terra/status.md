@@ -90,8 +90,9 @@ GPT-6.1 Terra worker `/root/terra_chinese_config_revision` 负责示例配置/�
 ## 内置采用最终结果
 
 实际受测提交：`d4dbafaa1537ada3f6a56ade817dc63ad20d9f9d`。
-当前收尾仅更新本状态和 issue，最终提交及来源/输入集合相等性见不可变完成索引：
-`.evidence/catalog-gpt61-terra-builtin/maintenance/20261102T005920Z-000b6471/completion-builtin-v1.json`。
+当前文档收尾补充 changelog 和发布说明入口，未改执行源码或测试输入。
+最终提交及来源/输入集合相等性见不可变完成索引：
+`.evidence/catalog-gpt61-terra-builtin/maintenance/20261102T005920Z-000b6471/completion-builtin-v2.json`。
 更新前状态保存为同目录 `status-before-completion.md`。
 
 完整普通 argv：
@@ -155,6 +156,15 @@ live/race/压力沿用上方有依据的 NOT_APPLICABLE：本次只有目录采�
 回退应形成新的 Provider rollback/withdraw 候选，经 check/apply 后重新导出并采用
 整组维护源、快照和完整基线；若目录身份再次改变，当前示例配置也须新 revision。
 不覆盖本次原件或旧版本。本轮未执行回退。
+
+## Changelog 补录
+
+2026-11-02 补充 [Changelog](../../docs/barness-ai/CHANGELOG.md) 的“未发布”条目，
+并从发布说明 README 提供入口。记录内置采用、目录标识、代码/分发影响、
+ChineseEvaluation v4 和实际验证范围；没有签发软件版本或新增发布结论。
+本次仅 Markdown 变更，核对本地链接、目录标识及完整受测来源/输入集合相等性，
+沿用上述普通回执，不新增测试测量。原 v1 完成索引保留；补录前状态保存为维护
+attempt 的 `status-before-changelog.md`，当前关系由 v2 索引绑定。
 
 ## 已完成的本地接纳阶段
 

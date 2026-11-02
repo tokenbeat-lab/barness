@@ -1,5 +1,8 @@
 # barness-ai 发布说明
 
+目录与代码变更记录见 [Changelog](CHANGELOG.md)。2026-11-02 的未发布条目记录
+GPT-6.1 Terra 内置采用、JSON 分发条件及对应验证，不代表已发布新的软件版本。
+
 > **当前验证流程（2026-10-22）**：操作步骤与完成条件统一见[测试流程 SOP](../agents/verification.md)，决策见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。迁移与普通验证的事实见[唯一当前状态](../../.scratch/barness-ai-test-process-review/status.md)；race、压力、付费 live 和真实清理以该状态中的实际记录为准。下列旧整版资格只适用于各自原受测源码。
 
 > **地区 Provider 实施**：GLM 与 MiniMax 的中国站、国际站使用独立身份；新增九个候选身份的实现、普通验证及自身资格见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)，装配、缓存 v2 和回滚见[地区服务说明](regional-providers.md)。以下历史通过不自动认证修改后的源码。
