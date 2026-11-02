@@ -18,6 +18,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/tokenbeat-lab/barness/ai"
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/evidence"
 )
 
@@ -144,6 +145,7 @@ func TestCatalogMaintenanceCLIFreeze(t *testing.T) {
 		return
 	}
 	store := filepath.Join(t.TempDir(), "store")
+	seedVersions := catalogSeedVersions(t, ev, binary, store)
 	args := []string{"withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "withdraw fixture", "--confirm", "--json"}
 	out, exit := invokeCatalogCLI(t, ev, binary, args...)
 	var frozen struct {
@@ -178,11 +180,11 @@ func TestCatalogMaintenanceCLIFreeze(t *testing.T) {
 	for _, m := range snapshot.Catalog.Models {
 		found = found || (m.Provider == "openai" && m.API == "openai-responses" && m.ID == "gpt-4")
 	}
-	ev.Check("candidate alone omits explicitly withdrawn identity", !found && len(snapshot.Catalog.Models) == 111, "count=%d found=%v", len(snapshot.Catalog.Models), found)
+	ev.Check("candidate alone omits explicitly withdrawn identity", !found && len(snapshot.Catalog.Models) == len(ai.BuiltinCatalog().Models)-1, "count=%d found=%v", len(snapshot.Catalog.Models), found)
 	for _, p := range frozen.Candidate.State.Providers {
-		expected := uint64(1)
+		expected := seedVersions[p.ID]
 		if p.ID == "openai" {
-			expected = 2
+			expected++
 		}
 		ev.Check("only changed Provider proposes next version", p.Version == expected, "%s=%d", p.ID, p.Version)
 	}
@@ -191,7 +193,7 @@ func TestCatalogMaintenanceCLIFreeze(t *testing.T) {
 		Versions map[string]uint64 `json:"versions"`
 	}
 	_ = json.Unmarshal(out, &current)
-	ev.Check("freezing does not advance effective versions", exit == 0 && current.Versions["openai"] == 1, "exit=%d output=%s", exit, out)
+	ev.Check("freezing does not advance effective versions", exit == 0 && current.Versions["openai"] == seedVersions["openai"], "exit=%d output=%s", exit, out)
 	out, exit = invokeCatalogCLI(t, ev, binary, "candidate", "--store", store, "--id", frozen.Candidate.ID)
 	ev.Check("candidate can be queried without applying", exit == 0 && bytes.Contains(out, []byte(frozen.Candidate.ID)), "exit=%d output=%s", exit, out)
 	badStore := filepath.Join(t.TempDir(), "file")

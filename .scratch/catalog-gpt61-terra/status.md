@@ -60,7 +60,17 @@ collector 为 CANCELLED、实际进程退出 -15；未完成项不算通过。
 FAIL/exit1。前两个失败场景和源码归档已通过；ReviewExport 的旧断言把继承引用
 视作当前临时 store 的原件，并在第二轮强制覆盖已有 origin。按现有合同修订
 这两处断言：继承引用独立对照原基线，保留已有 `originReview`；只有原为空时
-补当前来源索引摘要。本轮失败原件保留，后续定向和完整普通复验待执行。
+补当前来源索引摘要。本轮失败原件保留。
+
+后续定向 fixture 和 Terra 三测试在 `23461d6e` 均通过；当前测试包 vet 通过。
+完整普通第二 attempt：
+`.evidence/catalog-gpt61-terra-builtin/e2e/20261102T011149.809512Z-81jyjmlx/receipt.json`，
+观察到 `TestCatalogInclusion/listed`、`TestCatalogMaintenanceCLIFreeze` 和
+`TestCatalogMaintenanceCLILifecycle` 失败后停止，CANCELLED/exit -15。
+旧 inclusion 把所有 Responses 独有型号视作 pro；两处 CLI 将初始目录数和版本写死。
+按已批准四维身份明确 Terra 仅 Responses，保留原 pro 合同；从公共 CLI 初始版本
+核对冻结不升版和 +1/+2/+3 递增，并修订同类 workflow/rollback 假设。
+不修改任何产品定义、版本实现或原失败记录；新冻结后的定向和完整普通待执行。
 
 采用前当前状态快照：同维护 attempt 的 `status-before-adoption.md`。
 既有未跟踪 `.catalog/`、`local-catalog.json` 和

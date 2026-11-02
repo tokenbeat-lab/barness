@@ -19,6 +19,7 @@ func TestCatalogMaintenanceCLILifecycle(t *testing.T) {
 		return
 	}
 	store := filepath.Join(t.TempDir(), "store")
+	seedVersions := catalogSeedVersions(t, ev, binary, store)
 	identity := []string{"--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "explicit lifecycle fixture"}
 	withdrawn := freezeCatalogAction(t, ev, binary, store, append([]string{"withdraw"}, identity...)...)
 	first := checkApplyCatalogAction(t, ev, binary, store, withdrawn)
@@ -33,9 +34,9 @@ func TestCatalogMaintenanceCLILifecycle(t *testing.T) {
 	_, present = cat.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4")
 	ev.Check("rollback restores selected content without builtin fallback", err == nil && !present, "err=%v present=%v", err, present)
 	for _, p := range third.State.Providers {
-		expected := uint64(1)
+		expected := seedVersions[string(p.ID)]
 		if p.ID == ai.ProviderOpenAI {
-			expected = 4
+			expected += 3
 		}
 		ev.Check("withdraw restore rollback each advance only changed Provider", p.Version == expected, "%s=%d", p.ID, p.Version)
 	}
@@ -59,7 +60,7 @@ func TestCatalogMaintenanceCLILifecycle(t *testing.T) {
 		Versions map[string]uint64 `json:"versions"`
 	}
 	_ = json.Unmarshal(out, &versions)
-	ev.Check("preview does not advance current version", exit == 0 && versions.Versions["openai"] == 4, "exit=%d output=%s", exit, out)
+	ev.Check("preview does not advance current version", exit == 0 && versions.Versions["openai"] == seedVersions["openai"]+3, "exit=%d output=%s", exit, out)
 }
 
 func TestCatalogMaintenanceCLIAddedRollbackRecovery(t *testing.T) {
@@ -70,6 +71,7 @@ func TestCatalogMaintenanceCLIAddedRollbackRecovery(t *testing.T) {
 	}
 	dir := t.TempDir()
 	store := filepath.Join(dir, "store")
+	seedVersions := catalogSeedVersions(t, ev, binary, store)
 	source := filepath.Join(dir, "source.json")
 	if err := os.WriteFile(source, []byte(maintenanceSourceFixture), 0600); err != nil {
 		t.Fatal(err)
@@ -99,7 +101,7 @@ func TestCatalogMaintenanceCLIAddedRollbackRecovery(t *testing.T) {
 	ev.Check("restoration does not require refetching deleted source", err == nil && present, "err=%v present=%v", err, present)
 	for _, p := range third.State.Providers {
 		if p.ID == ai.ProviderOpenAI {
-			ev.Check("add rollback restore advance monotonically", p.Version == 4, "version=%d", p.Version)
+			ev.Check("add rollback restore advance monotonically", p.Version == seedVersions["openai"]+3, "version=%d", p.Version)
 		}
 	}
 }

@@ -72,9 +72,10 @@ func TestCatalogInclusion(t *testing.T) {
 			pro := id == "gpt-5.4-pro"
 			ev.Check(id+" on Chat unless a pro model", slices.Contains(chat, id) != pro, "listed %q", chat)
 		}
+		ev.Check("Terra is Responses only", slices.Contains(responses, "gpt-6.1-terra") && !slices.Contains(chat, "gpt-6.1-terra"), "responses=%q chat=%q", responses, chat)
 		for _, id := range responses {
-			if !slices.Contains(chat, id) {
-				// Only pro models answer on Responses alone (ADR-0013 决策二).
+			if !slices.Contains(chat, id) && id != "gpt-6.1-terra" {
+				// ADR-0013 historical pro identities remain Responses only.
 				ev.Check(id+" left off Chat is a pro model", strings.HasSuffix(id, "-pro"), "chat %q", chat)
 			}
 		}

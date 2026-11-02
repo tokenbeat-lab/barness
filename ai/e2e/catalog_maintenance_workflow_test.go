@@ -12,6 +12,19 @@ import (
 	"github.com/tokenbeat-lab/barness/catalog/maintenance"
 )
 
+func catalogSeedVersions(t *testing.T, ev *evidence.Case, binary, store string) map[string]uint64 {
+	t.Helper()
+	out, exit := invokeCatalogCLI(t, ev, binary, "versions", "--store", store)
+	var result struct {
+		Versions map[string]uint64 `json:"versions"`
+	}
+	err := json.Unmarshal(out, &result)
+	if !ev.Check("seed versions are available before mutation", exit == 0 && err == nil && len(result.Versions) > 0, "exit=%d err=%v output=%s", exit, err, out) {
+		t.FailNow()
+	}
+	return result.Versions
+}
+
 func freezeCatalogAction(t *testing.T, ev *evidence.Case, binary, store string, args ...string) maintenance.Candidate {
 	t.Helper()
 	command := append([]string{args[0], "--store", store, "--confirm"}, args[1:]...)
@@ -54,6 +67,7 @@ func TestCatalogMaintenanceCLICostUpdate(t *testing.T) {
 	}
 	dir := t.TempDir()
 	store := filepath.Join(dir, "store")
+	seedVersions := catalogSeedVersions(t, ev, binary, store)
 	source := filepath.Join(dir, "source.json")
 	decisions := filepath.Join(dir, "decisions.json")
 	raw := []byte(`{"providers":{"openai":{"id":"openai","models":{"gpt-4":{"id":"gpt-4","type":"chat","cost":{"input":1,"output":2,"cache_read":0,"cache_write":0}},"gpt-4.1":{"id":"gpt-4.1","type":"chat","cost":{"input":2,"output":8,"cache_read":0.5,"cache_write":0}}}}},"models":{}}`)
@@ -96,9 +110,9 @@ func TestCatalogMaintenanceCLICostUpdate(t *testing.T) {
 	ev.Check("upstream manual differences and missing rates remain visible", manualHint && missingHint, "diagnostics=%+v", candidate.Diagnostics)
 	revision := checkApplyCatalogAction(t, ev, binary, store, candidate)
 	for _, p := range revision.State.Providers {
-		expected := uint64(1)
+		expected := seedVersions[string(p.ID)]
 		if p.ID == ai.ProviderOpenAI {
-			expected = 3
+			expected += 2
 		}
 		ev.Check("only price-changing Provider advances content version", p.Version == expected, "%s=%d", p.ID, p.Version)
 	}
