@@ -1,6 +1,6 @@
 # GPT-6.1 Terra 目录接纳与内置采用状态
 
-当前状态：三组默认数据已采用。普通回归首轮中断后修订三处测试夹具，待复验。此前原件保持。
+当前状态：三组默认数据已采用，目录维护与 Terra 定向已通过；完整普通发现示例当前配置 pin 需新 revision，同步中。此前原件保持。
 采用起点：`37a283ee4ef743f93d3a12132d1bc2c3211fb1e5`。
 GPT-6.1 Terra 子 agent `/root/terra_builtin_verification` 负责受影响验证编排和执行；
 root 负责完整审阅包导出、默认数据采用和交付。
@@ -70,7 +70,17 @@ FAIL/exit1。前两个失败场景和源码归档已通过；ReviewExport 的旧
 旧 inclusion 把所有 Responses 独有型号视作 pro；两处 CLI 将初始目录数和版本写死。
 按已批准四维身份明确 Terra 仅 Responses，保留原 pro 合同；从公共 CLI 初始版本
 核对冻结不升版和 +1/+2/+3 递增，并修订同类 workflow/rollback 假设。
-不修改任何产品定义、版本实现或原失败记录；新冻结后的定向和完整普通待执行。
+不修改任何产品定义、版本实现或原失败记录。
+
+版本/inclusion 定向、完整 `TestCatalogMaintenance` 组、fixture/Terra 定向及测试包 vet
+已在 `ac7a4645` 通过。完整普通第三 attempt：
+`.evidence/catalog-gpt61-terra-builtin/e2e/20261102T012300.325334Z-8mkk9txp/receipt.json`，
+ChineseEvaluation 共因失败后中断，CANCELLED/exit -15；此前维护回归通过，
+全普通仍未完成。其 v3 当前配置固定旧整体目录 Version/Hash，被既有严格漂移校验拒绝。
+依据示例合同新增 v4（配置版本、目录 Version/Hash 三字段），更新默认选择并验证
+v3 原字节和旧快照配对；不放宽校验，不改历史报告或测量。
+GPT-6.1 Terra worker `/root/terra_chinese_config_revision` 负责示例配置/默认文件，
+验证 Terra 继续负责 E2E 与实际执行。新冻结后完整普通待执行。
 
 采用前当前状态快照：同维护 attempt 的 `status-before-adoption.md`。
 既有未跟踪 `.catalog/`、`local-catalog.json` 和
