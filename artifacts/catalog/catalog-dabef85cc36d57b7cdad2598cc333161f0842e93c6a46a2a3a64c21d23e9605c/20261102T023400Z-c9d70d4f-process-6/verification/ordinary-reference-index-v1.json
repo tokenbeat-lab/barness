@@ -1,0 +1,61 @@
+{
+  "status": "PREPARED_NOT_COMPLETE",
+  "copies": [
+    {
+      "source": ".evidence/catalog-kimi-k31-pro/e2e/20261102T030707.838552Z-x6dz4dj5/receipt.json",
+      "destination": "verification/ordinary-v3-receipt.json",
+      "sha256": "7aab50187f44c02a2091d062271aa495664c7a3969ae5062a9845668e9a9fa9a"
+    },
+    {
+      "source": "/tmp/barness-kimi-k31-spec-independent-v3.md",
+      "destination": "verification/reviews/spec-independent-v3.md",
+      "sha256": "82dee7e395465cc5d7b47ad34d51b584c45ea96cc7dd66d04a89537b24fe55a5"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/review-standards-v4.md",
+      "destination": "verification/reviews/standards-v4.md",
+      "sha256": "25e03def5e0ad0507a312c1f6f84a8e34d8873d4fe003a7e09989d37f22081d4"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/package-ordinary-v1.py",
+      "destination": "provenance/operations/package-ordinary-v1.py",
+      "sha256": "62fb9ff84779e6e9528e2b0e80f9574052b546814cab973fc3f85ea4c79ce939"
+    }
+  ],
+  "originalReferences": [
+    {
+      "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024602.035474Z-3jcz6fs1/receipt.json",
+      "sha256": "f4e377ae452a8acb0622071586c295f2a086d71d4f0ae2579c0260d6979b40a4"
+    },
+    {
+      "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T025343.292240Z-w42x02ym/receipt.json",
+      "sha256": "a65c8fc0171d3d3d6e306a4799860b409a609689ee846a913be8d6ff74ac3c1a"
+    },
+    {
+      "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T023927.481768Z-jxy1dhxe/receipt.json",
+      "sha256": "a74f4aa662f25f56eefbf5bee150ba0b799128495562464a7665c01af3c28285"
+    },
+    {
+      "path": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/required-cases-v3.json",
+      "sha256": "36d4ebfbe755b255c5fe87cbee799d80136612b772adbb17248f1bab10941906"
+    },
+    {
+      "path": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/ordinary-inputs-v3.json",
+      "sha256": "56478fa21b0e50cdf305ec1a709252955137169b948241daf1a668f41a57d016"
+    },
+    {
+      "path": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/run-ordinary-v3.py",
+      "sha256": "a0003ed4605843ec5e552cf5c2d0fb0d90a650f6ef63434c502150cdf3e7df8f"
+    }
+  ],
+  "ordinary": {
+    "status": "PASS",
+    "exitCode": 0,
+    "actualMeasuredCommit": "97e3fef86d6948705eb70abc97976c64c725b442",
+    "elapsedSeconds": 1304.862620915752,
+    "requiredCases": "PENDING_VERIFIER_RESULT",
+    "skippedCases": "PENDING_VERIFIER_RESULT"
+  },
+  "completeTestCapsulesIncluded": false,
+  "note": "Original cancelled and invalid receipts remain at their source paths; generate/build/vet and final applicability remain pending."
+}

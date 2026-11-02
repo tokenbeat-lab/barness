@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "label": "40-adopt-builtin",
+  "argv": [
+    "python3",
+    "artifacts/catalog/work/20261102T023400Z-c9d70d4f/adopt-builtin-v1.py"
+  ],
+  "cwd": "/Users/cyber/RestoX/barness",
+  "startedAt": "2026-11-02T02:52:12.285670+00:00",
+  "finishedAt": "2026-11-02T02:52:12.324587+00:00",
+  "wallSeconds": 0.03879745816811919,
+  "head": "1827f0956804c37bef8c32594903b895099ee4e5",
+  "script": {
+    "path": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/operate-v1.py",
+    "sha256": "8dbe939537c1b3d63be314bff1e4a3bd04357d0656815929b486b23601846e11"
+  },
+  "sanitizedEnvironment": {
+    "GOENV": "off",
+    "GOFLAGS": "",
+    "GOWORK": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "HOME": "<isolated>"
+  },
+  "exitCode": 0,
+  "status": "PASS",
+  "error": null,
+  "stdout.jsonl": {
+    "path": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/commands/40-adopt-builtin/stdout.jsonl",
+    "sha256": "d17e2d8ba48fe76f94d8630b7f7a1f59647d749dfc0296752fdfa56861d3c153"
+  },
+  "stderr.log": {
+    "path": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/commands/40-adopt-builtin/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

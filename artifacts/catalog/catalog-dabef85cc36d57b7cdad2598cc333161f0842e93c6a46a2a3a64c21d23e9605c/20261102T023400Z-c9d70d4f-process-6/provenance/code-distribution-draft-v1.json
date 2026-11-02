@@ -1,0 +1,15 @@
+{
+  "status": "DRAFT_NOT_COMPLETE",
+  "comparisonBase": "ceabec8b58c42377f4f643ccb87c1bc1d4beb456",
+  "comparisonHead": "1827f0956804c37bef8c32594903b895099ee4e5",
+  "coreRuntimeCodeChanged": "YES",
+  "coreRuntimeFiles": ["ai/kimi_catalog.go"],
+  "runtimeDependenciesChanged": "NO",
+  "testFiles": ["ai/e2e/kimi_k31_catalog_test.go"],
+  "externalJson": {"oldProgram": "ceabec8b58c42377f4f643ccb87c1bc1d4beb456", "oldCheck": "code_gap, exit 1", "decision": "upgrade SDK and rebuild, then verify compatibility and explicitly load into a new Client", "otherBuilds": "NOT_VERIFIED"},
+  "builtinDefault": {"currentStatus": "NOT_ADOPTED", "currentCount": 119, "ifAdopted": "rebuild and distribute program"},
+  "hostAuthorization": "No automatic AllowedModels or credential expansion",
+  "ordinaryVerification": "PENDING",
+  "newVendorQualification": false,
+  "softwareVersionPublished": false
+}

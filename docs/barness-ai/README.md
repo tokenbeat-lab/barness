@@ -1,5 +1,8 @@
 # barness-ai 发布说明
 
+目录与代码变更记录见 [Changelog](CHANGELOG.md)。2026-11-02 的未发布条目记录
+GPT-6.1 Terra 内置采用、JSON 分发条件及对应验证，不代表已发布新的软件版本。
+
 > **当前验证流程（2026-10-22）**：操作步骤与完成条件统一见[测试流程 SOP](../agents/verification.md)，决策见 [ADR-0051](../adr/0051-scoped-verification-receipts.md)。迁移与普通验证的事实见[唯一当前状态](../../.scratch/barness-ai-test-process-review/status.md)；race、压力、付费 live 和真实清理以该状态中的实际记录为准。下列旧整版资格只适用于各自原受测源码。
 
 > **地区 Provider 实施**：GLM 与 MiniMax 的中国站、国际站使用独立身份；新增九个候选身份的实现、普通验证及自身资格见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)，装配、缓存 v2 和回滚见[地区服务说明](regional-providers.md)。以下历史通过不自动认证修改后的源码。
@@ -24,7 +27,9 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 旧目标 xAI 来源历史与新单进程授权（正式验证待执行） | [legacy-history-qualification.md](legacy-history-qualification.md) |
 | 历史差异研究 | [differences.md](differences.md)（历史说明；当前不运行冻结 pi 差分） |
 | 支持矩阵 | [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)（只经 `go run ./ai/live/cmd/supportmatrix` 合并冒烟报告更新） |
-| 模型/价格快照 | [`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json)，由公共目录 E2E 核对内容与哈希 |
+| 本地目录维护与隔离加载 | [catalog-maintenance.md](catalog-maintenance.md)：候选/check/apply、Provider 来源、生成和独立加载报告 |
+| 版本化目录交付物 | [统一入口](../../artifacts/catalog/README.md)：运行 JSON 快照、changelog、审阅来源、验证索引及核心代码/分发判定 |
+| 模型/价格快照 | 当前生成数据 [`ai/catalog_builtin.json`](../../ai/catalog_builtin.json)；[`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json) 保留历史原版本/哈希，由迁移 E2E 独立对照 |
 | Fixture | [`ai/e2e/testdata/`](../../ai/e2e/testdata/)；原生用例 artifacts 清单及完整来源哈希 |
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |
 | 最小示例 | `ai/examples/localassembly`、`hostintegration`（聊天与混合操作）、`toolloop`、`requestid`；独立中文评估见 [`chineseeval`](../../ai/examples/chineseeval/README.md) |

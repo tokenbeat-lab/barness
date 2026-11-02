@@ -1,0 +1,39 @@
+{
+  "status": "DRAFT_NOT_COMPLETE",
+  "comparisonBase": "ceabec8b58c42377f4f643ccb87c1bc1d4beb456",
+  "comparisonHead": "2194ca515a3188645b3a0d49852ef99839a10dea",
+  "coreRuntimeCodeChanged": "YES",
+  "coreRuntimeFiles": [
+    "ai/kimi_catalog.go"
+  ],
+  "runtimeDependenciesChanged": "NO",
+  "exampleCodeChanged": "YES",
+  "exampleFiles": [
+    "ai/examples/chineseeval/cmd/chineseeval/main.go"
+  ],
+  "generatedBuiltinAndProvidersAndBaselineAdopted": true,
+  "externalJson": {
+    "oldProgram": "ceabec8b58c42377f4f643ccb87c1bc1d4beb456",
+    "oldCheck": "code_gap, exit 1",
+    "decision": "Upgrade SDK and rebuild, then verify compatibility and explicitly load a new Client.",
+    "otherBuilds": "NOT_VERIFIED"
+  },
+  "builtinDefault": {
+    "count": 125,
+    "decision": "Rebuild and distribute programs using embedded default."
+  },
+  "measuredGreen": {
+    "recordedGitHead": "1827f0956804c37bef8c32594903b895099ee4e5",
+    "comparisonCommit": "2194ca515a3188645b3a0d49852ef99839a10dea",
+    "sourceCount": 2166,
+    "selectedInputs": 80,
+    "sourceAndInputByteEquality": "PASS",
+    "evidence": "verification/builtin-evidence-index-v1.json"
+  },
+  "cliCoreCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+  "cliRelationship": "CLI was built against core commit 0aede6e; full frozen commit 2194 includes the same core change and later builtin/example/test changes. Verify final CLI source applicability before sealing.",
+  "hostAuthorization": "No automatic AllowedModels or credential expansion",
+  "ordinary": "PENDING",
+  "vendorQualification": false,
+  "softwareRelease": false
+}

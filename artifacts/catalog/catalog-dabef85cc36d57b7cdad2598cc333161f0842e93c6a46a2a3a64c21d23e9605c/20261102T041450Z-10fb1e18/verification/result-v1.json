@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "commit": "8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11",
+  "ordinary": {
+    "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/receipt.json",
+    "sha256": "55b5b268324169db71bcbab89e53d202abf70453598301ce09295a10ecbefd73",
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "./ai",
+      "./ai/examples/chineseeval/...",
+      "./catalog/...",
+      "./cmd/catalogctl",
+      "./cmd/cataloggen",
+      "-count=1",
+      "-timeout=40m"
+    ],
+    "status": "PASS",
+    "exitCode": 0,
+    "sourceCount": 2171,
+    "selectedInputs": 84,
+    "native": {
+      "PASS": 17232,
+      "NOT_RUN": 226
+    },
+    "requiredCount": 329,
+    "bundles": [
+      {
+        "path": "bundles/20261102T051209.995718000Z",
+        "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+      },
+      {
+        "path": "bundles/20261102T052158.532963000Z",
+        "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+      },
+      {
+        "path": "bundles/20261102T052544.093632000Z",
+        "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+      },
+      {
+        "path": "bundles/20261102T052602.845300000Z",
+        "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+      }
+    ]
+  },
+  "inspection": {
+    "path": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/ordinary-inspection-v6c.json",
+    "sha256": "c6a051d80fd3287c38af6b64e4028188572fb46332ee0d4248f2fd65421f98ba",
+    "historicalArchiveSHA256": "32bac88ed05080baa36bbb21dff06bb373a329ab7068f93dcfb21983547d2d74",
+    "historicalTreeFiles": 2189,
+    "dynamicFixtureCount": 48,
+    "nestedCheckCount": 9
+  },
+  "build": [
+    {
+      "record": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/build-v1/generate.json",
+      "sha256": "347dd8fa04a3609e1a2e276c6f8c4586a5d0e4a0d7fa8064d0a1db0b5af254a4",
+      "argv": [
+        "go",
+        "generate",
+        "./ai"
+      ],
+      "exitCode": 0,
+      "sourceAndSelectedInputsStable": true,
+      "stdoutSha256": "c3660f83da503664d6a2157b096b202e92b78b2a1f65aa0b235cc359b9b3089a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/build-v1/build.json",
+      "sha256": "5fee19c0532cbe89c33574b3c87f70775760cf373f0e111801dc3645f1737968",
+      "argv": [
+        "go",
+        "build",
+        "./ai/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen"
+      ],
+      "exitCode": 0,
+      "sourceAndSelectedInputsStable": true,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/build-v1/vet.json",
+      "sha256": "5b4d94c8aa5ec1c5c288395c288d05b2b67a49394222a0e85af88e63bea37012",
+      "argv": [
+        "go",
+        "vet",
+        "./ai/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen"
+      ],
+      "exitCode": 0,
+      "sourceAndSelectedInputsStable": true,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "buildScript": {
+    "path": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/run-build-v1.py",
+    "sha256": "3503ef123c959404f9686f8db9737be31f7ad774f4c9696d3abf94de84fc14cf"
+  },
+  "ordinaryScript": {
+    "path": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/run-ordinary-v6.py",
+    "sha256": "fda9fb1719a5a7e3af21996d88724a64ae3555e614d28c5a41605f9157f4bc54"
+  },
+  "skipIndex": {
+    "path": "artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/skip-index-v1.json",
+    "sha256": "a32eefcb8db6e4a81381e9b60956a8ee28b5d160d647157585c7025be7bc8992",
+    "goSkipEvents": 252,
+    "nativeNotRunCases": 226
+  },
+  "qualification": "Historical source comparison is isolated; current source remains rejected by the old xAI Images source gate. Synthetic identities and packets do not assert vendor qualification.",
+  "notRun": "No vendor calls, live, race, or pressure stages were authorized or executed."
+}

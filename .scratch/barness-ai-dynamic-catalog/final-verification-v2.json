@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "feature": "barness-ai-dynamic-catalog",
+  "testedCommit": "f3977c804bcc9fc9b8abf018e6328934c43639d9",
+  "releasePass": false,
+  "ordinaryCompleteCommit": "c4d0a905f448f3f3024399c3de97ea9e0ffeb95e",
+  "ordinaryScopeDifference": "Test helper changes only; full ordinary source does not equal current targeted source. The full receipt is not represented as current-source pass.",
+  "references": {
+    "status": {
+      "path": ".scratch/barness-ai-dynamic-catalog/status.md",
+      "sha256": "f762779266960008c24f2c27abe56c7d681999447876c6afb0305263b58bef5c"
+    },
+    "record": {
+      "path": ".scratch/barness-ai-dynamic-catalog/release-record-v3.json",
+      "sha256": "5748c966a054b48fccc4d5f2e9dea048d3f8c000dc9ac6aea6c51047a579615a"
+    },
+    "report": {
+      "path": ".evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/releasegate-report-v3/release-report.json",
+      "sha256": "7f90b7e636c507f55cf6d540ef959994f6b586475799ce62d6e7b455d95ef85d"
+    },
+    "evaluation": {
+      "path": ".evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/release-evaluation-v3.json",
+      "sha256": "db78a7ab15d66e28921c5f836bd2fcb31a6b0093bbb470eee984038995222f28"
+    },
+    "ordinaryComplete": {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T130626.181468Z-yicjfc4x/receipt.json",
+      "sha256": "ad75a20f4ea87deabbf20d799bd1667de1194b18daaa4c8c8af3610c7d585696"
+    },
+    "ordinaryTargeted": {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T133244.463829Z-xrnu_jus/receipt.json",
+      "sha256": "7d022042ab593148bd99d00b8fe65d0559e3d617d4030458662a480b9c52d419"
+    },
+    "raceFailed": {
+      "path": ".evidence/barness-ai-dynamic-catalog/race/20261101T132656.875761Z-n5x6ljbv/receipt.json",
+      "sha256": "3f930a7983308c5df548ddf0b9c777ad7dc59b967efa9c91dab798785d433ad2"
+    },
+    "race": {
+      "path": ".evidence/barness-ai-dynamic-catalog/race/20261101T133622.365335Z-72f1_lun/receipt.json",
+      "sha256": "8030f18262d030e64ff5d5bdf2ff2b17cedce65c5a5a25fae13132061d10d9d3"
+    },
+    "raceScan": {
+      "path": ".evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/race-output-scan-v2.json",
+      "sha256": "ea8a07e826f7f9e3a3d11c1710ada89b088ccea21f82c5712ef2a81e7a6bbad8"
+    },
+    "pressure": {
+      "path": ".evidence/barness-ai-dynamic-catalog/pressure/20261101T134937.254917Z-xdesnefv/receipt.json",
+      "sha256": "55eb9e9c4d96fddee85191d42bb352be445c7b4cd89189cea6e6ebac471205bd"
+    },
+    "skipAudit": {
+      "path": ".evidence/barness-ai-dynamic-catalog/metadata/concurrency-verification-v1/barness-catalog-skip-audit.json",
+      "sha256": "f898113d35497570191057403ebeb50641940f19efbb8f96766fed67befbf368"
+    }
+  }
+}

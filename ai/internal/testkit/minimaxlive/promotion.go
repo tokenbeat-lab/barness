@@ -3,10 +3,8 @@ package minimaxlive
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"path/filepath"
 	"slices"
-	"strings"
 
 	"github.com/tokenbeat-lab/barness/ai/internal/testkit/minimax"
 )
@@ -30,7 +28,8 @@ type Promotion struct {
 }
 
 // PromotionProposal requires actual current-source own candidate acceptance.
-// Its output is data only; frozen runtime code cannot manufacture a live PASS.
+// Its output preserves historical lineage only. It cannot activate the current
+// maintenance catalog or manufacture a live PASS.
 func PromotionProposal(dirs []string) (Promotion, error) {
 	out := Promotion{Schema: 1, Kind: "verified-candidates-for-catalog-activation"}
 	if len(dirs) != 3 {
@@ -79,92 +78,4 @@ func PromotionProposal(dirs []string) (Promotion, error) {
 	out.Catalog = append(raw, '\n')
 	out.CatalogSHA256 = Hash(out.Catalog)
 	return out, nil
-}
-
-// Activate fsyncs an exclusive candidate-lineage receipt before the data-only
-// catalog replacement. A leftover receipt records an interrupted activation;
-// neither the receipt nor activation may silently overwrite previous history.
-func Activate(dirs []string, receiptPath string) error {
-	if receiptPath == "" {
-		return fmt.Errorf("exclusive promotion receipt is required")
-	}
-	root, e := Root()
-	if e != nil {
-		return e
-	}
-	path := filepath.Join(root, "ai/catalog_minimax.json")
-	lock := path + ".activation.lock"
-	if e := os.Mkdir(lock, 0700); e != nil {
-		return fmt.Errorf("MiniMax activation locked")
-	}
-	defer os.Remove(lock)
-	unchanged := func() error {
-		raw, e := ReadFile(path, 2<<20)
-		if e != nil || Hash(raw) != "7ba8d4b2fb192e384b10d3c2aa42e3fdcf115fc8434cc98dfa5a934631a59981" {
-			return fmt.Errorf("MiniMax inactive catalog target changed")
-		}
-		return nil
-	}
-	if e := unchanged(); e != nil {
-		return e
-	}
-	proposal, e := PromotionProposal(dirs)
-	if e != nil {
-		return e
-	}
-	receiptPath, e = filepath.Abs(receiptPath)
-	if e != nil {
-		return e
-	}
-	if receiptPath == path {
-		return fmt.Errorf("receipt cannot replace catalog")
-	}
-	for _, dir := range dirs {
-		base, e := filepath.Abs(dir)
-		if e != nil {
-			return e
-		}
-		rel, e := filepath.Rel(base, receiptPath)
-		if e != nil || rel == "." || !filepath.IsAbs(rel) && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
-			return fmt.Errorf("receipt cannot mutate a candidate bundle")
-		}
-	}
-	raw, e := json.MarshalIndent(proposal, "", "  ")
-	if e != nil {
-		return e
-	}
-	receipt, e := os.OpenFile(receiptPath, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
-	if e != nil {
-		return e
-	}
-	_, e = receipt.Write(append(raw, '\n'))
-	if e == nil {
-		e = receipt.Sync()
-	}
-	closeErr := receipt.Close()
-	if e == nil {
-		e = closeErr
-	}
-	if e != nil {
-		return e
-	}
-	temp, e := os.CreateTemp(filepath.Dir(path), ".minimax-activation-")
-	if e != nil {
-		return e
-	}
-	defer os.Remove(temp.Name())
-	if _, e = temp.Write(proposal.Catalog); e == nil {
-		e = temp.Sync()
-	}
-	closeErr = temp.Close()
-	if e == nil {
-		e = closeErr
-	}
-	if e != nil {
-		return e
-	}
-	if e := unchanged(); e != nil {
-		return e
-	}
-	return os.Rename(temp.Name(), path)
 }

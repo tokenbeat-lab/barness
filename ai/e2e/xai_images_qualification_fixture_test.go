@@ -38,6 +38,7 @@ func newImageQualificationFixture(t *testing.T) imageQualificationFixture {
 	if err != nil {
 		t.Fatalf("consumer build %v %s", err, raw)
 	}
+	f.root = imageQualificationHistoricalRoot(t)
 	return f
 }
 
@@ -47,7 +48,11 @@ func newImageQualificationFixture(t *testing.T) imageQualificationFixture {
 func (f imageQualificationFixture) packet(t *testing.T) imageQualificationFixture {
 	t.Helper()
 	var err error
-	f.attempt, err = os.MkdirTemp(run.Dir(), "xai-images-proof-fixture-")
+	parent := filepath.Join(f.root, "synthetic-packets")
+	if err = os.MkdirAll(parent, 0700); err != nil {
+		t.Fatal(err)
+	}
+	f.attempt, err = os.MkdirTemp(parent, "xai-images-proof-fixture-")
 	if err != nil {
 		t.Fatal(err)
 	}

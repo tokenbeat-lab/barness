@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "feature": "barness-ai-dynamic-catalog",
+  "purpose": "retain final ordinary failure caused by agent-created untracked review document during whole-workspace rollback observation; no product-code repair",
+  "receipt": {
+    "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T115906.070499Z-gm0xyf7v/receipt.json",
+    "sha256": "52a33f9e62c19697ad333936fcabb7f2dcee079abdb0d67fb14db0ba12c3282a"
+  },
+  "status": "FAIL",
+  "exitCode": 1,
+  "error": "invalid case outcome",
+  "measuredCommit": "82231e9aa3862fe11695ec39abe6f2a2db9cc321",
+  "argv": [
+    "go",
+    "test",
+    "-json",
+    "-failfast",
+    "./ai/e2e",
+    "./ai",
+    "./catalog/...",
+    "./cmd/...",
+    "-count=1",
+    "-timeout=30m"
+  ],
+  "elapsedSeconds": 435.2943424577825,
+  "failureEvents": [
+    {
+      "Time": "2026-11-01T20:06:05.261635+08:00",
+      "Action": "fail",
+      "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "Test": "TestGLMFullRollback",
+      "Elapsed": 7.56
+    },
+    {
+      "Time": "2026-11-01T20:06:20.328886+08:00",
+      "Action": "fail",
+      "Package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "Elapsed": 431.239
+    }
+  ],
+  "cause": {
+    "test": "TestGLMFullRollback",
+    "checks": "root HEAD/branch/status/untracked filenames, modes and bytes before and after restoration",
+    "agentCreatedFile": ".scratch/barness-ai-dynamic-catalog/implementation-review-v3.md",
+    "createdAtUTC": "2026-11-01T12:06:01.993619+00:00",
+    "observation": "file creation falls inside the 7.56 second test interval; only new Git-visible root path; tests and runtime bytes unchanged",
+    "limitation": "existing failing test removes its temporary restoration directory at cleanup, so before/after temporary JSON was not imported after its early return; raw failure output and native process/assertions remain"
+  },
+  "correction": "Commit all status/review/index changes before rerun. During full verification, write only ignored .evidence output or files outside the workspace. Preserve this attempt; rerun existing public rollback and entire affected package via same broad command.",
+  "releasePass": false
+}

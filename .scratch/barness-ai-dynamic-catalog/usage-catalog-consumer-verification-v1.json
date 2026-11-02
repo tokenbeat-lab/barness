@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "purpose": "correct current usage discovery assertion after catalog composition migration; no product or historical changes",
+  "baseHead": "1d1f6de5ae4fd7b76aa2fb518370c5c48b468131",
+  "codeCommit": "aba70f3a9a8564442615f4151bd1abcbcc1c6a27",
+  "diagnosis": "only the current usage discovery test selected the immutable old release snapshot; actual current model/price values and catalog identity were correct",
+  "durablePinContract": "read current generated artifact, independently recompute its typed catalog hash, then compare public BuiltinCatalog identity; keep original118 migration proof independent; never substitute new version/hash literals",
+  "referenceAudit": {
+    "path": ".scratch/barness-ai-dynamic-catalog/catalog-identity-reference-audit-v1.md",
+    "sha256": "211daf3849ece9616638d20b18f53311766eb2819f8b02bdf2a05fbd3645bea2"
+  },
+  "unchangedFiles": {
+    "ai/catalog_builtin.json": "288da66d30a54eef6376fe9afff3827b76e27645578d96ed968b0097be6f28f6",
+    "ai/release/catalog-snapshot.json": "9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb",
+    "ai/e2e/testdata/xai-images/official.json": "3304dd63023236b5f41c4ec0bfeee991059e33316e4a1435e0d35aceac924210",
+    "ai/examples/chineseeval/testdata/jev-1.13.0-v2.json": "d97d7f6baa5d71814285610a80afed7fc6ba01e1826b5ca67a822d4d012f258c",
+    "ai/examples/chineseeval/testdata/jev-route-v2.json": "383321f05b3dc8825c228ba568cea7594a2f142fd616c3faa22a247c9fb66ff1",
+    "ai/examples/chineseeval/testdata/luna-route-v2.json": "1cf4e178b2f31226ce0156c9194621df34b3057778878df980e8136d95ff2583"
+  },
+  "originalFullFailure": {
+    "receipt": {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T120832.859224Z-9yrkrfox/receipt.json",
+      "sha256": "6dd37785f2906f380683bd0b1a7eb2281b98f9e36d668cd56a43a8257b85faf4"
+    },
+    "status": "FAIL",
+    "exitCode": 1,
+    "complete": true,
+    "note": "failfast produced actual terminal FAIL; remains unchanged"
+  },
+  "attempts": [
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T122358.133223Z-kune5iyd/receipt.json",
+      "sha256": "f73da6ae202861fe3960b6b7e5fea66317960ae1319565bf1de0b168dfa243e7",
+      "status": "FAIL",
+      "exitCode": 1,
+      "elapsedSeconds": 3.1426693331450224,
+      "measuredHead": "1d1f6de5ae4fd7b76aa2fb518370c5c48b468131",
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestUsageAndCost$/^builtin-catalog-pinned$",
+        "-count=1",
+        "-timeout=2m"
+      ],
+      "selectedInputCount": 49,
+      "nativeBundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T122358.133223Z-kune5iyd/bundles/20261101T122401.118591000Z/manifest.json",
+            "sha256": "dea618ac61ccf203ca3798a3b04df00c390e5df806f8c3879b3109d8e98a1211"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T122358.133223Z-kune5iyd/bundles/20261101T122401.118591000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": {
+            "FAIL": 1
+          },
+          "auditFindings": 0
+        }
+      ]
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T122442.177998Z-undt6sjm/receipt.json",
+      "sha256": "9bfd13a8ff812e5fe9c0e1a28c79c5d7266d6f38153961a486c0f30a376db8c0",
+      "status": "PASS",
+      "exitCode": 0,
+      "elapsedSeconds": 5.612244583666325,
+      "measuredHead": "1d1f6de5ae4fd7b76aa2fb518370c5c48b468131",
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "-run",
+        "^Test(UsageAndCost|MaintenanceCatalogMigration|BuiltinCatalogReleaseSnapshot|ChineseEvaluationConfigurationRevisions|ChineseEvaluationCurrentRoutePins|ImagesBuiltin|GoogleImagesBuiltin|XAIImagesBuiltin|OperationCatalogHash|OperationCatalogSnapshot|CatalogSnapshot)",
+        "-count=1",
+        "-timeout=8m"
+      ],
+      "selectedInputCount": 49,
+      "nativeBundles": [
+        {
+          "manifest": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T122442.177998Z-undt6sjm/bundles/20261101T122445.525021000Z/manifest.json",
+            "sha256": "9ab6c784f7b2c66d226588d572a3f7178ecfc2f9fce4e877356709015810a450"
+          },
+          "audit": {
+            "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T122442.177998Z-undt6sjm/bundles/20261101T122445.525021000Z/audit.json",
+            "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+          },
+          "cases": {
+            "PASS": 89
+          },
+          "auditFindings": 0
+        }
+      ]
+    }
+  ],
+  "requiredCases": [
+    "CATALOG-T01-maintenance-migration",
+    "E03-operation-catalog-hash-chat-price",
+    "E03-operation-catalog-hash-classifier-capability",
+    "E03-operation-catalog-hash-classifier-identity",
+    "E03-operation-catalog-hash-classifier-price",
+    "E03-operation-catalog-hash-image-capability",
+    "E03-operation-catalog-hash-image-identity",
+    "E03-operation-catalog-hash-image-price",
+    "P01-E11-builtin-catalog-pinned",
+    "P01-E11-cache-write-priced-complete-full",
+    "P01-E11-cache-write-priced-stream-full",
+    "P01-E11-catalog-deep-copy-after-construction",
+    "P01-E11-failed-usage-missing-complete-full",
+    "P01-E11-failed-usage-missing-stream-full",
+    "P01-E11-failed-usage-null-complete-full",
+    "P01-E11-failed-usage-null-stream-full",
+    "P01-E11-failed-usage-reported-complete-full",
+    "P01-E11-failed-usage-reported-stream-full",
+    "P01-E11-failed-usage-zero-complete-full",
+    "P01-E11-failed-usage-zero-stream-full",
+    "P01-E11-fast-option-missing-response-complete-full",
+    "P01-E11-fast-option-missing-response-stream-full",
+    "P01-E11-fast-request-flex-response-complete-full",
+    "P01-E11-fast-request-flex-response-stream-full",
+    "P01-E11-fast-response-fast-complete-full",
+    "P01-E11-fast-response-fast-stream-full",
+    "P01-E11-gpt55-fast-complete-full",
+    "P01-E11-gpt55-fast-stream-full",
+    "P01-E11-gpt55-priority-complete-full",
+    "P01-E11-gpt55-priority-stream-full",
+    "P01-E11-http-error-complete-full",
+    "P01-E11-http-error-stream-full",
+    "P01-E11-incomplete-with-usage-complete-full",
+    "P01-E11-incomplete-with-usage-stream-full",
+    "P01-E11-invalid-prices-rejected",
+    "P01-E11-priority-response-fast-complete-full",
+    "P01-E11-priority-response-fast-stream-full",
+    "P01-E11-reasoning-is-output-subset-complete-full",
+    "P01-E11-reasoning-is-output-subset-stream-full",
+    "P01-E11-retry-usage-missing-complete-full",
+    "P01-E11-retry-usage-missing-stream-full",
+    "P01-E11-retry-usage-null-complete-full",
+    "P01-E11-retry-usage-null-stream-full",
+    "P01-E11-retry-usage-reported-complete-full",
+    "P01-E11-retry-usage-reported-stream-full",
+    "P01-E11-retry-usage-zero-complete-full",
+    "P01-E11-retry-usage-zero-stream-full",
+    "P01-E11-service-tier-flex-option-complete-full",
+    "P01-E11-service-tier-flex-option-stream-full",
+    "P01-E11-service-tier-priority-complete-full",
+    "P01-E11-service-tier-priority-stream-full",
+    "P01-E11-service-tier-response-wins-complete-full",
+    "P01-E11-service-tier-response-wins-stream-full",
+    "P01-E11-stream-cut-complete-full",
+    "P01-E11-stream-cut-stream-full",
+    "P01-E11-success-usage-missing-complete-full",
+    "P01-E11-success-usage-missing-stream-full",
+    "P01-E11-success-usage-null-complete-full",
+    "P01-E11-success-usage-null-stream-full",
+    "P01-E11-success-usage-partial-complete-full",
+    "P01-E11-success-usage-partial-stream-full",
+    "P01-E11-success-usage-reported-complete-full",
+    "P01-E11-success-usage-reported-stream-full",
+    "P01-E11-success-usage-zero-complete-full",
+    "P01-E11-success-usage-zero-stream-full",
+    "P01-E11-tier-above-threshold-complete-full",
+    "P01-E11-tier-above-threshold-stream-full",
+    "P01-E11-tier-at-threshold-complete-full",
+    "P01-E11-tier-at-threshold-stream-full",
+    "P01-E11-tier-counts-cached-input-complete-full",
+    "P01-E11-tier-counts-cached-input-stream-full",
+    "P07-zh-evaluation-config-revision-jev-1.13.0",
+    "P07-zh-evaluation-config-revision-jev-route",
+    "P07-zh-evaluation-config-revision-luna-route",
+    "P07-zh-evaluation-current-jev",
+    "P07-zh-evaluation-current-luna",
+    "P09-E03-live-catalog-inclusion",
+    "XAI-IMG-builtin-discovery",
+    "XAI-IMG-builtin-live-replay-five-reference-edit",
+    "XAI-IMG-builtin-live-replay-generation-auto",
+    "XAI-IMG-builtin-live-replay-generation-low",
+    "XAI-IMG-builtin-live-replay-generation-medium",
+    "XAI-IMG-builtin-live-replay-ordered-edit",
+    "XAI-IMG-builtin-live-replay-origin",
+    "XAI-IMG-builtin-live-replay-single-edit",
+    "XAI-IMG-builtin-preflight-six-references",
+    "XAI-IMG-builtin-preflight-three-outputs",
+    "XAI-IMG-builtin-preflight-unverified-ratio",
+    "catalog-release-snapshot"
+  ],
+  "greenGoTests": 94,
+  "sourceClosure": {
+    "measuredHead": "1d1f6de5ae4fd7b76aa2fb518370c5c48b468131",
+    "sourceFileCount": 2153,
+    "selectedInputCount": 49,
+    "sourceFilesEqualAfterCodeCommit": true,
+    "selectedInputsEqualAfterCodeCommit": true,
+    "note": "the green run measured the new test bytes before commit; source/input equality is verified, not inferred from commit metadata"
+  },
+  "copy": {
+    "path": ".scratch/barness-ai-dynamic-catalog/usage-catalog-consumer-copy-v1.json",
+    "sha256": "2011a7548b629c0e0401656a10f26410def7375061a3998f0ab51524bd8e2f0c"
+  },
+  "stages": {
+    "ordinaryTargeted": "PASS",
+    "rootFullOrdinary": "PENDING",
+    "live": "NOT_APPLICABLE: assertion-only change, no new vendor facts",
+    "race": "NOT_RUN",
+    "pressure": "NOT_RUN",
+    "releasePass": false
+  }
+}

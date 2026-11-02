@@ -20,6 +20,9 @@ type modelKey struct {
 func (c Catalog) validate() error {
 	seen := make(map[modelKey]bool)
 	check := func(key modelKey, problem string) error {
+		if strings.TrimSpace(key.id) == "" {
+			problem = "model ID must not be empty"
+		}
 		if seen[key] {
 			problem = "duplicate model identity for operation, provider, API and ID"
 		}
@@ -175,7 +178,7 @@ func (m ClassifierModel) problem() string {
 	}
 	seen := make(map[ClassifierQuestionKind]bool)
 	for _, kind := range caps.Kinds {
-		if kind != ClassifierQuestionChoice && kind != ClassifierQuestionScore && kind != ClassifierQuestionBool && kind != ClassifierQuestionBox {
+		if !classifierKindSupported(kind) {
 			return "classifier question kind is not supported"
 		}
 		if seen[kind] {
@@ -194,4 +197,8 @@ func (m ClassifierModel) problem() string {
 		return "classifier score limits require score questions"
 	}
 	return m.Cost.problem()
+}
+
+func classifierKindSupported(kind ClassifierQuestionKind) bool {
+	return kind == ClassifierQuestionChoice || kind == ClassifierQuestionScore || kind == ClassifierQuestionBool || kind == ClassifierQuestionBox
 }

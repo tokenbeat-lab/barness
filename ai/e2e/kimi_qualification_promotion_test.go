@@ -28,8 +28,8 @@ func TestKimiQualificationPromotionBoundary(t *testing.T) {
 	raw, err = cmd.CombinedOutput()
 	ev.Record("consumer", map[string]any{"argv": cmd.Args, "error": errString(err), "output": regionalSafeOutput(raw), "vendorCalls": 0})
 	ev.Check("explicit Kimi promotion requires its own actual proofs", err != nil && strings.Contains(string(raw), "Kimi") && !strings.Contains(string(raw), "flag provided but not defined"), "%v %s", err, raw)
-	data, err := os.ReadFile("../catalog_kimi.json")
-	if !ev.Check("independent production payload exists", err == nil, "%v", err) {
+	data, err := os.ReadFile("../release/catalog-activations/catalog_kimi.json")
+	if !ev.Check("independent historical payload exists", err == nil, "%v", err) {
 		return
 	}
 	var payload struct {
@@ -39,7 +39,7 @@ func TestKimiQualificationPromotionBoundary(t *testing.T) {
 		Models           []ai.Model
 	}
 	mustUnmarshal(t, data, &payload)
-	ev.Check("reviewed six-identity activation is embedded", payload.Active && payload.Version == "kimi-k3-formal-2026-10-22.1" && payload.ProvenanceSHA256 == kimi.SnapshotHash() && len(payload.Models) == 6, "%s", data)
+	ev.Check("historical six-identity activation is preserved", payload.Active && payload.Version == "kimi-k3-formal-2026-10-22.1" && payload.ProvenanceSHA256 == kimi.SnapshotHash() && len(payload.Models) == 6, "%s", data)
 	candidate := kimi.CandidateCatalog()
 	ev.Check("activation retains exact reviewed model facts", reflect.DeepEqual(payload.Models, candidate.Models), "models=%d", len(payload.Models))
 	formal := ai.BuiltinCatalog()
@@ -52,11 +52,11 @@ func TestKimiQualificationPromotionBoundary(t *testing.T) {
 	}
 	kimiModels := 0
 	for _, m := range ai.BuiltinCatalog().Models {
-		if m.Provider == ai.ProviderMoonshot || m.Provider == ai.ProviderMoonshotCN {
+		if (m.Provider == ai.ProviderMoonshot || m.Provider == ai.ProviderMoonshotCN) && m.ID == "kimi-k3" {
 			kimiModels++
 		}
 	}
-	ev.Check("activation adds exactly six Kimi identities", kimiModels == 6, "models=%d", kimiModels)
+	ev.Check("historical activation retains exactly six K3 identities", kimiModels == 6, "models=%d", kimiModels)
 	var decoded any
 	if json.Unmarshal(data, &decoded) != nil {
 		t.Fatal("payload JSON")

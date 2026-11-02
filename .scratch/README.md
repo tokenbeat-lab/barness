@@ -8,6 +8,7 @@
 
 | 目录 | 类型 | spec / 唯一当前状态入口 | 活动工具 | 历史资料 | 普通测试直接依赖 |
 | --- | --- | --- | --- | --- | --- |
+| [provider-integration-status-20261102](provider-integration-status-20261102/) | 历史 Provider 审计 | 无 spec / 当前状态；按 [归档说明](provider-integration-status-20261102/README.md) 限定历史范围 | 无；audit.py 仅为历史执行源 | [原报告](provider-integration-status-20261102/report.md)、[归档摘要](provider-integration-status-20261102/archive.json) | 无已确认直接依赖 |
 | [barness-ai](barness-ai/) | 基础功能契约 | [spec](barness-ai/spec.md)；无整库集中状态，按专项工单 | 共用[工具合同](../tools/verification/README.md) | [研究追溯](barness-ai/research-traceability.md)、[工单](barness-ai/issues/) | 无已确认直接依赖 |
 | [barness-ai-call-chains](barness-ai-call-chains/) | 源码阅读 / 展示 | 无 spec / 集中状态；[阅读报告](barness-ai-call-chains/reading-report.md) | 无；HTML 是展示材料 | [可视化](barness-ai-call-chains/show-me-call-chains.html)、[来源索引](barness-ai-call-chains/source-index.json)、[证据](barness-ai-call-chains/evidence/) | 无已确认直接依赖 |
 | [barness-ai-glm](barness-ai-glm/) | Provider 功能 | [spec](barness-ai-glm/spec.md)；未设集中状态，查[工单追加记录](barness-ai-glm/issues/) | [ticket13 入口/回滚模块](barness-ai-glm/evidence/ticket-13/)仍供受控测试；[逐项边界](scratch-artifact-remediation/script-boundaries/barness-ai-glm.md) | [研究](barness-ai-glm/research.md)、[实施研究](barness-ai-glm/implementation-research.md)、[证据](barness-ai-glm/evidence/) | ticket13 的 commands/run/glm_launcher/corrective/rollback、rollback-probe；见[入口测试](../ai/e2e/glm_release_launcher_test.go)、[修正测试](../ai/e2e/glm_corrective_launcher_test.go)、[回滚测试](../ai/e2e/glm_full_rollback_test.go) |

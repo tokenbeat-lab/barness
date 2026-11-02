@@ -1,0 +1,1014 @@
+{
+  "date": "2026-11-02",
+  "head": "37a283ee4ef743f93d3a12132d1bc2c3211fb1e5",
+  "branch": "codex/barness-catalog-integration",
+  "scope": "Fixed-date read-only inventory; retained evidence, not a new live qualification or release verdict",
+  "probe": {
+    "entry": "ai.BuiltinCatalog + Catalog.Hash",
+    "exitCode": 0,
+    "elapsedSeconds": 2.9578297501429915,
+    "networkDisabled": true
+  },
+  "catalogHash": "sha256:e935a3ad0804ea48ce50c5e53cc106416407bf69d33d2b9e8076260ba2112c9c",
+  "catalogVersion": "catalog-f2a93c1e05020afbf0d9d77f9d2d0799d4afed6f7daf6704d62ef81b22354860",
+  "providers": {
+    "openai": {
+      "chat": [
+        {
+          "api": "openai-responses",
+          "id": "gpt-4"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-4.1"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-4.1-mini"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-4o-mini"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5-mini"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5-nano"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5-pro"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.1"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.2"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.4"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.4-mini"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.4-pro"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.5"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.5-pro"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.6-luna"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.6-sol"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-5.6-terra"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-6-astra"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-6-luna"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-6.1-sol"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-daybreak-blue-latest"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-daybreak-red-latest"
+        },
+        {
+          "api": "openai-responses",
+          "id": "gpt-6-sol"
+        },
+        {
+          "api": "openai-responses",
+          "id": "o3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "o3-mini"
+        },
+        {
+          "api": "openai-responses",
+          "id": "o4-mini"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-4"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-4.1"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-4.1-mini"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-4o-mini"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5-mini"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5-nano"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.1"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.2"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.4"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.4-mini"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.5"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.6-luna"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.6-sol"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-5.6-terra"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-6-astra"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-6-luna"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-6.1-sol"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-daybreak-blue-latest"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-daybreak-red-latest"
+        },
+        {
+          "api": "openai-completions",
+          "id": "gpt-6-sol"
+        },
+        {
+          "api": "openai-completions",
+          "id": "o3"
+        },
+        {
+          "api": "openai-completions",
+          "id": "o3-mini"
+        },
+        {
+          "api": "openai-completions",
+          "id": "o4-mini"
+        }
+      ],
+      "image": [
+        {
+          "api": "openai-images",
+          "id": "gpt-image-2.5-sunburst-2026-09-08"
+        }
+      ],
+      "classifier": [
+        {
+          "api": "openai-decisions",
+          "id": "gpt-6-luna"
+        }
+      ]
+    },
+    "anthropic": {
+      "chat": [
+        {
+          "api": "anthropic-messages",
+          "id": "claude-fable-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-fable-5-1"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-haiku-4-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-haiku-4-5-20251001"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-4-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-4-5-20251101"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-4-6"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-4-7"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-4-8"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-opus-5-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-sonnet-5-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-sonnet-4-5"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-sonnet-4-5-20250929"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-sonnet-4-6"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "claude-sonnet-5"
+        }
+      ]
+    },
+    "google": {
+      "chat": [
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-2.5-flash"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-2.5-flash-lite"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-2.5-pro"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3-flash-preview"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.1-flash-lite"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.1-flash-lite-preview"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.1-pro-preview"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.1-pro-preview-customtools"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.5-flash"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.5-flash-lite"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.6-flash"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.7-flash"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-3.8-flash"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-flash-latest"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemini-flash-lite-latest"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemma-4-26b-a4b-it"
+        },
+        {
+          "api": "google-generative-ai",
+          "id": "gemma-4-31b-it"
+        }
+      ],
+      "image": [
+        {
+          "api": "google-interactions",
+          "id": "gemini-nano-banana-2.1"
+        }
+      ]
+    },
+    "deepseek": {
+      "chat": [
+        {
+          "api": "openai-responses",
+          "id": "deepseek-flash"
+        },
+        {
+          "api": "openai-completions",
+          "id": "deepseek-flash"
+        },
+        {
+          "api": "openai-completions",
+          "id": "deepseek-v4-pro"
+        }
+      ]
+    },
+    "zhipu": {
+      "chat": [
+        {
+          "api": "openai-completions",
+          "id": "glm-5.3"
+        },
+        {
+          "api": "openai-completions",
+          "id": "glm-5.2"
+        },
+        {
+          "api": "openai-responses",
+          "id": "glm-5.3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "glm-5.2"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "glm-5.3"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "glm-5.2"
+        }
+      ]
+    },
+    "minimax": {
+      "chat": [
+        {
+          "api": "openai-completions",
+          "id": "MiniMax-M3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "MiniMax-M3"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "MiniMax-M3"
+        }
+      ]
+    },
+    "zai": {
+      "chat": [
+        {
+          "api": "openai-completions",
+          "id": "glm-5.3"
+        },
+        {
+          "api": "openai-completions",
+          "id": "glm-5.2"
+        },
+        {
+          "api": "openai-responses",
+          "id": "glm-5.3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "glm-5.2"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "glm-5.3"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "glm-5.2"
+        }
+      ]
+    },
+    "minimax-cn": {
+      "chat": [
+        {
+          "api": "openai-completions",
+          "id": "MiniMax-M3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "MiniMax-M3"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "MiniMax-M3"
+        }
+      ]
+    },
+    "moonshot": {
+      "chat": [
+        {
+          "api": "openai-completions",
+          "id": "kimi-k3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "kimi-k3"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "kimi-k3"
+        }
+      ]
+    },
+    "moonshot-cn": {
+      "chat": [
+        {
+          "api": "openai-completions",
+          "id": "kimi-k3"
+        },
+        {
+          "api": "openai-responses",
+          "id": "kimi-k3"
+        },
+        {
+          "api": "anthropic-messages",
+          "id": "kimi-k3"
+        }
+      ]
+    },
+    "xai": {
+      "chat": [
+        {
+          "api": "openai-responses",
+          "id": "grok-4.7"
+        }
+      ],
+      "image": [
+        {
+          "api": "xai-images",
+          "id": "grok-imagine-image-2.0"
+        }
+      ]
+    },
+    "typesafe": {
+      "classifier": [
+        {
+          "api": "typesafe-system-one",
+          "id": "jev-1.13.0"
+        },
+        {
+          "api": "typesafe-system-one",
+          "id": "jev-1.14.0"
+        }
+      ]
+    }
+  },
+  "providerCount": 12,
+  "identityCounts": {
+    "models": 112,
+    "imageModels": 3,
+    "classifierModels": 3
+  },
+  "routeCount": 30,
+  "routesWithRetainedCompleteOwnEvidence": 30,
+  "routeEvidence": [
+    {
+      "operation": "chat",
+      "provider": "anthropic",
+      "api": "anthropic-messages",
+      "evidence": "anthropic-messages"
+    },
+    {
+      "operation": "chat",
+      "provider": "deepseek",
+      "api": "openai-completions",
+      "evidence": "deepseek-chat"
+    },
+    {
+      "operation": "chat",
+      "provider": "deepseek",
+      "api": "openai-responses",
+      "evidence": "deepseek-responses"
+    },
+    {
+      "operation": "chat",
+      "provider": "google",
+      "api": "google-generative-ai",
+      "evidence": "google-gemini"
+    },
+    {
+      "operation": "chat",
+      "provider": "minimax",
+      "api": "anthropic-messages",
+      "evidence": "minimax-messages"
+    },
+    {
+      "operation": "chat",
+      "provider": "minimax",
+      "api": "openai-completions",
+      "evidence": "minimax-chat"
+    },
+    {
+      "operation": "chat",
+      "provider": "minimax",
+      "api": "openai-responses",
+      "evidence": "minimax-responses"
+    },
+    {
+      "operation": "chat",
+      "provider": "minimax-cn",
+      "api": "anthropic-messages",
+      "evidence": "minimax-cn-messages"
+    },
+    {
+      "operation": "chat",
+      "provider": "minimax-cn",
+      "api": "openai-completions",
+      "evidence": "minimax-cn-chat"
+    },
+    {
+      "operation": "chat",
+      "provider": "minimax-cn",
+      "api": "openai-responses",
+      "evidence": "minimax-cn-responses"
+    },
+    {
+      "operation": "chat",
+      "provider": "moonshot",
+      "api": "anthropic-messages",
+      "evidence": "kimi-9-plus-1"
+    },
+    {
+      "operation": "chat",
+      "provider": "moonshot",
+      "api": "openai-completions",
+      "evidence": "kimi-9-plus-1"
+    },
+    {
+      "operation": "chat",
+      "provider": "moonshot",
+      "api": "openai-responses",
+      "evidence": "kimi-9-plus-1"
+    },
+    {
+      "operation": "chat",
+      "provider": "moonshot-cn",
+      "api": "anthropic-messages",
+      "evidence": "kimi-9-plus-1"
+    },
+    {
+      "operation": "chat",
+      "provider": "moonshot-cn",
+      "api": "openai-completions",
+      "evidence": "kimi-9-plus-1"
+    },
+    {
+      "operation": "chat",
+      "provider": "moonshot-cn",
+      "api": "openai-responses",
+      "evidence": "kimi-9-plus-1"
+    },
+    {
+      "operation": "chat",
+      "provider": "openai",
+      "api": "openai-completions",
+      "evidence": "openai-chat"
+    },
+    {
+      "operation": "chat",
+      "provider": "openai",
+      "api": "openai-responses",
+      "evidence": "openai-responses"
+    },
+    {
+      "operation": "chat",
+      "provider": "xai",
+      "api": "openai-responses",
+      "evidence": "xai-responses"
+    },
+    {
+      "operation": "chat",
+      "provider": "zai",
+      "api": "anthropic-messages",
+      "evidence": "zai-messages"
+    },
+    {
+      "operation": "chat",
+      "provider": "zai",
+      "api": "openai-completions",
+      "evidence": "zai-chat"
+    },
+    {
+      "operation": "chat",
+      "provider": "zai",
+      "api": "openai-responses",
+      "evidence": "zai-responses"
+    },
+    {
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "anthropic-messages",
+      "evidence": "zhipu-messages"
+    },
+    {
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "openai-completions",
+      "evidence": "zhipu-chat"
+    },
+    {
+      "operation": "chat",
+      "provider": "zhipu",
+      "api": "openai-responses",
+      "evidence": "zhipu-responses"
+    },
+    {
+      "operation": "classifier",
+      "provider": "openai",
+      "api": "openai-decisions",
+      "evidence": "openai-decisions"
+    },
+    {
+      "operation": "classifier",
+      "provider": "typesafe",
+      "api": "typesafe-system-one",
+      "evidence": "typesafe-classifier"
+    },
+    {
+      "operation": "image",
+      "provider": "google",
+      "api": "google-interactions",
+      "evidence": "google-interactions-image"
+    },
+    {
+      "operation": "image",
+      "provider": "openai",
+      "api": "openai-images",
+      "evidence": "openai-images"
+    },
+    {
+      "operation": "image",
+      "provider": "xai",
+      "api": "xai-images",
+      "evidence": "xai-images"
+    }
+  ],
+  "latestOrdinary": {
+    "commit": "ada85f43923e5ca35e53de5f478947e1386bd7b0",
+    "receipt": {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T135755.536051Z-xsulytv4/receipt.json",
+      "sha256": "d44eb9aacc034b0d44cfa0c26a798befb97f9f5070048a9a3dff2d7843cbc801"
+    },
+    "status": "PASS",
+    "exitCode": 0,
+    "sourceFiles": 2154,
+    "selectedInputs": 150,
+    "sourceAndInputSetsEqual": true
+  },
+  "supportMatrix": {
+    "rows": 23,
+    "uniqueRoutes": 22,
+    "missingRoutes": [
+      [
+        "chat",
+        "moonshot",
+        "anthropic-messages"
+      ],
+      [
+        "chat",
+        "moonshot",
+        "openai-completions"
+      ],
+      [
+        "chat",
+        "moonshot",
+        "openai-responses"
+      ],
+      [
+        "chat",
+        "moonshot-cn",
+        "anthropic-messages"
+      ],
+      [
+        "chat",
+        "moonshot-cn",
+        "openai-completions"
+      ],
+      [
+        "chat",
+        "moonshot-cn",
+        "openai-responses"
+      ],
+      [
+        "chat",
+        "xai",
+        "openai-responses"
+      ],
+      [
+        "image",
+        "xai",
+        "xai-images"
+      ]
+    ],
+    "notRunRows": [
+      "zai-chat",
+      "zai-responses",
+      "zai-messages",
+      "minimax-cn-chat",
+      "minimax-cn-responses",
+      "minimax-cn-messages"
+    ]
+  },
+  "checkedReferences": [
+    {
+      "path": ".evidence/provider-source-retrace/current-applicability-v2/anthropic-messages/live-consumer.json",
+      "sha256": "479523a98fcd78d3522887d16aa6f7cd9ee23f1d55e2d7eed106f17ad89cc76f"
+    },
+    {
+      "path": ".evidence/provider-source-retrace/current-applicability-v2/deepseek-chat/live-consumer.json",
+      "sha256": "dd647c89daa582a01dff60872957e665893aee7c590eec1d89b147d2f3d57706"
+    },
+    {
+      "path": ".evidence/provider-source-retrace/current-applicability-v2/deepseek-responses/live-consumer.json",
+      "sha256": "f5ac7e75d7a943c6a19e30f6b88f7e8e586ed740643569a55db0572b7916749f"
+    },
+    {
+      "path": ".evidence/provider-source-retrace/current-applicability-v2/google-gemini/live-consumer.json",
+      "sha256": "5877fbaaf2ab88a2ce6aa871929ec782fae502f059f5fa439d73bc37a2db1a0e"
+    },
+    {
+      "path": ".evidence/provider-delivery-offline/current-consumption-final-v2/google-interactions-image/live-consumer.json",
+      "sha256": "9e02433db0a0a0168444c0648d2f370bb768bc3a8c5848c8f8dcd30f68953166"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/minimax-chat/live-consumer.json",
+      "sha256": "f455c7ab073bff2404c3e57b937a22ae45c25e464ba80557750c5f6c16fbac90"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/minimax-cn-chat/live-consumer.json",
+      "sha256": "0de15c2927dd3e89fd9c222d01f5e441928bc462ff6490e9226c9943a196eff0"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/minimax-cn-messages/live-consumer.json",
+      "sha256": "fd9a0a4f0140c7cc1781deb2e4f757f7a8d3f76c517216f7576041fb6cf50c53"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/minimax-cn-responses/live-consumer.json",
+      "sha256": "995487c015e0cd3d8c1fb9c75c257c32e16ecd043b427090324cebcdb79daa06"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/minimax-responses/live-consumer.json",
+      "sha256": "100249a54a1112e2b5d4576aa459c97444f8dcf072dbd49c7aba19aa7c5d7fc7"
+    },
+    {
+      "path": ".evidence/provider-source-retrace/current-applicability-v2/openai-chat/live-consumer.json",
+      "sha256": "045877de86405efa9cfa4c33c3d7a9d7127b0fa0a1dffa5632a08aab325111e2"
+    },
+    {
+      "path": ".evidence/provider-delivery-offline/current-consumption-final-v2/openai-decisions/live-consumer.json",
+      "sha256": "2d472d9415690fe94fd5e7d8081c910fd73837b693cc69c412841b8385151090"
+    },
+    {
+      "path": ".evidence/provider-delivery-offline/current-consumption-final-v2/openai-images/live-consumer.json",
+      "sha256": "7423ed369c1771b665d5258731ce6732b6cbdc8cf8f908d87506a4ba756f83df"
+    },
+    {
+      "path": ".evidence/provider-source-retrace/current-applicability-v2/openai-responses/live-consumer.json",
+      "sha256": "a27eee46686dcbf1df2f71acdaa5b7e66f1836f4ee45ef9a796f7fbc246580cd"
+    },
+    {
+      "path": ".evidence/provider-delivery-offline/current-consumption-final-v2/typesafe-classifier/live-consumer.json",
+      "sha256": "88082567b325767c00aca26725286ab803c98411e7fb53b708e77cb509c67967"
+    },
+    {
+      "path": ".evidence/provider-source-scope/consumption-v3/typesafe-classifier-jev-1.14.0/live-consumer.json",
+      "sha256": "b6055e31535e721866ce11c08db39a6cc528f58a7c00281b7f7786c19be40edd"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/xai-responses/live-consumer.json",
+      "sha256": "b2e66166887091c394276fe2f0bea7510751e7a43dcb88b0dbabee28fe71c10f"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/zai-chat/live-consumer.json",
+      "sha256": "84ec29fddd1a57785000803cbced4c9c57ff94ec50739ef5e601046805b1bcc9"
+    },
+    {
+      "path": ".evidence/verification-simplification/current-applicability-03/zai-messages/live-consumer.json",
+      "sha256": "c91094e362e77154cced409a1ba094134529769f95d7735d91bc63e5916e1ae9"
+    },
+    {
+      "path": ".evidence/provider-source-scope/consumption-v3/zai-responses/live-consumer.json",
+      "sha256": "5ac7a915c6b8d25e391ce3cf02045e4fe07d74c1c736fafc743bbf3398446617"
+    },
+    {
+      "path": ".evidence/provider-source-scope/consumption-v3/zhipu-chat/live-consumer.json",
+      "sha256": "e1bae68ccba6dcf5a69a9da61ed7a76629babc26f3550a37d796b084a955c090"
+    },
+    {
+      "path": ".evidence/provider-source-scope/consumption-v3/zhipu-messages/live-consumer.json",
+      "sha256": "acd8d529199d7ace0aae9dd384e920a79614fc3fd8068d379a2eb701009ad6b7"
+    },
+    {
+      "path": ".evidence/provider-source-scope/consumption-v3/zhipu-responses/live-consumer.json",
+      "sha256": "1f6a4f999f0112735af6c2d146a903d284b34127c49a12054a704fdf59b95f85"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-qualification-v4.json",
+      "sha256": "e95b994f367c38e5ed6b335deb362dbae69602250f21c7ea3208eb60b56530c5"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-cn-chat/live-consumer.json",
+      "sha256": "bf166d37d87e80362c2c16dee0731e16332fd420b27e52fd7729c8296b9321f8"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-cn-chat/native/live-consumer.json",
+      "sha256": "e7b3dd4f19dd8cac587f0b4f2ed74fed22efc4a9d0b5e1a94c3837f491f23785"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/capture-v4-kimi-cn-chat/receipt.json",
+      "sha256": "ac77c4cf9b9d98d8e6a8664075bee70269677b0d72b718e9289f8473b7cf8924"
+    },
+    {
+      "path": ".evidence/kimi-history-live-20261028/compositions/kimi-cn-chat/kimi-composition.json",
+      "sha256": "5c4db3b5c62f8c0b7172417815647496758d107ea2d9c2be4c802e20a6584c0c"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-intl-chat/live-consumer.json",
+      "sha256": "c9793d2ff6920aca3658f7a58379766e04572a6db455b57bd242a2250b40be82"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-intl-chat/native/live-consumer.json",
+      "sha256": "e939df690e56c42be6c14ca773b81d8b2e38b300312e5243d854b00552e314ca"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/capture-v4-kimi-intl-chat/receipt.json",
+      "sha256": "52dac773a80465dc622363aa831f25c4ca6f77867dfd25005f277a67520b3a34"
+    },
+    {
+      "path": ".evidence/kimi-history-live-20261028/compositions/kimi-intl-chat/kimi-composition.json",
+      "sha256": "f075a45f4703440722e5afa650b5405ab2b0db2c369bcc6227eac9a983509c0a"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-cn-responses/live-consumer.json",
+      "sha256": "f2c40b673b27cd5911dcc22c12c8399eb496c59f8c5386512a684ab3a5eb3f83"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-cn-responses/native/live-consumer.json",
+      "sha256": "4905d113d71332c8738c744e94a3ee494ce24513f3e3802acb1e1f4d300d5c0b"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/capture-v4-kimi-cn-responses/receipt.json",
+      "sha256": "c21711414cd2e8f8edb46d346451aff325076530f24652615c90694bf70c58d4"
+    },
+    {
+      "path": ".evidence/kimi-history-spaced-20261028/compositions/kimi-cn-responses/kimi-composition.json",
+      "sha256": "932f35681cbe1c14992a1d8bacc2cf7b97dddb3556a7211aa7df3218e15a140c"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-intl-responses/live-consumer.json",
+      "sha256": "5c5fcfab45e1ad7ce907c1a9d10b41e3226a5a269c60a7415d610bc53bd9ae1a"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-intl-responses/native/live-consumer.json",
+      "sha256": "0b686d8a6e97e7bcdff70f82f56f8009a83a2dc56d2c9906e33b26f49477cb72"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/capture-v4-kimi-intl-responses/receipt.json",
+      "sha256": "00f44d0be11119b599118ff1a08fd5555067266d662c3acceb02d75b0f5afb5d"
+    },
+    {
+      "path": ".evidence/kimi-history-spaced-20261028/compositions/kimi-intl-responses/kimi-composition.json",
+      "sha256": "cad8eebc825a01809b599f727dc49f361910a6ef5b8defa55b5a1d9355c05b9a"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-cn-messages/live-consumer.json",
+      "sha256": "cdfac1fed39356a0d7236fffe5f78cd6a6c99a942f405b9acd8799691943f941"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-cn-messages/native/live-consumer.json",
+      "sha256": "514ae329af98cc43b1b19d0125db0472aa399f16c3b29b0445a6bb3e995a5110"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/capture-v4-kimi-cn-messages/receipt.json",
+      "sha256": "3296afe348fa0f9ee9c16f85bc88ad0a0ea1a1ccf22f3e1e4f4b65309c8c33a1"
+    },
+    {
+      "path": ".evidence/kimi-history-spaced-20261028/compositions/kimi-cn-messages/kimi-composition.json",
+      "sha256": "ed4b2971e72b5425796de77bbc980ebcb2d14d5b868fbb5c6ab4038cf0d771c5"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-intl-messages/live-consumer.json",
+      "sha256": "10ed9d4bb48c643417098f51815f46e70249eb6d98fb34b3dd2b889c93d5bb27"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/formal-consumers-v4/kimi-intl-messages/native/live-consumer.json",
+      "sha256": "f1ea369ff3aae0419410bdc8bc1b6884b91dd9f23921a5187f7a2ada5c60058e"
+    },
+    {
+      "path": ".evidence/kimi-catalog-activation-20261028/capture-v4-kimi-intl-messages/receipt.json",
+      "sha256": "5e4dd98f15742847cf9cc9677948618db0208045948d63eb18d528cd3e330e8d"
+    },
+    {
+      "path": ".evidence/kimi-history-spaced-20261028/compositions/kimi-intl-messages/kimi-composition.json",
+      "sha256": "27dc914339e0bcfc44d59a2a31d7be2d12ccdee6fbeb0e5ab496e54ca5a0b739"
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T135755.536051Z-xsulytv4/receipt.json",
+      "sha256": "d44eb9aacc034b0d44cfa0c26a798befb97f9f5070048a9a3dff2d7843cbc801"
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/race/20261101T141828.301958Z-c2ua9urt/receipt.json",
+      "sha256": "6e856ed1a5ee86ddbd36c3414c8192564fddb3c7e32d67c05cb79f741bcffe94"
+    },
+    {
+      "path": ".evidence/barness-ai-dynamic-catalog/pressure/20261101T143149.202907Z-fbluvlt1/receipt.json",
+      "sha256": "090e9b3b2a365948754c389e559e493cebe8022b654b68dec990e9c0b0776416"
+    }
+  ],
+  "limits": [
+    "Retained consumer and stage-reference hashes checked; full transitive bundles not re-audited",
+    "Original feature race/pressure/release gaps remain distinct from catalog-only PASS",
+    "Catalog model inclusion does not establish real measurement of every model ID"
+  ],
+  "newVendorCalls": 0,
+  "newTests": 0,
+  "newRaceOrPressureRuns": 0
+}

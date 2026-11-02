@@ -25,8 +25,8 @@ func xaiImageModelProblem(m ImageModel) string {
 	if m.Provider != ProviderXAI {
 		return ""
 	}
-	if m.API != APIXAIImages || m.ID != "grok-imagine-image-2.0" {
-		return "xAI image identity is outside the implemented subset"
+	if m.API != APIXAIImages {
+		return "xAI image protocol is outside the implemented subset"
 	}
 	c := m.Capabilities
 	if !slices.Contains(m.Input, ModalityText) || len(m.Output) != 1 || m.Output[0] != ModalityImage {

@@ -1,0 +1,66 @@
+{
+  "status": "PRE_SEAL_RECORD",
+  "comparisonBase": "9584d3d6f095aefa4ab73bdc75c39a705b7931d6",
+  "comparisonTarget": "8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11",
+  "actualMeasuredCommit": "8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11",
+  "coreRuntimeCodeChanged": "YES",
+  "coreRuntimeFiles": [
+    "ai/catalog_validate.go",
+    "ai/catalog_xai.go",
+    "ai/classifier_capabilities.go",
+    "ai/image_pricing.go",
+    "ai/kimi_catalog.go"
+  ],
+  "runtimeDependenciesChanged": "NO",
+  "modelSchemaChanged": false,
+  "catalogDataChanged": false,
+  "catalogVersion": "catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c",
+  "snapshotSHA256": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a",
+  "existing125": "Identical to baseline: no upgrade is required solely to continue using these existing bytes.",
+  "futureNames": "The old baseline refuses synthetic future names; upgrade SDK and rebuild once before using this policy. With compatible existing capabilities and explicit Host authorization, future reviewed JSON can then be loaded into a new Client.",
+  "builtin": "REBUILD_AND_DISTRIBUTE when embedded defaults change",
+  "qualification": "Historical source comparison is isolated; current source rejects inherited xAI Images qualification. Synthetic models do not establish vendor support.",
+  "result": "verification/result-v1.json",
+  "dynamicFixtureCoverageMapping": {
+    "status": "PASS",
+    "nativeFixtureCases": 53,
+    "distinctPackets": 48,
+    "evidence": "verification/fixture-coverage-v1.json"
+  },
+  "postDocSourceAndInputEquality": {
+    "status": "PASS",
+    "measuredCommit": "8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11",
+    "frozenCommit": "8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11",
+    "sourceCount": 2171,
+    "selectedInputs": 84,
+    "evidence": "verification/post-docs-equality-v1.json"
+  },
+  "softwareVersionPublished": false,
+  "vendorQualification": false,
+  "changelogSource": {
+    "path": "provenance/changelog-source-final.md",
+    "sha256": "ff5212100191727ee43aab345775073d897ca330c5165755bd5b077436ffd599",
+    "readerNotice": "provenance/README.md"
+  },
+  "applicability": {
+    "live": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No new vendor facts or qualification."
+    },
+    "race": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No shared state or cancellation path changes."
+    },
+    "pressure": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No design load changes."
+    }
+  },
+  "currentStatusSnapshot": {
+    "path": "verification/current-status-before-seal.md",
+    "sha256": "801fee9956dd44bcad7785a41a278871c011d9fa448e0f6928a300e89d32b09f",
+    "source": ".scratch/catalog-model-id-policy/status.md",
+    "meaning": "pre-seal verification state; completion requires delivery.json"
+  },
+  "meaning": "\u5c01\u5b58\u524d\u9759\u6001\u8bb0\u5f55\uff1b\u6700\u7ec8\u5b8c\u6210\u7531 delivery.json \u51b3\u5b9a\u3002"
+}

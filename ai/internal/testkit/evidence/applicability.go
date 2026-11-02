@@ -54,7 +54,7 @@ func routeInput(name, provider, api string) bool {
 		return api == "anthropic-messages"
 	case "responses.go":
 		return api == "openai-responses"
-	case "catalog.go", "catalog_builtin.go", "catalog_glm.go", "catalog_images.go", "catalog_decisions.go", "catalog_typesafe.go", "catalog_minimax.json", "catalog_regional.json", "catalog_kimi.json":
+	case "catalog.go", "catalog_builtin.go", "catalog_builtin.json", "catalog_glm.go", "catalog_images.go", "catalog_decisions.go", "catalog_typesafe.go", "catalog_minimax.json", "catalog_regional.json", "catalog_kimi.json":
 		return false
 	case "catalog_xai.go":
 		return provider == "xai"

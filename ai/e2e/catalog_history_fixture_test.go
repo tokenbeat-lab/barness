@@ -22,7 +22,11 @@ func TestBuiltinCatalogReleaseSnapshot(t *testing.T) {
 	mustUnmarshal(t, raw, &snapshot)
 	current := ai.BuiltinCatalog()
 	ev.Fixture("catalog-snapshot.json", raw)
-	ev.Check("published catalog and price snapshot matches public discovery", reflect.DeepEqual(current, snapshot.Catalog) && catalogHash(t, current) == snapshot.Hash, "catalog snapshot is stale")
+	// This file remains the historical measurement pin. The migration changes
+	// composition identity, while preserving every reviewed definition.
+	ev.Check("historical catalog pin remains valid", catalogHash(t, snapshot.Catalog) == snapshot.Hash, "historical snapshot changed")
+	projection := historicalCatalogInCurrentOrder(current, snapshot.Catalog)
+	ev.Check("historical definitions and relative order survive", reflect.DeepEqual(projection, snapshot.Catalog), "catalog definitions or order changed")
 }
 
 // Historical inclusion tests share this projection because later independent
@@ -54,6 +58,27 @@ func historicalCatalogProjection(t *testing.T, ev *evidence.Case, current, basel
 		model, ok := current.LookupClassifier(old.Provider, old.API, old.ID)
 		ev.Check("historical classifier identity survives "+old.ID, ok, "missing identity")
 		out.ClassifierModels = append(out.ClassifierModels, model)
+	}
+	return out
+}
+
+// Filter in current order so additions cannot conceal reordering historical identities.
+func historicalCatalogInCurrentOrder(current, baseline ai.Catalog) ai.Catalog {
+	out := ai.Catalog{Version: baseline.Version, Models: make([]ai.Model, 0), ImageModels: make([]ai.ImageModel, 0), ClassifierModels: make([]ai.ClassifierModel, 0)}
+	for _, m := range current.Models {
+		if _, ok := baseline.Lookup(m.Provider, m.API, m.ID); ok {
+			out.Models = append(out.Models, m)
+		}
+	}
+	for _, m := range current.ImageModels {
+		if _, ok := baseline.LookupImage(m.Provider, m.API, m.ID); ok {
+			out.ImageModels = append(out.ImageModels, m)
+		}
+	}
+	for _, m := range current.ClassifierModels {
+		if _, ok := baseline.LookupClassifier(m.Provider, m.API, m.ID); ok {
+			out.ClassifierModels = append(out.ClassifierModels, m)
+		}
 	}
 	return out
 }

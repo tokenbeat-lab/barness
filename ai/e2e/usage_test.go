@@ -89,19 +89,22 @@ func TestUsageAndCost(t *testing.T) {
 		hash := catalogHash(t, c)
 		ev.Record("catalog", map[string]string{"version": c.Version, "hash": hash})
 		// The usage fixture retains its original price provenance. Current
-		// discovery is pinned by the independently stored release snapshot.
-		snapshot, err := os.ReadFile("../release/catalog-snapshot.json")
+		// discovery follows the generated artifact. The maintenance migration
+		// contract separately compares every definition with the historical source.
+		snapshot, err := os.ReadFile("../catalog_builtin.json")
 		if err != nil {
 			t.Fatal(err)
 		}
 		var pin struct {
 			Hash    string
-			Catalog struct{ Version string }
+			Catalog ai.Catalog
 		}
 		mustUnmarshal(t, snapshot, &pin)
 		ev.Fixture("current-catalog-snapshot.json", snapshot)
+		declaredHash, err := pin.Catalog.Hash()
+		ev.Check("generated artifact declares its typed content hash", err == nil && declaredHash == pin.Hash, "got %s want %s err=%v", declaredHash, pin.Hash, err)
 		ev.Check("built-in catalog version", c.Version == pin.Catalog.Version, "got %q want %q", c.Version, pin.Catalog.Version)
-		ev.Check("built-in catalog content is the current release pin", hash == pin.Hash, "got %s want %s", hash, pin.Hash)
+		ev.Check("built-in catalog content matches the generated artifact", hash == pin.Hash, "got %s want %s", hash, pin.Hash)
 		ev.Check("hash is stable", hash == catalogHash(t, ai.BuiltinCatalog()), "differs between copies")
 		changed := ai.BuiltinCatalog()
 		changed.Models[0].Cost.Output += 0.01

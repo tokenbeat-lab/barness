@@ -1,0 +1,92 @@
+{
+  "status": "PREPARED_NOT_COMPLETE",
+  "copies": [
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/adopt-builtin-v1.py",
+      "destination": "provenance/builtin-v1/adopt-builtin-v1.py",
+      "sha256": "defa39fe4086c2c37f87f2aca89e4a831a7b946f25ffd6ca58c55ff9a33a794a"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/commands/40-adopt-builtin/command.json",
+      "destination": "provenance/builtin-v1/commands/40-adopt-builtin/command.json",
+      "sha256": "924ca9d1769a4191832df95fcaf27e82eaae10c960d48a0d3e519ac2fecd3521"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/commands/40-adopt-builtin/stdout.jsonl",
+      "destination": "provenance/builtin-v1/commands/40-adopt-builtin/stdout.jsonl",
+      "sha256": "d17e2d8ba48fe76f94d8630b7f7a1f59647d749dfc0296752fdfa56861d3c153"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/commands/40-adopt-builtin/stderr.log",
+      "destination": "provenance/builtin-v1/commands/40-adopt-builtin/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/status-before-builtin.md",
+      "destination": "provenance/builtin-v1/status-before-builtin.md",
+      "sha256": "6d36c680dffa40cc37fcb53224255d4c6f194528e3d2b8c8d100437e3a484096"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/review-spec-builtin-v1.md",
+      "destination": "provenance/builtin-v1/review-spec-builtin-v1.md",
+      "sha256": "014aaf87b0622ceae12e8131c2555a09f2baa43b8191c138940ebde40da7131c"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/review-standards-v3.md",
+      "destination": "provenance/builtin-v1/review-standards-v3.md",
+      "sha256": "5dcbc4e63386682d78a981c9266a04d88b1a006206cda3e6a8103f92f8924242"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/builtin-green-applicability-v1.json",
+      "destination": "provenance/builtin-v1/verification/builtin-green-applicability-v1.json",
+      "sha256": "de418a12de6001963d87aa424c8a85516a280c89b844e9f118f9ca775928e7b0"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/run-builtin-green-v1.py",
+      "destination": "provenance/builtin-v1/verification/run-builtin-green-v1.py",
+      "sha256": "d6f5bbc8aa88b7528f1093c695c831bb14a6497aec676b54242cd671fec4a7f9"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/required-cases-v2.json",
+      "destination": "provenance/builtin-v1/verification/required-cases-v2.json",
+      "sha256": "a7a974b16933009eb00fc774f6e98409a392db9192e2542708fc6be111a377b4"
+    },
+    {
+      "source": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/package-builtin-index-v1.py",
+      "destination": "provenance/builtin-v1/package-builtin-index-v1.py",
+      "sha256": "975762265abc89a5974a924824acab33f836922fd7f61d568189d0820212003d"
+    }
+  ],
+  "originalReferences": [
+    {
+      "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T025153.030653Z-us31ebf4/receipt.json",
+      "sha256": "2f9b61745ace929ebac4f1a253cdd8e19669daada5ad7ae36371cdf1495a5d65"
+    },
+    {
+      "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T025230.476314Z-_wb4hku3/receipt.json",
+      "sha256": "d76ec0aea52286a66813fa4daabd4a8a98a0016a3d7ee031bf2d36e36515607b"
+    },
+    {
+      "path": "ai/e2e/testdata/catalog/pre-kimi-k31-builtin.json",
+      "sha256": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca"
+    },
+    {
+      "path": "ai/e2e/testdata/catalog/kimi-k31-approved.json",
+      "sha256": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-1.13.0-v5.json",
+      "sha256": "4bc72a5417b364a10b4bd4a0af531703fab39503d7cf5a48e2196183dff1510b"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-route-v5.json",
+      "sha256": "a1e879e66001be1206a1c9617dbe2bd53e7d93e494905331309a8fd99145b82c"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/luna-route-v5.json",
+      "sha256": "5d48b68e8f9f5919539f4900538ea338ec6460737ed3aa48118c20720d4ddc65"
+    }
+  ],
+  "ordinary": "PENDING",
+  "note": "Original receipts and complete case capsules remain external; no completion marker."
+}

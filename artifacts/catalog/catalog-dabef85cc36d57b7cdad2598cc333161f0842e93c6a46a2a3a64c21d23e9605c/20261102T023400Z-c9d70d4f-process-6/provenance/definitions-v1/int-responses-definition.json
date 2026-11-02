@@ -1,0 +1,31 @@
+{
+  "provider": "moonshot",
+  "api": "openai-responses",
+  "id": "kimi-k3.1-pro",
+  "name": "Kimi K3.1 Pro moonshot openai-responses",
+  "reasoning": true,
+  "input": [
+    "text"
+  ],
+  "contextWindow": 1048576,
+  "maxTokens": 131072,
+  "thinkingLevelMap": {
+    "off": null,
+    "minimal": null,
+    "low": "low",
+    "medium": null,
+    "high": "high",
+    "xhigh": null,
+    "max": "max"
+  },
+  "defaultThinkingLevel": "max",
+  "compat": {
+    "requiresThinking": true
+  },
+  "cost": {
+    "input": 2,
+    "output": 10,
+    "cacheRead": 0.2,
+    "cacheWrite": 2
+  }
+}

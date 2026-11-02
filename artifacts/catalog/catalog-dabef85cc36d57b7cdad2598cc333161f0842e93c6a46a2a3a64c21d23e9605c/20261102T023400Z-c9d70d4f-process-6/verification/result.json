@@ -1,0 +1,350 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "ordinary": {
+    "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T030707.838552Z-x6dz4dj5/receipt.json",
+    "receiptSha256": "7aab50187f44c02a2091d062271aa495664c7a3969ae5062a9845668e9a9fa9a",
+    "commit": "97e3fef86d6948705eb70abc97976c64c725b442",
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "./ai",
+      "./ai/examples/chineseeval/...",
+      "./catalog/...",
+      "./cmd/catalogctl",
+      "./cmd/cataloggen",
+      "-count=1",
+      "-timeout=40m"
+    ],
+    "status": "PASS",
+    "exitCode": 0,
+    "elapsedSeconds": 1304.862620915752,
+    "sourceCount": 2166,
+    "selectedInputCount": 167,
+    "sourceAndInputCurrentEqual": true,
+    "bundles": [
+      {
+        "package": "./ai/e2e",
+        "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T030707.838552Z-x6dz4dj5/bundles/20261102T030710.087323000Z",
+        "manifestSha256": "eda0e3e8e2877b9d62d64ab711877891126a41c9235f60b5b2ea2e200e3dec41",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "counts": {
+          "PASS": 17124,
+          "NOT_RUN": 226
+        }
+      },
+      {
+        "package": "-tags live ./ai/live",
+        "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T030707.838552Z-x6dz4dj5/bundles/20261102T031534.514320000Z",
+        "manifestSha256": "072233ae11d4f0c63fc23427bbc1345fc4b4be726270e7dc4132de9ff5f3aa60",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "counts": {
+          "PASS": 32
+        }
+      },
+      {
+        "package": "-tags live ./ai/live",
+        "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T030707.838552Z-x6dz4dj5/bundles/20261102T031913.373199000Z",
+        "manifestSha256": "81815d8a26e42186275eb1ed754a669ffd94ca9d199c85afd05517d890b06add",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "counts": {
+          "PASS": 77
+        }
+      },
+      {
+        "package": "-tags live ./ai/live",
+        "path": ".evidence/catalog-kimi-k31-pro/e2e/20261102T030707.838552Z-x6dz4dj5/bundles/20261102T031934.628355000Z",
+        "manifestSha256": "005e9df8eb294542b8daaa4038f8c5a9d9609a543b21b8e9a615ebb415844dc6",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "counts": {
+          "PASS": 6
+        }
+      }
+    ],
+    "requiredCount": 203,
+    "requiredFailures": []
+  },
+  "cliChecks": [
+    {
+      "identity": [
+        "moonshot",
+        "openai-completions",
+        "kimi-k3.1-pro"
+      ],
+      "check": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024112.543205000Z-1728312677/check.json",
+      "checkSha256": "77eda08d7772480a54a2e02e7c4da8eb2b444212f80184e9e4a1d814059ea0b9",
+      "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024113.758451Z-m13euffi/receipt.json",
+      "receiptSha256": "5cb0b08e864b67639d3bc6d51384939d908b7cfec4ebd5fb21311d308bc42284",
+      "measuredCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+      "requiredCount": 1040,
+      "missingRequired": [],
+      "manifest": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024113.758451Z-m13euffi/bundles/20261102T024115.542845000Z/manifest.json",
+      "manifestSha256": "5dae1cab744b957f1541e86d1004671735015def4c5d057725d317e240a2cd9d",
+      "audit": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024113.758451Z-m13euffi/bundles/20261102T024115.542845000Z/audit.json",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "plan": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024113.758451Z-m13euffi/bundles/20261102T024115.542845000Z/CATALOG-CANDIDATE-PLAN/plan.json",
+      "planSha256": "19154135aded51306d3ae40f18e563e98f87522fecafe44008001803155e7a75",
+      "errors": []
+    },
+    {
+      "identity": [
+        "moonshot",
+        "openai-responses",
+        "kimi-k3.1-pro"
+      ],
+      "check": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024125.570284000Z-2409979687/check.json",
+      "checkSha256": "a1df749a6e85ebc747ce82ca4a03c9daab46ffe8b9459b93af7d9b572eced538",
+      "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024126.579152Z-j05o2u3o/receipt.json",
+      "receiptSha256": "40ac8e078732301d8d44fec1e72bcaa9f19eced6de879669e5b0899743ddf5fe",
+      "measuredCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+      "requiredCount": 1048,
+      "missingRequired": [],
+      "manifest": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024126.579152Z-j05o2u3o/bundles/20261102T024127.835849000Z/manifest.json",
+      "manifestSha256": "32bcd0cf895c92ac8f9897514957f77f7f325fbfd47efd898abdfc60a9ebacad",
+      "audit": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024126.579152Z-j05o2u3o/bundles/20261102T024127.835849000Z/audit.json",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "plan": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024126.579152Z-j05o2u3o/bundles/20261102T024127.835849000Z/CATALOG-CANDIDATE-PLAN/plan.json",
+      "planSha256": "d2b11be38bb8ab0785255a0727737a83ece693b914d6f360131ecae20a04d845",
+      "errors": []
+    },
+    {
+      "identity": [
+        "moonshot",
+        "anthropic-messages",
+        "kimi-k3.1-pro"
+      ],
+      "check": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024138.032770000Z-3666695100/check.json",
+      "checkSha256": "b00894c02e5cd7a2250bffbd8a0e1974709ebeb29e8f41906a4160eb0425ef78",
+      "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024138.940388Z-rumhq_us/receipt.json",
+      "receiptSha256": "2f37b0d9e3f4aac8c7f9f515beb86a2965027d989e549c733ad85731c98790a5",
+      "measuredCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+      "requiredCount": 1056,
+      "missingRequired": [],
+      "manifest": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024138.940388Z-rumhq_us/bundles/20261102T024140.149137000Z/manifest.json",
+      "manifestSha256": "8e858cd7f248307fbd0c14ac85fb7c22c20e942e38281921c8a6de806d3ced4c",
+      "audit": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024138.940388Z-rumhq_us/bundles/20261102T024140.149137000Z/audit.json",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "plan": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024138.940388Z-rumhq_us/bundles/20261102T024140.149137000Z/CATALOG-CANDIDATE-PLAN/plan.json",
+      "planSha256": "d916626b1a8f0a02afa7e06bdd07245d5825694c0d6104f583042d4eac3fe7ed",
+      "errors": []
+    },
+    {
+      "identity": [
+        "moonshot-cn",
+        "openai-completions",
+        "kimi-k3.1-pro"
+      ],
+      "check": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024150.477248000Z-694103298/check.json",
+      "checkSha256": "7ed32e5b73400ab6b4a3d3555dcd839fe895154df2ab06af229f85c5812c1465",
+      "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024151.414726Z-9bba0tyr/receipt.json",
+      "receiptSha256": "41d8a2deb3bbd85c0d7ab29eb79288c356680cedb365fc44203b3a5549e42a5c",
+      "measuredCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+      "requiredCount": 1064,
+      "missingRequired": [],
+      "manifest": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024151.414726Z-9bba0tyr/bundles/20261102T024152.811628000Z/manifest.json",
+      "manifestSha256": "4fd2c1343dd62ba537ff03ef6c691d831fdff4f892719b30457d195b01f2fde4",
+      "audit": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024151.414726Z-9bba0tyr/bundles/20261102T024152.811628000Z/audit.json",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "plan": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024151.414726Z-9bba0tyr/bundles/20261102T024152.811628000Z/CATALOG-CANDIDATE-PLAN/plan.json",
+      "planSha256": "b1ae575e59a66805605794eee848d7f06cded0759ca1c7ff4c9bae99e02e5205",
+      "errors": []
+    },
+    {
+      "identity": [
+        "moonshot-cn",
+        "openai-responses",
+        "kimi-k3.1-pro"
+      ],
+      "check": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024203.090762000Z-4164137099/check.json",
+      "checkSha256": "9ffc98d6fe918d4c99deb45b5b3458142743eefc471754c65c3192af6812d1cf",
+      "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024203.981392Z-k0jdgkck/receipt.json",
+      "receiptSha256": "29056dd2c52fee723f487d7c0abf3962812125863d24c8d31c001c21479e6660",
+      "measuredCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+      "requiredCount": 1072,
+      "missingRequired": [],
+      "manifest": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024203.981392Z-k0jdgkck/bundles/20261102T024205.213891000Z/manifest.json",
+      "manifestSha256": "db8ec1768f38744a9fbef8f172c5edac846790a1552318801a7449c5326c99a2",
+      "audit": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024203.981392Z-k0jdgkck/bundles/20261102T024205.213891000Z/audit.json",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "plan": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024203.981392Z-k0jdgkck/bundles/20261102T024205.213891000Z/CATALOG-CANDIDATE-PLAN/plan.json",
+      "planSha256": "7b7956e554c341b8cf479c5df2b3931b8b39a89eed7f4b692a07346266adaf62",
+      "errors": []
+    },
+    {
+      "identity": [
+        "moonshot-cn",
+        "anthropic-messages",
+        "kimi-k3.1-pro"
+      ],
+      "check": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024214.989793000Z-222256811/check.json",
+      "checkSha256": "68445361d340a5e9397a3cfe007a0615dbe3691d60f12d58b066a429af621a31",
+      "receipt": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024215.827109Z-ui_n6hyu/receipt.json",
+      "receiptSha256": "aa4a2206a709c4925e423b42fb428ff81f1486f44a2c63b5dff185adc0d08cf2",
+      "measuredCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+      "requiredCount": 1080,
+      "missingRequired": [],
+      "manifest": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024215.827109Z-ui_n6hyu/bundles/20261102T024217.060867000Z/manifest.json",
+      "manifestSha256": "0f4ab12f071b7b21d8f73a25492ad52dedfe2bc9b0fdea7dcd4fd04e9d53b61c",
+      "audit": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024215.827109Z-ui_n6hyu/bundles/20261102T024217.060867000Z/audit.json",
+      "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+      "plan": ".evidence/catalog-kimi-k31-pro/e2e/20261102T024215.827109Z-ui_n6hyu/bundles/20261102T024217.060867000Z/CATALOG-CANDIDATE-PLAN/plan.json",
+      "planSha256": "7b0aa34330eefecf10dbc22fc416022c937c1db9328476bc97acbcaffe1e38ab",
+      "errors": []
+    }
+  ],
+  "finalPlanIdentityCount": 125,
+  "finalSnapshotSha256": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a",
+  "cliToOrdinarySourceDelta": [
+    {
+      "path": "ai/catalog_builtin.json",
+      "before": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+      "after": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a"
+    },
+    {
+      "path": "ai/e2e/chinese_current_catalog_process_test.go",
+      "before": "7f6209f45dffe3a714beb0dea58f9d1f9b5fbcfd3c5a7a6ea7a54c018413b996",
+      "after": "d45cfd6a7f26171104cbc79e4b2f4987532692dd07ae8bada70553f14aa9087e"
+    },
+    {
+      "path": "ai/e2e/chinese_evaluation_test.go",
+      "before": "08d12bb84da151569aca3426b168cbc732cdd2584e792e3b6c8f0605b93cd95f",
+      "after": "00af8444a5389468f02ec0a6fcc6761836d3a703cbb5438d1fc5937c41a69a8f"
+    },
+    {
+      "path": "ai/e2e/chinese_routes_process_test.go",
+      "before": "a68b73dc214c20eabd63506225e8c38f307dcb2fe0cfb083a3ce6d1630245d43",
+      "after": "f9aff60b1e0c3c864f32ad17448e89644d536f037a5532dc9c83f678a0bd3d2f"
+    },
+    {
+      "path": "ai/e2e/kimi_k31_builtin_test.go",
+      "before": null,
+      "after": "aa1b988c569b276378fe84b249c87080608b120752fd300df5043df4b1c6b766"
+    },
+    {
+      "path": "ai/e2e/kimi_qualification_promotion_test.go",
+      "before": "ef6140366aef74dee680f21981cb0c436e8f20108c7449b01fc21bd7a228b423",
+      "after": "e6805f6dc5ba89cfb10d0c76ff425d86e8bc072c3532890dcd34b447496da033"
+    },
+    {
+      "path": "ai/e2e/testdata/catalog/kimi-k31-approved.json",
+      "before": null,
+      "after": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a"
+    },
+    {
+      "path": "ai/e2e/testdata/catalog/pre-kimi-k31-builtin.json",
+      "before": null,
+      "after": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca"
+    },
+    {
+      "path": "ai/examples/chineseeval/cmd/chineseeval/main.go",
+      "before": "5665a299de7a5d2c6288f13205e8a307675082687c5c0ac588f233e93048b318",
+      "after": "f0d708911d9ccb790edf631de8cacdbaad175c57f8dcf02ddc4f36b259472cc8"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-1.13.0-v5.json",
+      "before": null,
+      "after": "4bc72a5417b364a10b4bd4a0af531703fab39503d7cf5a48e2196183dff1510b"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-route-v5.json",
+      "before": null,
+      "after": "a1e879e66001be1206a1c9617dbe2bd53e7d93e494905331309a8fd99145b82c"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/luna-route-v5.json",
+      "before": null,
+      "after": "5d48b68e8f9f5919539f4900538ea338ec6460737ed3aa48118c20720d4ddc65"
+    }
+  ],
+  "coreGoOrDependencyDelta": [],
+  "skipInventory": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/skip-inventory-v1.json",
+  "skipInventorySha256": "5ffd7747cb28875c08542ba1e3acce2350198530ab416172780bec8116bc352c",
+  "goSkipEventCount": 252,
+  "nativeNotRunCount": 226,
+  "buildChecks": [
+    {
+      "record": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/build-v1/generate.json",
+      "sha256": "2e44191c70c71f0d172d25b17004710a7a8c90de88bbc869072ca4b584d9832c",
+      "argv": [
+        "go",
+        "generate",
+        "./ai"
+      ],
+      "exitCode": 0,
+      "startedUnix": 1793590150.7528389,
+      "finishedUnix": 1793590152.959991,
+      "elapsedSeconds": 2.2071521282196045,
+      "commit": "97e3fef86d6948705eb70abc97976c64c725b442",
+      "sourceAndSelectedInputsStable": true,
+      "inputManifestSha256": "56478fa21b0e50cdf305ec1a709252955137169b948241daf1a668f41a57d016",
+      "stdoutSha256": "c3660f83da503664d6a2157b096b202e92b78b2a1f65aa0b235cc359b9b3089a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "goenv": "off",
+      "goflags": "",
+      "home": "isolated",
+      "timeoutSeconds": 1200
+    },
+    {
+      "record": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/build-v1/build.json",
+      "sha256": "3bf9c74f52fa551e83ce373d7e6a14c4d09a906fab8737eb85002f5baa98bb25",
+      "argv": [
+        "go",
+        "build",
+        "./ai/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen"
+      ],
+      "exitCode": 0,
+      "startedUnix": 1793590153.091202,
+      "finishedUnix": 1793590154.808598,
+      "elapsedSeconds": 1.7173960208892822,
+      "commit": "97e3fef86d6948705eb70abc97976c64c725b442",
+      "sourceAndSelectedInputsStable": true,
+      "inputManifestSha256": "56478fa21b0e50cdf305ec1a709252955137169b948241daf1a668f41a57d016",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "goenv": "off",
+      "goflags": "",
+      "home": "isolated",
+      "timeoutSeconds": 1200
+    },
+    {
+      "record": "artifacts/catalog/work/20261102T023400Z-c9d70d4f/verification/build-v1/vet.json",
+      "sha256": "c4224403ed1c0d15be8c07b995e3395e860e8f696a21b3152e88a126ab9469c6",
+      "argv": [
+        "go",
+        "vet",
+        "./ai/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen"
+      ],
+      "exitCode": 0,
+      "startedUnix": 1793590154.946162,
+      "finishedUnix": 1793590155.979403,
+      "elapsedSeconds": 1.0332410335540771,
+      "commit": "97e3fef86d6948705eb70abc97976c64c725b442",
+      "sourceAndSelectedInputsStable": true,
+      "inputManifestSha256": "56478fa21b0e50cdf305ec1a709252955137169b948241daf1a668f41a57d016",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "goenv": "off",
+      "goflags": "",
+      "home": "isolated",
+      "timeoutSeconds": 1200
+    }
+  ],
+  "buildScriptSha256": "43311df19e6963497645ff7c7c7563a3fe32c8767ddea3b10d0da4ca6a695aec",
+  "limits": [
+    "No vendor live qualification or paid requests.",
+    "No race or pressure execution; ordinary skip is not a pass.",
+    "CLI checks measured 0aede6e; full ordinary measured 97e3 with actual source delta retained."
+  ]
+}

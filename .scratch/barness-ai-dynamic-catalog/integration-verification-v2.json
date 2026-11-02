@@ -1,0 +1,183 @@
+{
+  "checkpoint": "loader-taxonomy-and-image-options-v2",
+  "final": false,
+  "scope": "public loader diagnostics and actual protocol option projection; final03 integration/full ordinary/build/vet/code review still pending",
+  "attempts": [
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T104121.913580Z-69uz6gkp/receipt.json",
+      "sha256": "7e0201b7874981f8b132eeada478a5c74d9b800ed7d038465bc69898b04f6284",
+      "status": "FAIL",
+      "exitCode": 1,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 3.609415791928768,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestLocalCatalogClassifierFailureTaxonomy$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "completedGoTests": 0,
+      "bundles": []
+    },
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T104158.347108Z-d1uy67fc/receipt.json",
+      "sha256": "802e25ef15efe5202351ab11169f17292fff42ed1cee60149227b8fc5b033a42",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 4.444366374984384,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestLocalCatalogClassifierFailureTaxonomy$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "completedGoTests": 5,
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "f8985d75900651db8b7eede85c976eeaa6a0c4ecbe8198832cf0dcb005b5b6e3",
+          "package": "./ai/e2e",
+          "path": "bundles/20261101T104202.616432000Z"
+        }
+      ]
+    },
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T104252.729326Z-cfvc6ntu/receipt.json",
+      "sha256": "1e8a8d5986f0dbcdb63a1c1eb355317baac2d0b3089873169932cccab70cd054",
+      "status": "FAIL",
+      "exitCode": 1,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 13.317282625008374,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^(TestCatalogMaintenanceSourceReview|TestXAIImagesProducerOriginalDocuments)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "completedGoTests": 0,
+      "bundles": []
+    },
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T104438.675598Z-0vf9asaq/receipt.json",
+      "sha256": "c68f0cd37940edfd6f87d10277118d3d852584941a50bd7475113e92c0c0f0c8",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 79.0092879999429,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "./catalog/...",
+        "-run",
+        "^(TestLocalCatalog|TestClassifier|TestJev|TestDecisions|TestCatalogMaintenanceSourceReview|TestEvidenceRouteSourceApplicability|TestXAIImagesProducerOriginalDocuments)",
+        "-count=1",
+        "-timeout=15m"
+      ],
+      "completedGoTests": 2687,
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "2c2494eb77e1a7a2261f973fb15da38d7de6e3c3a75f24c42cf010ec69a58be0",
+          "package": "./ai/e2e",
+          "path": "bundles/20261101T104442.523777000Z"
+        }
+      ]
+    },
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T104838.761827Z-tfen6v_0/receipt.json",
+      "sha256": "2e1ebf572b9b43a67732d4b9159b29dd80b3c9f689152144b741486ed00bec3f",
+      "status": "FAIL",
+      "exitCode": 1,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 3.7414309582673013,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestLocalCatalogImageDefinitionCapabilities$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "completedGoTests": 0,
+      "bundles": []
+    },
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T104923.379641Z-r7ddjbyd/receipt.json",
+      "sha256": "a94a9afcff7b910e54455cf02ac6bf901ad8dfcba842c3d8552e35eac26d2df0",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 5.039112583734095,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^(TestLocalCatalogImageDefinitionCapabilities|TestLocalCatalogClassifierFailureTaxonomy|TestMaintenanceCatalogMigration)$",
+        "-count=1",
+        "-timeout=5m"
+      ],
+      "completedGoTests": 24,
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "b1512955584abf53bb4e231bc00218adb71c833dcf719492a45d24a06289d6cb",
+          "package": "./ai/e2e",
+          "path": "bundles/20261101T104928.187771000Z"
+        }
+      ]
+    },
+    {
+      "receipt": ".evidence/barness-ai-dynamic-catalog/e2e/20261101T105117.484607Z-m8pe_6rp/receipt.json",
+      "sha256": "81a9a67fcee2d711449e324dfe73386da882a50a5a09cd18db83eb6fcec7e18f",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceCommit": "e4ef72982671b91fa9f79e5c0168bc5b35394acf",
+      "elapsedSeconds": 201.15498354192823,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "./catalog/...",
+        "-run",
+        "^(TestLocalCatalog|TestClassifier|TestJev|TestDecisions|TestOpenAIImages|TestGoogleImages|TestXAIImages|TestImages|TestCatalogMaintenanceSourceReview|TestEvidence|TestMaintenanceCatalogMigration|TestCatalogCandidateContracts)",
+        "-count=1",
+        "-timeout=20m"
+      ],
+      "completedGoTests": 4648,
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "8473f50d983a25a7630bd86f38a13b1740d704a34217a5a949ea27576db31862",
+          "package": "./ai/e2e",
+          "path": "bundles/20261101T105122.643682000Z"
+        }
+      ]
+    }
+  ],
+  "historicalInputsUnchanged": true,
+  "vendorCalls": 0,
+  "race": "NOT_RUN",
+  "pressure": "NOT_RUN"
+}
