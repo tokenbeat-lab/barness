@@ -1,0 +1,139 @@
+{
+  "comparisonBase": "ceabec8b58c42377f4f643ccb87c1bc1d4beb456",
+  "comparisonTarget": "97e3fef86d6948705eb70abc97976c64c725b442",
+  "actualMeasuredCommit": "97e3fef86d6948705eb70abc97976c64c725b442",
+  "coreRuntimeCodeChanged": "YES",
+  "coreRuntimeFiles": [
+    "ai/kimi_catalog.go"
+  ],
+  "runtimeDependenciesChanged": "NO",
+  "exampleCodeChanged": "YES",
+  "exampleCodeFiles": [
+    "ai/examples/chineseeval/cmd/chineseeval/main.go"
+  ],
+  "builtinAdopted": true,
+  "cliCheckSourceCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+  "cliToOrdinarySourceDelta": [
+    {
+      "path": "ai/catalog_builtin.json",
+      "before": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+      "after": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a"
+    },
+    {
+      "path": "ai/e2e/chinese_current_catalog_process_test.go",
+      "before": "7f6209f45dffe3a714beb0dea58f9d1f9b5fbcfd3c5a7a6ea7a54c018413b996",
+      "after": "d45cfd6a7f26171104cbc79e4b2f4987532692dd07ae8bada70553f14aa9087e"
+    },
+    {
+      "path": "ai/e2e/chinese_evaluation_test.go",
+      "before": "08d12bb84da151569aca3426b168cbc732cdd2584e792e3b6c8f0605b93cd95f",
+      "after": "00af8444a5389468f02ec0a6fcc6761836d3a703cbb5438d1fc5937c41a69a8f"
+    },
+    {
+      "path": "ai/e2e/chinese_routes_process_test.go",
+      "before": "a68b73dc214c20eabd63506225e8c38f307dcb2fe0cfb083a3ce6d1630245d43",
+      "after": "f9aff60b1e0c3c864f32ad17448e89644d536f037a5532dc9c83f678a0bd3d2f"
+    },
+    {
+      "path": "ai/e2e/kimi_k31_builtin_test.go",
+      "before": null,
+      "after": "aa1b988c569b276378fe84b249c87080608b120752fd300df5043df4b1c6b766"
+    },
+    {
+      "path": "ai/e2e/kimi_qualification_promotion_test.go",
+      "before": "ef6140366aef74dee680f21981cb0c436e8f20108c7449b01fc21bd7a228b423",
+      "after": "e6805f6dc5ba89cfb10d0c76ff425d86e8bc072c3532890dcd34b447496da033"
+    },
+    {
+      "path": "ai/e2e/testdata/catalog/kimi-k31-approved.json",
+      "before": null,
+      "after": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a"
+    },
+    {
+      "path": "ai/e2e/testdata/catalog/pre-kimi-k31-builtin.json",
+      "before": null,
+      "after": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca"
+    },
+    {
+      "path": "ai/examples/chineseeval/cmd/chineseeval/main.go",
+      "before": "5665a299de7a5d2c6288f13205e8a307675082687c5c0ac588f233e93048b318",
+      "after": "f0d708911d9ccb790edf631de8cacdbaad175c57f8dcf02ddc4f36b259472cc8"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-1.13.0-v5.json",
+      "before": null,
+      "after": "4bc72a5417b364a10b4bd4a0af531703fab39503d7cf5a48e2196183dff1510b"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/jev-route-v5.json",
+      "before": null,
+      "after": "a1e879e66001be1206a1c9617dbe2bd53e7d93e494905331309a8fd99145b82c"
+    },
+    {
+      "path": "ai/examples/chineseeval/testdata/luna-route-v5.json",
+      "before": null,
+      "after": "5d48b68e8f9f5919539f4900538ea338ec6460737ed3aa48118c20720d4ddc65"
+    }
+  ],
+  "cliToOrdinaryCoreGoOrDependencyDelta": [],
+  "oldProgram": {
+    "commit": "ceabec8b58c42377f4f643ccb87c1bc1d4beb456",
+    "status": "code_gap",
+    "exitCode": 1,
+    "decision": "Upgrade SDK and rebuild; verify compatibility and explicitly load into a new Client. Other builds are not verified.",
+    "candidateId": "sha256:86b2bf38f5beab6fac80184fa0f25a31c8c1fc060eef3c4dc42d6a9258843483",
+    "snapshotSHA256": "1b112d438c84fbab2f51924a0cd1aab92aab7a5fb4f379bd17b51a1ae25d8a50",
+    "snapshotScope": "first international Chat candidate, 120 identities; not a test of the final 125-identity snapshot",
+    "checkReference": ".evidence/catalog-kimi-k31-pro/check-inputs/20261102T024030.660862000Z-2861964047/check.json"
+  },
+  "builtinDefault": "REBUILD_AND_DISTRIBUTE",
+  "hostAuthorization": "No automatic AllowedModels or credential expansion",
+  "documentChangesAfterMeasurement": {
+    "status": "PASS",
+    "measuredCommit": "97e3fef86d6948705eb70abc97976c64c725b442",
+    "currentCommit": "97e3fef86d6948705eb70abc97976c64c725b442",
+    "sourceCount": 2166,
+    "selectedInputCount": 167,
+    "evidence": "verification/post-doc-equality-v1.json",
+    "sha256": "73a5e91abc82008a91e5efb58d372912cd2c5477090ac90108d5fc2f01d0a278"
+  },
+  "ordinaryEvidence": "verification/result.json",
+  "vendorQualification": false,
+  "softwareRelease": false,
+  "finalSnapshotCheck": {
+    "programCommit": "0aede6e89e320b11fe24da5b5b46225186e1d637",
+    "status": "applicable / code compatible",
+    "identities": 125,
+    "snapshotSHA256": "6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a",
+    "evidence": "verification/result.json"
+  },
+  "changelogSource": {
+    "path": "provenance/changelog-source-final.md",
+    "sha256": "a0f0e8c25a2f749e834bf5624477b37af5be85364c5e6debdfd9c8b391ea3195",
+    "earlierDraft": "provenance/changelog-source.md"
+  },
+  "applicability": {
+    "live": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No new vendor facts or qualification."
+    },
+    "race": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No shared state or cancellation path changes."
+    },
+    "pressure": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No design load changes."
+    }
+  },
+  "readerNotice": {
+    "path": "provenance/README.md",
+    "sha256": "6c59ddaf011dedbe1c049bc0562c5d17ba267574643239f46343bb80d07cca40"
+  },
+  "currentStatusSnapshot": {
+    "path": "verification/current-status-before-seal.md",
+    "sha256": "9e2c6d1bc45f9196ea21380e72e4cca29be2a64c88147514bd5034b27807bf20",
+    "source": ".scratch/catalog-kimi-k31-pro/status.md",
+    "meaning": "pre-seal verification status snapshot; completion depends on delivery.json"
+  }
+}

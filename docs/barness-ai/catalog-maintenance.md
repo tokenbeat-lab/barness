@@ -212,6 +212,14 @@ fi
 原 118 条定义与相对顺序保持。该型号的来源、采用和验证记录见
 [本次唯一当前状态](../../.scratch/catalog-gpt61-terra/status.md)。
 
+随后已同步 Kimi K3.1 Pro：国际站 `moonshot` 与中国站 `moonshot-cn` 各有
+Completions、Responses、Messages 三条身份。当前内置目录为 125 条（119 chat、
+3 image、3 classifier），两站 Provider 内容版本均为 4，原 119 条定义、价格和
+相对顺序保持。本库当前仅实现文本输入，输出上限为 131,072 token。核心型号
+白名单有变化，旧程序须升级 SDK、重建并经兼容检查后使用新 JSON；编译内置默认
+目录的程序也须重建。详情见[本次状态](../../.scratch/catalog-kimi-k31-pro/status.md)
+及[统一交付入口](../../artifacts/catalog/README.md)。
+
 本地 `apply` 只推进所选维护库和明确选择的外部快照。导出已批准 State 或快照：
 
 ```sh

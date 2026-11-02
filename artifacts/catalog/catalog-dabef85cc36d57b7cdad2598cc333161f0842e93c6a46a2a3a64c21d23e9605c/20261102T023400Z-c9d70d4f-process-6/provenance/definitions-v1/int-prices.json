@@ -1,0 +1,23 @@
+{
+  "provider": "moonshot",
+  "model": "kimi-k3.1-pro",
+  "currency": "USD",
+  "unit": "per 1000000 tokens",
+  "native": {
+    "input": 2,
+    "output": 10,
+    "cacheRead": 0.2,
+    "cacheWrite5m": 2,
+    "cacheWrite1h": 4
+  },
+  "catalogUSD": {
+    "input": 2,
+    "output": 10,
+    "cacheRead": 0.2,
+    "cacheWrite": 2
+  },
+  "write1hUSD": 4,
+  "pricingEvidence": "inputs/int/pricing.body#sha256:0f646b1b4e5248ca7a1bd46dba6649511bb8ab6e73ecac15e4e8872177dd9252",
+  "cacheEvidence": "inputs/int/cache.body#sha256:f06bd9ebe1c2c525713e3976d7d670213ee82bc331f3c9f6a5c1215a4dce6d68",
+  "conversion": null
+}
