@@ -78,11 +78,19 @@ func TestTerraAdoptedSeedExport(t *testing.T) {
 	if !ev.Check("fresh seed exports retained review", exit == 0, "exit=%d output=%s", exit, out) {
 		return
 	}
-	var manifest maintenance.ReviewExport
-	if err := json.Unmarshal(out, &manifest); err != nil {
+	var outputManifest, manifest maintenance.ReviewExport
+	if err := json.Unmarshal(out, &outputManifest); err != nil {
 		t.Fatal(err)
 	}
-	ev.Fixture("reexport-review.json", out)
+	index, err := os.ReadFile(filepath.Join(review, "review.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := json.Unmarshal(index, &manifest); err != nil {
+		t.Fatal(err)
+	}
+	ev.Fixture("reexport-review.json", index)
+	ev.Check("persisted review index matches CLI output", reflect.DeepEqual(manifest, outputManifest), "persisted index differs from output")
 
 	baselineDir := filepath.Join(catalogSnapshotRoot(t), "catalog", "data", "baseline")
 	originalIndex, err := os.ReadFile(filepath.Join(baselineDir, "review.json"))
