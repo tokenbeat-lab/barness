@@ -1,6 +1,6 @@
 # 型号名称限制移除当前状态
 
-当前阶段：产品和JSON新增证明完成，历史来源合同修订后定向通过，准备重新冻结完整普通。
+当前阶段：完整受影响旧边界子集通过，准备最终补审与完整普通v6。
 基准提交：9584d3d6f095aefa4ab73bdc75c39a705b7931d6。
 工作批次：`artifacts/catalog/work/20261102T041450Z-10fb1e18/`。
 根目录原有 .catalog/、local-catalog.json、provider-integration-status scratch 保留。
@@ -91,9 +91,9 @@ check-reference.json 指向仓库根 .evidence 内各自完整检查，不依赖
 SHA 851484eae5d4d8dd23ec8e9e8922b02477ec9db8c60414e8f2b14f92765aa6bc。
 独立增量review-spec-v2.md与review-standards-v2.md均无发现。
 
-完整普通v3当前原件：
+完整普通v3原件：
 `.evidence/catalog-model-id-policy/e2e/20261102T042820.344950Z-_6n8y39z/receipt.json`。
-实际来源807afbc5、所选输入82项、必需225项；目前没有终态。
+实际来源807afbc5、所选输入82项、必需225项；终态CANCELLED/exit-15，原因见下方。
 命令为go test -json ./ai/e2e ./ai ./ai/examples/chineseeval/... ./catalog/...
 ./cmd/catalogctl ./cmd/cataloggen -count=1 -timeout=40m，外层collector上限2700秒。
 
@@ -132,4 +132,36 @@ PASS/exit0、148/148原生case PASS、audit0，SHA
 
 新完整普通使用v5脚本/清单，327项固定必需case，82项跨默认输入加脚本和清单
 共84项实际输入。53个动态fixture case按完整原生清单核对；最终还核对历史archive
-与树的内容hash，不能仅用主bundle audit替代。尚未执行v5。
+与树的内容hash，不能仅用主bundle audit替代。
+
+最终来源4f2764bb3392d17e21820cf960573fe913998a6f，产品5文件与65a保持相同。
+历史148定向工作树的2171项源码、81项输入与冻结版逐项相等，证明
+verification/historical-applicability-v1.json，SHA
+424ca3af0c55e0401391bf14c891e5c56ab33b9b42c744479534ee6d954fc69a。
+独立review-spec-v3.md、review-standards-v3.md均无发现。
+
+完整普通v5运行原件：
+`.evidence/catalog-model-id-policy/e2e/20261102T045214.516113Z-zroapojr/receipt.json`。
+实际source固定4f2764bb，327项固定必需、84项实际输入。当前尚无终态。
+执行期间不提交或改实际输入，生成/构建/vet尚未启动。
+
+完整普通v5观察到TestJevContextCandidateContract与TestKimiCatalogBoundary/model
+失败后停止，collector CANCELLED/exit-15。旧断言仅将ID改为alias/旧Jev或kimi-k2.5，
+却期待拒绝；新策略接受这些人工声明的同能力定义，符合需求。仅修测试预期，不修改
+真实型号能力或产品行为。旧失败原件保持，不以取消掩盖观察到的断言失败。
+
+修订定向36case回执：
+`.evidence/catalog-model-id-policy/e2e/20261102T050450.914556Z-e9cc3t05/receipt.json`，
+PASS/exit0/audit0。补充旧名称断言审计在WORK/inputs/old-name-negative-audit-v2.md，
+记录此前漏项、逐类ID写入/替换/表驱动分支及明确排除范围，不把静态检查当运行证明。
+
+完整相关边界子集：
+`.evidence/catalog-model-id-policy/e2e/20261102T050516.128659Z-301xoyc0/receipt.json`，
+PASS/exit0、主bundle audit0，SHA
+`f8b994c2eb970e9d71d84548b32fada4198f91b713143c192d0de4362e220ca4`。
+范围含Kimi/Jev/classifier/LocalCatalog/xAI及future，两个实际失败测试均执行并通过。
+Go 3947 pass、178 skip；skip均为未启用的classifier pressure，不算压力通过。
+
+最终完整普通v6计划329项固定必需，明确包含实际失败对应UC04-candidate-contract和
+KIMI-INTL-CHAT-K01-catalog-reject-empty-id；82项manifest加脚本/清单共84实际输入。
+v6尚未执行，待独立补审及新的冻结提交。

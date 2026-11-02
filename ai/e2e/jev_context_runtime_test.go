@@ -91,7 +91,12 @@ func TestJevContextCandidateContract(t *testing.T) {
 		}
 		p := validPolicy()
 		_, err := ai.NewClient(ai.Config{Policy: p, Catalog: &cat, Bindings: u.host, Credentials: u.host})
-		ev.Check("closed explicit candidate "+name, err != nil, "catalog accepted unsupported capability")
+		if name == "alias" || name == "old" {
+			// Synthetic metadata does not establish vendor support for either ID.
+			ev.Check("same protocol capability accepts synthetic name "+name, err == nil, "err=%v", err)
+		} else {
+			ev.Check("unsupported protocol capability remains refused "+name, err != nil, "catalog accepted unsupported capability")
+		}
 	}
 	catalog := u.client.Catalog()
 	lookup, _ := catalog.LookupClassifier(ai.ProviderTypeSafe, ai.APITypeSafeSystemOne, "jev-1.14.0")

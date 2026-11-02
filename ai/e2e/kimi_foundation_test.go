@@ -19,7 +19,7 @@ func kimiFoundationModel() ai.Model {
 }
 
 func TestKimiCatalogBoundary(t *testing.T) {
-	for _, kind := range []string{"model", "protocol", "image", "context", "output", "zero-price", "tiers", "effort", "off", "strict", "adaptive", "budget", "default-low", "default-empty", "max-disabled", "thinking-optional"} {
+	for _, kind := range []string{"empty-id", "protocol", "image", "context", "output", "zero-price", "tiers", "effort", "off", "strict", "adaptive", "budget", "default-low", "default-empty", "max-disabled", "thinking-optional"} {
 		t.Run(kind, func(t *testing.T) {
 			ev := run.Case(t, "KIMI-INTL-CHAT-K01-catalog-reject-"+kind)
 			m := kimiFoundationModel()
@@ -33,8 +33,8 @@ func TestKimiCatalogBoundary(t *testing.T) {
 				m.ThinkingLevelMap.Max = ai.Null[string]()
 			case "thinking-optional":
 				m.Compat.RequiresThinking = false
-			case "model":
-				m.ID = "kimi-k2.5"
+			case "empty-id":
+				m.ID = ""
 			case "protocol":
 				m.API = ai.APIGoogleGenerativeAI
 			case "image":
