@@ -2,6 +2,39 @@
 
 ## 未发布
 
+### 2026-11-02：Kimi K3.1 Pro 外部目录（验证进行中）
+
+外部目录新增 `chat / moonshot` 与 `chat / moonshot-cn` 的 `kimi-k3.1-pro`，
+每站分别提供 `openai-completions`、`openai-responses`、`anthropic-messages`
+三条身份。目标目录共 125 条，原 119 条定义、价格和相对顺序待最终核对。
+两站 Provider 内容版本分别由 1 增至 4，其余 Provider 版本保持。
+本库当前实施范围为文本输入、最多输出 131,072 token；该上限不代表厂商最大值。
+Host 的认证与型号授权不会因目录更新自动扩大。
+
+| 目录标识 | 值 |
+| --- | --- |
+| Catalog.Version | `catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c` |
+| Catalog.Hash | `sha256:93a1692f982836d9ad478252313b73e75eeee4904e6d79e3bcc915cd54a44005` |
+| JSON 文件 SHA-256 | `6fb2842be21797a6aa448a92244d12b4c528c212d74eff8e16220a883e89818a` |
+
+国际站标准 USD/百万 token 为输入 2、输出 10、缓存读 0.2、5 分钟缓存写 2；
+中国站按 2026-11-02 的 1 USD = 6.7146 CNY 固定换算，分别为 1.9360795878、
+10.1271855360、0.1936079588、1.9360795878。1 小时缓存写为已舍入输入费率的
+两倍；中国站美元值是固定换算估计，不是厂商美元报价。
+
+**代码与分发影响：** 相对 `ceabec8b58c42377f4f643ccb87c1bc1d4beb456`，
+`ai/kimi_catalog.go` 核心型号白名单新增该 ID，运行依赖不变；完整受测源码及
+输入仍待最终核对。旧基准程序的受控检查实际返回 `code_gap`、exit 1；它需升级
+SDK 并重建后，再经兼容检查和 Host 显式加载才能使用新 JSON。其他程序版本未验证。
+本次目前仅维护外部 JSON，尚未同步内置维护源、快照和基线；若之后同步，使用
+编译内置默认目录的程序需要重建分发。
+
+**验证：** 六条候选与应用原件已留存，最终普通回归及交付核对尚未完成。一次
+旧 Kimi 定向运行实际进程 exit 0、2,256 case PASS，但运行期间 HEAD 变化使
+collector 判为 `INVALID_EVIDENCE`；该结果不作为本次通过回执。live、race、压力
+按最终影响另行判定；不声明新厂商资格或软件发布。实际证据和当前状态见
+[本次状态](../../.scratch/catalog-kimi-k31-pro/status.md)。
+
 ### 2026-11-02：Catalog CLI 交付规范
 
 目录维护 SOP 现在要求每次更新 changelog，使用真实 Catalog.Version 命名不可变

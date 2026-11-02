@@ -1,0 +1,92 @@
+{
+  "/provider": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/api": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/id": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/name": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/reasoning": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/input": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/contextWindow": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/maxTokens": {
+    "ownership": "manual",
+    "reason": "Reviewed the official OpenAI serving identity, Responses endpoint and model specification; only text/image input is represented. No Chat Completions identity is inferred.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/thinkingLevelMap": {
+    "ownership": "manual",
+    "reason": "Official efforts none/low/medium/high/xhigh/max map to canonical off/low/medium/high/xhigh/max. minimal is explicitly unsupported; source null is not used to infer effort support.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/defaultThinkingLevel": {
+    "ownership": "manual",
+    "reason": "Official service default is medium. This labels omitted effort without adding a caller choice to the wire.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/cost/input": {
+    "ownership": "manual",
+    "reason": "Confirmed USD per million text tokens, Standard service, default 30-minute writes. Cache-read is a total rate, and cache-write is a total write rate; no 12-hour or regional/service-tier price is merged.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/cost/output": {
+    "ownership": "manual",
+    "reason": "Confirmed USD per million text tokens, Standard service, default 30-minute writes. Cache-read is a total rate, and cache-write is a total write rate; no 12-hour or regional/service-tier price is merged.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/cost/cacheRead": {
+    "ownership": "manual",
+    "reason": "Confirmed USD per million text tokens, Standard service, default 30-minute writes. Cache-read is a total rate, and cache-write is a total write rate; no 12-hour or regional/service-tier price is merged.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/cost/cacheWrite": {
+    "ownership": "manual",
+    "reason": "Confirmed USD per million text tokens, Standard service, default 30-minute writes. Cache-read is a total rate, and cache-write is a total write rate; no 12-hour or regional/service-tier price is merged.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/cost/tiers": {
+    "ownership": "manual",
+    "reason": "Official prompt input strictly greater than 272000 tokens changes the entire request: input and cache rates x2, output x1.5. 272000 itself retains base rates. All four tier rates are explicit.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/compat/supportsExplicitPromptCacheMode": {
+    "ownership": "manual",
+    "reason": "GPT-5.6 and later use prompt_cache_options. Existing adapter uses implicit default or explicit mode without breakpoints to disable caching, and TTL 30m for its long setting. This definition does not expose 12h writes.",
+    "evidence": "official-prompt-caching.md#sha256:8c672dafd6a332d4b9ad7464aefa3ca4f6b0fffa8bf66bb5ee087e1b39152711"
+  },
+  "/compat/supportsStrictMode": {
+    "ownership": "manual",
+    "reason": "Official model supports structured output and function calling through Responses; enable the existing strict tool field.",
+    "evidence": "input:sha256:cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a"
+  },
+  "/compat/supportsMidConvoSystemMessages": {
+    "ownership": "manual",
+    "reason": "Official Responses prompt caching documents developer messages appended between turns; preserve these updates in history through the existing adapter.",
+    "evidence": "official-prompt-caching.md#sha256:8c672dafd6a332d4b9ad7464aefa3ca4f6b0fffa8bf66bb5ee087e1b39152711"
+  }
+}
