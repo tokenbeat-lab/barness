@@ -1,6 +1,6 @@
 # Catalog CLI 交付规范状态
 
-状态：首轮独立审查指出两处范围/不可覆盖缺口，已修订 SOP 并生成独立新批次，待复核。起点 `4831e3544945f667d9a817be8dfb92dd08856575`。
+状态：已完成。SOP、版本化交付及核心代码/分发判定已落实，独立复核与最小验证通过。起点 `4831e3544945f667d9a817be8dfb92dd08856575`。
 
 范围：维护 SOP、changelog、统一交付目录说明及当前 Terra 的版本化交付归集。
 没有 SDK、CLI 或协议运行代码变更。既有未跟踪 `.catalog/`、`local-catalog.json`
@@ -58,3 +58,25 @@ live/race/压力：NOT_APPLICABLE。仅流程文档和原字节归集，无新�
 代码报告同时记录未提交内容不影响运行代码判定的完整来源/输入相等性依据。
 五项公开命令再次全部 exit0，脚本原件及实际整体 exit0 记录独立留存本批次 work。
 目录版本与运行 JSON 原字节保持，完整文件 SHA-256 仍为 `04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca`。
+
+## 最终验证与收尾
+
+GPT-6.1 Terra 独立 Standards 和 Spec 复核通过，初次两个 finding 已关闭，无剩余项。
+原报告及最终结论保存在当前工作批次 `reviews/`，没有重写首批或旧回执。
+
+GPT-6.1 Terra 最小验证 PASS：当前工作批次 `validation/result.json`，SHA-256
+`79e9d00564dadae4421ae3ab611b4f3760434fd137d920ee5926f2e97985b2bf`。
+7 个 SOP shell 块 bash -n exit0；70 条本地路径存在，实际 anchor 也核对通过。
+两个原始独占 mkdir guard 在隔离已有目录实际 exit1，原文件未变、后续 sentinel
+未执行。完整 2,159 个执行来源与 87 个选定输入的集合和摘要仍与原普通回执相等。
+本轮 `4831e354..6cd8b821` 无 Go/依赖变更；Terra 范围 `37a283ee..6cd8b821`
+核心 Go/依赖无变更，14 个测试 Go 与示例默认入口另列。
+
+补充 `validation/supplement.json` SHA-256
+`3d604c4434aa9c0805b781aa00ed37e8e92f25d229b57b7c2613c59c791c665b`，绑定原
+cataloggen --check 的实际命令/退出0和 anchor。没有重跑完整 Go、厂商、race 或压力。
+运行 JSON 原字节与完整审阅库存已经由公开命令和独立复核共同验证。
+
+最终收尾仅更新本状态文档；最终提交、状态哈希和来源适用性由当前工作批次
+`completion-v1.json` 记录。当前工作批次位于
+`artifacts/catalog/work/20261102T022319Z-67bee386/`，所有本轮操作原件均归在统一根目录。
