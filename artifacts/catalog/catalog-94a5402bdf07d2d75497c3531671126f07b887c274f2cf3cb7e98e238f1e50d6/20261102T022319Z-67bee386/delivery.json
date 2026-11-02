@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "status": "complete",
+  "createdAt": "2026-11-02T02:23:24.759249+00:00",
+  "catalogVersion": "catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6",
+  "catalogHash": "sha256:ba76c9699428740561b35f8e66412cb697570f9e34b90a5680b66d0c455e0717",
+  "maintenanceRevision": "sha256:4047a1f3e757fd6d1f2a0378341478e2f034df05e40031e628112a0d9e78b5dc",
+  "providerVersions": {
+    "anthropic": 1,
+    "deepseek": 1,
+    "google": 1,
+    "minimax": 1,
+    "minimax-cn": 1,
+    "moonshot": 1,
+    "moonshot-cn": 1,
+    "openai": 2,
+    "typesafe": 1,
+    "xai": 1,
+    "zai": 1,
+    "zhipu": 1
+  },
+  "snapshot": {
+    "path": "catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6.json",
+    "sha256": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+    "bytes": 51349
+  },
+  "review": {
+    "path": "review/review.json",
+    "sha256": "b6342df484d6622b225c42431c04567e4d6c76794aeafdd18fcb70c54d136574",
+    "selfContainedSources": true
+  },
+  "changelog": {
+    "path": "CHANGELOG.md",
+    "kind": "Self-contained summary of the unreleased entry",
+    "source": "docs/barness-ai/CHANGELOG.md",
+    "sourceSHA256": "c09869428f01d8dc545c667548367a9ff92e5d850f4c463d98de3fc947fb6221",
+    "sourceSnapshot": "provenance/changelog-source.md"
+  },
+  "codeAndDistribution": {
+    "path": "code-and-distribution.json",
+    "coreRuntimeCodeChanged": "NO",
+    "runtimeDependenciesChanged": "NO",
+    "externalJson": "JSON_ONLY_FOR_TESTED_EXTERNAL_LOADER",
+    "builtinDefault": "REBUILD_AND_DISTRIBUTE_PROGRAM"
+  },
+  "verification": {
+    "result": "verification/result.json",
+    "originals": "verification/originals.json",
+    "selfContainedEvidence": false,
+    "ordinaryStatus": "PASS",
+    "ordinaryExitCode": 0,
+    "requiredNativeCasesPassed": 28,
+    "applicability": {
+      "live": {
+        "status": "NOT_APPLICABLE",
+        "reason": "Catalog adoption and existing Chinese evaluation config pins require no new vendor facts; no real vendor requests or new qualification."
+      },
+      "race": {
+        "status": "NOT_APPLICABLE",
+        "reason": "No shared state, locking, cancellation, resource implementation or concurrency behavior changed."
+      },
+      "pressure": {
+        "status": "NOT_APPLICABLE",
+        "reason": "One additional existing-scale catalog model and config pins do not change load paths, complexity or resource limits; ordinary skips do not count as pressure."
+      }
+    }
+  },
+  "commands": [
+    {
+      "label": "01-build-catalogctl",
+      "record": "verification/commands/01-build-catalogctl/command.json",
+      "exitCode": 0
+    },
+    {
+      "label": "02-copied-store-versions",
+      "record": "verification/commands/02-copied-store-versions/command.json",
+      "exitCode": 0
+    },
+    {
+      "label": "03-review-preview",
+      "record": "verification/commands/03-review-preview/command.json",
+      "exitCode": 0
+    },
+    {
+      "label": "04-review-export",
+      "record": "verification/commands/04-review-export/command.json",
+      "exitCode": 0
+    },
+    {
+      "label": "05-versioned-snapshot-check",
+      "record": "verification/commands/05-versioned-snapshot-check/command.json",
+      "exitCode": 0
+    }
+  ],
+  "files": {
+    "CHANGELOG.md": "5d1fb5ee3b3ced9bb2a744f95e4dca8e41c4144a07df323c958259c646ecc7a5",
+    "catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6.json": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+    "catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6.json.sha256": "62d691326647cb1504502228791b0723150ab400704ad0c6515ad978485a28d4",
+    "code-and-distribution.json": "c0d69e50ea8ab500ff04e0824b182638eb2e27321d73a6e266e93f07492d6ea0",
+    "delivery.md": "92e5145f239dc843a5f5859e3f4a1e39f0c5c3b2552f9265bf60b0bbfe6e67d8",
+    "provenance/assembly.py": "3b8f9754e6e749dcaeaaebe2243f7ca4815f5a1d548f12104244e8b1b02faa07",
+    "provenance/changelog-source.md": "c09869428f01d8dc545c667548367a9ff92e5d850f4c463d98de3fc947fb6221",
+    "provenance/official-gpt6-guide.md": "746dd4b734bbc9f0221710c3aabaf5ffc4a6e1e03f3538cdbea5bd0a9ec4d828",
+    "provenance/official-gpt6-guide.md.capture.json": "95beeb07180f18cef1603c0aa06382663df2dc52660a4e0e1d02996eeb68e892",
+    "provenance/official-prompt-caching.md": "8c672dafd6a332d4b9ad7464aefa3ca4f6b0fffa8bf66bb5ee087e1b39152711",
+    "provenance/official-prompt-caching.md.capture.json": "de19f98266e70041e7456ada7a6747259120be8242d87574972bff4064500dd7",
+    "provenance/operation.json": "76406285e0971b1baece88d4e196c7b82a85a6cf399d3c6c5ed61aa1ce4dd82f",
+    "provenance/store-copy.json": "eda7ab919d0bda8d4c14582099db8f9e2005ac74925507d439e1fabcf835ea92",
+    "review/inputs/208a4ac3a0b9e52c1ecdefc14e5119cf069041330044571a107e6c0948cb093b.bin": "208a4ac3a0b9e52c1ecdefc14e5119cf069041330044571a107e6c0948cb093b",
+    "review/inputs/9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb.bin": "9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb",
+    "review/inputs/a436154bb6d5d16dc59ee9159b30d4a4e632161caa823aaf4c58736198a55028.bin": "a436154bb6d5d16dc59ee9159b30d4a4e632161caa823aaf4c58736198a55028",
+    "review/inputs/cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a.bin": "cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a",
+    "review/providers/anthropic.json": "7959d5fb6b78da34c11e2bbebf820f260fff055009a126aa2e6bb532690d45c1",
+    "review/providers/deepseek.json": "56def2d9585e27e1a4a71a5f54cd9de58647bcef527137fc0087c3f3e6ba77f0",
+    "review/providers/google.json": "8aa2e47fd6c105116a24b606b4bf3a23a8755058a4b3674ece79c00890bbb93e",
+    "review/providers/minimax-cn.json": "79e0ccc70dcc1d6fb7c57a96bb1fbb704fb16c8472eab9ee5f8407f65b990b9c",
+    "review/providers/minimax.json": "c5c8444aa36f07c35c0e7db085984d96932d1071959b52451be3cb03ad37d561",
+    "review/providers/moonshot-cn.json": "2e1f05cfc4371d36bb4d7f75ad8825f3098430628e8f482dcec4055ce92ac5a0",
+    "review/providers/moonshot.json": "649233d463fb5c4347f43e26299341cf5d9aca6e98d69e8dbf1ba6366da622e2",
+    "review/providers/openai.json": "13d22c031907aec4d6817489a2f592dfe4d12ef3067c153834a1f0f089c1448d",
+    "review/providers/typesafe.json": "980e6b7a43f8e625f159b1fcc10c155f3ef30db1a5278122289a4ab89d941e45",
+    "review/providers/xai.json": "b5693e948f361aebd62a30d3f5fda45f45fb1beb37936f45b74e81a78136c7e7",
+    "review/providers/zai.json": "efe839404c1db6d8da3a7db8185b9195ed96c037bf7fed07b73464604a52d566",
+    "review/providers/zhipu.json": "a22620750ec821a35027e903f1921f978434025adaa0343fb5ebe31192b26da7",
+    "review/review.json": "b6342df484d6622b225c42431c04567e4d6c76794aeafdd18fcb70c54d136574",
+    "review/revision.json": "637292791f0f197d24ea26ee065c55aac9563b9343346e57c591e04c0253440e",
+    "review/snapshot.json": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+    "review/state.json": "da80a15d2b0c048860075330dbad8adb09af67f84ee56aeed5c1c70ba8f18b93",
+    "verification/commands/01-build-catalogctl/command.json": "6b6239fce3776cfa9d23030b29d1b7695d0612c0be55bc01ab15597fe508b2cd",
+    "verification/commands/01-build-catalogctl/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/commands/01-build-catalogctl/stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/commands/02-copied-store-versions/command.json": "10f4f2426578e6afa834e54c113abe9c6cda6368a288a09c1669b5f80e29cb59",
+    "verification/commands/02-copied-store-versions/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/commands/02-copied-store-versions/stdout": "7a479bedf1b483d24268ff4cc2a4d3fb14563548193d328fffdd46a8ed50c873",
+    "verification/commands/03-review-preview/command.json": "e70790d7256c19785904c1cee0ccc5ef984d47b149eb42493ce2b6dcff189468",
+    "verification/commands/03-review-preview/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/commands/03-review-preview/stdout": "2fdddf5aabc77518583a37a7b0528deb37d95c304d605b0b782eef49fde70865",
+    "verification/commands/04-review-export/command.json": "7b4e0d1459cc097fde91b5d5d72e2b2fc3143e316df6f2485061259daca98274",
+    "verification/commands/04-review-export/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/commands/04-review-export/stdout": "b6342df484d6622b225c42431c04567e4d6c76794aeafdd18fcb70c54d136574",
+    "verification/commands/05-versioned-snapshot-check/command.json": "b2d24993987695a9c412df150fafc5ae85b39e8695bb18a48255fc18c1161dde",
+    "verification/commands/05-versioned-snapshot-check/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification/commands/05-versioned-snapshot-check/stdout": "ec10443d22ce9a05fb9ace479dcaefc1efd214c925f254521630a7b316d56570",
+    "verification/old-program-check.json": "2a6ac15cef5bb29311be3ebe7fd896dab9a3f38a6044c86a863723d43d81295e",
+    "verification/originals.json": "2e3e2e9b8755561f729f96bb6dd0224e43669226a2c6445e61bb942b8c74ed37",
+    "verification/receipt.json": "2cf3d64eac39e3fc0120f938a8321a7088e4f2e005aa82ce1c108115cfbdb74e",
+    "verification/report.md": "ef393d8fc123f7300682b139d9cc8871f478a40297f2dec485280e5d6c7eb851",
+    "verification/result.json": "4f2332c9b42251c21b3591d1312f516c617d4f58f8fae2577da7b512fa0316bd"
+  }
+}

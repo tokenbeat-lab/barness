@@ -26,8 +26,10 @@ JSON 快照，并把本次交付物归集到 `artifacts/catalog/<Catalog.Version
 | JSON 文件 SHA-256 | `04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca` |
 
 **代码与分发影响：** 本轮相对 `37a283ee` 没有修改 barness-ai SDK 核心、Provider
-适配器、目录加载器或依赖。已具备外部目录加载能力的 Host 可分发该 JSON，重新
-加载并创建新 Client，无需为 Terra 升级 SDK。使用 `ai.BuiltinCatalog()` 的程序
+适配器、目录加载器或依赖。同一 JSON 已在 `37a283ee` 受控程序上通过代码兼容检查；
+仅对该受测程序且 Host 显式外部加载/注入的情况，给出可只分发 JSON、重新加载并
+创建新 Client、无需为 Terra 升级 SDK 的结论。其他程序版本仍需各自兼容检查。
+使用 `ai.BuiltinCatalog()` 的程序
 将目录编入二进制，需要重新构建和分发程序才能取得新的默认目录。
 尚不具备外部目录加载能力的旧程序需要先升级；本次未验证任意旧发布版。
 

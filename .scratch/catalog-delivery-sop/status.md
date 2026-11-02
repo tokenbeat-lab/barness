@@ -1,6 +1,6 @@
 # Catalog CLI 交付规范状态
 
-状态：SOP 与当前交付物已归集，待独立审查和文档/库存收尾核验。起点 `4831e3544945f667d9a817be8dfb92dd08856575`。
+状态：首轮独立审查指出两处范围/不可覆盖缺口，已修订 SOP 并生成独立新批次，待复核。起点 `4831e3544945f667d9a817be8dfb92dd08856575`。
 
 范围：维护 SOP、changelog、统一交付目录说明及当前 Terra 的版本化交付归集。
 没有 SDK、CLI 或协议运行代码变更。既有未跟踪 `.catalog/`、`local-catalog.json`
@@ -43,3 +43,18 @@ live/race/压力：NOT_APPLICABLE。仅流程文档和原字节归集，无新�
 外部 JSON 仅对已实际验证的外部加载程序给 JSON-only 结论；内置默认需要重建。
 旧版本兼容与厂商资格不扩张。工作 store 复制到 `artifacts/catalog/work/store/`，
 原 `.catalog/` 及全部旧证据保持。
+
+## 独立审查修订
+
+首轮 Standards 通过；Spec 发现两项：SOP 用 mkdir -p 可能复用交付目录，及
+旧 changelog/随包说明对有加载能力的程序承诺范围过宽。改为工作/交付目录独占
+创建、失败即停止；JSON-only 明确只对实际受测程序，不推断其他旧版本兼容。
+首批目录保留且未重写，在统一入口标为已被新批次替代。
+
+当前交付批次：`20261102T022319Z-67bee386`。
+路径：`artifacts/catalog/catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T022319Z-67bee386/`。
+`delivery.json` SHA-256：`21330a2138f28be8e85a6be57b9d2537bc3696ea406ac5d796ddf82286b4fd5d`。
+完整 54 文件库存（含索引），增加原 changelog 原字节快照，避免后续追加使原文不可取。
+代码报告同时记录未提交内容不影响运行代码判定的完整来源/输入相等性依据。
+五项公开命令再次全部 exit0，脚本原件及实际整体 exit0 记录独立留存本批次 work。
+目录版本与运行 JSON 原字节保持，完整文件 SHA-256 仍为 `04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca`。

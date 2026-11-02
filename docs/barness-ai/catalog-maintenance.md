@@ -89,7 +89,11 @@ ARTIFACT_ROOT="$PWD/artifacts/catalog"
 RUN_ID='<实际UTC时间>-<唯一批次>'
 STORE="$ARTIFACT_ROOT/work/store"
 WORK="$ARTIFACT_ROOT/work/$RUN_ID"
-mkdir -p "$WORK/bin"
+mkdir -p "$ARTIFACT_ROOT/work"
+if ! mkdir "$WORK"; then
+  exit 1
+fi
+mkdir "$WORK/bin"
 CATALOGCTL="$WORK/bin/catalogctl"
 go build -o "$CATALOGCTL" ./cmd/catalogctl
 "$CATALOGCTL" help
@@ -120,7 +124,10 @@ go build -o "$CATALOGCTL" ./cmd/catalogctl
 CATALOG_VERSION='<冻结候选 snapshot 中的真实 catalog.version>'
 DELIVERY="$ARTIFACT_ROOT/$CATALOG_VERSION/$RUN_ID"
 SNAPSHOT="$DELIVERY/$CATALOG_VERSION.json"
-mkdir -p "$DELIVERY"
+mkdir -p "$ARTIFACT_ROOT/$CATALOG_VERSION"
+if ! mkdir "$DELIVERY"; then
+  exit 1
+fi
 
 "$CATALOGCTL" apply --store "$STORE" --id '<candidate-id>' --repo . \
   --check '.evidence/catalog-review/check-inputs/<attempt>/check.json' \
@@ -132,7 +139,9 @@ mkdir -p "$DELIVERY"
 
 上述版本必须从已冻结候选取得；CLI 的 `candidate.snapshot` 是 Base64 原字节，
 读取其中版本时先解码，不把重新编码的结果当交付 JSON。`DELIVERY` 必须是新批次，
-已有输出不得覆盖。所有后续路径都复用同一组变量。
+工作或交付批次独占创建失败就停止，不能忽略退出码后继续运行 apply；CLI 的
+输出安装支持替换，不能靠它拒绝覆盖来保护旧批次。已有输出不得覆盖。
+所有后续路径都复用同一组变量。
 
 `--repo` 指向包含固定公共合约和验证工具的仓库。`--evidence-feature` 显式选择 `.evidence/<feature>` 的独立检查范围。候选和检查都保留原件；失败不推进生效目录。`check --dry-run`、`apply --dry-run` 只读预览，仍需选择同一候选/基准。
 
@@ -246,8 +255,9 @@ stdout 重定向由 shell 写目标文件；CLI 自身的查询不会创建目�
 两类摘要、Provider 版本变化、原有定义是否变化、核心代码/其他代码变化、分发判定、
 实际验证和未执行项，并链接本次完整记录及统一交付目录。
 
-把本次条目作为交付目录中的 `CHANGELOG.md` 快照，说明其源文件和摘要；内容应能
-独立阅读，不依赖仓库内部相对链接。已有历史条目、测量与 pin 不重写。事后纯文档
+把本次条目作为交付目录中的 `CHANGELOG.md` 快照，同时保存源 changelog 原字节及
+摘要，避免后续追加条目使来源不可取；内容应能独立阅读，不依赖仓库内部相对链接。
+已有历史条目、测量与 pin 不重写。事后纯文档
 补录另留原状态及来源/输入相等性，不能修改旧回执冒充新测量。
 
 ## 每次同步内置目录必须给出代码与分发判定
