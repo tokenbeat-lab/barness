@@ -9,9 +9,8 @@ import (
 	"github.com/tokenbeat-lab/barness/catalog"
 )
 
-// A coherent future definition can exceed the implemented fixed protocol
-// subset without being malformed. Both remain rejected by the legacy Client
-// contract; only the independent load report distinguishes their next action.
+// The classifier protocol, rather than a particular model name, defines its
+// capability subset. Invalid values and unsupported routes stay distinct.
 func TestLocalCatalogClassifierFailureTaxonomy(t *testing.T) {
 	var jev, decisions ai.ClassifierModel
 	for _, m := range ai.BuiltinCatalog().ClassifierModels {
@@ -34,13 +33,11 @@ func TestLocalCatalogClassifierFailureTaxonomy(t *testing.T) {
 			switch mode {
 			case "future-jev-images-box":
 				model.ID = "jev-future-catalog-fixture"
-				wantReason = catalog.UnsupportedDefinition
-				wantError = "ai: invalid config Catalog: classifier model jev-future-catalog-fixture: classifier image declaration exceeds the implemented protocol"
 			case "unsupported-box-protocol":
 				model = decisions
 				model.Capabilities.Kinds = append(append([]ai.ClassifierQuestionKind(nil), model.Capabilities.Kinds...), ai.ClassifierQuestionBox)
 				wantReason = catalog.UnsupportedDefinition
-				wantError = "ai: invalid config Catalog: classifier model " + model.ID + ": Box requires the fixed Jev image protocol and a visible image location"
+				wantError = "ai: invalid config Catalog: classifier model " + model.ID + ": Box requires the SystemOne image protocol and a visible image location"
 			case "invalid-image-limit":
 				model.Capabilities.MaxInputImages = 0
 				wantReason = catalog.InvalidDefinition

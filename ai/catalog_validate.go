@@ -20,6 +20,9 @@ type modelKey struct {
 func (c Catalog) validate() error {
 	seen := make(map[modelKey]bool)
 	check := func(key modelKey, problem string) error {
+		if strings.TrimSpace(key.id) == "" {
+			problem = "model ID must not be empty"
+		}
 		if seen[key] {
 			problem = "duplicate model identity for operation, provider, API and ID"
 		}

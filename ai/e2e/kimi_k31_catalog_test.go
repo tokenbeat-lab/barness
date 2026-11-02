@@ -49,7 +49,7 @@ func TestKimiK31PublicCatalogContract(t *testing.T) {
 func TestKimiK31CatalogRejectsExpandedCapabilities(t *testing.T) {
 	for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
 		for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
-			for _, kind := range []string{"unknown-model", "protocol", "image", "context", "output", "zero-price", "tiers", "off", "effort", "default", "thinking-optional", "strict", "adaptive", "budget"} {
+			for _, kind := range []string{"empty-id", "protocol", "image", "context", "output", "zero-price", "tiers", "off", "effort", "default", "thinking-optional", "strict", "adaptive", "budget"} {
 				t.Run(fmt.Sprintf("%s/%s/%s", market, api, kind), func(t *testing.T) {
 					ev := run.Case(t, "KIMI-K31-reject-"+string(market)+"-"+string(api)+"-"+kind)
 					m, ok := ai.BuiltinCatalog().Lookup(market, api, "kimi-k3")
@@ -58,8 +58,8 @@ func TestKimiK31CatalogRejectsExpandedCapabilities(t *testing.T) {
 					}
 					m.ID = "kimi-k3.1-pro"
 					switch kind {
-					case "unknown-model":
-						m.ID = "kimi-k3.1-unapproved"
+					case "empty-id":
+						m.ID = ""
 					case "protocol":
 						m.API = ai.APIGoogleGenerativeAI
 					case "image":

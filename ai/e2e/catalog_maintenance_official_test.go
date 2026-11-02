@@ -64,10 +64,12 @@ func TestCatalogMaintenanceCLIKnownDefinitionCodeGap(t *testing.T) {
 		t.Fatal("baseline Kimi model missing")
 	}
 	model.ID, model.Name = "future-kimi", "Synthetic future Kimi"
+	// Image is a typed modality outside the Kimi protocol subset.
+	model.Input = append(model.Input, ai.ModalityImage)
 	raw, _ := json.Marshal(model)
 	os.WriteFile(definition, raw, 0600)
 	os.WriteFile(source, []byte("Synthetic official source for a future typed model; does not prove vendor support."), 0600)
-	candidate := freezeCatalogAction(t, ev, binary, store, "add", "--operation", "chat", "--provider", "moonshot", "--api", "openai-completions", "--model", "future-kimi", "--source-kind", "official", "--source", source, "--source-url", "https://official.example.test/models/future-kimi", "--source-time", "2026-11-01T00:00:00Z", "--definition", definition, "--reason", "retain candidate for a concrete fixed-model code gap")
+	candidate := freezeCatalogAction(t, ev, binary, store, "add", "--operation", "chat", "--provider", "moonshot", "--api", "openai-completions", "--model", "future-kimi", "--source-kind", "official", "--source", source, "--source-url", "https://official.example.test/models/future-kimi", "--source-time", "2026-11-01T00:00:00Z", "--definition", definition, "--reason", "retain candidate for an unsupported image capability")
 	root := catalogSnapshotRoot(t)
 	out, exit := invokeCatalogCLI(t, ev, binary, "check", "--store", store, "--id", candidate.ID, "--repo", root, "--evidence-feature", "barness-ai-dynamic-catalog", "--confirm")
 	var result struct {

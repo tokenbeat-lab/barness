@@ -17,13 +17,13 @@ func xaiFoundationModel() ai.Model {
 }
 
 func TestXAICatalogBoundary(t *testing.T) {
-	for _, kind := range []string{"model", "protocol", "context", "output", "zero-context", "zero-output", "no-text", "unknown-input", "reasoning", "required-thinking", "default-low", "default-empty", "high-disabled", "off", "unset-off", "minimal", "max", "effort", "strict", "adaptive", "budget", "explicit-cache", "mid-effort", "switch-only"} {
+	for _, kind := range []string{"empty-id", "protocol", "context", "output", "zero-context", "zero-output", "no-text", "unknown-input", "reasoning", "required-thinking", "default-low", "default-empty", "high-disabled", "off", "unset-off", "minimal", "max", "effort", "strict", "adaptive", "budget", "explicit-cache", "mid-effort", "switch-only"} {
 		t.Run(kind, func(t *testing.T) {
 			ev := run.Case(t, "XAI-E01-catalog-reject-"+kind)
 			m := xaiFoundationModel()
 			switch kind {
-			case "model":
-				m.ID = "grok-4.7-fast"
+			case "empty-id":
+				m.ID = ""
 			case "protocol":
 				m.API = ai.APIAnthropicMessages
 			case "context":

@@ -2,6 +2,24 @@
 
 ## 未发布
 
+### 2026-11-02：目录定义型号，运行库校验能力（验证进行中）
+
+移除 Kimi chat、xAI Responses chat、xAI image 和 TypeSafe SystemOne 图片/Box
+classifier 按具体型号 ID 准入的限制。目录仍须提供非空、唯一的四维身份和当前
+实现支持的协议、模态、容量、推理、兼容标志及价格；精确查找、响应身份、原生
+历史约束和 Host `Binding.AllowedModels` 授权保持。新目录身份不自动获得调用权限
+或厂商实测资格。Gemini 请求和历史编码、OpenAI 服务等级计价中的型号分支属于
+独立行为，本次保留；决定及适用范围见 [ADR-0059](../adr/0059-catalog-defined-model-identities.md)。
+
+本次改变 SDK 核心代码；使用方需先升级并重建一次。此后在这四类已实现能力范围内，
+经审核的外部 JSON 可用于新增同类身份，Host 需显式加载并创建新 Client；仍须按
+目标程序验证兼容。更新编译内置默认目录仍需重建分发。当前 125 条内置定义、
+维护源、完整基线及目录版本和哈希不变，合成测试型号不会加入真实目录。
+
+**验证：** 公共 RED、定向 GREEN、完整普通回归和生成/构建/vet 以实际回执为准；
+当前完整验证与交付尚未完成。live、race、压力依最终影响判定，不声明软件发布或
+新厂商资格。进展见[本次状态](../../.scratch/catalog-model-id-policy/status.md)。
+
 ### 2026-11-02：Kimi K3.1 Pro 内置目录
 
 目录新增 `chat / moonshot` 与 `chat / moonshot-cn` 的 `kimi-k3.1-pro`，

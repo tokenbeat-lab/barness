@@ -2,14 +2,14 @@ package ai
 
 func isKimi(p ProviderID) bool { return p == ProviderMoonshot || p == ProviderMoonshotCN }
 
-// Kimi metadata may narrow the implemented text subset. It cannot grant another
-// model, protocol, modality, effort shape or pricing tier through compat flags.
+// Catalogs may name Kimi models within the implemented text subset. Metadata
+// cannot expand the protocol, modality, effort shape or pricing tier.
 func kimiModelProblem(m Model) string {
 	if !isKimi(m.Provider) {
 		return ""
 	}
-	if (m.ID != "kimi-k3" && m.ID != "kimi-k3.1-pro") || (m.API != APIOpenAICompletions && m.API != APIOpenAIResponses && m.API != APIAnthropicMessages) {
-		return "Kimi model or protocol is outside the implemented subset"
+	if m.API != APIOpenAICompletions && m.API != APIOpenAIResponses && m.API != APIAnthropicMessages {
+		return "Kimi protocol is outside the implemented subset"
 	}
 	if len(m.Input) != 1 || m.Input[0] != ModalityText || m.ContextWindow <= 0 || m.ContextWindow > 1048576 || m.MaxTokens <= 0 || m.MaxTokens > 131072 {
 		return "Kimi text capacity is outside the implemented subset"

@@ -31,13 +31,13 @@ func classifierDefinitionIssue(m ClassifierModel) classifierModelIssue {
 	if c.MaxInputImages < 0 || (image && (c.MaxInputImages == 0 || len(c.ImageMIMETypes) == 0)) || (!image && (c.MaxInputImages != 0 || len(c.ImageMIMETypes) > 0)) {
 		return classifierModelIssue{message: "classifier image declarations are inconsistent"}
 	}
-	jev := m.Provider == ProviderTypeSafe && m.API == APITypeSafeSystemOne && m.ID == "jev-1.14.0"
+	systemOne := m.Provider == ProviderTypeSafe && m.API == APITypeSafeSystemOne
 	decisions := m.Provider == ProviderOpenAI && m.API == APIOpenAIDecisions && c.MaxInputImages <= decisionsImageLimit
-	if image && !jev && !decisions {
+	if image && !systemOne && !decisions {
 		return classifierModelIssue{message: "classifier image declaration exceeds the implemented protocol", unsupported: true}
 	}
-	if slices.Contains(c.Kinds, ClassifierQuestionBox) && (!jev || !image || (!slices.Contains(c.ImageLocations, ClassifierImageLocationContext) && !slices.Contains(c.ImageLocations, ClassifierImageLocationState) && !slices.Contains(c.ImageLocations, ClassifierImageLocationInstructions))) {
-		return classifierModelIssue{message: "Box requires the fixed Jev image protocol and a visible image location", unsupported: !jev}
+	if slices.Contains(c.Kinds, ClassifierQuestionBox) && (!systemOne || !image || (!slices.Contains(c.ImageLocations, ClassifierImageLocationContext) && !slices.Contains(c.ImageLocations, ClassifierImageLocationState) && !slices.Contains(c.ImageLocations, ClassifierImageLocationInstructions))) {
+		return classifierModelIssue{message: "Box requires the SystemOne image protocol and a visible image location", unsupported: !systemOne}
 	}
 	seenLocations := map[ClassifierImageLocation]bool{}
 	for _, location := range c.ImageLocations {
@@ -47,7 +47,7 @@ func classifierDefinitionIssue(m ClassifierModel) classifierModelIssue {
 		switch location {
 		case ClassifierImageLocationContext:
 		case ClassifierImageLocationState, ClassifierImageLocationInstructions, ClassifierImageLocationCriteria:
-			if !jev {
+			if !systemOne {
 				return classifierModelIssue{message: "classifier image location exceeds the implemented protocol", unsupported: true}
 			}
 		default:
@@ -55,12 +55,12 @@ func classifierDefinitionIssue(m ClassifierModel) classifierModelIssue {
 		}
 		seenLocations[location] = true
 	}
-	if image && jev && len(c.ImageLocations) == 0 {
-		return classifierModelIssue{message: "Jev image locations must be explicitly declared"}
+	if image && systemOne && len(c.ImageLocations) == 0 {
+		return classifierModelIssue{message: "SystemOne image locations must be explicitly declared"}
 	}
 	seenMIME := map[string]bool{}
 	for _, mime := range c.ImageMIMETypes {
-		if !classifierImageMIME(mime) || seenMIME[mime] || (jev && mime == "image/webp") {
+		if !classifierImageMIME(mime) || seenMIME[mime] || (systemOne && mime == "image/webp") {
 			return classifierModelIssue{message: "classifier image MIME is unknown or duplicated"}
 		}
 		seenMIME[mime] = true

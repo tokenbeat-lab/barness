@@ -2,23 +2,23 @@ package ai
 
 import "slices"
 
-// xAI metadata may narrow the initial Grok Responses subset. Catalog data is
+// xAI metadata may narrow the implemented Responses subset. Catalog data is
 // Host input: it cannot enable another wire effort or provider capability.
 func xaiModelProblem(m Model) string {
 	if m.Provider != ProviderXAI {
 		return ""
 	}
-	if m.ID != "grok-4.7" || m.API != APIOpenAIResponses {
-		return "xAI model or protocol is outside the implemented subset"
+	if m.API != APIOpenAIResponses {
+		return "xAI protocol is outside the implemented subset"
 	}
 	if !slices.Contains(m.Input, ModalityText) || len(m.Input) > 2 || m.ContextWindow <= 0 || m.ContextWindow > 500000 || m.MaxTokens <= 0 || m.MaxTokens > 128000 {
 		return "xAI capacity is outside the implemented subset"
 	}
 	if !m.Reasoning || !m.Compat.RequiresThinking || m.DefaultThinkingLevel != ThinkingHigh {
-		return "Grok 4.7 requires reasoning and the high default"
+		return "xAI Responses requires reasoning and the high default"
 	}
 	if high, ok := m.ThinkingLevelMap.High.Get(); !ok || high != "high" {
-		return "Grok 4.7 must retain high effort"
+		return "xAI Responses must retain high effort"
 	}
 	for _, level := range modelThinkingLevels {
 		entry := m.ThinkingLevelMap.entry(level)

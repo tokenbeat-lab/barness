@@ -37,17 +37,18 @@ func TestJevBoxCatalog(t *testing.T) {
 			}
 			ev.Record("candidate-config", config.Catalog)
 			client, err := ai.NewClient(config)
-			if name == "supported" {
-				ev.Check("explicit fixed image candidate accepts Box", err == nil && client != nil, "got %v", err)
+			if name == "supported" || name == "jev-1.13.0" || name == "jev-preview" || name == "jev-1.14.1" {
+				// These are synthetic declarations; they do not qualify any vendor version.
+				ev.Check("declared SystemOne image capability accepts Box", err == nil && client != nil, "got %v", err)
 			} else {
-				ev.Check("contradictory or unconfirmed Box capabilities rejected", errors.Is(err, ai.ErrInvalidConfig) && client == nil, "got %v", err)
+				ev.Check("contradictory or unsupported Box capabilities rejected", errors.Is(err, ai.ErrInvalidConfig) && client == nil, "got %v", err)
 			}
 			ev.Record("error", errString(err))
 			ev.Check("config validation does not read credentials", u.host.ReadsFor("never-called").Credentials == 0, "read")
 			builtin := ai.BuiltinCatalog()
 			for _, model := range builtin.ClassifierModels {
 				for _, kind := range model.Capabilities.Kinds {
-					ev.Check("Box only belongs to independently accepted fixed Jev", kind != ai.ClassifierQuestionBox || (model.ID == "jev-1.14.0" && model.Provider == ai.ProviderTypeSafe && model.API == ai.APITypeSafeSystemOne), "promoted Box to another model")
+					ev.Check("current builtin Box identity matches its reviewed snapshot", kind != ai.ClassifierQuestionBox || (model.ID == "jev-1.14.0" && model.Provider == ai.ProviderTypeSafe && model.API == ai.APITypeSafeSystemOne), "promoted Box to another model")
 				}
 			}
 		})
