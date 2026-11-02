@@ -53,7 +53,14 @@ collector 为 CANCELLED、实际进程退出 -15；未完成项不算通过。
 另扫描发现旧 README 留存断言和隔离采用 helper 覆盖目录的旧假设。
 仅修订三个 `ai/e2e` 夹具/断言：合成历史 seed 使用自己的空初始基线；
 源码归档逐项检查真实完整基线；隔离采用先移除旧 baseline 再复制新审阅包。
-产品完整性校验、默认定义和原失败证据均不改。修复后的定向及普通复验待执行。
+产品完整性校验、默认定义和原失败证据均不改。
+
+定向 fixture 回归首轮：
+`.evidence/catalog-gpt61-terra-builtin/e2e/20261102T010809.594560Z-u374xgby/receipt.json`，
+FAIL/exit1。前两个失败场景和源码归档已通过；ReviewExport 的旧断言把继承引用
+视作当前临时 store 的原件，并在第二轮强制覆盖已有 origin。按现有合同修订
+这两处断言：继承引用独立对照原基线，保留已有 `originReview`；只有原为空时
+补当前来源索引摘要。本轮失败原件保留，后续定向和完整普通复验待执行。
 
 采用前当前状态快照：同维护 attempt 的 `status-before-adoption.md`。
 既有未跟踪 `.catalog/`、`local-catalog.json` 和

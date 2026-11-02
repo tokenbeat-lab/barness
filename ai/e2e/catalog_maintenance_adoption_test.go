@@ -40,7 +40,7 @@ func copyAdoptedCatalogReview(t *testing.T, source, target string) {
 	}
 }
 
-func verifyAdoptedCatalogCycle(t *testing.T, ev *evidence.Case, binary, fresh, dir string, capture, manual []byte, oldReferences []struct{ Scope, Path, Digest string }) {
+func verifyAdoptedCatalogCycle(t *testing.T, ev *evidence.Case, binary, fresh, dir string, capture, manual []byte, oldReferences []maintenance.ReviewReference) {
 	t.Helper()
 	indexBytes, _ := os.ReadFile(filepath.Join(fresh, "catalog", "data", "baseline", "review.json"))
 	indexSum := sha256.Sum256(indexBytes)
@@ -73,9 +73,13 @@ func verifyAdoptedCatalogCycle(t *testing.T, ev *evidence.Case, binary, fresh, d
 		}
 		ev.Check("second cycle preserves exact official provenance and manual bytes", sourceFound && manualFound, "inputs=%+v", result.Inputs)
 		for _, previous := range oldReferences {
+			expectedOrigin := previous.OriginReview
+			if expectedOrigin == "" {
+				expectedOrigin = origin
+			}
 			found := false
 			for _, current := range result.References {
-				found = found || (current.Scope == previous.Scope && current.Path == previous.Path && current.Digest == previous.Digest && current.OriginReview == origin)
+				found = found || (current.Scope == previous.Scope && current.Path == previous.Path && current.Digest == previous.Digest && current.OriginReview == expectedOrigin)
 			}
 			ev.Check("inherited reference records origin without claiming original availability", found, "reference=%+v", previous)
 		}

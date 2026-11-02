@@ -11,6 +11,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/tokenbeat-lab/barness/catalog/maintenance"
 )
 
 func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
@@ -53,10 +55,10 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 	}
 	ev.Fixture("review.json", index)
 	var manifest struct {
-		Files      map[string]string                      `json:"files"`
-		Revision   string                                 `json:"revision"`
-		Inputs     []struct{ Kind, Path string }          `json:"inputs"`
-		References []struct{ Scope, Path, Digest string } `json:"references"`
+		Files      map[string]string             `json:"files"`
+		Revision   string                        `json:"revision"`
+		Inputs     []struct{ Kind, Path string } `json:"inputs"`
+		References []maintenance.ReviewReference `json:"references"`
 	}
 	_ = json.Unmarshal(index, &manifest)
 	retainedReview := []map[string]string{}
@@ -84,7 +86,27 @@ func TestCatalogMaintenanceCLIReviewExport(t *testing.T) {
 	}
 	ev.Check("captured source and manual originals remain self-contained", foundSource && foundLocal && foundHistorical && manifest.Revision == revision.ID, "inputs=%+v", manifest.Inputs)
 	retainedReferences := []map[string]string{}
+	baselineRaw, err := os.ReadFile(filepath.Join(catalogSnapshotRoot(t), "catalog", "data", "baseline", "review.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var baseline maintenance.ReviewExport
+	if err := json.Unmarshal(baselineRaw, &baseline); err != nil {
+		t.Fatal(err)
+	}
+	baselineSum := sha256.Sum256(baselineRaw)
 	for index, reference := range manifest.References {
+		if reference.OriginReview != "" {
+			found := false
+			for _, previous := range baseline.References {
+				if previous.OriginReview == "" {
+					previous.OriginReview = "sha256:" + hex.EncodeToString(baselineSum[:])
+				}
+				found = found || previous == reference
+			}
+			ev.Check("inherited reference matches adopted baseline and does not require old store", found, "reference=%+v", reference)
+			continue
+		}
 		base := catalogSnapshotRoot(t)
 		if reference.Scope == "store" {
 			base = store
