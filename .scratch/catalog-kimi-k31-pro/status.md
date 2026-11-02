@@ -1,12 +1,12 @@
 # Kimi K3.1 Pro 维护当前状态
 
-状态：六身份已检查并应用；最终普通验证与交付归集待完成。
+状态：六身份已检查并应用；内置采用及定向 GREEN 完成，最终完整普通待启动。
 基准：`ceabec8b58c42377f4f643ccb87c1bc1d4beb456`。
 工作批次：`artifacts/catalog/work/20261102T023400Z-c9d70d4f/`。
 维护库：`artifacts/catalog/work/store`，原 `.catalog` 和 `local-catalog.json` 保留。
 
 影响：`ai/kimi_catalog.go` 需要接受新 ID；随后维护源/外部快照及对应测试。
-本次先完成外部 JSON；尚未采用内置维护源、快照或基线。
+用户已明确选择“同步内置，并更新基线”；内置维护源、快照及完整基线已采用。
 六条新身份、文本实施子集及独立冻结换算见 spec。
 旧 119 条定义、旧 K3 原生捕获和厂商资格不改。
 
@@ -69,3 +69,44 @@ collector 保持 INVALID_EVIDENCE；不能作为通过回执。完整源码 2160
 `8a4a8758cffbcc360144465bde2d120aa6429f046aed612cbfbfb948886c887d`。
 前五个版本/过程目录保留中间应用原件；没有完成标记，不可作为本次最终交付分发。
 当前尚未写最终 delivery.json，没有发布或新厂商资格结论。
+
+## 内置范围推进
+
+采用前状态原字节保存在工作批次 `status-before-builtin.md`。
+外部范围完整普通在 `1827f0956804c37bef8c32594903b895099ee4e5` 启动，
+用户明确扩大到内置范围后，由原 collector 受控取消：
+`.evidence/catalog-kimi-k31-pro/e2e/20261102T024602.035474Z-3jcz6fs1/receipt.json`，
+CANCELLED / 实际退出 -15，部分场景不计为本次完整通过。
+
+Terra 验证 agent 先建立 Builtin 六身份、旧 119 条投影和完整种子来源 E2E，
+同时为 ChineseEvaluation v5 当前配置与 v4 历史快照建立 RED。
+`terra_spec_review` 仅负责整组默认数据/完整基线采用；
+`terra_standards_review` 负责三份 v5 配置和示例 CLI 默认路径；
+两者均在 RED 原件固定前不修改产品数据。
+
+重新冻结后普通计划包含 `./ai/e2e ./ai ./ai/examples/chineseeval/... ./catalog/...`
+以及两个 catalog CLI 包；完整来源/输入、实际 SHA 和执行脚本需新版本，不覆盖
+外部范围的旧执行脚本、151 项输入清单或取消回执。
+
+内置/Chinese 公共 RED：
+`.evidence/catalog-kimi-k31-pro/e2e/20261102T025153.030653Z-us31ebf4/receipt.json`，
+FAIL / exit1，证明原默认目录无六条身份且新 v5 尚不存在。旧 119 项、v3/v4
+历史原字节与回放断言未失败。原失败回执保留。
+
+采用命令 `40-adopt-builtin` 实际 PASS / exit0。12 份 Provider、完整 34 文件
+baseline 与批准 review 逐字节相同，内置与外部运行 JSON 同为上方完整文件 SHA。
+维护 revision 不变；只将批准数据入库，没有重取源或重映射。
+三份 ChineseEvaluation v5 仅改内容版本及目录 Version/Hash，示例 CLI 两处默认
+路径转向 v5；v1-v4 和实际采用前 119 条快照保留，旧 pin 不会静默接受新目录。
+
+采用后定向 GREEN：
+`.evidence/catalog-kimi-k31-pro/e2e/20261102T025230.476314Z-_wb4hku3/receipt.json`，
+PASS / exit0，139 个原生场景全部 PASS、audit 0；回执 SHA-256
+`d76ec0aea52286a66813fa4daabd4a8a98a0016a3d7ee031bf2d36e36515607b`。
+覆盖 Builtin 六身份、请求/用量/费用/推理/授权、完整来源/新种子重导出，
+以及 ChineseEvaluation 当前与历史 pin。受测工作树实际文件需与最终冻结来源
+逐项确认；不只看当时仍为 1827f095 的 Git HEAD。
+
+下一轮完整普通使用独立 `run-ordinary-v2.py`、`ordinary-inputs-v2.json`
+（165 项）和 `required-cases-v2.json`（202 项），三者均在工作批次 verification/。
+执行源码及输入重新冻结后，保持 HEAD 和受测文件不变，顺序完成普通、生成、构建/vet。

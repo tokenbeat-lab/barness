@@ -60,9 +60,9 @@ func execute() error {
 		}
 	}
 	if *config == "" {
-		*config = "ai/examples/chineseeval/testdata/jev-1.13.0-v4.json"
+		*config = "ai/examples/chineseeval/testdata/jev-1.13.0-v5.json"
 		if *routeName != "" {
-			*config = "ai/examples/chineseeval/testdata/" + *routeName + "-route-v4.json"
+			*config = "ai/examples/chineseeval/testdata/" + *routeName + "-route-v5.json"
 		}
 	}
 	stage = "dataset_read"

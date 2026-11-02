@@ -51,10 +51,10 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, tc := range []struct{ base, oldHash, previousHash, v3Hash string }{
-		{"jev-1.13.0", "sha256:001556ea3be2a33e5b9f06a5530733fc9088a8942d073b51b8e07d33f1665ed3", "sha256:d97d7f6baa5d71814285610a80afed7fc6ba01e1826b5ca67a822d4d012f258c", "sha256:2f9ab966fc9377b2a1fc04a329ddad835212608a1c510039b6abc30078ec3a37"},
-		{"jev-route", "sha256:b4501a5274b2092c09169395d5a870b6049f809f34c42510bdcabdf960b9c297", "sha256:383321f05b3dc8825c228ba568cea7594a2f142fd616c3faa22a247c9fb66ff1", "sha256:45a4818263d69d1beceee8a9d8331bdd7d91723f92cadbd53fdd4db28f46cb8b"},
-		{"luna-route", "sha256:7679d0bcdda0698900623353eafe3203541e1bc15725a1c362ed66407f7b4af7", "sha256:1cf4e178b2f31226ce0156c9194621df34b3057778878df980e8136d95ff2583", "sha256:d3dca87c64306bfba8ac86b4483a3a0cda517a5976eb103a335687c175b60058"},
+	for _, tc := range []struct{ base, oldHash, previousHash, v3Hash, v4Hash string }{
+		{"jev-1.13.0", "sha256:001556ea3be2a33e5b9f06a5530733fc9088a8942d073b51b8e07d33f1665ed3", "sha256:d97d7f6baa5d71814285610a80afed7fc6ba01e1826b5ca67a822d4d012f258c", "sha256:2f9ab966fc9377b2a1fc04a329ddad835212608a1c510039b6abc30078ec3a37", "sha256:87bacf5c358892cb4554db9f13f77989407f4beb9ae590b13be5499c17bc7482"},
+		{"jev-route", "sha256:b4501a5274b2092c09169395d5a870b6049f809f34c42510bdcabdf960b9c297", "sha256:383321f05b3dc8825c228ba568cea7594a2f142fd616c3faa22a247c9fb66ff1", "sha256:45a4818263d69d1beceee8a9d8331bdd7d91723f92cadbd53fdd4db28f46cb8b", "sha256:c0df3ac7e6c4667db11117499d47e2d4d174893b792407a8a692fbf317321abe"},
+		{"luna-route", "sha256:7679d0bcdda0698900623353eafe3203541e1bc15725a1c362ed66407f7b4af7", "sha256:1cf4e178b2f31226ce0156c9194621df34b3057778878df980e8136d95ff2583", "sha256:d3dca87c64306bfba8ac86b4483a3a0cda517a5976eb103a335687c175b60058", "sha256:39a90bb58a2f2351fa3b7af71b17dd74cdeb40976b4ddfbf8da4832c3266d787"},
 	} {
 		t.Run(tc.base, func(t *testing.T) {
 			ev := run.Case(t, "P07-zh-evaluation-config-revision-"+tc.base)
@@ -102,7 +102,28 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 			}
 			_, err = chineseeval.LoadRecorded(data, v3, oldCatalog.Catalog)
 			ev.Check("v3 remains valid with its original snapshot", err == nil, "err=%v", err)
-			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v4.json")
+			v4, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v4.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			ev.Check("prior default v4 bytes remain immutable", chineseeval.Hash(v4) == tc.v4Hash, "v4 input changed")
+			_, err = chineseeval.Load(data, v4, ai.BuiltinCatalog())
+			ev.Check("v4 does not silently bind to new catalog", err != nil, "v4 accepted current composition")
+			preKimi, err := os.ReadFile("testdata/catalog/pre-kimi-k31-builtin.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			ev.Fixture("pre-kimi-k31-builtin.json", preKimi)
+			ev.Check("v4 snapshot retains original bytes", chineseeval.Hash(preKimi) == "sha256:04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca", "snapshot changed")
+			var v4Catalog struct {
+				Catalog json.RawMessage `json:"catalog"`
+			}
+			if err := json.Unmarshal(preKimi, &v4Catalog); err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.LoadRecorded(data, v4, v4Catalog.Catalog)
+			ev.Check("v4 remains valid with its original snapshot", err == nil, "err=%v", err)
+			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v5.json")
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -114,7 +135,7 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 			plan, err := chineseeval.Load(data, current, ai.BuiltinCatalog())
 			ev.Check("new current config loads with strict pins", err == nil, "err=%v", err)
 			var before, after chineseeval.Config
-			if json.Unmarshal(v3, &before) != nil || json.Unmarshal(current, &after) != nil {
+			if json.Unmarshal(v4, &before) != nil || json.Unmarshal(current, &after) != nil {
 				t.Fatal("invalid stored config")
 			}
 			ev.Check("config revision changes explicitly", before.Version != after.Version, "old=%s new=%s", before.Version, after.Version)
