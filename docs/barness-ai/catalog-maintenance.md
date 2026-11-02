@@ -4,6 +4,48 @@
 
 目录接纳、当前代码接受、厂商实测、模型健康和 Binding 授权是不同事实。`check` 的结论只有“代码兼容通过”；`apply` 不发布线上目录、不更新支持矩阵，也不表示完整发布门禁通过。
 
+本文是 Catalog CLI 的操作 SOP。每次目录变更必须完成候选/check/apply、版本化
+快照归集和 changelog；每次同步内置目录还必须给出核心运行代码变化及分发判定。
+缺少这些交付项时，不能将“apply 成功”写成“同步交付完成”。
+
+## 统一产出目录与版本化快照
+
+统一根目录为仓库根的 `artifacts/catalog/`。使用真实 `Catalog.Version` 和唯一
+UTC 批次组织每次交付；不能以型号名、日期或软件版本代替目录内容版本。
+
+```text
+artifacts/catalog/
+  work/store/                          # 显式选择的本地维护库
+  work/<run-id>/                       # 输入、工具、命令输出和失败操作记录
+  <Catalog.Version>/<run-id>/
+    <Catalog.Version>.json             # 原受测运行 JSON，可独立分发
+    <Catalog.Version>.json.sha256      # 完整文件摘要
+    review/                            # CLI 导出的完整审阅包，原字节
+    CHANGELOG.md                       # 本次变更说明快照
+    delivery.md                        # 人可读代码变化及分发判定
+    verification/                     # 验证摘要、检查记录与原件索引
+    delivery.json                     # 最后写入的完成索引与全部文件摘要
+```
+
+运行 JSON 内仍使用原 `{hash,catalog}` 格式，文件名必须为
+`<Catalog.Version>.json`，其中版本等于文件内 `catalog.version`。不增加自定义字段，
+不重新序列化或修改原受测字节。目录 Hash 与完整 JSON 文件 SHA-256 分别记录。
+版本应是生成器产生的安全单一路径段；不满足时停下处理，不静默改名或编造版本。
+
+所有交付 JSON 均位于该版本/批次的不可变快照目录内。`review/` 的 `state.json`、
+`snapshot.json` 等固定文件名属于 CLI 原契约，保持原文和库存，不单独重命名。
+同一目录版本可能有新的追溯 revision 或检查；使用新批次，不覆盖既有快照或索引。
+
+原始测试胶囊继续按测试 SOP 保留在 `.evidence/<feature>/...`，历史工作库及原输入
+也保持原路径。统一交付目录归集可分发文件、完整审阅来源及验证索引；索引必须
+记录外部原件的原路径、SHA-256、真实状态和退出，并明确回放是否依赖外部原件。
+不能移动原件破坏引用，不能把“已有摘要索引”说成“完整证据已包含在交付包内”。
+
+`ai/catalog_builtin.json`、`catalog/data/providers/` 和 `catalog/data/baseline/` 是
+源码采用位置，仍按下文同步；交付归集不改变这些编译路径。现有 `local-catalog.json`
+只保留为历史原件，不再作为新交付的无版本文件名。目录索引见
+[统一交付入口](../../artifacts/catalog/README.md)。
+
 ## Host 选择与装配
 
 Host 先准备已有的凭据解析、Binding 和资源策略 `cfg`，再明确选择来源：
@@ -15,7 +57,8 @@ import (
 )
 
 // cfg is the Host's existing ai.Config, including its resolvers and policy.
-effective, report, err := catalog.LoadFile("local-catalog.json")
+// snapshotPath is the explicitly selected versioned JSON from a delivery.
+effective, report, err := catalog.LoadFile(snapshotPath)
 if err != nil {
     return err // Host decides how to handle this file-level failure.
 }
@@ -42,38 +85,61 @@ client, err := ai.NewClient(cfg)
 在仓库根编译 CLI，查看某入口的精确参数：
 
 ```sh
-go build -o /tmp/catalogctl ./cmd/catalogctl
-/tmp/catalogctl help
-/tmp/catalogctl add --help
+ARTIFACT_ROOT="$PWD/artifacts/catalog"
+RUN_ID='<实际UTC时间>-<唯一批次>'
+STORE="$ARTIFACT_ROOT/work/store"
+WORK="$ARTIFACT_ROOT/work/$RUN_ID"
+mkdir -p "$WORK/bin"
+CATALOGCTL="$WORK/bin/catalogctl"
+go build -o "$CATALOGCTL" ./cmd/catalogctl
+"$CATALOGCTL" help
+"$CATALOGCTL" add --help
 ```
+
+这些路径是维护者显式传入的 SOP 约定，CLI 默认参数没有被修改。工作库首次迁移
+须复制完整原库、逐文件核对路径集合及摘要后再选择；原库保留，不能用新种子
+冒充原历史。CLI 本身的查询/help/dry-run 不写库，以上目录由操作者明确创建。
+命令 stdout/stderr、实际 argv、退出和工具身份归入本批次 `WORK`，失败同样保留。
 
 输出默认是 JSON；`--json` 可显式声明。命令失败返回稳定 `category` 和非零退出。查询、help 和 `--dry-run` 不创建维护库或证据目录。变更缺少 `--confirm` 时返回 `confirmation_required`，不会隐式读取 stdin 或自动接受变更。
 
 以下用已有型号的显式下架演示完整闭环。示例中的候选 ID 和检查引用必须使用前一条命令真实返回的值：
 
 ```sh
-/tmp/catalogctl withdraw --store .catalog \
+"$CATALOGCTL" withdraw --store "$STORE" \
   --operation chat --provider openai --api openai-responses --model gpt-4 \
   --reason '维护者确认的下架原因' --dry-run
 
-/tmp/catalogctl withdraw --store .catalog \
+"$CATALOGCTL" withdraw --store "$STORE" \
   --operation chat --provider openai --api openai-responses --model gpt-4 \
   --reason '维护者确认的下架原因' --confirm
 
-/tmp/catalogctl check --store .catalog --id '<candidate-id>' --repo . \
+"$CATALOGCTL" check --store "$STORE" --id '<candidate-id>' --repo . \
   --evidence-feature catalog-review --timeout 5m --confirm
 
-/tmp/catalogctl apply --store .catalog --id '<candidate-id>' --repo . \
+CATALOG_VERSION='<冻结候选 snapshot 中的真实 catalog.version>'
+DELIVERY="$ARTIFACT_ROOT/$CATALOG_VERSION/$RUN_ID"
+SNAPSHOT="$DELIVERY/$CATALOG_VERSION.json"
+mkdir -p "$DELIVERY"
+
+"$CATALOGCTL" apply --store "$STORE" --id '<candidate-id>' --repo . \
   --check '.evidence/catalog-review/check-inputs/<attempt>/check.json' \
-  --out local-catalog.json --confirm
+  --out "$SNAPSHOT" --dry-run
+"$CATALOGCTL" apply --store "$STORE" --id '<candidate-id>' --repo . \
+  --check '.evidence/catalog-review/check-inputs/<attempt>/check.json' \
+  --out "$SNAPSHOT" --confirm
 ```
+
+上述版本必须从已冻结候选取得；CLI 的 `candidate.snapshot` 是 Base64 原字节，
+读取其中版本时先解码，不把重新编码的结果当交付 JSON。`DELIVERY` 必须是新批次，
+已有输出不得覆盖。所有后续路径都复用同一组变量。
 
 `--repo` 指向包含固定公共合约和验证工具的仓库。`--evidence-feature` 显式选择 `.evidence/<feature>` 的独立检查范围。候选和检查都保留原件；失败不推进生效目录。`check --dry-run`、`apply --dry-run` 只读预览，仍需选择同一候选/基准。
 
 查询候选时可显式选择某份检查原件：
 
 ```sh
-/tmp/catalogctl candidate --store .catalog --id '<candidate-id>' --repo . \
+"$CATALOGCTL" candidate --store "$STORE" --id '<candidate-id>' --repo . \
   --check '.evidence/catalog-review/check-inputs/<attempt>/check.json'
 ```
 
@@ -94,9 +160,9 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 当官方文档/公告用于补足准确 offering 缺口时，显式选择 `--source-kind official`、真实 `--source-url`、`--source-time` 和原始捕获文件。`add` 还要求完整的人工运行定义及四维身份，不把官方捕获伪装成 v1 自动映射：
 
 ```sh
-/tmp/catalogctl add --store .catalog --source-kind official \
-  --source official-capture.html --source-url '<official-source-url>' \
-  --source-time '<actual-RFC3339-time>' --definition full-model.json \
+"$CATALOGCTL" add --store "$STORE" --source-kind official \
+  --source "$WORK/inputs/official-capture.html" --source-url '<official-source-url>' \
+  --source-time '<actual-RFC3339-time>' --definition "$WORK/inputs/full-model.json" \
   --operation chat --provider '<provider>' --api '<api>' --model '<wire-id>' \
   --reason '官方缺项补充及逐字段确认依据' --dry-run
 ```
@@ -114,8 +180,8 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 批量改价以已审核的 serving 关联和字段归属为前提，例如：
 
 ```sh
-/tmp/catalogctl cost-update --store .catalog --provider openai \
-  --source models-dev.json --source-provider openai \
+"$CATALOGCTL" cost-update --store "$STORE" --provider openai \
+  --source "$WORK/inputs/models-dev.json" --source-provider openai \
   --source-time '<actual-RFC3339-time>' --reason '固定来源价格复核' --dry-run
 ```
 
@@ -140,11 +206,15 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 本地 `apply` 只推进所选维护库和明确选择的外部快照。导出已批准 State 或快照：
 
 ```sh
-/tmp/catalogctl export --store .catalog > local-catalog.json
-/tmp/catalogctl export --store .catalog --state > reviewed-state.json
+mkdir -p "$WORK/export"
+"$CATALOGCTL" export --store "$STORE" > "$WORK/export/$CATALOG_VERSION.json"
+"$CATALOGCTL" export --store "$STORE" --state > "$WORK/export/state.json"
 
-go run ./cmd/cataloggen --state reviewed-state.json --out local-catalog.json --dry-run
-go run ./cmd/cataloggen --state reviewed-state.json --out local-catalog.json --confirm
+go run ./cmd/cataloggen --state "$WORK/export/state.json" \
+  --out "$WORK/export/generated-$CATALOG_VERSION.json" --dry-run
+go run ./cmd/cataloggen --state "$WORK/export/state.json" \
+  --out "$WORK/export/generated-$CATALOG_VERSION.json" --confirm
+go run ./cmd/cataloggen --store "$STORE" --out "$SNAPSHOT" --check
 go generate ./ai
 ```
 
@@ -155,10 +225,10 @@ stdout 重定向由 shell 写目标文件；CLI 自身的查询不会创建目�
 需要采用已批准 revision 作为下一版入库来源时，导出到一个尚不存在的新审阅目录：
 
 ```sh
-/tmp/catalogctl export --store .catalog --repo . \
-  --review-dir catalog-review-bundle --dry-run
-/tmp/catalogctl export --store .catalog --repo . \
-  --review-dir catalog-review-bundle --confirm
+"$CATALOGCTL" export --store "$STORE" --repo . \
+  --review-dir "$DELIVERY/review" --dry-run
+"$CATALOGCTL" export --store "$STORE" --repo . \
+  --review-dir "$DELIVERY/review" --confirm
 ```
 
 审阅包包含 `providers/*.json`、完整 `state.json`、原受测字节 `snapshot.json`、`revision.json`，以及去重后的 `inputs/<digest>.bin`。最后写入的 `review.json` 标识完整导出，绑定文件库存、来源/人工定义/决定原件和外部 revision/candidate/check 引用及各自摘要。缺少完成标记的失败目录不能当成完整审阅包；重试使用新目录，不覆盖旧失败或既有导出。历史 catalog 身份与其原始文件字节摘要分别保留。
@@ -168,5 +238,54 @@ stdout 重定向由 shell 写目标文件；CLI 自身的查询不会创建目�
 维护工具编译时嵌入此基线，运行 `ai` 仍只嵌入生成快照。缺省种子 revision 留存完整基线字节，后续维护和再次审阅导出不依赖旧维护库仍在原位置，也不会重新抓取来源。继承的 revision/candidate/check 引用保留原路径和摘要，并用 `originReview` 绑定原始 `review.json` 字节摘要；它们是历史引用，不声明旧外部原件当前可取或当前资格仍通过。需要复核原检查时仍须保留并独立核验其原件。
 
 相同 Provider 组成保持同一 Catalog.Version/Hash；采用基线形成的维护 revision 可因追溯链不同而拥有不同 ID。仅替换生成 JSON 会使 `go generate ./ai` 的核对失败。导出不移动当前维护指针；未来部署/线上发布仍是独立工作。
+
+## 每次交付必须更新 changelog
+
+在最终来源冻结前更新 [CHANGELOG.md](CHANGELOG.md) 的“未发布”条目；没有实际软件
+发布时不能填写已发布版本号。条目至少包含日期、四维身份增删/改价、目录版本与
+两类摘要、Provider 版本变化、原有定义是否变化、核心代码/其他代码变化、分发判定、
+实际验证和未执行项，并链接本次完整记录及统一交付目录。
+
+把本次条目作为交付目录中的 `CHANGELOG.md` 快照，说明其源文件和摘要；内容应能
+独立阅读，不依赖仓库内部相对链接。已有历史条目、测量与 pin 不重写。事后纯文档
+补录另留原状态及来源/输入相等性，不能修改旧回执冒充新测量。
+
+## 每次同步内置目录必须给出代码与分发判定
+
+在 `delivery.md` 和 `delivery.json` 同时记录完整比较基准/目标提交、实际受测提交，
+以及未提交文件是否影响判定。基准是本次变更前的明确程序/交付来源，不能只比较
+最后一笔文档提交，也不能凭“只增加一个型号”推断代码未变化。
+
+核心范围包括 barness-ai 运行库的目录解释、Provider 协议适配、请求/响应、推理、
+Usage/计价、授权/资源和实际运行依赖。检查完整差异及必要的依赖关系，明确列出
+变化文件；示例 CLI、测试、维护工具、生成数据和文档分别列出，不混作核心代码。
+使用 `YES / NO / UNKNOWN` 表达核心及依赖变化，未知不能写成无需升级。
+
+| 使用方式/实际证据 | 必须给出的分发结论 |
+| --- | --- |
+| 指定受测程序已有外部加载/注入能力，且该原 JSON 已在其上通过兼容检查 | 可只分发版本化 JSON；Host 显式加载后创建新 Client，现有 Client 不热更新 |
+| 新定义依赖新增核心能力/字段，原程序未通过或缺少加载能力 | 先升级 SDK/重建程序，再使用 JSON；列明实际代码依赖和证据 |
+| 程序使用 `ai.BuiltinCatalog()` 的编译内置数据 | 更新默认目录需要重新构建和分发程序，即使核心运行代码没有变化 |
+| 未取得目标旧程序的实际检查依据 | 外部 JSON 兼容性未验证；不能承诺任意旧版本或虚构最低支持版本 |
+
+外部 JSON 与内置默认是两种使用方式，必须分别给结论。若只有示例默认配置路径
+变化，说明其影响，不能据此声称 SDK 核心变化。软件发布、内置重建、JSON 分发及
+厂商真实资格分别记录；目录升版不自动要求或授予它们中的任何一项。
+
+## 完成与归集核对
+
+1. 确认版本化运行 JSON 与候选原受测 snapshot 完全同字节，写完整文件 SHA-256；
+   同时记录 `Catalog.Version`、`Catalog.Hash`、维护 revision 和 Provider 版本。
+2. 归集完整 `review/`，逐文件验证 `review.json` 库存与摘要，不叠加旧批次文件。
+3. 归集 changelog 快照、代码变化/两种分发判定、验证摘要及原件索引。记录检查与
+   普通阶段的真实退出、必需场景、来源及输入集合、未执行/不适用依据；原件外部
+   引用写明位置和摘要，不把受控通过标成厂商实测。
+4. `delivery.json` 最后写入，绑定本目录全部文件的相对路径和 SHA-256（不含自身），
+   并记录上述版本、代码变化和分发结论。验证目录文件集合与索引完全相等。
+5. 核对 changelog、维护源、内置数据、基线和交付快照的一致性，更新本功能唯一
+   当前状态并保留不可覆盖的完成索引；没有完成标记的部分目录不得分发，重试用新批次。
+
+这些是现有 CLI 之上的维护与交付步骤，不是新增自动打包参数；未执行的动作不能
+由手写 `PASS` 替代。当前 Terra 的归集实例见[统一交付入口](../../artifacts/catalog/README.md)。
 
 验证范围、未执行阶段和不可变证据索引以本功能的[唯一当前状态](../../.scratch/barness-ai-dynamic-catalog/status.md)为准；测试/验收遵循[测试 SOP](../agents/verification.md)。

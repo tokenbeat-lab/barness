@@ -28,6 +28,7 @@ barness-ai 是 barness 连接多种模型 Provider 的模型协议模块（Go �
 | 历史差异研究 | [differences.md](differences.md)（历史说明；当前不运行冻结 pi 差分） |
 | 支持矩阵 | [`ai/live/support-matrix.json`](../../ai/live/support-matrix.json)（只经 `go run ./ai/live/cmd/supportmatrix` 合并冒烟报告更新） |
 | 本地目录维护与隔离加载 | [catalog-maintenance.md](catalog-maintenance.md)：候选/check/apply、Provider 来源、生成和独立加载报告 |
+| 版本化目录交付物 | [统一入口](../../artifacts/catalog/README.md)：运行 JSON 快照、changelog、审阅来源、验证索引及核心代码/分发判定 |
 | 模型/价格快照 | 当前生成数据 [`ai/catalog_builtin.json`](../../ai/catalog_builtin.json)；[`ai/release/catalog-snapshot.json`](../../ai/release/catalog-snapshot.json) 保留历史原版本/哈希，由迁移 E2E 独立对照 |
 | Fixture | [`ai/e2e/testdata/`](../../ai/e2e/testdata/)；原生用例 artifacts 清单及完整来源哈希 |
 | 资源策略示例 | 聊天：`localassembly.LocalPolicy`、`hostintegration.CloudInteractivePolicy`、`CloudBatchPolicy`；混合操作：`localassembly.MixedPolicy`、`hostintegration.CloudMixedPolicy` |

@@ -1,6 +1,10 @@
 # Offline E2E evidence bundles (ai/internal/testkit/evidence)
 /.evidence/
 
+# Catalog delivery working stores, binaries, source captures and operation logs.
+# Completed versioned delivery directories under artifacts/catalog/ are retained.
+/artifacts/catalog/work/
+
 # Generated test evidence archives; keep scripts, manifests and hashes in Git.
 /.scratch/**/*.zip
 /.scratch/**/*.tar.gz

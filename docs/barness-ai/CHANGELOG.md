@@ -2,6 +2,16 @@
 
 ## 未发布
 
+### 2026-11-02：Catalog CLI 交付规范
+
+目录维护 SOP 现在要求每次更新 changelog，使用真实 Catalog.Version 命名不可变
+JSON 快照，并把本次交付物归集到 `artifacts/catalog/<Catalog.Version>/<批次>/`。
+每次同步内置目录必须明确核心运行代码/依赖是否变化，以及外部 JSON 与编译内置
+两类使用者的升级或重建要求。完整索引绑定文件摘要和原验证引用。
+
+当前 Terra 交付已按该规范归集，见[统一交付入口](../../artifacts/catalog/README.md)。
+本次只更新流程文档及归集原产物，没有修改 SDK、CLI 实现或 JSON 格式。
+
 ### 2026-11-02：GPT-6.1 Terra 同步内置目录
 
 新增 `chat / openai / openai-responses / gpt-6.1-terra`，支持文本和图片输入。

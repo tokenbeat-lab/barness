@@ -1,0 +1,635 @@
+{
+  "schema": 1,
+  "testedCommit": "d4dbafaa1537ada3f6a56ade817dc63ad20d9f9d",
+  "ordinary": {
+    "receipt": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/receipt.json",
+    "receiptSha256": "2cf3d64eac39e3fc0120f938a8321a7088e4f2e005aa82ce1c108115cfbdb74e",
+    "status": "PASS",
+    "exitCode": 0,
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "./ai/e2e",
+      "./ai",
+      "./ai/examples/chineseeval/...",
+      "./catalog/...",
+      "./cmd/catalogctl",
+      "./cmd/cataloggen",
+      "-count=1",
+      "-timeout=40m"
+    ],
+    "elapsedSeconds": 1234.9138111248612,
+    "sourceFileCount": 2159,
+    "selectedInputCount": 87,
+    "sourceAndSelectedInputsMatchCurrentBytes": true,
+    "sourceAndSelectedInputsInventory": "complete maps in ordinary receipt",
+    "bundles": [
+      {
+        "package": "./ai/e2e",
+        "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/bundles/20261102T013405.293044000Z",
+        "manifestSha256": "0a54c500d83f1229d5ca92b5e8d7dd2c2c82d5d701ba1b609d0b4f82b3ec50f5",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "caseCounts": {
+          "PASS": 16889,
+          "NOT_RUN": 226
+        }
+      },
+      {
+        "package": "-tags live ./ai/live",
+        "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/bundles/20261102T014143.736007000Z",
+        "manifestSha256": "ad55ddc68d54134a65eb0b7ea6a2214d3063abd048a7e0f5000f7a2cfdd22999",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "caseCounts": {
+          "PASS": 32
+        }
+      },
+      {
+        "package": "-tags live ./ai/live",
+        "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/bundles/20261102T014521.593480000Z",
+        "manifestSha256": "e60d17f44fd5ccb3c3d54618ec7e90d9711e81986773c34faf93305cd5efd587",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "caseCounts": {
+          "PASS": 77
+        }
+      },
+      {
+        "package": "-tags live ./ai/live",
+        "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/bundles/20261102T014540.639029000Z",
+        "manifestSha256": "0c4cde65384c597f338133634c401863ab3870989269895bfdcff006347de165",
+        "auditSha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+        "auditFindings": 0,
+        "caseCounts": {
+          "PASS": 6
+        }
+      }
+    ],
+    "requiredCases": {
+      "CATALOG-TERRA-builtin": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog"
+      },
+      "CATALOG-TERRA-load-query": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/load-query"
+      },
+      "CATALOG-TERRA-basic": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/basic"
+      },
+      "CATALOG-TERRA-cache-usage": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/cache-usage"
+      },
+      "CATALOG-TERRA-history-tools": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/history-tools"
+      },
+      "CATALOG-TERRA-input-modalities": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/input-modalities"
+      },
+      "CATALOG-TERRA-parameters": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/parameters"
+      },
+      "CATALOG-TERRA-reasoning": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/reasoning"
+      },
+      "CATALOG-TERRA-authorization": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/authorization"
+      },
+      "CATALOG-TERRA-tier-0-below": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/tier-0-below"
+      },
+      "CATALOG-TERRA-tier-0-equal": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/tier-0-equal"
+      },
+      "CATALOG-TERRA-tier-0-above": {
+        "status": "PASS",
+        "test": "TestTerraBuiltinCatalog/tier-0-above"
+      },
+      "CATALOG-TERRA-adopted-source": {
+        "status": "PASS",
+        "test": "TestTerraAdoptedBuiltinSource"
+      },
+      "CATALOG-TERRA-seed-export": {
+        "status": "PASS",
+        "test": "TestTerraAdoptedSeedExport"
+      },
+      "CATALOG-CHECK-fixed-entry-receipt": {
+        "status": "PASS",
+        "test": "TestCatalogCandidateFixedEntryReceipt"
+      },
+      "CATALOG-CHECK-last-withdrawal-empty": {
+        "status": "PASS",
+        "test": "TestCatalogCandidateLastWithdrawalToEmpty"
+      },
+      "CATALOG-CHECK-recompile-retained-embedded-source": {
+        "status": "PASS",
+        "test": "TestCatalogCandidateCheckRetainedSource"
+      },
+      "CATALOG-T01-cli-review-source-bootstrap": {
+        "status": "PASS",
+        "test": "TestCatalogMaintenanceCLIReviewExport"
+      },
+      "CATALOG-T03-cli-bulk-price-ownership": {
+        "status": "PASS",
+        "test": "TestCatalogMaintenanceCLICostUpdate"
+      },
+      "CATALOG-T06-cli-freeze-immutable": {
+        "status": "PASS",
+        "test": "TestCatalogMaintenanceCLIFreeze"
+      },
+      "CATALOG-T07-cli-added-rollback-recovery": {
+        "status": "PASS",
+        "test": "TestCatalogMaintenanceCLIAddedRollbackRecovery"
+      },
+      "CATALOG-T07-cli-lifecycle-new-versions": {
+        "status": "PASS",
+        "test": "TestCatalogMaintenanceCLILifecycle"
+      },
+      "E03-catalog-inclusion-listed": {
+        "status": "PASS",
+        "test": "TestCatalogInclusion/listed"
+      },
+      "P07-zh-evaluation-config-revision-jev-1.13.0": {
+        "status": "PASS",
+        "test": "TestChineseEvaluationConfigurationRevisions/jev-1.13.0"
+      },
+      "P07-zh-evaluation-config-revision-jev-route": {
+        "status": "PASS",
+        "test": "TestChineseEvaluationConfigurationRevisions/jev-route"
+      },
+      "P07-zh-evaluation-config-revision-luna-route": {
+        "status": "PASS",
+        "test": "TestChineseEvaluationConfigurationRevisions/luna-route"
+      },
+      "P07-zh-evaluation-current-jev": {
+        "status": "PASS",
+        "test": "TestChineseEvaluationCurrentRoutePins/jev"
+      },
+      "P07-zh-evaluation-current-luna": {
+        "status": "PASS",
+        "test": "TestChineseEvaluationCurrentRoutePins/luna"
+      }
+    },
+    "requiredCaseCount": 28
+  },
+  "attempts": [
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T005948.081733Z-hiffow6d/receipt.json",
+      "sha256": "797ac91f351688fe651ef3383da241b2631895b355f362784ee9ae157f14e5fc",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestTerraBuiltinCatalog$",
+        "-count=1",
+        "-timeout=20m"
+      ],
+      "sourceCommit": "37a283ee4ef743f93d3a12132d1bc2c3211fb1e5",
+      "elapsedSeconds": 5.03951537469402
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T010218.178495Z-rfq9m76n/receipt.json",
+      "sha256": "4411a453b6cf30ba4dc6c680acdab9699dde0a289479887228a32a187c18dfb5",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestTerraBuiltinCatalog$",
+        "-count=1",
+        "-timeout=20m"
+      ],
+      "sourceCommit": "2547fdbf88ad88f022498370358d3e25acf44723",
+      "elapsedSeconds": 6.102478499989957
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T010342.699775Z-ge5d5zzl/receipt.json",
+      "sha256": "882c8b492bb79d23b7e09b30074903446710c64785ab97ff785b21df912b23a3",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestTerra(BuiltinCatalog|AdoptedBuiltinSource|AdoptedSeedExport)$",
+        "-count=1",
+        "-timeout=20m"
+      ],
+      "sourceCommit": "d62d84b9416d4c7e9204f69959a2a5c60a7567a7",
+      "elapsedSeconds": 5.927745167165995
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T010455.785682Z-kafe5ryb/receipt.json",
+      "sha256": "935923a808577949e4c96e301bfd3168ad16613ddfbfffd413fd878748f9ab8e",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestTerra(BuiltinCatalog|AdoptedBuiltinSource|AdoptedSeedExport)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "8a8dc08b97650bb31544ead014c0c0c69527bc70",
+      "elapsedSeconds": 6.729221208952367
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T010549.256058Z-gxw82nfi/receipt.json",
+      "sha256": "c27cf7af5fbf30c657de89e59ca3e2a00adda9a7b7ebc647d1620a356b4fd96b",
+      "status": "CANCELLED",
+      "exitCode": -15,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "8a8dc08b97650bb31544ead014c0c0c69527bc70",
+      "elapsedSeconds": 68.32883462542668
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T010809.594560Z-u374xgby/receipt.json",
+      "sha256": "1ec89ca93b4833e1b4cf5ce4f518a3141d152884878668d62f9e6208ea52f0ff",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestCatalog(CandidateFixedEntryReceipt|CandidateLastWithdrawalToEmpty|CandidateCheckRetainedSource|MaintenanceCLIReviewExport)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "d58f304143c8516bbbf752e211ab472cabcd5910",
+      "elapsedSeconds": 63.719173916149884
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T010953.527329Z-ath59_j2/receipt.json",
+      "sha256": "534c5240254fb556731bf2ed08785afa5cac21ada362ba37ac875d50bd3c114a",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestCatalog(CandidateFixedEntryReceipt|CandidateLastWithdrawalToEmpty|CandidateCheckRetainedSource|MaintenanceCLIReviewExport)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "23461d6eaee697f0e1943e71c355c6d024cfc1d8",
+      "elapsedSeconds": 61.60422862507403
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T011101.714638Z-nyoosyww/receipt.json",
+      "sha256": "9ae6da659b567af4b7eb08232155316fda6097db563656a1c2bcd14491d4703c",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestTerra(BuiltinCatalog|AdoptedBuiltinSource|AdoptedSeedExport)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "23461d6eaee697f0e1943e71c355c6d024cfc1d8",
+      "elapsedSeconds": 3.158300541806966
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T011149.809512Z-81jyjmlx/receipt.json",
+      "sha256": "0730e9354f24c75dd352fa45ca5cfce8ffcea4ce81ec26cebecca00230347e5b",
+      "status": "CANCELLED",
+      "exitCode": -15,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "23461d6eaee697f0e1943e71c355c6d024cfc1d8",
+      "elapsedSeconds": 207.90170475002378
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T011620.650016Z-13onzynz/receipt.json",
+      "sha256": "48ec7c2a249344ac2ec00bbec3afd39c60526d9d58d94c9a2c759cc121f0d438",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestCatalog(Inclusion|MaintenanceCLIFreeze|MaintenanceCLILifecycle|MaintenanceCLIAddedRollbackRecovery|MaintenanceCLICostUpdate)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "ac7a4645291bd76154c1cc68f784e4a12cf4a0ea",
+      "elapsedSeconds": 94.98832008382306
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T011759.745345Z-mo_k63k8/receipt.json",
+      "sha256": "1df765fffaeef174c02e807f910fa13f5db73e3538b0ea232e3b4c7512a2606b",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestCatalogMaintenance",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "ac7a4645291bd76154c1cc68f784e4a12cf4a0ea",
+      "elapsedSeconds": 186.9195738332346
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T012109.080136Z-2pwos5t5/receipt.json",
+      "sha256": "d003e75da07761923c4df006f823483b5ea2405921d55da7c8d191b20154a47d",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestCatalog(CandidateFixedEntryReceipt|CandidateLastWithdrawalToEmpty|CandidateCheckRetainedSource|MaintenanceCLIReviewExport)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "ac7a4645291bd76154c1cc68f784e4a12cf4a0ea",
+      "elapsedSeconds": 58.80434783315286
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T012209.603892Z-voz332qi/receipt.json",
+      "sha256": "bc9ca32149b5dc88a1126b114d2b9e93d93d5f53bf6e14e724bf0c272af6e6c7",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestTerra(BuiltinCatalog|AdoptedBuiltinSource|AdoptedSeedExport)$",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "ac7a4645291bd76154c1cc68f784e4a12cf4a0ea",
+      "elapsedSeconds": 3.1789564173668623
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T012300.325334Z-8mkk9txp/receipt.json",
+      "sha256": "54117de2143e7d9d9ba571f66e5acc88184b92ccb1612597096aa19e75f5095c",
+      "status": "CANCELLED",
+      "exitCode": -15,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "ac7a4645291bd76154c1cc68f784e4a12cf4a0ea",
+      "elapsedSeconds": 409.1202519577928
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013144.058660Z-m2vun6l3/receipt.json",
+      "sha256": "6bf0618ad793ceed77e22cdb0c6449872711f1b113842c3132017138c451f020",
+      "status": "FAIL",
+      "exitCode": 1,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestChineseEvaluationConfigurationRevisions$",
+        "-count=1",
+        "-timeout=20m"
+      ],
+      "sourceCommit": "ac7a4645291bd76154c1cc68f784e4a12cf4a0ea",
+      "elapsedSeconds": 5.096102667041123
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013252.890476Z-v0htsrau/receipt.json",
+      "sha256": "6a2fe48b84dd30c48da8a11688915df36f7be2b338c0b3664129bff4b80bd224",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "-run",
+        "^TestChineseEvaluation",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "d4dbafaa1537ada3f6a56ade817dc63ad20d9f9d",
+      "elapsedSeconds": 16.87181237479672
+    },
+    {
+      "path": ".evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/receipt.json",
+      "sha256": "2cf3d64eac39e3fc0120f938a8321a7088e4f2e005aa82ce1c108115cfbdb74e",
+      "status": "PASS",
+      "exitCode": 0,
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "./ai/e2e",
+        "./ai",
+        "./ai/examples/chineseeval/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m"
+      ],
+      "sourceCommit": "d4dbafaa1537ada3f6a56ade817dc63ad20d9f9d",
+      "elapsedSeconds": 1234.9138111248612
+    }
+  ],
+  "buildChecks": [
+    {
+      "record": ".evidence/catalog-gpt61-terra-builtin/verification/build-d4dbafa/generate.json",
+      "recordSha256": "b441eb7504769a08a0a554eb2cc13f58803a83351bfd398c16265560eab70521",
+      "argv": [
+        "go",
+        "generate",
+        "./ai"
+      ],
+      "exitCode": 0,
+      "start": 1793583194.14574,
+      "end": 1793583236.9050539,
+      "goenv": "off",
+      "goflags": "",
+      "home": "temporary isolated",
+      "stdoutSha256": "c3660f83da503664d6a2157b096b202e92b78b2a1f65aa0b235cc359b9b3089a",
+      "stderrSha256": "82d53fe92cddefbeff8cb2d7aa1995a68d5faed44facb5cebf0ed88f39643bb4"
+    },
+    {
+      "record": ".evidence/catalog-gpt61-terra-builtin/verification/build-d4dbafa/build.json",
+      "recordSha256": "1f9fa054e0818a438adfca2eb94ee480a19a889ea45c0a1755cbdec3b93f9bdb",
+      "argv": [
+        "go",
+        "build",
+        "./ai/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen"
+      ],
+      "exitCode": 0,
+      "start": 1793583236.9052181,
+      "end": 1793583238.879864,
+      "goenv": "off",
+      "goflags": "",
+      "home": "temporary isolated",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record": ".evidence/catalog-gpt61-terra-builtin/verification/build-d4dbafa/vet.json",
+      "recordSha256": "d883707d660b735f81c7fca2ae42ace0e3e9a9c24347cbb2cb855553b279ba70",
+      "argv": [
+        "go",
+        "vet",
+        "./ai/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen"
+      ],
+      "exitCode": 0,
+      "start": 1793583238.880018,
+      "end": 1793583240.9903822,
+      "goenv": "off",
+      "goflags": "",
+      "home": "temporary isolated",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "buildScript": {
+    "path": ".evidence/catalog-gpt61-terra-builtin/verification/run-build-d4dbafa.py",
+    "sha256": "bb278cdbf735a05d488d40f77e663d000669d40f7967fec58884c3ee86a8da90"
+  },
+  "ordinaryScript": {
+    "path": ".evidence/catalog-gpt61-terra-builtin/verification/run-ordinary.py",
+    "sha256": "56c9d431b737300826e3db393a0dfc091c9d3c02b6b58da55e7a00064128036a",
+    "receiptSelectedInputSha256": "56c9d431b737300826e3db393a0dfc091c9d3c02b6b58da55e7a00064128036a",
+    "reconstructedVersions": [
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/37ee6ed7e0f987a945fcbcbb2a521beac20e553bacb9f9a854430c8305f713c5.py",
+        "sha256": "37ee6ed7e0f987a945fcbcbb2a521beac20e553bacb9f9a854430c8305f713c5",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      },
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/53c4e82a7f50f4c4a02fdeb0c68294dfcf8f599ec493f3c7deab00f10c974074.py",
+        "sha256": "53c4e82a7f50f4c4a02fdeb0c68294dfcf8f599ec493f3c7deab00f10c974074",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      },
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/53e6b9bc1ecdeb4a7a9474d78bafc9d24a7deabf2d84fdf40f5d0cfbe30fecae.py",
+        "sha256": "53e6b9bc1ecdeb4a7a9474d78bafc9d24a7deabf2d84fdf40f5d0cfbe30fecae",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      },
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/56c9d431b737300826e3db393a0dfc091c9d3c02b6b58da55e7a00064128036a.py",
+        "sha256": "56c9d431b737300826e3db393a0dfc091c9d3c02b6b58da55e7a00064128036a",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      },
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/752f714ea44cbed0fedf9ea64abca933be0f9710d0e3609fd8b8692be5db7695.py",
+        "sha256": "752f714ea44cbed0fedf9ea64abca933be0f9710d0e3609fd8b8692be5db7695",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      },
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/86ed2929e109e71f8035632e701d7329e97ee6ce8db263e66ff6122d05ec518f.py",
+        "sha256": "86ed2929e109e71f8035632e701d7329e97ee6ce8db263e66ff6122d05ec518f",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      },
+      {
+        "path": ".evidence/catalog-gpt61-terra-builtin/verification/script-versions/9c479f0bccd1321abf5a5120f4a6507e3cdaea4010cb171a65f599a3bb01457b.py",
+        "sha256": "9c479f0bccd1321abf5a5120f4a6507e3cdaea4010cb171a65f599a3bb01457b",
+        "provenance": "reconstructed from recorded edits and matched original receipt selectedInputs"
+      }
+    ]
+  },
+  "approvedSnapshotEquality": {
+    ".evidence/catalog-gpt61-terra-builtin/maintenance/20261102T005920Z-000b6471/approved-review/snapshot.json": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+    "local-catalog.json": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+    "ai/catalog_builtin.json": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca",
+    "catalog/data/baseline/snapshot.json": "04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca"
+  },
+  "applicability": {
+    "live": {
+      "status": "NOT_APPLICABLE",
+      "reason": "Catalog adoption and existing Chinese evaluation config pins require no new vendor facts; no real vendor requests or new qualification."
+    },
+    "race": {
+      "status": "NOT_APPLICABLE",
+      "reason": "No shared state, locking, cancellation, resource implementation or concurrency behavior changed."
+    },
+    "pressure": {
+      "status": "NOT_APPLICABLE",
+      "reason": "One additional existing-scale catalog model and config pins do not change load paths, complexity or resource limits; ordinary skips do not count as pressure."
+    }
+  },
+  "limitations": [
+    "Three cancelled ordinary attempts retained with actual exit -15 and prior native failures; incomplete cases in them are not passing evidence.",
+    "The 7 earlier orchestration script versions were reconstructed after execution and verified against receipt digests; they were not independently retained at execution time.",
+    "Controlled live-tag subprocess bundles are ordinary offline harness evidence, not vendor live qualification.",
+    "No release/deployment or vendor qualification was performed."
+  ],
+  "verificationErrors": []
+}

@@ -1,0 +1,286 @@
+{
+  "comparisonBase": "37a283ee4ef743f93d3a12132d1bc2c3211fb1e5",
+  "comparisonHead": "4831e3544945f667d9a817be8dfb92dd08856575",
+  "testedCurrentCommit": "d4dbafaa1537ada3f6a56ade817dc63ad20d9f9d",
+  "coreRuntimeCodeChanged": "NO",
+  "coreRuntimeFiles": [],
+  "runtimeDependenciesChanged": "NO",
+  "dependencyFiles": [],
+  "maintenanceImplementationChanged": "NO",
+  "maintenanceFiles": [],
+  "exampleCodeChanges": [
+    {
+      "status": "M",
+      "path": "ai/examples/chineseeval/cmd/chineseeval/main.go"
+    }
+  ],
+  "otherChanges": [
+    {
+      "status": "A",
+      "path": ".scratch/catalog-gpt61-terra/issues/01-builtin-adoption.md"
+    },
+    {
+      "status": "A",
+      "path": ".scratch/catalog-gpt61-terra/spec.md"
+    },
+    {
+      "status": "A",
+      "path": ".scratch/catalog-gpt61-terra/status.md"
+    },
+    {
+      "status": "M",
+      "path": "ai/catalog_builtin.json"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_candidate_empty_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_candidate_retained_source_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_history_fixture_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_inclusion_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_maintenance_adoption_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_maintenance_cli_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_maintenance_lifecycle_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_maintenance_migration_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_maintenance_review_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/catalog_maintenance_workflow_test.go"
+    },
+    {
+      "status": "A",
+      "path": "ai/e2e/catalog_terra_builtin_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/chinese_current_catalog_process_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/chinese_evaluation_test.go"
+    },
+    {
+      "status": "M",
+      "path": "ai/e2e/chinese_routes_process_test.go"
+    },
+    {
+      "status": "A",
+      "path": "ai/e2e/testdata/catalog/README.md"
+    },
+    {
+      "status": "A",
+      "path": "ai/e2e/testdata/catalog/pre-terra-builtin.json"
+    },
+    {
+      "status": "M",
+      "path": "ai/examples/chineseeval/README.md"
+    },
+    {
+      "status": "M",
+      "path": "ai/examples/chineseeval/cmd/chineseeval/main.go"
+    },
+    {
+      "status": "A",
+      "path": "ai/examples/chineseeval/testdata/jev-1.13.0-v4.json"
+    },
+    {
+      "status": "A",
+      "path": "ai/examples/chineseeval/testdata/jev-route-v4.json"
+    },
+    {
+      "status": "A",
+      "path": "ai/examples/chineseeval/testdata/luna-route-v4.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/README.md"
+    },
+    {
+      "status": "D",
+      "path": "catalog/data/baseline/README.md"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/inputs/208a4ac3a0b9e52c1ecdefc14e5119cf069041330044571a107e6c0948cb093b.bin"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/inputs/9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb.bin"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/inputs/a436154bb6d5d16dc59ee9159b30d4a4e632161caa823aaf4c58736198a55028.bin"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/inputs/cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a.bin"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/anthropic.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/deepseek.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/google.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/minimax-cn.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/minimax.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/moonshot-cn.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/moonshot.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/openai.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/typesafe.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/xai.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/zai.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/providers/zhipu.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/review.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/revision.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/snapshot.json"
+    },
+    {
+      "status": "A",
+      "path": "catalog/data/baseline/state.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/anthropic.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/deepseek.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/google.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/minimax-cn.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/minimax.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/moonshot-cn.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/moonshot.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/openai.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/typesafe.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/xai.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/zai.json"
+    },
+    {
+      "status": "M",
+      "path": "catalog/data/providers/zhipu.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/barness-ai/CHANGELOG.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/barness-ai/README.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/barness-ai/catalog-maintenance.md"
+    }
+  ],
+  "externalJson": {
+    "decision": "JSON_ONLY_FOR_TESTED_EXTERNAL_LOADER",
+    "checkedProgramCommit": "37a283ee4ef743f93d3a12132d1bc2c3211fb1e5",
+    "evidence": "verification/old-program-check.json",
+    "evidenceKind": "Actual historical code compatibility measurement on exact snapshot bytes",
+    "conditions": [
+      "Host explicitly loads the file and injects Config.Catalog",
+      "Reload and create a new Client"
+    ],
+    "arbitraryOlderReleasesVerified": false,
+    "sdkUpgradeRequiredForThisModelOnCheckedProgram": false
+  },
+  "builtinDefault": {
+    "decision": "REBUILD_AND_DISTRIBUTE_PROGRAM",
+    "reason": "go:embed defaults are compiled into existing binaries even when runtime Go code is unchanged"
+  },
+  "exampleImpact": "ChineseEvaluation defaults select v4; only config version and catalog pins change; historical configs remain immutable.",
+  "newVendorQualification": false,
+  "softwareVersionPublished": false
+}
