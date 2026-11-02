@@ -1,12 +1,13 @@
 # GPT-6.1 Terra 目录接纳与内置采用状态
 
-当前状态：三组默认数据已采用，目录维护与 Terra 定向已通过；完整普通发现示例当前配置 pin 需新 revision，同步中。此前原件保持。
+当前状态：内置采用与对应受控验证已完成，普通 PASS/exit0（2026-11-02）。此前失败、取消和历史原件保持。
 采用起点：`37a283ee4ef743f93d3a12132d1bc2c3211fb1e5`。
 GPT-6.1 Terra 子 agent `/root/terra_builtin_verification` 负责受影响验证编排和执行；
 root 负责完整审阅包导出、默认数据采用和交付。
 
 本次影响：维护源 `catalog/data/providers/`、运行快照 `ai/catalog_builtin.json`、
-完整采用基线 `catalog/data/baseline/`；必要的历史迁移断言与 Terra 公共 E2E。
+完整采用基线 `catalog/data/baseline/`；必要的历史迁移断言与 Terra 公共 E2E；
+受影响的 ChineseEvaluation 默认配置 v4。
 不改变 Provider 协议或共享资源实现。旧 118 条定义、价格、身份和相对顺序保留，
 新增一个 Responses 身份；内置目录共 119 条。
 
@@ -80,11 +81,80 @@ ChineseEvaluation 共因失败后中断，CANCELLED/exit -15；此前维护回�
 依据示例合同新增 v4（配置版本、目录 Version/Hash 三字段），更新默认选择并验证
 v3 原字节和旧快照配对；不放宽校验，不改历史报告或测量。
 GPT-6.1 Terra worker `/root/terra_chinese_config_revision` 负责示例配置/默认文件，
-验证 Terra 继续负责 E2E 与实际执行。新冻结后完整普通待执行。
+验证 Terra 继续负责 E2E 与实际执行。该修复已在新冻结版本通过，见下方最终结果。
 
 采用前当前状态快照：同维护 attempt 的 `status-before-adoption.md`。
 既有未跟踪 `.catalog/`、`local-catalog.json` 和
 `.scratch/provider-integration-status-20261102/` 均保留；不将它们混入提交。
+
+## 内置采用最终结果
+
+实际受测提交：`d4dbafaa1537ada3f6a56ade817dc63ad20d9f9d`。
+当前收尾仅更新本状态和 issue，最终提交及来源/输入集合相等性见不可变完成索引：
+`.evidence/catalog-gpt61-terra-builtin/maintenance/20261102T005920Z-000b6471/completion-builtin-v1.json`。
+更新前状态保存为同目录 `status-before-completion.md`。
+
+完整普通 argv：
+
+```sh
+go test -json ./ai/e2e ./ai ./ai/examples/chineseeval/... ./catalog/... \
+  ./cmd/catalogctl ./cmd/cataloggen -count=1 -timeout=40m
+```
+
+该命令经 `tools/verification/run.py` 采集，外层有界 2700 秒，
+实际 PASS/exit0，墙钟 1234.91 秒。原件：
+`.evidence/catalog-gpt61-terra-builtin/e2e/20261102T013403.060605Z-n5h34x6a/receipt.json`，
+SHA-256 `2cf3d64eac39e3fc0120f938a8321a7088e4f2e005aa82ce1c108115cfbdb74e`。
+
+- 唯一主 `./ai/e2e` bundle：`bundles/20261102T013405.293044000Z/`，
+  16,889 PASS、226 NOT_RUN；manifest SHA-256
+  `0a54c500d83f1229d5ca92b5e8d7dd2c2c82d5d701ba1b609d0b4f82b3ec50f5`，audit 发现 0。
+- 三个既有受控 live-tag 子进程 bundle 分别 32、77、6 个 PASS，audit 均 0；
+  属离线 harness 验证，不是新厂商 live 或真实资格。
+- 必需 28 个原生 case 全部 PASS：14 个 Terra（发现、请求/响应、Usage、历史工具、
+  图片输入、参数、推理、授权、272K below/equal/above、来源、新种子导出），
+  9 个目录 fixture/版本/inclusion，5 个中文评估当前配置/修订。
+- 完整受测源码集合 2,159 文件，跨默认范围的选定输入 87 文件；
+  原生 argv、完整文件集合与每项 SHA 均在回执中。编排脚本也是选定输入。
+- `go generate ./ai`、`go build ./ai/... ./catalog/... ./cmd/catalogctl ./cmd/cataloggen`、
+  同范围 `go vet` 均 exit0；原命令、时间与日志见
+  `.evidence/catalog-gpt61-terra-builtin/verification/build-d4dbafa/`。
+- 批准快照、本地输出、内置 JSON、采用基线 snapshot 四者原字节一致，SHA-256
+  `04107af45ba03e3a4e7660aa5255997303b8c1442b74fc6d905b37fba0ba80ca`。
+  原 118 条定义和相对顺序保持，仅新增明确的 Terra Responses 身份；OpenAI 版本 2。
+- ChineseEvaluation 三份新 v4 仅改变配置版本与目录 Version/Hash；v1/v2/v3 原字节保持。
+  v3 与 Git `37a283ee` 的原目录快照能回放，新目录不会静默接受旧 pin。
+
+验证 Terra 机器可读索引：
+`.evidence/catalog-gpt61-terra-builtin/verification/result-v1.json`，SHA-256
+`4f2332c9b42251c21b3591d1312f516c617d4f58f8fae2577da7b512fa0316bd`。
+它保存 17 个 attempt 的真实状态/退出、全部原件摘要、逐项必需 case、构建及不适用依据。
+报告为同目录 `report.md`。
+
+### Standards
+
+独立 GPT-6.1 Terra 审查通过，最终无发现。逐轮原件及最终报告见维护 attempt
+`review-v7.json`；未以审查冒充测试执行。
+
+### Spec
+
+独立 GPT-6.1 Terra 审查通过。初次发现的重导出完整来源证明缺口已关闭：
+落盘完成索引与 CLI 输出一致，原 Inputs/References 独立比较并保留原字节。
+后续测试夹具与 v4 消费者同步均经增量复核，无剩余发现。
+
+证据留存说明：七个旧编排脚本版本未在执行时独立保存；现根据本会话精确编辑
+恢复原字节，每份 SHA-256 与原回执的 selectedInputs 完全匹配，存于
+`verification/script-versions/<sha256>.py`。这些是事后按摘要恢复，未改旧回执或重封测量。
+当前最终编排脚本原件与本轮回执绑定摘要一致。三个取消的完整 attempt 及所有定向
+失败继续保留；其中未完成场景不计通过。
+
+live/race/压力沿用上方有依据的 NOT_APPLICABLE：本次只有目录采用、只读配置 pin
+和对应测试，不修改协议、共享状态或资源实现。普通 skip 不代表压力已执行。
+本次没有线上发布、部署、完整产品发布结论或新型号真实厂商资格。
+
+回退应形成新的 Provider rollback/withdraw 候选，经 check/apply 后重新导出并采用
+整组维护源、快照和完整基线；若目录身份再次改变，当前示例配置也须新 revision。
+不覆盖本次原件或旧版本。本轮未执行回退。
 
 ## 已完成的本地接纳阶段
 
