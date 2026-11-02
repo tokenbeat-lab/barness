@@ -1,0 +1,3126 @@
+{
+  "goSkipEvents": [
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/ai/examples/chineseeval\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/ai/examples/chineseeval/cmd/chineseeval\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/catalog",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/catalog\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/catalog/data",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/catalog/data\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/catalog/internal/jsonshape",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/catalog/internal/jsonshape\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/catalog/maintenance",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/catalog/maintenance\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/cmd/catalogctl",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/cmd/catalogctl\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/cmd/cataloggen",
+      "test": null,
+      "reasonOutput": [
+        "?   \tgithub.com/tokenbeat-lab/barness/cmd/cataloggen\t[no test files]"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestAdmissionBurstPressure/cloud-interactive",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestAdmissionBurstPressure/cloud-interactive-waiters-x4",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestAdmissionBurstPressure/cloud-batch",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestAdmissionBurstPressure/local",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestCatalogDesignLoad/512",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestCatalogDesignLoad/2048",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestCatalogDesignLoad/apply-0",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestCatalogDesignLoad/apply-1",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressure/local",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressure/cloud",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGLMSharedDesignLoad",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/openai-responses/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/openai-responses/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/openai-chat/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/openai-chat/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/deepseek-responses/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/deepseek-responses/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/deepseek-chat/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/deepseek-chat/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/anthropic-messages/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/anthropic-messages/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/google-gemini/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/google-gemini/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/zhipu-chat/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/zhipu-chat/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/zhipu-messages/closed-renewal",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestGrokHistoryProducerRequiresFreshGrant/zhipu-messages/historical-ledger",
+      "reasonOutput": [
+        "grok_history_admission_test.go:28: only international MiniMax owns historical ledgers"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxReleasePressureLoadConsumer",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxSharedDesignLoad/local/chat",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxSharedDesignLoad/local/responses",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxSharedDesignLoad/local/messages",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxSharedDesignLoad/cloud/chat",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxSharedDesignLoad/cloud/responses",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMiniMaxSharedDesignLoad/cloud/messages",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMixedPressure/local",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMixedPressure/cloud",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMultimodalRuntimeDesignLoad/plain",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestMultimodalRuntimeDesignLoad/hooked",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/local/design-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/local/stalled-consumer",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/cloud-interactive/design-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/cloud-interactive/stalled-consumer",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/cloud-batch/design-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPolicyPressure/cloud-batch/stalled-consumer",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureToolWriteIntegrity/clean",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureToolWriteIntegrity/json-envelope",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureToolWriteIntegrity/argument-limit",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/clean",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/transient",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/partial",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/persistent",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/other",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/closed",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/deadline",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/canceled",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/unreported",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureFixtureWriteBackpressure/partial-unreported",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestReleaseRecordedBundleDiagnostic",
+      "reasonOutput": [
+        "release_recorded_bundle_test.go:19: optional read-only recorded-bundle diagnosis; no new suite certification"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestToolArgumentsScaling",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/candidate-load-plain",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/candidate-load-hooked",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/admission-cancel",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/byte-limits-input-image",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/byte-limits-input-total",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/byte-limits-output-image",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/byte-limits-output-total",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestXAIImaginePressure/byte-limits-output-body",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/intact",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/old-report",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/case-fail",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-report",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-identity",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-operation",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-provider",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-api",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-model",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-catalog",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/small-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-count",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-image-bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-total-bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-base64",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-data-url",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-json-bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/changed-policy",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/changed-limit",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-ratio",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-headroom",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/expanded-budget",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-batch",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/concurrency",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-EOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-result-heap",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-alloc",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/excessive-alloc",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-copies",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-copies",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-throughput",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-throughput",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/cancel-not-proven",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/recovery-not-proven",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/resource-leak",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/missing-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/tampered-capture",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/null-batch-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/null-final-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/null-old-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/tiny-memory",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/tiny-allocation",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/duplicated-results",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/empty-attempt",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/wrong-answer-name",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-schema",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-policy",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-headroom",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-heapBudget",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batches",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-imageBase64Bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-imageDataURLBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-requestJSONBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-providerSharedResponseScriptBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.operation",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.provider",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.api",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.model",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.catalogVersion",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.catalogHash",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.calls",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.tenants",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.callsPerTenant",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.stateBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.questions",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.instructionBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.imageCount",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.imageBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.totalImageBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.kind",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.calls",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.successful",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.canceled",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.peakPermits",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.permitsAtEOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.clientUnaryBytesAtEOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.responseBytesPerCall",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.providerCapturedRequestBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heap",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heapGrowth",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heapAtEOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heapWithResults",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.totalAllocDuringCalls",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.duration",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.callsPerSecond",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/intact",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/old-report",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/case-fail",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-report",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-identity",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-operation",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-provider",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-api",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-model",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-catalog",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/small-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-count",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-image-bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-total-bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-base64",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-data-url",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-json-bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/changed-policy",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/changed-limit",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-ratio",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-headroom",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/expanded-budget",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-batch",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/concurrency",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-EOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-result-heap",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-alloc",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/excessive-alloc",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-copies",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-copies",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-throughput",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-throughput",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/cancel-not-proven",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/recovery-not-proven",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/resource-leak",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/tampered-capture",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/null-batch-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/null-final-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/null-old-resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/tiny-memory",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/tiny-allocation",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/duplicated-results",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/empty-attempt",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-answer-name",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-schema",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-policy",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-headroom",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-heapBudget",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batches",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-imageBase64Bytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-imageDataURLBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-requestJSONBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-providerSharedResponseScriptBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.operation",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.provider",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.api",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.model",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.catalogVersion",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.catalogHash",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.calls",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.tenants",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.callsPerTenant",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.stateBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.questions",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.instructionBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.imageCount",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.imageBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.totalImageBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.kind",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.calls",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.successful",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.canceled",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.peakPermits",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.permitsAtEOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.clientUnaryBytesAtEOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.responseBytesPerCall",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.providerCapturedRequestBytes",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heap",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heapGrowth",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heapAtEOF",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heapWithResults",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.totalAllocDuringCalls",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.duration",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.callsPerSecond",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.resources",
+      "reasonOutput": [
+        "policy_pressure_test.go:104: opt-in: BARNESS_AI_PRESSURE=1"
+      ]
+    },
+    {
+      "package": "github.com/tokenbeat-lab/barness/ai/e2e",
+      "test": "TestPressureLoopback",
+      "reasonOutput": [
+        "zz_pressure_loopback_test.go:21: diagnostic opt-in: BARNESS_AI_PRESSURE_LOOPS=100"
+      ]
+    }
+  ],
+  "nativeNotRunCases": [
+    {
+      "id": "CATALOG-PRESSURE-apply-0",
+      "test": "TestCatalogDesignLoad/apply-0",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestCatalogDesignLoad$/^apply-0$'",
+      "assertions": "ec568a42b6745815f59fbdbf76270b132e9b999eae429f07b7a770a4cf1f4390"
+    },
+    {
+      "id": "CATALOG-PRESSURE-apply-1",
+      "test": "TestCatalogDesignLoad/apply-1",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestCatalogDesignLoad$/^apply-1$'",
+      "assertions": "7b890ab056657d55a65e151c75435620bfc6e61398d7d4bb77eb85c7a523fe61"
+    },
+    {
+      "id": "CATALOG-PRESSURE-load-2048",
+      "test": "TestCatalogDesignLoad/2048",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestCatalogDesignLoad$/^2048$'",
+      "assertions": "8f9b0589ba2e320573c811531596916f13e6e8b01aaada962dbf0ca9cbe29907"
+    },
+    {
+      "id": "CATALOG-PRESSURE-load-512",
+      "test": "TestCatalogDesignLoad/512",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestCatalogDesignLoad$/^512$'",
+      "assertions": "5bd0d92606d8472c2a3e701cff3d8d373b0b50607a4fd96e6635bd8d2fad0a85"
+    },
+    {
+      "id": "E08-admission-burst-pressure-cloud-batch",
+      "test": "TestAdmissionBurstPressure/cloud-batch",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestAdmissionBurstPressure$/^cloud-batch$'",
+      "assertions": "dacfff65e0479ccda4f616fcb2bd568af7f46593cda5b0c61e6b8ca460e9e54a"
+    },
+    {
+      "id": "E08-admission-burst-pressure-cloud-interactive",
+      "test": "TestAdmissionBurstPressure/cloud-interactive",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestAdmissionBurstPressure$/^cloud-interactive$'",
+      "assertions": "cb8bf191ced3a1c4b0fd0635680d7fa7c8dec979e19a97b8a9d1028f312a1308"
+    },
+    {
+      "id": "E08-admission-burst-pressure-cloud-interactive-waiters-x4",
+      "test": "TestAdmissionBurstPressure/cloud-interactive-waiters-x4",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestAdmissionBurstPressure$/^cloud-interactive-waiters-x4$'",
+      "assertions": "838a2216f6e400b90c092eaa7d8dfdcf0ce6333975298818815cc3700ed4fba3"
+    },
+    {
+      "id": "E08-admission-burst-pressure-local",
+      "test": "TestAdmissionBurstPressure/local",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestAdmissionBurstPressure$/^local$'",
+      "assertions": "4f187ee7616a8ead8daf17ed5eb2f90bd6fde1d9aca65ba9f14302787f4ae77d"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-cancel-not-proven",
+      "test": "TestClassifierImagesPressureImport/cloud/cancel-not-proven",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^cancel-not-proven$'",
+      "assertions": "9d70aa41d3ffcd9f9c627e7a8742b7c69c2f8b2d5e9e1187f2be1666723e80e7"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-case-fail",
+      "test": "TestClassifierImagesPressureImport/cloud/case-fail",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^case-fail$'",
+      "assertions": "7ce27cb019530f3fc1d9be28b2c9933533c16468170c5ea8b177775cdf306b64"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-changed-limit",
+      "test": "TestClassifierImagesPressureImport/cloud/changed-limit",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^changed-limit$'",
+      "assertions": "5d32cb483a63358edd0178a5842280ad0650624f0edf90a1b7b28b5af667ea7a"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-changed-policy",
+      "test": "TestClassifierImagesPressureImport/cloud/changed-policy",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^changed-policy$'",
+      "assertions": "93928aa68d713e39ae460e3f439f59d3a435f4c7090525bcce4693ad69a0fe73"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-concurrency",
+      "test": "TestClassifierImagesPressureImport/cloud/concurrency",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^concurrency$'",
+      "assertions": "5d70116be9510e9b7fce97d7612fddeace7e4add1f2dea270292602c6f332b7d"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.calls",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.calls",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.calls$'",
+      "assertions": "03cb0443539fc140768a4387dc0f69da85d3960de9f861848a20e2324db97f48"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.callsPerSecond",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.callsPerSecond",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.callsPerSecond$'",
+      "assertions": "97bd5e511ba016eb33e9d3eab6b6fb47afdec83986ac76de1824e0aaec930c83"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.canceled",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.canceled",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.canceled$'",
+      "assertions": "781ebc221638800f092f11cd5dce30b97e79a7ada0a0758f165815e8b5e146a5"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.clientUnaryBytesAtEOF",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.clientUnaryBytesAtEOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.clientUnaryBytesAtEOF$'",
+      "assertions": "99b420211251af07fcc6244f7835e52296ace872e892f1f0bf720b04fa89a2f4"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.duration",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.duration",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.duration$'",
+      "assertions": "e285fcc4321a8bd09d8b53537a02b1d548f39f3b7190b7389e6ca91b37a92030"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.heap",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heap",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.heap$'",
+      "assertions": "59003cb61d95235c7f623a2ab86f5c47150f7f084b1c33a805e042c4eb0284a9"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.heapAtEOF",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heapAtEOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.heapAtEOF$'",
+      "assertions": "76805964b4db023cc800f706c760c1d5a0ec275e4e5f2efa93087b5a637f6088"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.heapGrowth",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heapGrowth",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.heapGrowth$'",
+      "assertions": "145ed9083a647ace217491be6aee685e98ea59108f5cebcb84a0c7b2f6fcd80a"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.heapWithResults",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.heapWithResults",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.heapWithResults$'",
+      "assertions": "ee85f1aa5596e1e7fa5b0083fb67d6b195b159bcd65566b08d4eb633700feda7"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.kind",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.kind",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.kind$'",
+      "assertions": "18d19b46e5dc3b6d0712dc6c94ac24ff280443e464c3ba12cbc14c77576b280e"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.peakPermits",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.peakPermits",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.peakPermits$'",
+      "assertions": "641ce22a2c086592a0abed9a09cda3dea7539b6e1c012c7cdf5c5b59cc16be68"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.permitsAtEOF",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.permitsAtEOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.permitsAtEOF$'",
+      "assertions": "cc53410e8da1c30878a78c225454789f456e4a6696452432a9c1166ed95bfb97"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.providerCapturedRequestBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.providerCapturedRequestBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.providerCapturedRequestBytes$'",
+      "assertions": "ae7c374f63e8b3e6d7fd18b612b39aabcd3cef59fbc1cb1a19cad65a7d61e600"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.resources",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.resources$'",
+      "assertions": "404559cd44f26a6f0cb49e4a81886af250bcc89f016d2ae1c3dd36687ab98cc9"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.responseBytesPerCall",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.responseBytesPerCall",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.responseBytesPerCall$'",
+      "assertions": "0ddd9baf204385c53296177bac18ef3352c5987ea9d6ca866d8f2cc8b0ae03e3"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.successful",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.successful",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.successful$'",
+      "assertions": "c408c517c2769cfda687def0afd5d8130e6d7be832dbfce9e52529879f2c195c"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batch.totalAllocDuringCalls",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batch.totalAllocDuringCalls",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batch\\.totalAllocDuringCalls$'",
+      "assertions": "b5481a28f8db182331e16586f857388122fad7c2a0785935f9965320840180e3"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-batches",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-batches",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-batches$'",
+      "assertions": "092b4efe5aded3aa21823d685b335a0e98deda950005878a54b0fcb1373c1780"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-headroom",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-headroom",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-headroom$'",
+      "assertions": "a22b1032d4150eba1c975cbd8e7b7e257b71eb22fe2d1a4777a6ba3f0fed0012"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-heapBudget",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-heapBudget",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-heapBudget$'",
+      "assertions": "ab7b23b0a78e70dab0d03bbdb107e8f4b423a542b7e64669795b83654dd4fcdb"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity$'",
+      "assertions": "8014b76aea0f4c79c98e1f51374f09be3d6dedb98c45939794979d4a49ab3ae5"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity.api",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.api",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity\\.api$'",
+      "assertions": "4384d99b0d72382e712c1430df1858fe7166be28f42347620e9474b5f14b7334"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity.catalogHash",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.catalogHash",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity\\.catalogHash$'",
+      "assertions": "31edda79e0aeb3648fc3d7e206c239e6a41511358577a9fc44f6bfe4ed4df4bc"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity.catalogVersion",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.catalogVersion",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity\\.catalogVersion$'",
+      "assertions": "3c942ce9027d9f10fe0546932344932ccde904f5df232f66e429aaeb76f91840"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity.model",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.model",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity\\.model$'",
+      "assertions": "44b3b0d8a193f75f0b11fbfde9690f2f8921d4757e15c028e507dd009485fde7"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity.operation",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.operation",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity\\.operation$'",
+      "assertions": "41ce7c12567b5cf8b9a6775e9a12803ca38bbd015bcb238430eada766bdfcb9e"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-identity.provider",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-identity.provider",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-identity\\.provider$'",
+      "assertions": "779c82a36579570a44926b96b0033a41bb575b73bb1e1140ec3aa7b9d6103a19"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-imageBase64Bytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-imageBase64Bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-imageBase64Bytes$'",
+      "assertions": "a1755f496a083df8d54636e0bd66192a69999ad1bd12ade4b40b664f5166540b"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-imageDataURLBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-imageDataURLBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-imageDataURLBytes$'",
+      "assertions": "f994fc50a2b43f68667e36889e25a2c2bbb476bdd3dedc55c66d60b5adea1eb1"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load$'",
+      "assertions": "0a8e58dfd484aef13f6cf2154b77079d920bea75730c5b0afae017974798df3f"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.calls",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.calls",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.calls$'",
+      "assertions": "614664fa3c22c592555b3e186b568f7b94f706da1ad7150986569fd7e7464e58"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.callsPerTenant",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.callsPerTenant",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.callsPerTenant$'",
+      "assertions": "172cd1fb46e2a0282f79ad87207ed85e9107c3914f53e17f2f1c93d4c73622fc"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.imageBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.imageBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.imageBytes$'",
+      "assertions": "ea9d82981cd8ca466e34a5749aaef9911a935cfedd2c3f4af74375854d1b3f25"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.imageCount",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.imageCount",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.imageCount$'",
+      "assertions": "e8b8ef4b1076216dc5f39f43b2f7852a01c9fc9b504db04e8615cbdf97acb9ae"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.instructionBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.instructionBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.instructionBytes$'",
+      "assertions": "864426f98ba5944355adeff3962adfddf59e2cd96ea7eddaf05b0c2e795e3144"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.questions",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.questions",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.questions$'",
+      "assertions": "0ff1e9d0e6a12af0ae3e78cf66e3b31802b07e389d25d9f46f157a787fef61c8"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.stateBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.stateBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.stateBytes$'",
+      "assertions": "73974229a6335ecc16815134d15412edac2c17b69921885e75daa04284d3566c"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.tenants",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.tenants",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.tenants$'",
+      "assertions": "6d3031a1035035c821806e1c8d0791fd76c09205c48bdf98045cbd4a8dd61a60"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-load.totalImageBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-load.totalImageBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-load\\.totalImageBytes$'",
+      "assertions": "674951a192fff9badf47d483bcb61165d929b3ac92d3481d8bb340a8fe4d6613"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-policy",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-policy",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-policy$'",
+      "assertions": "f007a60ae11781831cf0a1d7787738f92ef9f7659d3bb2a4cf7bc9c9b0ca9b77"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-providerSharedResponseScriptBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-providerSharedResponseScriptBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-providerSharedResponseScriptBytes$'",
+      "assertions": "742fc8d2f0e12b92620d0ff165733656e427246774ca82cafff2c14e46b34182"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-requestJSONBytes",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-requestJSONBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-requestJSONBytes$'",
+      "assertions": "c5c582497852b39d34697f796dfa7b45d7c8a7fed92693b177bd87558072cd0f"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-delete-schema",
+      "test": "TestClassifierImagesPressureImport/cloud/delete-schema",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^delete-schema$'",
+      "assertions": "121ed0efc2d8ba3c005c6dc21b3a19f310ae51b50893d3b9ae647844798738cc"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-duplicated-results",
+      "test": "TestClassifierImagesPressureImport/cloud/duplicated-results",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^duplicated-results$'",
+      "assertions": "e11dcf25e491799ee41c4507022b423e049ba773d8bd03d62923deb85bb1dfa0"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-empty-attempt",
+      "test": "TestClassifierImagesPressureImport/cloud/empty-attempt",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^empty-attempt$'",
+      "assertions": "7e3e412553d4c39e2254ca2472dd19a4144aff63652a7826b777fdc5595294c7"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-excessive-alloc",
+      "test": "TestClassifierImagesPressureImport/cloud/excessive-alloc",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^excessive-alloc$'",
+      "assertions": "3e96599252d932bef92c15c2ac5c0bd926b8eeec3607c222013f0722624eaba4"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-expanded-budget",
+      "test": "TestClassifierImagesPressureImport/cloud/expanded-budget",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^expanded-budget$'",
+      "assertions": "5426adcd0789a6b51845520c9eecf0b530173022b50fb91b35ef58a89302ce6d"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-intact",
+      "test": "TestClassifierImagesPressureImport/cloud/intact",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^intact$'",
+      "assertions": "7ca8782069ed3d3a6faf4b1f0b3f47738a8d15f95c4296b6bbea99f53bd79e64"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-EOF",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-EOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-EOF$'",
+      "assertions": "1029d9a963dcc286406b3f2f24b05acf21fbb83de96fccb2d4d3f7aec7cd2069"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-alloc",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-alloc",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-alloc$'",
+      "assertions": "34b1be499c836f5aebd351323ff790c0b820a82c3a340098f3c0a66787b8c0e4"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-batch",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-batch",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-batch$'",
+      "assertions": "94c5f44c5c11cdbd7ee58bad39ce1d5fbea8e10ced4f43ef81022c40b531f926"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-copies",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-copies",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-copies$'",
+      "assertions": "b78254748dc81525915087a5b59a2fb03e7536801c330616d20098d1ac792941"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-headroom",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-headroom",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-headroom$'",
+      "assertions": "d428c4f1fe4906631e56131fc2538830e35bd69020cfc73a3311f625d8a1754d"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-identity",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-identity",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-identity$'",
+      "assertions": "708866f883b6df53699992ee90345f1fec0e494b68e8190075a84554c87b7069"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-report",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-report",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-report$'",
+      "assertions": "8e503dcc2dca1c0729fc771a56a536e1324705ff9460a5a371a569846487cc24"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-resources",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-resources$'",
+      "assertions": "f0725e3a3c88bdefb0cd5a14c4ba8ade8a2941a82a7e89eee2b92da9aaae7f20"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-result-heap",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-result-heap",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-result-heap$'",
+      "assertions": "dccb65f2bcc822655c9e417d5ee7089911cd685a1569681acb328c83e309aa93"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-missing-throughput",
+      "test": "TestClassifierImagesPressureImport/cloud/missing-throughput",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^missing-throughput$'",
+      "assertions": "04a3219e901c9326a27c75c5535d1b3bf2feac7dca9845b0fdb6d3ab572a3016"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-null-batch-resources",
+      "test": "TestClassifierImagesPressureImport/cloud/null-batch-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^null-batch-resources$'",
+      "assertions": "aff2a0ca9c4239dbc3c22df5318557186ead2468ebb5897061d25e8da422d385"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-null-final-resources",
+      "test": "TestClassifierImagesPressureImport/cloud/null-final-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^null-final-resources$'",
+      "assertions": "fd1e9543fae5fae9ae74509f3d3ef85c34e061cfe9e729ec5ce99cb57239e975"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-null-old-resources",
+      "test": "TestClassifierImagesPressureImport/cloud/null-old-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^null-old-resources$'",
+      "assertions": "98729d040d4c5ffee56879a28bd3cc9802cc6708aed47a754af36d7074e1dc9f"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-old-report",
+      "test": "TestClassifierImagesPressureImport/cloud/old-report",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^old-report$'",
+      "assertions": "e49f382d77809595175da2845f424dfea2ca04a004aa158bf7d54b9d74690e6d"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-recovery-not-proven",
+      "test": "TestClassifierImagesPressureImport/cloud/recovery-not-proven",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^recovery-not-proven$'",
+      "assertions": "f29f056054de4bf9f5715a7d415b32a6358259e6f6c5916ed6a6ab711bb84288"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-resource-leak",
+      "test": "TestClassifierImagesPressureImport/cloud/resource-leak",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^resource-leak$'",
+      "assertions": "2a5edbf2ee7c0f9e73b3ce6595a26ba6e62038733f646966d84a16d05d4d9414"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-small-load",
+      "test": "TestClassifierImagesPressureImport/cloud/small-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^small-load$'",
+      "assertions": "cfd0b4cc5ab48b06c3a5ddb1c24b4a12a1f9d39833c73483a8a6978aea0acbb4"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-tampered-capture",
+      "test": "TestClassifierImagesPressureImport/cloud/tampered-capture",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^tampered-capture$'",
+      "assertions": "bb06b043a7d32a8ab5a0279aedd9ee33dcb3379c1ee83c1a8be7c13232bb8803"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-tiny-allocation",
+      "test": "TestClassifierImagesPressureImport/cloud/tiny-allocation",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^tiny-allocation$'",
+      "assertions": "ad2b8e253a599953087cfe6bb974a10e53fbecd71f4aeea8c995360813ce218f"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-tiny-memory",
+      "test": "TestClassifierImagesPressureImport/cloud/tiny-memory",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^tiny-memory$'",
+      "assertions": "3f4839b30adc21cae81f026f233ef4725350f37eac3121178db36e460d73a59e"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-answer-name",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-answer-name",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-answer-name$'",
+      "assertions": "97507339a2de81dc401eb0dc52079fc41656063410eeedd217f2ea4604c29364"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-api",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-api",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-api$'",
+      "assertions": "15294b6c02e0167c097ad5abd64dd630fc1c7c7358843c54470e76d97dda39f8"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-base64",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-base64",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-base64$'",
+      "assertions": "31768e08a55b8a08f8abb42678afde88ddb2bf3a25cfca93f8493fbf229b9c06"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-catalog",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-catalog",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-catalog$'",
+      "assertions": "c99819d56c92a93ec76def07bc35dc6dad69193db0d162488c8547cc68592b48"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-copies",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-copies",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-copies$'",
+      "assertions": "d84a34648e053b9bc2613037fc15209e8caa02e826a5a7089af97ff0960cc785"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-count",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-count",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-count$'",
+      "assertions": "58639c97563c1932717062a599b135a505c28184857fb5e83adda55f993dcbbe"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-data-url",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-data-url",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-data-url$'",
+      "assertions": "3d0c0dedf9389b3ca7a3a5b458ca2bbad878cfe6648a2414cf1cec4aab51c122"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-image-bytes",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-image-bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-image-bytes$'",
+      "assertions": "500acb7dfb5fb336e49d1f83ee7c5dce0a34fdda77c60b88f3c71d5887c0497b"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-json-bytes",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-json-bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-json-bytes$'",
+      "assertions": "d26adb0aebbf6d4b8000f14b1a1dc24d677122e268be7f3acc25f7529f359523"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-model",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-model",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-model$'",
+      "assertions": "6f8a1a2699a02dd737f2164b2a35d97ed17564ac1e2c9e9fd0e3f45a04a5907e"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-operation",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-operation",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-operation$'",
+      "assertions": "ec3b56bf819ea8338fb9c374f6e24119eaf01971b12b1107fe372f04408ec79d"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-provider",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-provider",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-provider$'",
+      "assertions": "f0371c0927cbc330f8448042b9299b8b961514c6027117fe334091b02ba44902"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-ratio",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-ratio",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-ratio$'",
+      "assertions": "e066a8721c055b15695a0d5d7f1424998fc4d61c98f916671bd3bc4219d67dbf"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-throughput",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-throughput",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-throughput$'",
+      "assertions": "84ea9743a937198a1c751d9e3851ad473b4fa82466b66cea834eb751ab017dba"
+    },
+    {
+      "id": "E08-classifier-images-import-cloud-wrong-total-bytes",
+      "test": "TestClassifierImagesPressureImport/cloud/wrong-total-bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^cloud$/^wrong-total-bytes$'",
+      "assertions": "64c79784ac5400a746f66fcabdbb113faabd0544766dc65087a1e5d4be230489"
+    },
+    {
+      "id": "E08-classifier-images-import-local-cancel-not-proven",
+      "test": "TestClassifierImagesPressureImport/local/cancel-not-proven",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^cancel-not-proven$'",
+      "assertions": "06486dbdeea72fb0a54eacb3829002455f605022da4bd2496e0ee499ed348863"
+    },
+    {
+      "id": "E08-classifier-images-import-local-case-fail",
+      "test": "TestClassifierImagesPressureImport/local/case-fail",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^case-fail$'",
+      "assertions": "2c3f87bde186dea3ebd7cd977f339fb0eb0099202aaa89114642d6b4ab973fe8"
+    },
+    {
+      "id": "E08-classifier-images-import-local-changed-limit",
+      "test": "TestClassifierImagesPressureImport/local/changed-limit",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^changed-limit$'",
+      "assertions": "70abd51389ed3917b5f953fbe7fc0b1ad9f95dd468f8374459d30842c147d73f"
+    },
+    {
+      "id": "E08-classifier-images-import-local-changed-policy",
+      "test": "TestClassifierImagesPressureImport/local/changed-policy",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^changed-policy$'",
+      "assertions": "ff372bb2252f7d1701115ca9e8e0adb47f738a0baafae77ac528f482ad2f7a10"
+    },
+    {
+      "id": "E08-classifier-images-import-local-concurrency",
+      "test": "TestClassifierImagesPressureImport/local/concurrency",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^concurrency$'",
+      "assertions": "2345d83df3f1537c92383eae1528239805389890582aafb851666d52540281c2"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.calls",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.calls",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.calls$'",
+      "assertions": "f35b7b2bf09c948f4f109a440903a4c8cd61c7ca427b0e00e6cc522eab188a8a"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.callsPerSecond",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.callsPerSecond",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.callsPerSecond$'",
+      "assertions": "9ac1b48b42259f9faf239baa169b1da01f34386cb57a0a57583302ada5eb2b04"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.canceled",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.canceled",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.canceled$'",
+      "assertions": "82c443a2a7c32afda1459ca8997d7a9bb4f387952c19b1ca9698f0ade3ca4eb0"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.clientUnaryBytesAtEOF",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.clientUnaryBytesAtEOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.clientUnaryBytesAtEOF$'",
+      "assertions": "d78291620bf3998a7dd06fecd5b1b9314f2814222a307f7abd08c55693b51b48"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.duration",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.duration",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.duration$'",
+      "assertions": "2ea3a36610da3f03d2fb0eefd55e8ab4e0cd6095cd1d11d1dbff7c31e351b3aa"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.heap",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heap",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.heap$'",
+      "assertions": "4bc6f65dff5856bcfb477f2f9d7a96ac4ddf4fd9cb41ffcd11760925b210e26c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.heapAtEOF",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heapAtEOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.heapAtEOF$'",
+      "assertions": "5500735d0d2ed406a423f27445465affcd256d2e1bcf024e8cf6189fcbad9a52"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.heapGrowth",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heapGrowth",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.heapGrowth$'",
+      "assertions": "feae1f92f86bbe7d0bea0c48a820f3435c6697ecce38cd1abf396a716766fb86"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.heapWithResults",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.heapWithResults",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.heapWithResults$'",
+      "assertions": "e1c53b5bc4046e2bff4b3593db607936084c670b767ca69521a9908a9c5ecfbe"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.kind",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.kind",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.kind$'",
+      "assertions": "f1ea6f6a3a9834f368fa9f2515b74c19d223eba51d209d033d57c4e6ab46c24f"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.peakPermits",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.peakPermits",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.peakPermits$'",
+      "assertions": "33474674c09575aba22253f93185bdb8be39cbb11cd3770caca716e84cff01e9"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.permitsAtEOF",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.permitsAtEOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.permitsAtEOF$'",
+      "assertions": "71e4b2acac55c6a6694fca44292f9a63b8ce2149fa1edca8b8b5a71bbf69dbf1"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.providerCapturedRequestBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.providerCapturedRequestBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.providerCapturedRequestBytes$'",
+      "assertions": "8240643b62491fc4c718e5fa82ff4dbaaef8daf7452ed2e77f2b9ca90fa5d696"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.resources",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.resources$'",
+      "assertions": "3dd0e051427da3187777bf8a8bb3056b1a17a68d814280aa3cfe6c2d5f0d80bd"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.responseBytesPerCall",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.responseBytesPerCall",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.responseBytesPerCall$'",
+      "assertions": "9e4e2e8a69de873a14bc791f73738688c1dfc795cd08928b6f3b8414a7b5d931"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.successful",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.successful",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.successful$'",
+      "assertions": "264262b018cc2e7f7014b82bc176668cad6a00d5067fa5df0e7b6a208e099ddd"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batch.totalAllocDuringCalls",
+      "test": "TestClassifierImagesPressureImport/local/delete-batch.totalAllocDuringCalls",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batch\\.totalAllocDuringCalls$'",
+      "assertions": "5895559fe83a949e285a32fdba0645e37562f55a8a9c4b457bf374bee58d0c9c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-batches",
+      "test": "TestClassifierImagesPressureImport/local/delete-batches",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-batches$'",
+      "assertions": "f7644c05b62630eeda55fffe9cd2c17485bf87edb4d95a9b7822d72a1307685c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-headroom",
+      "test": "TestClassifierImagesPressureImport/local/delete-headroom",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-headroom$'",
+      "assertions": "5ac11a1f4a1d046806ee5d3461edef9d2224b4e1ee592233b33f4a42fb0773da"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-heapBudget",
+      "test": "TestClassifierImagesPressureImport/local/delete-heapBudget",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-heapBudget$'",
+      "assertions": "5dcf9bda83b94c541d1caef49eaabdda22f63c27c82c4a84577cc671f0add409"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity$'",
+      "assertions": "121aff136f731459bd6679c552674e9d5637e9ae2602254331ac87be7e5e3a8d"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity.api",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.api",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity\\.api$'",
+      "assertions": "ea53f59078dbae82294e2872454463a3628f240013950c1caff2e42fcbd39ce9"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity.catalogHash",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.catalogHash",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity\\.catalogHash$'",
+      "assertions": "bc8701122a970109fd5aa9f9bd8d25f43cdecdb6ee18e279490fc8f52e645979"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity.catalogVersion",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.catalogVersion",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity\\.catalogVersion$'",
+      "assertions": "88930198b6144bda0eab0315bf1b4ab91519129aaf8126c1a4fb143a59d324e4"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity.model",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.model",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity\\.model$'",
+      "assertions": "67bf6df4e03d4f1fa1f4a78f4728483961c177af461c73ed2e692e79cf7295c7"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity.operation",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.operation",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity\\.operation$'",
+      "assertions": "7c86844f2f086e8a1408ff4cfe79e2e4c403391d804ec91075db9f70c9328d93"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-identity.provider",
+      "test": "TestClassifierImagesPressureImport/local/delete-identity.provider",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-identity\\.provider$'",
+      "assertions": "1b12b2b8d597ebc0b6ffc4ade75c8273f7a0f810a15d345e617a14c4940e4db9"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-imageBase64Bytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-imageBase64Bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-imageBase64Bytes$'",
+      "assertions": "1f541475f94e9da7563e1b900e8e3d86f59c461176e8b37154308fbea3d7d0c9"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-imageDataURLBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-imageDataURLBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-imageDataURLBytes$'",
+      "assertions": "63334cf4765d0ffe45e099cc890fd9bb4cf5342aa441b8c7f51f659852aa1b30"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load",
+      "test": "TestClassifierImagesPressureImport/local/delete-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load$'",
+      "assertions": "450a3898a61a3a85db116e6afb5f857dcc04bf2c6488c91fdfd179ef544c9f28"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.calls",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.calls",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.calls$'",
+      "assertions": "bcd57438ebb006939be7eb7337e43a57738781445e942c814832e91c97c907f3"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.callsPerTenant",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.callsPerTenant",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.callsPerTenant$'",
+      "assertions": "7ad8f6f8e55a051267f9239a674cbf2c9ca5f91e83d02da042f729086e9b5460"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.imageBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.imageBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.imageBytes$'",
+      "assertions": "35cf8c0d1a7410e905dcf1374742b24dbfd688b8bd099c1de79a642a801bf45c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.imageCount",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.imageCount",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.imageCount$'",
+      "assertions": "8895f0d83e98de12f65eed0e395a0cbaac7b09aedf643421e1cd70be11b1d44b"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.instructionBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.instructionBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.instructionBytes$'",
+      "assertions": "442f493e274c950b7a0c3d15b4a97cb69b9d93e954b2b72a6cc92f3651003465"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.questions",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.questions",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.questions$'",
+      "assertions": "dcf7ceb3d34460395a0660bc8b307d0baf4b19b73a394da01b33d403696c5461"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.stateBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.stateBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.stateBytes$'",
+      "assertions": "145aacca3bdd6a9ccfa77aff6681cba8c896a081a6131d33edab1d7cb929fe1f"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.tenants",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.tenants",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.tenants$'",
+      "assertions": "918f8e85bd0b227c0cfae86aed63ea138f6f620afa203f494ca14c90127b0326"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-load.totalImageBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-load.totalImageBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-load\\.totalImageBytes$'",
+      "assertions": "d6a422b4ee99da4cf5eb6a19b8cfbd4bf45c811b241305380e595315e914097a"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-policy",
+      "test": "TestClassifierImagesPressureImport/local/delete-policy",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-policy$'",
+      "assertions": "4a70428882f6b26690cc320c5b5734df06335057c0a01b4ada2ddaa022c65cf5"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-providerSharedResponseScriptBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-providerSharedResponseScriptBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-providerSharedResponseScriptBytes$'",
+      "assertions": "6af1b80e07ac2e634b381cc4bd0b3d4d5857ae7cf72f79e03eddf16cdffd7a51"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-requestJSONBytes",
+      "test": "TestClassifierImagesPressureImport/local/delete-requestJSONBytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-requestJSONBytes$'",
+      "assertions": "9d4625e82c1fda00304a9ad269975ba7ef7a4e36b59f2c6c3ced14806cfc11fe"
+    },
+    {
+      "id": "E08-classifier-images-import-local-delete-schema",
+      "test": "TestClassifierImagesPressureImport/local/delete-schema",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^delete-schema$'",
+      "assertions": "9f1ec762bd3b0fc8e0203c67f672078533704bea0c00d43f6bd82c52e400c20c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-duplicated-results",
+      "test": "TestClassifierImagesPressureImport/local/duplicated-results",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^duplicated-results$'",
+      "assertions": "0278c6b7ffbb2a3ed70f738403e5adc20349929f7056a66ec7843c91097d0081"
+    },
+    {
+      "id": "E08-classifier-images-import-local-empty-attempt",
+      "test": "TestClassifierImagesPressureImport/local/empty-attempt",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^empty-attempt$'",
+      "assertions": "343833554bcaa72ab8c112ac59e208a1d62a7155d17f86e0b3d19920d42de72c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-excessive-alloc",
+      "test": "TestClassifierImagesPressureImport/local/excessive-alloc",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^excessive-alloc$'",
+      "assertions": "b1fd0a8ec30eb0e3ecc2d715b19ea8ade1265538ba1331c0ff53d5bc2ff23c13"
+    },
+    {
+      "id": "E08-classifier-images-import-local-expanded-budget",
+      "test": "TestClassifierImagesPressureImport/local/expanded-budget",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^expanded-budget$'",
+      "assertions": "d67b7e664c403206b24c697c7e4c4c2027e1ea69a079b5e0b6b91095031644d2"
+    },
+    {
+      "id": "E08-classifier-images-import-local-intact",
+      "test": "TestClassifierImagesPressureImport/local/intact",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^intact$'",
+      "assertions": "00aac23da771ad40fd269806588b064acac24b4caa725c16c0aae878a96956ea"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-EOF",
+      "test": "TestClassifierImagesPressureImport/local/missing-EOF",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-EOF$'",
+      "assertions": "e543b8a945321d6439003e8ccc63752e67fb3858640998a7dc9f254b2acafd7d"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-alloc",
+      "test": "TestClassifierImagesPressureImport/local/missing-alloc",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-alloc$'",
+      "assertions": "96f427878cb95b766de3aa9e1442c93006ac622b8b50c768fea95c24b2c8d738"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-batch",
+      "test": "TestClassifierImagesPressureImport/local/missing-batch",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-batch$'",
+      "assertions": "673171a83427221530f0908223528dc1aba3ecb6a51bb738d8abe5d53d5ec26c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-copies",
+      "test": "TestClassifierImagesPressureImport/local/missing-copies",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-copies$'",
+      "assertions": "cdcafdfe3d5b1cc0d76b3465fe29ee076205622bfd0b25ad0ee74fb88a4cab02"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-headroom",
+      "test": "TestClassifierImagesPressureImport/local/missing-headroom",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-headroom$'",
+      "assertions": "f111eb7796f1f51cea541e9d960a9dde9fce4f45897e2fb6d9286aac5ff76905"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-identity",
+      "test": "TestClassifierImagesPressureImport/local/missing-identity",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-identity$'",
+      "assertions": "7c10cf3a91b07ddc63351ba813be57a05d0a18d6ea9a53d2fbcdb8f2f948bf33"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-report",
+      "test": "TestClassifierImagesPressureImport/local/missing-report",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-report$'",
+      "assertions": "d78b53e0734ce8d20574ff5fe075740d32322d2e65a529f221a5bd2a6c6c6e07"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-resources",
+      "test": "TestClassifierImagesPressureImport/local/missing-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-resources$'",
+      "assertions": "094d6d33a9730fa57da2487fbce9098b8aacb34e18cfd2c6980a751d31b38bed"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-result-heap",
+      "test": "TestClassifierImagesPressureImport/local/missing-result-heap",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-result-heap$'",
+      "assertions": "799b1ac31902dcbd47826d9c76a3693c612c8ea74f608679d1433a48ba59c956"
+    },
+    {
+      "id": "E08-classifier-images-import-local-missing-throughput",
+      "test": "TestClassifierImagesPressureImport/local/missing-throughput",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^missing-throughput$'",
+      "assertions": "2d496be7059276fa9bd4d2b23b335f6eef0e71b5cfd4dddba8dd0b89cfbd4948"
+    },
+    {
+      "id": "E08-classifier-images-import-local-null-batch-resources",
+      "test": "TestClassifierImagesPressureImport/local/null-batch-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^null-batch-resources$'",
+      "assertions": "5911fa32841188737646729220ad647c97e481c5e65e2ae3b6b74dd690db4ef6"
+    },
+    {
+      "id": "E08-classifier-images-import-local-null-final-resources",
+      "test": "TestClassifierImagesPressureImport/local/null-final-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^null-final-resources$'",
+      "assertions": "f2bce14281cc1d2577e846c075962e94ffc9e81f2e40007084646ac8e65e752e"
+    },
+    {
+      "id": "E08-classifier-images-import-local-null-old-resources",
+      "test": "TestClassifierImagesPressureImport/local/null-old-resources",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^null-old-resources$'",
+      "assertions": "a922cf3c989f2baf3465a96cd9b1d917cdd56006738723eaeaf9907129a78d47"
+    },
+    {
+      "id": "E08-classifier-images-import-local-old-report",
+      "test": "TestClassifierImagesPressureImport/local/old-report",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^old-report$'",
+      "assertions": "7de17e1b2b4dbdfb63cc916354ead87b0f41e3593a1f7e9d9be115c7c2b6646f"
+    },
+    {
+      "id": "E08-classifier-images-import-local-recovery-not-proven",
+      "test": "TestClassifierImagesPressureImport/local/recovery-not-proven",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^recovery-not-proven$'",
+      "assertions": "02078ad3761921e96bc305fb6c5480394d2f925287dac5ff01a63f7b07ae8fbb"
+    },
+    {
+      "id": "E08-classifier-images-import-local-resource-leak",
+      "test": "TestClassifierImagesPressureImport/local/resource-leak",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^resource-leak$'",
+      "assertions": "ee161edd7d7b7bf60ad73d994e7be3519c33b114c6d38c98a9951062ca2aaefc"
+    },
+    {
+      "id": "E08-classifier-images-import-local-small-load",
+      "test": "TestClassifierImagesPressureImport/local/small-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^small-load$'",
+      "assertions": "d91f4c303904852151ed903286ccaf24e82b2d3e08cb047fdc7881a94b04ffe8"
+    },
+    {
+      "id": "E08-classifier-images-import-local-tampered-capture",
+      "test": "TestClassifierImagesPressureImport/local/tampered-capture",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^tampered-capture$'",
+      "assertions": "2f02b5fd4aa12e5764e1553026a30bb47cc40b10a07bfcb4a526593838b8edb3"
+    },
+    {
+      "id": "E08-classifier-images-import-local-tiny-allocation",
+      "test": "TestClassifierImagesPressureImport/local/tiny-allocation",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^tiny-allocation$'",
+      "assertions": "021f171705956305348999b53aba9c57d9ccfc18f693e9fb30cf1b66d272b181"
+    },
+    {
+      "id": "E08-classifier-images-import-local-tiny-memory",
+      "test": "TestClassifierImagesPressureImport/local/tiny-memory",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^tiny-memory$'",
+      "assertions": "4666022889a4c66784b1303d99c9f8d9cb75945b79e02999753f168647017736"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-answer-name",
+      "test": "TestClassifierImagesPressureImport/local/wrong-answer-name",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-answer-name$'",
+      "assertions": "038811dac2699ae73fe8a6fed3e7b2cb44fc28fd05132f5b1f914c806f072655"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-api",
+      "test": "TestClassifierImagesPressureImport/local/wrong-api",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-api$'",
+      "assertions": "193ccb476ac0878b2ad2b47076e7482d6be58608b0da3ecb0aa42b30ce1b7967"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-base64",
+      "test": "TestClassifierImagesPressureImport/local/wrong-base64",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-base64$'",
+      "assertions": "3a8e3dfacf1b648843c0f242805933afc7896b7eb3099f2803bd18e6b42bf5a8"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-catalog",
+      "test": "TestClassifierImagesPressureImport/local/wrong-catalog",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-catalog$'",
+      "assertions": "659cdbc9d55782b6d65bffa3fbd665fffc765abf477d08d67ca173662d4bb709"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-copies",
+      "test": "TestClassifierImagesPressureImport/local/wrong-copies",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-copies$'",
+      "assertions": "fc92912ee29f0529d92020198b7d64fd006ffb0114799a0d2e39e13c193a5b1f"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-count",
+      "test": "TestClassifierImagesPressureImport/local/wrong-count",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-count$'",
+      "assertions": "73e9aa9cba8028654fb2b28008f2e4f2b0b5852d49b1ac883e7550c7acda3ff7"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-data-url",
+      "test": "TestClassifierImagesPressureImport/local/wrong-data-url",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-data-url$'",
+      "assertions": "ed5cca1e7013799a5e4f50362ba2df58da7adacdd2efb110fb8134e15e2d779f"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-image-bytes",
+      "test": "TestClassifierImagesPressureImport/local/wrong-image-bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-image-bytes$'",
+      "assertions": "0f8da1df8db253aa8389fac2172a4c0ba8831689f6811fb2154eb5c37a16b260"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-json-bytes",
+      "test": "TestClassifierImagesPressureImport/local/wrong-json-bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-json-bytes$'",
+      "assertions": "d5b32c87d17e57bb1acc3f774a660b668abba23171d33d9693ae67333dcc4036"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-model",
+      "test": "TestClassifierImagesPressureImport/local/wrong-model",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-model$'",
+      "assertions": "2d3e6040d628298491a56500b74f41b92548570711cea04f7d04ee5455af9351"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-operation",
+      "test": "TestClassifierImagesPressureImport/local/wrong-operation",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-operation$'",
+      "assertions": "6eb0dc83e4ba5a56b9c62da6a92927b4849a1dace1c11b7b0e8d61e00e5ebb30"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-provider",
+      "test": "TestClassifierImagesPressureImport/local/wrong-provider",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-provider$'",
+      "assertions": "78d4935b51258578bbd5bf76164659ff16c88a261bea902abf7b187f9a903233"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-ratio",
+      "test": "TestClassifierImagesPressureImport/local/wrong-ratio",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-ratio$'",
+      "assertions": "eb94b4aac1d07a80ee3b6cd2d1bc204684b6ffc6f110f9612d5b455bf4eea376"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-throughput",
+      "test": "TestClassifierImagesPressureImport/local/wrong-throughput",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-throughput$'",
+      "assertions": "03c34ebbbca440b9db565646ba689fe13caa709ae0898e32dafd86b9acd6b95c"
+    },
+    {
+      "id": "E08-classifier-images-import-local-wrong-total-bytes",
+      "test": "TestClassifierImagesPressureImport/local/wrong-total-bytes",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressureImport$/^local$/^wrong-total-bytes$'",
+      "assertions": "c9acbfca7b5bd7325000931ce238b43503ab0efba9b6c48f8383b0e5ffc86413"
+    },
+    {
+      "id": "E08-mixed-pressure-cloud-classifier-images-design-load",
+      "test": "TestClassifierImagesPressure/cloud",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressure$/^cloud$'",
+      "assertions": "db2cdf8c1686c9377355a8744af58d39b3dbf7e8506dac94718aefc5b3b921af"
+    },
+    {
+      "id": "E08-mixed-pressure-cloud-design-load",
+      "test": "TestMixedPressure/cloud",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMixedPressure$/^cloud$'",
+      "assertions": "a90943a98834ee731a5ea0acec2ec546a02a16d45373b3287b7616a206be12d3"
+    },
+    {
+      "id": "E08-mixed-pressure-local-classifier-images-design-load",
+      "test": "TestClassifierImagesPressure/local",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestClassifierImagesPressure$/^local$'",
+      "assertions": "87e814cfecb8868d6f2380af2f6a2575abed924c7437d20de34b7dc30fde7a41"
+    },
+    {
+      "id": "E08-mixed-pressure-local-design-load",
+      "test": "TestMixedPressure/local",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMixedPressure$/^local$'",
+      "assertions": "acbe9618d382c0c3f7500aecb9921b468c3fb62e3385e6d0991a605c9723bc53"
+    },
+    {
+      "id": "E08-policy-pressure-cloud-batch-design-load",
+      "test": "TestPolicyPressure/cloud-batch/design-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^cloud-batch$/^design-load$'",
+      "assertions": "21bf27f94ed950a23195cfd7f663399dac12ccc7a541f4ac51f88abc1f27c80a"
+    },
+    {
+      "id": "E08-policy-pressure-cloud-batch-stalled-consumer",
+      "test": "TestPolicyPressure/cloud-batch/stalled-consumer",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^cloud-batch$/^stalled-consumer$'",
+      "assertions": "b634cca41733f8111a02fadede905d840ae284cd36007eb12bc9bbb0ad2d09d0"
+    },
+    {
+      "id": "E08-policy-pressure-cloud-interactive-design-load",
+      "test": "TestPolicyPressure/cloud-interactive/design-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^cloud-interactive$/^design-load$'",
+      "assertions": "52de66c91ad4ed638494f599e7a8051704728d962e9127f15db8e1a3a3e0342b"
+    },
+    {
+      "id": "E08-policy-pressure-cloud-interactive-stalled-consumer",
+      "test": "TestPolicyPressure/cloud-interactive/stalled-consumer",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^cloud-interactive$/^stalled-consumer$'",
+      "assertions": "52542bbe2457678f10a097d3e860e36357cb9e337dde5be5a3faefa0a6b690ef"
+    },
+    {
+      "id": "E08-policy-pressure-local-design-load",
+      "test": "TestPolicyPressure/local/design-load",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^local$/^design-load$'",
+      "assertions": "26b4623257bf83a9f797812f0d11cb4a49c4964b87af487cdb8d9e218395c1ff"
+    },
+    {
+      "id": "E08-policy-pressure-local-stalled-consumer",
+      "test": "TestPolicyPressure/local/stalled-consumer",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPolicyPressure$/^local$/^stalled-consumer$'",
+      "assertions": "1b1b01808cb69391249fc305c1fe61590d662ab42d5eed09809e269f0073e525"
+    },
+    {
+      "id": "E08-policy-pressure-tool-arguments-scaling",
+      "test": "TestToolArgumentsScaling",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestToolArgumentsScaling$'",
+      "assertions": "af11d62713dd814203ef0fd255ad1c7d4705695f9f9dbd46faac9e2130217265"
+    },
+    {
+      "id": "E08-pressure-tool-write-argument-limit",
+      "test": "TestPressureToolWriteIntegrity/argument-limit",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureToolWriteIntegrity$/^argument-limit$'",
+      "assertions": "96f509c3ca9c9e3a5af0ef3dfafae5c2f1a4afd47af2233199e58eb10c9db9d3"
+    },
+    {
+      "id": "E08-pressure-tool-write-clean",
+      "test": "TestPressureToolWriteIntegrity/clean",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureToolWriteIntegrity$/^clean$'",
+      "assertions": "4091a9950d8c8ea575b307bf4cecd9bb3c679cb81cd76b63ac7a60b707a88499"
+    },
+    {
+      "id": "E08-pressure-tool-write-json-envelope",
+      "test": "TestPressureToolWriteIntegrity/json-envelope",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureToolWriteIntegrity$/^json-envelope$'",
+      "assertions": "21a5a74a281a6c8b3276d8ff5d401ad36f8cdddb3464a1f994e6882e67f0fd52"
+    },
+    {
+      "id": "E08-pressure-write-canceled",
+      "test": "TestPressureFixtureWriteBackpressure/canceled",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^canceled$'",
+      "assertions": "a5252fa7ab7c52fce7e8b4f0443dedf94bc41127c462dd8d26bf2527ce2dcb36"
+    },
+    {
+      "id": "E08-pressure-write-clean",
+      "test": "TestPressureFixtureWriteBackpressure/clean",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^clean$'",
+      "assertions": "173164dc24c0d3efd68ea7c43c8fa564d3558938f9c368bb6326ddad59c175b2"
+    },
+    {
+      "id": "E08-pressure-write-closed",
+      "test": "TestPressureFixtureWriteBackpressure/closed",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^closed$'",
+      "assertions": "f98a4d5cab36716447d101e11aaf517d48ed37f73f048813ee15dfccdddedcb5"
+    },
+    {
+      "id": "E08-pressure-write-deadline",
+      "test": "TestPressureFixtureWriteBackpressure/deadline",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^deadline$'",
+      "assertions": "bf805f972d4c70c46fe026cb373f50337ba533c64fda7400527be3042b32d897"
+    },
+    {
+      "id": "E08-pressure-write-other",
+      "test": "TestPressureFixtureWriteBackpressure/other",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^other$'",
+      "assertions": "54028b772e0d4149e10fe5241da3ace11d07bfa5391249d97410a9a83e86124e"
+    },
+    {
+      "id": "E08-pressure-write-partial",
+      "test": "TestPressureFixtureWriteBackpressure/partial",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^partial$'",
+      "assertions": "01676551b89a0ce2f0dc2330f6bff3e1b76aceeefd3eb771f11e17ba3cd24b61"
+    },
+    {
+      "id": "E08-pressure-write-partial-unreported",
+      "test": "TestPressureFixtureWriteBackpressure/partial-unreported",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^partial-unreported$'",
+      "assertions": "2f848e0e347371eb0b421d54fcb172dde2025514f22f2bb2a20a07f2397b0094"
+    },
+    {
+      "id": "E08-pressure-write-persistent",
+      "test": "TestPressureFixtureWriteBackpressure/persistent",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^persistent$'",
+      "assertions": "5db45e49f4e1acfdcfcdb615122b386c40c07f9611c47ffd027ea54aa1f6088a"
+    },
+    {
+      "id": "E08-pressure-write-transient",
+      "test": "TestPressureFixtureWriteBackpressure/transient",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^transient$'",
+      "assertions": "b3b9ee99c77895b4fe2757fa578608ab7bf0b4866409f034525d3df2e3ef7586"
+    },
+    {
+      "id": "E08-pressure-write-unreported",
+      "test": "TestPressureFixtureWriteBackpressure/unreported",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestPressureFixtureWriteBackpressure$/^unreported$'",
+      "assertions": "cbcbfb832c3edf1ce68895ded9b02e12252e7a899a6f7d35b9e3c4991bdea348"
+    },
+    {
+      "id": "GLM09-design-load",
+      "test": "TestGLMSharedDesignLoad",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestGLMSharedDesignLoad$'",
+      "assertions": "473b81621d419df64dc3560f46733d5b61dfc4024a92736cfa2db3466631b796"
+    },
+    {
+      "id": "MM05-design-load-cloud-chat",
+      "test": "TestMiniMaxSharedDesignLoad/cloud/chat",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^chat$'",
+      "assertions": "44c062309a3cd249a8279ae4acdee7a519cbd790cc87db796d4a78f9dd57ca2f"
+    },
+    {
+      "id": "MM05-design-load-cloud-messages",
+      "test": "TestMiniMaxSharedDesignLoad/cloud/messages",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^messages$'",
+      "assertions": "2036ff61db93e5cf6ced48f9bf1c340b517bbea2c2cdba7bb1b492d87fde5884"
+    },
+    {
+      "id": "MM05-design-load-cloud-responses",
+      "test": "TestMiniMaxSharedDesignLoad/cloud/responses",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^cloud$/^responses$'",
+      "assertions": "0b8f2d22e723b84070d484fc05f40eeae065483db228b5657c01146f368b4281"
+    },
+    {
+      "id": "MM05-design-load-local-chat",
+      "test": "TestMiniMaxSharedDesignLoad/local/chat",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^chat$'",
+      "assertions": "d8095ddcdc0e155f249ed65f9df52fd01a3523162fa91efcc1aa76a7d66453d5"
+    },
+    {
+      "id": "MM05-design-load-local-messages",
+      "test": "TestMiniMaxSharedDesignLoad/local/messages",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^messages$'",
+      "assertions": "5bab6d40aabca0af587f609ef1633a387ed3bcb266fc5cf7513c84fbcad5eb3e"
+    },
+    {
+      "id": "MM05-design-load-local-responses",
+      "test": "TestMiniMaxSharedDesignLoad/local/responses",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxSharedDesignLoad$/^local$/^responses$'",
+      "assertions": "0f46acada0f48bf915863a64008b70bf99a09a053d4a65ea850346d421e09ba9"
+    },
+    {
+      "id": "MM10-actual-pressure-import",
+      "test": "TestMiniMaxReleasePressureLoadConsumer",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMiniMaxReleasePressureLoadConsumer$'",
+      "assertions": "cb0d827c947fbc5962bb46cb94de20397de534b34a319547036cb54f11137695"
+    },
+    {
+      "id": "UC09-design-load-hooked",
+      "test": "TestMultimodalRuntimeDesignLoad/hooked",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMultimodalRuntimeDesignLoad$/^hooked$'",
+      "assertions": "0b2c193ddfedae8a76690770954dce520cedf238695d48e21896251b4f5b262d"
+    },
+    {
+      "id": "UC09-design-load-plain",
+      "test": "TestMultimodalRuntimeDesignLoad/plain",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestMultimodalRuntimeDesignLoad$/^plain$'",
+      "assertions": "94d21fe0adc4c3c1072f313a0c6074cd8c587489a513a673a67b2374452ce3d7"
+    },
+    {
+      "id": "XAI-IMG-pressure-admission-cancel",
+      "test": "TestXAIImaginePressure/admission-cancel",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^admission-cancel$'",
+      "assertions": "6133534b68b9634d834aee16d9fb2cbb2b3ab52780ff23ef49ce085e4f8ca633"
+    },
+    {
+      "id": "XAI-IMG-pressure-byte-limits-input-image",
+      "test": "TestXAIImaginePressure/byte-limits-input-image",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^byte-limits-input-image$'",
+      "assertions": "07687d91bc324ac746686c0540aa89dcd8de3544f10a48f86dded8fe7d2c9896"
+    },
+    {
+      "id": "XAI-IMG-pressure-byte-limits-input-total",
+      "test": "TestXAIImaginePressure/byte-limits-input-total",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^byte-limits-input-total$'",
+      "assertions": "f8be9f4d820085b2195dd6a33a2d2b176764ebd46bea861a466a467726345b8d"
+    },
+    {
+      "id": "XAI-IMG-pressure-byte-limits-output-body",
+      "test": "TestXAIImaginePressure/byte-limits-output-body",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^byte-limits-output-body$'",
+      "assertions": "a2619a1a8b8296b3a4b38d7e488a0c6485ea637addcd95f9e9e17488b4b514f6"
+    },
+    {
+      "id": "XAI-IMG-pressure-byte-limits-output-image",
+      "test": "TestXAIImaginePressure/byte-limits-output-image",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^byte-limits-output-image$'",
+      "assertions": "c86cec73b656ad2e9e50cb04a4c34c504bf6cacf4c8014ca66297de8f7208979"
+    },
+    {
+      "id": "XAI-IMG-pressure-byte-limits-output-total",
+      "test": "TestXAIImaginePressure/byte-limits-output-total",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^byte-limits-output-total$'",
+      "assertions": "b691f81ef256ebdf1199f4b492cdc3c14e4bde201cfbe18639f8d565539ecdfc"
+    },
+    {
+      "id": "XAI-IMG-pressure-candidate-load-hooked",
+      "test": "TestXAIImaginePressure/candidate-load-hooked",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^candidate-load-hooked$'",
+      "assertions": "a83dbe2f376503cac997b57ba32dcb24b9b112b24ce568b1478dc5435f95e7da"
+    },
+    {
+      "id": "XAI-IMG-pressure-candidate-load-plain",
+      "test": "TestXAIImaginePressure/candidate-load-plain",
+      "replay": "BARNESS_AI_PRESSURE=1 go test ./ai/e2e -count=1 -run '^TestXAIImaginePressure$/^candidate-load-plain$'",
+      "assertions": "5f1153afb998cefb632670880f00fe4d8d0fd03135f9ca8a3ee04f1788b3ee75"
+    }
+  ]
+}

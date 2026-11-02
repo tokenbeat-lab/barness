@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Inspect the preserved ordinary receipt, nested checks, and historical fixtures."""
+import collections,hashlib,json,pathlib,stat,sys
+root=pathlib.Path.cwd(); sys.path.insert(0,str(root/'tools/verification'))
+from receipt_files import sha,source_snapshot
+p=root/'.evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn'; r=json.loads((p/'receipt.json').read_text()); b=p/r['bundles'][0]['path']; m=json.loads((b/'manifest.json').read_text()); cases={x['id']:x for x in m['cases']}; failures=[]
+def check(ok,msg):
+ if not ok:failures.append(msg)
+req=json.loads((root/'artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/required-cases-v6.json').read_text())['ordinaryRequiredCases']
+check(r['status']=='PASS' and r['exitCode']==0,'ordinary receipt'); check(all(cases.get(i,{}).get('status')=='PASS' for i in req),'required cases'); check(all(not json.loads((p/x['path']/'audit.json').read_text())['findings'] for x in r['bundles']),'bundle audits')
+now=source_snapshot(root); check(now['commit']=='8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11','HEAD'); check(r['source']['files']==now['files'],'source set'); check(all(sha(root/n)==h for n,h in r['selectedInputs'].items()),'selected inputs')
+c=b/'XAIIMG-historical-source-context'; export=json.loads((c/'historical-export.json').read_text()); inv=json.loads((c/'historical-tree-inventory.json').read_text()); tree=p/'xai-images-historical-9584'; archive=p/'xai-images-historical-9584.tar'; actual={str(x.relative_to(tree)):sha(x) for x in (tree/'ai').rglob('*') if x.is_file()}; actual.update({n:sha(tree/n) for n in ('go.mod','go.sum')}); check(inv==actual and len(inv)==2189,'historical tree inventory'); check(sha(archive)==export['archiveSHA256'] and export['exitCode']==0 and export['commit']=='9584d3d6f095aefa4ab73bdc75c39a705b7931d6','historical archive'); check(all(not (x.stat().st_mode & 0o222) for x in [tree/'ai',*(tree/'ai').rglob('*'),tree/'go.mod',tree/'go.sum']),'historical tree writable')
+fixtures=[x for x in m['cases'] if x['id'].startswith('XAIIMG-qualification-fixture-SYNTHETIC-')]; packets={q.name:q for q in tree.glob('xai-images-proof-fixture-*')}; relations=[]
+for x in fixtures:
+ session=x['id'].removeprefix('XAIIMG-qualification-fixture-'); matches=[q for q in packets.values() if (q/'bundles'/session).is_dir()]; check(len(matches)==1,'fixture packet '+session)
+ if len(matches)!=1:continue
+ q=matches[0]; qreceipt=json.loads((q/'receipt.json').read_text()); assertions=json.loads((b/x['dir']/'assertions.json').read_text()); check(x['status']=='PASS' and assertions['status']=='PASS' and all(v['pass'] for v in assertions['assertions']),'fixture status '+session); check(qreceipt['exitCode']==0 and (q/'exit-code').read_text().strip()=='0' and (q/'stdout.jsonl').read_text().strip()=='PASS','synthetic producer '+session); check(all(sha(q/n)==h for n,h in qreceipt['files'].items()),'producer files '+session); relations.append({'id':x['id'],'test':x['test'],'packet':str(q.relative_to(root)),'producerReceiptSHA256':sha(q/'receipt.json'),'producerExit':qreceipt['exitCode']})
+check(len(fixtures)==len(packets)==len(relations),'dynamic inventory')
+checks=[]
+for x in m['cases']:
+ if not x['id'].startswith('FUTURE-MODEL-cli-') or x['id'] in ('FUTURE-MODEL-cli-matrix-build','FUTURE-MODEL-cli-json-only'):continue
+ d=b/x['dir']; ref=json.loads((d/'check-reference.json').read_text()); nr=root/ref['receipt']; n=json.loads(nr.read_text()); check(sha(nr)==ref['receiptSHA256'] and n['status']=='PASS' and n['exitCode']==0 and n['source']['files']==r['source']['files'],'nested receipt '+x['id']); nc={}
+ for z in n['bundles']:
+  bd=nr.parent/z['path']; check(not json.loads((bd/'audit.json').read_text())['findings'],'nested audit '+x['id']); nc.update({v['id']:v for v in json.loads((bd/'manifest.json').read_text())['cases']})
+ check(all(nc.get(v,{}).get('status')=='PASS' for v in ref['requiredCases']),'nested cases '+x['id']); check(ref['status']=='applicable' and ref['conclusion']=='code_compatible' and x['status']=='PASS','nested decision '+x['id']); checks.append({'id':x['id'],'receipt':ref['receipt'],'receiptSHA256':sha(nr),'requiredCount':len(ref['requiredCases'])})
+check(len(checks)==9,'nested check count')
+a=[json.loads(line) for line in (p/'stdout.jsonl').read_text().splitlines() if line.strip()]; skips=collections.Counter((v.get('Test') or '').split('/')[0] for v in a if v.get('Action')=='skip'); native=collections.Counter(v['status'] for v in m['cases']); result={'status':'PASS' if not failures else 'FAIL','failures':failures,'ordinaryReceipt':str((p/'receipt.json').relative_to(root)),'ordinaryReceiptSHA256':sha(p/'receipt.json'),'commit':now['commit'],'sourceCount':len(now['files']),'selectedInputCount':len(r['selectedInputs']),'requiredCount':len(req),'nativeStatuses':dict(native),'goSkipGroups':dict(skips),'historicalArchiveSHA256':sha(archive),'historicalTreeFiles':len(inv),'historicalInventorySHA256':sha(c/'historical-tree-inventory.json'),'dynamicFixtures':relations,'nestedChecks':checks,'bundleAudits':[{'path':v['path'],'sha256':v['auditSHA256']} for v in r['bundles']]}; out=root/'artifacts/catalog/work/20261102T041450Z-10fb1e18/verification/ordinary-inspection-v6.json'; out.write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps({'status':result['status'],'failures':failures,'fixtures':len(relations),'checks':len(checks),'native':dict(native),'skips':dict(skips),'resultSHA256':sha(out),'scriptSHA256':sha(pathlib.Path(__file__))}));sys.exit(bool(failures))

@@ -1,6 +1,7 @@
 # 型号名称限制移除当前状态
 
-当前阶段：完整受影响旧边界子集通过，准备最终补审与完整普通v6。
+当前阶段：代码、验证、changelog、分发判定与交付封存已完成。
+最终文档提交与受测来源的关系见 WORK/final-completion-v1.json 的完整提交及集合相等性记录。
 基准提交：9584d3d6f095aefa4ab73bdc75c39a705b7931d6。
 工作批次：`artifacts/catalog/work/20261102T041450Z-10fb1e18/`。
 根目录原有 .catalog/、local-catalog.json、provider-integration-status scratch 保留。
@@ -12,14 +13,14 @@
 root 编排 GPT-6.1 Terra：审计 agent 只读分类，验证 agent 负责测试先行和各阶段原件，
 产品 worker 只修改指定运行文件。共享当前 checkout，所有 worker 保留其他人修改。
 
-普通计划：新 ID 的外部加载/Hash/NewClient/受控调用、能力拒绝、空/重复身份、
-未授权0HTTP以及合成 CLI JSON-only 新增闭环。完成后全受影响普通包与生成/构建/vet。
+已完成普通范围：新 ID 的外部加载/Hash/NewClient/受控调用、能力拒绝、空/重复身份、
+未授权0HTTP以及合成 CLI JSON-only 新增闭环，完整受影响普通包与生成/构建/vet。
 实际必需 case、argv、来源与输入按阶段独立冻结；未执行不写通过。
 
-live 计划 NOT_APPLICABLE：本次只验证已有能力下的代码兼容，不取得新厂商事实。
-race 计划 NOT_APPLICABLE：无共享状态、锁、取消或资源实现变化。
-压力计划 NOT_APPLICABLE：无复杂度、限额或设计负载变化。
-上述判断依最终差异复核；若出现适用范围，按 SOP 明确列出并等待人工选择。
+live NOT_APPLICABLE：本次只验证已有能力下的代码兼容，不取得新厂商事实。
+race NOT_APPLICABLE：无共享状态、锁、取消或资源实现变化。
+压力 NOT_APPLICABLE：无复杂度、限额或设计负载变化。
+以上依据最终产品差异复核；测试新增的只读历史夹具不改变产品并发实现。
 
 真实125条目录、Provider 版本、基线与历史快照本次保持；合成型号只存在于测试原件。
 后续交付使用同一 Catalog.Version 的新批次，不覆盖 Kimi K3.1 Pro 原158文件包。
@@ -60,7 +61,8 @@ Decisions、纯文本、不可见位置和重复位置的真实能力负例仍�
 
 产品仅改5份运行文件，删除4处名称条件，新增共享空ID保护，保留能力与授权合同。
 Gemini/OpenAI已有名称驱动行为保留并列在审计报告。其他旧名称负例已独立扫描，
-未发现更多必须改动项；源码修订、测试适配、SOP、changelog草稿和ADR将在完整普通前冻结。
+该轮局部审计未再发现项，但后来仍遗漏两组旧断言，已在下方失败与补审记录说明。
+源码修订、测试适配、SOP、changelog草稿和ADR在各轮完整普通前分别冻结。
 
 完整普通使用 WORK/verification/run-ordinary-v2.py、ordinary-inputs-v2.json
 （80项跨默认范围输入）和required-cases-v2.json（215项），三者保持原字节。
@@ -83,7 +85,7 @@ PASS/exit0、10/10原生场景通过、audit0，SHA-256
 check-reference.json 指向仓库根 .evidence 内各自完整检查，不依赖已清理的临时store。
 每条应用输出与候选snapshot原字节相等，原125身份和顺序保持，只有所选合成身份新增。
 
-最终完整普通计划改用不可覆盖 v3 脚本/输入清单/必需清单，必需225项，
+该轮完整普通改用不可覆盖 v3 脚本/输入清单/必需清单，必需225项，
 80项清单加脚本与清单自身共82实际输入。旧v1/v2材料保留，不将其当成已执行v3事实。
 
 最终冻结：807afbc548ad9410a090121a8671bdb189f50128。矩阵定向工作树与最终
@@ -100,7 +102,7 @@ SHA 851484eae5d4d8dd23ec8e9e8922b02477ec9db8c60414e8f2b14f92765aa6bc。
 新版本化交付批次为原Catalog.Version下的20261102T041450Z-10fb1e18目录；
 运行125条快照与34文件review复制自原批准包，均与当前内置/基线逐字节相等。
 这是新程序策略的验证批次，不是新型号数据版本，不把历史check冒充本次策略证明。
-当前未封存delivery.json；完整普通及生成/构建/vet完成后再归集最终结果。
+delivery.json尚未封存；普通及构建的最终结果已归集，见文末。
 
 完整普通v3观察到TestCatalogMaintenanceSourceReview/reviewed-current失败后停止，
 collector CANCELLED/exit-15，原件保留。旧测试要求历史xAI Images来源适用于当前
@@ -142,8 +144,8 @@ verification/historical-applicability-v1.json，SHA
 
 完整普通v5运行原件：
 `.evidence/catalog-model-id-policy/e2e/20261102T045214.516113Z-zroapojr/receipt.json`。
-实际source固定4f2764bb，327项固定必需、84项实际输入。当前尚无终态。
-执行期间不提交或改实际输入，生成/构建/vet尚未启动。
+实际source固定4f2764bb，327项固定必需、84项实际输入。
+该轮终态CANCELLED/exit-15，原因及后续修订见下方。
 
 完整普通v5观察到TestJevContextCandidateContract与TestKimiCatalogBoundary/model
 失败后停止，collector CANCELLED/exit-15。旧断言仅将ID改为alias/旧Jev或kimi-k2.5，
@@ -164,4 +166,84 @@ Go 3947 pass、178 skip；skip均为未启用的classifier pressure，不算压�
 
 最终完整普通v6计划329项固定必需，明确包含实际失败对应UC04-candidate-contract和
 KIMI-INTL-CHAT-K01-catalog-reject-empty-id；82项manifest加脚本/清单共84实际输入。
-v6尚未执行，待独立补审及新的冻结提交。
+该计划经后续独立补审及新提交冻结后执行，结果见文末。
+
+最终补修冻结8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11。产品与65a后保持一致。
+完整旧边界回执与其2171项源码、82项实际输入逐项相等；记录为
+verification/boundary-applicability-v1.json，SHA
+ee7d709a3254b677fdee21bc7ebd57f519a65b3ccd4a2b752a9978948986c9e5。
+独立review-spec-v4.md与review-standards-v4.md认可测试修订；唯一状态旧措辞在此修正。
+
+完整普通v6来源固定8d97cb60，329项必需、84项实际输入。
+运行期间未提交或改实际输入；生成/构建/vet在该轮实际通过后顺序执行。
+
+## 最终验证结果
+
+实际受测提交：8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11。
+最终普通原件：
+`.evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/receipt.json`，
+PASS/真实exit0、墙钟1361.622秒，SHA
+55b5b268324169db71bcbab89e53d202abf70453598301ce09295a10ecbefd73。
+主bundle `20261102T051209.995718000Z` 为17232 PASS、226 NOT_RUN；
+329固定必需case全部实际PASS，包含之前实际失败项。四bundle audit均无发现。
+
+go generate ./ai、go build ./ai/... ./catalog/... ./cmd/catalogctl ./cmd/cataloggen、
+同包范围go vet按顺序真实exit0。执行脚本、argv/工具/起止/日志/每步源码输入核验
+保存在WORK/verification/build-v1/和对应原字节脚本，不将构建当成新测试测量。
+
+机器结果WORK/verification/result-v1.json，SHA
+3eca7c5fc610e086afaa473559c1d013ffaf341886e5235b359dfe6b1bf29c9c。
+嵌套检查/归档核验ordinary-inspection-v6c.json，SHA
+c6a051d80fd3287c38af6b64e4028188572fb46332ee0d4248f2fd65421f98ba；
+9条CLI各自完整check/required/audit/来源与应用原字节均通过。
+
+历史Git archive SHA
+32bac88ed05080baa36bbb21dff06bb373a329ab7068f93dcfb21983547d2d74，
+2189项完整文件集合/每项SHA及只读权限相符。53条动态记录由48个qualification-fixture
+和5个path-fixture组成，后5条复用5个迁移packet；实际独立packet为48，不是少测5项。
+两轮case→packet→producer及复用映射相等、所有实际producer exit0。完整映射
+fixture-coverage-v1.json，SHA
+6fa94c37bc2689d2dffffc39fcdaef2aab68206ffc57eed9ee272965d6269ccf。
+两次只读汇总脚本因目录定位漏项而失败，其原件保留，最终v6c完成核验；不改普通PASS测量。
+
+skip-index-v1.json逐条保留252个Go skip和226个原生NOT_RUN，SHA
+a32eefcb8db6e4a81381e9b60956a8ee28b5d160d647157585c7025be7bc8992。
+329必需case无skip；普通未启用的压力不算压力通过。未执行真实厂商/live/race/压力。
+当前source gate拒绝旧xAI Images资格；历史比较不表示旧SDK重新执行或当前SDK取得资格。
+
+文档后source/input核验post-docs-equality-v1.json，SHA
+52e505495c0c11c89f42c096b96fae602138fa06e0155995c425b1b2b3c3ac3b：
+2171源码文件完整集合/每项SHA相等，84实际输入相等，HEAD仍为8d97cb60。
+
+分发判定：SDK核心5文件变化、运行依赖不变，必须先升级一次SDK以取得新准入策略。
+此后相同已实现能力的新增通过审核外部JSON/CLI检查后装配新Client，Host仍独立授权。
+本包125条原JSON与9584基准相同，旧程序继续使用原125条无需因相同JSON升级；
+旧程序拒绝的是新增未来名称。编译内置默认仍必须重建，当前125条数据与版本未变化。
+本次没有发布软件版本、部署或取得新厂商资格，也没有完整产品发布门禁通过的声明。
+
+## 最终交付
+
+统一交付批次：
+`artifacts/catalog/catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T041450Z-10fb1e18/`。
+最终 Spec 审查无阻碍发现；报告 review-spec-final-v1.md 的 SHA 为
+7f1878d5bff5fbeb3f8861894313f55565cd9f33e6accf08c30b1165058b6dc9。
+delivery.md 与代码报告使用中性说明及封存前静态记录语义，避免与完成标记冲突。
+
+封存实际 exit0；argv、脚本 SHA、起止、墙钟和 stdout/stderr 在
+WORK/seal-command-v1/。delivery.json 最后独占创建，SHA 为
+24b29ff214ddf633bee61437a46d81591baf7d7aa33c36edfc99ee9fd827677b，
+索引100个文件，含自身共101个文件。封存后没有增改包内文件。
+封存前状态、完整仓库 changelog 原字节及其相对链接说明均保留，当前状态只在本文件更新。
+
+root 独立只读全量库存核验实际 PASS/exit0：新包100项与索引完全相等；
+旧包157项与原完成索引相等，含标记共158文件，旧 marker SHA
+93e0bba370ee529108f800c40f32cb1b270596d8fafb3c7d13ab8b6ed171b6c1 保持。
+真实目录、维护源、基线、依赖与基准无差异；运行文件与内置/review/旧快照同字节。
+核验原件 WORK/root-delivery-audit-v1.json，SHA
+16fceeb2c7b2266df20b883f85cb834ac26993ecf6a067bda834c458caf55315；
+真实命令及退出在 WORK/root-audit-command-v1/，不是新的产品测试测量。
+
+回滚：恢复基准五个运行文件即可恢复名称准入策略；原125条目录无需数据回滚。
+基准之后的策略不授予 Host 权限，合成测试定义没有进入真实目录或用户工作库。
+最终收尾提交只归集文档与交付快照；源码/实际输入相等性和当前状态内容 SHA
+由不可覆盖的 WORK/final-completion-v1.json 绑定，不改写已封存包或既有阶段回执。

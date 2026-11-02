@@ -1,0 +1,449 @@
+{
+  "status": "PASS",
+  "failures": [],
+  "ordinaryReceipt": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/receipt.json",
+  "ordinaryReceiptSHA256": "55b5b268324169db71bcbab89e53d202abf70453598301ce09295a10ecbefd73",
+  "commit": "8d97cb6002722aceeb7fb3ccfaf5eb27e0991f11",
+  "sourceCount": 2171,
+  "selectedInputCount": 84,
+  "requiredCount": 329,
+  "nativeStatuses": {
+    "PASS": 17232,
+    "NOT_RUN": 226
+  },
+  "goSkipGroups": {
+    "": 8,
+    "TestAdmissionBurstPressure": 4,
+    "TestCatalogDesignLoad": 4,
+    "TestClassifierImagesPressure": 2,
+    "TestGLMSharedDesignLoad": 1,
+    "TestGrokHistoryProducerRequiresFreshGrant": 16,
+    "TestMiniMaxReleasePressureLoadConsumer": 1,
+    "TestMiniMaxSharedDesignLoad": 6,
+    "TestMixedPressure": 2,
+    "TestMultimodalRuntimeDesignLoad": 2,
+    "TestPolicyPressure": 6,
+    "TestPressureToolWriteIntegrity": 3,
+    "TestPressureFixtureWriteBackpressure": 10,
+    "TestReleaseRecordedBundleDiagnostic": 1,
+    "TestToolArgumentsScaling": 1,
+    "TestXAIImaginePressure": 8,
+    "TestClassifierImagesPressureImport": 176,
+    "TestPressureLoopback": 1
+  },
+  "historicalArchiveSHA256": "32bac88ed05080baa36bbb21dff06bb373a329ab7068f93dcfb21983547d2d74",
+  "historicalTreeFiles": 2189,
+  "historicalInventorySHA256": "c43b556d4aed58271721f80ac8a91c01cdd0ddfec3570edab667e3b839e823d9",
+  "dynamicFixtures": [
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597448644913000",
+      "test": "TestXAIImagesCurrentPolicySourceRefusal",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-4091085197",
+      "producerReceiptSHA256": "b6b277edb84acca4d722b1400cc1beba5b21c92d36d626e7f02ab4e4b9d55519",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597462113891000",
+      "test": "TestXAIImagesProducerOriginalDocuments/matching-original-git",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-542646794",
+      "producerReceiptSHA256": "dcef414092b73ff2b57a0fd5e29396ffddd866baf819d13cce97b70833578a2e",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597464821589000",
+      "test": "TestXAIImagesProducerOriginalDocuments/missing-original-git",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-186616940",
+      "producerReceiptSHA256": "0f9266f8421e7293b0c219b7a738c7b213f96877d9ee7bf8855db1a87f771a1c",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597466386888000",
+      "test": "TestXAIImagesProducerOriginalDocuments/mismatched-original-git",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-498073319",
+      "producerReceiptSHA256": "54f684b7dd4a417f88e7c720c36e8b6bef19b2ace302e5003425367fbfcd08c0",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597468235038000",
+      "test": "TestXAIImagesProducerOriginalDocuments/missing-runtime",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-4193030132",
+      "producerReceiptSHA256": "43f85c09d5cc0ca1c075860437b9901ea85cabdc22dbe1dbbe1b57b684a9ecb1",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597469798412000",
+      "test": "TestXAIImagesProducerOriginalDocuments/missing-json",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-4217133197",
+      "producerReceiptSHA256": "4595e11a2edd47bafa12160570ef937669f4548d83cbe1837881dda25b09bc1d",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597472878270000",
+      "test": "TestXAIImagesProducerPaths/absolute-binary-relative-bundle",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/path-xai-images-proof-fixture-1346669151",
+      "producerReceiptSHA256": "1638d840e5bd5ab5a41a8480f5b5a4ca25492d1dd7c6ebcc30145bb1a7239bd2",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597474647316000",
+      "test": "TestXAIImagesProducerPaths/absolute-binary-absolute-bundle",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/path-xai-images-proof-fixture-649577992",
+      "producerReceiptSHA256": "92565662a80adae7a2490c2e6b204bb2c1065865b54c3ae47ce877f87353c6d8",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597475886636000",
+      "test": "TestXAIImagesProducerPaths/absolute-binary-native-consumer",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/path-xai-images-proof-fixture-705895646",
+      "producerReceiptSHA256": "7c99a2b1b93740d132e3f1e2555fc191ba15f42d86795c0b22b37c564e2d5fa6",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597477904496000",
+      "test": "TestXAIImagesProducerPaths/outside-binary",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/path-xai-images-proof-fixture-3169063506",
+      "producerReceiptSHA256": "fda6474aa1934623e01fab8397be9a00f3e1dd25b76d8f32752f1281e0fb12e4",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597478936559000",
+      "test": "TestXAIImagesProducerPaths/symlink-binary",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/path-xai-images-proof-fixture-1193271064",
+      "producerReceiptSHA256": "a50d08deaba88bec90d555574b8e85060145bfe5fcd52282e613fc700e349e25",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597481640297000",
+      "test": "TestXAIImagesNativeQualificationProcess/complete",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-385618249",
+      "producerReceiptSHA256": "e8c6bcbae3b9a41026ae6ca314eb64748fef2d89f021bfe143844b81d9a60f94",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597487891179000",
+      "test": "TestXAIImagesNativeQualificationProcess/missing-scene",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3268437592",
+      "producerReceiptSHA256": "1206c943ec0ecc51de9627cfb2596ff9c8b23e17cdc152accdc7c9ad7c8b55c0",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597488600893000",
+      "test": "TestXAIImagesNativeQualificationProcess/controlled",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-1899356794",
+      "producerReceiptSHA256": "e074fe764522bb61a51431bb46c0230dd142a36be7b369a9f5339f1d39175e9d",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597489307813000",
+      "test": "TestXAIImagesNativeQualificationProcess/fake-pass",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-1944705958",
+      "producerReceiptSHA256": "ab93d472b1e4799c58f02af48ee38a26bef4e8549d7fe741e6a112bdcf8bdb9b",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597490006381000",
+      "test": "TestXAIImagesNativeQualificationProcess/source",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2487829829",
+      "producerReceiptSHA256": "d159c2ded29a5b275420b08db77d8b53a0373e62efaece2a2d77c4670b188640",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597491473042000",
+      "test": "TestXAIImagesNativeQualificationProcess/catalog",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-651820477",
+      "producerReceiptSHA256": "0ee60ee8501b6a338cb32893629061358860abc7ec31442f43aad0e2ffa9b1c5",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597492981487000",
+      "test": "TestXAIImagesNativeQualificationProcess/ticks",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2144283968",
+      "producerReceiptSHA256": "81fe922df6b9a1ccc8f750a5f19e34f8058b6f0a13551ba562251cb164fe7f74",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597494611076000",
+      "test": "TestXAIImagesNativeQualificationProcess/image",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3362507408",
+      "producerReceiptSHA256": "2671333730a2b6e7a2cbd21c779682c0dab37e2bc6197e6a5f0bc4db54a611bb",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597495313592000",
+      "test": "TestXAIImagesNativeQualificationProcess/extra-request",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-977867723",
+      "producerReceiptSHA256": "dd379ff8bc8848584cd432654e5c1a34cf3ae588831b8d075315ba38af5453bc",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597496945251000",
+      "test": "TestXAIImagesNativeQualificationProcess/missing-claim",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3052333666",
+      "producerReceiptSHA256": "32620c64d7b1107fc773eff3fcf7d6f741089327c849b6ebfdf4a3b77fc26f8a",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597497632517000",
+      "test": "TestXAIImagesNativeQualificationProcess/producer-binding",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-4199332262",
+      "producerReceiptSHA256": "d9f4bc973b8ef11f02dc489dc621d093c96189d9698fd5e47473ff399e3f576e",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597499194528000",
+      "test": "TestXAIImagesNativeQualificationProcess/missing-observer",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-4292701313",
+      "producerReceiptSHA256": "329a9519280ffa0d8b3d2112fd7da89e2011416d2c878f1bdd7a10011141b616",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597500822308000",
+      "test": "TestXAIImagesNativeQualificationProcess/audit-null",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2154958594",
+      "producerReceiptSHA256": "60b4cce3444d4360563f3578d07afbecb3ba206e55da12a250af9b352ba950c8",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597501489660000",
+      "test": "TestXAIImagesNativeQualificationProcess/result-null",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-279976221",
+      "producerReceiptSHA256": "1f6eba7924d5881269a724e80a9b2ef2fa71063d277a931b7c5795777df600bf",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597502154857000",
+      "test": "TestXAIImagesNativeQualificationProcess/consistent-image",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2765291560",
+      "producerReceiptSHA256": "bd25da03415b241b344dd18ecbd287d4e58df23305ae6e3acc8d088bc5324259",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597504234772000",
+      "test": "TestXAIImagesNativeQualificationProcess/consistent-ticks",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-968480573",
+      "producerReceiptSHA256": "9a64462fe0ab3fbe1bfa2be4eeff707999b6ca09112b98e56aaad06cc2cf2574",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597506066673000",
+      "test": "TestXAIImagesNativeQualificationProcess/manifest-case",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-405497920",
+      "producerReceiptSHA256": "9a58d5ff282080af337cf62067485bbeadfd745f266e699850171a1e72fece9d",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597506752765000",
+      "test": "TestXAIImagesNativeQualificationProcess/assertion-case",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-1678140066",
+      "producerReceiptSHA256": "85744b80337feca038aca138264918307598809fb551c1a38d33ff9c37b20a8c",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597507448918000",
+      "test": "TestXAIImagesNativeQualificationProcess/proxy-remote",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-4129518999",
+      "producerReceiptSHA256": "90f583eae9cc30caddb2bf458e514e5e52c82b9c30371963eb999362b66320af",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597508152662000",
+      "test": "TestXAIImagesNativeQualificationProcess/authority-id",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3965863674",
+      "producerReceiptSHA256": "02346836713c4cc6e02f75a7d7edc12265d16f18dcab3a2b2f1c6e7edf736a68",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597509742342000",
+      "test": "TestXAIImagesNativeQualificationProcess/authority-scope",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3520303088",
+      "producerReceiptSHA256": "2ce70ae713a0cb37d8a11c3cb758fb3507d2c6bf69505ccc4e42a21d3380158d",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597511368417000",
+      "test": "TestXAIImagesNativeQualificationProcess/producer-source",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3507133946",
+      "producerReceiptSHA256": "fd4638982a73aa33ca57fd720c099106b038592f5d4620356967f8bca15e8d4c",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597512903437000",
+      "test": "TestXAIImagesNativeQualificationProcess/missing-approval",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-144420314",
+      "producerReceiptSHA256": "4d2954b6874147e9bfa98ab0025e34636aecf174dc655638b2447985794554af",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597514444184000",
+      "test": "TestXAIImagesNativeQualificationProcess/claim-case",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-127136122",
+      "producerReceiptSHA256": "aad92b9f5343b90e06252e8c088f762d8659e209c199d5e6aac9b041c1d86a3f",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597516002229000",
+      "test": "TestXAIImagesNativeQualificationProcess/claim-duplicate",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2740418001",
+      "producerReceiptSHA256": "382c67f748061980a5e9cfdae827a63e19f838d0b1e0fa0396efa11c0ccb483b",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597517501162000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-single-file-id",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-239037596",
+      "producerReceiptSHA256": "f7d334574fb393845bb3038200274027a74f1dcf5505356dc7964c19c35008b0",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597519274137000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-single-null-file-id",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2922700066",
+      "producerReceiptSHA256": "1b814da2704c89aec5194aed1c915a0b80f1ead023478baf18ffd38217d523c2",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597521059123000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-single-type-alias",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-708761699",
+      "producerReceiptSHA256": "d7e7811ee301f7dd90c91c757f3c08effa1a3774b703f90174ada45910d0fd2e",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597522835218000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-single-url-alias",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-272041937",
+      "producerReceiptSHA256": "f4d6918422bdb4561beacd55f26a68012397917d7525691a016d0a23da02bbfd",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597524596079000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-single-duplicate-url",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2005490069",
+      "producerReceiptSHA256": "2ea1533ad40781644b986e4dbdea83d26d00a954cddfbcbf9b83a6a75e820441",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597526357673000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-single-null-url",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2704309247",
+      "producerReceiptSHA256": "7743b9e1f5cd0cf5312dc79f0c1eadd17623aa7f82505b94e6cbd2eba40e3dd2",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597528117645000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-multi-file-id",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-3314006724",
+      "producerReceiptSHA256": "d8fb75ae5d601eb6aa623f56499e64d5bbf3165d4fdfb7fb816bda47bdc5d963",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597529913692000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-multi-null-file-id",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-2417905313",
+      "producerReceiptSHA256": "af575ead1bf2674670e872a5ba963570a1557c82fb4c37d31377e4749e0b04cb",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597531686793000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-multi-type-alias",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-953375155",
+      "producerReceiptSHA256": "33f9b09da7eadd74563ef3c740b575ceb32d933b1c6f9b2dcb20d51604bdcc35",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597533442554000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-multi-url-alias",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-1179456064",
+      "producerReceiptSHA256": "02ce134b87d9e3b2dbd0394ffa0f6df826a31c7f14bb5d00f2938f92e0ec450c",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597535218715000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-multi-duplicate-url",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-1811567917",
+      "producerReceiptSHA256": "ee49efd59ae01adccead84c8c2e3a7a0858c87e0658a7c1f4095d42009048f1f",
+      "producerExit": 0
+    },
+    {
+      "id": "XAIIMG-qualification-fixture-SYNTHETIC-1793597536976362000",
+      "test": "TestXAIImagesNativeQualificationProcess/resource-multi-null-url",
+      "packet": ".evidence/catalog-model-id-policy/e2e/20261102T051207.821665Z-1z37t3sn/xai-images-historical-9584/synthetic-packets/xai-images-proof-fixture-265006225",
+      "producerReceiptSHA256": "cd7ef3cbf0db722a9e5b7c26b491ad6ed1864a4c8105fe15a2526dd688e045d4",
+      "producerExit": 0
+    }
+  ],
+  "nestedChecks": [
+    {
+      "id": "FUTURE-MODEL-cli-moonshot-anthropic-messages",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051524.364618Z-463rw8pb/receipt.json",
+      "receiptSHA256": "ef5e9f9ea6c4b3128ad9969a015e4a468ebbd99e3c922ad66bcba5e7fb6ab811",
+      "requiredCount": 1088
+    },
+    {
+      "id": "FUTURE-MODEL-cli-moonshot-cn-anthropic-messages",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051557.053491Z-mvx58rt_/receipt.json",
+      "receiptSHA256": "cd0c5d5d7ff846d3cb8e52e5e4465b974b9c533be048b25d407de30a940fb76d",
+      "requiredCount": 1088
+    },
+    {
+      "id": "FUTURE-MODEL-cli-moonshot-cn-openai-completions",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051536.018301Z-_i5mt_0h/receipt.json",
+      "receiptSHA256": "21950132c76e87f42d948b789fb690306217049e17f6413900c7c78c0cb285e8",
+      "requiredCount": 1088
+    },
+    {
+      "id": "FUTURE-MODEL-cli-moonshot-cn-openai-responses",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051546.615637Z-h6mrna32/receipt.json",
+      "receiptSHA256": "f9adab24253e98c7b39194e293cc0ffb1b0a139e9dc046ef32048086b96e1d98",
+      "requiredCount": 1088
+    },
+    {
+      "id": "FUTURE-MODEL-cli-moonshot-openai-completions",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051503.177398Z-n45oymqc/receipt.json",
+      "receiptSHA256": "1cfbb3a1d6b6d1d6cc95e41d07acd05fd16fc07331244eb6407480ef7df8173c",
+      "requiredCount": 1088
+    },
+    {
+      "id": "FUTURE-MODEL-cli-moonshot-openai-responses",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051513.858748Z-n0x9t2fs/receipt.json",
+      "receiptSHA256": "f842536e56f35e49974bf3cecd5a89f240a71f2741fa571e77dfb08e6a7e76b3",
+      "requiredCount": 1088
+    },
+    {
+      "id": "FUTURE-MODEL-cli-typesafe-image-box",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051628.997617Z-smmxh43v/receipt.json",
+      "receiptSHA256": "ba75f5e8b061aa606778a5ad9e274346fb2ff7a830e00611b426632306137ed5",
+      "requiredCount": 1086
+    },
+    {
+      "id": "FUTURE-MODEL-cli-xai-chat",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051607.901661Z-nugka9f1/receipt.json",
+      "receiptSHA256": "0136f65a4c9e2f6456e37b045ce21b47bd228bc01af080054a57537d7437636e",
+      "requiredCount": 1091
+    },
+    {
+      "id": "FUTURE-MODEL-cli-xai-image",
+      "receipt": ".evidence/catalog-model-id-policy/e2e/20261102T051618.562871Z-q3vclmqy/receipt.json",
+      "receiptSHA256": "26988e10e2942d86250cb9b11c0669c1cdb4edfcde7a7ef52a9c48a6791e217f",
+      "requiredCount": 1085
+    }
+  ],
+  "bundleAudits": [
+    {
+      "path": "bundles/20261102T051209.995718000Z",
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    },
+    {
+      "path": "bundles/20261102T052158.532963000Z",
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    },
+    {
+      "path": "bundles/20261102T052544.093632000Z",
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    },
+    {
+      "path": "bundles/20261102T052602.845300000Z",
+      "sha256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa"
+    }
+  ]
+}

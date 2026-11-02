@@ -8,6 +8,7 @@
 
 | 目录版本 | 批次 | 入口 |
 | --- | --- | --- |
+| `catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c`（型号准入策略；已完成归集） | `20261102T041450Z-10fb1e18` | [运行 JSON](catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T041450Z-10fb1e18/catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c.json) · [交付说明](catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T041450Z-10fb1e18/delivery.md) · [完成索引](catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T041450Z-10fb1e18/delivery.json) |
 | `catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c`（当前内置 125 条；已完成归集） | `20261102T023400Z-c9d70d4f-process-6` | [运行 JSON](catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T023400Z-c9d70d4f-process-6/catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c.json) · [交付说明](catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T023400Z-c9d70d4f-process-6/delivery.md) · [完成索引](catalog-dabef85cc36d57b7cdad2598cc333161f0842e93c6a46a2a3a64c21d23e9605c/20261102T023400Z-c9d70d4f-process-6/delivery.json) |
 | `catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6`（历史 Terra 交付） | `20261102T022319Z-67bee386` | [运行 JSON](catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T022319Z-67bee386/catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6.json) · [交付索引](catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T022319Z-67bee386/delivery.json) · [代码变化与分发判定](catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T022319Z-67bee386/delivery.md) |
 | `catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6`（首批保留；兼容范围措辞已被新批替代） | `20261102T021202Z-b9f7df2a` | [运行 JSON](catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T021202Z-b9f7df2a/catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6.json) · [交付索引](catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T021202Z-b9f7df2a/delivery.json) · [代码变化与分发判定](catalog-94a5402bdf07d2d75497c3531671126f07b887c274f2cf3cb7e98e238f1e50d6/20261102T021202Z-b9f7df2a/delivery.md) |
@@ -20,6 +21,11 @@
 当前 Kimi K3.1 Pro 内置目录为 125 条；核心白名单已变化，旧程序须升级重建并
 验证兼容性，内置使用者须重建分发。前五次中间应用目录仅供追溯，无完成标记，
 不可分发。最终批次已按完成索引归集。
+
+型号准入策略的新批次使用相同 125 条运行字节和目录版本；继续使用这份既有目录
+不因此要求旧程序升级。使用新策略接纳未来同能力身份须先升级 SDK 并重建；
+外部目录仍需 Host 显式加载与授权，更新编译内置默认目录仍需重建。新批次完成
+已按完成索引归集，不把既有批次的历史验证当成本次策略证明。
 
 ## 文件职责
 
