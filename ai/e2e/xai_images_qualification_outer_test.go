@@ -40,11 +40,14 @@ func imageQualificationOuter(t *testing.T, f imageQualificationFixture, first ma
 	if err := os.WriteFile(launcher, []byte(script), 0700); err != nil {
 		t.Fatal(err)
 	}
-	outside := filepath.Dir(filepath.Dir(run.Dir()))
+	outside := filepath.Join(f.root, "synthetic-results")
+	if err := os.MkdirAll(outside, 0700); err != nil {
+		t.Fatal(err)
+	}
 	out := filepath.Join(outside, fmt.Sprintf("xai-image-consumer-%d", time.Now().UnixNano()))
 	bundleRel, _ := filepath.Rel(f.root, f.bundle)
 	outRel, _ := filepath.Rel(f.root, out)
-	cmd := exec.CommandContext(f.ctx, "python3", "tools/verification/consume_live.py", "--binary", launcher, "--bundle", filepath.ToSlash(bundleRel), "--out", filepath.ToSlash(outRel))
+	cmd := exec.CommandContext(f.ctx, "python3", filepath.Join(catalogSnapshotRoot(t), "tools/verification/consume_live.py"), "--binary", launcher, "--bundle", filepath.ToSlash(bundleRel), "--out", filepath.ToSlash(outRel))
 	cmd.Dir, cmd.Env = f.root, xaiProcessEnv(t)
 	raw, err := cmd.CombinedOutput()
 	code = imagineProcessExit(err)

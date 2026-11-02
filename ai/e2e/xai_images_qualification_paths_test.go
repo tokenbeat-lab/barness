@@ -62,7 +62,7 @@ func imageQualificationPathPacket(t *testing.T, f imageQualificationFixture) ima
 	t.Helper()
 	p := f.packet(t)
 	old := p.attempt
-	destination := filepath.Join(filepath.Dir(filepath.Dir(run.Dir())), "path-"+filepath.Base(old))
+	destination := filepath.Join(p.root, "path-"+filepath.Base(old))
 	if err := os.Rename(old, destination); err != nil {
 		t.Fatal(err)
 	}

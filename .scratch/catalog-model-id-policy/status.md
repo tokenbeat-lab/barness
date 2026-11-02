@@ -1,6 +1,6 @@
 # 型号名称限制移除当前状态
 
-当前阶段：产品、215项定向与9身份CLI证明完成，准备最终冻结并执行完整普通。
+当前阶段：产品和JSON新增证明完成，历史来源合同修订后定向通过，准备重新冻结完整普通。
 基准提交：9584d3d6f095aefa4ab73bdc75c39a705b7931d6。
 工作批次：`artifacts/catalog/work/20261102T041450Z-10fb1e18/`。
 根目录原有 .catalog/、local-catalog.json、provider-integration-status scratch 保留。
@@ -85,3 +85,51 @@ check-reference.json 指向仓库根 .evidence 内各自完整检查，不依赖
 
 最终完整普通计划改用不可覆盖 v3 脚本/输入清单/必需清单，必需225项，
 80项清单加脚本与清单自身共82实际输入。旧v1/v2材料保留，不将其当成已执行v3事实。
+
+最终冻结：807afbc548ad9410a090121a8671bdb189f50128。矩阵定向工作树与最终
+2169项源码、80项所选输入逐项相等，证明为verification/matrix-applicability-v1.json，
+SHA 851484eae5d4d8dd23ec8e9e8922b02477ec9db8c60414e8f2b14f92765aa6bc。
+独立增量review-spec-v2.md与review-standards-v2.md均无发现。
+
+完整普通v3当前原件：
+`.evidence/catalog-model-id-policy/e2e/20261102T042820.344950Z-_6n8y39z/receipt.json`。
+实际来源807afbc5、所选输入82项、必需225项；目前没有终态。
+命令为go test -json ./ai/e2e ./ai ./ai/examples/chineseeval/... ./catalog/...
+./cmd/catalogctl ./cmd/cataloggen -count=1 -timeout=40m，外层collector上限2700秒。
+
+新版本化交付批次为原Catalog.Version下的20261102T041450Z-10fb1e18目录；
+运行125条快照与34文件review复制自原批准包，均与当前内置/基线逐字节相等。
+这是新程序策略的验证批次，不是新型号数据版本，不把历史check冒充本次策略证明。
+当前未封存delivery.json；完整普通及生成/构建/vet完成后再归集最终结果。
+
+完整普通v3观察到TestCatalogMaintenanceSourceReview/reviewed-current失败后停止，
+collector CANCELLED/exit-15，原件保留。旧测试要求历史xAI Images来源适用于当前
+image_pricing.go，来源审核器按合同拒绝本次变化。没有启动生成/构建/vet。
+
+修订仅涉及E2E：历史迁移正例读取首个RED回执的完整2168文件source map，附原件及
+hash；新增当前策略来源拒绝。原审核器与reviewed_sources.json均未修改。
+7/7来源定向PASS/audit0/exit0，回执
+`.evidence/catalog-model-id-policy/e2e/20261102T043954.709247Z-z1d6pacr/receipt.json`。
+
+独立审计又定位xAI Images complete/paths/history的同一历史来源假设。其原失败分别
+保留在044038.592509Z-t6e4vjhm、044049.119679Z-bpern134、044055.566644Z-y55tgz9q。
+只为测试从真实Git9584d3d6导出ai/、go.mod/go.sum，releasegate子进程在该隔离目录
+核对历史合同，packet放唯一可写目录。当前SDK来源另作拒绝；不改全局cwd/env，
+不增加产品注入参数，不改旧grant/ledger/native source/capture或授予当前资格。
+
+初次解包失败原件044400.075903Z-n5qp4g98：Git PAX元数据头，历史比较尚未执行；
+仅修测试解包器。044420.502936Z-kzec2ztp命令只覆盖当前拒绝；历史完整合同随后在
+044437.329507Z-bixafe6t通过6case。044458.962904Z-8ekb361y通过148case后，
+进一步将历史ai目录设0500、文件及模块文件设0400，保留独立packet可写目录。
+以上均在本feature e2e原件根，失败/范围不足/中间通过分别保留。
+
+最终只读历史定向：
+`.evidence/catalog-model-id-policy/e2e/20261102T044646.946229Z-0wet3qqo/receipt.json`，
+PASS/exit0、148/148原生case PASS、audit0，SHA
+`b0052626a279389fde95bc9633591e063070f4b26bb33b6d243c85694d8de7bf`。
+原始Git archive、导出argv/退出、2189项文件清单和逐项hash保存于原件；
+它是历史比较上下文，不是当前SDK获得厂商资格或旧SDK重新执行的证明。
+
+新完整普通使用v5脚本/清单，327项固定必需case，82项跨默认输入加脚本和清单
+共84项实际输入。53个动态fixture case按完整原生清单核对；最终还核对历史archive
+与树的内容hash，不能仅用主bundle audit替代。尚未执行v5。
