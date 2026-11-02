@@ -42,10 +42,8 @@ func TestMaintenanceCatalogMigration(t *testing.T) {
 	mustUnmarshal(t, generated, &snapshot)
 	current := ai.BuiltinCatalog()
 	ev.Check("new identity is explicit", current.Version != old.Catalog.Version && current.Version == snapshot.Catalog.Version, "version=%s", current.Version)
-	ev.Check("migration retains exactly 118 records in three collections", len(current.Models) == 112 && len(current.ImageModels) == 3 && len(current.ClassifierModels) == 3, "counts=%d/%d/%d", len(current.Models), len(current.ImageModels), len(current.ClassifierModels))
-	expected := old.Catalog
-	expected.Version = current.Version
-	ev.Check("every model, price, constraint and default survives in original order", reflect.DeepEqual(current, expected), "migrated definitions differ")
+	historicalCurrent := historicalCatalogInCurrentOrder(current, old.Catalog)
+	ev.Check("historical 118 records retain definitions and order", len(historicalCurrent.Models) == 112 && len(historicalCurrent.ImageModels) == 3 && len(historicalCurrent.ClassifierModels) == 3 && reflect.DeepEqual(historicalCurrent, old.Catalog), "historical definitions or order differ")
 	ev.Check("builtin and external JSON have the same definitions and hash", reflect.DeepEqual(current, snapshot.Catalog) && catalogHash(t, current) == snapshot.Hash, "generated/builtin mismatch")
 	checkedIn, err := os.ReadFile("../catalog_builtin.json")
 	if err != nil {
@@ -57,6 +55,9 @@ func TestMaintenanceCatalogMigration(t *testing.T) {
 	gaps, retained := 0, 0
 	for _, p := range state.Providers {
 		for _, entry := range p.Entries {
+			if entry.Source == nil || entry.Source.Kind != "historical" {
+				continue
+			}
 			retained++
 			ev.Check("every record retains historical provenance", entry.Source != nil && entry.Source.Digest == old.Hash && entry.Source.Path == "ai/release/catalog-snapshot.json", "source=%+v", entry.Source)
 			if entry.Source != nil && entry.Source.MissingServing {

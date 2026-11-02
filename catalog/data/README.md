@@ -22,6 +22,15 @@ the old version/hash. Withdrawn entries remain in State for future recovery but
 are omitted from runtime output. Provenance and field-decision edits alone do
 not change a Provider's runtime content digest.
 
+The first adopted baseline adds only
+`chat/openai/openai-responses/gpt-6.1-terra`: 113 chat, 3 image and 3 classifier
+records. OpenAI's content version is 2; all other Provider versions remain 1.
+The complete `baseline/review.json` inventory retains the approved revision,
+official source capture, full manual definition, field decisions and original
+historical catalog bytes. Its `snapshot.json` is adopted without regeneration.
+The prior 118 runtime definitions and their relative order are unchanged.
+This is code compatibility acceptance, not new live model qualification.
+
 `go generate ./ai` verifies the embedded artifact against reviewed Provider source without writing. Explicit generation selects `cataloggen --builtin|--state|--store`, previews with `--dry-run`, and writes only with `--confirm`.
 
 Local apply changes only the selected store/output. Use `catalogctl export --store <store> --repo <repo> --review-dir <NEW directory> --confirm` to retain one approved revision as Provider files, State, exact runtime snapshot and deduplicated source/manual captures. `review.json` is the completion marker and file inventory; its external store/check references remain original evidence. Adopt exported `providers/*.json`, `snapshot.json` as `ai/catalog_builtin.json`, and the complete review directory as `catalog/data/baseline/` together. Replace the prior baseline inventory, including all input blobs and review.json. Maintenance validates exact files, digests, provenance and the selected Provider/runtime pair, then retains the baseline in the seed revision for future maintenance/export cycles. Inherited references carry the original index digest as `originReview`; this does not assert availability or current qualification of old external evidence. An absent store derives the same runtime Version/Hash; its maintenance revision ID can differ by lineage. Never replace the runtime artifact alone.

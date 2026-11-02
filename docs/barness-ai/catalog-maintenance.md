@@ -131,6 +131,12 @@ go build -o /tmp/catalogctl ./cmd/catalogctl
 
 默认来源是 `catalog/data/providers/*.json`，按实际 Provider 保存定义和人工决定；默认运行数据是生成的 `ai/catalog_builtin.json`。初迁移保留原 118 条记录（112 chat、3 image、3 classifier）的定义、顺序、价格及 null/省略语义。`ai/release/catalog-snapshot.json` 和旧 activation 原件保留原历史身份。
 
+2026-11-02 首次采用完整审阅基线，新增
+`chat / openai / openai-responses / gpt-6.1-terra`，默认目录为 119 条
+（113 chat、3 image、3 classifier）。OpenAI 内容版本为 2，其他 Provider 为 1；
+原 118 条定义与相对顺序保持。该型号的来源、采用和验证记录见
+[本次唯一当前状态](../../.scratch/catalog-gpt61-terra/status.md)。
+
 本地 `apply` 只推进所选维护库和明确选择的外部快照。导出已批准 State 或快照：
 
 ```sh
