@@ -1,6 +1,6 @@
 # 型号名称限制移除当前状态
 
-当前阶段：产品修改与定向 GREEN 完成，准备独立审查和完整普通验证。
+当前阶段：产品、215项定向与9身份CLI证明完成，准备最终冻结并执行完整普通。
 基准提交：9584d3d6f095aefa4ab73bdc75c39a705b7931d6。
 工作批次：`artifacts/catalog/work/20261102T041450Z-10fb1e18/`。
 根目录原有 .catalog/、local-catalog.json、provider-integration-status scratch 保留。
@@ -65,3 +65,23 @@ Gemini/OpenAI已有名称驱动行为保留并列在审计报告。其他旧名�
 完整普通使用 WORK/verification/run-ordinary-v2.py、ordinary-inputs-v2.json
 （80项跨默认范围输入）和required-cases-v2.json（215项），三者保持原字节。
 普通开始后不得提交或修改受测源码/输入；当前状态Markdown不作实际输入。
+
+初次冻结：65a1ecbb2cb97f51c37cfee849925712187e5acc。最终定向工作树与其
+2168项源码、80项输入逐项相等，证明见 WORK/verification/green-applicability-v1.json，
+SHA ea473ccc51eba68561357eb176a6335bef792546056eccc537aca7b232ff955f。
+独立Spec和Standards审查均无发现，原件为WORK/review-spec-v1.md与review-standards-v1.md。
+
+验证agent补充说明：215项中，公共Client覆盖9身份，但CLI只新增1个Kimi身份。
+root决定在完整普通前补齐9身份的CLI闭环，避免以单类CLI证明替代其他操作的维护路径。
+现扩展测试，产品和125条真实目录保持原样；之后使用新的测试/输入/脚本版本冻结。
+
+9身份CLI矩阵原件：
+`.evidence/catalog-model-id-policy/e2e/20261102T042409.321856Z-84w6k84i/receipt.json`，
+PASS/exit0、10/10原生场景通过、audit0，SHA-256
+`eb2dac25a4a4930ee908daa11f1c3ea1d8d4f6f865bc93f4e2d8b62f643649b1`。
+一个CLI二进制供9个独立store使用，每条保留preview/freeze/check/apply原件；
+check-reference.json 指向仓库根 .evidence 内各自完整检查，不依赖已清理的临时store。
+每条应用输出与候选snapshot原字节相等，原125身份和顺序保持，只有所选合成身份新增。
+
+最终完整普通计划改用不可覆盖 v3 脚本/输入清单/必需清单，必需225项，
+80项清单加脚本与清单自身共82实际输入。旧v1/v2材料保留，不将其当成已执行v3事实。
