@@ -175,8 +175,27 @@ func buildSingleModelCatalogCLI(t *testing.T, ev *evidence.Case) string {
 	if err != nil {
 		t.Fatal(err)
 	}
+	// This synthetic one-model seed intentionally starts from historical entries.
+	// The adopted baseline binds the real default and cannot describe this fixture.
+	baseline := filepath.Join(fresh, "catalog", "data", "baseline")
+	if err := os.RemoveAll(baseline); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(baseline, 0700); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(baseline, "README.md"), []byte("Synthetic historical-only seed.\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
 	for pi := range state.Providers {
 		p := &state.Providers[pi]
+		historical := p.Entries[:0]
+		for _, entry := range p.Entries {
+			if entry.Source != nil && entry.Source.Kind == "historical" {
+				historical = append(historical, entry)
+			}
+		}
+		p.Entries = historical
 		for ei := range p.Entries {
 			e := &p.Entries[ei]
 			var identity struct{ Provider, API, ID string }

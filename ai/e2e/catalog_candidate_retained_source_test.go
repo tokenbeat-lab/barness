@@ -38,16 +38,32 @@ func TestCatalogCandidateCheckRetainedSource(t *testing.T) {
 	if err := json.Unmarshal(raw, &prepared); err != nil {
 		t.Fatal(err)
 	}
-	marker := "catalog/data/baseline/README.md"
-	actual, err := os.ReadFile(filepath.Join(root, marker))
-	if err != nil {
-		t.Fatal(err)
-	}
-	sum := sha256.Sum256(actual)
-	ev.Check("prepared inventory binds the compiler-required baseline marker", prepared.Extra[marker] == hex.EncodeToString(sum[:]), "extra digest=%s", prepared.Extra[marker])
+	baseline := filepath.Join(root, "catalog", "data", "baseline")
 	retainedRoot := filepath.Join(root, filepath.Dir(checked.Prepared), "source")
-	retained, readErr := os.ReadFile(filepath.Join(retainedRoot, marker))
-	ev.Check("source archive retains exact embedded marker bytes", readErr == nil && bytes.Equal(retained, actual), "err=%v", readErr)
+	count := 0
+	err = filepath.WalkDir(baseline, func(path string, entry os.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			return walkErr
+		}
+		if entry.IsDir() {
+			return nil
+		}
+		name, err := filepath.Rel(root, path)
+		if err != nil {
+			return err
+		}
+		name = filepath.ToSlash(name)
+		actual, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		sum := sha256.Sum256(actual)
+		retained, readErr := os.ReadFile(filepath.Join(retainedRoot, filepath.FromSlash(name)))
+		ev.Check("prepared inventory and archive retain embedded baseline bytes", prepared.Extra[name] == hex.EncodeToString(sum[:]) && readErr == nil && bytes.Equal(retained, actual), "path=%s err=%v", name, readErr)
+		count++
+		return nil
+	})
+	ev.Check("complete adopted baseline inventory was inspected", err == nil && count > 0, "count=%d err=%v", count, err)
 	replay := filepath.Join(t.TempDir(), "catalogctl-from-retained-source")
 	cmd := exec.CommandContext(ctxFor(t), "go", catalogBuildArgs(replay, "./cmd/catalogctl")...)
 	cmd.Dir = retainedRoot

@@ -16,6 +16,10 @@ import (
 
 func copyAdoptedCatalogReview(t *testing.T, source, target string) {
 	t.Helper()
+	// An adopted review replaces the complete inventory; merging leaves stale blobs.
+	if err := os.RemoveAll(target); err != nil {
+		t.Fatal(err)
+	}
 	err := filepath.WalkDir(source, func(path string, entry os.DirEntry, err error) error {
 		if err != nil {
 			return err

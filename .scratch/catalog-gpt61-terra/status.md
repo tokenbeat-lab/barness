@@ -1,7 +1,7 @@
 # GPT-6.1 Terra 目录接纳与内置采用状态
 
-当前状态：三组默认数据已采用，待冻结后的验证。此前本地接纳已完成，原件保持。
-当前 HEAD：`37a283ee4ef743f93d3a12132d1bc2c3211fb1e5`。
+当前状态：三组默认数据已采用。普通回归首轮中断后修订三处测试夹具，待复验。此前原件保持。
+采用起点：`37a283ee4ef743f93d3a12132d1bc2c3211fb1e5`。
 GPT-6.1 Terra 子 agent `/root/terra_builtin_verification` 负责受影响验证编排和执行；
 root 负责完整审阅包导出、默认数据采用和交付。
 
@@ -39,7 +39,21 @@ JSON 语义和完整库存后 PASS/exit0，见同 attempt 的 `adoption-result-v
 Terra 公共 RED 已保留：
 `.evidence/catalog-gpt61-terra-builtin/e2e/20261102T005948.081733Z-hiffow6d/receipt.json`，
 实际 FAIL/exit1，唯一失败为当时内置目录尚无目标；没有重写为成功。
-采用后的 GREEN 和完整普通阶段尚待执行。
+采用后的最终定向 GREEN 在 `8a8dc08b97650bb31544ead014c0c0c69527bc70`
+通过：3 个 Terra 测试、用量/价格/推理/授权等子场景与来源完整性，
+回执 `.evidence/catalog-gpt61-terra-builtin/e2e/20261102T010455.785682Z-kafe5ryb/receipt.json`。
+规范与需求两个独立 Terra 审查通过，见维护 attempt 的 `review-v3.json`。
+
+完整普通首轮：
+`.evidence/catalog-gpt61-terra-builtin/e2e/20261102T010549.256058Z-gxw82nfi/receipt.json`，
+观察到 `TestCatalogCandidateFixedEntryReceipt` 和
+`TestCatalogCandidateLastWithdrawalToEmpty` 失败后停止，
+collector 为 CANCELLED、实际进程退出 -15；未完成项不算通过。
+原因是旧单模型合成测试修改了 Provider，却沿用正式 baseline，完整性拒绝符合合同。
+另扫描发现旧 README 留存断言和隔离采用 helper 覆盖目录的旧假设。
+仅修订三个 `ai/e2e` 夹具/断言：合成历史 seed 使用自己的空初始基线；
+源码归档逐项检查真实完整基线；隔离采用先移除旧 baseline 再复制新审阅包。
+产品完整性校验、默认定义和原失败证据均不改。修复后的定向及普通复验待执行。
 
 采用前当前状态快照：同维护 attempt 的 `status-before-adoption.md`。
 既有未跟踪 `.catalog/`、`local-catalog.json` 和
