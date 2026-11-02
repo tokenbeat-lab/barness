@@ -2,23 +2,23 @@ package ai
 
 func isKimi(p ProviderID) bool { return p == ProviderMoonshot || p == ProviderMoonshotCN }
 
-// Kimi metadata may narrow the implemented K3 subset. It cannot grant another
+// Kimi metadata may narrow the implemented text subset. It cannot grant another
 // model, protocol, modality, effort shape or pricing tier through compat flags.
 func kimiModelProblem(m Model) string {
 	if !isKimi(m.Provider) {
 		return ""
 	}
-	if m.ID != "kimi-k3" || (m.API != APIOpenAICompletions && m.API != APIOpenAIResponses && m.API != APIAnthropicMessages) {
+	if (m.ID != "kimi-k3" && m.ID != "kimi-k3.1-pro") || (m.API != APIOpenAICompletions && m.API != APIOpenAIResponses && m.API != APIAnthropicMessages) {
 		return "Kimi model or protocol is outside the implemented subset"
 	}
 	if len(m.Input) != 1 || m.Input[0] != ModalityText || m.ContextWindow <= 0 || m.ContextWindow > 1048576 || m.MaxTokens <= 0 || m.MaxTokens > 131072 {
 		return "Kimi text capacity is outside the implemented subset"
 	}
 	if !m.Reasoning || !m.Compat.RequiresThinking || m.DefaultThinkingLevel != ThinkingMax {
-		return "Kimi K3 requires reasoning and the max default"
+		return "Kimi text models require reasoning and the max default"
 	}
 	if value, ok := m.ThinkingLevelMap.Max.Get(); !ok || value != "max" {
-		return "Kimi K3 must retain max effort"
+		return "Kimi text models must retain max effort"
 	}
 	for _, l := range modelThinkingLevels {
 		e := m.ThinkingLevelMap.entry(l)
