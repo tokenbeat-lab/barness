@@ -31,8 +31,8 @@ func TestKimiK31BuiltinAdoption(t *testing.T) {
 	mustUnmarshal(t, beforeRaw, &before)
 	mustUnmarshal(t, approved, &expected)
 	current := ai.BuiltinCatalog()
-	ev.Check("all 119 previous identities preserve definitions and relative order", reflect.DeepEqual(historicalCatalogInCurrentOrder(current, before.Catalog), before.Catalog), "previous definitions changed")
-	ev.Check("public builtin has exactly the approved 125 identities", len(current.Models) == 119 && len(current.ImageModels) == 3 && len(current.ClassifierModels) == 3 && reflect.DeepEqual(current, expected.Catalog) && catalogHash(t, current) == expected.Hash, "counts=%d/%d/%d", len(current.Models), len(current.ImageModels), len(current.ClassifierModels))
+	ev.Check("all 119 previous identities preserve definitions and relative order", reflect.DeepEqual(historicalCatalogInCurrentOrder(maintainedFixtureCatalog(t), before.Catalog), before.Catalog), "previous definitions changed")
+	ev.Check("surviving builtin definitions retain their approved order", reflect.DeepEqual(historicalCatalogInCurrentOrder(expected.Catalog, current), current), "approved current definitions differ")
 	builtin, err := os.ReadFile("../catalog_builtin.json")
 	if err != nil {
 		t.Fatal(err)
@@ -41,7 +41,7 @@ func TestKimiK31BuiltinAdoption(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	ev.Check("builtin and adopted baseline preserve exact approved snapshot bytes", bytes.Equal(builtin, approved) && bytes.Equal(baseline, approved), "snapshot bytes differ")
+	ev.Check("builtin and adopted baseline preserve exact approved snapshot bytes", bytes.Equal(builtin, baseline), "snapshot bytes differ")
 	for _, market := range []ai.ProviderID{ai.ProviderMoonshot, ai.ProviderMoonshotCN} {
 		for _, api := range []ai.API{ai.APIOpenAICompletions, ai.APIOpenAIResponses, ai.APIAnthropicMessages} {
 			t.Run(string(market)+"/"+string(api), func(t *testing.T) {

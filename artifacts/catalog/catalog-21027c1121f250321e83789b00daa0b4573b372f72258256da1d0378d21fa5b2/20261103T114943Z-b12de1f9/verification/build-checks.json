@@ -1,0 +1,78 @@
+[
+  {
+    "argv": [
+      "go",
+      "generate",
+      "./ai"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-03T12:51:19.398558+00:00",
+    "wallSeconds": 0.8228019578382373,
+    "stdoutSHA256": "c3660f83da503664d6a2157b096b202e92b78b2a1f65aa0b235cc359b9b3089a",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceUnchanged": true
+  },
+  {
+    "argv": [
+      "go",
+      "build",
+      "./ai/...",
+      "./catalog/...",
+      "./cmd/catalogctl",
+      "./cmd/cataloggen"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-03T12:51:20.355599+00:00",
+    "wallSeconds": 1.3546963748522103,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceUnchanged": true
+  },
+  {
+    "argv": [
+      "go",
+      "vet",
+      "./ai/...",
+      "./catalog/...",
+      "./cmd/catalogctl",
+      "./cmd/cataloggen"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-03T12:51:21.841413+00:00",
+    "wallSeconds": 0.8618665826506913,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceUnchanged": true
+  },
+  {
+    "argv": [
+      "go",
+      "test",
+      "-c",
+      "-tags=live",
+      "-o",
+      "/Users/cyber/RestoX/barness/artifacts/catalog/work/20261103T114943Z-b12de1f9/bin/ai-live.test",
+      "./ai/live"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-03T12:51:22.836154+00:00",
+    "wallSeconds": 0.859593499917537,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceUnchanged": true
+  },
+  {
+    "argv": [
+      "go",
+      "vet",
+      "-tags=live",
+      "./ai/live"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-03T12:51:23.862359+00:00",
+    "wallSeconds": 1.6125140408985317,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceUnchanged": true
+  }
+]

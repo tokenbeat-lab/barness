@@ -68,6 +68,8 @@ func TestOpenAIImagesLiveWireReplay(t *testing.T) {
 			ev := run.Case(t, "P08-E01-live-replay-"+tc.ID)
 			ev.Fixture("live-contract.json", raw)
 			w := newWorldWith(t, func(c *ai.Config) {
+				current := ai.BuiltinCatalog()
+				c.Catalog = &current
 				c.Policy.MaxOutputBytes = 16 << 20
 				c.Policy.Image = &ai.ImagePolicy{MaxInputImages: 2, MaxOutputImages: 1, MaxOutputImageBytes: 8 << 20, MaxTotalOutputImageBytes: 8 << 20}
 			}, tenantA)

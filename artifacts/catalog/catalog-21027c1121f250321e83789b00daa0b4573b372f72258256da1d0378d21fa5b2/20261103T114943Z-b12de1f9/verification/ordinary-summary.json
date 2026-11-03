@@ -1,0 +1,179 @@
+{
+  "status": "PASS",
+  "exitCode": 0,
+  "elapsedSeconds": 1109.838806,
+  "elapsedMeaning": "Wall-clock span of the two complementary ordinary executions (overlap counted only once); individual elapsed times are recorded in parts.",
+  "sourceCommit": "b041eff5ca74393a88f66916b13ce1aaeec12ee8",
+  "sourceFiles": 2176,
+  "selectedInputFiles": 83,
+  "parts": [
+    {
+      "receipt": {
+        "path": ".evidence/catalog-openai-retirement/e2e/20261103T124146.762074Z-egyx03kv/receipt.json",
+        "sha256": "29915e4986e23ae840d823e7708fe4192b033b012687f16a2711db651ecdbdcd"
+      },
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-failfast",
+        "./ai/e2e",
+        "./ai",
+        "./ai/examples/chineseeval/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m",
+        "-run",
+        "^Test([N-Z]|LoopbackTransportDiagnostics$)"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "elapsedSeconds": 429.50468891719356,
+      "sourceCommit": "b041eff5ca74393a88f66916b13ce1aaeec12ee8",
+      "sourceFiles": 2176,
+      "selectedInputFiles": 83,
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "496fb658379c6a3e84a7203d06a80931278b3732e6755e8ef97c3fd8cd3c286c",
+          "package": "./ai/e2e",
+          "path": "bundles/20261103T124150.690539000Z",
+          "counts": {
+            "PASS": 5378,
+            "NOT_RUN": 28
+          },
+          "auditFindings": 0
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": ".evidence/catalog-openai-retirement/e2e/20261103T124519.494506Z-_xbcm5a7/receipt.json",
+        "sha256": "dc7eb1d11088521da222319c88c7b9eedb2817246dae329ccb23368160738fc1"
+      },
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-failfast",
+        "./ai/e2e",
+        "./ai",
+        "./ai/examples/chineseeval/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m",
+        "-run",
+        "^Test[A-M]",
+        "-skip",
+        "^TestLoopbackTransportDiagnostics$"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "elapsedSeconds": 897.0782474996522,
+      "sourceCommit": "b041eff5ca74393a88f66916b13ce1aaeec12ee8",
+      "sourceFiles": 2176,
+      "selectedInputFiles": 83,
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "271660b99937f2bd4efccca80542aaffda9d190c33cf77c9f8cf389f7aa2991f",
+          "package": "./ai/e2e",
+          "path": "bundles/20261103T124521.828857000Z",
+          "counts": {
+            "PASS": 11580,
+            "NOT_RUN": 198
+          },
+          "auditFindings": 0
+        },
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "ed2177915fb1625274577e1ae3fa2821897ffe2e048ab45a8698bc7dade37660",
+          "package": "-tags live ./ai/live",
+          "path": "bundles/20261103T125426.453196000Z",
+          "counts": {
+            "PASS": 32
+          },
+          "auditFindings": 0
+        },
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "e4ba489f1f8b7ec2fdacebf1fec35b217c9b711ff5306d7eac612a4b6b24d4fd",
+          "package": "-tags live ./ai/live",
+          "path": "bundles/20261103T125803.709624000Z",
+          "counts": {
+            "PASS": 77
+          },
+          "auditFindings": 0
+        },
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "e051c8b6210a1f72196494acc7ed555c3a94922c0a74b8e86e209185cecb238e",
+          "package": "-tags live ./ai/live",
+          "path": "bundles/20261103T125822.019525000Z",
+          "counts": {
+            "PASS": 6
+          },
+          "auditFindings": 0
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "discoveredRoots": 933,
+    "selectedRoots": 933,
+    "exactUnion": true,
+    "parts": [
+      "^Test([N-Z]|LoopbackTransportDiagnostics$)",
+      "^Test[A-M] -skip ^TestLoopbackTransportDiagnostics$"
+    ],
+    "skipMeaning": "Native NOT_RUN and Go skip remain unexecuted; selected roots are not relabeled as PASS."
+  },
+  "requiredCases": {
+    "CATALOG-CANDIDATE-PLAN": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4.1-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4o-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5-nano": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.2": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.4": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.4-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.5": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-daybreak-blue-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-daybreak-red-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-o3": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-o3-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-o4-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4.1-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4o-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5-nano": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5-pro": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.2": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.4": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.4-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.4-pro": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.5": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.5-pro": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-daybreak-blue-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-daybreak-red-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-o3": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-o3-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-o4-mini": "PASS",
+    "CATALOG-OPENAI-retirement": "PASS",
+    "CATALOG-TERRA-adopted-source": "PASS",
+    "CATALOG-TERRA-seed-export": "PASS",
+    "KIMI-K31-builtin-adoption": "PASS"
+  }
+}

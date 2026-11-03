@@ -85,7 +85,7 @@ func TestXAIHeadersAndHooksOrder(t *testing.T) {
 func TestXAICacheProviderIsolation(t *testing.T) {
 	ev := run.Case(t, "XAI-E13-cache-provider-isolation")
 	w := newXAIWorld(t, func(c *ai.Catalog) {
-		m, ok := ai.BuiltinCatalog().Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4.1-mini")
+		m, ok := protocolFixtureCatalog().Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4.1-mini")
 		if !ok {
 			t.Fatal("missing builtin comparison model")
 		}

@@ -19,7 +19,7 @@ func TestMiniMaxThinkingSwitchOnlyMetadata(t *testing.T) {
 		want := m.ID == "MiniMax-M3"
 		ev.Check("each protocol declares its own switch semantics "+string(m.API)+"/"+m.ID, (string(fields["thinkingSwitchOnly"]) == "true") == want, "%s", mustMarshal(t, m.Compat))
 	}
-	base, _ := ai.BuiltinCatalog().Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-5")
+	base, _ := protocolFixtureCatalog().Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-5")
 	base.Compat = ai.ModelCompat{}
 	declared := patchModel(base, json.RawMessage(`{"compat":{"thinkingSwitchOnly":true}}`))
 	owned := ai.Catalog{Version: "synthetic-switch-metadata", Models: []ai.Model{declared}}

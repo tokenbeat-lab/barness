@@ -40,3 +40,13 @@ compatibility checks do not grant vendor support, tenant permission or release
 qualification. Historical activation wrappers remain under
 `ai/release/catalog-activations/`; the former runtime activation writers have
 been deleted.
+
+The 2026-11-03 adopted baseline explicitly withdraws 37 OpenAI chat identities.
+Only the existing GPT-5.6, GPT-6 and GPT-6.1 identities remain active: eight
+Responses and seven Chat Completions identities. OpenAI content version is 39;
+other Provider versions and all retained definitions are unchanged. The runtime
+contains 88 definitions (82 chat, three image, three classifier). Withdrawn
+entries remain in State with original definitions and provenance. The complete
+review baseline and exact checked snapshot are adopted together. See
+`.scratch/catalog-openai-retirement/status.md` for the actual verification and
+`artifacts/catalog/README.md` for the versioned delivery.

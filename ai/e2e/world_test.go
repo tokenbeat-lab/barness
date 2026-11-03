@@ -68,6 +68,18 @@ func googleKey(k tenantKey) tenantKey {
 	return googleA
 }
 
+// fixtureModelIDs authorizes only the explicitly selected historical fixture
+// models for protocol regressions, independent of current default discovery.
+func fixtureModelIDs(api ai.API, provider ...ai.ProviderID) []string {
+	var ids []string
+	for _, m := range protocolFixtureCatalog().Models {
+		if m.API == api && (len(provider) == 0 || m.Provider == provider[0]) {
+			ids = append(ids, m.ID)
+		}
+	}
+	return ids
+}
+
 // builtinModelIDs are the built-in models of api, all allowed on its
 // binding; with a provider, only that provider's.
 func builtinModelIDs(api ai.API, provider ...ai.ProviderID) []string {
@@ -94,7 +106,7 @@ func anthropicBinding(k tenantKey, providerURL string) ai.Binding {
 		AuthKind:       ai.AuthAPIKey,
 		AccountScopeID: "acct-" + k.tenant + "-anthropic",
 		CredentialRef:  "cred-" + k.tenant + "-anthropic",
-		AllowedModels:  builtinModelIDs(ai.APIAnthropicMessages),
+		AllowedModels:  fixtureModelIDs(ai.APIAnthropicMessages),
 	}
 }
 
@@ -113,7 +125,7 @@ func geminiBinding(k tenantKey, providerURL string) ai.Binding {
 		AuthKind:       ai.AuthAPIKey,
 		AccountScopeID: "acct-" + k.tenant + "-google",
 		CredentialRef:  "cred-" + k.tenant + "-google",
-		AllowedModels:  builtinModelIDs(ai.APIGoogleGenerativeAI),
+		AllowedModels:  fixtureModelIDs(ai.APIGoogleGenerativeAI),
 	}
 }
 
@@ -182,7 +194,7 @@ func deepseekChatBinding(k tenantKey, providerURL string) ai.Binding {
 		AuthKind:       ai.AuthAPIKey,
 		AccountScopeID: "acct-" + k.tenant + "-deepseek",
 		CredentialRef:  "cred-" + k.tenant + "-deepseek",
-		AllowedModels:  append(builtinModelIDs(ai.APIOpenAICompletions, ai.ProviderDeepSeek), "gpt-4.1-mini"),
+		AllowedModels:  append(fixtureModelIDs(ai.APIOpenAICompletions, ai.ProviderDeepSeek), "gpt-4.1-mini"),
 	}
 }
 
@@ -218,7 +230,7 @@ func primaryBinding(k tenantKey, providerURL string) ai.Binding {
 		// text-only model; the gpt-5 family are reasoning models, gpt-5.5-pro
 		// one with tiered prices; gpt-5.4, gpt-5.4-pro, gpt-6-sol and
 		// gpt-6-astra are the ones ADR-0018 listed that catalog.json calls.
-		AllowedModels: []string{"gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5-mini", "gpt-5.1", "gpt-5.2", "gpt-5-pro", "gpt-5.5-pro",
+		AllowedModels: []string{"gpt-5.6-luna", "gpt-4.1-mini", "gpt-4o-mini", "gpt-4", "gpt-legacy-x", "gpt-5", "gpt-5-mini", "gpt-5.1", "gpt-5.2", "gpt-5-pro", "gpt-5.5-pro",
 			"gpt-5.4", "gpt-5.4-pro", "gpt-6-sol", "gpt-6-astra", "gpt-5.5", "gpt-6.1-sol", "gpt-daybreak-blue-latest", "gpt-daybreak-red-latest"},
 	}
 }
@@ -238,7 +250,7 @@ func chatBinding(k tenantKey, providerURL string) ai.Binding {
 		AuthKind:       ai.AuthAPIKey,
 		AccountScopeID: "acct-" + k.tenant,
 		CredentialRef:  "cred-" + k.tenant,
-		AllowedModels:  builtinModelIDs(ai.APIOpenAICompletions, ai.ProviderOpenAI),
+		AllowedModels:  fixtureModelIDs(ai.APIOpenAICompletions, ai.ProviderOpenAI),
 	}
 }
 
@@ -296,7 +308,9 @@ func newWorldWith(t *testing.T, configure func(*ai.Config), tenants ...tenantKey
 		h.PutCredential(deepseekCredential(k))
 	}
 
+	fixtureCatalog := protocolFixtureCatalog()
 	cfg := ai.Config{
+		Catalog:     &fixtureCatalog,
 		Policy:      validPolicy(),
 		Bindings:    h,
 		Credentials: h,

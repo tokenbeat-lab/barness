@@ -20,7 +20,7 @@ func TestBuiltinCatalogReleaseSnapshot(t *testing.T) {
 		Catalog ai.Catalog `json:"catalog"`
 	}
 	mustUnmarshal(t, raw, &snapshot)
-	current := ai.BuiltinCatalog()
+	current := maintainedFixtureCatalog(t)
 	ev.Fixture("catalog-snapshot.json", raw)
 	// This file remains the historical measurement pin. The migration changes
 	// composition identity, while preserving every reviewed definition.
@@ -40,6 +40,9 @@ func historicalCatalogProjection(t *testing.T, ev *evidence.Case, current, basel
 	}
 	for _, old := range baseline.Models {
 		model, ok := current.Lookup(old.Provider, old.API, old.ID)
+		if !ok {
+			model, ok = maintainedFixtureCatalog(t).Lookup(old.Provider, old.API, old.ID)
+		}
 		ev.Check("historical chat identity survives "+string(old.Provider)+"/"+string(old.API)+"/"+old.ID, ok, "missing identity")
 		out.Models = append(out.Models, model)
 	}

@@ -73,6 +73,8 @@ func TestGoogleImagesLiveWireReplay(t *testing.T) {
 				ev := run.Case(t, "P09-E01-live-replay-"+tc.ID+"-"+variant)
 				ev.Fixture("live-contract.json", raw)
 				w := newWorldWith(t, func(c *ai.Config) {
+					current := ai.BuiltinCatalog()
+					c.Catalog = &current
 					c.Policy.MaxOutputBytes = 16 << 20
 					c.Policy.Image = &ai.ImagePolicy{MaxInputImages: 1, MaxOutputImages: 1, MaxOutputImageBytes: 8 << 20, MaxTotalOutputImageBytes: 8 << 20}
 				}, tenantA)

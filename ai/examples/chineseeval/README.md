@@ -4,7 +4,7 @@
 `zh-support-v1`，标注规则、适用范围和每条依据随报告保存。它独立于协议真实冒烟和支持矩阵；
 不制定业务阈值、不转人工、不从 fixture 推断真实质量。
 
-当前默认读取 `jev-1.13.0-v5.json`、`jev-route-v5.json` 和 `luna-route-v5.json`，
+当前默认读取 `jev-1.13.0-v6.json`、`jev-route-v6.json` 和 `luna-route-v6.json`，
 它们明确固定 `ai/catalog_builtin.json` 的 Provider 合成目录身份，并独立增加配置内容版本。
 固定任务、Jev 1.13 / Luna 型号、价格、数据集和预算保持。`v1` 至 `v4` 原字节保留，
 其中 `v2` 仍固定原 `2026-10-29.1` 目录；这些旧配置只能与各自原快照配对，不能自动升级。

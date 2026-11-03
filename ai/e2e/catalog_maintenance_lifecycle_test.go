@@ -20,18 +20,18 @@ func TestCatalogMaintenanceCLILifecycle(t *testing.T) {
 	}
 	store := filepath.Join(t.TempDir(), "store")
 	seedVersions := catalogSeedVersions(t, ev, binary, store)
-	identity := []string{"--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "explicit lifecycle fixture"}
+	identity := []string{"--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "explicit lifecycle fixture"}
 	withdrawn := freezeCatalogAction(t, ev, binary, store, append([]string{"withdraw"}, identity...)...)
 	first := checkApplyCatalogAction(t, ev, binary, store, withdrawn)
 	restored := freezeCatalogAction(t, ev, binary, store, append([]string{"restore"}, identity...)...)
 	second := checkApplyCatalogAction(t, ev, binary, store, restored)
 	cat, _, err := catalog.Load(second.Snapshot)
-	_, present := cat.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4")
+	_, present := cat.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-6.1-sol")
 	ev.Check("explicit restore is newly checked and available", err == nil && present, "err=%v present=%v", err, present)
 	rollback := freezeCatalogAction(t, ev, binary, store, "rollback", "--provider", "openai", "--revision", first.ID, "--reason", "restore prior withdrawn content as new change")
 	third := checkApplyCatalogAction(t, ev, binary, store, rollback)
 	cat, _, err = catalog.Load(third.Snapshot)
-	_, present = cat.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4")
+	_, present = cat.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-6.1-sol")
 	ev.Check("rollback restores selected content without builtin fallback", err == nil && !present, "err=%v present=%v", err, present)
 	for _, p := range third.State.Providers {
 		expected := seedVersions[string(p.ID)]
@@ -49,7 +49,7 @@ func TestCatalogMaintenanceCLILifecycle(t *testing.T) {
 		return
 	}
 	ev.Check("original history identity and bytes remain unchanged", history.History[2].ID == first.ID && bytes.Equal(history.History[2].Snapshot, first.Snapshot) && history.History[0].ID != first.ID, "history changed")
-	out, exit = invokeCatalogCLI(t, ev, binary, "restore", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "preview only", "--dry-run")
+	out, exit = invokeCatalogCLI(t, ev, binary, "restore", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "preview only", "--dry-run")
 	var preview struct {
 		Status string `json:"status"`
 	}

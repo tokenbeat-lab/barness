@@ -27,11 +27,10 @@ func ProcessScope(route, mode, stage, binary string) (livegrant.Scope, error) {
 	if len(s.Scenes) > 0 {
 		s.MaxCalls, s.MaxAttempts, s.MaxRetries = 32, 32, 1
 		s.Provider, s.API, s.Endpoint = "openai", "openai-responses", "https://api.openai.com/v1"
-		s.Models = []string{"gpt-5-mini", "gpt-5.4", "gpt-6-sol"}
+		s.Models = []string{"gpt-5.6-luna", "gpt-5.6-sol", "gpt-6-sol"}
 		switch route {
 		case "openai-chat":
 			s.API = "openai-completions"
-			s.Models = append(s.Models, "gpt-5.4-pro")
 		case "deepseek-responses":
 			s.Provider, s.Endpoint, s.Models = "deepseek", "https://api.deepseek.com", []string{"deepseek-flash"}
 		case "deepseek-chat":
@@ -83,7 +82,7 @@ func ProcessScope(route, mode, stage, binary string) (livegrant.Scope, error) {
 	}
 	if stage == "formal" {
 		for _, model := range s.Models {
-			if _, ok := cat.Lookup(ai.ProviderID(s.Provider), ai.API(s.API), model); !ok && model != "gpt-5.4-pro" {
+			if _, ok := cat.Lookup(ai.ProviderID(s.Provider), ai.API(s.API), model); !ok {
 				return s, fmt.Errorf("formal process model absent from published catalog")
 			}
 		}

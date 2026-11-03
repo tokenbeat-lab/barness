@@ -210,6 +210,14 @@ fi
 
 ## 默认数据与生成
 
+当前内置采用记录（2026-11-03）：OpenAI chat 仅保留 GPT-5.6、GPT-6 及以上
+当前型号的 15 条接口身份；37 条身份经逐条 CLI 候选/check/apply 下架。
+总目录为 88 条（82 chat、3 image、3 classifier），OpenAI 内容版本为 39。
+其他 Provider、image/classifier 和保留模型定义不变；下架记录与原证据保留。
+实际目录标识、验证和分发结论见[本次唯一状态](../../.scratch/catalog-openai-retirement/status.md)
+与[统一交付入口](../../artifacts/catalog/README.md)。以下初迁移、Terra 和 Kimi 数量
+均为各自历史采用事实。
+
 默认来源是 `catalog/data/providers/*.json`，按实际 Provider 保存定义和人工决定；默认运行数据是生成的 `ai/catalog_builtin.json`。初迁移保留原 118 条记录（112 chat、3 image、3 classifier）的定义、顺序、价格及 null/省略语义。`ai/release/catalog-snapshot.json` 和旧 activation 原件保留原历史身份。
 
 2026-11-02 首次采用完整审阅基线，新增

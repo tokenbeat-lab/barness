@@ -15,7 +15,7 @@ var imagesProtocol = &fixtureProtocol{dir: "openai-images", binding: "images", a
 // Synthetic capabilities/rates prove protocol behavior. Official model
 // inclusion and live evidence are issue 11, independent of these fixtures.
 func configureImages(c *ai.Config) {
-	cat := ai.BuiltinCatalog()
+	cat := protocolFixtureCatalog()
 	cat.ImageModels = []ai.ImageModel{{Provider: ai.ProviderOpenAI, API: ai.APIOpenAIImages, ID: "host-image", Name: "Synthetic image model", Input: []ai.Modality{ai.ModalityText, ai.ModalityImage}, Output: []ai.Modality{ai.ModalityImage}, Capabilities: ai.ImageCapabilities{MaxReferenceImages: 16, MaxOutputImages: 10, Sizes: []string{"auto", "1024x1024", "1536x1024"}, Qualities: []string{"auto", "low", "medium", "high"}, TransparentBackground: true, Mask: true, InputFidelity: []string{"high", "low"}}, Pricing: ai.ImagePricing{InputText: ai.Value(2.0), InputImage: ai.Value(3.0), OutputImage: ai.Value(5.0), Source: "synthetic fixture rates"}}}
 	c.Catalog = &cat
 	c.Policy.Image = &ai.ImagePolicy{MaxInputImages: 16, MaxOutputImages: 10, MaxOutputImageBytes: 1024, MaxTotalOutputImageBytes: 4096}

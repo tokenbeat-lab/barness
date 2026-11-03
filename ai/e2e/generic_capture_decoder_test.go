@@ -146,7 +146,7 @@ func genericCaptureDecoderFixture(t *testing.T, root string, ev *evidence.Case) 
 	if err != nil {
 		t.Fatal(err)
 	}
-	r := supportmatrix.Report{Schema: 3, Combo: "synthetic-chat", Operation: "chat", Provider: "openai", API: "openai-responses", Endpoint: "https://api.openai.com/v1", Model: "gpt-5-mini", SDK: "synthetic capture only", AccountAlias: "synthetic", GitCommit: commit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: now, FinishedAt: now.Add(time.Second), Budget: supportmatrix.Budget{MaxCalls: 32, MaxRetries: 1, MaxOutputTokens: 4096, CallsUsed: 4, HTTPAttempts: 4, InputTokensUsed: 4, OutputTokensUsed: 4}}
+	r := supportmatrix.Report{Schema: 3, Combo: "synthetic-chat", Operation: "chat", Provider: "openai", API: "openai-responses", Endpoint: "https://api.openai.com/v1", Model: "gpt-5.6-luna", SDK: "synthetic capture only", AccountAlias: "synthetic", GitCommit: commit, CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: now, FinishedAt: now.Add(time.Second), Budget: supportmatrix.Budget{MaxCalls: 32, MaxRetries: 1, MaxOutputTokens: 4096, CallsUsed: 4, HTTPAttempts: 4, InputTokensUsed: 4, OutputTokensUsed: 4}}
 	var cases []map[string]any
 	blocks := []ai.AssistantContent{ai.Text{Text: "synthetic text"}, ai.Thinking{Thinking: "synthetic thinking"}, ai.ToolCall{ID: "synthetic-call", Name: "synthetic_tool", Arguments: ai.UncheckedArguments(`{"value":1}`)}, ai.Text{Text: "history ready"}}
 	for i, kind := range []string{"text", "thinking", "tool", grokhistory.Scenario} {
@@ -156,7 +156,7 @@ func genericCaptureDecoderFixture(t *testing.T, root string, ev *evidence.Case) 
 			t.Fatal(err)
 		}
 		meta := ai.CallMetadata{CallAttribution: ai.CallAttribution{TenantID: "synthetic-tenant", RequestID: id, BindingID: r.Combo, Operation: ai.OperationChat, Resolved: true, ProviderID: ai.ProviderOpenAI, API: ai.APIOpenAIResponses, ModelID: r.Model}, CatalogVersion: r.CatalogVersion, CatalogHash: hash, Attempts: []ai.Attempt{{AttemptID: id + "#1", HTTPStatus: 200}}}
-		wire := `{"model":"gpt-5-mini"}`
+		wire := `{"model":"gpt-5.6-luna"}`
 		if kind == grokhistory.Scenario {
 			wire = genericCaptureDecoderHistory(t, caseDir, ev)
 			meta.TenantID = tenantA.tenant

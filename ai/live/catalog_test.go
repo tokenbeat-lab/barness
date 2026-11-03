@@ -4,7 +4,6 @@ package live
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"slices"
 	"strings"
@@ -13,10 +12,9 @@ import (
 )
 
 // The scenarios below settle what issue 34 leaves to the live smoke: the
-// vendors accept the requests barness sends to the models ADR-0018 lists
-// without their optional features, and gpt-5.4-pro is not served on Chat
-// Completions. A refusal keeps the model out of the catalog; the
-// conclusion goes to ADR-0018 and the support matrix.
+// vendors accept requests for the active GPT-5.6/GPT-6 catalog models without
+// optional features. The retired pro-model vendor probe was removed with the
+// 2026-11-03 catalog retirement; historical captures remain unchanged.
 
 // clockTool is removed and convertTool added by the mid-conversation change.
 var (
@@ -105,41 +103,6 @@ func toolChanges(model string) scenario {
 		}
 	}}
 }
-
-// chatProUnavailable confirms why the catalog leaves gpt-5.4-pro off Chat
-// Completions (ADR-0013 决策二, ADR-0018 决策三): a client whose catalog
-// lists it there sends the request, and the vendor refuses the model.
-var chatProUnavailable = scenario{id: "pro-model-unavailable", model: "gpt-5.4-pro", run: func(s *session) {
-	pro := slices.IndexFunc(catalog.Models, func(m ai.Model) bool { return m.API == ai.APIOpenAIResponses && m.ID == s.model })
-	if !s.check("the pro model is listed on Responses", pro >= 0, "catalog %s", catalog.Version) {
-		return
-	}
-	probe := ai.Catalog{Version: catalog.Version + "+chat-pro-probe", Models: slices.Clone(catalog.Models)}
-	m := catalog.Models[pro]
-	m.API = ai.APIOpenAICompletions
-	probe.Models = append(probe.Models, m)
-	client, err := newClient(s.env.combo, cfg.key, s.env.rec, probe)
-	if !s.check("probe client assembles", err == nil, "%v", err) || !s.spend() {
-		return
-	}
-	res, err := client.CompleteSimple(s.ctx, newScope(), s.target(), ai.Request{Messages: []ai.Message{ai.UserText(shortPrompt)}},
-		ai.SimpleOptions{MaxTokens: ai.Value(256)})
-	s.observe("probe", res, err)
-	var e *ai.Error
-	switch {
-	case err == nil:
-		s.check("the vendor refuses the pro model on Chat", false,
-			"served (stop %q): list gpt-5.4-pro on Chat Completions under a new catalog version and record it in ADR-0018", res.Message.StopReason)
-	case errors.As(err, &e) && slices.Contains(retryableCodes, e.Code):
-		s.ok("probe", err)
-	case errors.As(err, &e) && (e.HTTPStatus == 404 || e.HTTPStatus == 400) && strings.Contains(strings.ToLower(e.Message), "model"):
-		// Only a refusal of the model confirms it; a 401, 403 or a 400 about
-		// something else says nothing about Chat serving it.
-		s.note("refused with HTTP %d (%s): %s", e.HTTPStatus, e.Code, truncate(e.Message, 300))
-	default:
-		s.check("the vendor refuses the pro model on Chat", false, "unexpected failure: %s", errText(err))
-	}
-}}
 
 // declaredTools are the tool names of a request body: Responses and
 // Anthropic name each tool at its top, Chat under function.

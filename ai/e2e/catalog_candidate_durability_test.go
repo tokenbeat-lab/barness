@@ -19,7 +19,7 @@ func TestCatalogCandidateApplyDirectorySyncFailure(t *testing.T) {
 	root := catalogSnapshotRoot(t)
 	dir := t.TempDir()
 	store := filepath.Join(dir, "store")
-	candidate := freezeCatalogAction(t, ev, binary, store, "withdraw", "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "directory durability failure retains baseline")
+	candidate := freezeCatalogAction(t, ev, binary, store, "withdraw", "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "directory durability failure retains baseline")
 	out, exit := invokeCatalogCLI(t, ev, binary, "check", "--store", store, "--id", candidate.ID, "--repo", root, "--evidence-feature", "barness-ai-dynamic-catalog", "--confirm")
 	var checked maintenance.CheckResult
 	json.Unmarshal(out, &checked)

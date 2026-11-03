@@ -171,7 +171,10 @@ func localConfig(p isolationProtocol, providerURL string) localassembly.Config {
 	case !p.anthropic() && !p.deepseek() && !p.deepseekChat():
 		b.Endpoint += "/v1"
 	}
-	return localassembly.Config{TenantID: "local", Binding: b,
+	// These isolation scripts retain their original wire models and prices.
+	// Current builtin discovery is covered by the catalog retirement contract.
+	catalog := protocolFixtureCatalog()
+	return localassembly.Config{TenantID: "local", Binding: b, Catalog: &catalog,
 		Transport: provider.LoopbackTransport(), AllowLoopbackHTTP: true}
 }
 

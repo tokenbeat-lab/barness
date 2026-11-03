@@ -14,7 +14,7 @@ func TestGLMChatOriginNonemptyResponseID(t *testing.T) {
 			t.Run(model+"/"+destination, func(t *testing.T) {
 				ev := run.Case(t, "GLM05-empty-origin-id-"+t.Name())
 				// The formal catalog now owns the six GLM identities.
-				w := newGLMSharedWorld(t, func(cfg *ai.Config) { cfg.Catalog = nil })
+				w := newGLMSharedWorld(t, func(cfg *ai.Config) { catalog := protocolFixtureCatalog(); cfg.Catalog = &catalog })
 				w.host.PutBinding(primaryBinding(tenantA, w.provider.URL()))
 				w.host.PutCredential(primaryCredential(tenantA, "v1"))
 				w.host.PutBinding(deepseekBinding(tenantA, w.provider.URL()))

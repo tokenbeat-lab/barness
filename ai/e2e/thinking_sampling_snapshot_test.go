@@ -36,7 +36,7 @@ func TestThinkingSamplingSnapshots(t *testing.T) {
 		var got ai.Model
 		switch source {
 		case "lookup":
-			got, _ = snapshot.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-4")
+			got, _ = snapshot.Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, catalog.Models[0].ID)
 		case "list":
 			got = snapshot.ModelsOf(ai.ProviderOpenAI, ai.APIOpenAIResponses)[0]
 		default:

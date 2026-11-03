@@ -95,7 +95,7 @@ func TestThinkingSamplingRetry(t *testing.T) {
 					t.Run(p.proto.dir+"/"+sc.entry()+"/"+string(mode)+"/"+variant, func(t *testing.T) {
 						ev := run.Case(t, p.prefix+"-E05-thinking-sampling-"+sc.entry()+"-"+string(mode)+"-"+variant)
 						ev.Fixture("fixture.json", raw)
-						catalog := ai.BuiltinCatalog()
+						catalog := protocolFixtureCatalog()
 						patch := withModelPatch(sc.Model, nil, sc.ModelPatch)
 						clk := clock.NewFake(time.Unix(0, 0), 0)
 						bodies := provider.TrackBodies(provider.LoopbackTransport())

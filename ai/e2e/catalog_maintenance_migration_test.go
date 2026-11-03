@@ -42,7 +42,7 @@ func TestMaintenanceCatalogMigration(t *testing.T) {
 	mustUnmarshal(t, generated, &snapshot)
 	current := ai.BuiltinCatalog()
 	ev.Check("new identity is explicit", current.Version != old.Catalog.Version && current.Version == snapshot.Catalog.Version, "version=%s", current.Version)
-	historicalCurrent := historicalCatalogInCurrentOrder(current, old.Catalog)
+	historicalCurrent := historicalCatalogInCurrentOrder(maintainedFixtureCatalog(t), old.Catalog)
 	ev.Check("historical 118 records retain definitions and order", len(historicalCurrent.Models) == 112 && len(historicalCurrent.ImageModels) == 3 && len(historicalCurrent.ClassifierModels) == 3 && reflect.DeepEqual(historicalCurrent, old.Catalog), "historical definitions or order differ")
 	ev.Check("builtin and external JSON have the same definitions and hash", reflect.DeepEqual(current, snapshot.Catalog) && catalogHash(t, current) == snapshot.Hash, "generated/builtin mismatch")
 	checkedIn, err := os.ReadFile("../catalog_builtin.json")

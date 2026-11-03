@@ -82,12 +82,12 @@ var combos = []combo{
 	{operation: ai.OperationImage, name: "google-interactions-image", spec: "P09", provider: ai.ProviderGoogle, api: ai.APIGoogleInteractions, endpoint: "https://generativelanguage.googleapis.com/v1beta", model: "gemini-nano-banana-2.1", sdk: func() string { return "direct HTTP (Google Interactions v1beta; ADR-0023)" }},
 	{
 		operation: ai.OperationChat, name: "openai-responses", spec: "P01", provider: ai.ProviderOpenAI, api: ai.APIOpenAIResponses,
-		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
-		quiet: ai.ThinkingMinimal, full: responsesOptions(ai.ThinkingMinimal), forcesTool: true,
+		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5.6-luna",
+		quiet: ai.ThinkingLevel("off"), full: responsesOptions(ai.ThinkingLevel("off")), forcesTool: true,
 		reasoning: ai.ThinkingLow,
-		// ADR-0018's models: one of gpt-5.4/5.5 and one of gpt-5.6/gpt-6,
+		// Active catalog models: GPT-5.6 and GPT-6 after the 2026-11-03 retirement,
 		// the same two on openai-chat.
-		extra: []scenario{toolChanges("gpt-5.4"), toolChanges("gpt-6-sol")},
+		extra: []scenario{toolChanges("gpt-5.6-sol"), toolChanges("gpt-6-sol")},
 	},
 	{
 		operation: ai.OperationChat, name: "anthropic-messages", spec: "P02", provider: ai.ProviderAnthropic, api: ai.APIAnthropicMessages,
@@ -123,10 +123,10 @@ var combos = []combo{
 	},
 	{
 		operation: ai.OperationChat, name: "openai-chat", spec: "P04", provider: ai.ProviderOpenAI, api: ai.APIOpenAICompletions,
-		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5-mini",
-		quiet: ai.ThinkingMinimal, full: chatOptions(ai.ThinkingMinimal), forcesTool: true,
+		endpoint: "https://api.openai.com/v1", sdk: openAISDK, model: "gpt-5.6-luna",
+		quiet: ai.ThinkingLevel("off"), full: chatOptions(ai.ThinkingLevel("off")), forcesTool: true,
 		noReplay: supportmatrix.OpenAIChatNoReplay,
-		extra:    []scenario{chatUsagePosition, toolChanges("gpt-5.4"), toolChanges("gpt-6-sol"), chatProUnavailable},
+		extra:    []scenario{chatUsagePosition, toolChanges("gpt-5.6-sol"), toolChanges("gpt-6-sol")},
 	},
 	{
 		// DeepSeek's Responses: no level sends effort "none" (its map has

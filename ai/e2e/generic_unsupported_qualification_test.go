@@ -115,14 +115,11 @@ func genericUnsupportedReport(t *testing.T) supportmatrix.Report {
 		t.Fatal(err)
 	}
 	now := time.Now().UTC()
-	r := supportmatrix.Report{Schema: 3, Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions", Endpoint: "https://api.openai.com/v1", Model: "gpt-5-mini", SDK: "github.com/openai/openai-go/v3 v3.66.0", AccountAlias: "synthetic", GitCommit: "synthetic-not-actual-live", CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: now, FinishedAt: now.Add(time.Second), Expected: supportmatrix.GenericExpected("openai-chat"), Budget: supportmatrix.Budget{MaxCalls: 32, MaxRetries: 1, MaxOutputTokens: 4096}}
+	r := supportmatrix.Report{Schema: 3, Combo: "openai-chat", Operation: "chat", Provider: "openai", API: "openai-completions", Endpoint: "https://api.openai.com/v1", Model: "gpt-5.6-luna", SDK: "github.com/openai/openai-go/v3 v3.66.0", AccountAlias: "synthetic", GitCommit: "synthetic-not-actual-live", CatalogVersion: cat.Version, CatalogHash: hash, StartedAt: now, FinishedAt: now.Add(time.Second), Expected: supportmatrix.GenericExpected("openai-chat"), Budget: supportmatrix.Budget{MaxCalls: 32, MaxRetries: 1, MaxOutputTokens: 4096}}
 	for _, id := range r.Expected {
 		model := r.Model
 		if strings.HasPrefix(id, "tool-changes-") {
 			model = strings.TrimPrefix(id, "tool-changes-")
-		}
-		if id == "pro-model-unavailable" {
-			model = "gpt-5.4-pro"
 		}
 		s := supportmatrix.ScenarioResult{ID: id, CaseID: "synthetic-" + id, Model: model, Outcome: supportmatrix.Pass, Calls: 1, Attempts: 1}
 		if id == "reasoning-history" {
@@ -181,8 +178,8 @@ func TestGenericUnsupportedFixedCatalog(t *testing.T) {
 		api      ai.API
 		model    string
 	}{
-		{"openai-responses", ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-5-mini"},
-		{"openai-chat", ai.ProviderOpenAI, ai.APIOpenAICompletions, "gpt-5-mini"},
+		{"openai-responses", ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-5.6-luna"},
+		{"openai-chat", ai.ProviderOpenAI, ai.APIOpenAICompletions, "gpt-5.6-luna"},
 		{"deepseek-responses", ai.ProviderDeepSeek, ai.APIOpenAIResponses, "deepseek-flash"},
 		{"deepseek-chat", ai.ProviderDeepSeek, ai.APIOpenAICompletions, "deepseek-flash"},
 		{"anthropic-messages", ai.ProviderAnthropic, ai.APIAnthropicMessages, "claude-haiku-4-5"},

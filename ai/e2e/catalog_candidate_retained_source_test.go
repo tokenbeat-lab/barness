@@ -20,7 +20,7 @@ func TestCatalogCandidateCheckRetainedSource(t *testing.T) {
 		return
 	}
 	store := filepath.Join(t.TempDir(), "store")
-	candidate := freezeCatalogAction(t, ev, binary, store, "withdraw", "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "prove complete compiler inputs are retained")
+	candidate := freezeCatalogAction(t, ev, binary, store, "withdraw", "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "prove complete compiler inputs are retained")
 	root := catalogSnapshotRoot(t)
 	out, exit := invokeCatalogCLI(t, ev, binary, "check", "--store", store, "--id", candidate.ID, "--repo", root, "--evidence-feature", "barness-ai-dynamic-catalog", "--confirm")
 	var checked maintenance.CheckResult

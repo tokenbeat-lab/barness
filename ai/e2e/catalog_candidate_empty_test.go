@@ -202,6 +202,8 @@ func buildSingleModelCatalogCLI(t *testing.T, ev *evidence.Case) string {
 			mustUnmarshal(t, e.Definition, &identity)
 			if e.Operation != ai.OperationChat || identity.Provider != "openai" || identity.API != "openai-responses" || identity.ID != "gpt-4" {
 				e.Lifecycle = maintenance.Withdrawn
+			} else {
+				e.Lifecycle = maintenance.Active
 			}
 		}
 		raw := mustMarshal(t, p)

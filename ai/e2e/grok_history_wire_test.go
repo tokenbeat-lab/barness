@@ -91,9 +91,9 @@ func grokHistoryWorld(t *testing.T, route string) (*world, ai.Binding, string) {
 	w := newWorld(t, tenantA)
 	switch route {
 	case "openai-responses":
-		return w, primaryBinding(tenantA, w.provider.URL()), "gpt-5-mini"
+		return w, primaryBinding(tenantA, w.provider.URL()), "gpt-5.6-luna"
 	case "openai-chat":
-		return w, chatBinding(tenantA, w.provider.URL()), "gpt-5-mini"
+		return w, chatBinding(tenantA, w.provider.URL()), "gpt-5.6-luna"
 	case "deepseek-responses":
 		return w, deepseekBinding(tenantA, w.provider.URL()), "deepseek-flash"
 	case "deepseek-chat":

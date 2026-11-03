@@ -12,9 +12,9 @@ func GenericExpected(combo string) []string {
 	var extras []string
 	switch combo {
 	case "openai-responses":
-		extras = []string{"tool-changes-gpt-5.4", "tool-changes-gpt-6-sol"}
+		extras = []string{"tool-changes-gpt-5.6-sol", "tool-changes-gpt-6-sol"}
 	case "openai-chat":
-		extras = []string{"usage-position", "tool-changes-gpt-5.4", "tool-changes-gpt-6-sol", "pro-model-unavailable"}
+		extras = []string{"usage-position", "tool-changes-gpt-5.6-sol", "tool-changes-gpt-6-sol"}
 	case "deepseek-responses":
 		extras = []string{"reasoning-level-high", "reasoning-level-max"}
 	case "deepseek-chat":
@@ -52,7 +52,7 @@ const OpenAIChatNoReplay = "OpenAI Chat Completions returns no reasoning content
 // are not authority to excuse a required capability in a formal report.
 func declaredGenericUnsupported(r Report, s ScenarioResult) bool {
 	return r.Combo == "openai-chat" && r.Operation == "chat" && r.Provider == "openai" && r.API == "openai-completions" &&
-		r.Endpoint == "https://api.openai.com/v1" && r.Model == "gpt-5-mini" &&
+		r.Endpoint == "https://api.openai.com/v1" && r.Model == "gpt-5.6-luna" &&
 		s.ID == "reasoning-history" && s.Model == r.Model && s.Outcome == Unsupported && s.Note == OpenAIChatNoReplay &&
 		s.Calls == 0 && s.Attempts == 0 && s.Retries == 0 && len(s.ProviderRequestIDs) == 0 &&
 		s.Images == 0 && s.Questions == 0 && s.StateBytes == 0 && s.DecodedImageBytes == 0 && len(s.ImageCalls) == 0 &&

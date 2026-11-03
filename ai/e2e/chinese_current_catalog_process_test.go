@@ -123,7 +123,7 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 			}
 			_, err = chineseeval.LoadRecorded(data, v4, v4Catalog.Catalog)
 			ev.Check("v4 remains valid with its original snapshot", err == nil, "err=%v", err)
-			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v5.json")
+			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v6.json")
 			if err != nil {
 				t.Fatal(err)
 			}

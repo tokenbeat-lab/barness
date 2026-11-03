@@ -13,7 +13,7 @@ func TestGrokHistoryGenericMandatoryProjection(t *testing.T) {
 	cat := ai.BuiltinCatalog()
 	hash, _ := cat.Hash()
 	now := time.Now().UTC()
-	r := supportmatrix.Report{Schema: supportmatrix.SchemaVersion, Combo: "openai-responses", Operation: "chat", Provider: "openai", API: "openai-responses", Endpoint: "https://api.openai.com/v1", Model: "gpt-5-mini", SDK: "synthetic projection only", AccountAlias: "synthetic-account", CatalogVersion: cat.Version, CatalogHash: hash, GitCommit: "synthetic-no-live", StartedAt: now, FinishedAt: now, Expected: []string{grokhistory.Scenario}, Scenarios: []supportmatrix.ScenarioResult{{ID: grokhistory.Scenario, Model: "gpt-5-mini", Outcome: supportmatrix.Unsupported, Note: "synthetic protocol omission"}}}
+	r := supportmatrix.Report{Schema: supportmatrix.SchemaVersion, Combo: "openai-responses", Operation: "chat", Provider: "openai", API: "openai-responses", Endpoint: "https://api.openai.com/v1", Model: "gpt-5.6-luna", SDK: "synthetic projection only", AccountAlias: "synthetic-account", CatalogVersion: cat.Version, CatalogHash: hash, GitCommit: "synthetic-no-live", StartedAt: now, FinishedAt: now, Expected: []string{grokhistory.Scenario}, Scenarios: []supportmatrix.ScenarioResult{{ID: grokhistory.Scenario, Model: "gpt-5.6-luna", Outcome: supportmatrix.Unsupported, Note: "synthetic protocol omission"}}}
 	m := supportmatrix.Matrix{Schema: supportmatrix.SchemaVersion, Rows: []supportmatrix.Row{{Combo: r.Combo, Operation: r.Operation, Provider: r.Provider, API: r.API}}}
 	_, err := supportmatrix.Merge(m, r)
 	ev.Record("synthetic-projection", r)

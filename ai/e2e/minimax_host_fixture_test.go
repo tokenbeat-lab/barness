@@ -57,7 +57,7 @@ type miniMaxHostWorld struct {
 
 func newMiniMaxHostWorld(t *testing.T) *miniMaxHostWorld {
 	t.Helper()
-	cat := ai.BuiltinCatalog()
+	cat := protocolFixtureCatalog()
 	candidate := minimax.CandidateCatalog()
 	cat.Version = "mm08-controlled-candidate-synthetic-prices"
 	// This world owns six synthetic MiniMax candidates, including unpriced

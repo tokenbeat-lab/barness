@@ -65,10 +65,10 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		if mode == "failed-no-refund" || strings.HasPrefix(mode, "image-") || mode == "classifier" || mode == "decisions" || mode == "anthropic-long" {
 			return nil, errors.New("controlled transport failure")
 		}
-		body := `data: {"id":"chat_controlled","model":"gpt-5-mini","choices":[{"index":0,"delta":{"content":"accepted"},"finish_reason":"stop"}]}` + "\n\ndata: [DONE]\n\n"
+		body := `data: {"id":"chat_controlled","model":"gpt-5.6-luna","choices":[{"index":0,"delta":{"content":"accepted"},"finish_reason":"stop"}]}` + "\n\ndata: [DONE]\n\n"
 		return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": {"text/event-stream"}}, Body: io.NopCloser(strings.NewReader(body)), Request: req}, nil
 	})
-	combo := &combo{name: "final-budget-chat", operation: ai.OperationChat, provider: ai.ProviderOpenAI, api: ai.APIOpenAICompletions, endpoint: "https://api.openai.com/v1", model: "gpt-5-mini"}
+	combo := &combo{name: "final-budget-chat", operation: ai.OperationChat, provider: ai.ProviderOpenAI, api: ai.APIOpenAICompletions, endpoint: "https://api.openai.com/v1", model: "gpt-5.6-luna"}
 	if strings.HasPrefix(mode, "image-") {
 		combo.operation = ai.OperationImage
 		if mode == "image-google" {

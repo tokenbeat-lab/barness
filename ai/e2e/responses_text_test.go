@@ -124,8 +124,8 @@ func checkMetadata(ev *evidence.Case, got ai.CallMetadata, scope ai.CallScope, f
 		BindingVersion:    "b1",
 		CredentialVersion: "v1",
 		// Priced with the built-in catalog (E11).
-		CatalogVersion: ai.BuiltinCatalog().Version,
-		CatalogHash:    builtinCatalogHash,
+		CatalogVersion: protocolFixtureCatalog().Version,
+		CatalogHash:    catalogHash(ev.T(), protocolFixtureCatalog()),
 	}
 	// One successful attempt, recorded under the call's RequestID (E05),
 	// with the usage it reported in full (E11).

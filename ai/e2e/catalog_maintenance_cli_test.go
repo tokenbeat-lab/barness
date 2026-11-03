@@ -36,14 +36,14 @@ func TestCatalogMaintenanceCLIReadOnly(t *testing.T) {
 	for _, args := range [][]string{
 		{"help"}, {"versions", "--store", store, "--json"},
 		{"history", "--store", store, "--json"},
-		{"withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "fixture", "--dry-run", "--json"},
+		{"withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "fixture", "--dry-run", "--json"},
 	} {
 		out, exit := invokeCatalogCLI(t, ev, binary, args...)
 		ev.Check("read-only command succeeds", exit == 0, "args=%v exit=%d output=%s", args, exit, out)
 		_, err := os.Stat(store)
 		ev.Check("read-only command creates no store", os.IsNotExist(err), "args=%v err=%v", args, err)
 	}
-	out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "fixture", "--json")
+	out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "fixture", "--json")
 	var response map[string]any
 	_ = json.Unmarshal(out, &response)
 	ev.Check("missing explicit confirmation is structured refusal", exit != 0 && response["category"] == "confirmation_required", "exit=%d output=%s", exit, out)
@@ -146,7 +146,7 @@ func TestCatalogMaintenanceCLIFreeze(t *testing.T) {
 	}
 	store := filepath.Join(t.TempDir(), "store")
 	seedVersions := catalogSeedVersions(t, ev, binary, store)
-	args := []string{"withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "withdraw fixture", "--confirm", "--json"}
+	args := []string{"withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "withdraw fixture", "--confirm", "--json"}
 	out, exit := invokeCatalogCLI(t, ev, binary, args...)
 	var frozen struct {
 		Changes []struct {
@@ -178,7 +178,7 @@ func TestCatalogMaintenanceCLIFreeze(t *testing.T) {
 	_ = json.Unmarshal(frozen.Candidate.Snapshot, &snapshot)
 	found := false
 	for _, m := range snapshot.Catalog.Models {
-		found = found || (m.Provider == "openai" && m.API == "openai-responses" && m.ID == "gpt-4")
+		found = found || (m.Provider == "openai" && m.API == "openai-responses" && m.ID == "gpt-6.1-sol")
 	}
 	ev.Check("candidate alone omits explicitly withdrawn identity", !found && len(snapshot.Catalog.Models) == len(ai.BuiltinCatalog().Models)-1, "count=%d found=%v", len(snapshot.Catalog.Models), found)
 	for _, p := range frozen.Candidate.State.Providers {
@@ -214,7 +214,7 @@ func TestCatalogMaintenanceCLICandidateTamper(t *testing.T) {
 	}
 	store := filepath.Join(t.TempDir(), "store")
 	ids := []string{}
-	for _, model := range []string{"gpt-4", "gpt-4.1"} {
+	for _, model := range []string{"gpt-6.1-sol", "gpt-6-sol"} {
 		out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", model, "--reason", "tamper fixture", "--confirm")
 		var result struct {
 			Candidate struct {

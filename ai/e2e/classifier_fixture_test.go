@@ -14,7 +14,7 @@ var classifierProtocol = &fixtureProtocol{dir: "typesafe", binding: "classifier"
 // The host catalog and price are synthetic. Vendor inclusion and live evidence
 // belong to issue 08, so this suite makes no built-in support claim.
 func configureClassifier(c *ai.Config) {
-	cat := ai.BuiltinCatalog()
+	cat := protocolFixtureCatalog()
 	cat.ClassifierModels = []ai.ClassifierModel{{Provider: ai.ProviderTypeSafe, API: ai.APITypeSafeSystemOne, ID: "host-jev", Name: "Synthetic classifier", ContextWindow: 64000, Capabilities: ai.ClassifierCapabilities{Kinds: []ai.ClassifierQuestionKind{ai.ClassifierQuestionChoice, ai.ClassifierQuestionScore, ai.ClassifierQuestionBool}, MaxChoices: 255, MinScoreLevels: 2, MaxScoreLevels: 10}, Cost: ai.ModelCost{CostRates: ai.CostRates{Input: 1}}}}
 	c.Catalog = &cat
 	c.Policy.Classifier = &ai.ClassifierPolicy{MaxQuestions: 8, MaxStateBytes: 4096, MaxQuestionBytes: 4096}

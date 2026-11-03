@@ -148,7 +148,10 @@ func withModelPatch(model string, compat *ai.ModelCompat, patch json.RawMessage)
 		if compat == nil && patch == nil {
 			return
 		}
-		catalog := ai.BuiltinCatalog()
+		catalog := protocolFixtureCatalog()
+		if cfg.Catalog != nil {
+			catalog = *cfg.Catalog
+		}
 		for i, m := range catalog.Models {
 			if m.ID != model {
 				continue

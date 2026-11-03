@@ -45,7 +45,7 @@ func TestModelSamplingRejects(t *testing.T) {
 		for _, key := range []string{"model", "stream", "tools", "store", "prompt_cache_key", "bad-json"} {
 			t.Run(string(api)+"/"+key, func(t *testing.T) {
 				ev := run.Case(t, "E04-model-sampling-reject-"+string(api)+"-"+key)
-				c := ai.BuiltinCatalog()
+				c := protocolFixtureCatalog()
 				var m ai.Model
 				for _, candidate := range c.Models {
 					if candidate.Provider == ai.ProviderOpenAI && candidate.API == api && candidate.ID == "gpt-4.1-mini" {

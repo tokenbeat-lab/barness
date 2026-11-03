@@ -97,7 +97,7 @@ asm, err := localassembly.Open(localassembly.Config{
 		API:            ai.APIOpenAIResponses,
 		Endpoint:       "https://api.openai.com/v1",
 		AccountScopeID: "my-openai-account",
-		AllowedModels:  []string{"gpt-5-mini"},
+		AllowedModels:  []string{"gpt-5.6-luna"},
 	},
 	// Exactly one source, chosen by the program. Nothing falls back to OPENAI_API_KEY.
 	Key: localassembly.KeySource{EnvVar: "BARNESS_OPENAI_KEY"},
@@ -109,7 +109,7 @@ req := ai.Request{
 	SystemPrompt: "You are concise.",
 	Messages:     []ai.Message{ai.UserText("Say hello in French.")},
 }
-res, err := asm.Client.CompleteSimple(ctx, asm.Scope(), asm.Target("gpt-5-mini"), req,
+res, err := asm.Client.CompleteSimple(ctx, asm.Scope(), asm.Target("gpt-5.6-luna"), req,
 	ai.SimpleOptions{Reasoning: ai.ThinkingLow})
 if err != nil { return err } // *ai.Error; res is still a complete Result
 

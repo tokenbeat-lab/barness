@@ -19,7 +19,7 @@ func TestCatalogCandidateCheckApply(t *testing.T) {
 	}
 	root := catalogSnapshotRoot(t)
 	store := filepath.Join(t.TempDir(), "store")
-	out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "controlled withdrawal", "--confirm")
+	out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "controlled withdrawal", "--confirm")
 	var frozen struct {
 		Candidate maintenance.Candidate `json:"candidate"`
 	}
@@ -46,7 +46,7 @@ func TestCatalogCandidateCheckApply(t *testing.T) {
 	raw, err := os.ReadFile(output)
 	ev.Check("apply writes exact tested bytes", err == nil && bytes.Equal(raw, frozen.Candidate.Snapshot), "%v", err)
 	cat, report, err := catalog.Load(raw)
-	_, found := cat.Lookup("openai", "openai-responses", "gpt-4")
+	_, found := cat.Lookup("openai", "openai-responses", "gpt-6.1-sol")
 	ev.Check("withdrawn identity not restored from builtin", err == nil && report.Failed == 0 && !found, "%v %+v", err, report)
 	out, exit = invokeCatalogCLI(t, ev, binary, "history", "--store", store)
 	var history struct {

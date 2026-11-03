@@ -67,6 +67,10 @@ func TestCatalogMaintenanceCLICostUpdate(t *testing.T) {
 	}
 	dir := t.TempDir()
 	store := filepath.Join(dir, "store")
+	for _, id := range []string{"gpt-4", "gpt-4.1"} {
+		candidate := freezeCatalogAction(t, ev, binary, store, "restore", "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", id, "--reason", "restore historical offering only in private price regression store")
+		checkApplyCatalogAction(t, ev, binary, store, candidate)
+	}
 	seedVersions := catalogSeedVersions(t, ev, binary, store)
 	source := filepath.Join(dir, "source.json")
 	decisions := filepath.Join(dir, "decisions.json")

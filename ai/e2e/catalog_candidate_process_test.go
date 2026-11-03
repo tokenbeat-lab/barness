@@ -26,7 +26,7 @@ func TestCatalogCandidateProcessCancellation(t *testing.T) {
 			}
 			root := catalogSnapshotRoot(t)
 			store := filepath.Join(t.TempDir(), "store")
-			out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "controlled cancellation", "--confirm")
+			out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "controlled cancellation", "--confirm")
 			var frozen struct {
 				Candidate maintenance.Candidate `json:"candidate"`
 			}

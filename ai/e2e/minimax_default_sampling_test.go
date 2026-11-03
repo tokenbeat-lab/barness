@@ -22,7 +22,7 @@ func TestMiniMaxDefaultSampling(t *testing.T) {
 					a := scenarioText{sc: fixture.Scenarios[0], raw: raw}
 					ev.Fixture("synthetic-existing-protocol.json", a.raw)
 					w := newWorldWith(t, func(c *ai.Config) {
-						cat := ai.BuiltinCatalog()
+						cat := protocolFixtureCatalog()
 						for i := range cat.Models {
 							m := &cat.Models[i]
 							if m.Provider != p.proto.provider || m.API != p.proto.api || m.ID != a.sc.Model {

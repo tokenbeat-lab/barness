@@ -25,7 +25,7 @@ func TestMiniMaxDefaultThinkingMetadata(t *testing.T) {
 	} {
 		t.Run(sc.name, func(t *testing.T) {
 			ev := run.Case(t, "MM01-default-metadata-"+sc.name)
-			base, _ := ai.BuiltinCatalog().Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-5")
+			base, _ := protocolFixtureCatalog().Lookup(ai.ProviderOpenAI, ai.APIOpenAIResponses, "gpt-5")
 			model := patchModel(base, json.RawMessage(sc.patch))
 			catalog := ai.Catalog{Version: "synthetic-default-label", Models: []ai.Model{model}}
 			h := host.New()

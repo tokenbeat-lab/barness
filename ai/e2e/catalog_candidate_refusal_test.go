@@ -20,7 +20,7 @@ func frozenCheckedCatalog(t *testing.T, ev *evidence.Case) (string, string, main
 	}
 	store := filepath.Join(t.TempDir(), "store")
 	root := catalogSnapshotRoot(t)
-	out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "refusal fixture", "--confirm")
+	out, exit := invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "refusal fixture", "--confirm")
 	var response struct {
 		Candidate maintenance.Candidate `json:"candidate"`
 	}
@@ -69,7 +69,7 @@ func TestCatalogCandidateApplyRefusals(t *testing.T) {
 	ev.Check("self-reported pass refused", exit != 0, "%s", out)
 	// Two independently confirmed candidates may have the same runtime bytes;
 	// a check for one must not be rebound by editing its summary for the other.
-	out, exit = invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-4", "--reason", "different reviewed reason", "--confirm")
+	out, exit = invokeCatalogCLI(t, ev, binary, "withdraw", "--store", store, "--operation", "chat", "--provider", "openai", "--api", "openai-responses", "--model", "gpt-6.1-sol", "--reason", "different reviewed reason", "--confirm")
 	var second struct {
 		Candidate maintenance.Candidate `json:"candidate"`
 	}

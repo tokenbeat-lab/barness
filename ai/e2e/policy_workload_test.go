@@ -89,7 +89,8 @@ func newPressureWorldWith(t *testing.T, policy ai.ResourcePolicy, n int, create 
 	bodies := provider.TrackBodies(provider.LoopbackTransport())
 	failures := &pressureNetworkErrors{next: bodies}
 	p := probe.New()
-	client, err := ai.NewClient(ai.Config{Policy: &policy, Bindings: h, Credentials: h, Transport: failures, Probe: p, AllowLoopbackHTTP: true})
+	catalog := protocolFixtureCatalog()
+	client, err := ai.NewClient(ai.Config{Policy: &policy, Catalog: &catalog, Bindings: h, Credentials: h, Transport: failures, Probe: p, AllowLoopbackHTTP: true})
 	if err != nil {
 		t.Fatalf("NewClient with the example policy: %v", err)
 	}

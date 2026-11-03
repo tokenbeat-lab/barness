@@ -14,7 +14,7 @@ func VerifyGenericReport(r Report) error {
 	var provider, api, endpoint, model string
 	switch r.Combo {
 	case "openai-responses", "openai-chat":
-		provider, endpoint, model = "openai", "https://api.openai.com/v1", "gpt-5-mini"
+		provider, endpoint, model = "openai", "https://api.openai.com/v1", "gpt-5.6-luna"
 		api = "openai-responses"
 		if r.Combo == "openai-chat" {
 			api = "openai-completions"
@@ -80,8 +80,6 @@ func VerifyGenericReport(r Report) error {
 			fixedModel = strings.TrimPrefix(s.ID, "tool-changes-")
 		case strings.HasPrefix(s.ID, "effort-changes-"):
 			fixedModel = strings.TrimPrefix(s.ID, "effort-changes-")
-		case s.ID == "pro-model-unavailable":
-			fixedModel = "gpt-5.4-pro"
 		case r.Combo == "deepseek-chat" && strings.HasPrefix(s.ID, "reasoning-level-"):
 			fixedModel = "deepseek-v4-pro"
 		}

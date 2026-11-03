@@ -29,7 +29,7 @@ func TestClientRouting(t *testing.T) {
 
 	t.Run("config-read-only-after-construction", func(t *testing.T) {
 		ev, _, f := startHardeningCase(t, "P01-E01-config-read-only-after-construction")
-		catalog := ai.BuiltinCatalog()
+		catalog := protocolFixtureCatalog()
 		policy := validPolicy()
 		w := newWorldWith(t, func(c *ai.Config) { c.Catalog, c.Policy = &catalog, policy }, tenantA)
 		// The caller changes everything it handed over; the Client must not notice.
