@@ -20,7 +20,7 @@ func VerifyGenericReport(r Report) error {
 			api = "openai-completions"
 		}
 	case "anthropic-messages":
-		provider, api, endpoint, model = "anthropic", "anthropic-messages", "https://api.anthropic.com", "claude-haiku-4-5"
+		provider, api, endpoint, model = "anthropic", "anthropic-messages", "https://api.anthropic.com", "claude-sonnet-5-5"
 	case "google-gemini":
 		provider, api, endpoint, model = "google", "google-generative-ai", "https://generativelanguage.googleapis.com/v1beta", "gemini-3.8-flash"
 	case "deepseek-responses", "deepseek-chat":

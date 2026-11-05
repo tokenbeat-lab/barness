@@ -1,0 +1,42 @@
+{
+  "/api": {
+    "ownership": "manual",
+    "reason": "Explicit native Anthropic Messages association only; no partner endpoint inferred.",
+    "evidence": "https://platform.claude.com/docs/en/models/haiku-5-5/overview#model-ids"
+  },
+  "/input": {
+    "ownership": "manual",
+    "reason": "Admit only text and image supported by barness; PDF in the unmodified models.dev capture has no runtime mapping. Optional browser/computer tools and Batch are outside this catalog profile.",
+    "evidence": "https://platform.claude.com/docs/en/models/haiku-5-5/overview#capabilities"
+  },
+  "/thinkingLevelMap": {
+    "ownership": "manual",
+    "reason": "Explicit five native effort values. Off/minimal are excluded from the admitted always-adaptive managed-effort profile; off is not a claim that the vendor lacks its optional disabled mode.",
+    "evidence": "https://platform.claude.com/docs/en/build-with-claude/effort#recommended-effort-levels"
+  },
+  "/defaultThinkingLevel": {
+    "ownership": "manual",
+    "reason": "Native service default is medium. This metadata labels the service; it does not override the existing ADR-0019 managed-effort SDK policy (an omitted SDK effort runs high). Callers select medium explicitly when desired.",
+    "evidence": "https://platform.claude.com/docs/en/build-with-claude/effort#recommended-effort-levels"
+  },
+  "/compat/forceAdaptiveThinking": {
+    "ownership": "manual",
+    "reason": "Manual enabled/budget_tokens is invalid for this offering; use existing adaptive thinking encoding.",
+    "evidence": "https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#configure-thinking"
+  },
+  "/compat/supportsTemperature": {
+    "ownership": "manual",
+    "reason": "Temperature/top_p/top_k must be omitted. No native sampling overrides are declared.",
+    "evidence": "https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#remove-sampling-parameters"
+  },
+  "/compat/supportsMidConvoEffort": {
+    "ownership": "manual",
+    "reason": "Existing ADR-0019 managed effort supplies per-message output_config and thinking-binding drop_block controls, preserving valid requests after prefix/effort changes; it always selects adaptive thinking. No new SDK branch is needed.",
+    "evidence": "https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation"
+  },
+  "/cost/tiers": {
+    "ownership": "manual",
+    "reason": "Strictly greater than 100000 total prompt tokens, including ordinary input, cache reads and cache writes, replaces all four rates for the whole request; equality keeps base rates. Every rate is USD per million tokens. One-hour writes use the existing 2x selected input rate (0.20 base / 1.00 long).",
+    "evidence": "https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing"
+  }
+}

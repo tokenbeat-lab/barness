@@ -31,7 +31,8 @@ func TestBuiltinCatalogReleaseSnapshot(t *testing.T) {
 
 // Historical inclusion tests share this projection because later independent
 // identities must not change the exact content proof for any earlier identity.
-// Values come only from public discovery, never from the expected snapshot.
+// Runtime contract fields come from discovery. Display labels retain their
+// historical spelling; current-label tests separately verify renamed releases.
 func historicalCatalogProjection(t *testing.T, ev *evidence.Case, current, baseline ai.Catalog) ai.Catalog {
 	t.Helper()
 	out := ai.Catalog{Version: baseline.Version}
@@ -44,6 +45,7 @@ func historicalCatalogProjection(t *testing.T, ev *evidence.Case, current, basel
 			model, ok = maintainedFixtureCatalog(t).Lookup(old.Provider, old.API, old.ID)
 		}
 		ev.Check("historical chat identity survives "+string(old.Provider)+"/"+string(old.API)+"/"+old.ID, ok, "missing identity")
+		model.Name = old.Name
 		out.Models = append(out.Models, model)
 	}
 	if baseline.ImageModels != nil {
@@ -84,4 +86,19 @@ func historicalCatalogInCurrentOrder(current, baseline ai.Catalog) ai.Catalog {
 		}
 	}
 	return out
+}
+
+// Display labels can change for a provider's rolling API ID without changing
+// its runtime contract. Historical adoption checks keep their approved labels;
+// current-label tests and each maintenance batch's exact data audit own labels.
+// All other fields and the current identity order remain observable here.
+func catalogWithHistoricalNames(current, baseline ai.Catalog) ai.Catalog {
+	current.Models = append([]ai.Model(nil), current.Models...)
+	for n := range current.Models {
+		m := &current.Models[n]
+		if old, ok := baseline.Lookup(m.Provider, m.API, m.ID); ok {
+			m.Name = old.Name
+		}
+	}
+	return current
 }

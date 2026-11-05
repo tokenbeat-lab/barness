@@ -33,6 +33,8 @@ func protocolFixtureCatalog() ai.Catalog {
 
 // Withdrawal preserves reviewed definitions in maintenance State. Historical
 // preservation assertions inspect those values without restoring runtime IDs.
+// Display labels use the original approval; rolling release labels are tested
+// separately and do not change the historical runtime-contract proof.
 func maintainedFixtureCatalog(t *testing.T) ai.Catalog {
 	t.Helper()
 	state, err := maintenance.BuiltinState()
@@ -50,5 +52,5 @@ func maintainedFixtureCatalog(t *testing.T) ai.Catalog {
 	}
 	var snapshot struct{ Catalog ai.Catalog }
 	mustUnmarshal(t, raw, &snapshot)
-	return snapshot.Catalog
+	return catalogWithHistoricalNames(snapshot.Catalog, protocolFixtureCatalog())
 }

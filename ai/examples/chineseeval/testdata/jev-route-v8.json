@@ -1,0 +1,22 @@
+{
+  "callTimeoutSeconds": 15,
+  "catalogHash": "sha256:d7ca061de668054669d4721038fa9cb29c94103815a8d2a318e9ee0025df9703",
+  "catalogVersion": "catalog-73ff88ca97d69b37082bdda7ce5ab2cbd70fab98a8bb2483a4c3e749d3da8402",
+  "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+  "datasetVersion": "zh-support-v1",
+  "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+  "maxAttempts": 24,
+  "maxCalls": 24,
+  "maxQuestions": 24,
+  "maxRetries": 0,
+  "model": "jev-1.13.0",
+  "questionKey": "intent",
+  "route": {
+    "api": "typesafe-system-one",
+    "model": "jev-1.13.0",
+    "operation": "classifier",
+    "provider": "typesafe"
+  },
+  "timeoutSeconds": 600,
+  "version": "zh-eval-jev-route-v11"
+}

@@ -1,0 +1,37 @@
+{
+  "/api": {
+    "ownership": "manual",
+    "reason": "Native Responses is explicitly supported for Pro and is the recommended first integration for this model. Chat remains a separate identity; Host selects a Binding explicitly.",
+    "evidence": "https://api-docs.deepseek.com/guides/responses_api/#top-level-request-parameters"
+  },
+  "/input": {
+    "ownership": "manual",
+    "reason": "Pro is text-only; vision is listed for Flash and must not be copied to Pro.",
+    "evidence": "https://api-docs.deepseek.com/quick_start/pricing/"
+  },
+  "/thinkingLevelMap": {
+    "ownership": "manual",
+    "reason": "Current official mapping: none disables; minimal/low map low, medium/high/xhigh map high, max maps max. This new Responses definition is independently reviewed; the historical Chat map is unchanged.",
+    "evidence": "https://api-docs.deepseek.com/guides/thinking_mode/"
+  },
+  "/defaultThinkingLevel": {
+    "ownership": "manual",
+    "reason": "Native service default is high. This metadata does not alter the SDK omission policy; the recommended Responses example explicitly selects high.",
+    "evidence": "https://api-docs.deepseek.com/guides/thinking_mode/"
+  },
+  "/compat/supportsStrictMode": {
+    "ownership": "manual",
+    "reason": "Use the existing DeepSeek Responses function-tool capability and compatible function schema, independently of Chat wiring; not a new live qualification.",
+    "evidence": "https://api-docs.deepseek.com/guides/responses_api/#tools"
+  },
+  "/compat/supportsMidConvoSystemMessages": {
+    "ownership": "manual",
+    "reason": "Responses accepts system message input items. Complete history replay remains stateless; no previous_response_id/conversation/storage is enabled.",
+    "evidence": "https://api-docs.deepseek.com/guides/responses_api/#input-items"
+  },
+  "/cost": {
+    "ownership": "manual",
+    "reason": "Frozen PEAK USD per million token estimate: input 1.32/output 3.96/cache-read .044. OFF-PEAK is half; ModelCost has no clock/calendar schedule, so this is a conservative upper-rate estimate, not an assertion of exact billing at every time. No cache-write fee is charged/declaration zero is explicit; do not reinterpret calendar conditions as token tiers. Other identities are untouched.",
+    "evidence": "https://api-docs.deepseek.com/quick_start/pricing/"
+  }
+}

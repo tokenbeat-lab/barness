@@ -29,17 +29,24 @@ func TestOpenAIRetiredBuiltinCatalog(t *testing.T) {
 		}
 		ev.Check("exact retained API identities "+string(api), slices.Equal(ids, want), "got=%v want=%v", ids, want)
 	}
-	ev.Check("complete current counts", len(current.Models) == 82 && len(current.ImageModels) == 3 && len(current.ClassifierModels) == 3, "counts=%d/%d/%d", len(current.Models), len(current.ImageModels), len(current.ClassifierModels))
-	want := ai.Catalog{Version: current.Version, ImageModels: before.ImageModels, ClassifierModels: before.ClassifierModels}
+	// Later provider withdrawals do not change this OpenAI retirement proof.
+	want, got := []ai.Model{}, []ai.Model{}
+	for _, m := range current.Models {
+		if m.Provider == ai.ProviderOpenAI {
+			got = append(got, m)
+		}
+	}
 	retired := []ai.Model{}
 	for _, m := range before.Models {
 		if m.Provider == ai.ProviderOpenAI && !slices.Contains(expected[m.API], m.ID) {
 			retired = append(retired, m)
 			continue
 		}
-		want.Models = append(want.Models, m)
+		if m.Provider == ai.ProviderOpenAI {
+			want = append(want, m)
+		}
 	}
-	ev.Check("only approved withdrawals change runtime content", reflect.DeepEqual(current, want), "retained definitions or relative order changed")
+	ev.Check("OpenAI retained definitions and relative order remain exact", reflect.DeepEqual(got, want), "retained definitions or relative order changed")
 	ev.Check("exact withdrawal count", len(retired) == 37, "count=%d", len(retired))
 	state, err := maintenance.BuiltinState()
 	if !ev.Check("reviewed state loads", err == nil, "%v", err) {

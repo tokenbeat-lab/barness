@@ -10,8 +10,9 @@ import (
 	"github.com/tokenbeat-lab/barness/ai"
 )
 
-// The approved CLI snapshot and pre-adoption snapshot are independent inputs:
-// an added identity, changed old definition/order, or changed adopted bytes fails.
+// The original approval stays independent of later catalog additions. Its
+// surviving identities must retain definitions/order, and the adopted current
+// bytes must still match their review baseline.
 func TestKimiK31BuiltinAdoption(t *testing.T) {
 	ev := run.Case(t, "KIMI-K31-builtin-adoption")
 	beforeRaw, err := os.ReadFile("testdata/catalog/pre-kimi-k31-builtin.json")
@@ -32,7 +33,8 @@ func TestKimiK31BuiltinAdoption(t *testing.T) {
 	mustUnmarshal(t, approved, &expected)
 	current := ai.BuiltinCatalog()
 	ev.Check("all 119 previous identities preserve definitions and relative order", reflect.DeepEqual(historicalCatalogInCurrentOrder(maintainedFixtureCatalog(t), before.Catalog), before.Catalog), "previous definitions changed")
-	ev.Check("surviving builtin definitions retain their approved order", reflect.DeepEqual(historicalCatalogInCurrentOrder(expected.Catalog, current), current), "approved current definitions differ")
+	historical := historicalCatalogInCurrentOrder(catalogWithHistoricalNames(current, expected.Catalog), expected.Catalog)
+	ev.Check("surviving approved identities retain definitions and order", reflect.DeepEqual(historicalCatalogInCurrentOrder(expected.Catalog, historical), historical), "approved historical definitions differ")
 	builtin, err := os.ReadFile("../catalog_builtin.json")
 	if err != nil {
 		t.Fatal(err)

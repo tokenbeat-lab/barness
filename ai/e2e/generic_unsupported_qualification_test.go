@@ -182,7 +182,7 @@ func TestGenericUnsupportedFixedCatalog(t *testing.T) {
 		{"openai-chat", ai.ProviderOpenAI, ai.APIOpenAICompletions, "gpt-5.6-luna"},
 		{"deepseek-responses", ai.ProviderDeepSeek, ai.APIOpenAIResponses, "deepseek-flash"},
 		{"deepseek-chat", ai.ProviderDeepSeek, ai.APIOpenAICompletions, "deepseek-flash"},
-		{"anthropic-messages", ai.ProviderAnthropic, ai.APIAnthropicMessages, "claude-haiku-4-5"},
+		{"anthropic-messages", ai.ProviderAnthropic, ai.APIAnthropicMessages, "claude-sonnet-5-5"},
 		{"google-gemini", ai.ProviderGoogle, ai.APIGoogleGenerativeAI, "gemini-3.8-flash"},
 	} {
 		t.Run(target.route, func(t *testing.T) {

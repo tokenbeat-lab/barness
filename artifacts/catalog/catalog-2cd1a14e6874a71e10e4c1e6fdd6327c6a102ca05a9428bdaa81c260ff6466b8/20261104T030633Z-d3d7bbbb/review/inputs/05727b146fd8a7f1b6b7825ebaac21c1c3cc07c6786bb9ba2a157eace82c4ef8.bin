@@ -1,0 +1,77 @@
+{
+  "/provider": {
+    "ownership": "manual",
+    "reason": "Independently identified official site, protocol and wire identity; this is not a cross-site inference.",
+    "evidence": "inputs/cn/responses.body#sha256:5fa408939f3f5d2c887a9485dd32e0f2b7d11274ce33ac8c96ea7adfc3592fdc"
+  },
+  "/api": {
+    "ownership": "manual",
+    "reason": "Independently identified official site, protocol and wire identity; this is not a cross-site inference.",
+    "evidence": "inputs/cn/responses.body#sha256:5fa408939f3f5d2c887a9485dd32e0f2b7d11274ce33ac8c96ea7adfc3592fdc"
+  },
+  "/id": {
+    "ownership": "manual",
+    "reason": "Independently identified official site, protocol and wire identity; this is not a cross-site inference.",
+    "evidence": "inputs/cn/responses.body#sha256:5fa408939f3f5d2c887a9485dd32e0f2b7d11274ce33ac8c96ea7adfc3592fdc"
+  },
+  "/name": {
+    "ownership": "manual",
+    "reason": "Independently identified official site, protocol and wire identity; this is not a cross-site inference.",
+    "evidence": "inputs/cn/responses.body#sha256:5fa408939f3f5d2c887a9485dd32e0f2b7d11274ce33ac8c96ea7adfc3592fdc"
+  },
+  "/reasoning": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/input": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/contextWindow": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/maxTokens": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/thinkingLevelMap": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/defaultThinkingLevel": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/compat/requiresThinking": {
+    "ownership": "manual",
+    "reason": "Official model facts reviewed. Text and 131072 maximum are the existing implementation subset, not the vendor maximum; always-thinking low/high/max with max default.",
+    "evidence": "inputs/cn/quickstart.body#sha256:46f2c5aeb45a836d18683b4a744982d8558259159a503e66f7a7451663048738"
+  },
+  "/cost/input": {
+    "ownership": "manual",
+    "reason": "Standard per-million token rate; cacheWrite is 5m default, 1h tracked separately. CNY converted at frozen 2026-11-02 CFETS 6.7146 with half-even ten places; see inputs/cn/fx-2026-11-02.body#sha256:1f112864a09d7ff8dc45ef64033f1aaaa115d9a9b33ecd2421726790395aef2f",
+    "evidence": "inputs/cn/pricing.body#sha256:2b1480cc092fb733a88a97c02d1d16251c68c8cf9a2466bbee315b88bf9c6c72"
+  },
+  "/cost/output": {
+    "ownership": "manual",
+    "reason": "Standard per-million token rate; cacheWrite is 5m default, 1h tracked separately. CNY converted at frozen 2026-11-02 CFETS 6.7146 with half-even ten places; see inputs/cn/fx-2026-11-02.body#sha256:1f112864a09d7ff8dc45ef64033f1aaaa115d9a9b33ecd2421726790395aef2f",
+    "evidence": "inputs/cn/pricing.body#sha256:2b1480cc092fb733a88a97c02d1d16251c68c8cf9a2466bbee315b88bf9c6c72"
+  },
+  "/cost/cacheRead": {
+    "ownership": "manual",
+    "reason": "Standard per-million token rate; cacheWrite is 5m default, 1h tracked separately. CNY converted at frozen 2026-11-02 CFETS 6.7146 with half-even ten places; see inputs/cn/fx-2026-11-02.body#sha256:1f112864a09d7ff8dc45ef64033f1aaaa115d9a9b33ecd2421726790395aef2f",
+    "evidence": "inputs/cn/pricing.body#sha256:2b1480cc092fb733a88a97c02d1d16251c68c8cf9a2466bbee315b88bf9c6c72"
+  },
+  "/cost/cacheWrite": {
+    "ownership": "manual",
+    "reason": "Standard per-million token rate; cacheWrite is 5m default, 1h tracked separately. CNY converted at frozen 2026-11-02 CFETS 6.7146 with half-even ten places; see inputs/cn/fx-2026-11-02.body#sha256:1f112864a09d7ff8dc45ef64033f1aaaa115d9a9b33ecd2421726790395aef2f",
+    "evidence": "inputs/cn/pricing.body#sha256:2b1480cc092fb733a88a97c02d1d16251c68c8cf9a2466bbee315b88bf9c6c72"
+  }
+}

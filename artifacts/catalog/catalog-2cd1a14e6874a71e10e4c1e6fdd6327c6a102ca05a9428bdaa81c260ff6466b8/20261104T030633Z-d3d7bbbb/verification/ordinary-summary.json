@@ -1,0 +1,228 @@
+{
+  "status": "PASS",
+  "exitCode": 0,
+  "elapsedSeconds": 902.746273,
+  "elapsedMeaning": "Wall-clock span of the two complementary ordinary executions; overlap counted once.",
+  "sourceCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+  "sourceFiles": 2191,
+  "selectedInputFiles": 98,
+  "parts": [
+    {
+      "receipt": {
+        "path": ".evidence/catalog-deepseek-pro-responses/e2e/20261104T032305.480338Z-pzzy8h_c/receipt.json",
+        "sha256": "156435958b7c39f64c5478443b9492208d80a693dc8ebbb069d0346326289718"
+      },
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-failfast",
+        "./ai/e2e",
+        "./ai",
+        "./ai/examples/chineseeval/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m",
+        "-run",
+        "^Test([N-Z]|LoopbackTransportDiagnostics$)"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "elapsedSeconds": 436.8515735408291,
+      "sourceCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+      "sourceFiles": 2191,
+      "selectedInputFiles": 98,
+      "goTestEvents": {
+        "pass": 5537,
+        "skip": 30
+      },
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "9a4284ba53cb3fa8cf24c76eb088a5b0a014f30e54875454c20948bf4b111687",
+          "package": "./ai/e2e",
+          "path": "bundles/20261104T032307.752002000Z",
+          "counts": {
+            "PASS": 5378,
+            "NOT_RUN": 28
+          },
+          "auditFindings": 0
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": ".evidence/catalog-deepseek-pro-responses/e2e/20261104T032305.480340Z-jaswu5md/receipt.json",
+        "sha256": "cd525d220f7596c5969e52eaf756c8ec992e3253079612cff6130b73a482c75e"
+      },
+      "argv": [
+        "go",
+        "test",
+        "-json",
+        "-failfast",
+        "./ai/e2e",
+        "./ai",
+        "./ai/examples/chineseeval/...",
+        "./catalog/...",
+        "./cmd/catalogctl",
+        "./cmd/cataloggen",
+        "-count=1",
+        "-timeout=40m",
+        "-run",
+        "^Test[A-M]",
+        "-skip",
+        "^TestLoopbackTransportDiagnostics$"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "elapsedSeconds": 902.7362305000424,
+      "sourceCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+      "sourceFiles": 2191,
+      "selectedInputFiles": 98,
+      "goTestEvents": {
+        "skip": 214,
+        "pass": 12216
+      },
+      "bundles": [
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "20d0889d5562a433761056599c2b8ccfd1250175a1fb597ed58603b7672bcab7",
+          "package": "./ai/e2e",
+          "path": "bundles/20261104T032308.867195000Z",
+          "counts": {
+            "PASS": 11565,
+            "NOT_RUN": 198
+          },
+          "auditFindings": 0
+        },
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "1ffbd5a9c764705e85b1d5a7dfcd5c822b851db7b04b4eb3c7badee9863ec5c5",
+          "package": "-tags live ./ai/live",
+          "path": "bundles/20261104T033215.650006000Z",
+          "counts": {
+            "PASS": 32
+          },
+          "auditFindings": 0
+        },
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "50dce7fbbad1f13c1082f403a310a3342e7a47664abac24acd82854edca8f177",
+          "package": "-tags live ./ai/live",
+          "path": "bundles/20261104T033552.674749000Z",
+          "counts": {
+            "PASS": 77
+          },
+          "auditFindings": 0
+        },
+        {
+          "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+          "manifestSHA256": "837c1c6be0a84216136c2a794a94744d447bd1a52f95109c1dc72979f7b9800e",
+          "package": "-tags live ./ai/live",
+          "path": "bundles/20261104T033611.233849000Z",
+          "counts": {
+            "PASS": 6
+          },
+          "auditFindings": 0
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "discoveredRoots": 936,
+    "selectedRoots": 936,
+    "exactUnion": true,
+    "parts": [
+      "^Test([N-Z]|LoopbackTransportDiagnostics$)",
+      "^Test[A-M] -skip ^TestLoopbackTransportDiagnostics$"
+    ],
+    "skipMeaning": "Go skip and native NOT_RUN remain unexecuted and are not counted as PASS."
+  },
+  "requiredCases": {
+    "CATALOG-ANTHROPIC-retired-claude-haiku-4-5": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-haiku-4-5-20251001": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-opus-4-5": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-opus-4-5-20251101": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-opus-4-6": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-opus-4-7": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-sonnet-4-5": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-sonnet-4-5-20250929": "PASS",
+    "CATALOG-ANTHROPIC-retired-claude-sonnet-4-6": "PASS",
+    "CATALOG-ANTHROPIC-retirement": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-authorization": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-basic": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-builtin": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-cache-usage": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-history-tools": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-input-modalities": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-load-query": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-parameters": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-provider-boundary": "PASS",
+    "CATALOG-DEEPSEEK-PRO-RESPONSES-reasoning": "PASS",
+    "CATALOG-HAIKU55-above-cache-read": "PASS",
+    "CATALOG-HAIKU55-above-mixed-ttl": "PASS",
+    "CATALOG-HAIKU55-above-short-write": "PASS",
+    "CATALOG-HAIKU55-authorization": "PASS",
+    "CATALOG-HAIKU55-basic": "PASS",
+    "CATALOG-HAIKU55-builtin": "PASS",
+    "CATALOG-HAIKU55-cache-usage": "PASS",
+    "CATALOG-HAIKU55-equal-cache-read": "PASS",
+    "CATALOG-HAIKU55-equal-mixed-ttl": "PASS",
+    "CATALOG-HAIKU55-history-tools": "PASS",
+    "CATALOG-HAIKU55-input-modalities": "PASS",
+    "CATALOG-HAIKU55-load-query": "PASS",
+    "CATALOG-HAIKU55-managed-wire": "PASS",
+    "CATALOG-HAIKU55-parameters": "PASS",
+    "CATALOG-HAIKU55-reasoning": "PASS",
+    "CATALOG-HAIKU55-tier-0-above": "PASS",
+    "CATALOG-HAIKU55-tier-0-below": "PASS",
+    "CATALOG-HAIKU55-tier-0-equal": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4.1-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-4o-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5-nano": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.2": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.4": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.4-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-5.5": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-daybreak-blue-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-gpt-daybreak-red-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-o3": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-o3-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-completions-o4-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4.1-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-4o-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5-nano": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5-pro": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.1": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.2": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.4": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.4-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.4-pro": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.5": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-5.5-pro": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-daybreak-blue-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-gpt-daybreak-red-latest": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-o3": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-o3-mini": "PASS",
+    "CATALOG-OPENAI-retired-openai-responses-o4-mini": "PASS",
+    "CATALOG-OPENAI-retirement": "PASS",
+    "GROK-GENERIC-UNSUPPORTED-CATALOG-anthropic-messages": "PASS",
+    "KIMI-K31-builtin-adoption": "PASS",
+    "P07-zh-evaluation-config-revision-jev-1.13.0": "PASS",
+    "P07-zh-evaluation-config-revision-jev-route": "PASS",
+    "P07-zh-evaluation-config-revision-luna-route": "PASS",
+    "P07-zh-evaluation-current-jev": "PASS",
+    "P07-zh-evaluation-current-luna": "PASS"
+  }
+}

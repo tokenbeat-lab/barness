@@ -1,0 +1,22 @@
+{
+  "callTimeoutSeconds": 15,
+  "catalogHash": "sha256:fd23a12ac65a114116bcfbaf6f6ff335e3ab4cf5b2af255cc00d1cff49a85156",
+  "catalogVersion": "catalog-34de22d2e31abb82108b6dde3dccb5def54fbb825e2f7281b862924b8f6860b4",
+  "datasetHash": "sha256:3380b6a4033680008446320daefd516d92e38ac9f04d618e6bdc9af25de6f0eb",
+  "datasetVersion": "zh-support-v1",
+  "instructions": "根据用户最后明确请求的处理目标，将中文支持请求分到恰好一个类别。被否定的主题或背景不作为目标。支付、退款、发票属于 billing；登录、密码和账号访问属于 account；其他软件故障属于 technical；发货、物流和配送属于 delivery。只按当前请求判断，不补充事实。",
+  "maxAttempts": 24,
+  "maxCalls": 24,
+  "maxQuestions": 24,
+  "maxRetries": 0,
+  "model": "gpt-6-luna",
+  "questionKey": "intent",
+  "route": {
+    "api": "openai-decisions",
+    "model": "gpt-6-luna",
+    "operation": "classifier",
+    "provider": "openai"
+  },
+  "timeoutSeconds": 600,
+  "version": "zh-eval-luna-route-v13"
+}

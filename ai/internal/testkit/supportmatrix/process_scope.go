@@ -37,7 +37,7 @@ func ProcessScope(route, mode, stage, binary string) (livegrant.Scope, error) {
 			s.Provider, s.API, s.Endpoint, s.Models = "deepseek", "openai-completions", "https://api.deepseek.com", []string{"deepseek-flash", "deepseek-v4-pro"}
 		case "anthropic-messages":
 			s.Provider, s.API, s.Endpoint = "anthropic", "anthropic-messages", "https://api.anthropic.com"
-			s.Models = []string{"claude-haiku-4-5", "claude-opus-4-8", "claude-fable-5", "claude-fable-5-1", "claude-opus-5", "claude-opus-5-5"}
+			s.Models = []string{"claude-sonnet-5-5", "claude-opus-4-8", "claude-fable-5", "claude-fable-5-1", "claude-opus-5", "claude-opus-5-5"}
 		case "google-gemini":
 			s.Provider, s.API, s.Endpoint, s.Models = "google", "google-generative-ai", "https://generativelanguage.googleapis.com/v1beta", []string{"gemini-3.8-flash"}
 		}

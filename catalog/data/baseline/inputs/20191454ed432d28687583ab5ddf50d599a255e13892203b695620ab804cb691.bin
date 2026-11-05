@@ -1,0 +1,32 @@
+{
+  "provider": "deepseek",
+  "api": "openai-responses",
+  "id": "deepseek-v4-pro",
+  "name": "DeepSeek V4 Pro",
+  "reasoning": true,
+  "input": [
+    "text"
+  ],
+  "contextWindow": 1000000,
+  "maxTokens": 384000,
+  "thinkingLevelMap": {
+    "off": "none",
+    "minimal": "low",
+    "low": "low",
+    "medium": "high",
+    "high": "high",
+    "xhigh": "high",
+    "max": "max"
+  },
+  "defaultThinkingLevel": "high",
+  "compat": {
+    "supportsStrictMode": true,
+    "supportsMidConvoSystemMessages": true
+  },
+  "cost": {
+    "input": 1.32,
+    "output": 3.96,
+    "cacheRead": 0.044,
+    "cacheWrite": 0
+  }
+}

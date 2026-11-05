@@ -1,0 +1,311 @@
+{
+  "actualMeasuredCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+  "applicability": {
+    "live": "NOT_APPLICABLE: no new vendor facts",
+    "pressure": "NOT_APPLICABLE: reduced catalog and unchanged design load",
+    "race": "NOT_APPLICABLE: no concurrent implementation changes"
+  },
+  "catalogDataChanged": true,
+  "catalogHash": "sha256:40d4c5fe7551fb06e79210b676e69e96a47b6b1b200dde5f6c07e243f970b2f0",
+  "catalogVersion": "catalog-043a11039c792ad6f448e840652aa4776830f57732abddb80e6fe874027b2ec5",
+  "codeAndDistribution": {
+    "builtin": "Rebuild and distribute the program to update the compiled default.",
+    "externalJSON": "Only this actually checked program: distribute original JSON, explicitly load, then create a new Client. Other old programs unverified."
+  },
+  "comparisonBase": "665862ff90074eecda0a573050114de9ce88c80d",
+  "comparisonTarget": "665862ff90074eecda0a573050114de9ce88c80d",
+  "coreRuntimeCodeChanged": "NO",
+  "coreRuntimeFiles": [],
+  "createdAt": "2026-11-03T22:41:24.020938+00:00",
+  "deployment": "NOT_RUN",
+  "evidenceSelfContained": false,
+  "files": {
+    "CHANGELOG.md": "44701277d7dd16b5f294026fa9afa744ee30f68497d36869094761fe6e67db03",
+    "catalog-043a11039c792ad6f448e840652aa4776830f57732abddb80e6fe874027b2ec5.json": "44d7caa8f36ce1b5b7914d014215be1e3625b453677cabe54d891b59ac5a9bb8",
+    "catalog-043a11039c792ad6f448e840652aa4776830f57732abddb80e6fe874027b2ec5.json.sha256": "6da0e7df7169d00de61eaca4557a3a4be5d0533aa256685093ba8101ffc5b9ae",
+    "delivery.md": "d65b867358af7781c9c7ea72be2bee0ea62890781a3dd79405803c6b53a50568",
+    "review/inputs/05727b146fd8a7f1b6b7825ebaac21c1c3cc07c6786bb9ba2a157eace82c4ef8.bin": "05727b146fd8a7f1b6b7825ebaac21c1c3cc07c6786bb9ba2a157eace82c4ef8",
+    "review/inputs/0f646b1b4e5248ca7a1bd46dba6649511bb8ab6e73ecac15e4e8872177dd9252.bin": "0f646b1b4e5248ca7a1bd46dba6649511bb8ab6e73ecac15e4e8872177dd9252",
+    "review/inputs/208a4ac3a0b9e52c1ecdefc14e5119cf069041330044571a107e6c0948cb093b.bin": "208a4ac3a0b9e52c1ecdefc14e5119cf069041330044571a107e6c0948cb093b",
+    "review/inputs/24057b676fba54d0463d72a3a51f44c6bbf9898551421128a7dbc1bf09d4eaeb.bin": "24057b676fba54d0463d72a3a51f44c6bbf9898551421128a7dbc1bf09d4eaeb",
+    "review/inputs/2562ce7c6322c6f12c08aeb4479a723b1c09a4d73fb515387628183b523f82b8.bin": "2562ce7c6322c6f12c08aeb4479a723b1c09a4d73fb515387628183b523f82b8",
+    "review/inputs/2b1480cc092fb733a88a97c02d1d16251c68c8cf9a2466bbee315b88bf9c6c72.bin": "2b1480cc092fb733a88a97c02d1d16251c68c8cf9a2466bbee315b88bf9c6c72",
+    "review/inputs/2d745eeef4f3516b1a2a4f16b08dafdde3f47f25464be6e6bbdfe39e5b6489e7.bin": "2d745eeef4f3516b1a2a4f16b08dafdde3f47f25464be6e6bbdfe39e5b6489e7",
+    "review/inputs/673748a3f00cbcba7c7c0cc17acc28177c988892ade57760ec626dc45bc778a2.bin": "673748a3f00cbcba7c7c0cc17acc28177c988892ade57760ec626dc45bc778a2",
+    "review/inputs/7b952e38a29d3409cf5ce7d4c817a838abfdca07042739215786ef2f17bd4c59.bin": "7b952e38a29d3409cf5ce7d4c817a838abfdca07042739215786ef2f17bd4c59",
+    "review/inputs/9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb.bin": "9fc1f22d7be724dd0da462ee54321aaa35f28bafdae5b025b1d63451e55604bb",
+    "review/inputs/a436154bb6d5d16dc59ee9159b30d4a4e632161caa823aaf4c58736198a55028.bin": "a436154bb6d5d16dc59ee9159b30d4a4e632161caa823aaf4c58736198a55028",
+    "review/inputs/bf3a82225d71738ce0100fafe148614679a828844c38dd9982ea279d6b7b385f.bin": "bf3a82225d71738ce0100fafe148614679a828844c38dd9982ea279d6b7b385f",
+    "review/inputs/c387c7de8eeddb27ea1967c2c5aeeb5e2f65de9ee527d1a9007942776d757891.bin": "c387c7de8eeddb27ea1967c2c5aeeb5e2f65de9ee527d1a9007942776d757891",
+    "review/inputs/c6d2f2193bb6ddbd97c768324e6fb54b6a15ac739986396f65c7e9b1a23cf9fb.bin": "c6d2f2193bb6ddbd97c768324e6fb54b6a15ac739986396f65c7e9b1a23cf9fb",
+    "review/inputs/c8da77d28e55a12ccaa4ae2bde3334879a8ab9b2a92e885ad7c1129ecd60b5cd.bin": "c8da77d28e55a12ccaa4ae2bde3334879a8ab9b2a92e885ad7c1129ecd60b5cd",
+    "review/inputs/cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a.bin": "cd34faa8904d85961ab5fe270f079b8be45a9c876af6c809b38b2c069f687a7a",
+    "review/inputs/cfb6b0ecb92766d0c16ece10b5e144754bdaefd2ca3f923ee134e40cd960b202.bin": "cfb6b0ecb92766d0c16ece10b5e144754bdaefd2ca3f923ee134e40cd960b202",
+    "review/inputs/facec40fd331c63b3bfb982555bd8abb103491090e3127808335f35419868ffa.bin": "facec40fd331c63b3bfb982555bd8abb103491090e3127808335f35419868ffa",
+    "review/providers/anthropic.json": "3bb8a1e07a137fc7f1fe1e4d401d11eb44ac56421ae66e6146f1badc256a8874",
+    "review/providers/deepseek.json": "56def2d9585e27e1a4a71a5f54cd9de58647bcef527137fc0087c3f3e6ba77f0",
+    "review/providers/google.json": "8aa2e47fd6c105116a24b606b4bf3a23a8755058a4b3674ece79c00890bbb93e",
+    "review/providers/minimax-cn.json": "79e0ccc70dcc1d6fb7c57a96bb1fbb704fb16c8472eab9ee5f8407f65b990b9c",
+    "review/providers/minimax.json": "c5c8444aa36f07c35c0e7db085984d96932d1071959b52451be3cb03ad37d561",
+    "review/providers/moonshot-cn.json": "aafd989520e08530d63c6f7ad7cbb6a18b37b1358c30c805775f2b98726f3cdc",
+    "review/providers/moonshot.json": "d3daf8e87366ee5c7b2757191b954296f3c35da2fac44710450d0ed636c9f530",
+    "review/providers/openai.json": "1051b53c85b08c6ed9750a3f65fc04a5b4369fee8f99a06919523fb78e27ab53",
+    "review/providers/typesafe.json": "980e6b7a43f8e625f159b1fcc10c155f3ef30db1a5278122289a4ab89d941e45",
+    "review/providers/xai.json": "b5693e948f361aebd62a30d3f5fda45f45fb1beb37936f45b74e81a78136c7e7",
+    "review/providers/zai.json": "efe839404c1db6d8da3a7db8185b9195ed96c037bf7fed07b73464604a52d566",
+    "review/providers/zhipu.json": "a22620750ec821a35027e903f1921f978434025adaa0343fb5ebe31192b26da7",
+    "review/review.json": "1b4427f4212be0887b4d88f624efd99220a7182e7871f8c221894260d5e1d854",
+    "review/revision.json": "228fed1465f7f9fb1a9898d86ef7f7ceb1846f8deec6e663d40e1a1eeada65e3",
+    "review/snapshot.json": "44d7caa8f36ce1b5b7914d014215be1e3625b453677cabe54d891b59ac5a9bb8",
+    "review/state.json": "37746d8a4b5615ccf783c74c53556c66aad8730abcf36275f16036b9b5719d18",
+    "verification/attempts.json": "f84a53297107684aef858e37619c75c1684b88c1a44a2be3fe3c309f4eccfcaa",
+    "verification/build-checks.json": "7651e13034e01ad7dc28c9bbf0e56dca4c174fcf72f6883e857ace9df3561116",
+    "verification/candidate-checks.json": "96a2c14e8b2daaed07553c76582d1948fc6c81aa0f77eed5de21ed216db34b1c",
+    "verification/coverage-discovery.json": "3212ddff47f283d5ff2f027b0c7d9bed3a21be8e2cc81ec55fa4522474c1ea8f",
+    "verification/data-audit.json": "c0aaf62f81bc89344b13a3d1306b6945bc80e2031b39fd2fe14496b7c126014b",
+    "verification/external-originals.json": "7bf9e0ec91d0b1d33ec536092384584b6e9a3d23a9ee7c79df68d1f40a973bb4",
+    "verification/ordinary-receipt-part-1.json": "fe201a34d71726a7171a5e39eb30533a2c990787f1645ccd787c37e972909c76",
+    "verification/ordinary-receipt-part-2.json": "be09cb640401a0ba248b98b5a8beddf43255ce13964aebfb972c13db880a762c",
+    "verification/ordinary-summary.json": "53c4aa89d76076d83be26d95f5f957ae3761fbb4efa8da2fe24a6454ef9b8fb4",
+    "verification/source-CHANGELOG.md": "cb40040583370db42a1303d286f8ad9b7deb1f6c098b135bbf26cbda6a90df3a",
+    "verification/source-input-equality.json": "16e19b6152508ecf89afa831a59a5f953d3632193c88f2ef3842d2b1e3971c1a",
+    "verification/status.md": "9671e5ff5dfb17999f8e89f27cb28d8341ab10ac8ef1b2e7cd97f0720c9b6363"
+  },
+  "maintenanceRevision": "sha256:2047fad03a8020c866481cb8549e9e0a28f4a0a767646e65f4e13b41a381349f",
+  "modelSchemaChanged": "NO",
+  "ordinary": {
+    "coverage": {
+      "discoveredRoots": 934,
+      "exactUnion": true,
+      "parts": [
+        "^Test([N-Z]|LoopbackTransportDiagnostics$)",
+        "^Test[A-M] -skip ^TestLoopbackTransportDiagnostics$"
+      ],
+      "selectedRoots": 934,
+      "skipMeaning": "Go skip and native NOT_RUN remain unexecuted and are not counted as PASS."
+    },
+    "elapsedMeaning": "Wall-clock span of the two complementary ordinary executions; overlap counted once.",
+    "elapsedSeconds": 884.201886,
+    "exitCode": 0,
+    "parts": [
+      {
+        "argv": [
+          "go",
+          "test",
+          "-json",
+          "-failfast",
+          "./ai/e2e",
+          "./ai",
+          "./ai/examples/chineseeval/...",
+          "./catalog/...",
+          "./cmd/catalogctl",
+          "./cmd/cataloggen",
+          "-count=1",
+          "-timeout=40m",
+          "-run",
+          "^Test([N-Z]|LoopbackTransportDiagnostics$)"
+        ],
+        "bundles": [
+          {
+            "auditFindings": 0,
+            "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+            "counts": {
+              "NOT_RUN": 28,
+              "PASS": 5378
+            },
+            "manifestSHA256": "d515323d7d4889b503c8f6cddc78fff25b61440d2a05465a971cb57d1acd9ac1",
+            "package": "./ai/e2e",
+            "path": "bundles/20261103T222607.460720000Z"
+          }
+        ],
+        "elapsedSeconds": 428.5561874592677,
+        "exitCode": 0,
+        "goTestEvents": {
+          "pass": 5537,
+          "skip": 30
+        },
+        "receipt": {
+          "path": ".evidence/catalog-anthropic-retirement/e2e/20261103T222605.449774Z-6rg__py3/receipt.json",
+          "sha256": "fe201a34d71726a7171a5e39eb30533a2c990787f1645ccd787c37e972909c76"
+        },
+        "selectedInputFiles": 82,
+        "sourceCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+        "sourceFiles": 2181,
+        "status": "PASS"
+      },
+      {
+        "argv": [
+          "go",
+          "test",
+          "-json",
+          "-failfast",
+          "./ai/e2e",
+          "./ai",
+          "./ai/examples/chineseeval/...",
+          "./catalog/...",
+          "./cmd/catalogctl",
+          "./cmd/cataloggen",
+          "-count=1",
+          "-timeout=40m",
+          "-run",
+          "^Test[A-M]",
+          "-skip",
+          "^TestLoopbackTransportDiagnostics$"
+        ],
+        "bundles": [
+          {
+            "auditFindings": 0,
+            "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+            "counts": {
+              "NOT_RUN": 198,
+              "PASS": 11518
+            },
+            "manifestSHA256": "5d39e8a21b5a3ed641767354f9065e7adaed8627001ff354fcfeb918afb1f4a6",
+            "package": "./ai/e2e",
+            "path": "bundles/20261103T222608.061348000Z"
+          },
+          {
+            "auditFindings": 0,
+            "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+            "counts": {
+              "PASS": 32
+            },
+            "manifestSHA256": "925a3a3f1635ee55511a3f2960da79ddd6ff90a1a750fb3ae51d62ed309663ff",
+            "package": "-tags live ./ai/live",
+            "path": "bundles/20261103T223502.748527000Z"
+          },
+          {
+            "auditFindings": 0,
+            "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+            "counts": {
+              "PASS": 77
+            },
+            "manifestSHA256": "7c77a5866bd3c6a4eeefd4d717bf683e8e497a4ecb7061fc952db02dd97e71b3",
+            "package": "-tags live ./ai/live",
+            "path": "bundles/20261103T223836.674243000Z"
+          },
+          {
+            "auditFindings": 0,
+            "auditSHA256": "8aa973100a15bf817985395637131e838cf84e427be4792583def923f020f5fa",
+            "counts": {
+              "PASS": 6
+            },
+            "manifestSHA256": "8af4f6f4e1cb39b4326fbd0f2af922d8d5eac143a85665fd66ee2846cade49ae",
+            "package": "-tags live ./ai/live",
+            "path": "bundles/20261103T223854.768971000Z"
+          }
+        ],
+        "elapsedSeconds": 884.1743326671422,
+        "exitCode": 0,
+        "goTestEvents": {
+          "pass": 12167,
+          "skip": 214
+        },
+        "receipt": {
+          "path": ".evidence/catalog-anthropic-retirement/e2e/20261103T222605.449768Z-9bzl19sp/receipt.json",
+          "sha256": "be09cb640401a0ba248b98b5a8beddf43255ce13964aebfb972c13db880a762c"
+        },
+        "selectedInputFiles": 82,
+        "sourceCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+        "sourceFiles": 2181,
+        "status": "PASS"
+      }
+    ],
+    "requiredCases": {
+      "CATALOG-ANTHROPIC-retired-claude-haiku-4-5": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-haiku-4-5-20251001": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-opus-4-5": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-opus-4-5-20251101": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-opus-4-6": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-opus-4-7": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-sonnet-4-5": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-sonnet-4-5-20250929": "PASS",
+      "CATALOG-ANTHROPIC-retired-claude-sonnet-4-6": "PASS",
+      "CATALOG-ANTHROPIC-retirement": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-4": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-4.1": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-4.1-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-4o-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5-nano": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5.1": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5.2": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5.4": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5.4-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-5.5": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-daybreak-blue-latest": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-gpt-daybreak-red-latest": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-o3": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-o3-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-completions-o4-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-4": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-4.1": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-4.1-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-4o-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5-nano": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5-pro": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.1": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.2": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.4": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.4-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.4-pro": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.5": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-5.5-pro": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-daybreak-blue-latest": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-gpt-daybreak-red-latest": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-o3": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-o3-mini": "PASS",
+      "CATALOG-OPENAI-retired-openai-responses-o4-mini": "PASS",
+      "CATALOG-OPENAI-retirement": "PASS",
+      "GROK-GENERIC-UNSUPPORTED-CATALOG-anthropic-messages": "PASS",
+      "P07-zh-evaluation-config-revision-jev-1.13.0": "PASS",
+      "P07-zh-evaluation-config-revision-jev-route": "PASS",
+      "P07-zh-evaluation-config-revision-luna-route": "PASS",
+      "P07-zh-evaluation-current-jev": "PASS",
+      "P07-zh-evaluation-current-luna": "PASS"
+    },
+    "selectedInputFiles": 82,
+    "sourceCommit": "665862ff90074eecda0a573050114de9ce88c80d",
+    "sourceFiles": 2181,
+    "status": "PASS"
+  },
+  "otherCodeFiles": [
+    "ai/e2e/catalog_anthropic_retirement_test.go",
+    "ai/e2e/catalog_openai_retirement_test.go",
+    "ai/e2e/chinese_current_catalog_process_test.go",
+    "ai/e2e/chinese_evaluation_test.go",
+    "ai/e2e/chinese_routes_process_test.go",
+    "ai/e2e/generic_unsupported_qualification_test.go",
+    "ai/examples/chineseeval/cmd/chineseeval/main.go",
+    "ai/internal/testkit/supportmatrix/generic_qualification.go",
+    "ai/internal/testkit/supportmatrix/process_scope.go",
+    "ai/live/combos_test.go",
+    "ai/live/final_budget_process_test.go"
+  ],
+  "providerVersions": {
+    "anthropic": 10,
+    "deepseek": 1,
+    "google": 1,
+    "minimax": 1,
+    "minimax-cn": 1,
+    "moonshot": 4,
+    "moonshot-cn": 4,
+    "openai": 39,
+    "typesafe": 1,
+    "xai": 1,
+    "zai": 1,
+    "zhipu": 1
+  },
+  "runtimeDependenciesChanged": "NO",
+  "schema": 1,
+  "snapshot": {
+    "path": "catalog-043a11039c792ad6f448e840652aa4776830f57732abddb80e6fe874027b2ec5.json",
+    "sha256": "44d7caa8f36ce1b5b7914d014215be1e3625b453677cabe54d891b59ac5a9bb8"
+  },
+  "softwareRelease": "NOT_RUN",
+  "status": "COMPLETE",
+  "uncommittedFilesAffectDataTestsAndExampleDefaults": true
+}

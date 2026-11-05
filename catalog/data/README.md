@@ -41,7 +41,7 @@ qualification. Historical activation wrappers remain under
 `ai/release/catalog-activations/`; the former runtime activation writers have
 been deleted.
 
-The 2026-11-03 adopted baseline explicitly withdraws 37 OpenAI chat identities.
+The historical 2026-11-03 adopted baseline explicitly withdraws 37 OpenAI chat identities.
 Only the existing GPT-5.6, GPT-6 and GPT-6.1 identities remain active: eight
 Responses and seven Chat Completions identities. OpenAI content version is 39;
 other Provider versions and all retained definitions are unchanged. The runtime
@@ -50,3 +50,41 @@ entries remain in State with original definitions and provenance. The complete
 review baseline and exact checked snapshot are adopted together. See
 `.scratch/catalog-openai-retirement/status.md` for the actual verification and
 `artifacts/catalog/README.md` for the versioned delivery.
+
+The earlier 2026-11-04 retirement baseline withdraws nine Anthropic chat identities below
+version 4.8. Seven remain: Fable 5/5.1, Opus 4.8/5/5.5, Sonnet 5/5.5; there is
+no qualifying Haiku offering in the existing source. Anthropic content version
+is 10; every other Provider version and all retained definitions are unchanged.
+The runtime contains 79 definitions (73 chat, three image, three classifier).
+All withdrawn definitions and provenance remain in State. See
+`.scratch/catalog-anthropic-retirement/status.md` and `artifacts/catalog/README.md`.
+
+The earlier 2026-11-04 Haiku baseline adds only
+`chat/anthropic/anthropic-messages/claude-haiku-5-5`: 80 definitions (74 chat,
+three image, three classifier), with Anthropic content version 11 and eight
+active chat identities. Every prior definition, price and relative order remains.
+The original models.dev response contains PDF, which has no runtime mapping;
+the CLI rejected automatic mapping. A full manual official-source supplement
+admits text/image and existing managed adaptive effort, plus complete strictly
+above-100k whole-prompt prices. Provider source, exact checked runtime bytes and
+the full review baseline are adopted together. See `.scratch/catalog-haiku55/status.md`.
+
+The earlier 2026-11-04 baseline adds only
+`chat/deepseek/openai-responses/deepseek-v4-pro`, the preferred documented entry
+for Pro. Explicit Binding selection remains; Chat and Flash definitions stay
+independent. DeepSeek content version is 2 with four active identities; the
+catalog has 81 definitions (75 chat, three image, three classifier). All prior
+80 definitions/prices/order remain. Official source captures and manual
+field decisions declare text/function/reasoning/history, current effort mapping,
+and a conservative peak-rate price snapshot, not calendar-based invoice rates.
+ADR-0014's exclusion was corrected; historical measurements retain their original
+identity. See `.scratch/catalog-deepseek-pro-responses/status.md`.
+
+The current 2026-11-04 baseline adopts DeepSeek V4.1 Flash 1017 through
+`deepseek-flash`, the official rolling API ID. Responses is revised first, then
+Chat: only the two display names change; all IDs, capabilities, prices and
+relative order stay unchanged. DeepSeek content version is 4 with four chat
+identities; the complete catalog stays at 81 definitions (75 chat, three image,
+three classifier). Official captured upgrade provenance supplements the original
+serving associations. This label does not pin a permanent checkpoint or create
+new vendor measurement. See `.scratch/catalog-deepseek-flash1017/status.md`.

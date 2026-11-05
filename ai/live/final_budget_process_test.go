@@ -97,7 +97,7 @@ func TestFinalRoundBudgetFixture(t *testing.T) {
 		combo.provider = ai.ProviderAnthropic
 		combo.api = ai.APIAnthropicMessages
 		combo.endpoint = "https://api.anthropic.com"
-		combo.model = "claude-haiku-4-5"
+		combo.model = "claude-sonnet-5-5"
 	}
 	client, err := newClient(combo, "synthetic-budget-credential", rec, ai.BuiltinCatalog())
 	if err != nil {

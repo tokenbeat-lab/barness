@@ -179,6 +179,7 @@ fi
 确认后才用同一输入加 `--confirm` 冻结。`revise --source-kind official` 用于明确的人工补充，并保留原主源关联；原捕获、定义与决定文件的实际字节都进入候选追溯。已知类型能表达但当前代码不支持的候选保留为 `code_gap`，不进入生效目录；适配后重新检查，不标注最低程序版本。
 
 - 身份始终是 `(Operation, Provider, API, ID)`。地区 Provider 分开；一个 offering 的第二条 API 也要单独明确确认，不能从 SDK 名展开。
+- 凡厂商为模型提供 Responses 协议，优先适配、接入和验证该模型的 Responses 身份，并优先推荐 Responses 调用入口。该原则适用于所有 Provider 和型号；每条身份仍须按本 SOP 独立核验，Host 通过 Binding 显式选择并授权协议。见 [ADR-0014](../adr/0014-barness-ai-deepseek-responses.md)。
 - Kimi chat、xAI Responses chat、xAI image 和 TypeSafe SystemOne 图片/Box 的型号
   集合由已审核目录定义，不再以具体型号名作为这些能力的代码准入条件。ID 必须
   非空、身份唯一，协议、模态、容量、推理、兼容标志和价格仍须在已实现范围内；
@@ -210,13 +211,18 @@ fi
 
 ## 默认数据与生成
 
-当前内置采用记录（2026-11-03）：OpenAI chat 仅保留 GPT-5.6、GPT-6 及以上
-当前型号的 15 条接口身份；37 条身份经逐条 CLI 候选/check/apply 下架。
-总目录为 88 条（82 chat、3 image、3 classifier），OpenAI 内容版本为 39。
-其他 Provider、image/classifier 和保留模型定义不变；下架记录与原证据保留。
-实际目录标识、验证和分发结论见[本次唯一状态](../../.scratch/catalog-openai-retirement/status.md)
-与[统一交付入口](../../artifacts/catalog/README.md)。以下初迁移、Terra 和 Kimi 数量
-均为各自历史采用事实。
+当前内置采用记录（2026-11-04）：DeepSeek V4.1 Flash 1017 沿用官方滚动 ID `deepseek-flash`，因此使用 revise 更新既有身份。先修订 Responses，再修订 Chat；仅改展示名称并补充官方原件/字段决定。目录仍为 81 条，DeepSeek 4 条，内容版本 4。全部 ID、能力、价格和顺序保持；不创建虚构日期 ID。见[本次状态](../../.scratch/catalog-deepseek-flash1017/status.md)。
+
+前次内置采用记录（2026-11-04）：优先新增 DeepSeek V4 Pro 的原生 Responses
+身份 `chat/deepseek/openai-responses/deepseek-v4-pro`，落实所有支持 Responses 的模型均优先接入 Responses 的原则，
+Host 仍通过显式 Binding 选择协议。Pro Chat 与 Flash 双协议定义独立保留。
+DeepSeek 4 条、内容版本 2，总目录 81 条（75 chat、3 image、3 classifier）。
+原 80 条定义和价格不变。新身份使用文本、函数工具、推理与完整历史；价格为冻结
+峰值保守估算，不按时段自动计算低谷价，不扩展 web_search/custom apply_patch。
+ADR-0014 的错误排除结论已更正，旧测量保持原身份；不把 Flash 测量转为 Pro 资格。
+实际目录、验证与分发判定见[本次状态](../../.scratch/catalog-deepseek-pro-responses/status.md)
+与[统一交付入口](../../artifacts/catalog/README.md)。前置 Haiku 接入见[历史状态](../../.scratch/catalog-haiku55/status.md)。
+以下数量均为各自历史采用事实。
 
 默认来源是 `catalog/data/providers/*.json`，按实际 Provider 保存定义和人工决定；默认运行数据是生成的 `ai/catalog_builtin.json`。初迁移保留原 118 条记录（112 chat、3 image、3 classifier）的定义、顺序、价格及 null/省略语义。`ai/release/catalog-snapshot.json` 和旧 activation 原件保留原历史身份。
 

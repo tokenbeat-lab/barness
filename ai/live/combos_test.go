@@ -91,7 +91,7 @@ var combos = []combo{
 	},
 	{
 		operation: ai.OperationChat, name: "anthropic-messages", spec: "P02", provider: ai.ProviderAnthropic, api: ai.APIAnthropicMessages,
-		endpoint: "https://api.anthropic.com", sdk: anthropicSDK, model: "claude-haiku-4-5",
+		endpoint: "https://api.anthropic.com", sdk: anthropicSDK, model: "claude-sonnet-5-5",
 		full: func(maxTokens int, choice toolChoice) ai.Options {
 			o := ai.AnthropicOptions{MaxTokens: ai.Value(maxTokens)}
 			switch choice {

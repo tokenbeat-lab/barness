@@ -167,6 +167,24 @@ Classifier.Images 限制四张、总 decoded 1 MiB，单图 1 MiB、完整请求
 [新容量证据与重放](../../.scratch/barness-ai-openai-decisions/classifier-load-evidence/README.md)。
 
 
+## 模型协议接入：Responses 优先
+
+凡厂商为模型提供 Responses 协议，barness 都优先适配、接入和验证其 Responses 身份，并优先推荐 Responses 调用入口。该原则适用于所有 Provider 和型号。
+
+DeepSeek V4.1 Flash 1017 使用现有 `deepseek-flash` API ID。目录在 Responses 与 Chat 两条身份中显示该版本名称；Responses 是优先推荐入口。该 ID 随厂商更新滚动指向新版本，不是固定 checkpoint。官方说明见[更新记录](https://api-docs.deepseek.com/updates/)，目录采用记录见[本次状态](../../.scratch/catalog-deepseek-flash1017/status.md)。
+
+例如，DeepSeek V4 Pro 的推荐入口为 `Provider=deepseek`、`API=openai-responses`、`ModelID=deepseek-v4-pro`。Host 为该入口创建并授权独立 Binding；同一模型的其他协议仍按独立身份维护，调用时通过 Binding 显式选择。
+
+```go
+// Host has configured and authorized this Responses Binding.
+target := ai.Target{BindingID: "deepseek-responses", ModelID: "deepseek-v4-pro"}
+result, err := client.CompleteSimple(ctx, scope, target, request,
+    ai.SimpleOptions{Reasoning: ai.ThinkingHigh})
+```
+
+本次 Pro 目录接入覆盖文本、函数工具、推理和完整历史；本轮未接入 Pro 的服务端 web_search/custom apply_patch。价格为冻结峰值快照作保守估算，未按时段自动计算低谷价。
+详情见[ADR-0014 修订](../adr/0014-barness-ai-deepseek-responses.md)及[本次状态](../../.scratch/catalog-deepseek-pro-responses/status.md)。以下支持矩阵仍是其所注明型号和时点的原测量，不能转为 Pro Responses 的厂商实测资格。
+
 ## 支持矩阵入口与历史十四身份记录
 
 当前完整目标集合见机器可读的[支持矩阵](../../ai/live/support-matrix.json)；地区服务的实施与正式资格见[规格当前状态](../../.scratch/barness-provider-sites/spec.md#当前状态)。下面保留 2026-10-18 十四身份的原支持记录，后续源码是否仍适用由当前原生消费者判定。

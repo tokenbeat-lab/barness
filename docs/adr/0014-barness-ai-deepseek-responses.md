@@ -1,6 +1,7 @@
 ---
 status: accepted
 date: 2026-10-02
+amended: 2026-11-04
 ---
 
 # barness-ai DeepSeek × Responses：复用 Responses adapter，按 Provider 区分协议能力，登记为差分外扩展
@@ -9,7 +10,7 @@ date: 2026-10-02
 
 ## 背景：DeepSeek 文档与研究证据
 
-DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_api/，2026-10-02 阅读）：base URL `https://api.deepseek.com`，只有 `deepseek-flash`；流事件为 `response.created/in_progress`、`output_item.added/done`、`content_part.added/done`、`reasoning_text.delta/done`、`output_text.delta/done`、`function_call_arguments.delta/done`、`completed/incomplete/failed`；`previous_response_id`、`conversation`、`store`、`include`、`prompt`、`truncation`、`service_tier`、`prompt_cache_key`、`prompt_cache_retention`、`stream_options`、`background`、`metadata` 等**静默忽略**；`reasoning` 只支持 `effort`（`summary` 接受但不生成）；工具只有 `function`；输入的 `reasoning` 条目以其纯文本并入 assistant 消息；usage 报告 `cached_tokens` 与 `reasoning_tokens`。指南没有列出 effort 的取值、reasoning 条目的字段与错误体；这些按 OpenAI Responses 的 schema（指南声明与之兼容）编写 fixture，并在 fixture 的 `source` 中注明。
+DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_api/，2026-10-02 阅读）：base URL `https://api.deepseek.com`。2026-11-04 更正：官方支持 `deepseek-flash` 与 `deepseek-v4-pro`，原记录的“只有 Flash”判断撤销；以下字段与探针描述保留原接入时点的范围；流事件为 `response.created/in_progress`、`output_item.added/done`、`content_part.added/done`、`reasoning_text.delta/done`、`output_text.delta/done`、`function_call_arguments.delta/done`、`completed/incomplete/failed`；`previous_response_id`、`conversation`、`store`、`include`、`prompt`、`truncation`、`service_tier`、`prompt_cache_key`、`prompt_cache_retention`、`stream_options`、`background`、`metadata` 等**静默忽略**；`reasoning` 只支持 `effort`（`summary` 接受但不生成）；工具只有 `function`；输入的 `reasoning` 条目以其纯文本并入 assistant 消息；usage 报告 `cached_tokens` 与 `reasoning_tokens`。指南没有列出 effort 的取值、reasoning 条目的字段与错误体；这些按 OpenAI Responses 的 schema（指南声明与之兼容）编写 fixture，并在 fixture 的 `source` 中注明。
 
 研究探针（harness `.scratch/pi-ai-go/sdk-validation`）在真实服务上验证过：`reasoning_text` 事件、effort `none` 与 `low`、强制函数调用（含 `strict: true`）、不带 `previous_response_id` 的完整历史。`incomplete`/`failed` 的真实触发与服务端拒绝字段没有实测，只有离线断言（spec 研究追溯）。
 
@@ -33,7 +34,19 @@ DeepSeek 的 Responses 指南（https://api-docs.deepseek.com/guides/responses_a
 
 ## 决策三：内置目录
 
-目录 `2026-10-02.5` 新增 DeepSeek × Responses 的 `deepseek-flash`：取 pi `deepseek.json`（sha256 `549a7ddb…4d0d`）中该模型的名称、reasoning、level map、输入（文本与图片）、价格、上下文与输出上限，API 换为 `openai-responses`。pi 为它写的 compat 描述 Chat Completions（store、developer 角色、`max_tokens`、thinking 格式），只保留 `supportsStrictMode`（Responses 函数工具同样接受 `strict`，探针实测过）。level map 也是 Chat 的：Responses 的 effort 取值 DeepSeek 没有列出，实测只有 `none` 与 `low`；`high`/`max` 是否被接受由工单 23 的真实冒烟确认。`deepseek-v4-pro` 只在 Chat 上提供，不列入。
+目录 `2026-10-02.5` 新增 DeepSeek × Responses 的 `deepseek-flash`：取 pi `deepseek.json`（sha256 `549a7ddb…4d0d`）中该模型的名称、reasoning、level map、输入（文本与图片）、价格、上下文与输出上限，API 换为 `openai-responses`。pi 为它写的 compat 描述 Chat Completions（store、developer 角色、`max_tokens`、thinking 格式），只保留 `supportsStrictMode`（Responses 函数工具同样接受 `strict`，探针实测过）。level map 也是 Chat 的：Responses 的 effort 取值 DeepSeek 没有列出，实测只有 `none` 与 `low`；`high`/`max` 是否被接受由工单 23 的真实冒烟确认。2026-11-04 更正：`deepseek-v4-pro` 同时支持 Responses，原先排除它的判断不成立。按下述 Responses 优先的通用原则，本次补齐 `chat / deepseek / openai-responses / deepseek-v4-pro`；原 Chat 身份独立保留。
+
+## 2026-11-04 修订：支持 Responses 的模型优先接入 Responses
+
+凡厂商为某个模型提供 Responses 协议，barness 都优先完成该模型的 Responses 协议适配、目录接入和验证，并优先推荐 Responses 调用入口。该原则适用于所有 Provider 和型号，包括 DeepSeek Flash、Pro 及后续支持 Responses 的模型。
+
+同一模型的其他协议按独立身份维护。Host 仍显式选择并授权 Binding；接入优先级不改变调用时的协议选择和授权边界。
+
+DeepSeek 是该原则的一个应用：[当前官方 Responses 指南](https://api-docs.deepseek.com/guides/responses_api/) 的 model 参数明确列出 Flash 与 Pro；[模型表](https://api-docs.deepseek.com/quick_start/pricing/)也标注两者支持 Responses。原“Pro 只在 Chat”表述不能继续作为厂商能力或目录准入限制。本次补齐 Pro 的 Responses 身份，采用已实现的文本、函数工具、推理与完整历史子集；Pro 的 Chat 定义、Flash 的双协议身份及旧测量保持独立。
+
+按 Catalog CLI SOP 新建候选并验证后纳入；操作记录见[本次状态](../../.scratch/catalog-deepseek-pro-responses/status.md)。新身份按当前官方映射声明 `none/low/high/max`，价格冻结峰值费率作保守估算，不声称按时段自动计算真实账单。本次不扩大到服务端 web_search 或 custom apply_patch。
+
+旧探针和首次真实冒烟仍仅证明它们原来测量的 Flash 路线；文档纠正、候选代码兼容和 Pro 的厂商实测资格分别记录。
 
 ## 决策四：扩展的登记
 

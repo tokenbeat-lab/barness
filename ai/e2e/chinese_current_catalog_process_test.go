@@ -123,7 +123,79 @@ func TestChineseEvaluationConfigurationRevisions(t *testing.T) {
 			}
 			_, err = chineseeval.LoadRecorded(data, v4, v4Catalog.Catalog)
 			ev.Check("v4 remains valid with its original snapshot", err == nil, "err=%v", err)
-			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v6.json")
+			v6, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v6.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			priorSnapshot, err := os.ReadFile("testdata/catalog/pre-anthropic-retirement.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			var priorCatalog struct {
+				Catalog json.RawMessage `json:"catalog"`
+			}
+			if err := json.Unmarshal(priorSnapshot, &priorCatalog); err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.Load(data, v6, ai.BuiltinCatalog())
+			ev.Check("v6 is never silently rebound to the new catalog", err != nil, "v6 accepted current composition")
+			_, err = chineseeval.LoadRecorded(data, v6, priorCatalog.Catalog)
+			ev.Check("v6 remains valid with its original snapshot", err == nil, "err=%v", err)
+			v7, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v7.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			preHaiku, err := os.ReadFile("testdata/catalog/pre-haiku55-builtin.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			var v7Catalog struct {
+				Catalog json.RawMessage `json:"catalog"`
+			}
+			if err := json.Unmarshal(preHaiku, &v7Catalog); err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.Load(data, v7, ai.BuiltinCatalog())
+			ev.Check("v7 is never silently rebound to the new catalog", err != nil, "v7 accepted current composition")
+			_, err = chineseeval.LoadRecorded(data, v7, v7Catalog.Catalog)
+			ev.Check("v7 remains valid with its original snapshot", err == nil, "err=%v", err)
+			v8, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v8.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			preProResponses, err := os.ReadFile("testdata/catalog/pre-deepseek-pro-responses.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			var v8Catalog struct {
+				Catalog json.RawMessage `json:"catalog"`
+			}
+			if err := json.Unmarshal(preProResponses, &v8Catalog); err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.Load(data, v8, ai.BuiltinCatalog())
+			ev.Check("v8 is never silently rebound to the new catalog", err != nil, "v8 accepted current composition")
+			_, err = chineseeval.LoadRecorded(data, v8, v8Catalog.Catalog)
+			ev.Check("v8 remains valid with its original snapshot", err == nil, "err=%v", err)
+			v9, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v9.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			preFlash1017, err := os.ReadFile("testdata/catalog/pre-deepseek-flash1017.json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			var v9Catalog struct {
+				Catalog json.RawMessage `json:"catalog"`
+			}
+			if err := json.Unmarshal(preFlash1017, &v9Catalog); err != nil {
+				t.Fatal(err)
+			}
+			_, err = chineseeval.Load(data, v9, ai.BuiltinCatalog())
+			ev.Check("v9 is never silently rebound to the new catalog", err != nil, "v9 accepted current composition")
+			_, err = chineseeval.LoadRecorded(data, v9, v9Catalog.Catalog)
+			ev.Check("v9 remains valid with its original snapshot", err == nil, "err=%v", err)
+			current, err := os.ReadFile("../examples/chineseeval/testdata/" + tc.base + "-v10.json")
 			if err != nil {
 				t.Fatal(err)
 			}
